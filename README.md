@@ -59,4 +59,4 @@ O gerente de projeto deverá ter a responsabilidade de:
 - Pablo Henrique
 - Rodrigo Henrique
 - Sandro Fernandes
-
+- Naftali Sabino
