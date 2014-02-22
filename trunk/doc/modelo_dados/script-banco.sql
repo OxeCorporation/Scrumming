@@ -9,8 +9,17 @@ CREATE DATABASE Scrumming_DB;
                          CRIAÇÃO DAS TABELAS
 *******************************************************************************/
 
-DROP TABLE Usuario;
-GO;
+DROP TABLE IF EXISTS Tarefa_Favorita;
+DROP TABLE IF EXISTS Reporte_Tarefa;
+DROP TABLE IF EXISTS Sprint_Backlog;
+DROP TABLE IF EXISTS Time_Projeto;
+DROP TABLE IF EXISTS Sprint;
+DROP TABLE IF EXISTS Tarefa;
+DROP TABLE IF EXISTS ItemBacklog;
+DROP TABLE IF EXISTS Usuario;
+DROP TABLE IF EXISTS Projeto;
+
+
 CREATE TABLE Usuario (
   PK_usuario INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   login VARCHAR(20) UNIQUE NOT NULL,
@@ -23,8 +32,6 @@ CREATE TABLE Usuario (
   INDEX (email, login)
 );
 
-DROP TABLE Sprint;
-GO;
 CREATE TABLE Sprint (
   PK_sprint INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   descricao VARCHAR(20) NOT NULL,
@@ -34,8 +41,6 @@ CREATE TABLE Sprint (
   PRIMARY KEY(PK_sprint)
 );
 
-DROP TABLE Projeto;
-GO;
 CREATE TABLE Projeto (
   PK_projeto INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   nome TEXT NOT NULL,
@@ -47,8 +52,6 @@ CREATE TABLE Projeto (
   PRIMARY KEY(PK_projeto)
 );
 
-DROP TABLE ItemBacklog;
-GO;
 CREATE TABLE ItemBacklog (
   PK_backlog INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   Projeto_PK_projeto INTEGER UNSIGNED NOT NULL,
@@ -66,8 +69,6 @@ CREATE TABLE ItemBacklog (
       ON UPDATE NO ACTION
 );
 
-DROP TABLE Tarefa;
-GO;
 CREATE TABLE Tarefa (
   PK_tarefa INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   ItemBacklog_PK_backlog INTEGER UNSIGNED NOT NULL,
@@ -88,14 +89,12 @@ CREATE TABLE Tarefa (
       ON UPDATE NO ACTION
 );
 
-DROP TABLE ItemBacklog_has_Sprint;
-GO;
-CREATE TABLE ItemBacklog_has_Sprint (
+CREATE TABLE Sprint_Backlog (
   ItemBacklog_PK_backlog INTEGER UNSIGNED NOT NULL,
   Sprint_PK_sprint INTEGER UNSIGNED NOT NULL,
   PRIMARY KEY(ItemBacklog_PK_backlog, Sprint_PK_sprint),
-  INDEX ItemBacklog_has_Sprint_FKIndex1(ItemBacklog_PK_backlog),
-  INDEX ItemBacklog_has_Sprint_FKIndex2(Sprint_PK_sprint),
+  INDEX Sprint_Backlog_FKIndex1(ItemBacklog_PK_backlog),
+  INDEX Sprint_Backlog_FKIndex2(Sprint_PK_sprint),
   FOREIGN KEY(ItemBacklog_PK_backlog)
     REFERENCES ItemBacklog(PK_backlog)
       ON DELETE NO ACTION
@@ -106,15 +105,13 @@ CREATE TABLE ItemBacklog_has_Sprint (
       ON UPDATE NO ACTION
 );
 
-DROP TABLE Projeto_has_Usuario;
-GO;
-CREATE TABLE Projeto_has_Usuario (
+CREATE TABLE Time_Projeto (
   Projeto_PK_projeto INTEGER UNSIGNED NOT NULL,
   Usuario_PK_usuario INTEGER UNSIGNED NOT NULL,
   perfil_usuario INTEGER NOT NULL,
   PRIMARY KEY(Projeto_PK_projeto, Usuario_PK_usuario),
-  INDEX Projeto_has_Usuario_FKIndex1(Projeto_PK_projeto),
-  INDEX Projeto_has_Usuario_FKIndex2(Usuario_PK_usuario),
+  INDEX Time_Projeto_FKIndex1(Projeto_PK_projeto),
+  INDEX Time_Projeto_FKIndex2(Usuario_PK_usuario),
   FOREIGN KEY(Projeto_PK_projeto)
     REFERENCES Projeto(PK_projeto)
       ON DELETE NO ACTION
@@ -125,9 +122,7 @@ CREATE TABLE Projeto_has_Usuario (
       ON UPDATE NO ACTION
 );
 
-DROP TABLE Usuario_has_Tarefa;
-GO;
-CREATE TABLE Usuario_has_Tarefa (
+CREATE TABLE Reporte_Tarefa (
   Tarefa_PK_tarefa INTEGER UNSIGNED NOT NULL,
   Usuario_PK_usuario INTEGER UNSIGNED NOT NULL,
   tempo_reportado INTEGER NULL DEFAULT 0,
@@ -142,6 +137,23 @@ CREATE TABLE Usuario_has_Tarefa (
       ON UPDATE NO ACTION,
   FOREIGN KEY(Usuario_PK_usuario)
     REFERENCES Usuario(PK_usuario)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+);
+
+CREATE TABLE Tarefa_Favorita (
+  Usuario_PK_usuario INTEGER UNSIGNED NOT NULL,
+  Reporte_Tarefa_Usuario_PK_usuario INTEGER UNSIGNED NOT NULL,
+  Reporte_Tarefa_Tarefa_PK_tarefa INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY(Usuario_PK_usuario, Reporte_Tarefa_Usuario_PK_usuario, Reporte_Tarefa_Tarefa_PK_tarefa),
+  INDEX Tarefa_Favorita_FKIndex1(Usuario_PK_usuario),
+  INDEX Tarefa_Favorita_FKIndex2(Reporte_Tarefa_Tarefa_PK_tarefa, Reporte_Tarefa_Usuario_PK_usuario),
+  FOREIGN KEY(Usuario_PK_usuario)
+    REFERENCES Usuario(PK_usuario)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+  FOREIGN KEY(Reporte_Tarefa_Tarefa_PK_tarefa, Reporte_Tarefa_Usuario_PK_usuario)
+    REFERENCES Reporte_Tarefa(Tarefa_PK_tarefa, Usuario_PK_usuario)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
