@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+	<composite:attribute name="editavel" default="true"/>
+	<composite:attribute name="titulo"/>
+	<composite:attribute name="valor" required="true"/>
+	<composite:attribute name="valorItens" required="true"/>
+	<composite:attribute name="itemLabel"/>
+	<composite:attribute name="primeiroElemento"/>
+	<composite:attribute name="obrigatorio"/>
+	<composite:attribute name="style"/>
+	<composite:editableValueHolder name="converter" targets="#{cc.id}_SelectOneMenu" default="StringConverter"/>
+	<composite:clientBehavior name="change" event="change" targets="#{cc.id}_SelectOneMenu" />
+</composite:interface>
+
+<composite:implementation>
+	<h:outputText id="#{cc.id}_Label" value="#{cc.attrs.valor[cc.attrs.itemLabel]}" 
+		rendered="#{not cc.attrs.editavel}" />	
+		
+	<p:selectOneMenu id="#{cc.id}_SelectOneMenu" title="#{cc.attrs.titulo}" value="#{cc.attrs.valor}"
+		rendered="#{cc.attrs.editavel}" required="#{cc.attrs.obrigatorio}" style="#{cc.attrs.style}">
+		
+		<f:selectItem itemLabel="#{cc.attrs.primeiroElemento}" itemValue="" itemDisabled="#{cc.attrs.primeiroElemento eq null}"/>
+		
+		<f:selectItems var="item" value="#{cc.attrs.valorItens}"
+			itemLabel="#{item[cc.attrs.itemLabel]}"
+			itemValue="#{item}" />
+			
+	</p:selectOneMenu>
+	
+</composite:implementation>
+</html>
