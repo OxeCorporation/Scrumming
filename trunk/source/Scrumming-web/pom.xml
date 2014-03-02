@@ -30,6 +30,7 @@
 		<junit-version>4.11</junit-version>
 		<unitils-version>3.3</unitils-version>
 		<powermock.version>1.5</powermock.version>
+		<hibernate-validator-version>5.1.0.CR1</hibernate-validator-version>
   </properties>
   <repositories>
 		<repository>
@@ -58,6 +59,11 @@
 	</repositories>
 	<dependencies>
 	
+		<dependency>
+    		<groupId>org.hibernate</groupId>
+    		<artifactId>hibernate-validator</artifactId>
+    		<version>${hibernate-validator-version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.omnifaces</groupId>
 			<artifactId>omnifaces</artifactId>
