@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `Empresa` (
   `senha` VARCHAR(32) NOT NULL,
   `email` VARCHAR(50) NOT NULL,
   `data_cadastro` TIMESTAMP NOT NULL,
+  `is_ativo` BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (`PK_empresa`),
   INDEX `UNIQUE` (`nome` ASC, `login` ASC))
 PACK_KEYS = 0
@@ -114,6 +115,7 @@ CREATE TABLE IF NOT EXISTS `Usuario` (
   `login` VARCHAR(30) NOT NULL,
   `senha` VARCHAR(32) NOT NULL,
   `data_cadastro` TIMESTAMP NOT NULL,
+  `is_ativo` BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (`PK_usuario`),
   UNIQUE INDEX `UNIQUE` (`email` ASC, `login` ASC))
 PACK_KEYS = 0
@@ -228,7 +230,7 @@ ROW_FORMAT = DEFAULT;
 CREATE TABLE IF NOT EXISTS `FuncionarioEmpresa` (
   `FK_empresa` INT(11) UNSIGNED NOT NULL,
   `FK_usuario` INT(11) UNSIGNED NOT NULL,
-  `situacao` INT(11) UNSIGNED NOT NULL DEFAULT false,
+  `is_funcionario` BOOLEAN NOT NULL DEFAULT true,
   PRIMARY KEY (`FK_empresa`, `FK_usuario`),
   INDEX `Empresa_has_Usuario_FKIndex1` (`FK_empresa` ASC),
   INDEX `Empresa_has_Usuario_FKIndex2` (`FK_usuario` ASC),
