@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+<meta charset="utf-8" />
+<title>Lost Cloud - Error page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="author" content="squirrellabs" />
+<meta name="keywords" content="squirrellabs" />
+<meta name="description" content="Lost Cloud - Error page" />
+ <h:outputScript library="js" name="jquery-1.8.3.js"/>
+
+<!-- Stylesheets -->
+<h:outputStylesheet library="css" name="style.css"  />
+
+	<!-- Javascripts -->
+ <h:outputScript library="js" name="plax.js"/>
+ <h:outputScript library="js" name="404.js"/>
+
+</h:head>
+<h:body id="errorpage" class="error404">
+	<div id="pagewrap">
+		<!-- Plane -->
+		<div id="main-content">
+			<div class="duck-animation"
+				style="background-image: url('#{resource['images/plane.png']}');"></div>
+		</div>
+		<!--page content-->
+		<div id="wrapper" class="clearfix">
+			<div id="parallax_wrapper">
+				<div id="content">
+					<h1>
+						Lost in the Clouds<br />Flight not Found
+					</h1>
+					<p>The page you're looking for is not here.</p>
+					<a href="/Scrumming/index.xhtml" title="" class="button">Go Home</a>
+				</div>
+				<!--parallax-->
+				<span class="scene scene_1"></span>
+                <span class="scene scene_2"></span>
+                <span class="scene scene_3"></span>
+			</div>
+		</div>
+	</div>
+	<!-- end pagewrap -->
+	<div id="footer">  
+            <div class="container">
+                <ul class="copyright_info">
+					<li>Fabricado no Brasil</li>
+                </ul>
+				<!--social links-->
+                <ul class="links">
+                    <li><a href="#">Facebook</a></li>
+					<li><a href="#">Twitter</a></li>
+					<li><a href="#">Youtube</a></li>
+                </ul>
+            </div>
+        </div>
+</h:body>
+</html>

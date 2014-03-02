@@ -64,7 +64,12 @@
 		<param-name> org.apache.myfaces.annotation.SCAN_PACKAGES </param-name>
 		<param-value>br.com.scrumming.web.managedbean</param-value>
 	</context-param>
-    
+   
+   <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/error.xhtml</location>
+    </error-page>
+   
 	<!-- Listeners de configuracao do Spring -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

@@ -26,8 +26,8 @@ public class ExemploMB {
 
 	public String construirContatos() {
 		contatos = clientService.findAll();
-
 		return "";
+//		throw new RuntimeException();
 	}
 
 	public List<Contato> getContatos() {

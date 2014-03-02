@@ -14,4 +14,6 @@
    <supported-locale>pt_BR</supported-locale>
   </locale-config>
  </application>
+ 
+ 
 </faces-config>
