@@ -15,7 +15,7 @@ public class MesagemUtil {
 	public static String get(String chave, String... parametros) {
 		String mensagem = getBundle().getString(chave);
 		if (parametros != null && parametros.length > 0) {
-			mensagem = MessageFormat.format(mensagem, parametros);
+			mensagem = MessageFormat.format(mensagem, new Object[]{parametros});
 		}
 		return mensagem;
 	}
