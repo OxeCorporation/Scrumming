@@ -53,6 +53,11 @@ public class Sprint extends ObjetoPersistente<Integer> {
     @Column(name = "data_revisao")
     @NotNull
     private DateTime dataRevisao;
+    
+    @Type(type = HibernateTypes.JODA_DATE_TIME)
+    @Column(name = "data_cadastro")
+    @NotNull
+    private DateTime dataCadastro;
 
     @Column(name = "situacao_sprint", columnDefinition = "Integer", length = 1)
     private boolean situacaoSprint;
