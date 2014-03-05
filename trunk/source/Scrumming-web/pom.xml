@@ -38,16 +38,13 @@
 		      <name>Central Repository</name>
 		      <url>http://repo.maven.apache.org/maven2</url>
 		      <layout>default</layout>
-		      <snapshots>
-		        <enabled>false</enabled>
-		      </snapshots>
     	</repository>
+    	
 		<!-- For Primefaces -->
 		<repository>  
     		<id>prime-repo</id>  
     		<name>PrimeFaces Maven Repository</name>  
     		<url>http://repository.primefaces.org</url>  
-    		<layout>default</layout>  
 		</repository>
 	
 		<!-- Spring -->
@@ -64,11 +61,13 @@
     		<artifactId>hibernate-validator</artifactId>
     		<version>${hibernate-validator-version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.omnifaces</groupId>
 			<artifactId>omnifaces</artifactId>
 			<version>${omnifaces.version}</version>
 		</dependency>
+		
 		<!-- JSF MyFaces Implementation -->
 		<dependency>
 			<groupId>org.apache.myfaces.core</groupId>
@@ -244,9 +243,9 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>hsqldb</groupId>
+			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
-			<version>1.8.0.7</version>
+			<version>2.3.2</version>
 			<scope>test</scope> 
 		</dependency>
 		

@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -18,8 +20,8 @@ import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "Sprint")
-public class Sprint extends ObjetoPersistente<Integer> {
+@Table(name = "Projeto")
+public class Projeto extends ObjetoPersistente<Integer> {
 
     /**
      * Serial Version
@@ -27,9 +29,13 @@ public class Sprint extends ObjetoPersistente<Integer> {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "PK_sprint")
+    @Column(name = "PK_projeto")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer codigo;
+
+    @ManyToOne
+    @JoinColumn(name = "FK_empresa", referencedColumnName = "PK_empresa")
+    private Empresa Empresa;
 
     @Column(name = "nome", columnDefinition = "varchar(50)")
     @NotBlank
@@ -50,19 +56,16 @@ public class Sprint extends ObjetoPersistente<Integer> {
     private DateTime dataFim;
 
     @Type(type = HibernateTypes.JODA_DATE_TIME)
-    @Column(name = "data_revisao")
-    @NotNull
-    private DateTime dataRevisao;
-    
-    @Type(type = HibernateTypes.JODA_DATE_TIME)
     @Column(name = "data_cadastro")
     @NotNull
     private DateTime dataCadastro;
 
-    @Column(name = "situacao_sprint", columnDefinition = "Integer", length = 1)
-    private boolean situacaoSprint;
+    @Column(name = "situacao_projeto", columnDefinition = "Integer", length = 1)
+    private Integer situacaoProjeto;
 
-    /* getters and setters */
+    /**
+     * Getters e and setters
+     */
     @Override
     @JsonIgnore
     public Integer getChave() {
@@ -109,19 +112,28 @@ public class Sprint extends ObjetoPersistente<Integer> {
         this.dataFim = dataFim;
     }
 
-    public DateTime getDataRevisao() {
-        return dataRevisao;
+    public DateTime getDataCadastro() {
+        return dataCadastro;
     }
 
-    public void setDataRevisao(DateTime dataRevisao) {
-        this.dataRevisao = dataRevisao;
+    public void setDataCadastro(DateTime dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 
-    public boolean isSituacaoSprint() {
-        return situacaoSprint;
+    public Empresa getEmpresa() {
+        return Empresa;
     }
 
-    public void setSituacaoSprint(boolean situacaoSprint) {
-        this.situacaoSprint = situacaoSprint;
+    public void setEmpresa(Empresa empresa) {
+        Empresa = empresa;
     }
+
+    public Integer getSituacaoProjeto() {
+        return situacaoProjeto;
+    }
+
+    public void setSituacaoProjeto(Integer situacaoProjeto) {
+        this.situacaoProjeto = situacaoProjeto;
+    }
+
 }

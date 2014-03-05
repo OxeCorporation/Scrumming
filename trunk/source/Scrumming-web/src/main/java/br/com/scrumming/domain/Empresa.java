@@ -8,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.DateTime;
@@ -20,8 +18,8 @@ import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "Usuario")
-public class Usuario extends ObjetoPersistente<Integer> {
+@Table(name = "Empresa")
+public class Empresa extends ObjetoPersistente<Integer> {
 
     /**
      * Serial Version
@@ -29,7 +27,7 @@ public class Usuario extends ObjetoPersistente<Integer> {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "PK_usuario")
+    @Column(name = "PK_empresa")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
@@ -37,30 +35,33 @@ public class Usuario extends ObjetoPersistente<Integer> {
     @NotBlank
     private String nome;
 
-    @Column(name = "email", columnDefinition = "varchar(50)")
-    private String email;
-
     @Column(name = "login", columnDefinition = "varchar(30)")
+    @NotBlank
     private String login;
 
     @Column(name = "senha", columnDefinition = "varchar(32)")
+    @NotBlank
     private String senha;
+
+    @Column(name = "email", columnDefinition = "varchar(50)")
+    @NotBlank
+    private String email;
 
     @Type(type = HibernateTypes.JODA_DATE_TIME)
     @Column(name = "data_cadastro")
     @NotNull
     private DateTime dataCadastro;
 
-    @Column(name = "is_ativo", columnDefinition = "bit", length = 1)
-    private boolean ativo;
+    @Column(name = "is_ativo", columnDefinition = "bit")
+    private boolean isAtivo;
 
+    /* getters and setters */
     @Override
     @JsonIgnore
     public Integer getChave() {
         return this.codigo;
     }
 
-    /* getters and setters */
     public Integer getCodigo() {
         return codigo;
     }
@@ -75,14 +76,6 @@ public class Usuario extends ObjetoPersistente<Integer> {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getLogin() {
@@ -101,6 +94,14 @@ public class Usuario extends ObjetoPersistente<Integer> {
         this.senha = senha;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public DateTime getDataCadastro() {
         return dataCadastro;
     }
@@ -110,29 +111,10 @@ public class Usuario extends ObjetoPersistente<Integer> {
     }
 
     public boolean isAtivo() {
-        return ativo;
+        return isAtivo;
     }
 
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder().append(this.codigo).toHashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        boolean isEquals = false;
-
-        if (obj == this) {
-            isEquals = true;
-        } else if (obj instanceof Usuario) {
-            Usuario contato = (Usuario) obj;
-
-            isEquals = new EqualsBuilder().append(this.codigo, contato.getCodigo()).isEquals();
-        }
-        return isEquals;
+    public void setAtivo(boolean isAtivo) {
+        this.isAtivo = isAtivo;
     }
 }

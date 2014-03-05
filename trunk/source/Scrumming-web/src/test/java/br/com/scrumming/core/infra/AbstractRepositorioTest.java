@@ -1,4 +1,4 @@
-package br.com.scrumming.infra;
+package br.com.scrumming.core.infra;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,11 +11,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.exception.SQLGrammarException;
 import org.hibernate.metadata.ClassMetadata;
 import org.junit.After;
+import org.junit.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(isolation = Isolation.DEFAULT, rollbackFor = Exception.class)
+@Ignore
 public class AbstractRepositorioTest extends AbstractTest {
 
     private final Logger log = Logger.getLogger(getClass()); // NOPMD

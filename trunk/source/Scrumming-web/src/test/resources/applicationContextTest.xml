@@ -23,4 +23,5 @@
 	<context:component-scan base-package="br.com.scrumming" />
 	
 	<import resource="classpath:applicationContextHibernateTest.xml"/>
+	
 </beans>
