@@ -1,4 +1,4 @@
-package br.com.scrumming.infra;
+package br.com.scrumming.core.infra;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;

@@ -4,11 +4,9 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistenteVersionado;
@@ -20,72 +18,71 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @AttributeOverride(name = "ultimaAtualizacao", column = @Column(name = "CL_ULTIMA_ATUALIZACAO"))
 public class Contato extends ObjetoPersistenteVersionado<Integer> {
 
-	/**
-	 * Serial Version
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     * Serial Version
+     */
+    private static final long serialVersionUID = 1L;
 
-	private static final String COLUNA_ID = "NUMERO";
+    private static final String COLUNA_ID = "NUMERO";
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = COLUNA_ID)
-	private Integer numero;
+    @Id
+    @GeneratedValue
+    @Column(name = COLUNA_ID)
+    private int numero;
 
-	@Column(name = "NOME")
-	private String nome;
+    @Column(name = "NOME")
+    private String nome;
 
-	@Column(name = "SOBRENOME")
-	private String sobreNome;
+    @Column(name = "SOBRENOME")
+    private String sobreNome;
 
-	@Override
-	@JsonIgnore
-	public Integer getChave() {
-		return getNumero();
-	}
+    @Override
+    @JsonIgnore
+    public Integer getChave() {
+        return getNumero();
+    }
 
-	/* getters and setters */
-	public Integer getNumero() {
-		return numero;
-	}
+    /* getters and setters */
+    public Integer getNumero() {
+        return numero;
+    }
 
-	public void setNumero(Integer numero) {
-		this.numero = numero;
-	}
+    public void setNumero(Integer numero) {
+        this.numero = numero;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public String getSobreNome() {
-		return sobreNome;
-	}
+    public String getSobreNome() {
+        return sobreNome;
+    }
 
-	public void setSobreNome(String sobreNome) {
-		this.sobreNome = sobreNome;
-	}
+    public void setSobreNome(String sobreNome) {
+        this.sobreNome = sobreNome;
+    }
 
-	@Override
-	public int hashCode() {
-		return new HashCodeBuilder().append(this.numero).toHashCode();
-	}
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(this.numero).toHashCode();
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		boolean isEquals = false;
+    @Override
+    public boolean equals(Object obj) {
+        boolean isEquals = false;
 
-		if (obj == this) {
-			isEquals = true;
-		} else if (obj instanceof Contato) {
-			Contato contato = (Contato) obj;
+        if (obj == this) {
+            isEquals = true;
+        } else if (obj instanceof Contato) {
+            Contato con = (Contato) obj;
 
-			isEquals = new EqualsBuilder().append(this.numero,
-					contato.getNumero()).isEquals();
-		}
-		return isEquals;
-	}
+            //            isEquals = new EqualsBuilder().append(numero, con.getNumero()).isEquals();
+        }
+        return isEquals;
+    }
 }

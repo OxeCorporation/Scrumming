@@ -1,4 +1,4 @@
-package br.com.scrumming.infra;
+package br.com.scrumming.core.infra;
 
 import java.io.Serializable;
 import java.util.List;

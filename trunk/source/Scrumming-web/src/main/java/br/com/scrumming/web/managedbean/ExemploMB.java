@@ -15,10 +15,9 @@ public class ExemploMB {
 
 	private List<Contato> contatos;
 
-	private String mensagem;;
-
 	private ContatoClientService clientService;
-
+	private String nomeCotato;
+	
 	@PostConstruct
 	public void construir() {
 		clientService = new ContatoClientService();
@@ -30,6 +29,9 @@ public class ExemploMB {
 		throw new RuntimeException();
 	}
 
+	public String consultarContato(){
+		return null;
+	}
 	public List<Contato> getContatos() {
 		return contatos;
 	}
@@ -38,11 +40,11 @@ public class ExemploMB {
 		this.contatos = contatos;
 	}
 
-	public String getMensagem() {
-		return mensagem;
+	public String getNomeCotato() {
+		return nomeCotato;
 	}
 
-	public void setMensagem(String mensagem) {
-		this.mensagem = mensagem;
+	public void setNomeCotato(String nomeCotato) {
+		this.nomeCotato = nomeCotato;
 	}
 }
