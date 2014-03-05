@@ -24,7 +24,6 @@ DROP TABLE IF EXISTS usuario;
 DROP TABLE IF EXISTS projeto;
 DROP TABLE IF EXISTS empresa;
 
-
 -- -----------------------------------------------------
 -- Table `Empresa`
 -- -----------------------------------------------------
@@ -98,7 +97,8 @@ CREATE TABLE IF NOT EXISTS `Sprint` (
   `descricao` VARCHAR(500) NOT NULL,
   `data_inicio` TIMESTAMP NOT NULL,
   `data_fim` TIMESTAMP NOT NULL,
-  `data_revisao` TIMESTAMP NULL,
+  `data_revisao` TIMESTAMP NOT NULL,
+  `data_cadastro` TIMESTAMP NOT NULL,
   `situacao_sprint` INT(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`PK_sprint`))
 PACK_KEYS = 0
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `Usuario` (
   `login` VARCHAR(30) NOT NULL,
   `senha` VARCHAR(32) NOT NULL,
   `data_cadastro` TIMESTAMP NOT NULL,
-  `is_ativo` BOOLEAN NOT NULL DEFAULT false,
+  `is_ativo` BOOL NOT NULL DEFAULT false,
   PRIMARY KEY (`PK_usuario`),
   UNIQUE INDEX `UNIQUE` (`email` ASC, `login` ASC))
 PACK_KEYS = 0
