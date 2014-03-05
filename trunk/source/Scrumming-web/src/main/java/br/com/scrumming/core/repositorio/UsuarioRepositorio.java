@@ -16,7 +16,7 @@ import br.com.scrumming.domain.Usuario;
 public class UsuarioRepositorio extends AbstractRepositorio<Usuario, Integer> {
 
     @SuppressWarnings("unchecked")
-    public List<Usuario> consultarUsuarioPorNome(String nome) {
+    public List<Usuario> consultarPorNome(String nome) {
         Criteria criteria = createCriteria();
         criteria.add(Restrictions.like("nome", nome, MatchMode.ANYWHERE).ignoreCase());
         criteria.addOrder(Order.asc("nome"));

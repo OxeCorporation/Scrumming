@@ -25,7 +25,7 @@ public class UsuarioRepositorioTest extends AbstractRepositorioTest {
 
         save(usuario1, usuario2, usuario3, usuario4);
 
-        List<Usuario> usuarios = usuarioRepositorio.consultarUsuarioPorNome("Esdras");
+        List<Usuario> usuarios = usuarioRepositorio.consultarPorNome("Esdras");
 
         Assert.assertTrue("TAMANHO DA LISTA INCORETO", usuarios.size() == 1);
         Assert.assertEquals("OS OBJETOS DEVERIAM SER IGUAIS", usuarios.get(0), usuario1);
@@ -41,7 +41,7 @@ public class UsuarioRepositorioTest extends AbstractRepositorioTest {
 
         save(usuario1, usuario2, usuario3, usuario4);
 
-        List<Usuario> usuarios = usuarioRepositorio.consultarUsuarioPorNome("lia");
+        List<Usuario> usuarios = usuarioRepositorio.consultarPorNome("lia");
 
         Assert.assertTrue("TAMANHO DA LISTA INCORETO", usuarios.size() == 3);
         Assert.assertEquals("A ORDENAÇÂO DEVERIA ESTAR CORRETA", usuarios.get(0), usuario1);
