@@ -7,18 +7,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.DateTime;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import br.com.scrumming.core.infra.repositorio.HibernateTypes;
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
 
 @Entity
-@Table(name = "Sprint")
+@Table(name = "Empresa")
 public class Empresa extends ObjetoPersistente<Integer> {
 
 	/**
@@ -52,7 +49,7 @@ public class Empresa extends ObjetoPersistente<Integer> {
 	@NotNull
 	private DateTime dataCadastro;
 	
-	@Column(name="is_ativo", columnDefinition= "Integer", length = 1)
+	@Column(name="is_ativo", columnDefinition= "bit")
 	private boolean isAtivo;
 	
 	/*getters and setters*/
