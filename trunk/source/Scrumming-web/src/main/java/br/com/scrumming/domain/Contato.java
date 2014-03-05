@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistenteVersionado;
@@ -28,7 +29,7 @@ public class Contato extends ObjetoPersistenteVersionado<Integer> {
     @Id
     @GeneratedValue
     @Column(name = COLUNA_ID)
-    private int numero;
+    private Integer numero;
 
     @Column(name = "NOME")
     private String nome;
@@ -80,8 +81,7 @@ public class Contato extends ObjetoPersistenteVersionado<Integer> {
             isEquals = true;
         } else if (obj instanceof Contato) {
             Contato con = (Contato) obj;
-
-            //            isEquals = new EqualsBuilder().append(numero, con.getNumero()).isEquals();
+            isEquals = new EqualsBuilder().append(numero, con.getNumero()).isEquals();
         }
         return isEquals;
     }
