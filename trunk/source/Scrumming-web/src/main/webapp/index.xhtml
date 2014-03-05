@@ -5,9 +5,8 @@
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
 	template="/paginas/template/template.xhtml">
 
-	<ui:define name="content">
+	<ui:define name="conteudo">
 		<p:panel header="Exemplo" style="margin-top:1cm;">
-			<p:inputText value="#{exemploMB.mensagem}" />
 			<span>
 				<button jsf:action="#{exemploMB.construirContatos}" 
 				jsf:update="dataTable" class="btn btn-primary btn-sm">Buscar</button>

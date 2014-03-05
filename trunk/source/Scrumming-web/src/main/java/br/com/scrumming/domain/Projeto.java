@@ -2,7 +2,6 @@ package br.com.scrumming.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,117 +23,117 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "Projeto")
 public class Projeto extends ObjetoPersistente<Integer> {
 
-	/**
-	 * Serial Version
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     * Serial Version
+     */
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name="PK_projeto")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer codigo;
-	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="FK_empresa", referencedColumnName="PK_empresa")
-	private Empresa Empresa;
-	
-	@Column(name="nome", columnDefinition = "varchar(50)")
-	@NotBlank
-	private String nome;
-	
-	@Column(name="descricao", columnDefinition = "varchar(500)")
-	@NotBlank
-	private String descricao;
-	
-	@Type(type = HibernateTypes.JODA_DATE_TIME)
-	@Column(name="data_inicio")
-	@NotNull
-	private DateTime dataInicio;
-	
-	@Type(type = HibernateTypes.JODA_DATE_TIME)
-	@Column(name="data_fim")
-	@NotNull
-	private DateTime dataFim;
-	
-	@Type(type = HibernateTypes.JODA_DATE_TIME)
-	@Column(name="data_cadastro")
-	@NotNull
-	private DateTime dataCadastro;
-	
-	@Column(name="situacao_projeto", columnDefinition= "Integer", length = 1)
-	private Integer situacaoProjeto;
-	
-	/**
-	 * Getters e and setters
-	 */
-	@Override
-	@JsonIgnore
-	public Integer getChave() {
-		return this.codigo;
-	}
+    @Id
+    @Column(name = "PK_projeto")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer codigo;
 
-	public Integer getCodigo() {
-		return codigo;
-	}
+    @ManyToOne
+    @JoinColumn(name = "FK_empresa", referencedColumnName = "PK_empresa")
+    private Empresa Empresa;
 
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
-	}
+    @Column(name = "nome", columnDefinition = "varchar(50)")
+    @NotBlank
+    private String nome;
 
-	public String getNome() {
-		return nome;
-	}
+    @Column(name = "descricao", columnDefinition = "varchar(500)")
+    @NotBlank
+    private String descricao;
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    @Type(type = HibernateTypes.JODA_DATE_TIME)
+    @Column(name = "data_inicio")
+    @NotNull
+    private DateTime dataInicio;
 
-	public String getDescricao() {
-		return descricao;
-	}
+    @Type(type = HibernateTypes.JODA_DATE_TIME)
+    @Column(name = "data_fim")
+    @NotNull
+    private DateTime dataFim;
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    @Type(type = HibernateTypes.JODA_DATE_TIME)
+    @Column(name = "data_cadastro")
+    @NotNull
+    private DateTime dataCadastro;
 
-	public DateTime getDataInicio() {
-		return dataInicio;
-	}
+    @Column(name = "situacao_projeto", columnDefinition = "Integer", length = 1)
+    private Integer situacaoProjeto;
 
-	public void setDataInicio(DateTime dataInicio) {
-		this.dataInicio = dataInicio;
-	}
+    /**
+     * Getters e and setters
+     */
+    @Override
+    @JsonIgnore
+    public Integer getChave() {
+        return this.codigo;
+    }
 
-	public DateTime getDataFim() {
-		return dataFim;
-	}
+    public Integer getCodigo() {
+        return codigo;
+    }
 
-	public void setDataFim(DateTime dataFim) {
-		this.dataFim = dataFim;
-	}
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
 
-	public DateTime getDataCadastro() {
-		return dataCadastro;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setDataCadastro(DateTime dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public Empresa getEmpresa() {
-		return Empresa;
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
-	public void setEmpresa(Empresa empresa) {
-		Empresa = empresa;
-	}
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-	public Integer getSituacaoProjeto() {
-		return situacaoProjeto;
-	}
+    public DateTime getDataInicio() {
+        return dataInicio;
+    }
 
-	public void setSituacaoProjeto(Integer situacaoProjeto) {
-		this.situacaoProjeto = situacaoProjeto;
-	}
+    public void setDataInicio(DateTime dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public DateTime getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(DateTime dataFim) {
+        this.dataFim = dataFim;
+    }
+
+    public DateTime getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(DateTime dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public Empresa getEmpresa() {
+        return Empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        Empresa = empresa;
+    }
+
+    public Integer getSituacaoProjeto() {
+        return situacaoProjeto;
+    }
+
+    public void setSituacaoProjeto(Integer situacaoProjeto) {
+        this.situacaoProjeto = situacaoProjeto;
+    }
 
 }

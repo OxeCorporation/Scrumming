@@ -18,4 +18,11 @@ public class ContatoClientService {
 				Contato[].class);
 		return Arrays.asList(contatos.getBody());
 	}
+	
+	public List<Contato> consultarContato(String nome){
+		RestTemplate restTemplate = new RestTemplate();
+		String url = "http://localhost:8080/Scrumming/service/contato/{nome}";
+		ResponseEntity<Contato[]> contatos = restTemplate.getForEntity(url, Contato[].class, nome);
+		return Arrays.asList(contatos.getBody());
+	}
 }
