@@ -61,8 +61,8 @@ public class Projeto extends ObjetoPersistente<Integer> {
 	@NotNull
 	private DateTime dataCadastro;
 	
-	@Column(name="situacao_projeto", columnDefinition= "bit", length = 1)
-	private boolean situacaoProjeto;
+	@Column(name="situacao_projeto", columnDefinition= "Integer", length = 1)
+	private Integer situacaoProjeto;
 	
 	/**
 	 * Getters e and setters
@@ -121,13 +121,20 @@ public class Projeto extends ObjetoPersistente<Integer> {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public boolean isSituacaoProjeto() {
+	public Empresa getEmpresa() {
+		return Empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		Empresa = empresa;
+	}
+
+	public Integer getSituacaoProjeto() {
 		return situacaoProjeto;
 	}
 
-	public void setSituacaoProjeto(boolean situacaoProjeto) {
+	public void setSituacaoProjeto(Integer situacaoProjeto) {
 		this.situacaoProjeto = situacaoProjeto;
 	}
-
 
 }
