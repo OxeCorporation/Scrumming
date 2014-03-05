@@ -19,7 +19,7 @@ import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
 
 @Entity
 @Table(name = "Sprint")
-public class Sprint extends ObjetoPersistente<Integer> {
+public class Empresa extends ObjetoPersistente<Integer> {
 
 	/**
 	 * Serial Version
@@ -27,7 +27,7 @@ public class Sprint extends ObjetoPersistente<Integer> {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="PK_sprint")
+	@Column(name="PK_empresa")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer codigo;
 	
@@ -35,27 +35,25 @@ public class Sprint extends ObjetoPersistente<Integer> {
 	@NotBlank
 	private String nome;
 	
-	@Column(name="descricao", columnDefinition = "varchar(500)")
+	@Column(name="login", columnDefinition = "varchar(30)")
 	@NotBlank
-	private String descricao;
+	private String login;
+	
+	@Column(name="senha", columnDefinition = "varchar(32)")
+	@NotBlank
+	private String senha;
+	
+	@Column(name="email", columnDefinition = "varchar(50)")
+	@NotBlank
+	private String email;
 	
 	@Type(type = HibernateTypes.JODA_DATE_TIME)
-	@Column(name="data_inicio")
+	@Column(name="data_cadastro")
 	@NotNull
-	private DateTime dataInicio;
+	private DateTime dataCadastro;
 	
-	@Type(type = HibernateTypes.JODA_DATE_TIME)
-	@Column(name="data_fim")
-	@NotNull
-	private DateTime dataFim;
-	
-	@Type(type = HibernateTypes.JODA_DATE_TIME)
-	@Column(name="data_revisao")
-	@NotNull
-	private DateTime dataRevisao;
-	
-	@Column(name="situacao_sprint", columnDefinition= "Integer", length = 1)
-	private boolean situacaoSprint;
+	@Column(name="is_ativo", columnDefinition= "Integer", length = 1)
+	private boolean isAtivo;
 	
 	/*getters and setters*/
 	@Override
@@ -80,43 +78,43 @@ public class Sprint extends ObjetoPersistente<Integer> {
 		this.nome = nome;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getLogin() {
+		return login;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
-	public DateTime getDataInicio() {
-		return dataInicio;
+	public String getSenha() {
+		return senha;
 	}
 
-	public void setDataInicio(DateTime dataInicio) {
-		this.dataInicio = dataInicio;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
-	public DateTime getDataFim() {
-		return dataFim;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setDataFim(DateTime dataFim) {
-		this.dataFim = dataFim;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public DateTime getDataRevisao() {
-		return dataRevisao;
+	public DateTime getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setDataRevisao(DateTime dataRevisao) {
-		this.dataRevisao = dataRevisao;
+	public void setDataCadastro(DateTime dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
-	public boolean isSituacaoSprint() {
-		return situacaoSprint;
+	public boolean isAtivo() {
+		return isAtivo;
 	}
 
-	public void setSituacaoSprint(boolean situacaoSprint) {
-		this.situacaoSprint = situacaoSprint;
+	public void setAtivo(boolean isAtivo) {
+		this.isAtivo = isAtivo;
 	}
 }
