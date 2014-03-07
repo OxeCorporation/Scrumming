@@ -37,11 +37,11 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 	}
 
     /* getters and setters */
-    public ProjetoRepositorio getSprintRepositorio() {
+    public ProjetoRepositorio getProjetoRepositorio() {
         return projetoRepositorio;
     }
 
-    public void setSprintRepositorio(ProjetoRepositorio sprintRepositorio) {
-        this.projetoRepositorio = sprintRepositorio;
+    public void setProjetoRepositorio(ProjetoRepositorio projetoRepositorio) {
+        this.projetoRepositorio = projetoRepositorio;
     }
 }
