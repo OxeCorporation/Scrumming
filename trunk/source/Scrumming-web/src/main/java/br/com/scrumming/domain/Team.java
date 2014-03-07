@@ -2,19 +2,11 @@ package br.com.scrumming.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.NotBlank;
-import org.joda.time.DateTime;
-
-import br.com.scrumming.core.infra.repositorio.HibernateTypes;
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,15 +20,23 @@ public class Team extends ObjetoPersistente<Integer> {
      */
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "FK_projeto", referencedColumnName = "PK_projeto")
+    private Empresa projeto;
+    
+    @Id
     @ManyToOne
     @JoinColumn(name = "FK_empresa", referencedColumnName = "PK_empresa")
-    private Empresa Empresa;
+    private Empresa empresa;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "FK_usuario", referencedColumnName = "PK_usuario")
     private Usuario usuario;
     
-
+    @Column(name = "perfil_usuario", columnDefinition = "int")
+    private Integer perfilUsuario;
 
     /**
      * Getters e and setters
@@ -44,8 +44,38 @@ public class Team extends ObjetoPersistente<Integer> {
     @Override
     @JsonIgnore
     public Integer getChave() {
-        return this.codigo;
+        return null;
     }
 
-    
+	public Empresa getProjeto() {
+		return projeto;
+	}
+
+	public void setProjeto(Empresa projeto) {
+		this.projeto = projeto;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Integer getPerfilUsuario() {
+		return perfilUsuario;
+	}
+
+	public void setPerfilUsuario(Integer perfilUsuario) {
+		this.perfilUsuario = perfilUsuario;
+	}    
 }
