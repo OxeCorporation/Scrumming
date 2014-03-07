@@ -34,11 +34,11 @@ public class Tarefa extends ObjetoPersistente<Integer> {
     private Integer codigo;
 	
 	@ManyToOne
-    @JoinColumn(name = "FK_ItemBacklog", referencedColumnName = "PK_backlog")
+    @JoinColumn(name = "FK_itemBacklog", referencedColumnName = "PK_backlog")
 	private ItemBacklog itemBacklog;
 	
 	@ManyToOne
-    @JoinColumn(name = "FK_Usuario", referencedColumnName = "PK_Usuario")
+    @JoinColumn(name = "FK_usuario", referencedColumnName = "PK_usuario")
 	private Usuario usuario;
 	
 	@Column(name = "descricao", columnDefinition = "varchar(500)")
