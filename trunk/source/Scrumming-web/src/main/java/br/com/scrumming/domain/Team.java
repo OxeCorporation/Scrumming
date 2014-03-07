@@ -23,7 +23,7 @@ public class Team extends ObjetoPersistente<Integer> {
     @Id
     @ManyToOne
     @JoinColumn(name = "FK_projeto", referencedColumnName = "PK_projeto")
-    private Empresa projeto;
+    private Projeto projeto;
     
     @Id
     @ManyToOne
@@ -47,11 +47,11 @@ public class Team extends ObjetoPersistente<Integer> {
         return null;
     }
 
-	public Empresa getProjeto() {
+	public Projeto getProjeto() {
 		return projeto;
 	}
 
-	public void setProjeto(Empresa projeto) {
+	public void setProjeto(Projeto projeto) {
 		this.projeto = projeto;
 	}
 
@@ -77,5 +77,5 @@ public class Team extends ObjetoPersistente<Integer> {
 
 	public void setPerfilUsuario(Integer perfilUsuario) {
 		this.perfilUsuario = perfilUsuario;
-	}    
+	}
 }
