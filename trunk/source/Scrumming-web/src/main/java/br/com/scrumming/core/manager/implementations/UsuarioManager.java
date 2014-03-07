@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
@@ -28,6 +29,7 @@ public class UsuarioManager extends AbstractManager<Usuario, Integer> implements
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Usuario> consultarPorNome(String nome) {
         return usuarioRepositorio.consultarPorNome(nome);
     }

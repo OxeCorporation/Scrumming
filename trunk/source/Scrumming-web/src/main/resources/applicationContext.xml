@@ -29,4 +29,9 @@
 	<import resource="classpath:applicationContextHibernate.xml"/>
 	
 	<mvc:annotation-driven/>
+	
+	<bean class="org.springframework.context.support.ResourceBundleMessageSource"
+		id="messageSource">
+		<property name="basename" value="mensagens" />
+	</bean>
 </beans>

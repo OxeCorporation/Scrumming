@@ -13,38 +13,38 @@ import br.com.scrumming.web.clientService.ContatoClientService;
 @ViewScoped
 public class ExemploMB {
 
-	private List<Contato> contatos;
+    private List<Contato> contatos;
 
-	private ContatoClientService clientService;
-	private String nomeCotato;
-	
-	@PostConstruct
-	public void construir() {
-		clientService = new ContatoClientService();
-	}
+    private ContatoClientService clientService;
+    private String nomeCotato;
 
-	public String construirContatos() {
-		contatos = clientService.findAll();
-//		return "";
-		throw new RuntimeException();
-	}
+    @PostConstruct
+    public void construir() {
+        clientService = new ContatoClientService();
+    }
 
-	public String consultarContato(){
-		return null;
-	}
-	public List<Contato> getContatos() {
-		return contatos;
-	}
+    public String construirContatos() {
+        contatos = clientService.findAll();
+        return "";
+    }
 
-	public void setContatos(List<Contato> contatos) {
-		this.contatos = contatos;
-	}
+    public String consultarContato() {
+        return null;
+    }
 
-	public String getNomeCotato() {
-		return nomeCotato;
-	}
+    public List<Contato> getContatos() {
+        return contatos;
+    }
 
-	public void setNomeCotato(String nomeCotato) {
-		this.nomeCotato = nomeCotato;
-	}
+    public void setContatos(List<Contato> contatos) {
+        this.contatos = contatos;
+    }
+
+    public String getNomeCotato() {
+        return nomeCotato;
+    }
+
+    public void setNomeCotato(String nomeCotato) {
+        this.nomeCotato = nomeCotato;
+    }
 }
