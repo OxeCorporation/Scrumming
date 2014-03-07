@@ -61,8 +61,7 @@ public class Tarefa extends ObjetoPersistente<Integer> {
 	@Override
 	@JsonIgnore
 	public Integer getChave() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.codigo;
 	}
 
 	/**
