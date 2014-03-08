@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `Sprint` (
   `data_fim` TIMESTAMP NOT NULL,
   `data_revisao` TIMESTAMP NOT NULL,
   `data_cadastro` TIMESTAMP NOT NULL,
-  `situacao_sprint` INT(11) UNSIGNED NOT NULL,
+  `situacao_sprint` INT(1) UNSIGNED NOT NULL,
   PRIMARY KEY (`PK_sprint`))
 PACK_KEYS = 0
 ROW_FORMAT = DEFAULT;
