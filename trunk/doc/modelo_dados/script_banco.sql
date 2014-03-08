@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `Projeto` (
   `data_inicio` TIMESTAMP NOT NULL,
   `data_fim` TIMESTAMP NOT NULL,
   `data_cadastro` TIMESTAMP NOT NULL,
-  `situacao_projeto` INT(11) UNSIGNED NOT NULL,
+  `situacao_projeto` INT(1) UNSIGNED NOT NULL,
   PRIMARY KEY (`PK_projeto`),
   INDEX `Projeto_FKIndex1` (`FK_empresa` ASC),
   CONSTRAINT `fk_{CD46B0F7-869D-49D1-AF89-24AB82042C7F}`
