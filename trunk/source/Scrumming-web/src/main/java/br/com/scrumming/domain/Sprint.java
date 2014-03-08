@@ -2,6 +2,8 @@ package br.com.scrumming.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,7 @@ import org.joda.time.DateTime;
 
 import br.com.scrumming.core.infra.repositorio.HibernateTypes;
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
+import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -59,8 +62,9 @@ public class Sprint extends ObjetoPersistente<Integer> {
     @NotNull
     private DateTime dataCadastro;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "situacao_sprint", columnDefinition = "Integer", length = 1)
-    private boolean situacaoSprint;
+    private SituacaoSprintEnum situacaoSprint;
 
     /* getters and setters */
     @Override
@@ -117,11 +121,19 @@ public class Sprint extends ObjetoPersistente<Integer> {
         this.dataRevisao = dataRevisao;
     }
 
-    public boolean isSituacaoSprint() {
-        return situacaoSprint;
-    }
+	public DateTime getDataCadastro() {
+		return dataCadastro;
+	}
 
-    public void setSituacaoSprint(boolean situacaoSprint) {
-        this.situacaoSprint = situacaoSprint;
-    }
+	public void setDataCadastro(DateTime dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	public SituacaoSprintEnum getSituacaoSprint() {
+		return situacaoSprint;
+	}
+
+	public void setSituacaoSprint(SituacaoSprintEnum situacaoSprint) {
+		this.situacaoSprint = situacaoSprint;
+	}
 }
