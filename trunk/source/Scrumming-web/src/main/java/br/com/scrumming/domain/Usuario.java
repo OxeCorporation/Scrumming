@@ -54,6 +54,9 @@ public class Usuario extends ObjetoPersistente<Integer> {
     @Column(name = "is_ativo", columnDefinition = "bit", length = 1)
     private boolean ativo;
 
+    @Column(name = "is_empresa", columnDefinition = "bit", length = 1)
+    private boolean empresa;
+
     @Override
     @JsonIgnore
     public Integer getChave() {
@@ -115,6 +118,14 @@ public class Usuario extends ObjetoPersistente<Integer> {
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public boolean isEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(boolean empresa) {
+        this.empresa = empresa;
     }
 
     @Override
