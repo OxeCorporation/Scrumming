@@ -35,18 +35,6 @@ public class Empresa extends ObjetoPersistente<Integer> {
     @NotBlank
     private String nome;
 
-    @Column(name = "login", columnDefinition = "varchar(30)")
-    @NotBlank
-    private String login;
-
-    @Column(name = "senha", columnDefinition = "varchar(32)")
-    @NotBlank
-    private String senha;
-
-    @Column(name = "email", columnDefinition = "varchar(50)")
-    @NotBlank
-    private String email;
-
     @Type(type = HibernateTypes.JODA_DATE_TIME)
     @Column(name = "data_cadastro")
     @NotNull
@@ -77,31 +65,7 @@ public class Empresa extends ObjetoPersistente<Integer> {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+        
     public DateTime getDataCadastro() {
         return dataCadastro;
     }

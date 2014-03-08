@@ -7,13 +7,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.DateTime;
-
 import br.com.scrumming.core.infra.repositorio.HibernateTypes;
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
 import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
@@ -33,6 +33,10 @@ public class Sprint extends ObjetoPersistente<Integer> {
     @Column(name = "PK_sprint")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer codigo;
+    
+    @ManyToOne
+    @JoinColumn(name="FK_projeto", referencedColumnName="PK_projeto")
+    private Projeto projeto;
 
     @Column(name = "nome", columnDefinition = "varchar(50)")
     @NotBlank
@@ -81,7 +85,15 @@ public class Sprint extends ObjetoPersistente<Integer> {
         this.codigo = codigo;
     }
 
-    public String getNome() {
+    public Projeto getProjeto() {
+		return projeto;
+	}
+
+	public void setProjeto(Projeto projeto) {
+		this.projeto = projeto;
+	}
+
+	public String getNome() {
         return nome;
     }
 
