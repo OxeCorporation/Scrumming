@@ -19,7 +19,6 @@ import org.joda.time.DateTime;
 import br.com.scrumming.core.infra.repositorio.HibernateTypes;
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
 import br.com.scrumming.domain.enuns.SituacaoProjetoEnum;
-import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
