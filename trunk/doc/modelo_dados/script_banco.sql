@@ -30,13 +30,10 @@ DROP TABLE IF EXISTS empresa;
 CREATE TABLE IF NOT EXISTS `Empresa` (
   `PK_empresa` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(50) NOT NULL,
-  `login` VARCHAR(30) NOT NULL,
-  `senha` VARCHAR(32) NOT NULL,
-  `email` VARCHAR(50) NOT NULL,
   `data_cadastro` TIMESTAMP NOT NULL,
   `is_ativo` BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (`PK_empresa`),
-  INDEX `UNIQUE` (`nome` ASC, `login` ASC))
+  INDEX `UNIQUE` (`nome` ASC))
 PACK_KEYS = 0
 ROW_FORMAT = DEFAULT;
 
@@ -93,6 +90,7 @@ ROW_FORMAT = DEFAULT;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Sprint` (
   `PK_sprint` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `FK_projeto` INT(11) UNSIGNED NOT NULL,
   `nome` VARCHAR(50) NULL,
   `descricao` VARCHAR(500) NOT NULL,
   `data_inicio` TIMESTAMP NOT NULL,
@@ -100,10 +98,15 @@ CREATE TABLE IF NOT EXISTS `Sprint` (
   `data_revisao` TIMESTAMP NOT NULL,
   `data_cadastro` TIMESTAMP NOT NULL,
   `situacao_sprint` INT(1) UNSIGNED NOT NULL,
-  PRIMARY KEY (`PK_sprint`))
+  PRIMARY KEY (`PK_sprint`),
+  INDEX `fk_Sprint_Projeto1_idx` (`FK_projeto` ASC),
+  CONSTRAINT `fk_Sprint_Projeto1`
+    FOREIGN KEY (`FK_projeto`)
+    REFERENCES `Projeto` (`PK_projeto`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 PACK_KEYS = 0
 ROW_FORMAT = DEFAULT;
-
 
 -- -----------------------------------------------------
 -- Table `Usuario`
@@ -116,6 +119,7 @@ CREATE TABLE IF NOT EXISTS `Usuario` (
   `senha` VARCHAR(32) NOT NULL,
   `data_cadastro` TIMESTAMP NOT NULL,
   `is_ativo` BOOL NOT NULL DEFAULT false,
+  `is_empresa` BOOL NOT NULL DEFAULT false,
   PRIMARY KEY (`PK_usuario`),
   UNIQUE INDEX `UNIQUE` (`email` ASC, `login` ASC))
 PACK_KEYS = 0
@@ -183,6 +187,7 @@ ROW_FORMAT = DEFAULT;
 CREATE TABLE IF NOT EXISTS `SprintBacklog` (
   `FK_backlog` INT(11) UNSIGNED NOT NULL,
   `FK_sprint` INT(11) UNSIGNED NOT NULL,
+  `is_ativo` BOOLEAN NOT NULL DEFAULT true,
   PRIMARY KEY (`FK_backlog`, `FK_sprint`),
   INDEX `ItemBacklog_has_Sprint_FKIndex1` (`FK_backlog` ASC),
   INDEX `ItemBacklog_has_Sprint_FKIndex2` (`FK_sprint` ASC),
@@ -316,6 +321,45 @@ CREATE TABLE IF NOT EXISTS `CheckinDailyScrum` (
     ON UPDATE NO ACTION)
 PACK_KEYS = 0
 ROW_FORMAT = DEFAULT;
+
+-- *******************************************************************************
+--            INSERTS INICIAIS PARA TESTE(Usuario, Empresa, Funcionario)
+-- *******************************************************************************
+
+INSERT INTO `scrumming`.`usuario`
+(`nome`,
+`email`,
+`login`,
+`senha`,
+`data_cadastro`,
+`is_ativo`,
+`is_empresa`)
+VALUES
+('Oxe Corporation',
+'oxecorporation@gmail.com',
+'oxecorporation',
+'scrummin',
+NOW(),
+1,
+1);
+
+INSERT INTO `scrumming`.`empresa`
+(`nome`,
+`data_cadastro`,
+`is_ativo`)
+VALUES
+('Oxe Corporation',
+NOW(),
+1);
+
+INSERT INTO `scrumming`.`funcionarioempresa`
+(`FK_empresa`,
+`FK_usuario`,
+`is_funcionario`)
+VALUES
+(1,
+1,
+0);
 
 -- *******************************************************************************
 --                               FIM DO SCRIPT
