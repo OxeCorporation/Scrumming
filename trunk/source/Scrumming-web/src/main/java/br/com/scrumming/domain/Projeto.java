@@ -2,6 +2,8 @@ package br.com.scrumming.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +18,8 @@ import org.joda.time.DateTime;
 
 import br.com.scrumming.core.infra.repositorio.HibernateTypes;
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
+import br.com.scrumming.domain.enuns.SituacaoProjetoEnum;
+import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -60,8 +64,10 @@ public class Projeto extends ObjetoPersistente<Integer> {
     @NotNull
     private DateTime dataCadastro;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "situacao_projeto", columnDefinition = "Integer", length = 1)
-    private Integer situacaoProjeto;
+    private SituacaoProjetoEnum situacaoProjeto;
+
 
     /**
      * Getters e and setters
@@ -128,12 +134,14 @@ public class Projeto extends ObjetoPersistente<Integer> {
         Empresa = empresa;
     }
 
-    public Integer getSituacaoProjeto() {
-        return situacaoProjeto;
-    }
+	public SituacaoProjetoEnum getSituacaoProjeto() {
+		return situacaoProjeto;
+	}
 
-    public void setSituacaoProjeto(Integer situacaoProjeto) {
-        this.situacaoProjeto = situacaoProjeto;
-    }
+	public void setSituacaoProjeto(SituacaoProjetoEnum situacaoProjeto) {
+		this.situacaoProjeto = situacaoProjeto;
+	}
+
+
 
 }
