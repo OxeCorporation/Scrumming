@@ -97,6 +97,7 @@ CREATE TABLE IF NOT EXISTS `Sprint` (
   `data_fim` TIMESTAMP NOT NULL,
   `data_revisao` TIMESTAMP NOT NULL,
   `data_cadastro` TIMESTAMP NOT NULL,
+  `data_fechamento` TIMESTAMP NULL,
   `situacao_sprint` INT(1) UNSIGNED NOT NULL,
   PRIMARY KEY (`PK_sprint`),
   INDEX `fk_Sprint_Projeto1_idx` (`FK_projeto` ASC),
