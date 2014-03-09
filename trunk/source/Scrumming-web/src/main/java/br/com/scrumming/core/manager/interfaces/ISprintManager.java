@@ -10,5 +10,5 @@ public interface ISprintManager extends IManager<Sprint, Integer> {
 
 	void salvarSprint(Sprint sprint, List<ItemBacklog> itensBacklogSprint, List<ItemBacklog> itensBacklogProduto);
     List<Sprint> consultarPorProjeto(Integer projetoID);
-    void fecharSprint(Sprint sprint);
+    void fecharSprint(Sprint sprint, List<ItemBacklog> sprintBacklog, List<ItemBacklog> productBacklog);
 }

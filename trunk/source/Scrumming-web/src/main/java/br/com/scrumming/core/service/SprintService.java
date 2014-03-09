@@ -37,9 +37,9 @@ public class SprintService {
     	return sprintManager.findByKey(sprintID);
     }
     
-    @RequestMapping(method = RequestMethod.PUT, value = "/{sprintID}")
-    public void fechar(@PathVariable Integer sprintID) {
-    	
+    @RequestMapping(method = RequestMethod.PUT, value = "/{sprint}/itemSprint/{itensBacklogSprint}/itemBacklog/{itensBacklogProduto}")
+    public void fechar(@PathVariable Sprint sprint, @PathVariable List<ItemBacklog> sprintBacklog, @PathVariable List<ItemBacklog> productBacklog) {
+    	sprintManager.fecharSprint(sprint, sprintBacklog, productBacklog);
     }
 
     /* getters and setters */

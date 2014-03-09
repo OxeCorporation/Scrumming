@@ -59,9 +59,9 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		}
 	}
 
-	public void fecharSprint(Sprint sprint) {
-		// TODO: Efetuar a validação para o fechamento da Sprint(Será efetuado e
-		// testado dia 09/03);
+	public void fecharSprint(Sprint sprint, List<ItemBacklog> sprintBacklog, List<ItemBacklog> productBacklog) {
+		
+		
 	}
 
 	/* getters and setters */

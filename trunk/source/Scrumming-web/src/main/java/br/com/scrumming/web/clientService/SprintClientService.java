@@ -45,7 +45,7 @@ public class SprintClientService {
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
-		String url = "http://localhost:8080/Scrumming/service/sprint/{sprintID}";
+		String url = "http://localhost:8080/Scrumming/service/sprint/{sprint}/itemSprint/{itensBacklogSprint}/itemBacklog/{itensBacklogProduto}";
 		
 		restTemplate.put(url, HttpEntity.EMPTY, sprint, sprintBacklog, productBacklog);
 	}
