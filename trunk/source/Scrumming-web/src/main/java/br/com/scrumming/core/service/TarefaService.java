@@ -2,15 +2,12 @@ package br.com.scrumming.core.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
+import br.com.scrumming.core.manager.implementations.TarefaManager;
 import br.com.scrumming.core.manager.interfaces.ITarefaManager;
 import br.com.scrumming.domain.Tarefa;
 
@@ -18,8 +15,7 @@ import br.com.scrumming.domain.Tarefa;
 @RequestMapping("/tarefa")
 public class TarefaService {
 	
-	@Autowired
-    private ITarefaManager tarefaManager;
+	private ITarefaManager tarefaManager = new TarefaManager();
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/{tarefa}")
     public void salvar(@PathVariable @Valid Tarefa tarefa){
