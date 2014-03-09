@@ -81,7 +81,7 @@ public class ExemploMB {
 		
     	List<ItemBacklog> lista = new ArrayList<>();
     	lista.add(ib);
-    	sprintService.salvarSprint(sprint1, lista);
+    	sprintService.salvarSprint(sprint1, lista, lista);
         return "";
     }
 
