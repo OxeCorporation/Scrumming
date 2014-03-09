@@ -3,6 +3,7 @@ package br.com.scrumming.core.manager.implementations;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
@@ -10,6 +11,7 @@ import br.com.scrumming.core.manager.interfaces.ITarefaManager;
 import br.com.scrumming.core.repositorio.TarefaRepositorio;
 import br.com.scrumming.domain.Tarefa;
 
+@Service
 public class TarefaManager extends AbstractManager<Tarefa, Integer> implements ITarefaManager {
 
 	/**
