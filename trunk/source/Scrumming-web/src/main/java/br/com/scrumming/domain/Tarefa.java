@@ -2,6 +2,8 @@ package br.com.scrumming.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.scrumming.core.infra.repositorio.HibernateTypes;
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
+import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
 @Entity
 @Table(name = "Tarefa")
@@ -45,9 +48,10 @@ public class Tarefa extends ObjetoPersistente<Integer> {
     @NotBlank
     private String descricao;
 	
-	@Column(name = "situacao_tarefa", columnDefinition = "Integer", length = 11)
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "situacao_tarefa", columnDefinition = "Integer", length = 1)
 	@NotNull
-    private Integer situacaoTarefa;
+    private SituacaoTarefaEnum situacao;
 	
 	@Column(name = "tempo_estimado", columnDefinition = "Integer", length = 11)
 	@NotNull
@@ -105,13 +109,13 @@ public class Tarefa extends ObjetoPersistente<Integer> {
 	}
 
 
-	public Integer getSituacaoTarefa() {
-		return situacaoTarefa;
+	public SituacaoTarefaEnum getSituacao() {
+		return situacao;
 	}
 
 
-	public void setSituacaoTarefa(Integer situacaoTarefa) {
-		this.situacaoTarefa = situacaoTarefa;
+	public void setSituacao(SituacaoTarefaEnum situacao) {
+		this.situacao = situacao;
 	}
 
 
