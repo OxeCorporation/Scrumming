@@ -41,6 +41,9 @@ public class Team extends ObjetoPersistente<Integer> {
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "perfil_usuario", columnDefinition = "Integer", length = 1)
     private PerfilUsuarioEnum perfilUsuario;
+    
+    @Column(name = "is_ativo", columnDefinition = "bit")
+    private boolean isAtivo;
 
     /**
      * Getters e and setters
@@ -81,6 +84,14 @@ public class Team extends ObjetoPersistente<Integer> {
 
 	public void setPerfilUsuario(PerfilUsuarioEnum perfilUsuario) {
 		this.perfilUsuario = perfilUsuario;
+	}
+
+	public boolean isAtivo() {
+		return isAtivo;
+	}
+
+	public void setAtivo(boolean isAtivo) {
+		this.isAtivo = isAtivo;
 	}
 
 }
