@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `ItemBacklog` (
   `valor_negocio` DOUBLE NULL,
   `story_points` INT(11) UNSIGNED NULL,
   `roi` DOUBLE NULL,
-  `situacao_backlog` INT(11) UNSIGNED NOT NULL,
+  `situacao_backlog` INT(1) UNSIGNED NOT NULL,
   PRIMARY KEY (`PK_backlog`),
   INDEX `ItemBacklog_FKIndex1` (`FK_projeto` ASC),
   CONSTRAINT `fk_{60FDBEBA-E550-4A38-A6C5-E482203F03CD}`
@@ -97,6 +97,7 @@ CREATE TABLE IF NOT EXISTS `Sprint` (
   `data_fim` TIMESTAMP NOT NULL,
   `data_revisao` TIMESTAMP NOT NULL,
   `data_cadastro` TIMESTAMP NOT NULL,
+  `data_fechamento` TIMESTAMP NULL,
   `situacao_sprint` INT(1) UNSIGNED NOT NULL,
   PRIMARY KEY (`PK_sprint`),
   INDEX `fk_Sprint_Projeto1_idx` (`FK_projeto` ASC),
@@ -134,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `Tarefa` (
   `FK_itemBacklog` INT(11) UNSIGNED NOT NULL,
   `FK_usuario` INT(11) UNSIGNED NULL,
   `descricao` VARCHAR(500) NOT NULL,
-  `situacao_tarefa` INT(11) UNSIGNED NOT NULL,
+  `situacao_tarefa` INT(1) UNSIGNED NOT NULL,
   `tempo_estimado` INT(11) UNSIGNED NOT NULL,
   `data_atribuicao` TIMESTAMP NULL,
   PRIMARY KEY (`PK_tarefa`),
@@ -360,6 +361,37 @@ VALUES
 (1,
 1,
 0);
+
+insert 
+    into
+        Empresa
+        (data_cadastro, is_ativo, nome) 
+    values
+        (NOW(), true, 'Empresa1');
+
+insert 
+    into
+        Projeto
+        (FK_empresa, data_cadastro, data_fim, data_inicio, descricao, nome, situacao_projeto) 
+    values
+        (1, NOW(), NOW(), NOW(), 'teste descrição', 'Projeto01', 1);
+
+insert 
+    into
+        Sprint
+        (data_cadastro, data_fechamento, data_fim, data_inicio, data_revisao, descricao, nome, FK_projeto, situacao_sprint) 
+    values
+        (now(), NULL, now(), now(), null, 'teste aksndlansd', 'Sprint01', 2, 1);
+
+insert 
+    into
+        Sprint
+        (data_cadastro, data_fechamento, data_fim, data_inicio, data_revisao, descricao, nome, FK_projeto, situacao_sprint) 
+    values
+        (now(), NULL, now(), now(), null, 'teste aksndlansd', 'Sprint02', 1, 1);
+
+select * from Projeto;
+select * from Sprint;
 
 -- *******************************************************************************
 --                               FIM DO SCRIPT
