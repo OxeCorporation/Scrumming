@@ -263,6 +263,7 @@ CREATE TABLE IF NOT EXISTS `TimeProjeto` (
   `FK_usuario` INT(11) UNSIGNED NOT NULL,
   `FK_empresa` INT(11) UNSIGNED NOT NULL,
   `perfil_usuario` INT(11) UNSIGNED NOT NULL,
+  `is_ativo` BOOLEAN NOT NULL DEFAULT true,
   PRIMARY KEY (`FK_projeto`, `FK_usuario`, `FK_empresa`),
   INDEX `Projeto_has_UsuarioEmpresa_FKIndex1` (`FK_projeto` ASC),
   INDEX `Projeto_has_UsuarioEmpresa_FKIndex2` (`FK_empresa` ASC, `FK_usuario` ASC),
@@ -404,6 +405,7 @@ select * from Projeto;
 select * from Sprint;
 select * from itembacklog;
 select * from usuarioempresa;
+select * from timeprojeto;
 
 -- *******************************************************************************
 --                               FIM DO SCRIPT
