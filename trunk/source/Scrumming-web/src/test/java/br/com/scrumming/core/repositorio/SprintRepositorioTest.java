@@ -1,14 +1,18 @@
 package br.com.scrumming.core.repositorio;
 
 import java.util.List;
+
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import br.com.scrumming.core.infra.AbstractRepositorioTest;
 import br.com.scrumming.domain.Empresa;
+import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
+import br.com.scrumming.domain.SprintBacklog;
+import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 import br.com.scrumming.domain.enuns.SituacaoProjetoEnum;
 import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
 
@@ -18,6 +22,9 @@ public class SprintRepositorioTest extends AbstractRepositorioTest {
 	private static final DateTime FIM = DateTime.now().plusDays(5);
 	@Autowired
 	private SprintRepositorio sprintRepositorio;
+	
+	@Autowired
+	private SprintBacklogRepositorio sprintBacklogRepositorio;
 	
 	@Test
 	public void verificarConsultaPorProjeto() {
@@ -115,5 +122,66 @@ public class SprintRepositorioTest extends AbstractRepositorioTest {
 		List<Sprint> sprints = sprintRepositorio.consultarPorProjeto(proj.getChave());
 		
 		Assert.assertTrue("SPRINTS ERRADAS", sprints.size() == 3);
+	}
+	
+	@Test
+	public void consultaPorChaveComposta() {
+		
+		// Empresa
+		Empresa empresa = new Empresa();
+		empresa.setNome("Empresa1");
+		empresa.setAtivo(true);
+		empresa.setDataCadastro(NOW);
+
+		save(empresa);
+		
+		// Projeto 1
+		Projeto projeto1 = new Projeto();
+		projeto1.setCodigo(5);
+		projeto1.setNome("Projeto_01");
+		projeto1.setDescricao("teste01");
+		projeto1.setEmpresa(empresa);
+		projeto1.setDataCadastro(NOW);
+		projeto1.setDataInicio(NOW);
+		projeto1.setDataFim(FIM);
+		projeto1.setSituacaoProjeto(SituacaoProjetoEnum.ATIVO);
+		
+		save(projeto1);
+		
+		// Sprint 1
+		Sprint sprint1 = new Sprint();
+		sprint1.setDataRevisao(NOW);
+		sprint1.setDataCadastro(NOW);
+		sprint1.setDataInicio(NOW);
+		sprint1.setDataFim(FIM);
+		sprint1.setDescricao("teste01");
+		sprint1.setNome("Sprint1");
+		sprint1.setProjeto(projeto1);
+		sprint1.setSituacaoSprint(SituacaoSprintEnum.ABERTA);
+		
+		save(sprint1);
+		
+		ItemBacklog itemBacklog = new ItemBacklog();
+		itemBacklog.setCriterioAceitacao("bla");
+		itemBacklog.setDescricao("blu");
+		itemBacklog.setNome("item1");
+		itemBacklog.setProjeto(projeto1);
+		itemBacklog.setRoi(2.0);
+		itemBacklog.setSituacaoBacklog(SituacaoItemBacklogEnum.ATIVO);
+		itemBacklog.setStoryPoints(13);
+		itemBacklog.setValorNegocio(2.5);
+		
+		save(itemBacklog);
+		
+		SprintBacklog sb = new SprintBacklog();
+		sb.setAtivo(true);
+		sb.setItemBacklog(itemBacklog);
+		sb.setSprint(sprint1);
+		
+		save(sb);
+		
+		SprintBacklog itens = sprintBacklogRepositorio.consultaPorChaveComposta(sprint1, itemBacklog);
+		
+		Assert.assertTrue("NÃO ENCONTRADO", itens != null);
 	}
 }
