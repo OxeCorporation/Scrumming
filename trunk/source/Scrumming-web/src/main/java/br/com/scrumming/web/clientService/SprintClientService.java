@@ -14,7 +14,7 @@ public class SprintClientService {
 
 		RestTemplate restTemplate = new RestTemplate();
 
-		String url = "http://localhost:8080/Scrumming/service/sprint/{sprint}/itemSprint/{itensBacklogSprint}/itemBacklog/{itensBacklogProduto}";
+		String url = "http://localhost:8080/Scrumming/service/sprint/{sprint}/itemSprint/{sprintBacklog}/itemBacklog/{productBacklog}";
 
 		restTemplate.postForEntity(url, HttpEntity.EMPTY, void.class, sprint, sprintBacklog, productBacklog);
 	}
@@ -41,12 +41,12 @@ public class SprintClientService {
 		return sprint.getBody();
 	}
 	
-	public void fecharSprint(Sprint sprint, List<ItemBacklog> sprintBacklog, List<ItemBacklog> productBacklog) {
+	public void fecharSprint(Sprint sprint) {
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
-		String url = "http://localhost:8080/Scrumming/service/sprint/{sprint}/itemSprint/{itensBacklogSprint}/itemBacklog/{itensBacklogProduto}";
+		String url = "http://localhost:8080/Scrumming/service/sprint/{sprint}";
 		
-		restTemplate.put(url, HttpEntity.EMPTY, sprint, sprintBacklog, productBacklog);
+		restTemplate.put(url, HttpEntity.EMPTY, sprint);
 	}
 }

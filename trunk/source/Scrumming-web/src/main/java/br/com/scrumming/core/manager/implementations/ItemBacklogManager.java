@@ -1,19 +1,12 @@
 package br.com.scrumming.core.manager.implementations;
 
-import java.util.List;
-
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
-import br.com.scrumming.core.manager.interfaces.IProjetoManager;
 import br.com.scrumming.core.repositorio.ItemBacklogRepositorio;
-import br.com.scrumming.core.repositorio.ProjetoRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
-import br.com.scrumming.domain.Projeto;
 
 @Service
 public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> implements IItemBacklogManager {
@@ -26,7 +19,9 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
     @Autowired
     private ItemBacklogRepositorio itemRepositorio;
     
-
+    
+    
+    /*Getters and Setters*/
 	@Override
     public AbstractRepositorio<ItemBacklog, Integer> getRepositorio() {
         return this.itemRepositorio;
@@ -38,7 +33,5 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
 
 	public void setItemRepositorio(ItemBacklogRepositorio itemRepositorio) {
 		this.itemRepositorio = itemRepositorio;
-	}
-
-   
+	}   
 }
