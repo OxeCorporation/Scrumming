@@ -17,7 +17,6 @@ import org.joda.time.DateTime;
 import br.com.scrumming.core.infra.repositorio.HibernateTypes;
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
 import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -65,6 +64,10 @@ public class Sprint extends ObjetoPersistente<Integer> {
     @Column(name = "data_cadastro")
     @NotNull
     private DateTime dataCadastro;
+    
+    @Type(type = HibernateTypes.JODA_DATE_TIME)
+    @Column(name = "data_fechamento")
+    private DateTime dataFechamento;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "situacao_sprint", columnDefinition = "Integer", length = 1)
@@ -133,7 +136,7 @@ public class Sprint extends ObjetoPersistente<Integer> {
         this.dataRevisao = dataRevisao;
     }
 
-	public DateTime getDataCadastro() {
+    public DateTime getDataCadastro() {
 		return dataCadastro;
 	}
 
