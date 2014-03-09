@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.ISprintBacklogManager;
@@ -12,10 +11,11 @@ import br.com.scrumming.core.repositorio.SprintBacklogRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
+import br.com.scrumming.domain.SprintBacklogChave;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 
 @Service
-public class SprintBacklogManager extends AbstractManager<SprintBacklog, Integer> implements ISprintBacklogManager {
+public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintBacklogChave> implements ISprintBacklogManager {
 
 	/**
 	 * Serial Version
@@ -75,13 +75,14 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, Integer
 			
 			if (sprintBacklogBusca != null && sprintBacklogBusca.isAtivo() == true && item.getSituacaoBacklog() != SituacaoItemBacklogEnum.ATIVO) {
 				sprintBacklogBusca.setAtivo(false);
+				insertOrUpdate(sprintBacklogBusca);
 			}
 		}		
 	}
 
 	/* getters and setters */
 	@Override
-	public AbstractRepositorio<SprintBacklog, Integer> getRepositorio() {
+	public AbstractRepositorio<SprintBacklog, SprintBacklogChave> getRepositorio() {
 		return this.sprintBacklogRepositorio;
 	}
 
