@@ -43,4 +43,9 @@ public class UsuarioManager extends AbstractManager<Usuario, Integer> implements
         this.usuarioRepositorio = usuarioRepositorio;
     }
 
+    @Override
+    public Usuario consultarPorLoginSenha(String login, String senha) {
+        return this.consultarPorLoginSenha(login, senha);
+    }
+
 }

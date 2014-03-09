@@ -20,6 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Ignore
 public class AbstractRepositorioTest extends AbstractTest {
 
+    protected static final String OBJETOS_DEVERIAM_SER_IGUAIS = "OS OBJETOS DEVERIAM SER IGUAIS";
+    protected static final String OBJETOS_DEVERIAM_SER_DIFERENTES =
+            "OS OBJETOS DEVERIAM SER DIFERENTES";
+    protected static final String TAMANHO_DA_LISTA_INCORETO = "TAMANHO DA LISTA INCORETO";
     private final Logger log = Logger.getLogger(getClass()); // NOPMD
 
     @Autowired

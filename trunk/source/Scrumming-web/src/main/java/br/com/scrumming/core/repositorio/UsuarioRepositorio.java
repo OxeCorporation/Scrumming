@@ -22,4 +22,11 @@ public class UsuarioRepositorio extends AbstractRepositorio<Usuario, Integer> {
         criteria.addOrder(Order.asc("nome"));
         return Collections.checkedList(criteria.list(), Usuario.class);
     }
+
+    public Usuario consultarPorLoginSenha(String login, String senha) {
+        Criteria criteria = createCriteria();
+        criteria.add(Restrictions.eq("login", login));
+        criteria.add(Restrictions.eq("senha", senha));
+        return (Usuario) criteria.uniqueResult();
+    }
 }

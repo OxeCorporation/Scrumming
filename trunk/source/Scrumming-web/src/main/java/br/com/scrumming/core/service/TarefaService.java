@@ -27,7 +27,7 @@ public class TarefaService {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/{tarefaID}")
-    public Tarefa ConsultarPorChave(Integer tarefaID) {
+    public Tarefa consultarPorChave(Integer tarefaID) {
 		return tarefaManager.findByKey(tarefaID);
 	}
 	

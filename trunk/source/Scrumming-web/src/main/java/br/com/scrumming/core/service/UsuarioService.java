@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.scrumming.core.manager.interfaces.IUsuarioManager;
@@ -46,7 +47,11 @@ public class UsuarioService {
         this.usuarioManager.insertOrUpdate(usuario);
     }
 
-    /* getters and setters */
+    @RequestMapping(method = RequestMethod.POST, value = "/login")
+    public Usuario obterUsuario(@RequestParam String login, @RequestParam String senha) {
+        return this.usuarioManager.consultarPorLoginSenha(login, senha);
+    }
+
     public IUsuarioManager getUsuarioManager() {
         return usuarioManager;
     }
