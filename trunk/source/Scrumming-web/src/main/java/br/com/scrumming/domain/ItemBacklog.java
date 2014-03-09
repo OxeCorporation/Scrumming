@@ -61,8 +61,12 @@ public class ItemBacklog extends ObjetoPersistente<Integer> {
 
     @Column(name = "situacao_backlog", columnDefinition = "int")
     private SituacaoItemBacklogEnum situacaoBacklog;
+    
+    @Column(name = "is_ativo", columnDefinition = "bit")
+    private boolean isAtivo;
+    
 
-    /* getters and setters */
+	/* getters and setters */
     @Override
     @JsonIgnore
     public Integer getChave() {
@@ -140,4 +144,12 @@ public class ItemBacklog extends ObjetoPersistente<Integer> {
     public void setSituacaoBacklog(SituacaoItemBacklogEnum situacaoBacklog) {
         this.situacaoBacklog = situacaoBacklog;
     }
+    
+    public boolean isAtivo() {
+		return isAtivo;
+	}
+
+	public void setAtivo(boolean isAtivo) {
+		this.isAtivo = isAtivo;
+	}
 }
