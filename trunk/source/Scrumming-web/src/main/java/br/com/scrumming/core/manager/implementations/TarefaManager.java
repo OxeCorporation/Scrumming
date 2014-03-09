@@ -26,12 +26,12 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
 	}
 
 	@Override
-	public void salvarTarefa(Tarefa tarefa) {
+	public void salvar(Tarefa tarefa) {
 		insertOrUpdate(tarefa);
 	}
 
 	@Override
-	public void removerTarefa(Tarefa tarefa) {
+	public void remover(Tarefa tarefa) {
 		remove(tarefa);
 		// TODO falta criar validacoes para remover entidades que ainda nao existem
 		// as entidades são: ReporteTarefa e TarefaFaforita
