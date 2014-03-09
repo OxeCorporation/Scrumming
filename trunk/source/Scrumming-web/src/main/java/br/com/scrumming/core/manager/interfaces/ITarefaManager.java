@@ -6,8 +6,8 @@ import br.com.scrumming.domain.Tarefa;
 
 public interface ITarefaManager extends IManager<Tarefa, Integer>{
 	
-	void salvarTarefa(Tarefa tarefa);
-	void removerTarefa(Tarefa tarefa);
+	void salvar(Tarefa tarefa);
+	void remover(Tarefa tarefa);
 	
 	List<Tarefa> consultarPorItemBacklog(Integer itemBacklogID);
 }
