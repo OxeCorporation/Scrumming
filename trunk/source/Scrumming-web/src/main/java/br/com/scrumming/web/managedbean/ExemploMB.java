@@ -65,7 +65,7 @@ public class ExemploMB {
 		ib.setProjeto(projeto1);
 		ib.setRoi(2.1);
 		ib.setStoryPoints(2);
-		ib.setSituacaoBacklog(SituacaoItemBacklogEnum.ATIVO);
+		ib.setSituacaoBacklog(SituacaoItemBacklogEnum.FEITO);
 		ib.setValorNegocio(20.0);
 		
 		// Sprint 1

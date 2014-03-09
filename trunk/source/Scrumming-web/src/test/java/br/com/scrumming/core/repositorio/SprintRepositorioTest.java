@@ -167,7 +167,7 @@ public class SprintRepositorioTest extends AbstractRepositorioTest {
 		itemBacklog.setNome("item1");
 		itemBacklog.setProjeto(projeto1);
 		itemBacklog.setRoi(2.0);
-		itemBacklog.setSituacaoBacklog(SituacaoItemBacklogEnum.ATIVO);
+		itemBacklog.setSituacaoBacklog(SituacaoItemBacklogEnum.FEITO);
 		itemBacklog.setStoryPoints(13);
 		itemBacklog.setValorNegocio(2.5);
 		
