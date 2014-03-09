@@ -15,10 +15,10 @@ import br.com.scrumming.domain.Tarefa;
 public class TarefaManager extends AbstractManager<Tarefa, Integer> implements ITarefaManager {
 
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = 1L;
-
+    
     @Autowired
     private TarefaRepositorio tarefaRepositorio;
 

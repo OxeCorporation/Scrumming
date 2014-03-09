@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.scrumming.core.manager.interfaces.ITarefaManager;
 import br.com.scrumming.domain.Tarefa;
 
@@ -19,7 +18,7 @@ import br.com.scrumming.domain.Tarefa;
 public class TarefaService {
 	
 	@Autowired
-    private ITarefaManager tarefaManager;
+	private ITarefaManager tarefaManager;
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/{tarefa}")
     public void salvar(@PathVariable @Valid Tarefa tarefa){
