@@ -15,6 +15,7 @@ import br.com.scrumming.domain.Tarefa;
 @RequestMapping("/tarefa")
 public class TarefaService {
 	
+	
 	private ITarefaManager tarefaManager = new TarefaManager();
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/{tarefa}")
