@@ -8,7 +8,7 @@ import br.com.scrumming.domain.Sprint;
 
 public interface ISprintManager extends IManager<Sprint, Integer> {
 
-	void salvarSprint(Sprint sprint, List<ItemBacklog> itensBacklog);
+	void salvarSprint(Sprint sprint, List<ItemBacklog> itensBacklogSprint, List<ItemBacklog> itensBacklogProduto);
     List<Sprint> consultarPorProjeto(Integer projetoID);
     void fecharSprint(Sprint sprint);
 }

@@ -23,11 +23,9 @@ public class SprintClientService {
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 
-		String url = "http://localhost:8080/Scrumming/service/sprint/{sprint}/item/{itensBacklog}";
+		String url = "http://localhost:8080/Scrumming/service/sprint/{sprint}/itemSprint/{itensBacklogSprint}/itemBacklog/{itensBacklogProduto}";
 
-		restTemplate.postForEntity(url, requestEntity, null, sprint,
-				itensBacklog);
-
+		restTemplate.postForEntity(url, requestEntity, null, sprint, itensBacklog);
 	}
 
 	public List<Sprint> consultarPorProjeto(Integer projetoID) {
@@ -40,6 +38,5 @@ public class SprintClientService {
 				Sprint[].class, projetoID);
 
 		return Arrays.asList(sprints.getBody());
-	}
-	
+	}	
 }

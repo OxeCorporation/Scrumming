@@ -4,36 +4,24 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
-import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Tarefa;
-import br.com.scrumming.domain.Usuario;
 
 @Repository
 public class TarefaRepositorio extends AbstractRepositorio<Tarefa, Integer>{
-	
+			
 	@SuppressWarnings("unchecked")
-    public List<Tarefa> consultarPorQualquerParteDaDescricao(String descricao) {
+    public List<Tarefa> consultarPorItemBacklog(Integer itemBacklogID) {
         Criteria criteria = createCriteria();
-        criteria.add(Restrictions.like("descricao", descricao, MatchMode.ANYWHERE).ignoreCase());
-        criteria.addOrder(Order.asc("descricao"));
+        criteria.createAlias("ItemBacklog", "ItemBacklog");
+        criteria.add(Restrictions.eq("itemBacklog.codigo", itemBacklogID));
         return Collections.checkedList(criteria.list(), Tarefa.class);
     }
 	
-	@SuppressWarnings("unchecked")
-    public List<Tarefa> consultarPorItemBacklog(ItemBacklog itemBacklog) {
-        Criteria criteria = createCriteria();
-        criteria.add(Restrictions.eq("FK_itemBacklog", itemBacklog));
-        criteria.addOrder(Order.asc("FK_itemBacklog"));
-        return Collections.checkedList(criteria.list(), Tarefa.class);
-    }
-	
-	@SuppressWarnings("unchecked")
+	/*@SuppressWarnings("unchecked")
     public List<Tarefa> consultarPorUsuario(Usuario usuario) {
         Criteria criteria = createCriteria();
         criteria.add(Restrictions.eq("FK_usuario", usuario));
@@ -48,5 +36,13 @@ public class TarefaRepositorio extends AbstractRepositorio<Tarefa, Integer>{
         criteria.addOrder(Order.asc("situacao"));
         return Collections.checkedList(criteria.list(), Tarefa.class);
     }
+	
+	@SuppressWarnings("unchecked")
+    public List<Tarefa> consultarPorQualquerParteDaDescricao(String descricao) {
+        Criteria criteria = createCriteria();
+        criteria.add(Restrictions.like("descricao", descricao, MatchMode.ANYWHERE).ignoreCase());
+        criteria.addOrder(Order.asc("descricao"));
+        return Collections.checkedList(criteria.list(), Tarefa.class);
+    }*/
 
 }

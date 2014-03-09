@@ -10,8 +10,8 @@ import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "FuncionarioEmpresa")
-public class FuncionarioEmpresa extends ObjetoPersistente<Integer> {
+@Table(name = "UsuarioEmpresa")
+public class UsuarioEmpresa extends ObjetoPersistente<Integer> {
 
     /**
      * Serial Version
@@ -28,8 +28,8 @@ public class FuncionarioEmpresa extends ObjetoPersistente<Integer> {
     @JoinColumn(name = "FK_usuario", referencedColumnName = "PK_usuario")
     private Usuario usuario;
 
-    @Column(name = "is_funcionario", columnDefinition = "bit", length = 1)
-    private Integer isFuncionario;
+    @Column(name = "is_usuarioEmpresa", columnDefinition = "bit", length = 1)
+    private Integer isUsuarioEmpresa;
 
     /*Getters e and setters*/
     @Override
@@ -55,11 +55,11 @@ public class FuncionarioEmpresa extends ObjetoPersistente<Integer> {
 		this.usuario = usuario;
 	}
 
-	public Integer getIsFuncionario() {
-		return isFuncionario;
+	public Integer getIsUsuarioEmpresa() {
+		return isUsuarioEmpresa;
 	}
 
-	public void setIsFuncionario(Integer isFuncionario) {
-		this.isFuncionario = isFuncionario;
+	public void setIsUsuarioEmpresa(Integer isUsuarioEmpresa) {
+		this.isUsuarioEmpresa = isUsuarioEmpresa;
 	}
 }

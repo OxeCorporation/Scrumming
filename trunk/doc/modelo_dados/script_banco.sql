@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS sprintbacklog;
 DROP TABLE IF EXISTS checkindailyscrum;
 DROP TABLE IF EXISTS dailyscrum;
 DROP TABLE IF EXISTS timeprojeto;
-DROP TABLE IF EXISTS funcionarioempresa;
+DROP TABLE IF EXISTS usuarioempresa;
 DROP TABLE IF EXISTS sprint;
 DROP TABLE IF EXISTS tarefa;
 DROP TABLE IF EXISTS itembacklog;
@@ -231,12 +231,13 @@ ROW_FORMAT = DEFAULT;
 
 
 -- -----------------------------------------------------
--- Table `FuncionarioEmpresa`
+-- Table `UsuarioEmpresa`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `FuncionarioEmpresa` (
+CREATE TABLE IF NOT EXISTS `UsuarioEmpresa` (
   `FK_empresa` INT(11) UNSIGNED NOT NULL,
   `FK_usuario` INT(11) UNSIGNED NOT NULL,
-  `is_funcionario` BOOLEAN NOT NULL DEFAULT true,
+  `is_usuarioEmpresa` BOOLEAN NOT NULL DEFAULT true,
+  `is_ativo` BOOLEAN NOT NULL DEFAULT true,
   PRIMARY KEY (`FK_empresa`, `FK_usuario`),
   INDEX `Empresa_has_Usuario_FKIndex1` (`FK_empresa` ASC),
   INDEX `Empresa_has_Usuario_FKIndex2` (`FK_usuario` ASC),
@@ -263,8 +264,8 @@ CREATE TABLE IF NOT EXISTS `TimeProjeto` (
   `FK_empresa` INT(11) UNSIGNED NOT NULL,
   `perfil_usuario` INT(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`FK_projeto`, `FK_usuario`, `FK_empresa`),
-  INDEX `Projeto_has_FuncionarioEmpresa_FKIndex1` (`FK_projeto` ASC),
-  INDEX `Projeto_has_FuncionarioEmpresa_FKIndex2` (`FK_empresa` ASC, `FK_usuario` ASC),
+  INDEX `Projeto_has_UsuarioEmpresa_FKIndex1` (`FK_projeto` ASC),
+  INDEX `Projeto_has_UsuarioEmpresa_FKIndex2` (`FK_empresa` ASC, `FK_usuario` ASC),
   CONSTRAINT `fk_{E948F8A8-4024-4C10-B179-A3C8691326C5}`
     FOREIGN KEY (`FK_projeto`)
     REFERENCES `Projeto` (`PK_projeto`)
@@ -272,7 +273,7 @@ CREATE TABLE IF NOT EXISTS `TimeProjeto` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_{D59AB639-8CAF-4E18-8007-FA01102B0EA3}`
     FOREIGN KEY (`FK_empresa` , `FK_usuario`)
-    REFERENCES `FuncionarioEmpresa` (`FK_empresa` , `FK_usuario`)
+    REFERENCES `UsuarioEmpresa` (`FK_empresa` , `FK_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 PACK_KEYS = 0
@@ -353,14 +354,16 @@ VALUES
 NOW(),
 1);
 
-INSERT INTO `scrumming`.`funcionarioempresa`
+INSERT INTO `scrumming`.`usuarioEmpresa`
 (`FK_empresa`,
 `FK_usuario`,
-`is_funcionario`)
+`is_usuarioEmpresa`,
+`is_ativo`)
 VALUES
 (1,
 1,
-0);
+1,
+1);
 
 insert 
     into
@@ -390,8 +393,17 @@ insert
     values
         (now(), NULL, now(), now(), null, 'teste aksndlansd', 'Sprint02', 1, 1);
 
+insert 
+    into
+        ItemBacklog
+        (criterio_aceitacao, descricao, nome, FK_projeto, roi, situacao_backlog, story_points, valor_negocio) 
+    values
+        ('BLA', 'BLU', 'ITEM1', 1, 2.0, 0, 2, 2.0);
+
 select * from Projeto;
 select * from Sprint;
+select * from itembacklog;
+select * from usuarioempresa;
 
 -- *******************************************************************************
 --                               FIM DO SCRIPT
