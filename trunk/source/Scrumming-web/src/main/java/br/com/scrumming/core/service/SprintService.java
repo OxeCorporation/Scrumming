@@ -22,9 +22,9 @@ public class SprintService {
     @Autowired
     private ISprintManager sprintManager;
 
-    @RequestMapping(method = RequestMethod.POST, value = "/{sprint}/item/{itensBacklog}")
-    public void salvar(@PathVariable @Valid Sprint sprint, @PathVariable List<ItemBacklog> itensBacklog) {
-        this.sprintManager.salvarSprint(sprint, itensBacklog);
+    @RequestMapping(method = RequestMethod.POST, value = "/{sprint}/itemSprint/{itensBacklogSprint}/itemBacklog/{itensBacklogProduto}")
+    public void salvar(@PathVariable @Valid Sprint sprint, @PathVariable List<ItemBacklog> itensBacklogSprint, @PathVariable List<ItemBacklog> itensBacklogProduto) {
+        this.sprintManager.salvarSprint(sprint, itensBacklogSprint, itensBacklogProduto);
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/list/{projetoId}")
