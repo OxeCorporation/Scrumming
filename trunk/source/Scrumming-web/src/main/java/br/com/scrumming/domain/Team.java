@@ -2,12 +2,15 @@ package br.com.scrumming.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
+import br.com.scrumming.domain.enuns.PerfilUsuarioEnum;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -35,8 +38,9 @@ public class Team extends ObjetoPersistente<Integer> {
     @JoinColumn(name = "FK_usuario", referencedColumnName = "PK_usuario")
     private Usuario usuario;
     
-    @Column(name = "perfil_usuario", columnDefinition = "int")
-    private Integer perfilUsuario;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "perfil_usuario", columnDefinition = "Integer", length = 1)
+    private PerfilUsuarioEnum perfilUsuario;
 
     /**
      * Getters e and setters
@@ -71,11 +75,12 @@ public class Team extends ObjetoPersistente<Integer> {
 		this.usuario = usuario;
 	}
 
-	public Integer getPerfilUsuario() {
+	public PerfilUsuarioEnum getPerfilUsuario() {
 		return perfilUsuario;
 	}
 
-	public void setPerfilUsuario(Integer perfilUsuario) {
+	public void setPerfilUsuario(PerfilUsuarioEnum perfilUsuario) {
 		this.perfilUsuario = perfilUsuario;
 	}
+
 }
