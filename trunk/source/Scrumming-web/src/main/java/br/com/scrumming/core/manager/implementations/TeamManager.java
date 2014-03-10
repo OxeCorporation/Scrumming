@@ -43,5 +43,4 @@ public class TeamManager extends AbstractManager<Team, Integer> implements
 	public void setTeamRepositorio(TeamRepositorio teamRepositorio) {
 		this.teamRepositorio = teamRepositorio;
 	}
-
 }
