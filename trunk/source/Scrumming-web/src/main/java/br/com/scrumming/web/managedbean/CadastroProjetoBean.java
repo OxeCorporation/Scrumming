@@ -7,7 +7,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.domain.Projeto;
-import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.clientService.ProjetoClientService;
 
 @ManagedBean
