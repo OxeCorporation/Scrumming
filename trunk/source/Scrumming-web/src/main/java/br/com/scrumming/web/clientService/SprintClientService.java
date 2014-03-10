@@ -2,41 +2,51 @@ package br.com.scrumming.web.clientService;
 
 import java.util.Arrays;
 import java.util.List;
-
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 
 public class SprintClientService {
 
-	public void salvarSprint(Sprint sprint, List<ItemBacklog> itensBacklog) {
+	public void salvarSprint(Sprint sprint, List<ItemBacklog> sprintBacklog, List<ItemBacklog> productBacklog) {
 
 		RestTemplate restTemplate = new RestTemplate();
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+		String url = "http://localhost:8080/Scrumming/service/sprint/{sprint}/itemSprint/{sprintBacklog}/itemBacklog/{productBacklog}";
 
-		String url = "http://localhost:8080/Scrumming/service/sprint/{sprint}/itemSprint/{itensBacklogSprint}/itemBacklog/{itensBacklogProduto}";
-
-		restTemplate.postForEntity(url, requestEntity, null, sprint, itensBacklog);
+		restTemplate.postForEntity(url, HttpEntity.EMPTY, void.class, sprint, sprintBacklog, productBacklog);
 	}
 
-	public List<Sprint> consultarPorProjeto(Integer projetoID) {
+	public List<Sprint> consultarSprintsPorProjeto(Integer projetoID) {
 
 		RestTemplate restTemplate = new RestTemplate();
 
 		String url = "http://localhost:8080/Scrumming/service/sprint/list/{projetoID}";
 
-		ResponseEntity<Sprint[]> sprints = restTemplate.getForEntity(url,
-				Sprint[].class, projetoID);
+		ResponseEntity<Sprint[]> sprints = restTemplate.getForEntity(url, Sprint[].class, projetoID);
 
 		return Arrays.asList(sprints.getBody());
-	}	
+	}
+	
+	public Sprint consultarSprint(Integer sprintID) {
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		String url = "http://localhost:8080/Scrumming/service/sprint/{sprintID}";
+		
+		ResponseEntity<Sprint> sprint = restTemplate.getForEntity(url, Sprint.class, sprintID);
+
+		return sprint.getBody();
+	}
+	
+	public void fecharSprint(Sprint sprint) {
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		String url = "http://localhost:8080/Scrumming/service/sprint/{sprint}";
+		
+		restTemplate.put(url, HttpEntity.EMPTY, sprint);
+	}
 }

@@ -3,15 +3,17 @@ package br.com.scrumming.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
+
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "SprintBacklog")
-public class SprintBacklog extends ObjetoPersistente<Integer> {
+@IdClass(SprintBacklogChave.class)
+public class SprintBacklog extends ObjetoPersistente<SprintBacklogChave> {
 
     /**
      * Serial Version
@@ -19,13 +21,9 @@ public class SprintBacklog extends ObjetoPersistente<Integer> {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @ManyToOne
-    @JoinColumn(name="FK_backlog", referencedColumnName="PK_backlog")
     private ItemBacklog itemBacklog;
     
     @Id
-    @ManyToOne
-    @JoinColumn(name="FK_sprint", referencedColumnName="PK_sprint")
     private Sprint sprint;
 
     @Column(name = "is_ativo", columnDefinition = "bit")
@@ -34,8 +32,11 @@ public class SprintBacklog extends ObjetoPersistente<Integer> {
     /* getters and setters */
     @Override
     @JsonIgnore
-    public Integer getChave() {
-        return null;
+    public SprintBacklogChave getChave() {
+    	SprintBacklogChave chave = new SprintBacklogChave();
+    	chave.setItemBacklog(itemBacklog);
+    	chave.setSprint(sprint);
+        return chave;
     }
 
 	public ItemBacklog getItemBacklog() {

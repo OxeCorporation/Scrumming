@@ -6,8 +6,9 @@ import br.com.scrumming.core.infra.manager.IManager;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
+import br.com.scrumming.domain.SprintBacklogChave;
 
-public interface ISprintBacklogManager extends IManager<SprintBacklog, Integer> {
+public interface ISprintBacklogManager extends IManager<SprintBacklog, SprintBacklogChave> {
 
 	SprintBacklog consultaPorChaveComposta(Sprint sprint, ItemBacklog itemBacklog);
 	void associarItemASprint(Sprint sprintPersistido, List<ItemBacklog> itensBacklogSprint);

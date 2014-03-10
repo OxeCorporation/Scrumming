@@ -7,10 +7,17 @@ import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
+import br.com.scrumming.domain.SprintBacklogChave;
 
 @Repository
-public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog, Integer> {
+public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog, SprintBacklogChave> {
 
+	/**
+	 * Efetua uma consulta de um item da SprintBacklog pela combinação de sua chave composta.
+	 * @param sprint
+	 * @param itemBacklog
+	 * @return
+	 */
 	public SprintBacklog consultaPorChaveComposta(Sprint sprint, ItemBacklog itemBacklog) {
 		
 		Criteria criteria = createCriteria();

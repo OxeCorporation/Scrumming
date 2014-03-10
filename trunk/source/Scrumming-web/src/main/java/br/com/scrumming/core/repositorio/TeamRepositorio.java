@@ -12,17 +12,18 @@ import br.com.scrumming.domain.Team;
 import br.com.scrumming.domain.Usuario;
 
 @Repository
-public class TeamRepositorio extends AbstractRepositorio<Team, Integer>{
+public class TeamRepositorio extends AbstractRepositorio<Team, Integer> {
 	/**
 	 * Consulta de usuários por projeto
-	 * @param projeto Código do Projeto
+	 * 
+	 * @param projeto
 	 * @return coleção de usuários
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Usuario> consultarUsuarioPorProjeto(Integer usuarioID) {
-        Criteria criteria = createCriteria();
-        criteria.createAlias("usuario", "usuario");
-        criteria.add(Restrictions.eq("usuario.codigo", usuarioID));
-        return Collections.checkedList(criteria.list(), Usuario.class);
-    }
+		Criteria criteria = createCriteria();
+		criteria.createAlias("usuario", "usuario");
+		criteria.add(Restrictions.eq("usuario.codigo", usuarioID));
+		return Collections.checkedList(criteria.list(), Usuario.class);
+	}
 }
