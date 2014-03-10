@@ -1,11 +1,15 @@
 package br.com.scrumming.core.manager.implementations;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.IUsuarioEmpresaManager;
 import br.com.scrumming.core.repositorio.UsuarioEmpresaRepositorio;
+import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.UsuarioEmpresa;
 
 @Service
@@ -34,5 +38,10 @@ public class UsuarioEmpresaManager extends
 	public void setUsuarioEmpresaRepositorio(
 			UsuarioEmpresaRepositorio usuarioEmpresaRepositorio) {
 		this.usuarioEmpresaRepositorio = usuarioEmpresaRepositorio;
+	}
+
+	@Override
+	public List<Usuario> consultarUsuarioPorEmpresa(Integer empresaID) {
+		return usuarioEmpresaRepositorio.consultarUsuarioPorEmpresa(empresaID);
 	}
 }
