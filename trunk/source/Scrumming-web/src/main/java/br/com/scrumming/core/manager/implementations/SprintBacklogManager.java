@@ -73,7 +73,7 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 			SprintBacklog sprintBacklogBusca;
 			sprintBacklogBusca = consultaPorChaveComposta(sprintPersistido, item);
 			
-			if (sprintBacklogBusca != null && sprintBacklogBusca.isAtivo() == true && item.getSituacaoBacklog() != SituacaoItemBacklogEnum.ATIVO) {
+			if (sprintBacklogBusca != null && sprintBacklogBusca.isAtivo() == true && item.getSituacaoBacklog() != SituacaoItemBacklogEnum.FEITO) {
 				sprintBacklogBusca.setAtivo(false);
 				insertOrUpdate(sprintBacklogBusca);
 			}
