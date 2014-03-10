@@ -1,7 +1,6 @@
 package br.com.scrumming.domain;
 
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
 
 public class UsuarioUtil {
 
@@ -11,7 +10,6 @@ public class UsuarioUtil {
         usuario.setNome(nome);
         usuario.setLogin(nome.toLowerCase());
         usuario.setSenha(StringUtils.reverse(nome.toLowerCase()));
-        usuario.setDataCadastro(DateTime.now());
         return usuario;
     }
 

@@ -12,11 +12,11 @@ public class UsuarioClientService {
 
         RestTemplate template = new RestTemplate();
 
-        String url = "http://localhost:8080/Scrumming/service/usuario/login";
+        String url = "http://localhost:8080/Scrumming/service/usuario/login/{login}/{senha}";
 
         ResponseEntity<Usuario> usuario =
-                template.postForEntity(url + "?login={login}&senha={senha}", HttpEntity.EMPTY,
-                        Usuario.class, login, senha);
+                template.postForEntity(url, HttpEntity.EMPTY, Usuario.class, login, senha);
+
         return usuario.getBody();
     }
 }

@@ -22,9 +22,10 @@
 		http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 		
 	
-	<context:component-scan base-package="br.com.scrumming" />
 
 	<context:property-placeholder location="classpath:application.properties" />
+
+	<context:component-scan base-package="br.com.scrumming" />
 
 	<import resource="classpath:applicationContextHibernate.xml"/>
 	

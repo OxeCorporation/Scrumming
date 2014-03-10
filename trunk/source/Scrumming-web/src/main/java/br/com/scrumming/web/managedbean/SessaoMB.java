@@ -5,29 +5,41 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import br.com.scrumming.core.service.UsuarioService;
 import br.com.scrumming.domain.Usuario;
+import br.com.scrumming.web.clientService.UsuarioClientService;
+import br.com.scrumming.web.infra.PaginasUtil;
 
 @ManagedBean
 @SessionScoped
-public class SessaoMB {
+public class SessaoMB extends AbstractBean {
 
-    private UsuarioService usuarioService = new UsuarioService();
-
+    private UsuarioClientService usuarioClientService = new UsuarioClientService();
     private Usuario usuario;
 
     private String senha;
     private String login;
 
     public String efetuarLogin() {
-        usuario = usuarioService.obterUsuario(login, senha);
+        usuario = usuarioClientService.obterUsuario(login, senha);
         if (usuario != null) {
-            return "/paginas/bemvindo.xhtml?faces-redirect=true";
+            return redirecionar(PaginasUtil.Geral.BENVINDO_PAGE);
         } else {
             FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage("Second Message", "login ou senha invalido"));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO: ",
+                    "login ou senha invalido"));
             return "";
         }
+    }
+
+    public boolean isUsuarioLogado() {
+        return usuario != null;
+    }
+
+    public String logout() {
+        usuario = null;
+        senha = null;
+        login = null;
+        return redirecionar(PaginasUtil.Geral.LOGIN_PAGE);
     }
 
     /* getters and setters */

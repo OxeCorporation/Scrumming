@@ -5,5 +5,11 @@ import javax.annotation.PostConstruct;
 public abstract class AbstractBean {
 
     @PostConstruct
-    public abstract void inicializar();
+    protected void inicializar() {
+
+    }
+
+    protected String redirecionar(String pagina) {
+        return pagina + "?faces-redirect=true";
+    }
 }
