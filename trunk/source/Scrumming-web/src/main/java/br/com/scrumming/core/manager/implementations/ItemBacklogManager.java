@@ -27,8 +27,6 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
     	insertOrUpdate(item);
 	}
     
-    //avalaiar se a implementaçao do metodo está correta
-    //é melhor defini-lo VOID ou retornar o Objeto?
     @Override
 	public void cancelarItem(ItemBacklog item) {
 		item.setAtivo(false);		
