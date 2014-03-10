@@ -12,8 +12,8 @@ import br.com.scrumming.domain.ItemBacklog;
 public class ItemBacklogRepositorio extends AbstractRepositorio<ItemBacklog, Integer> {
 	
 	/**
-     * @author Naftali consultar item de bakclog por nome
-     * @param nome Nome do ItemBacklog
+     * @author Naftali consultar item de bakclog por Projeto
+     * @param projetoID List<ItemBacklog> do ItemBacklog
      * @return uma coleção de Itens de Backlog
      * */
     @SuppressWarnings("unchecked")
