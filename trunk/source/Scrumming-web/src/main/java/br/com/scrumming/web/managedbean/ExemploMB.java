@@ -14,6 +14,7 @@ import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
+import br.com.scrumming.domain.SprintDTO;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 import br.com.scrumming.domain.enuns.SituacaoProjetoEnum;
@@ -78,6 +79,7 @@ public class ExemploMB {
 		
 		// Sprint 1
 		Sprint sprint1 = new Sprint();
+		sprint1.setCodigo(1);
 		sprint1.setDataRevisao(NOW);
 		sprint1.setDataCadastro(NOW);
 		sprint1.setDataInicio(NOW);
@@ -90,8 +92,13 @@ public class ExemploMB {
     	List<ItemBacklog> lista = new ArrayList<ItemBacklog>();
     	lista.add(ib);
     	
+    	SprintDTO sprintDTO = new SprintDTO();
+    	sprintDTO.setSprint(sprint1);
+    	//sprintDTO.setSprintBacklog(lista);
+    	//sprintDTO.setProductBacklog(lista);
+    	
     	//sprintService.salvarSprint(sprint1, lista, lista);
-    	String retorno = sprintService.salvarSprintTeste1(sprint1);
+    	String retorno = sprintService.salvarSprintTeste1(sprintDTO);
     	System.out.println(retorno);
     	return "";
     }

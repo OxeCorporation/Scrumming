@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
+import br.com.scrumming.domain.SprintDTO;
 
 public class SprintClientService {
 
@@ -25,7 +26,7 @@ public class SprintClientService {
 	}
 	
 	// Teste1
-	public String salvarSprintTeste1(Sprint sprint) {
+	public String salvarSprintTeste1(SprintDTO sprint) {
 		
 		RestTemplate rt = new RestTemplate();
         rt.getMessageConverters().add(new MappingJackson2HttpMessageConverter());

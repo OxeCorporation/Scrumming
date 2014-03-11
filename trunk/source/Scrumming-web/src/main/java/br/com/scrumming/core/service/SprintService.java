@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.scrumming.core.manager.interfaces.ISprintManager;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
+import br.com.scrumming.domain.SprintDTO;
 
 @RestController
 @RequestMapping("/sprint")
@@ -27,9 +28,9 @@ public class SprintService {
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/save")
-    public String salvarTeste1(@RequestBody Sprint sprint) {
+    public String salvarTeste1(@RequestBody SprintDTO sprint) {
     	//this.sprintManager.salvarSprintTeste1(sprint);
-    	return sprint.getNome() + " foi salvo";
+    	return sprint.getSprint().getNome() + " foi salvo";
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/item/{sprint}")
