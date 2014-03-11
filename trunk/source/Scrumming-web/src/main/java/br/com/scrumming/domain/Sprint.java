@@ -18,9 +18,13 @@ import org.joda.time.DateTime;
 
 import br.com.scrumming.core.infra.repositorio.HibernateTypes;
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
+import br.com.scrumming.core.infra.util.JodaDateTimeJsonDeserializer;
+import br.com.scrumming.core.infra.util.JodaDateTimeJsonSerializer;
 import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity
 @Table(name = "Sprint")
@@ -51,25 +55,35 @@ public class Sprint extends ObjetoPersistente<Integer> {
     @Type(type = HibernateTypes.JODA_DATE_TIME)
     @Column(name = "data_inicio")
     @NotNull
+    @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
+    @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
     private DateTime dataInicio;
 
     @Type(type = HibernateTypes.JODA_DATE_TIME)
     @Column(name = "data_fim")
     @NotNull
+    @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
+    @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
     private DateTime dataFim;
 
     @Type(type = HibernateTypes.JODA_DATE_TIME)
     @Column(name = "data_revisao")
     @NotNull
+    @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
+    @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
     private DateTime dataRevisao;
     
     @Type(type = HibernateTypes.JODA_DATE_TIME)
     @Column(name = "data_cadastro")
     @NotNull
+    @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
+    @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
     private DateTime dataCadastro;
     
     @Type(type = HibernateTypes.JODA_DATE_TIME)
     @Column(name = "data_fechamento")
+    @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
+    @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
     private DateTime dataFechamento;
 
     @Enumerated(EnumType.ORDINAL)

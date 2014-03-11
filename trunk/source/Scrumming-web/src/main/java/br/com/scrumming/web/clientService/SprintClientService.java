@@ -11,7 +11,6 @@ import org.springframework.web.client.RestTemplate;
 
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
-import br.com.scrumming.domain.Usuario;
 
 public class SprintClientService {
 
@@ -26,8 +25,7 @@ public class SprintClientService {
 	}
 	
 	// Teste1
-	public void salvarSprintTeste1(Sprint sprint) {
-
+	public String salvarSprintTeste1(Sprint sprint) {
 		
 		RestTemplate template = new RestTemplate();
 		template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -35,7 +33,7 @@ public class SprintClientService {
 
         String url = "http://localhost:8080/Scrumming/service/sprint/{sprint}";
 
-        template.postForEntity(url, sprint, void.class);
+        return template.postForObject(url, sprint, String.class);
 	}
 	
 	// Teste2

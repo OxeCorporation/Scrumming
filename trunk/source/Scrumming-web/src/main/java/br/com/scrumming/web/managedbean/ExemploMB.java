@@ -41,17 +41,22 @@ public class ExemploMB {
     }
 
     public String construirContatos() {
-        //contatos = clientService.findAll();
-    	
+        contatos = clientService.findAll();
+        return "";
+    }
+
+    public String salvarSprint() {
+
     	// Empresa
 		Empresa empresa = new Empresa();
+		empresa.setCodigo(1);
 		empresa.setNome("Empresa1");
 		empresa.setAtivo(true);
 		empresa.setDataCadastro(NOW);
 		
 		// Projeto 1
 		Projeto projeto1 = new Projeto();
-		projeto1.setCodigo(5);
+		projeto1.setCodigo(1);
 		projeto1.setNome("Projeto_01");
 		projeto1.setDescricao("teste01");
 		projeto1.setEmpresa(empresa);
@@ -61,6 +66,7 @@ public class ExemploMB {
 		projeto1.setSituacaoProjeto(SituacaoProjetoEnum.ATIVO);
     	
 		ItemBacklog ib = new ItemBacklog();
+		ib.setCodigo(1);
 		ib.setCriterioAceitacao("blablabla");
 		ib.setDescricao("blublublu");
 		ib.setNome("It01");
@@ -83,10 +89,13 @@ public class ExemploMB {
 		
     	List<ItemBacklog> lista = new ArrayList<ItemBacklog>();
     	lista.add(ib);
-    	sprintService.salvarSprint(sprint1, lista, lista);
-        return "";
+    	
+    	//sprintService.salvarSprint(sprint1, lista, lista);
+    	String retorno = sprintService.salvarSprintTeste1(sprint1);
+    	System.out.println(retorno);
+    	return "";
     }
-
+    
     public String salvarUsuario(){
     	Usuario usuario = new Usuario();
     	usuario.setNome("Esdras");

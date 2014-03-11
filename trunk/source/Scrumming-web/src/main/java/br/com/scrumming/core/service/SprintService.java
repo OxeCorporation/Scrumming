@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,9 +27,9 @@ public class SprintService {
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/{sprint}")
-    public void salvarTeste1(@PathVariable Sprint sprint) {
-    	System.err.println("opa");
-        this.sprintManager.salvarSprintTeste1(sprint);
+    public String salvarTeste1(@RequestBody Sprint sprint) {
+    	//this.sprintManager.salvarSprintTeste1(sprint);
+    	return sprint.getNome() + " foi salvo";
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/item/{sprint}")
