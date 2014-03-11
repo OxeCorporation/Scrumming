@@ -26,7 +26,7 @@ public class SprintService {
         this.sprintManager.salvarSprint(sprint, itensBacklogSprint, itensBacklogProduto);
     }
     
-    @RequestMapping(method = RequestMethod.POST, value = "/{sprint}")
+    @RequestMapping(method = RequestMethod.POST, value = "/save")
     public String salvarTeste1(@RequestBody Sprint sprint) {
     	//this.sprintManager.salvarSprintTeste1(sprint);
     	return sprint.getNome() + " foi salvo";

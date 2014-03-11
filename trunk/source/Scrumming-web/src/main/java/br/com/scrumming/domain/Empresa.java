@@ -14,8 +14,12 @@ import org.joda.time.DateTime;
 
 import br.com.scrumming.core.infra.repositorio.HibernateTypes;
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
+import br.com.scrumming.core.infra.util.JodaDateTimeJsonDeserializer;
+import br.com.scrumming.core.infra.util.JodaDateTimeJsonSerializer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity
 @Table(name = "Empresa")
@@ -38,6 +42,8 @@ public class Empresa extends ObjetoPersistente<Integer> {
     @Type(type = HibernateTypes.JODA_DATE_TIME)
     @Column(name = "data_cadastro")
     @NotNull
+    @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
+    @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
     private DateTime dataCadastro;
 
     @Column(name = "is_ativo", columnDefinition = "bit")

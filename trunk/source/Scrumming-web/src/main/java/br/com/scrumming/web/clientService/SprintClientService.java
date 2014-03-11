@@ -27,13 +27,13 @@ public class SprintClientService {
 	// Teste1
 	public String salvarSprintTeste1(Sprint sprint) {
 		
-		RestTemplate template = new RestTemplate();
-		template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-		template.getMessageConverters().add(new StringHttpMessageConverter());
-
-        String url = "http://localhost:8080/Scrumming/service/sprint/{sprint}";
-
-        return template.postForObject(url, sprint, String.class);
+		RestTemplate rt = new RestTemplate();
+        rt.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        rt.getMessageConverters().add(new StringHttpMessageConverter());
+        
+        String uri = "http://localhost:8080/Scrumming/service/sprint/save";
+        
+        return rt.postForObject(uri, sprint, String.class);
 	}
 	
 	// Teste2
