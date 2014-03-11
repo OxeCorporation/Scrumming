@@ -64,6 +64,17 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements I
 			}
 		}
 	}
+	
+	// Teste1
+	public void salvarSprintTeste1(Sprint sprint) {
+		insertOrUpdate(sprint);
+	}
+	
+	public void salvarSprintTeste2(List<ItemBacklog> itens) {
+		for(ItemBacklog item : itens) {
+			itemBacklogManager.insertOrUpdate(item);
+		}
+	}
 
 	public void fecharSprint(Sprint sprint) {
 		

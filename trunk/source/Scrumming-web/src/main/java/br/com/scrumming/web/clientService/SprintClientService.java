@@ -2,14 +2,20 @@ package br.com.scrumming.web.clientService;
 
 import java.util.Arrays;
 import java.util.List;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
+import br.com.scrumming.domain.Usuario;
 
 public class SprintClientService {
 
+	// O que eu quero
 	public void salvarSprint(Sprint sprint, List<ItemBacklog> sprintBacklog, List<ItemBacklog> productBacklog) {
 
 		RestTemplate restTemplate = new RestTemplate();
@@ -17,6 +23,29 @@ public class SprintClientService {
 		String url = "http://localhost:8080/Scrumming/service/sprint/{sprint}/itemSprint/{sprintBacklog}/itemBacklog/{productBacklog}";
 
 		restTemplate.postForEntity(url, HttpEntity.EMPTY, void.class, sprint, sprintBacklog, productBacklog);
+	}
+	
+	// Teste1
+	public void salvarSprintTeste1(Sprint sprint) {
+
+		
+		RestTemplate template = new RestTemplate();
+		template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+		template.getMessageConverters().add(new StringHttpMessageConverter());
+
+        String url = "http://localhost:8080/Scrumming/service/sprint/{sprint}";
+
+        template.postForEntity(url, sprint, void.class);
+	}
+	
+	// Teste2
+	public void salvarSprintTeste2(List<ItemBacklog> sprintBacklog) {
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		String url = "http://localhost:8080/Scrumming/service/sprint/item/{sprintBacklog}";
+
+		restTemplate.postForEntity(url, HttpEntity.EMPTY, ItemBacklog[].class, sprintBacklog);		
 	}
 
 	public List<Sprint> consultarSprintsPorProjeto(Integer projetoID) {
