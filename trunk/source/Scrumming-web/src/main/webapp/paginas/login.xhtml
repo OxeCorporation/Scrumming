@@ -11,7 +11,7 @@
 	<meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <title>Entrar no Sistema - Scrumming</title>
+    <title>#{mensagens.label_titulo_projeto_login}</title>
 
 	<h:outputStylesheet library="css" name="bootstrap.min.css"  />
 	<h:outputStylesheet library="css" name="font-awesome.css" />
@@ -31,16 +31,14 @@
 						<h:form id="formLogin">
 							<fieldset>
 								<div class="form-group">
-									<h:outputText value="Login"/>
 									<input class="form-control" placeholder="#{mensagens.label_login}" name="login"
-										type="text" autofocus="true" jsf:value="#{sessaoMB.login}"/>
+										type="text" autofocus="true" jsf:value="#{sessaoMB.login}" pa:placeholder="#{mensagens.label_digite_login}"/>
 								</div>
 								<div class="form-group">
-									<h:outputText value="Senha"/>
 									<input class="form-control" placeholder="#{mensagens.label_senha}"
-										name="password" type="password" jsf:value="#{sessaoMB.senha}"/>
+										name="password" type="password" jsf:value="#{sessaoMB.senha}" pa:placeholder="#{mensagens.label_digite_senha}"/>
 								</div>
-								<h:commandButton action="#{sessaoMB.efetuarLogin}" value="Entrar no Sistema"  styleClass="btn btn-lg btn-success btn-block"/>
+								<h:commandButton action="#{sessaoMB.efetuarLogin}" value="#{mensagens.botao_entrar_sistema}"  styleClass="btn btn-lg btn-success btn-block"/>
 							</fieldset>
 						</h:form>
 					</div>

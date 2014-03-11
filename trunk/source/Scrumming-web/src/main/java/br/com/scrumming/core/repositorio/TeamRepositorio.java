@@ -26,4 +26,17 @@ public class TeamRepositorio extends AbstractRepositorio<Team, Integer> {
 		criteria.add(Restrictions.eq("usuario.codigo", usuarioID));
 		return Collections.checkedList(criteria.list(), Usuario.class);
 	}
+	
+	public List<Usuario> consultar(Integer projetoID, Integer empresaID){
+		
+		Criteria criteria = createCriteria();
+		criteria.createAlias("projeto", "projetoAlias");
+		criteria.createAlias("empresa", "empresaAlias");
+		
+		criteria.add(Restrictions.eq("projetoAlias.codigo", projetoID));
+		criteria.add(Restrictions.eq("empresaAlias.codigo", empresaID));
+		
+		return Collections.checkedList(criteria.list(), Usuario.class);
+	}
+	
 }
