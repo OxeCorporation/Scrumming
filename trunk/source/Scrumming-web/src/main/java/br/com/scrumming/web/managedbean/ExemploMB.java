@@ -14,11 +14,13 @@ import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
+import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 import br.com.scrumming.domain.enuns.SituacaoProjetoEnum;
 import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
 import br.com.scrumming.web.clientService.ContatoClientService;
 import br.com.scrumming.web.clientService.SprintClientService;
+import br.com.scrumming.web.clientService.UsuarioClientService;
 
 @ManagedBean
 @ViewScoped
@@ -79,12 +81,22 @@ public class ExemploMB {
 		sprint1.setProjeto(projeto1);
 		sprint1.setSituacaoSprint(SituacaoSprintEnum.ABERTA);
 		
-    	List<ItemBacklog> lista = new ArrayList<>();
+    	List<ItemBacklog> lista = new ArrayList<ItemBacklog>();
     	lista.add(ib);
     	sprintService.salvarSprint(sprint1, lista, lista);
         return "";
     }
 
+    public String salvarUsuario(){
+    	Usuario usuario = new Usuario();
+    	usuario.setNome("Esdras");
+    	
+    	UsuarioClientService clientService = new UsuarioClientService();
+    	String resposta  =  clientService.salvarUsuario(usuario);
+    	System.err.println(resposta);
+    	return "";
+    }
+    
     public String consultarContato() {
         return null;
     }
