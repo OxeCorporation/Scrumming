@@ -94,8 +94,8 @@ public class ExemploMB {
     	
     	SprintDTO sprintDTO = new SprintDTO();
     	sprintDTO.setSprint(sprint1);
-    	//sprintDTO.setSprintBacklog(lista);
-    	//sprintDTO.setProductBacklog(lista);
+    	sprintDTO.setSprintBacklog(lista);
+    	sprintDTO.setProductBacklog(lista);
     	
     	//sprintService.salvarSprint(sprint1, lista, lista);
     	String retorno = sprintService.salvarSprintTeste1(sprintDTO);

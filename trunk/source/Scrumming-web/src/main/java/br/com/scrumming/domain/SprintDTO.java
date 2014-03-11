@@ -1,10 +1,9 @@
 package br.com.scrumming.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
-import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
-
-public class SprintDTO extends ObjetoPersistente<Integer> {
+public class SprintDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -16,12 +15,6 @@ public class SprintDTO extends ObjetoPersistente<Integer> {
 	
 	private List<ItemBacklog> productBacklog;
 	
-	/*Getters and Setters*/
-	@Override
-	public Integer getChave() {
-		return getCodigo();
-	}
-
 	public Integer getCodigo() {
 		return codigo;
 	}
