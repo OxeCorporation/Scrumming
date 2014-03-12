@@ -64,10 +64,10 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements I
 			Sprint sprintPersistido = findByKey(sprintID);
 			
 			if (CollectionUtils.isNotEmpty(itensBacklogSprint)) {
-				//sprintBacklogManager.associarItemASprint(sprintPersistido, itensBacklogSprint);
+				sprintBacklogManager.associarItemASprint(sprintPersistido, itensBacklogSprint);
 			}
 			if (CollectionUtils.isNotEmpty(itensBacklogProduto)) {
-				//sprintBacklogManager.desassociarItemASprint(sprintPersistido, itensBacklogProduto);
+				sprintBacklogManager.desassociarItemASprint(sprintPersistido, itensBacklogProduto);
 			}
 		}
 		return retorno;
