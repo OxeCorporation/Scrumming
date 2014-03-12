@@ -33,7 +33,7 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
 	}
 	
 	/**
-	 * Consulta de uma lista de SprintsBacklog por Sprints
+	 * Consulta de uma lista de SprintsBacklog por Sprint
 	 * @param Código da Sprint
 	 * @return Uma coleção de SprintsBacklog
 	 */
