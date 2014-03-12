@@ -13,61 +13,58 @@ import br.com.scrumming.web.infra.PaginasUtil;
 @SessionScoped
 public class SessaoMB extends AbstractBean {
 
-    private UsuarioClientService usuarioClientService = new UsuarioClientService();
-    private Usuario usuario;
+	private UsuarioClientService usuarioClientService = new UsuarioClientService();
+	private Usuario usuario;
 
-    private String senha;
-    private String login;
+	private String senha;
+	private String login;
 
-    public String efetuarLogin() {
-//        usuario = usuarioClientService.obterUsuario(login, senha);
-//        if (usuario != null) {
-//        } else {
-//            FacesContext context = FacesContext.getCurrentInstance();
-//            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO: ",
-//                    "login ou senha invalido"));
-//            return "";
-//        }
-        
-        usuario = new Usuario();
-        usuario.setNome("Esdras");
-        
-        return redirecionar(PaginasUtil.Geral.BENVINDO_PAGE);
-    }
+	public String efetuarLogin() {
+		usuario = usuarioClientService.obterUsuario(login, senha);
+		if (usuario != null) {
+		} else {
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage(
+					FacesMessage.SEVERITY_INFO, "INFO: ",
+					"login ou senha invalido"));
+			return "";
+		}
+		return redirecionar(PaginasUtil.Geral.BENVINDO_PAGE);
+	}
 
-    public boolean isUsuarioLogado() {
-        return usuario != null;
-    }
+	public boolean isUsuarioLogado() {
+		return usuario != null;
+	}
 
-    public String logout() {
-        usuario = null;
-        senha = null;
-        login = null;
-        return redirecionar(PaginasUtil.Geral.LOGIN_PAGE);
-    }
+	public String logout() {
+		usuario = null;
+		senha = null;
+		login = null;
+		return redirecionar(PaginasUtil.Geral.LOGIN_PAGE);
+	}
 
-    /* getters and setters */
-    public Usuario getUsuario() {
-        return usuario;
-    }
+	/* getters and setters */
+	public Usuario getUsuario() {
+		return usuario;
+	}
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
-    public String getSenha() {
-        return senha;
-    }
+	public String getSenha() {
+		return senha;
+	}
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
-    public String getLogin() {
-        return login;
-    }
+	public String getLogin() {
+		return login;
+	}
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
+	public void setLogin(String login) {
+		this.login = login;
+	}
 }

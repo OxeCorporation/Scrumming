@@ -15,6 +15,7 @@ import br.com.scrumming.core.repositorio.SprintRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
+import br.com.scrumming.domain.SprintDTO;
 import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
 
 @Service
@@ -45,14 +46,20 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements I
 	}
 
 	@Override
-	public void salvarSprint(Sprint sprint, List<ItemBacklog> itensBacklogSprint, List<ItemBacklog> itensBacklogProduto) {
+	public String salvarSprint(SprintDTO sprintDTO) {
 
+		String retorno = "Ops!";
+		Sprint sprint = sprintDTO.getSprint();
+		List<ItemBacklog> itensBacklogSprint = sprintDTO.getSprintBacklog();
+		List<ItemBacklog> itensBacklogProduto = sprintDTO.getProductBacklog();
+		
 		// Persiste o objeto Sprint e retorna a chave.
 		Integer sprintID = insertOrUpdate(sprint);
 		
 		// Caso sera inserido ou alterado a Sprint
 		if (sprintID != null) {
 			
+			retorno = "Tudo beleza";
 			// Busca o objeto persistido pela chave.
 			Sprint sprintPersistido = findByKey(sprintID);
 			
@@ -63,6 +70,7 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements I
 				sprintBacklogManager.desassociarItemASprint(sprintPersistido, itensBacklogProduto);
 			}
 		}
+		return retorno;
 	}
 	
 	// Teste1

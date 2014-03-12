@@ -67,7 +67,6 @@ public class ExemploMB {
 		projeto1.setSituacaoProjeto(SituacaoProjetoEnum.ATIVO);
     	
 		ItemBacklog ib = new ItemBacklog();
-		ib.setCodigo(1);
 		ib.setCriterioAceitacao("blablabla");
 		ib.setDescricao("blublublu");
 		ib.setNome("It01");
@@ -79,7 +78,6 @@ public class ExemploMB {
 		
 		// Sprint 1
 		Sprint sprint1 = new Sprint();
-		sprint1.setCodigo(1);
 		sprint1.setDataRevisao(NOW);
 		sprint1.setDataCadastro(NOW);
 		sprint1.setDataInicio(NOW);
@@ -97,8 +95,7 @@ public class ExemploMB {
     	sprintDTO.setSprintBacklog(lista);
     	sprintDTO.setProductBacklog(lista);
     	
-    	//sprintService.salvarSprint(sprint1, lista, lista);
-    	String retorno = sprintService.salvarSprintTeste1(sprintDTO);
+    	String retorno = sprintService.salvarSprint(sprintDTO);
     	System.out.println(retorno);
     	return "";
     }

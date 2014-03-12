@@ -15,18 +15,12 @@ import br.com.scrumming.domain.SprintDTO;
 
 public class SprintClientService {
 
-	// O que eu quero
-	public void salvarSprint(Sprint sprint, List<ItemBacklog> sprintBacklog, List<ItemBacklog> productBacklog) {
-
-		RestTemplate restTemplate = new RestTemplate();
-
-		String url = "http://localhost:8080/Scrumming/service/sprint/{sprint}/itemSprint/{sprintBacklog}/itemBacklog/{productBacklog}";
-
-		restTemplate.postForEntity(url, HttpEntity.EMPTY, void.class, sprint, sprintBacklog, productBacklog);
-	}
-	
-	// Teste1
-	public String salvarSprintTeste1(SprintDTO sprint) {
+	/**
+	 * Função para enviar os dados da tela Sprint para serem presistidas no banco de dados.
+	 * @param sprintDTO Objeto com os dados da transção de salvar na tela de Sprint.
+	 * @return tipo de retorno a ser definido.
+	 */
+	public String salvarSprint(SprintDTO sprintDTO) {
 		
 		RestTemplate rt = new RestTemplate();
         rt.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -34,7 +28,7 @@ public class SprintClientService {
         
         String uri = "http://localhost:8080/Scrumming/service/sprint/save";
         
-        return rt.postForObject(uri, sprint, String.class);
+        return rt.postForObject(uri, sprintDTO, String.class);
 	}
 	
 	// Teste2
