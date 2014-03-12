@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.scrumming.core.manager.interfaces.ISprintManager;
-import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
 
@@ -21,21 +20,10 @@ public class SprintService {
 
     @Autowired
     private ISprintManager sprintManager;
-
-    @RequestMapping(method = RequestMethod.POST, value = "/{sprint}/itemSprint/{itensBacklogSprint}/itemBacklog/{itensBacklogProduto}")
-    public void salvar(@PathVariable Sprint sprint, @PathVariable List<ItemBacklog> itensBacklogSprint, @PathVariable List<ItemBacklog> itensBacklogProduto) {
-        this.sprintManager.salvarSprint(sprint, itensBacklogSprint, itensBacklogProduto);
-    }
     
     @RequestMapping(method = RequestMethod.POST, value = "/save")
-    public String salvarTeste1(@RequestBody SprintDTO sprint) {
-    	//this.sprintManager.salvarSprintTeste1(sprint);
-    	return sprint.getSprint().getNome() + " foi salvo";
-    }
-    
-    @RequestMapping(method = RequestMethod.POST, value = "/item/{sprint}")
-    public void salvarTeste1(@PathVariable List<ItemBacklog> itensBacklogSprint) {
-        this.sprintManager.salvarSprintTeste2(itensBacklogSprint);
+    public String salvarSprint(@RequestBody SprintDTO sprintDTO) {
+    	return this.sprintManager.salvarSprint(sprintDTO);
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/list/{projetoId}")
