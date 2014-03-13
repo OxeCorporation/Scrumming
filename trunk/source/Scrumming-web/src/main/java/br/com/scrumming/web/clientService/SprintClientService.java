@@ -9,7 +9,6 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
 
@@ -30,17 +29,12 @@ public class SprintClientService {
         
         return rt.postForObject(uri, sprintDTO, String.class);
 	}
-	
-	// Teste2
-	public void salvarSprintTeste2(List<ItemBacklog> sprintBacklog) {
 
-		RestTemplate restTemplate = new RestTemplate();
-
-		String url = "http://localhost:8080/Scrumming/service/sprint/item/{sprintBacklog}";
-
-		restTemplate.postForEntity(url, HttpEntity.EMPTY, ItemBacklog[].class, sprintBacklog);		
-	}
-
+	/**
+	 * Consulta para obter uma lista de todas as Sprints de um projeto.
+	 * @param projetoID Chave do projeto
+	 * @return lista de Sprints
+	 */
 	public List<Sprint> consultarSprintsPorProjeto(Integer projetoID) {
 
 		RestTemplate restTemplate = new RestTemplate();
@@ -52,17 +46,26 @@ public class SprintClientService {
 		return Arrays.asList(sprints.getBody());
 	}
 	
-	public Sprint consultarSprint(Integer sprintID) {
+	/**
+	 * Consulta para objer e exibir os dados da tela de cadastro da Sprint.
+	 * @param sprintID Chave da Sprint.
+	 * @return Objeto DTO que representa os dados da tela da Sprint.
+	 */
+	public SprintDTO consultarSprintDTO(Integer sprintID) {
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
 		String url = "http://localhost:8080/Scrumming/service/sprint/{sprintID}";
 		
-		ResponseEntity<Sprint> sprint = restTemplate.getForEntity(url, Sprint.class, sprintID);
+		ResponseEntity<SprintDTO> sprintDTO = restTemplate.getForEntity(url, SprintDTO.class, sprintID);
 
-		return sprint.getBody();
+		return sprintDTO.getBody();
 	}
 	
+	/**
+	 * Efetua o fechamento de uma Sprint.
+	 * @param sprint
+	 */
 	public void fecharSprint(Sprint sprint) {
 		
 		RestTemplate restTemplate = new RestTemplate();

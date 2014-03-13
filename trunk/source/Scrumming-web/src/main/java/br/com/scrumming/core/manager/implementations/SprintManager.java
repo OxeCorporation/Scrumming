@@ -48,7 +48,7 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements I
 	@Override
 	public String salvarSprint(SprintDTO sprintDTO) {
 
-		String retorno = "Ops!";
+		String retorno = "";
 		Sprint sprint = sprintDTO.getSprint();
 		List<ItemBacklog> itensBacklogSprint = sprintDTO.getSprintBacklog();
 		List<ItemBacklog> itensBacklogProduto = sprintDTO.getProductBacklog();
@@ -59,7 +59,7 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements I
 		// Caso sera inserido ou alterado a Sprint
 		if (sprintID != null) {
 			
-			retorno = "Tudo beleza";
+			retorno = "Registro foi salvo";
 			// Busca o objeto persistido pela chave.
 			Sprint sprintPersistido = findByKey(sprintID);
 			
@@ -73,24 +73,44 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements I
 		return retorno;
 	}
 	
-	// Teste1
-	public void salvarSprintTeste1(Sprint sprint) {
-		insertOrUpdate(sprint);
-	}
-	
-	public void salvarSprintTeste2(List<ItemBacklog> itens) {
-		for(ItemBacklog item : itens) {
-			itemBacklogManager.insertOrUpdate(item);
+	public SprintDTO consultarSprintDTO(Integer sprintID) {
+		
+		// Cria o DTO que será enviado à tela para exibição
+		SprintDTO sprintDTO = new SprintDTO();
+		// Seta a Sprint
+		sprintDTO.setSprint(findByKey(sprintID));
+		// Seta a lista de itens que representa o SprintBacklog
+		sprintDTO.setSprintBacklog(itemBacklogManager.consultarPorSprintBacklog(sprintDTO.getSprint()));
+		// Pesquisa todos os itens do Product Backlog
+		List<ItemBacklog> productBacklog;
+		productBacklog = itemBacklogManager.consultarPorProjeto(sprintDTO.getSprint().getProjeto().getChave());
+		// Percorre todos os itens do backlog para verificar os que não foram atribuidos às Sprints
+		for	(ItemBacklog item : productBacklog) {
+			// Busca a lista das Sprints do projeto
+			List<Sprint> sprints = consultarPorProjeto(sprintDTO.getSprint().getProjeto().getChave());
+			// Consulta os Itens de cada SprintBacklog
+			for (Sprint sprint : sprints) {
+		    	List<ItemBacklog> itensDaSprint = itemBacklogManager.consultarPorSprintBacklog(sprint);
+		    	// Para cada lista de SprintBacklog
+		        for (ItemBacklog sprintBacklog : itensDaSprint) {
+		        	// Aciciona a lista, apenas os diponiveis
+		        	if (sprintBacklog == null) {
+						sprintDTO.getProductBacklog().add(item);
+					}
+		        }
+	    	}
 		}
+		return sprintDTO;
 	}
 
+	/**
+	 * Função para gerenciar o fechamento da Sprint
+	 */
 	public void fecharSprint(Sprint sprint) {
 		
 		List<SprintBacklog> itens = (List<SprintBacklog>) sprintBacklogManager.consultarPorCampo("codigo", sprint.getChave());
 		for (SprintBacklog item : itens) {
 			
-			//ItemBacklog backlog = itemBacklogManager.consultarPorCampo("codigo", item.getChave());
-			//if ()
 			item.setAtivo(false);
 		}
 		sprint.setSituacaoSprint(SituacaoSprintEnum.FECHADA);

@@ -10,6 +10,7 @@ import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
 import br.com.scrumming.core.repositorio.ItemBacklogRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
+import br.com.scrumming.domain.Sprint;
 
 @Service
 public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> implements IItemBacklogManager {
@@ -34,8 +35,12 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
     
     @Override
 	public List<ItemBacklog> consultarPorProjeto(Integer projetoID) {
-    	return itemRepositorio.consultarPorProjeto(projetoID);
-	} 
+    	return consultarPorProjeto(projetoID);
+	}
+    
+    public List<ItemBacklog> consultarPorSprintBacklog(Sprint sprint) {
+    	return consultarPorSprintBacklog(sprint);
+    }
     
     @Override
     public AbstractRepositorio<ItemBacklog, Integer> getRepositorio() {
@@ -50,9 +55,4 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
 	public void setItemRepositorio(ItemBacklogRepositorio itemRepositorio) {
 		this.itemRepositorio = itemRepositorio;
 	}
-
-	
-
-	
-
 }

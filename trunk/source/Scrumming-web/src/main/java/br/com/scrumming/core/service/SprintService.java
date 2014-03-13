@@ -32,8 +32,8 @@ public class SprintService {
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/{sprintID}")
-    public Sprint ConsultarPorChave(Integer sprintID) {
-    	return sprintManager.findByKey(sprintID);
+    public SprintDTO consultarSprintDTO(Integer sprintID) {
+    	return sprintManager.consultarSprintDTO(sprintID);
     }
     
     @RequestMapping(method = RequestMethod.PUT, value = "/{sprint}")
