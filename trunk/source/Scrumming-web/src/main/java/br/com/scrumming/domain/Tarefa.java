@@ -44,6 +44,10 @@ public class Tarefa extends ObjetoPersistente<Integer> {
     @JoinColumn(name = "FK_usuario", referencedColumnName = "PK_usuario")
 	private Usuario usuario;
 	
+	@Column(name = "nome", columnDefinition = "varchar(50)")
+    @NotBlank
+    private String nome;
+	
 	@Column(name = "descricao", columnDefinition = "varchar(500)")
     @NotBlank
     private String descricao;
@@ -136,6 +140,14 @@ public class Tarefa extends ObjetoPersistente<Integer> {
 
 	public void setDataAtribuicao(DateTime dataAtribuicao) {
 		this.dataAtribuicao = dataAtribuicao;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	
 	
