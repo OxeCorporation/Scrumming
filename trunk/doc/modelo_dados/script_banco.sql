@@ -134,6 +134,7 @@ CREATE TABLE IF NOT EXISTS `Tarefa` (
   `PK_tarefa` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `FK_itemBacklog` INT(11) UNSIGNED NOT NULL,
   `FK_usuario` INT(11) UNSIGNED NULL,
+  `nome` VARCHAR(50) NULL,
   `descricao` VARCHAR(500) NOT NULL,
   `situacao_tarefa` INT(1) UNSIGNED NOT NULL,
   `tempo_estimado` INT(11) UNSIGNED NOT NULL,
@@ -341,7 +342,7 @@ VALUES
 ('Oxe Corporation',
 'oxecorporation@gmail.com',
 'oxecorporation',
-'scrummin',
+'scrumming',
 NOW(),
 1,
 1);
