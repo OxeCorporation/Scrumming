@@ -63,7 +63,7 @@ public class ItemBacklog extends ObjetoPersistente<Integer> {
     private SituacaoItemBacklogEnum situacaoBacklog;
     
     @Column(name = "is_ativo", columnDefinition = "bit")
-    private boolean isAtivo= true;
+    private boolean isAtivo;
     
 
 	/* getters and setters */
