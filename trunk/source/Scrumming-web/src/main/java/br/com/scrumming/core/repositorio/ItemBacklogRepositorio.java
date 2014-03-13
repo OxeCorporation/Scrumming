@@ -23,7 +23,7 @@ public class ItemBacklogRepositorio extends AbstractRepositorio<ItemBacklog, Int
     public List<ItemBacklog> consultarPorProjeto(Integer projetoID) {
         Criteria criteria = createCriteria();
         criteria.createAlias("projeto", "projeto");
-        criteria.add(Restrictions.eq("projeto", projetoID));
+        criteria.add(Restrictions.eq("projeto.codigo", projetoID));
         return Collections.checkedList(criteria.list(), ItemBacklog.class);
     }
     
