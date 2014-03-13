@@ -9,8 +9,8 @@ import br.com.scrumming.domain.Sprint;
 
 public interface IItemBacklogManager extends IManager<ItemBacklog, Integer> {
 	
-	void salvarItemBlacklog(ItemBacklog item);
-	void cancelarItem(ItemBacklog itemBacklog);
+	void salvarItemBlacklog(ItemBacklog itemBacklog);
+	void cancelarItem(ItemBacklog item);
 	List<ItemBacklog> consultarPorProjeto(Integer projetoID);
 	List<ItemBacklog> consultarPorSprintBacklog(Sprint sprint);
 }
