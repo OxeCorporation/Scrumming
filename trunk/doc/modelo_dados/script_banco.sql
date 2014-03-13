@@ -74,6 +74,7 @@ CREATE TABLE IF NOT EXISTS `ItemBacklog` (
   `story_points` INT(11) UNSIGNED NULL,
   `roi` DOUBLE NULL,
   `situacao_backlog` INT(1) UNSIGNED NOT NULL,
+  `is_ativo` BOOL NOT NULL DEFAULT true,
   PRIMARY KEY (`PK_backlog`),
   INDEX `ItemBacklog_FKIndex1` (`FK_projeto` ASC),
   CONSTRAINT `fk_{60FDBEBA-E550-4A38-A6C5-E482203F03CD}`
@@ -341,8 +342,8 @@ INSERT INTO `scrumming`.`usuario`
 VALUES
 ('Oxe Corporation',
 'oxecorporation@gmail.com',
-'oxecorporation',
-'scrumming',
+'admin',
+'admin',
 NOW(),
 1,
 1);
