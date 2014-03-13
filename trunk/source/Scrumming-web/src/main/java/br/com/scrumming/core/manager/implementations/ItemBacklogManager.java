@@ -24,8 +24,10 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
     private ItemBacklogRepositorio itemRepositorio;
     
     @Override
-	public void salvarItemBlacklog(ItemBacklog item) {
-    	insertOrUpdate(item);
+	public void salvarItemBlacklog(ItemBacklog itemBacklog) {
+    	if (itemBacklog != null) {
+    		insertOrUpdate(itemBacklog);
+		}
 	}
     
     @Override
