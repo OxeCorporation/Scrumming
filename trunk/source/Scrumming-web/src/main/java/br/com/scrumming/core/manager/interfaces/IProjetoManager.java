@@ -6,12 +6,11 @@ import org.joda.time.DateTime;
 
 import br.com.scrumming.core.infra.manager.IManager;
 import br.com.scrumming.domain.Projeto;
-import br.com.scrumming.domain.Team;
-import br.com.scrumming.domain.Usuario;
+import br.com.scrumming.domain.ProjetoDTO;
 
 public interface IProjetoManager extends IManager<Projeto, Integer> {
 
-	void salvarProjeto(Projeto sprint, List<Team> Team, List<Usuario> usuario);
+	String salvarProjeto(ProjetoDTO projetoDTO);
     List<Projeto> consultarPorNome(String nome);
     List<Projeto> consultarPorPeriodo(DateTime dataInicio, DateTime dataFim);
 }

@@ -11,10 +11,11 @@ import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.IProjetoManager;
 import br.com.scrumming.core.manager.interfaces.ITeamManager;
+import br.com.scrumming.core.manager.interfaces.IUsuarioEmpresaManager;
 import br.com.scrumming.core.repositorio.ProjetoRepositorio;
 import br.com.scrumming.domain.Projeto;
+import br.com.scrumming.domain.ProjetoDTO;
 import br.com.scrumming.domain.Team;
-import br.com.scrumming.domain.Usuario;
 
 @Service
 public class ProjetoManager extends AbstractManager<Projeto, Integer> implements IProjetoManager {
@@ -26,9 +27,11 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 
     @Autowired
     private ProjetoRepositorio projetoRepositorio;
+   // private TeamRepositorio teamRepositorio;
     
 	@Autowired
 	private ITeamManager iTeamManage;
+	private IUsuarioEmpresaManager iUsuarioEmpresaManager;
 
 
     @Override
@@ -37,14 +40,17 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
     }
 
 	@Override
-	public void salvarProjeto(Projeto projeto, List<Team> team, List<Usuario> usuarioEmpresa) {
+	public String salvarProjeto(ProjetoDTO projetoDTO) {
 
+		String retorno = "";
+		Projeto projeto = projetoDTO.getProjeto();
+		List<Team> team = projetoDTO.getTimeProjeto();
+	//	List<Usuario> usuarioEmpresa = projetoDTO.getUsuarioEmpresa();
 		// Persiste o objeto Projeto e retorna a chave.
 		Integer projetoID = insertOrUpdate(projeto);
 		
-		// Caso sera inserido ou alterado a Sprint
 		if (projetoID != null) {
-			
+			retorno = "Registro foi salvo";
 			// Busca o objeto persistido pela chave.
 			Projeto projetoPersistido = findByKey(projetoID);
 			
@@ -52,6 +58,21 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 				iTeamManage.associarTeamProjeto(projetoPersistido, team);
 			}
 		}
+		
+		return retorno;
+	}
+
+	public ProjetoDTO consultarProjetoDTO(Integer projetoID) {
+		
+		// Cria o DTO que será enviado à tela para exibição
+		ProjetoDTO projetoDTO = new ProjetoDTO();
+		// Seta o Projeto
+		projetoDTO.setProjeto(findByKey(projetoID));
+		// Seta a lista de Times do projeto
+		projetoDTO.setTimeProjeto(iTeamManage.consultaTeamPorProjeto(projetoID));
+		// Pesquisa todos os usuarios da empresa
+		projetoDTO.setUsuarioEmpresa(iUsuarioEmpresaManager.consultarUsuarioPorEmpresa(projetoDTO.getProjeto().getEmpresa().getCodigo()));
+		return projetoDTO;
 	}
 
     @Override
