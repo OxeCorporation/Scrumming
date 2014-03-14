@@ -27,6 +27,7 @@ public class TeamRepositorio extends AbstractRepositorio<Team, Integer> {
 		return Collections.checkedList(criteria.list(), Usuario.class);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Usuario> consultar(Integer projetoID, Integer empresaID){
 		
 		Criteria criteria = createCriteria();
@@ -37,6 +38,17 @@ public class TeamRepositorio extends AbstractRepositorio<Team, Integer> {
 		criteria.add(Restrictions.eq("empresaAlias.codigo", empresaID));
 		
 		return Collections.checkedList(criteria.list(), Usuario.class);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Team> consultaTeamPorProjeto(Integer projetoID){
+		
+		Criteria criteria = createCriteria();
+		criteria.createAlias("projeto", "projetoAlias");
+		
+		criteria.add(Restrictions.eq("projetoAlias.codigo", projetoID));
+		
+		return Collections.checkedList(criteria.list(), Team.class);
 	}
 	
 }

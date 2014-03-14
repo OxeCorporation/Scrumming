@@ -36,6 +36,12 @@ public class TeamManager extends AbstractManager<Team, Integer> implements
 		return teamRepositorio.consultarUsuarioPorProjeto(usuarioID);
 	}
 	
+	@Override
+	public List<Team> consultaTeamPorProjeto(Integer projetoID){
+		
+		return teamRepositorio.consultaTeamPorProjeto(projetoID);
+	}
+	
 	public void associarTeamProjeto(Projeto projetoPersistido, List<Team> team) {
 		
 		for (Team item : team) {
