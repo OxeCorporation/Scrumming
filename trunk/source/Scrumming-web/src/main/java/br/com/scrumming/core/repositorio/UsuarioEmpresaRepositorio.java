@@ -18,7 +18,9 @@ public class UsuarioEmpresaRepositorio extends AbstractRepositorio<UsuarioEmpres
 	public List<Usuario> consultarUsuarioPorEmpresa(Integer empresaID) {
 		Criteria criteria = createCriteria();
 		criteria.createAlias("empresa", "empresa");
+		criteria.createAlias("isUsuarioEmpresa", "isUsuarioEmpresaAlias");
 		criteria.add(Restrictions.eq("empresa.codigo", empresaID));
+		criteria.add(Restrictions.eq("isUsuarioEmpresaAlias", true));
 		return Collections.checkedList(criteria.list(), Usuario.class);
 	}
 
