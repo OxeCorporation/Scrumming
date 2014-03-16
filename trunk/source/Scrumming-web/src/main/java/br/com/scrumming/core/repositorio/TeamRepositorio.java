@@ -4,7 +4,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.expression.spel.ast.Projection;
 import org.springframework.stereotype.Repository;
 
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
@@ -47,6 +49,8 @@ public class TeamRepositorio extends AbstractRepositorio<Team, Integer> {
 		criteria.createAlias("projeto", "projetoAlias");
 		
 		criteria.add(Restrictions.eq("projetoAlias.codigo", projetoID));
+		
+		criteria.setProjection(Projections.property("usuario"));
 		
 		return Collections.checkedList(criteria.list(), Team.class);
 	}
