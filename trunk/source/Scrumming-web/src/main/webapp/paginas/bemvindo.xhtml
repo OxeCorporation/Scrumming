@@ -6,12 +6,9 @@
 	template="/paginas/template/template.xhtml">
 	
 	<ui:define name="conteudo">
-	
-		<h1> BEM VINDO </h1>
-		
-		<h:commandButton action="#{exemploMB.salvarUsuario}"/>
-		<br/>
-		<p:commandButton value="Salvar Sprint" actionListener="#{exemploMB.salvarSprint}">Teste Daniel</p:commandButton>
+		<h1>
+			<p:outputLabel value="#{mensagens.label_bem_vindo}"/>  
+		</h1>
 	</ui:define>
 		
 </ui:composition>

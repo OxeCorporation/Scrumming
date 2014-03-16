@@ -19,7 +19,7 @@
 		<p:dataTable id="tabelaUsuarios" var="usuario" value="#{cadastroUsuarioBean.usuarios}" sortBy="#{usuario.nome}">
 		
 			<f:facet name="header">
-					#{mensagens.label_usuarios_cadastrados}
+					<h:outputText value="#{mensagens.label_usuarios_cadastrados}"/>
 			</f:facet>
 			
 			<p:column headerText="#{mensagens.label_nome}" sortBy="nome">
@@ -28,7 +28,7 @@
 			<p:column headerText="#{mensagens.label_email}" sortBy="email">
 				<h:outputText value="#{usuario.email}" />
 			</p:column>
-	     	<p:column headerText="#{mensagens.label_ativo}" sortBy="ativo">
+	     	<p:column headerText="#{mensagens.label_ativo}" sortBy="ativo" >
 				<h:outputText value="#{usuario.ativo}" />	
 			</p:column>
 			

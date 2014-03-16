@@ -22,24 +22,20 @@ public class CadastroUsuarioBean extends AbstractBean {
     }
 
     public String novo() {
-        // TODO esc implementar depois
         return "";
     }
 
     public String detalhar() {
-        // TODO esc implementar depois
         return "";
 
     }
 
     public String alterar() {
-        // TODO esc implementar depois
         return "";
 
     }
 
     public String excluir() {
-        // TODO esc implementar depois
         return "";
     }
 

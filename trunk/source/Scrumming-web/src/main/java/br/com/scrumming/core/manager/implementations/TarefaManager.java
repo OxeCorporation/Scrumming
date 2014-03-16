@@ -18,7 +18,7 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
      * 
      */
     private static final long serialVersionUID = 1L;
-    
+
     @Autowired
     private TarefaRepositorio tarefaRepositorio;
 
@@ -37,7 +37,6 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
         remove(tarefa);
         // TODO falta criar validacoes para remover entidades que ainda nao existem
         // as entidades são: ReporteTarefa e TarefaFaforita
-
     }
 
     @Override

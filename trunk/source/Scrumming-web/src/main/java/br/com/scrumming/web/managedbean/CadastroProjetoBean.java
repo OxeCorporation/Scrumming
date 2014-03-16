@@ -16,9 +16,8 @@ public class CadastroProjetoBean extends AbstractBean {
     private List<Projeto> projetos;
     private Projeto projeto;
     private Projeto projetoSelecionado;
-    
-    private ProjetoClientService clienteService;
 
+    private ProjetoClientService clienteService;
 
     @Override
     public void inicializar() {
@@ -28,50 +27,49 @@ public class CadastroProjetoBean extends AbstractBean {
     }
 
     public String novo() {
-    	clienteService.salvarProjeto(projeto);
+        clienteService.salvarProjeto(projeto);
         return "";
     }
 
     public String detalhar() {
-        // TODO esc implementar depois
         return "";
 
     }
 
     public String alterar() {
-       	clienteService.salvarProjeto(projeto);
+        clienteService.salvarProjeto(projeto);
         return "";
 
     }
 
     public String excluir() {
-       	clienteService.deletarProjeto(projeto);
+        clienteService.deletarProjeto(projeto);
         return "";
     }
 
     /* getters and setters */
-	public List<Projeto> getProjetos() {
-		return projetos;
-	}
+    public List<Projeto> getProjetos() {
+        return projetos;
+    }
 
-	public void setProjetos(List<Projeto> projetos) {
-		this.projetos = projetos;
-	}
+    public void setProjetos(List<Projeto> projetos) {
+        this.projetos = projetos;
+    }
 
-	public Projeto getProjeto() {
-		return projeto;
-	}
+    public Projeto getProjeto() {
+        return projeto;
+    }
 
-	public void setProjeto(Projeto projeto) {
-		this.projeto = projeto;
-	}
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
+    }
 
-	public Projeto getProjetoSelecionado() {
-		return projetoSelecionado;
-	}
+    public Projeto getProjetoSelecionado() {
+        return projetoSelecionado;
+    }
 
-	public void setProjetoSelecionado(Projeto projetoSelecionado) {
-		this.projetoSelecionado = projetoSelecionado;
-	}
+    public void setProjetoSelecionado(Projeto projetoSelecionado) {
+        this.projetoSelecionado = projetoSelecionado;
+    }
 
 }

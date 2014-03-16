@@ -6,11 +6,12 @@
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
-
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <title>#{mensagens.label_nomeProjeto}</title>
+    <title>
+    	<h:outputText value="#{mensagens.label_nomeProjeto}"/>
+    </title>
 
  	<h:outputStylesheet library="css" name="bootstrap.min.css"  />
  	<h:outputStylesheet library="css" name="font-awesome.css" />
@@ -23,7 +24,8 @@
 
 <h:body>
 
-    <div id="wrapper">	
+    <div id="wrapper">
+     <h:form id="main">	
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <p:button type="button" styleClass="navbar-toggle">
@@ -32,7 +34,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </p:button>
-                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+                <i class="navbar-brand" >
+                	<h:outputText value="#{mensagens.label_nomeProjeto}" />
+				</i>
             </div>
             <!-- /.navbar-header -->
 
@@ -117,25 +121,18 @@
                     	<div style="margin-left: 20px; margin-top: 20px;">
               			  <img class="img-circle img-responsive" src="http://placehold.it/200x200"/>
                				 <h3 align="center">
-               				 	#{sessaoMB.usuario.nome}
+               				 	<h:outputText value="#{sessaoMB.usuario.nome}"/> 
                				 </h3>
           			  </div>
                     </li>
                     <li>
                         <a href="index.xhtml">Dashboard</a>
                     </li>
-                    <li>
-                        <a href="#"> <i class="fa fa-bar-chart-o fa-fw"/> Charts<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="flot.html">Flot Charts</a>
-                            </li>
-                            <li>
-                                <a href="morris.html">Morris.js Charts</a>
-                            </li>
-                        </ul>
-                        <!-- /.nav-second-level -->
-                    </li>
+                   	<ui:fragment rendered="#{sessaoMB.usuario.empresa}">
+	                    <li>
+	                        	<a href="#" jsfc="p:commandLink"> <i class="fa fa-user fa-fw"/> <h:outputText value="#{mensagens.label_cadastro_usuarios}"/>  </a>
+	                    </li>
+                    </ui:fragment>
                     <li>
                         <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
                     </li>
@@ -214,17 +211,16 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                <h:form id="main">
                 	<ui:insert name="conteudo" redenred="#{sessaoMB.usuarioLogado}">
 	                    <h1 class="page-header">Blank</h1>
                 	</ui:insert>
-				</h:form>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
         </div>
         <!-- /#page-wrapper -->
+	 </h:form>
     </div>
     <!-- /#wrapper -->
 
