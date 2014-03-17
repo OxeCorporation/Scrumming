@@ -123,9 +123,9 @@ public class Usuario extends ObjetoPersistente<Integer> {
         if (obj == this) {
             isEquals = true;
         } else if (obj instanceof Usuario) {
-            Usuario contato = (Usuario) obj;
+            Usuario usuario = (Usuario) obj;
 
-            isEquals = new EqualsBuilder().append(this.codigo, contato.getCodigo()).isEquals();
+            isEquals = new EqualsBuilder().append(this.codigo, usuario.getCodigo()).isEquals();
         }
         return isEquals;
     }

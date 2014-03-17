@@ -9,6 +9,7 @@ import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.IUsuarioEmpresaManager;
 import br.com.scrumming.core.repositorio.UsuarioEmpresaRepositorio;
+import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.UsuarioEmpresa;
 
 @Service
@@ -40,7 +41,7 @@ public class UsuarioEmpresaManager extends
 	}
 
 	@Override
-	public List<UsuarioEmpresa> consultarUsuarioPorEmpresa(Integer empresaID) {
+	public List<Usuario> consultarUsuarioPorEmpresa(Integer empresaID) {
 		return usuarioEmpresaRepositorio.consultarUsuarioPorEmpresa(empresaID);
 	}
 }

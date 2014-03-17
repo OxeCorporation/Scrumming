@@ -20,4 +20,10 @@ public class UsuarioUtil {
         usuarioPadrao.setSenha(StringUtils.reverse(nome.toLowerCase()));
         return usuarioPadrao;
     }
+    
+    public static Usuario criarUsuarioEmpresa(String nome){
+    	Usuario usuario = criar(nome);
+    	usuario.setEmpresa(true);
+    	return usuario;
+    }
 }
