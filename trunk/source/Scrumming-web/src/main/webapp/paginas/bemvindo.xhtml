@@ -5,11 +5,137 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/paginas/template/template.xhtml">
 	
+	
+	<ui:define name="menu_superior">
+		<div class="navbar-header">
+                <p:button type="button" styleClass="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </p:button>
+                <i class="navbar-brand" >
+                	<h:outputText value="#{mensagens.label_nomeProjeto}" />
+				</i>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+               <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+	</ui:define>
+	<ui:define name="menu_lateral">
+		<div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                    	<div style="margin-left: 20px; margin-top: 20px;">
+              			  <img class="img-circle img-responsive" src="http://placehold.it/200x200"/>
+               				 <h3 align="center">
+               				 	<h:outputText value="#{sessaoMB.usuario.nome}"/> 
+               				 </h3>
+          			  </div>
+                    </li>
+                    <li>
+                        <a href="index.xhtml">Dashboard</a>
+                    </li>
+                   	<ui:fragment rendered="#{sessaoMB.usuario.empresa}">
+	                    <li>
+	                        <a href="#" jsfc="p:commandLink"> <i class="fa fa-user fa-fw"/> <h:outputText value="#{mensagens.label_cadastro_usuarios}"/>  </a>
+	                    </li>
+                    </ui:fragment>
+                    <li>
+                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
+                    </li>
+                    <li>
+                        <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="panels-wells.html">Panels and Wells</a>
+                            </li>
+                            <li>
+                                <a href="buttons.html">Buttons</a>
+                            </li>
+                            <li>
+                                <a href="notifications.html">Notifications</a>
+                            </li>
+                            <li>
+                                <a href="typography.html">Typography</a>
+                            </li>
+                            <li>
+                                <a href="grid.html">Grid</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">Second Level Item</a>
+                            </li>
+                            <li>
+                                <a href="#">Second Level Item</a>
+                            </li>
+                            <li>
+                                <a href="#">Third Level <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="#">Third Level Item</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level Item</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level Item</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level Item</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-third-level -->
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li class="active">
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="blank.html">Blank Page</a>
+                            </li>
+                            <li>
+                                <a href="login.html">Login Page</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                </ul>
+                <!-- /#side-menu -->
+            </div>
+            <!-- /.sidebar-collapse -->
+	</ui:define>
 	<ui:define name="conteudo">
 		<h1>
 			<p:outputLabel value="#{mensagens.label_bem_vindo}"/>  
 		</h1>
 	</ui:define>
-	
-	
 </ui:composition>
