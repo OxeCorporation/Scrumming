@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 
 public class MensagemUtil {
 
+	private MensagemUtil(){}
+	
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("mensagens",
             new UTF8Control());
 
