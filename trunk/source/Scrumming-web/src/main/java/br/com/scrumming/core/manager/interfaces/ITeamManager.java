@@ -11,5 +11,6 @@ public interface ITeamManager extends IManager<Team, Integer> {
 	
 	public void associarTeamProjeto(Projeto projetoPersistido, List<Team> team);
 	List<Usuario> consultarUsuarioPorProjeto(Integer usuarioID);
+	public List<Usuario> consultarUsuarioPorEmpresaForaDoProjeto(Projeto projeto);
 	public List<Team> consultaTeamPorProjeto(Integer projetoID);
 }
