@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.scrumming.core.infra.AbstractRepositorioTest;
+import br.com.scrumming.core.manager.interfaces.ITeamManager;
 import br.com.scrumming.core.manager.interfaces.IUsuarioEmpresaManager;
 import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Projeto;
@@ -30,6 +31,9 @@ public class ProjetoRepositorioTest extends AbstractRepositorioTest {
 
 	@Autowired
 	private IUsuarioEmpresaManager iUsuarioEmpresaManager;
+	
+	@Autowired
+	private ITeamManager iTeamManager;
 
 	@Test
 	public void verConsultaPorProjeto() {
@@ -113,7 +117,17 @@ public class ProjetoRepositorioTest extends AbstractRepositorioTest {
 		projeto2.setDataFim(FIM);
 		projeto2.setSituacaoProjeto(SituacaoProjetoEnum.ATIVO);
 
-		save(projeto1, projeto2);
+		Projeto projeto3 = new Projeto();
+		projeto3.setNome("Projeto_03");
+		projeto3.setDescricao("teste03");
+		projeto3.setEmpresa(empresa1);
+		projeto3.setDataCadastro(NOW);
+		projeto3.setDataInicio(NOW);
+		projeto3.setDataFim(FIM);
+		projeto3.setSituacaoProjeto(SituacaoProjetoEnum.ATIVO);
+
+		
+		save(projeto1, projeto2, projeto3);
 		
 		Team team1 = new Team();
 		team1.setProjeto(projeto1);
@@ -137,9 +151,9 @@ public class ProjetoRepositorioTest extends AbstractRepositorioTest {
 		team3.setPerfilUsuario(null);
 		
 		Team team4 = new Team();
-		team4.setProjeto(projeto1);
+		team4.setProjeto(projeto3);
 		team4.setUsuario(usuario9);
-		team4.setEmpresa(empresa2);
+		team4.setEmpresa(empresa1);
 		team4.setAtivo(true);
 		team4.setPerfilUsuario(null);
 		
@@ -157,11 +171,12 @@ public class ProjetoRepositorioTest extends AbstractRepositorioTest {
 		team6.setAtivo(true);
 		team6.setPerfilUsuario(null);
 
-		//save(team1, team2, team3, team4, team5, team6);
+		save(team1, team2, team3, team4, team5, team6);
 
 		
 		//Empresa empresa = findById(empresa1.getChave(), Empresa.class);
-		List<Usuario> itens = teamRepositorio.consultarUsuarioPorEmpresaForaDoProjeto(projeto1);
+		//List<Usuario> itens = iTeamManager.consultarUsuarioPorProjeto(projeto1.getCodigo());
+		List<Usuario> itens = iTeamManager.consultarUsuarioPorProjeto(projeto3.getCodigo());
 		Assert.assertTrue("NÃO ENCONTRADO", itens != null);
 		
 
