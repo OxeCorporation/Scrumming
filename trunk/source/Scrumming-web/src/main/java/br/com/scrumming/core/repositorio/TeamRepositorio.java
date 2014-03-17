@@ -27,11 +27,10 @@ public class TeamRepositorio extends AbstractRepositorio<Team, Integer> {
 	public List<Usuario> consultarUsuarioPorProjeto(Integer projetoID) {
 		Criteria criteria = createCriteria();
 		criteria.createAlias("projeto", "projetoAlias");
-		//criteria.add(Restrictions.eq("usuario.codigo", usuarioID));
-		//return Collections.checkedList(criteria.list(), Usuario.class);
+		criteria.createAlias("usuario", "usuarioAlias");
         criteria.addOrder(Order.asc("usuarioAlias.nome"));
         criteria.add(Restrictions.eq("projetoAlias.codigo", projetoID));
-        criteria.add(Restrictions.not(Restrictions.eq("isAtivo", true)));
+        criteria.add(Restrictions.eq("isAtivo", true));
         criteria.setProjection(Projections.property("usuario"));
         return Collections.checkedList(criteria.list(), Usuario.class);
 
