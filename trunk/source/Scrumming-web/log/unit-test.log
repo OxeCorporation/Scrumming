@@ -1,0 +1,346 @@
+16-03-14 23:34:23,559 [main] [DEBUG] - Adding type registration boolean -> org.hibernate.type.BooleanType@9e918ed
+16-03-14 23:34:23,561 [main] [DEBUG] - Adding type registration boolean -> org.hibernate.type.BooleanType@9e918ed
+16-03-14 23:34:23,561 [main] [DEBUG] - Adding type registration java.lang.Boolean -> org.hibernate.type.BooleanType@9e918ed
+16-03-14 23:34:23,562 [main] [DEBUG] - Adding type registration numeric_boolean -> org.hibernate.type.NumericBooleanType@3ce1b8c5
+16-03-14 23:34:23,564 [main] [DEBUG] - Adding type registration true_false -> org.hibernate.type.TrueFalseType@753f2425
+16-03-14 23:34:23,564 [main] [DEBUG] - Adding type registration yes_no -> org.hibernate.type.YesNoType@b901239
+16-03-14 23:34:23,566 [main] [DEBUG] - Adding type registration byte -> org.hibernate.type.ByteType@143f29ee
+16-03-14 23:34:23,567 [main] [DEBUG] - Adding type registration byte -> org.hibernate.type.ByteType@143f29ee
+16-03-14 23:34:23,567 [main] [DEBUG] - Adding type registration java.lang.Byte -> org.hibernate.type.ByteType@143f29ee
+16-03-14 23:34:23,568 [main] [DEBUG] - Adding type registration character -> org.hibernate.type.CharacterType@63d46a99
+16-03-14 23:34:23,568 [main] [DEBUG] - Adding type registration char -> org.hibernate.type.CharacterType@63d46a99
+16-03-14 23:34:23,568 [main] [DEBUG] - Adding type registration java.lang.Character -> org.hibernate.type.CharacterType@63d46a99
+16-03-14 23:34:23,570 [main] [DEBUG] - Adding type registration short -> org.hibernate.type.ShortType@24084dad
+16-03-14 23:34:23,571 [main] [DEBUG] - Adding type registration short -> org.hibernate.type.ShortType@24084dad
+16-03-14 23:34:23,571 [main] [DEBUG] - Adding type registration java.lang.Short -> org.hibernate.type.ShortType@24084dad
+16-03-14 23:34:23,573 [main] [DEBUG] - Adding type registration integer -> org.hibernate.type.IntegerType@77365d30
+16-03-14 23:34:23,573 [main] [DEBUG] - Adding type registration int -> org.hibernate.type.IntegerType@77365d30
+16-03-14 23:34:23,573 [main] [DEBUG] - Adding type registration java.lang.Integer -> org.hibernate.type.IntegerType@77365d30
+16-03-14 23:34:23,575 [main] [DEBUG] - Adding type registration long -> org.hibernate.type.LongType@1259f252
+16-03-14 23:34:23,575 [main] [DEBUG] - Adding type registration long -> org.hibernate.type.LongType@1259f252
+16-03-14 23:34:23,575 [main] [DEBUG] - Adding type registration java.lang.Long -> org.hibernate.type.LongType@1259f252
+16-03-14 23:34:23,577 [main] [DEBUG] - Adding type registration float -> org.hibernate.type.FloatType@68c34b0
+16-03-14 23:34:23,577 [main] [DEBUG] - Adding type registration float -> org.hibernate.type.FloatType@68c34b0
+16-03-14 23:34:23,577 [main] [DEBUG] - Adding type registration java.lang.Float -> org.hibernate.type.FloatType@68c34b0
+16-03-14 23:34:23,579 [main] [DEBUG] - Adding type registration double -> org.hibernate.type.DoubleType@60dc156e
+16-03-14 23:34:23,579 [main] [DEBUG] - Adding type registration double -> org.hibernate.type.DoubleType@60dc156e
+16-03-14 23:34:23,579 [main] [DEBUG] - Adding type registration java.lang.Double -> org.hibernate.type.DoubleType@60dc156e
+16-03-14 23:34:23,581 [main] [DEBUG] - Adding type registration big_decimal -> org.hibernate.type.BigDecimalType@4059f54e
+16-03-14 23:34:23,581 [main] [DEBUG] - Adding type registration java.math.BigDecimal -> org.hibernate.type.BigDecimalType@4059f54e
+16-03-14 23:34:23,582 [main] [DEBUG] - Adding type registration big_integer -> org.hibernate.type.BigIntegerType@d95b2d3
+16-03-14 23:34:23,582 [main] [DEBUG] - Adding type registration java.math.BigInteger -> org.hibernate.type.BigIntegerType@d95b2d3
+16-03-14 23:34:23,583 [main] [DEBUG] - Adding type registration string -> org.hibernate.type.StringType@43acd81
+16-03-14 23:34:23,584 [main] [DEBUG] - Adding type registration java.lang.String -> org.hibernate.type.StringType@43acd81
+16-03-14 23:34:23,585 [main] [DEBUG] - Adding type registration nstring -> org.hibernate.type.StringNVarcharType@44dd68a1
+16-03-14 23:34:23,585 [main] [DEBUG] - Adding type registration ncharacter -> org.hibernate.type.CharacterNCharType@15ca7a5b
+16-03-14 23:34:23,586 [main] [DEBUG] - Adding type registration url -> org.hibernate.type.UrlType@1b42f99d
+16-03-14 23:34:23,587 [main] [DEBUG] - Adding type registration java.net.URL -> org.hibernate.type.UrlType@1b42f99d
+16-03-14 23:34:23,589 [main] [DEBUG] - Adding type registration date -> org.hibernate.type.DateType@79aaab5d
+16-03-14 23:34:23,589 [main] [DEBUG] - Adding type registration java.sql.Date -> org.hibernate.type.DateType@79aaab5d
+16-03-14 23:34:23,591 [main] [DEBUG] - Adding type registration time -> org.hibernate.type.TimeType@2f084681
+16-03-14 23:34:23,591 [main] [DEBUG] - Adding type registration java.sql.Time -> org.hibernate.type.TimeType@2f084681
+16-03-14 23:34:23,593 [main] [DEBUG] - Adding type registration timestamp -> org.hibernate.type.TimestampType@61845cf3
+16-03-14 23:34:23,593 [main] [DEBUG] - Adding type registration java.sql.Timestamp -> org.hibernate.type.TimestampType@61845cf3
+16-03-14 23:34:23,593 [main] [DEBUG] - Adding type registration java.util.Date -> org.hibernate.type.TimestampType@61845cf3
+16-03-14 23:34:23,594 [main] [DEBUG] - Adding type registration dbtimestamp -> org.hibernate.type.DbTimestampType@360a4bca
+16-03-14 23:34:23,595 [main] [DEBUG] - Adding type registration calendar -> org.hibernate.type.CalendarType@4be8bc6d
+16-03-14 23:34:23,595 [main] [DEBUG] - Adding type registration java.util.Calendar -> org.hibernate.type.CalendarType@4be8bc6d
+16-03-14 23:34:23,596 [main] [DEBUG] - Adding type registration java.util.GregorianCalendar -> org.hibernate.type.CalendarType@4be8bc6d
+16-03-14 23:34:23,596 [main] [DEBUG] - Adding type registration calendar_date -> org.hibernate.type.CalendarDateType@65750107
+16-03-14 23:34:23,597 [main] [DEBUG] - Adding type registration locale -> org.hibernate.type.LocaleType@12a1c65d
+16-03-14 23:34:23,597 [main] [DEBUG] - Adding type registration java.util.Locale -> org.hibernate.type.LocaleType@12a1c65d
+16-03-14 23:34:23,598 [main] [DEBUG] - Adding type registration currency -> org.hibernate.type.CurrencyType@57326ca3
+16-03-14 23:34:23,598 [main] [DEBUG] - Adding type registration java.util.Currency -> org.hibernate.type.CurrencyType@57326ca3
+16-03-14 23:34:23,599 [main] [DEBUG] - Adding type registration timezone -> org.hibernate.type.TimeZoneType@56e8fd9c
+16-03-14 23:34:23,600 [main] [DEBUG] - Adding type registration java.util.TimeZone -> org.hibernate.type.TimeZoneType@56e8fd9c
+16-03-14 23:34:23,600 [main] [DEBUG] - Adding type registration class -> org.hibernate.type.ClassType@1418ba3d
+16-03-14 23:34:23,601 [main] [DEBUG] - Adding type registration java.lang.Class -> org.hibernate.type.ClassType@1418ba3d
+16-03-14 23:34:23,602 [main] [DEBUG] - Adding type registration uuid-binary -> org.hibernate.type.UUIDBinaryType@4f7e7512
+16-03-14 23:34:23,602 [main] [DEBUG] - Adding type registration java.util.UUID -> org.hibernate.type.UUIDBinaryType@4f7e7512
+16-03-14 23:34:23,603 [main] [DEBUG] - Adding type registration uuid-char -> org.hibernate.type.UUIDCharType@4ca6fef6
+16-03-14 23:34:23,604 [main] [DEBUG] - Adding type registration pg-uuid -> org.hibernate.type.PostgresUUIDType@4c9b11d5
+16-03-14 23:34:23,605 [main] [DEBUG] - Adding type registration binary -> org.hibernate.type.BinaryType@54a436ce
+16-03-14 23:34:23,605 [main] [DEBUG] - Adding type registration byte[] -> org.hibernate.type.BinaryType@54a436ce
+16-03-14 23:34:23,605 [main] [DEBUG] - Adding type registration [B -> org.hibernate.type.BinaryType@54a436ce
+16-03-14 23:34:23,606 [main] [DEBUG] - Adding type registration wrapper-binary -> org.hibernate.type.WrapperBinaryType@4457ffb2
+16-03-14 23:34:23,606 [main] [DEBUG] - Adding type registration Byte[] -> org.hibernate.type.WrapperBinaryType@4457ffb2
+16-03-14 23:34:23,606 [main] [DEBUG] - Adding type registration [Ljava.lang.Byte; -> org.hibernate.type.WrapperBinaryType@4457ffb2
+16-03-14 23:34:23,607 [main] [DEBUG] - Adding type registration image -> org.hibernate.type.ImageType@608eeaee
+16-03-14 23:34:23,609 [main] [DEBUG] - Adding type registration characters -> org.hibernate.type.CharArrayType@547e6602
+16-03-14 23:34:23,609 [main] [DEBUG] - Adding type registration char[] -> org.hibernate.type.CharArrayType@547e6602
+16-03-14 23:34:23,609 [main] [DEBUG] - Adding type registration [C -> org.hibernate.type.CharArrayType@547e6602
+16-03-14 23:34:23,610 [main] [DEBUG] - Adding type registration wrapper-characters -> org.hibernate.type.CharacterArrayType@1f8ae191
+16-03-14 23:34:23,611 [main] [DEBUG] - Adding type registration [Ljava.lang.Character; -> org.hibernate.type.CharacterArrayType@1f8ae191
+16-03-14 23:34:23,611 [main] [DEBUG] - Adding type registration Character[] -> org.hibernate.type.CharacterArrayType@1f8ae191
+16-03-14 23:34:23,611 [main] [DEBUG] - Adding type registration text -> org.hibernate.type.TextType@3a991adc
+16-03-14 23:34:23,612 [main] [DEBUG] - Adding type registration ntext -> org.hibernate.type.NTextType@30214cd6
+16-03-14 23:34:23,617 [main] [DEBUG] - Adding type registration blob -> org.hibernate.type.BlobType@71538614
+16-03-14 23:34:23,617 [main] [DEBUG] - Adding type registration java.sql.Blob -> org.hibernate.type.BlobType@71538614
+16-03-14 23:34:23,618 [main] [DEBUG] - Adding type registration materialized_blob -> org.hibernate.type.MaterializedBlobType@16b61e92
+16-03-14 23:34:23,622 [main] [DEBUG] - Adding type registration clob -> org.hibernate.type.ClobType@35847a59
+16-03-14 23:34:23,623 [main] [DEBUG] - Adding type registration java.sql.Clob -> org.hibernate.type.ClobType@35847a59
+16-03-14 23:34:23,627 [main] [DEBUG] - Adding type registration nclob -> org.hibernate.type.NClobType@3e9a1f5b
+16-03-14 23:34:23,627 [main] [DEBUG] - Adding type registration java.sql.NClob -> org.hibernate.type.NClobType@3e9a1f5b
+16-03-14 23:34:23,627 [main] [DEBUG] - Adding type registration materialized_clob -> org.hibernate.type.MaterializedClobType@64f30e2d
+16-03-14 23:34:23,628 [main] [DEBUG] - Adding type registration materialized_nclob -> org.hibernate.type.MaterializedNClobType@2f1df832
+16-03-14 23:34:23,629 [main] [DEBUG] - Adding type registration serializable -> org.hibernate.type.SerializableType@37a41809
+16-03-14 23:34:23,632 [main] [DEBUG] - Adding type registration object -> org.hibernate.type.ObjectType@36473c63
+16-03-14 23:34:23,632 [main] [DEBUG] - Adding type registration java.lang.Object -> org.hibernate.type.ObjectType@36473c63
+16-03-14 23:34:23,632 [main] [DEBUG] - Adding type registration imm_date -> org.hibernate.type.AdaptedImmutableType@3e797cd9
+16-03-14 23:34:23,632 [main] [DEBUG] - Adding type registration imm_time -> org.hibernate.type.AdaptedImmutableType@19f3aa9a
+16-03-14 23:34:23,632 [main] [DEBUG] - Adding type registration imm_timestamp -> org.hibernate.type.AdaptedImmutableType@4c4571c5
+16-03-14 23:34:23,633 [main] [DEBUG] - Adding type registration imm_dbtimestamp -> org.hibernate.type.AdaptedImmutableType@633063a1
+16-03-14 23:34:23,633 [main] [DEBUG] - Adding type registration imm_calendar -> org.hibernate.type.AdaptedImmutableType@7ddd11e6
+16-03-14 23:34:23,633 [main] [DEBUG] - Adding type registration imm_calendar_date -> org.hibernate.type.AdaptedImmutableType@3cc25398
+16-03-14 23:34:23,633 [main] [DEBUG] - Adding type registration imm_binary -> org.hibernate.type.AdaptedImmutableType@79fe3f51
+16-03-14 23:34:23,633 [main] [DEBUG] - Adding type registration imm_serializable -> org.hibernate.type.AdaptedImmutableType@22ef1d69
+16-03-14 23:34:23,653 [main] [INFO ] - HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+16-03-14 23:34:23,659 [main] [INFO ] - HHH000412: Hibernate Core {4.2.2.Final}
+16-03-14 23:34:23,661 [main] [INFO ] - HHH000206: hibernate.properties not found
+16-03-14 23:34:23,663 [main] [INFO ] - HHH000021: Bytecode provider name : javassist
+16-03-14 23:34:24,142 [main] [INFO ] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+16-03-14 23:34:24,384 [main] [WARN ] - HHH000038: Composite-id class does not override equals(): br.com.scrumming.domain.SprintBacklogChave
+16-03-14 23:34:24,384 [main] [WARN ] - HHH000039: Composite-id class does not override hashCode(): br.com.scrumming.domain.SprintBacklogChave
+16-03-14 23:34:24,385 [main] [WARN ] - HHH000038: Composite-id class does not override equals(): br.com.scrumming.domain.Team
+16-03-14 23:34:24,385 [main] [WARN ] - HHH000039: Composite-id class does not override hashCode(): br.com.scrumming.domain.Team
+16-03-14 23:34:24,386 [main] [WARN ] - HHH000038: Composite-id class does not override equals(): br.com.scrumming.domain.UsuarioEmpresa
+16-03-14 23:34:24,386 [main] [WARN ] - HHH000039: Composite-id class does not override hashCode(): br.com.scrumming.domain.UsuarioEmpresa
+16-03-14 23:34:24,391 [main] [INFO ] - HHH000399: Using default transaction strategy (direct JDBC transactions)
+16-03-14 23:34:24,397 [main] [INFO ] - HHH000397: Using ASTQueryTranslatorFactory
+16-03-14 23:34:24,416 [main] [TRACE] - Scoping types to session factory org.hibernate.internal.SessionFactoryImpl@60c85184
+16-03-14 23:34:24,443 [main] [INFO ] - HV000001: Hibernate Validator 5.1.0.CR1
+16-03-14 23:34:24,890 [main] [INFO ] - HHH000227: Running hbm2ddl schema export
+16-03-14 23:34:24,893 [main] [ERROR] - HHH000389: Unsuccessful: alter table ItemBacklog drop foreign key FK_ge3a9nlvkr2uq98d1y965oxci
+16-03-14 23:34:24,894 [main] [ERROR] - user lacks privilege or object not found: PUBLIC.ITEMBACKLOG
+16-03-14 23:34:24,894 [main] [ERROR] - HHH000389: Unsuccessful: alter table Projeto drop foreign key FK_86li2xh1e59o9efbca0p6m5xh
+16-03-14 23:34:24,894 [main] [ERROR] - user lacks privilege or object not found: PUBLIC.PROJETO
+16-03-14 23:34:24,894 [main] [ERROR] - HHH000389: Unsuccessful: alter table Sprint drop foreign key FK_4sr0038shifvkyglecmmhsnce
+16-03-14 23:34:24,894 [main] [ERROR] - user lacks privilege or object not found: PUBLIC.SPRINT
+16-03-14 23:34:24,894 [main] [ERROR] - HHH000389: Unsuccessful: alter table SprintBacklog drop foreign key FK_9v2kwofh9esa0plr7e34x59aq
+16-03-14 23:34:24,894 [main] [ERROR] - user lacks privilege or object not found: PUBLIC.SPRINTBACKLOG
+16-03-14 23:34:24,895 [main] [ERROR] - HHH000389: Unsuccessful: alter table SprintBacklog drop foreign key FK_f1w680emipc4d6t1p8a62hgcc
+16-03-14 23:34:24,895 [main] [ERROR] - user lacks privilege or object not found: PUBLIC.SPRINTBACKLOG
+16-03-14 23:34:24,895 [main] [ERROR] - HHH000389: Unsuccessful: alter table Tarefa drop foreign key FK_s6lyax97hw5gyyai6jhps9i0d
+16-03-14 23:34:24,895 [main] [ERROR] - user lacks privilege or object not found: PUBLIC.TAREFA
+16-03-14 23:34:24,895 [main] [ERROR] - HHH000389: Unsuccessful: alter table Tarefa drop foreign key FK_nojte6tm0utkouk9v3owexy5q
+16-03-14 23:34:24,895 [main] [ERROR] - user lacks privilege or object not found: PUBLIC.TAREFA
+16-03-14 23:34:24,896 [main] [ERROR] - HHH000389: Unsuccessful: alter table TimeProjeto drop foreign key FK_jr6pwpye4vam16pu19baw7v2q
+16-03-14 23:34:24,896 [main] [ERROR] - user lacks privilege or object not found: PUBLIC.TIMEPROJETO
+16-03-14 23:34:24,896 [main] [ERROR] - HHH000389: Unsuccessful: alter table TimeProjeto drop foreign key FK_tlgypbncupeig8rgel169e77s
+16-03-14 23:34:24,896 [main] [ERROR] - user lacks privilege or object not found: PUBLIC.TIMEPROJETO
+16-03-14 23:34:24,896 [main] [ERROR] - HHH000389: Unsuccessful: alter table TimeProjeto drop foreign key FK_4m9as0i9xc806siwf4d57lsdj
+16-03-14 23:34:24,896 [main] [ERROR] - user lacks privilege or object not found: PUBLIC.TIMEPROJETO
+16-03-14 23:34:24,896 [main] [ERROR] - HHH000389: Unsuccessful: alter table UsuarioEmpresa drop foreign key FK_c0iouqm9ory8ebbmjttyv47dw
+16-03-14 23:34:24,896 [main] [ERROR] - user lacks privilege or object not found: PUBLIC.USUARIOEMPRESA
+16-03-14 23:34:24,897 [main] [ERROR] - HHH000389: Unsuccessful: alter table UsuarioEmpresa drop foreign key FK_ctf24twvdy58vo2w4onp0mxd5
+16-03-14 23:34:24,897 [main] [ERROR] - user lacks privilege or object not found: PUBLIC.USUARIOEMPRESA
+16-03-14 23:34:24,902 [main] [ERROR] - HHH000389: Unsuccessful: alter table ItemBacklog add index FK_ge3a9nlvkr2uq98d1y965oxci (FK_projeto), add constraint FK_ge3a9nlvkr2uq98d1y965oxci foreign key (FK_projeto) references Projeto (PK_projeto)
+16-03-14 23:34:24,903 [main] [ERROR] - type not found or user lacks privilege: FK_GE3A9NLVKR2UQ98D1Y965OXCI
+16-03-14 23:34:24,903 [main] [ERROR] - HHH000389: Unsuccessful: alter table Projeto add index FK_86li2xh1e59o9efbca0p6m5xh (FK_empresa), add constraint FK_86li2xh1e59o9efbca0p6m5xh foreign key (FK_empresa) references Empresa (PK_empresa)
+16-03-14 23:34:24,903 [main] [ERROR] - type not found or user lacks privilege: FK_86LI2XH1E59O9EFBCA0P6M5XH
+16-03-14 23:34:24,903 [main] [ERROR] - HHH000389: Unsuccessful: alter table Sprint add index FK_4sr0038shifvkyglecmmhsnce (FK_projeto), add constraint FK_4sr0038shifvkyglecmmhsnce foreign key (FK_projeto) references Projeto (PK_projeto)
+16-03-14 23:34:24,903 [main] [ERROR] - type not found or user lacks privilege: FK_4SR0038SHIFVKYGLECMMHSNCE
+16-03-14 23:34:24,904 [main] [ERROR] - HHH000389: Unsuccessful: alter table SprintBacklog add index FK_9v2kwofh9esa0plr7e34x59aq (FK_sprint), add constraint FK_9v2kwofh9esa0plr7e34x59aq foreign key (FK_sprint) references Sprint (PK_sprint)
+16-03-14 23:34:24,904 [main] [ERROR] - type not found or user lacks privilege: FK_9V2KWOFH9ESA0PLR7E34X59AQ
+16-03-14 23:34:24,904 [main] [ERROR] - HHH000389: Unsuccessful: alter table SprintBacklog add index FK_f1w680emipc4d6t1p8a62hgcc (FK_backlog), add constraint FK_f1w680emipc4d6t1p8a62hgcc foreign key (FK_backlog) references ItemBacklog (PK_backlog)
+16-03-14 23:34:24,904 [main] [ERROR] - type not found or user lacks privilege: FK_F1W680EMIPC4D6T1P8A62HGCC
+16-03-14 23:34:24,904 [main] [ERROR] - HHH000389: Unsuccessful: alter table Tarefa add index FK_s6lyax97hw5gyyai6jhps9i0d (FK_itemBacklog), add constraint FK_s6lyax97hw5gyyai6jhps9i0d foreign key (FK_itemBacklog) references ItemBacklog (PK_backlog)
+16-03-14 23:34:24,904 [main] [ERROR] - type not found or user lacks privilege: FK_S6LYAX97HW5GYYAI6JHPS9I0D
+16-03-14 23:34:24,905 [main] [ERROR] - HHH000389: Unsuccessful: alter table Tarefa add index FK_nojte6tm0utkouk9v3owexy5q (FK_usuario), add constraint FK_nojte6tm0utkouk9v3owexy5q foreign key (FK_usuario) references Usuario (PK_usuario)
+16-03-14 23:34:24,905 [main] [ERROR] - type not found or user lacks privilege: FK_NOJTE6TM0UTKOUK9V3OWEXY5Q
+16-03-14 23:34:24,905 [main] [ERROR] - HHH000389: Unsuccessful: alter table TimeProjeto add index FK_jr6pwpye4vam16pu19baw7v2q (FK_usuario), add constraint FK_jr6pwpye4vam16pu19baw7v2q foreign key (FK_usuario) references Usuario (PK_usuario)
+16-03-14 23:34:24,905 [main] [ERROR] - type not found or user lacks privilege: FK_JR6PWPYE4VAM16PU19BAW7V2Q
+16-03-14 23:34:24,905 [main] [ERROR] - HHH000389: Unsuccessful: alter table TimeProjeto add index FK_tlgypbncupeig8rgel169e77s (FK_projeto), add constraint FK_tlgypbncupeig8rgel169e77s foreign key (FK_projeto) references Projeto (PK_projeto)
+16-03-14 23:34:24,905 [main] [ERROR] - type not found or user lacks privilege: FK_TLGYPBNCUPEIG8RGEL169E77S
+16-03-14 23:34:24,906 [main] [ERROR] - HHH000389: Unsuccessful: alter table TimeProjeto add index FK_4m9as0i9xc806siwf4d57lsdj (FK_empresa), add constraint FK_4m9as0i9xc806siwf4d57lsdj foreign key (FK_empresa) references Empresa (PK_empresa)
+16-03-14 23:34:24,906 [main] [ERROR] - type not found or user lacks privilege: FK_4M9AS0I9XC806SIWF4D57LSDJ
+16-03-14 23:34:24,906 [main] [ERROR] - HHH000389: Unsuccessful: alter table UsuarioEmpresa add index FK_c0iouqm9ory8ebbmjttyv47dw (FK_usuario), add constraint FK_c0iouqm9ory8ebbmjttyv47dw foreign key (FK_usuario) references Usuario (PK_usuario)
+16-03-14 23:34:24,906 [main] [ERROR] - type not found or user lacks privilege: FK_C0IOUQM9ORY8EBBMJTTYV47DW
+16-03-14 23:34:24,906 [main] [ERROR] - HHH000389: Unsuccessful: alter table UsuarioEmpresa add index FK_ctf24twvdy58vo2w4onp0mxd5 (FK_empresa), add constraint FK_ctf24twvdy58vo2w4onp0mxd5 foreign key (FK_empresa) references Empresa (PK_empresa)
+16-03-14 23:34:24,906 [main] [ERROR] - type not found or user lacks privilege: FK_CTF24TWVDY58VO2W4ONP0MXD5
+16-03-14 23:34:24,907 [main] [INFO ] - HHH000230: Schema export complete
+16-03-14 23:34:25,446 [main] [TRACE] - binding parameter [1] as [TIMESTAMP] - 2014-03-17 02:34:22.587
+16-03-14 23:34:25,447 [main] [TRACE] - binding parameter [2] as [BOOLEAN] - true
+16-03-14 23:34:25,449 [main] [TRACE] - binding parameter [3] as [VARCHAR] - Empresa1
+16-03-14 23:34:25,451 [main] [WARN ] - HHH000386: ResultSet had no statement associated with it, but was not yet registered
+16-03-14 23:34:25,468 [main] [TRACE] - binding parameter [1] as [INTEGER] - 0
+16-03-14 23:34:25,468 [main] [TRACE] - binding parameter [2] as [TIMESTAMP] - 2014-03-17 02:34:22.587
+16-03-14 23:34:25,469 [main] [TRACE] - binding parameter [3] as [TIMESTAMP] - 2014-03-22 02:34:22.623
+16-03-14 23:34:25,469 [main] [TRACE] - binding parameter [4] as [TIMESTAMP] - 2014-03-17 02:34:22.587
+16-03-14 23:34:25,469 [main] [TRACE] - binding parameter [5] as [VARCHAR] - teste01
+16-03-14 23:34:25,469 [main] [TRACE] - binding parameter [6] as [VARCHAR] - Projeto_01
+16-03-14 23:34:25,469 [main] [TRACE] - Binding [0] to parameter: [7]
+16-03-14 23:34:25,469 [main] [WARN ] - HHH000386: ResultSet had no statement associated with it, but was not yet registered
+16-03-14 23:34:25,471 [main] [TRACE] - binding parameter [1] as [INTEGER] - 0
+16-03-14 23:34:25,471 [main] [TRACE] - binding parameter [2] as [TIMESTAMP] - 2014-03-17 02:34:22.587
+16-03-14 23:34:25,471 [main] [TRACE] - binding parameter [3] as [TIMESTAMP] - 2014-03-22 02:34:22.623
+16-03-14 23:34:25,471 [main] [TRACE] - binding parameter [4] as [TIMESTAMP] - 2014-03-17 02:34:22.587
+16-03-14 23:34:25,472 [main] [TRACE] - binding parameter [5] as [VARCHAR] - teste02
+16-03-14 23:34:25,472 [main] [TRACE] - binding parameter [6] as [VARCHAR] - Projeto_02
+16-03-14 23:34:25,472 [main] [TRACE] - Binding [0] to parameter: [7]
+16-03-14 23:34:25,472 [main] [WARN ] - HHH000386: ResultSet had no statement associated with it, but was not yet registered
+16-03-14 23:34:25,481 [main] [TRACE] - binding parameter [1] as [TIMESTAMP] - 2014-03-17 02:34:22.587
+16-03-14 23:34:25,481 [main] [TRACE] - binding parameter [2] as [TIMESTAMP] - <null>
+16-03-14 23:34:25,482 [main] [TRACE] - binding parameter [3] as [TIMESTAMP] - 2014-03-22 02:34:22.623
+16-03-14 23:34:25,482 [main] [TRACE] - binding parameter [4] as [TIMESTAMP] - 2014-03-17 02:34:22.587
+16-03-14 23:34:25,482 [main] [TRACE] - binding parameter [5] as [TIMESTAMP] - 2014-03-17 02:34:22.587
+16-03-14 23:34:25,482 [main] [TRACE] - binding parameter [6] as [VARCHAR] - teste01
+16-03-14 23:34:25,482 [main] [TRACE] - binding parameter [7] as [VARCHAR] - Sprint1
+16-03-14 23:34:25,482 [main] [TRACE] - binding parameter [8] as [INTEGER] - 0
+16-03-14 23:34:25,483 [main] [TRACE] - Binding [0] to parameter: [9]
+16-03-14 23:34:25,483 [main] [WARN ] - HHH000386: ResultSet had no statement associated with it, but was not yet registered
+16-03-14 23:34:25,484 [main] [TRACE] - binding parameter [1] as [TIMESTAMP] - 2014-03-17 02:34:22.587
+16-03-14 23:34:25,484 [main] [TRACE] - binding parameter [2] as [TIMESTAMP] - <null>
+16-03-14 23:34:25,484 [main] [TRACE] - binding parameter [3] as [TIMESTAMP] - 2014-03-22 02:34:22.623
+16-03-14 23:34:25,485 [main] [TRACE] - binding parameter [4] as [TIMESTAMP] - 2014-03-17 02:34:22.587
+16-03-14 23:34:25,485 [main] [TRACE] - binding parameter [5] as [TIMESTAMP] - 2014-03-17 02:34:22.587
+16-03-14 23:34:25,485 [main] [TRACE] - binding parameter [6] as [VARCHAR] - teste02
+16-03-14 23:34:25,485 [main] [TRACE] - binding parameter [7] as [VARCHAR] - Sprint2
+16-03-14 23:34:25,485 [main] [TRACE] - binding parameter [8] as [INTEGER] - 0
+16-03-14 23:34:25,485 [main] [TRACE] - Binding [0] to parameter: [9]
+16-03-14 23:34:25,486 [main] [WARN ] - HHH000386: ResultSet had no statement associated with it, but was not yet registered
+16-03-14 23:34:25,494 [main] [TRACE] - binding parameter [1] as [VARCHAR] - lkasdlkjd
+16-03-14 23:34:25,494 [main] [TRACE] - binding parameter [2] as [VARCHAR] - opa
+16-03-14 23:34:25,494 [main] [TRACE] - binding parameter [3] as [BOOLEAN] - true
+16-03-14 23:34:25,495 [main] [TRACE] - binding parameter [4] as [VARCHAR] - 01
+16-03-14 23:34:25,495 [main] [TRACE] - binding parameter [5] as [INTEGER] - 0
+16-03-14 23:34:25,495 [main] [TRACE] - binding parameter [6] as [DOUBLE] - 2.0
+16-03-14 23:34:25,496 [main] [TRACE] - Binding [0] to parameter: [7]
+16-03-14 23:34:25,496 [main] [TRACE] - binding parameter [8] as [INTEGER] - 10
+16-03-14 23:34:25,496 [main] [TRACE] - binding parameter [9] as [DOUBLE] - 2.0
+16-03-14 23:34:25,496 [main] [WARN ] - HHH000386: ResultSet had no statement associated with it, but was not yet registered
+16-03-14 23:34:25,498 [main] [TRACE] - binding parameter [1] as [VARCHAR] - lasdkasdlkjd
+16-03-14 23:34:25,498 [main] [TRACE] - binding parameter [2] as [VARCHAR] - sdopa
+16-03-14 23:34:25,498 [main] [TRACE] - binding parameter [3] as [BOOLEAN] - true
+16-03-14 23:34:25,498 [main] [TRACE] - binding parameter [4] as [VARCHAR] - 02
+16-03-14 23:34:25,498 [main] [TRACE] - binding parameter [5] as [INTEGER] - 0
+16-03-14 23:34:25,498 [main] [TRACE] - binding parameter [6] as [DOUBLE] - 2.0
+16-03-14 23:34:25,498 [main] [TRACE] - Binding [0] to parameter: [7]
+16-03-14 23:34:25,498 [main] [TRACE] - binding parameter [8] as [INTEGER] - 10
+16-03-14 23:34:25,498 [main] [TRACE] - binding parameter [9] as [DOUBLE] - 2.0
+16-03-14 23:34:25,499 [main] [WARN ] - HHH000386: ResultSet had no statement associated with it, but was not yet registered
+16-03-14 23:34:25,501 [main] [TRACE] - binding parameter [1] as [VARCHAR] - dasd
+16-03-14 23:34:25,501 [main] [TRACE] - binding parameter [2] as [VARCHAR] - sd
+16-03-14 23:34:25,501 [main] [TRACE] - binding parameter [3] as [BOOLEAN] - true
+16-03-14 23:34:25,501 [main] [TRACE] - binding parameter [4] as [VARCHAR] - 03
+16-03-14 23:34:25,501 [main] [TRACE] - binding parameter [5] as [INTEGER] - 0
+16-03-14 23:34:25,501 [main] [TRACE] - binding parameter [6] as [DOUBLE] - 2.0
+16-03-14 23:34:25,502 [main] [TRACE] - Binding [0] to parameter: [7]
+16-03-14 23:34:25,502 [main] [TRACE] - binding parameter [8] as [INTEGER] - 10
+16-03-14 23:34:25,502 [main] [TRACE] - binding parameter [9] as [DOUBLE] - 2.0
+16-03-14 23:34:25,502 [main] [WARN ] - HHH000386: ResultSet had no statement associated with it, but was not yet registered
+16-03-14 23:34:25,516 [main] [TRACE] - binding parameter [1] as [BOOLEAN] - true
+16-03-14 23:34:25,516 [main] [TRACE] - binding parameter [2] as [INTEGER] - 0
+16-03-14 23:34:25,516 [main] [TRACE] - binding parameter [3] as [INTEGER] - 0
+16-03-14 23:34:25,517 [main] [TRACE] - binding parameter [1] as [BOOLEAN] - true
+16-03-14 23:34:25,517 [main] [TRACE] - binding parameter [2] as [INTEGER] - 1
+16-03-14 23:34:25,517 [main] [TRACE] - binding parameter [3] as [INTEGER] - 0
+16-03-14 23:34:25,518 [main] [TRACE] - binding parameter [1] as [BOOLEAN] - true
+16-03-14 23:34:25,518 [main] [TRACE] - binding parameter [2] as [INTEGER] - 2
+16-03-14 23:34:25,518 [main] [TRACE] - binding parameter [3] as [INTEGER] - 1
+16-03-14 23:34:25,551 [main] [TRACE] - binding parameter [1] as [INTEGER] - 0
+16-03-14 23:34:25,554 [main] [TRACE] - Found [0] as column [PK1_3_0_]
+16-03-14 23:34:25,554 [main] [TRACE] - Found [0] as column [PK1_1_1_]
+16-03-14 23:34:25,556 [main] [TRACE] - Found [0] as column [FK8_3_0_]
+16-03-14 23:34:25,557 [main] [TRACE] - Found [2014-03-17 02:34:22.587] as column [data2_3_0_]
+16-03-14 23:34:25,558 [main] [TRACE] - Found [2014-03-22 02:34:22.623] as column [data3_3_0_]
+16-03-14 23:34:25,558 [main] [TRACE] - Found [2014-03-17 02:34:22.587] as column [data4_3_0_]
+16-03-14 23:34:25,559 [main] [TRACE] - Found [teste01] as column [descrica5_3_0_]
+16-03-14 23:34:25,559 [main] [TRACE] - Found [Projeto_01] as column [nome6_3_0_]
+16-03-14 23:34:25,559 [main] [TRACE] - Returning [ATIVO] as column [situacao7_3_0_]
+16-03-14 23:34:25,559 [main] [TRACE] - Found [2014-03-17 02:34:22.587] as column [data2_1_1_]
+16-03-14 23:34:25,560 [main] [TRACE] - Found [true] as column [is3_1_1_]
+16-03-14 23:34:25,560 [main] [TRACE] - Found [Empresa1] as column [nome4_1_1_]
+16-03-14 23:34:25,561 [main] [TRACE] - Found [2014-03-17 02:34:22.587] as column [data2_4_2_]
+16-03-14 23:34:25,561 [main] [TRACE] - Found [null] as column [data3_4_2_]
+16-03-14 23:34:25,561 [main] [TRACE] - Found [2014-03-22 02:34:22.623] as column [data4_4_2_]
+16-03-14 23:34:25,561 [main] [TRACE] - Found [2014-03-17 02:34:22.587] as column [data5_4_2_]
+16-03-14 23:34:25,561 [main] [TRACE] - Found [2014-03-17 02:34:22.587] as column [data6_4_2_]
+16-03-14 23:34:25,561 [main] [TRACE] - Found [teste01] as column [descrica7_4_2_]
+16-03-14 23:34:25,562 [main] [TRACE] - Found [Sprint1] as column [nome8_4_2_]
+16-03-14 23:34:25,562 [main] [TRACE] - Found [0] as column [FK10_4_2_]
+16-03-14 23:34:25,562 [main] [TRACE] - Returning [ABERTA] as column [situacao9_4_2_]
+16-03-14 23:34:25,599 [main] [TRACE] - binding parameter [1] as [INTEGER] - 0
+16-03-14 23:34:25,600 [main] [TRACE] - binding parameter [2] as [BOOLEAN] - true
+16-03-14 23:34:25,600 [main] [TRACE] - Found [0] as column [PK1_2_0_]
+16-03-14 23:34:25,600 [main] [TRACE] - Found [0] as column [PK1_3_1_]
+16-03-14 23:34:25,600 [main] [TRACE] - Found [0] as column [PK1_4_2_]
+16-03-14 23:34:25,600 [main] [TRACE] - Found [0] as column [PK1_3_3_]
+16-03-14 23:34:25,601 [main] [TRACE] - Found [0] as column [FK3_5_4_]
+16-03-14 23:34:25,601 [main] [TRACE] - Found [0] as column [FK2_5_4_]
+16-03-14 23:34:25,603 [main] [TRACE] - binding parameter [1] as [INTEGER] - 0
+16-03-14 23:34:25,603 [main] [TRACE] - Found [0] as column [PK1_3_0_]
+16-03-14 23:34:25,603 [main] [TRACE] - Found [0] as column [PK1_1_1_]
+16-03-14 23:34:25,604 [main] [TRACE] - Found [lkasdlkjd] as column [criterio2_2_2_]
+16-03-14 23:34:25,604 [main] [TRACE] - Found [opa] as column [descrica3_2_2_]
+16-03-14 23:34:25,604 [main] [TRACE] - Found [true] as column [is4_2_2_]
+16-03-14 23:34:25,604 [main] [TRACE] - Found [01] as column [nome5_2_2_]
+16-03-14 23:34:25,604 [main] [TRACE] - Found [0] as column [FK10_2_2_]
+16-03-14 23:34:25,605 [main] [TRACE] - Found [2.0] as column [roi6_2_2_]
+16-03-14 23:34:25,605 [main] [TRACE] - Returning [FAZER] as column [situacao7_2_2_]
+16-03-14 23:34:25,605 [main] [TRACE] - Found [10] as column [story8_2_2_]
+16-03-14 23:34:25,605 [main] [TRACE] - Found [2.0] as column [valor9_2_2_]
+16-03-14 23:34:25,605 [main] [TRACE] - Found [0] as column [FK3_5_4_]
+16-03-14 23:34:25,606 [main] [TRACE] - Found [0] as column [FK2_5_4_]
+16-03-14 23:34:25,606 [main] [TRACE] - Found [true] as column [is1_5_4_]
+16-03-14 23:34:25,606 [main] [TRACE] - Found [1] as column [PK1_2_0_]
+16-03-14 23:34:25,606 [main] [TRACE] - Found [0] as column [PK1_3_1_]
+16-03-14 23:34:25,606 [main] [TRACE] - Found [0] as column [PK1_4_2_]
+16-03-14 23:34:25,606 [main] [TRACE] - Found [0] as column [PK1_3_3_]
+16-03-14 23:34:25,606 [main] [TRACE] - Found [1] as column [FK3_5_4_]
+16-03-14 23:34:25,606 [main] [TRACE] - Found [0] as column [FK2_5_4_]
+16-03-14 23:34:25,608 [main] [TRACE] - binding parameter [1] as [INTEGER] - 1
+16-03-14 23:34:25,608 [main] [TRACE] - Found [0] as column [PK1_3_0_]
+16-03-14 23:34:25,608 [main] [TRACE] - Found [0] as column [PK1_1_1_]
+16-03-14 23:34:25,608 [main] [TRACE] - Found [lasdkasdlkjd] as column [criterio2_2_2_]
+16-03-14 23:34:25,609 [main] [TRACE] - Found [sdopa] as column [descrica3_2_2_]
+16-03-14 23:34:25,609 [main] [TRACE] - Found [true] as column [is4_2_2_]
+16-03-14 23:34:25,609 [main] [TRACE] - Found [02] as column [nome5_2_2_]
+16-03-14 23:34:25,609 [main] [TRACE] - Found [0] as column [FK10_2_2_]
+16-03-14 23:34:25,609 [main] [TRACE] - Found [2.0] as column [roi6_2_2_]
+16-03-14 23:34:25,609 [main] [TRACE] - Returning [FAZER] as column [situacao7_2_2_]
+16-03-14 23:34:25,609 [main] [TRACE] - Found [10] as column [story8_2_2_]
+16-03-14 23:34:25,609 [main] [TRACE] - Found [2.0] as column [valor9_2_2_]
+16-03-14 23:34:25,610 [main] [TRACE] - Found [1] as column [FK3_5_4_]
+16-03-14 23:34:25,610 [main] [TRACE] - Found [0] as column [FK2_5_4_]
+16-03-14 23:34:25,610 [main] [TRACE] - Found [true] as column [is1_5_4_]
+16-03-14 23:34:25,643 [main] [TRACE] - binding parameter [1] as [INTEGER] - 0
+16-03-14 23:34:25,643 [main] [TRACE] - Found [0] as column [PK1_3_0_]
+16-03-14 23:34:25,643 [main] [TRACE] - Found [0] as column [PK1_1_1_]
+16-03-14 23:34:25,643 [main] [TRACE] - Found [0] as column [PK1_2_2_]
+16-03-14 23:34:25,643 [main] [TRACE] - Found [0] as column [PK1_3_0_]
+16-03-14 23:34:25,643 [main] [TRACE] - Found [0] as column [PK1_1_1_]
+16-03-14 23:34:25,644 [main] [TRACE] - Found [1] as column [PK1_2_2_]
+16-03-14 23:34:25,644 [main] [TRACE] - Found [0] as column [PK1_3_0_]
+16-03-14 23:34:25,644 [main] [TRACE] - Found [0] as column [PK1_1_1_]
+16-03-14 23:34:25,644 [main] [TRACE] - Found [2] as column [PK1_2_2_]
+16-03-14 23:34:25,644 [main] [TRACE] - Found [dasd] as column [criterio2_2_2_]
+16-03-14 23:34:25,644 [main] [TRACE] - Found [sd] as column [descrica3_2_2_]
+16-03-14 23:34:25,644 [main] [TRACE] - Found [true] as column [is4_2_2_]
+16-03-14 23:34:25,644 [main] [TRACE] - Found [03] as column [nome5_2_2_]
+16-03-14 23:34:25,644 [main] [TRACE] - Found [0] as column [FK10_2_2_]
+16-03-14 23:34:25,644 [main] [TRACE] - Found [2.0] as column [roi6_2_2_]
+16-03-14 23:34:25,645 [main] [TRACE] - Returning [FAZER] as column [situacao7_2_2_]
+16-03-14 23:34:25,645 [main] [TRACE] - Found [10] as column [story8_2_2_]
+16-03-14 23:34:25,645 [main] [TRACE] - Found [2.0] as column [valor9_2_2_]
+16-03-14 23:34:25,649 [main] [TRACE] - binding parameter [1] as [INTEGER] - 0
+16-03-14 23:34:25,649 [main] [TRACE] - binding parameter [2] as [INTEGER] - 0
+16-03-14 23:34:25,649 [main] [TRACE] - binding parameter [3] as [BOOLEAN] - true
+16-03-14 23:34:25,649 [main] [TRACE] - Found [0] as column [PK1_2_0_]
+16-03-14 23:34:25,649 [main] [TRACE] - Found [0] as column [PK1_3_1_]
+16-03-14 23:34:25,649 [main] [TRACE] - Found [0] as column [PK1_4_2_]
+16-03-14 23:34:25,649 [main] [TRACE] - Found [0] as column [PK1_3_3_]
+16-03-14 23:34:25,650 [main] [TRACE] - Found [0] as column [FK3_5_4_]
+16-03-14 23:34:25,650 [main] [TRACE] - Found [0] as column [FK2_5_4_]
+16-03-14 23:34:25,657 [main] [TRACE] - binding parameter [1] as [INTEGER] - 0
+16-03-14 23:34:25,657 [main] [TRACE] - binding parameter [2] as [INTEGER] - 1
+16-03-14 23:34:25,657 [main] [TRACE] - binding parameter [3] as [BOOLEAN] - true
+16-03-14 23:34:25,657 [main] [TRACE] - Found [1] as column [PK1_2_0_]
+16-03-14 23:34:25,657 [main] [TRACE] - Found [0] as column [PK1_3_1_]
+16-03-14 23:34:25,658 [main] [TRACE] - Found [0] as column [PK1_4_2_]
+16-03-14 23:34:25,658 [main] [TRACE] - Found [0] as column [PK1_3_3_]
+16-03-14 23:34:25,658 [main] [TRACE] - Found [1] as column [FK3_5_4_]
+16-03-14 23:34:25,658 [main] [TRACE] - Found [0] as column [FK2_5_4_]
+16-03-14 23:34:25,662 [main] [TRACE] - binding parameter [1] as [INTEGER] - 0
+16-03-14 23:34:25,662 [main] [TRACE] - binding parameter [2] as [INTEGER] - 2
+16-03-14 23:34:25,662 [main] [TRACE] - binding parameter [3] as [BOOLEAN] - true

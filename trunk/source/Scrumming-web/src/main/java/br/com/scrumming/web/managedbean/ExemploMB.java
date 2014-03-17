@@ -113,6 +113,11 @@ public class ExemploMB {
     public String consultarContato() {
         return null;
     }
+    
+    public String consultarSprintDTO() {
+    	sprintService.consultarSprintDTO(new Integer(1));
+    	return "OK!!!";
+    }
 
     public List<Contato> getContatos() {
         return contatos;

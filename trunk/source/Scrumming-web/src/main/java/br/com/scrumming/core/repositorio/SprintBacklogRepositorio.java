@@ -33,15 +33,41 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
 	}
 	
 	/**
-	 * Consulta de uma lista de SprintsBacklog por Sprint
-	 * @param Código da Sprint
-	 * @return Uma coleção de SprintsBacklog
+	 * Efetua uma consulta de um item da SprintBacklog pela combinação de sua chave composta.
+	 * @param sprint
+	 * @param itemBacklog
+	 * @return
+	 */
+	public SprintBacklog consultaAtivosPorChaveComposta(Sprint sprint, ItemBacklog itemBacklog) {
+		
+		Criteria criteria = createCriteria();
+        criteria.createAlias("sprint", "sprint");
+        criteria.add(Restrictions.eq("sprint.codigo", sprint.getChave()));
+        criteria.createAlias("itemBacklog", "itemBacklog");
+        criteria.add(Restrictions.eq("itemBacklog.codigo", itemBacklog.getChave()));
+        criteria.add(Restrictions.eq("isAtivo", true));
+        return (SprintBacklog) criteria.uniqueResult();
+	}
+	
+	/**
+	 * Consulta os Itens Backlog que estão na sprint.	
+	 * @param sprintID
+	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<SprintBacklog> consultarPorSprint(Integer sprintID) {
+	public List<ItemBacklog> consultarItensAtivosSprintBacklogPorSprint(Integer sprintID) {
+        Criteria criteria = createCriteria();
+        criteria.createAlias("sprint", "sprint");
+        criteria.add(Restrictions.eq("sprint.codigo", sprintID));
+        criteria.add(Restrictions.eq("isAtivo", true));
+        return Collections.checkedList(criteria.list(), SprintBacklog.class);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<ItemBacklog> consultarItensSprintBacklogPorSprint(Integer sprintID) {
         Criteria criteria = createCriteria();
         criteria.createAlias("sprint", "sprint");
         criteria.add(Restrictions.eq("sprint.codigo", sprintID));
         return Collections.checkedList(criteria.list(), SprintBacklog.class);
-    }
+	}
 }

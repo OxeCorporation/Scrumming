@@ -1,5 +1,6 @@
 package br.com.scrumming.core.manager.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -19,7 +20,8 @@ import br.com.scrumming.domain.SprintDTO;
 import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
 
 @Service
-public class SprintManager extends AbstractManager<Sprint, Integer> implements ISprintManager {
+public class SprintManager extends AbstractManager<Sprint, Integer> implements
+		ISprintManager {
 
 	/**
 	 * Serial Version
@@ -28,10 +30,10 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements I
 
 	@Autowired
 	private SprintRepositorio sprintRepositorio;
-	
+
 	@Autowired
 	private ISprintBacklogManager sprintBacklogManager;
-	
+
 	@Autowired
 	private IItemBacklogManager itemBacklogManager;
 
@@ -52,54 +54,63 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements I
 		Sprint sprint = sprintDTO.getSprint();
 		List<ItemBacklog> itensBacklogSprint = sprintDTO.getSprintBacklog();
 		List<ItemBacklog> itensBacklogProduto = sprintDTO.getProductBacklog();
-		
+
 		// Persiste o objeto Sprint e retorna a chave.
 		Integer sprintID = insertOrUpdate(sprint);
-		
+
 		// Caso sera inserido ou alterado a Sprint
 		if (sprintID != null) {
-			
+
 			retorno = "Registro foi salvo";
 			// Busca o objeto persistido pela chave.
 			Sprint sprintPersistido = findByKey(sprintID);
-			
+
 			if (CollectionUtils.isNotEmpty(itensBacklogSprint)) {
-				sprintBacklogManager.associarItemASprint(sprintPersistido, itensBacklogSprint);
+				sprintBacklogManager.associarItemASprint(sprintPersistido,
+						itensBacklogSprint);
 			}
 			if (CollectionUtils.isNotEmpty(itensBacklogProduto)) {
-				sprintBacklogManager.desassociarItemASprint(sprintPersistido, itensBacklogProduto);
+				sprintBacklogManager.desassociarItemASprint(sprintPersistido,
+						itensBacklogProduto);
 			}
 		}
 		return retorno;
 	}
-	
+
+	@Override
 	public SprintDTO consultarSprintDTO(Integer sprintID) {
-		
+
 		// Cria o DTO que será enviado à tela para exibição
 		SprintDTO sprintDTO = new SprintDTO();
+
+		// Objetos que serão setados do DTO da Sprint
+		Sprint sprint = new Sprint();
+		List<ItemBacklog> itensDisponiveis = new ArrayList<>();
+		List<ItemBacklog> sprintBacklog = new ArrayList<>();
+
 		// Seta a Sprint
-		sprintDTO.setSprint(findByKey(sprintID));
-		// Seta a lista de itens que representa o SprintBacklog
-		sprintDTO.setSprintBacklog(itemBacklogManager.consultarPorSprintBacklog(sprintDTO.getSprint()));
+		sprint = findByKey(sprintID);
+		sprintDTO.setSprint(sprint);
+
+		// Seta a lista de itens ativos que representam o SprintBacklog
+		sprintBacklog = sprintBacklogManager.consultarItensAtivosBacklogPorSprint(sprintID);
+		sprintDTO.setSprintBacklog(sprintBacklog);
+
 		// Pesquisa todos os itens do Product Backlog
-		List<ItemBacklog> productBacklog;
-		productBacklog = itemBacklogManager.consultarPorProjeto(sprintDTO.getSprint().getProjeto().getChave());
-		// Percorre todos os itens do backlog para verificar os que não foram atribuidos às Sprints
-		for	(ItemBacklog item : productBacklog) {
-			// Busca a lista das Sprints do projeto
-			List<Sprint> sprints = consultarPorProjeto(sprintDTO.getSprint().getProjeto().getChave());
-			// Consulta os Itens de cada SprintBacklog
-			for (Sprint sprint : sprints) {
-		    	List<ItemBacklog> itensDaSprint = itemBacklogManager.consultarPorSprintBacklog(sprint);
-		    	// Para cada lista de SprintBacklog
-		        for (ItemBacklog sprintBacklog : itensDaSprint) {
-		        	// Aciciona a lista, apenas os diponiveis
-		        	if (sprintBacklog == null) {
-						sprintDTO.getProductBacklog().add(item);
-					}
-		        }
-	    	}
+		List<ItemBacklog> productBacklog = new ArrayList<>();
+		productBacklog = itemBacklogManager.consultarPorProjeto(sprintDTO
+				.getSprint().getProjeto().getChave());
+
+		// Percorre todos os itens do backlog para verificar os que não foram
+		// atribuidos às Sprints
+		for (ItemBacklog item : productBacklog) {
+			SprintBacklog spBacklog = sprintBacklogManager
+					.consultaAtivosPorChaveComposta(sprint, item);
+			if (spBacklog == null) {
+				itensDisponiveis.add(item);
+			}
 		}
+		sprintDTO.setProductBacklog(itensDisponiveis);
 		return sprintDTO;
 	}
 
@@ -107,10 +118,11 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements I
 	 * Função para gerenciar o fechamento da Sprint
 	 */
 	public void fecharSprint(Sprint sprint) {
-		
-		List<SprintBacklog> itens = (List<SprintBacklog>) sprintBacklogManager.consultarPorCampo("codigo", sprint.getChave());
+
+		List<SprintBacklog> itens = (List<SprintBacklog>) sprintBacklogManager
+				.consultarPorCampo("codigo", sprint.getChave());
 		for (SprintBacklog item : itens) {
-			
+
 			item.setAtivo(false);
 		}
 		sprint.setSituacaoSprint(SituacaoSprintEnum.FECHADA);

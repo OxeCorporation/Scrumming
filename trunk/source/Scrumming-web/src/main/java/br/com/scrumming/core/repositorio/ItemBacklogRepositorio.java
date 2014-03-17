@@ -1,15 +1,14 @@
 package br.com.scrumming.core.repositorio;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collections;
-import java.util.List;
-
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
-import br.com.scrumming.domain.Sprint;
 
 @Repository
 public class ItemBacklogRepositorio extends AbstractRepositorio<ItemBacklog, Integer> {
@@ -33,10 +32,10 @@ public class ItemBacklogRepositorio extends AbstractRepositorio<ItemBacklog, Int
      * @return
      */
     @SuppressWarnings("unchecked")
-	public List<ItemBacklog> consultarPorSprintBacklog(Sprint sprint) {
+	public List<ItemBacklog> consultarPorSprintBacklog(Integer sprintID) {
     	Criteria criteria = createCriteria();
         criteria.createAlias("sprintBacklog", "sprintBacklog");
-        criteria.add(Restrictions.eq("sprintBacklog.sprint", sprint));
+        criteria.add(Restrictions.eq("sprintBacklog.sprint.codigo", sprintID));
         return Collections.checkedList(criteria.list(), ItemBacklog.class);
     }
 }
