@@ -1,6 +1,9 @@
 package br.com.scrumming.core.repositorio;
 
+import java.util.List;
+
 import org.joda.time.DateTime;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -8,6 +11,7 @@ import br.com.scrumming.core.infra.AbstractRepositorioTest;
 import br.com.scrumming.core.manager.interfaces.IUsuarioEmpresaManager;
 import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Projeto;
+import br.com.scrumming.domain.Team;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.UsuarioEmpresaUtil;
@@ -20,13 +24,16 @@ public class ProjetoRepositorioTest extends AbstractRepositorioTest {
 	private static final DateTime FIM = DateTime.now().plusDays(5);
 	@Autowired
 	private ProjetoRepositorio projetoRepositorio;
+	
+	@Autowired
+	private TeamRepositorio teamRepositorio;
 
 	@Autowired
 	private IUsuarioEmpresaManager iUsuarioEmpresaManager;
 
 	@Test
-	public void verificarConsultaPorProjeto() {
-		//FIXME daniel, refaser teste, mito confuso e errado.
+	public void verConsultaPorProjeto() {
+		// daniel, refaser teste, mito confuso e errado.
 		// Empresas
 		Empresa empresa1 = new Empresa();
 		empresa1.setNome("Empresa1");
@@ -90,7 +97,7 @@ public class ProjetoRepositorioTest extends AbstractRepositorioTest {
 		projeto1.setCodigo(5);
 		projeto1.setNome("Projeto_01");
 		projeto1.setDescricao("teste01");
-		projeto1.setEmpresa(empresa1);
+		projeto1.setEmpresa(empresa2);
 		projeto1.setDataCadastro(NOW);
 		projeto1.setDataInicio(NOW);
 		projeto1.setDataFim(FIM);
@@ -108,9 +115,54 @@ public class ProjetoRepositorioTest extends AbstractRepositorioTest {
 
 		save(projeto1, projeto2);
 		
-		Empresa empresa = findById(empresa1.getChave(), Empresa.class);
-//		List<UsuarioEmpresa> itens = usuarioEmpresaManager.consultarUsuarioPorEmpresa(empresa.getCodigo());
-//		Assert.assertTrue("NÃO ENCONTRADO", itens != null);
+		Team team1 = new Team();
+		team1.setProjeto(projeto1);
+		team1.setUsuario(usuario12);
+		team1.setEmpresa(empresa2);
+		team1.setAtivo(true);
+		team1.setPerfilUsuario(null);
+		
+		Team team2 = new Team();
+		team2.setProjeto(projeto1);
+		team2.setUsuario(usuario11);
+		team2.setEmpresa(empresa2);
+		team2.setAtivo(true);
+		team2.setPerfilUsuario(null);
+		
+		Team team3 = new Team();
+		team3.setProjeto(projeto1);
+		team3.setUsuario(usuario10);
+		team3.setEmpresa(empresa2);
+		team3.setAtivo(true);
+		team3.setPerfilUsuario(null);
+		
+		Team team4 = new Team();
+		team4.setProjeto(projeto1);
+		team4.setUsuario(usuario9);
+		team4.setEmpresa(empresa2);
+		team4.setAtivo(true);
+		team4.setPerfilUsuario(null);
+		
+		Team team5 = new Team();
+		team5.setProjeto(projeto1);
+		team5.setUsuario(usuario8);
+		team5.setEmpresa(empresa2);
+		team5.setAtivo(false);
+		team5.setPerfilUsuario(null);
+		
+		Team team6 = new Team();
+		team6.setProjeto(projeto1);
+		team6.setUsuario(usuario7);
+		team6.setEmpresa(empresa2);
+		team6.setAtivo(true);
+		team6.setPerfilUsuario(null);
+
+		//save(team1, team2, team3, team4, team5, team6);
+
+		
+		//Empresa empresa = findById(empresa1.getChave(), Empresa.class);
+		List<Usuario> itens = teamRepositorio.consultarUsuarioPorEmpresaForaDoProjeto(projeto1);
+		Assert.assertTrue("NÃO ENCONTRADO", itens != null);
 		
 
 	}
