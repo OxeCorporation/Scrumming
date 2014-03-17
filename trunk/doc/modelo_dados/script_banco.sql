@@ -9,7 +9,6 @@
 -- *                       CRIAÇÃO DAS TABELAS
 -- *******************************************************************************
 
-
 DROP TABLE IF EXISTS tarefafavorita;
 DROP TABLE IF EXISTS reportetarefa;
 DROP TABLE IF EXISTS sprintbacklog;
@@ -68,10 +67,11 @@ CREATE TABLE IF NOT EXISTS `ItemBacklog` (
   `PK_backlog` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `FK_projeto` INT(11) UNSIGNED NOT NULL,
   `nome` VARCHAR(50) NOT NULL,
-  `descricao` VARCHAR(500) NULL,
-  `criterio_aceitacao` VARCHAR(300) NULL,
+  `descricao` VARCHAR(500) NOT NULL,
+  `criterio_aceitacao` VARCHAR(300) NOT NULL,
   `valor_negocio` DOUBLE NULL,
   `story_points` INT(11) UNSIGNED NULL,
+ -- `prioridade` INT(11) UNSIGNED NOT NULL DEFAULT 0,
   `roi` DOUBLE NULL,
   `situacao_backlog` INT(1) UNSIGNED NOT NULL,
   `is_ativo` BOOL NOT NULL DEFAULT true,
@@ -368,27 +368,31 @@ VALUES
 1,
 1);
 
-insert 
-    into
-        Empresa
-        (data_cadastro, is_ativo, nome) 
-    values
-        (NOW(), true, 'Empresa1');
-
+-- Projeto01
 insert 
     into
         Projeto
         (FK_empresa, data_cadastro, data_fim, data_inicio, descricao, nome, situacao_projeto) 
     values
-        (1, NOW(), NOW(), NOW(), 'teste descrição', 'Projeto01', 1);
+        (1, NOW(), NOW(), NOW(), 'teste descrição1', 'Projeto01', 1);
 
+-- Projeto02
+insert 
+    into
+        Projeto
+        (FK_empresa, data_cadastro, data_fim, data_inicio, descricao, nome, situacao_projeto) 
+    values
+        (1, NOW(), NOW(), NOW(), 'teste descrição2', 'Projeto02', 1);
+
+-- Sprint01
 insert 
     into
         Sprint
         (data_cadastro, data_fechamento, data_fim, data_inicio, data_revisao, descricao, nome, FK_projeto, situacao_sprint) 
     values
-        (now(), NULL, now(), now(), null, 'teste aksndlansd', 'Sprint01', 2, 1);
+        (now(), NULL, now(), now(), null, 'teste aksndlansd', 'Sprint01', 1, 1);
 
+-- Sprint02
 insert 
     into
         Sprint
@@ -396,6 +400,7 @@ insert
     values
         (now(), NULL, now(), now(), null, 'teste aksndlansd', 'Sprint02', 1, 1);
 
+-- Item01 (Sprint01)
 insert 
     into
         ItemBacklog
@@ -403,11 +408,92 @@ insert
     values
         ('BLA', 'BLU', 'ITEM1', 1, 2.0, 0, 2, 2.0);
 
+-- Item02 (Sprint01)
+insert 
+    into
+        ItemBacklog
+        (criterio_aceitacao, descricao, nome, FK_projeto, roi, situacao_backlog, story_points, valor_negocio) 
+    values
+        ('BLA', 'BLU', 'ITEM1', 1, 2.0, 0, 2, 2.0);
+
+-- Item03 (Sprint02)
+insert 
+    into
+        ItemBacklog
+        (criterio_aceitacao, descricao, nome, FK_projeto, roi, situacao_backlog, story_points, valor_negocio) 
+    values
+        ('BLA', 'BLU', 'ITEM1', 1, 2.0, 0, 2, 2.0);
+-- Item04 (Sem associação)
+insert 
+    into
+        ItemBacklog
+        (criterio_aceitacao, descricao, nome, FK_projeto, roi, situacao_backlog, story_points, valor_negocio) 
+    values
+        ('BLA', 'BLU', 'ITEM1', 1, 2.0, 0, 2, 2.0);
+
+insert
+	into
+		sprintbacklog
+		(FK_sprint, FK_backlog, is_ativo)
+	values
+		(1, 1, true);
+
+insert
+	into
+		sprintbacklog
+		(FK_sprint, FK_backlog, is_ativo)
+	values
+		(1, 2, true);
+
+insert
+	into
+		sprintbacklog
+		(FK_sprint, FK_backlog, is_ativo)
+	values
+		(2, 3, true);
+
 select * from Projeto;
 select * from Sprint;
 select * from itembacklog;
 select * from usuarioempresa;
 select * from timeprojeto;
+
+select * from `itembacklog` as ib
+	inner join `sprintbacklog` as sp
+	on ib.PK_backlog = sp.FK_backlog
+	and sp.FK_sprint = 1
+	and sp.is_ativo = true;
+
+
+-- *******************************************************************************
+--            Criação das VIEWs para retornar consultas personalizadas.
+-- *******************************************************************************
+
+-- Consulta para trazer uma lista de ItensBacklog que foram cadastradas em alguma
+-- SprintBacklog.
+
+CREATE OR REPLACE VIEW `VIEW_sprintBacklog` AS
+select 
+ib.PK_backlog,
+ib.FK_projeto,
+sp.FK_sprint,
+ib.nome,
+ib.descricao,
+ib.criterio_aceitacao,
+ib.prioridade,
+ib.story_points,
+ib.valor_negocio,
+ib.roi,
+ib.is_ativo as ativo,
+ib.situacao_backlog
+from itembacklog as ib
+inner join sprintbacklog as sp
+on ib.PK_backlog = sp.FK_backlog
+and sp.is_ativo = true;
+
+select * from `view_sprintBacklog`
+where FK_sprint = 2
+and FK_projeto = 1;
 
 -- *******************************************************************************
 --                               FIM DO SCRIPT

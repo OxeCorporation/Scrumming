@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.ISprintBacklogManager;
@@ -27,7 +28,22 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 	
 	@Override
 	public SprintBacklog consultaPorChaveComposta(Sprint sprint, ItemBacklog itemBacklog) {
-		return consultaPorChaveComposta(sprint, itemBacklog);
+		return sprintBacklogRepositorio.consultaPorChaveComposta(sprint, itemBacklog);
+	}
+	
+	@Override
+	public SprintBacklog consultaAtivosPorChaveComposta(Sprint sprint, ItemBacklog itemBacklog) {
+		return sprintBacklogRepositorio.consultaAtivosPorChaveComposta(sprint, itemBacklog);
+	}
+
+	@Override
+	public List<ItemBacklog> consultarItensAtivosBacklogPorSprint(Integer sprintID) {
+		return sprintBacklogRepositorio.consultarItensAtivosSprintBacklogPorSprint(sprintID);
+	}
+	
+	@Override
+	public List<ItemBacklog> consultarItensSprintBacklogPorSprint(Integer sprintID) {
+		return sprintBacklogRepositorio.consultarItensSprintBacklogPorSprint(sprintID);
 	}
 	
 	/**

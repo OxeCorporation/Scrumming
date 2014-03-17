@@ -71,7 +71,7 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 		// Seta a lista de Times do projeto
 		projetoDTO.setTimeProjeto(iTeamManage.consultaTeamPorProjeto(projetoID));
 		// Pesquisa todos os usuarios da empresa
-		projetoDTO.setUsuarioEmpresa(iUsuarioEmpresaManager.consultarUsuarioPorEmpresa(projetoDTO.getProjeto().getEmpresa().getCodigo()));
+		//projetoDTO.setUsuarioEmpresa(iUsuarioEmpresaManager.consultarUsuarioPorEmpresa(projetoDTO.getProjeto().getEmpresa().getCodigo()));
 		return projetoDTO;
 	}
 

@@ -20,51 +20,43 @@
 </h:head>
 <h:body>
 	<div class="container">
-		<div class="row">
-			<div class="col-md-4 col-md-offset-4">
-				<div class="login-panel panel panel-default">
-					<div class="panel-heading">
-						<h3>
-						 	<h:outputText value="#{mensagens.label_bem_vindo}"/>
-						</h3>
-					</div>
-					<div class="panel-body">
-						<h:form id="formLogin">
-							<p:growl id="growl" showDetail="true" sticky="true" />  
+		<h:form id="formLogin">
+			<div class="row">
+				<div class="col-md-4 col-md-offset-4">
+					<div class="login-panel panel panel-default">
+						<div class="panel-heading">
+							<h3>
+								<h:outputText value="#{mensagens.label_bem_vindo}" />
+							</h3>
+						</div>
+						<div id="aut" class="panel-body">
+							<p:growl id="growl" showDetail="true" sticky="true" />
 							<fieldset>
 								<div class="form-group">
-									<p:inputText 
-									   id="login" 
-									   styleClass="form-control" 
-									   placeholder="#{mensagens.label_login}" 
-									   value="#{sessaoMB.login}"
-									   required="true"
-									   requiredMessage="#{mensagens.mensagem_login_obrigatorio}" />
-									 <p:message for="login"/>
+									<p:inputText id="login" styleClass="form-control"
+										placeholder="#{mensagens.label_login}"
+										value="#{sessaoMB.login}" required="true"
+										requiredMessage="#{mensagens.mensagem_login_obrigatorio}" />
 								</div>
 								<div class="form-group">
-									<p:inputText 
-									   id="senha" 
-									   styleClass="form-control" 
-									   placeholder="#{mensagens.label_senha}"
-									   value="#{sessaoMB.senha}"
-									   required="true"
-									   requiredMessage="#{mensagens.mensagem_senha_obrigatorio}"/>
-									<p:message for="senha"/>
+									<p:inputText id="senha" styleClass="form-control"
+										placeholder="#{mensagens.label_senha}"
+										value="#{sessaoMB.senha}" required="true"
+										requiredMessage="#{mensagens.mensagem_senha_obrigatorio}" />
 								</div>
-								<p:commandButton 
-								   action="#{sessaoMB.efetuarLogin}" 
-								   value="#{mensagens.botao_entrar_sistema}"  
-								   styleClass="btn btn-lg btn-success btn-block" update="growl"/>
+								<p:commandButton id="login_button"
+									action="#{sessaoMB.efetuarLogin}"
+									value="#{mensagens.botao_entrar_sistema}"
+									styleClass="btn btn-lg btn-success btn-block" update="@form"/>
 							</fieldset>
-						</h:form>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</h:form>
 	</div>
-	
-    <h:outputScript library="js" name="bootstrap.min.js"/>
+
+	<h:outputScript library="js" name="bootstrap.min.js"/>
     <h:outputScript library="js" name="plugins/metisMenu/jquery.metisMenu.js"/>
     <h:outputScript library="js" name="sb-admin.js"/>
 </h:body>

@@ -32,7 +32,7 @@ public class SprintRepositorioTest extends AbstractRepositorioTest {
 	@Autowired
 	private SprintManager sprintManager;
 
-	@Test
+	//@Test
 	public void verificarConsultaPorProjeto() {
 
 		// Empresa
@@ -131,7 +131,7 @@ public class SprintRepositorioTest extends AbstractRepositorioTest {
 		Assert.assertTrue("SPRINTS ERRADAS", sprints.size() == 3);
 	}
 
-	@Test
+	//@Test
 	public void consultaPorChaveComposta() {
 
 		// Empresa
@@ -192,7 +192,8 @@ public class SprintRepositorioTest extends AbstractRepositorioTest {
 
 		Assert.assertTrue("NÃO ENCONTRADO", itens != null);
 	}
-
+	
+	@Test
 	public void consultaSprintDTO() {
 
 		// Empresa
@@ -205,7 +206,6 @@ public class SprintRepositorioTest extends AbstractRepositorioTest {
 
 		// Projeto 1
 		Projeto projeto1 = new Projeto();
-		projeto1.setCodigo(5);
 		projeto1.setNome("Projeto_01");
 		projeto1.setDescricao("teste01");
 		projeto1.setEmpresa(empresa);
@@ -248,49 +248,68 @@ public class SprintRepositorioTest extends AbstractRepositorioTest {
 		sprint2.setProjeto(projeto1);
 		sprint2.setSituacaoSprint(SituacaoSprintEnum.ABERTA);
 
-		// Sprint 3
-		Sprint sprint3 = new Sprint();
-		sprint3.setDataRevisao(NOW);
-		sprint3.setDataCadastro(NOW);
-		sprint3.setDataInicio(NOW);
-		sprint3.setDataFim(FIM);
-		sprint3.setDescricao("teste03");
-		sprint3.setNome("Sprint3");
-		sprint3.setProjeto(projeto1);
-		sprint3.setSituacaoSprint(SituacaoSprintEnum.ABERTA);
-
-		// Sprint 4
-		Sprint sprint4 = new Sprint();
-		sprint4.setDataRevisao(NOW);
-		sprint4.setDataCadastro(NOW);
-		sprint4.setDataInicio(NOW);
-		sprint4.setDataFim(FIM);
-		sprint4.setDescricao("teste04");
-		sprint4.setNome("Sprint4");
-		sprint4.setProjeto(projeto2);
-		sprint4.setSituacaoSprint(SituacaoSprintEnum.ABERTA);
-
-		// Sprint 5
-		Sprint sprint5 = new Sprint();
-		sprint5.setDataRevisao(NOW);
-		sprint5.setDataCadastro(NOW);
-		sprint5.setDataInicio(NOW);
-		sprint5.setDataFim(FIM);
-		sprint5.setDescricao("teste05");
-		sprint5.setNome("Sprint5");
-		sprint5.setProjeto(projeto2);
-		sprint5.setSituacaoSprint(SituacaoSprintEnum.ABERTA);
-
-		// Sprint
+		save(sprint1, sprint2);
 		
-		save(sprint1, sprint2, sprint3, sprint4, sprint5);
-
-		List<Sprint> sprints = (List<Sprint>) sprintManager.findAll();
+		// Item 1
+		ItemBacklog item1 = new ItemBacklog();
+		item1.setAtivo(true);
+		item1.setCriterioAceitacao("lkasdlkjd");
+		item1.setDescricao("opa");
+		item1.setNome("01");
+		item1.setProjeto(projeto1);
+		item1.setRoi(2.0);
+		item1.setSituacaoBacklog(SituacaoItemBacklogEnum.FAZER);
+		item1.setStoryPoints(10);
+		item1.setValorNegocio(2.0);
 		
-		SprintDTO sprintDTO = new SprintDTO();
+		// Item 2
+		ItemBacklog item2 = new ItemBacklog();
+		item2.setAtivo(true);
+		item2.setCriterioAceitacao("lasdkasdlkjd");
+		item2.setDescricao("sdopa");
+		item2.setNome("02");
+		item2.setProjeto(projeto1);
+		item2.setRoi(2.0);
+		item2.setSituacaoBacklog(SituacaoItemBacklogEnum.FAZER);
+		item2.setStoryPoints(10);
+		item2.setValorNegocio(2.0);
 		
-		sprintDTO = sprintManager.consultarSprintDTO(sprints.get(0).getChave());
+		// Item 2
+		ItemBacklog item3 = new ItemBacklog();
+		item3.setAtivo(true);
+		item3.setCriterioAceitacao("dasd");
+		item3.setDescricao("sd");
+		item3.setNome("03");
+		item3.setProjeto(projeto1);
+		item3.setRoi(2.0);
+		item3.setSituacaoBacklog(SituacaoItemBacklogEnum.FAZER);
+		item3.setStoryPoints(10);
+		item3.setValorNegocio(2.0);
 		
-		Assert.assertTrue("NÃO ENCONTRADO", sprintDTO != null);
+		save(item1, item2, item3);
+		
+		// SP Bklog1
+		SprintBacklog spBacklo1 = new SprintBacklog();
+		spBacklo1.setAtivo(true);
+		spBacklo1.setItemBacklog(item1);
+		spBacklo1.setSprint(sprint1);
+		
+		// SP Bklog1
+		SprintBacklog spBacklo2 = new SprintBacklog();
+		spBacklo2.setAtivo(true);
+		spBacklo2.setItemBacklog(item2);
+		spBacklo2.setSprint(sprint1);
+		
+		// SP Bklog1
+		SprintBacklog spBacklo3 = new SprintBacklog();
+		spBacklo3.setAtivo(true);
+		spBacklo3.setItemBacklog(item3);
+		spBacklo3.setSprint(sprint2);
+		
+		save(spBacklo1, spBacklo2, spBacklo3);
+		SprintDTO dto = new SprintDTO();
+		dto = sprintManager.consultarSprintDTO(0);
+		System.out.println("OPA!!!");
+		Assert.assertTrue("NÃO ENCONTRADO", dto != null);
 	}
 }

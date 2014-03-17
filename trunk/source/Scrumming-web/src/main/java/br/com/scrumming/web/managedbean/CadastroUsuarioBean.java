@@ -6,15 +6,16 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
 
 @ManagedBean
 @ViewScoped
 public class CadastroUsuarioBean extends AbstractBean {
 
-    private List<Usuario> usuarios;
-
     private Usuario usuarioSelecionado;
+    private List<Usuario> usuarios;
+    private Empresa empresa;
 
     @Override
     public void inicializar() {
@@ -55,5 +56,13 @@ public class CadastroUsuarioBean extends AbstractBean {
 
     public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
         this.usuarioSelecionado = usuarioSelecionado;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 }

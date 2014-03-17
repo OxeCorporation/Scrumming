@@ -37,11 +37,11 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
     
     @Override
 	public List<ItemBacklog> consultarPorProjeto(Integer projetoID) {
-    	return consultarPorProjeto(projetoID);
+    	return itemRepositorio.consultarPorProjeto(projetoID);
 	}
     
-    public List<ItemBacklog> consultarPorSprintBacklog(Sprint sprint) {
-    	return consultarPorSprintBacklog(sprint);
+    public List<ItemBacklog> consultarPorSprintBacklog(Integer sprintID) {
+    	return itemRepositorio.consultarPorSprintBacklog(sprintID);
     }
     
     @Override
