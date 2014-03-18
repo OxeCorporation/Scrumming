@@ -28,13 +28,12 @@ public class ItemBacklogRepositorio extends AbstractRepositorio<ItemBacklog, Int
     
     /**
      * Consultar um item pelo se ID
-     * @param sprint
-     * @return
+     * @param Integer itemID
+     * @return um objeto do tipo ItemBacklog
      */
     public ItemBacklog consultarItemPorID(Integer itemID) {
     	Criteria criteria = createCriteria();
-    	criteria.createAlias("ItemBacklog", "ItemBacklog");
-        criteria.add(Restrictions.eq("ItemBacklog.codigo", itemID));
+        criteria.add(Restrictions.eq("codigo", itemID));
         return (ItemBacklog) criteria.uniqueResult();
     }
 }
