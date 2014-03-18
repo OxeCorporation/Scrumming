@@ -9,4 +9,12 @@ public final class ConstantesService {
 		public static final String OBTER_USUARIO_LOGIN = "/service/usuario/login/{login}/{senha}";
 		public static final String SALVAR_USUARIO = "/service/usuario/usu";
 	}
+	
+	public final class Tarefa{
+		
+		public static final String URL_SALVAR = "http://localhost:8080/Scrumming/service/tarefa/{tarefa}";
+		public static final String URL_CONSULTAR_POR_ITEM_BACKLOG = "http://localhost:8080/Scrumming/service/tarefa/list/{itemBacklogID}";
+		public static final String URL_CONSULTAR = "http://localhost:8080/Scrumming/service/tarefa/{tarefaID}";
+		public static final String URL_REMOVER = "http://localhost:8080/Scrumming/service/tarefa/{tarefa}";
+	}
 }
