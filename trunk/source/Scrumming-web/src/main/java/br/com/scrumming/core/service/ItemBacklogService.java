@@ -35,6 +35,11 @@ public class ItemBacklogService {
     public List<ItemBacklog> consultarPorProjeto(@PathVariable Integer projetoId) {
     	return new ArrayList<ItemBacklog>(itemBacklogManager.consultarPorProjeto(projetoId));
     }
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/{itemID}")
+    public ItemBacklog consultarItemPorID(@PathVariable Integer itemId) {
+    	return itemBacklogManager.consultarItemPorID(itemId);
+    }
 
 	/* getters and setters */
 	public IItemBacklogManager getItemBacklogManager() {

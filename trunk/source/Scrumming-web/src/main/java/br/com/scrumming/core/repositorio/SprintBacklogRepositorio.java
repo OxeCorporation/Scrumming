@@ -63,11 +63,12 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
         return Collections.checkedList(criteria.list(), SprintBacklog.class);
 	}
 	
+	/*
 	@SuppressWarnings("unchecked")
 	public List<ItemBacklog> consultarItensSprintBacklogPorSprint(Integer sprintID) {
         Criteria criteria = createCriteria();
         criteria.createAlias("sprint", "sprint");
         criteria.add(Restrictions.eq("sprint.codigo", sprintID));
         return Collections.checkedList(criteria.list(), SprintBacklog.class);
-	}
+	}*/
 }

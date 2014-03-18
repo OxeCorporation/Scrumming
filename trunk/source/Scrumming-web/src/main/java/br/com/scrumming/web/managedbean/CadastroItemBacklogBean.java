@@ -23,22 +23,20 @@ public class CadastroItemBacklogBean extends AbstractBean {
         clienteService = new ItemBacklogClientService();
         itemBacklog = new ItemBacklog();
     }
-
     
-	public String novo() {
+	public String salvarItemBacklog() {
     	clienteService.salvarItemBacklog(itemBacklog);
     	return "";
-    }
-
-    public String alterar() {
-       	clienteService.salvarItemBacklog(itemBacklog);
-        return "";
-
     }
 
     public String excluir() {
        	clienteService.cancelarItemBacklog(itemBacklog);
         return "";
+    }
+    
+    public String consultarItemPorID() {
+    	clienteService.consultarItemPorID(itemBacklog.getChave());
+    	return "";
     }
 
     /* getters and setters */

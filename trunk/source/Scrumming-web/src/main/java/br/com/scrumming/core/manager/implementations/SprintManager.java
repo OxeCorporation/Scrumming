@@ -42,11 +42,13 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		return this.sprintRepositorio;
 	}
 
+	// 01
 	@Override
 	public List<Sprint> consultarPorProjeto(Integer projetoID) {
 		return sprintRepositorio.consultarPorProjeto(projetoID);
 	}
 
+	// 04
 	@Override
 	public String salvarSprint(SprintDTO sprintDTO) {
 
@@ -66,10 +68,12 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 			Sprint sprintPersistido = findByKey(sprintID);
 
 			if (CollectionUtils.isNotEmpty(itensBacklogSprint)) {
+				// TODO: Testar se funciona
 				sprintBacklogManager.associarItemASprint(sprintPersistido,
 						itensBacklogSprint);
 			}
 			if (CollectionUtils.isNotEmpty(itensBacklogProduto)) {
+				// TODO: Testar se funciona
 				sprintBacklogManager.desassociarItemASprint(sprintPersistido,
 						itensBacklogProduto);
 			}
@@ -77,6 +81,7 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		return retorno;
 	}
 
+	// 05, 06, 07
 	@Override
 	public SprintDTO consultarSprintDTO(Integer sprintID) {
 
@@ -114,9 +119,11 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		return sprintDTO;
 	}
 
+	// 08
 	/**
 	 * Função para gerenciar o fechamento da Sprint
 	 */
+	@Override
 	public void fecharSprint(Sprint sprint) {
 
 		List<SprintBacklog> itens = (List<SprintBacklog>) sprintBacklogManager
