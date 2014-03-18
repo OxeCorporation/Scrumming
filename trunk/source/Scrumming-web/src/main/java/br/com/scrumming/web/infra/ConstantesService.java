@@ -17,4 +17,9 @@ public final class ConstantesService {
 		public static final String URL_CONSULTAR = "http://localhost:8080/Scrumming/service/tarefa/{tarefaID}";
 		public static final String URL_REMOVER = "http://localhost:8080/Scrumming/service/tarefa/{tarefa}";
 	}
+	
+	public final class Sprint {
+		public static final String URL_SALVAR = "http://localhost:8080/Scrumming/service/sprint/save";
+		public static final String URL_CONSULTAR_SPRINT_DTO = "http://localhost:8080/Scrumming/service/sprint/{sprintID}";
+	}
 }

@@ -32,7 +32,7 @@ public class SprintService {
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/{sprintID}")
-    public SprintDTO consultarSprintDTO(Integer sprintID) {
+    public SprintDTO consultarSprintDTO(@PathVariable Integer sprintID) {
     	return sprintManager.consultarSprintDTO(sprintID);
     }
     

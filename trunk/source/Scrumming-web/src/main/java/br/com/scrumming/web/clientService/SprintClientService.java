@@ -5,14 +5,14 @@ import java.util.List;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
+import br.com.scrumming.web.infra.AbstractClientService;
+import br.com.scrumming.web.infra.ConstantesService;
 
-public class SprintClientService {
+public class SprintClientService extends AbstractClientService {
 
 	/**
 	 * Função para enviar os dados da tela Sprint para serem presistidas no banco de dados.
@@ -20,14 +20,7 @@ public class SprintClientService {
 	 * @return tipo de retorno a ser definido.
 	 */
 	public String salvarSprint(SprintDTO sprintDTO) {
-		
-		RestTemplate rt = new RestTemplate();
-        rt.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        rt.getMessageConverters().add(new StringHttpMessageConverter());
-        
-        String uri = "http://localhost:8080/Scrumming/service/sprint/save";
-        
-        return rt.postForObject(uri, sprintDTO, String.class);
+		return getRestTemplate().postForObject(getURIService(ConstantesService.Sprint.URL_SALVAR), sprintDTO, String.class);
 	}
 
 	/**
@@ -52,14 +45,9 @@ public class SprintClientService {
 	 * @return Objeto DTO que representa os dados da tela da Sprint.
 	 */
 	public SprintDTO consultarSprintDTO(Integer sprintID) {
-		
-		RestTemplate restTemplate = new RestTemplate();
-		
-		String url = "http://localhost:8080/Scrumming/service/sprint/{sprintID}";
-		
-		ResponseEntity<SprintDTO> sprintDTO = restTemplate.getForEntity(url, SprintDTO.class, sprintID);
-
-		return sprintDTO.getBody();
+		SprintDTO a = getRestTemplate().getForObject(ConstantesService.Sprint.URL_CONSULTAR_SPRINT_DTO, SprintDTO.class, sprintID);
+		System.out.println("Nome da sprint é : "+a.getSprint().getNome());
+		return getRestTemplate().getForObject(ConstantesService.Sprint.URL_CONSULTAR_SPRINT_DTO, SprintDTO.class, sprintID);
 	}
 	
 	/**
