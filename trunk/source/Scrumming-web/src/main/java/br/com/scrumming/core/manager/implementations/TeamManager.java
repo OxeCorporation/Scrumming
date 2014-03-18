@@ -30,7 +30,6 @@ public class TeamManager extends AbstractManager<Team, Integer> implements
 	@Autowired
 	private IUsuarioEmpresaManager iUsuarioEmpresaManager;
 
-	@Autowired
 	private List<Usuario> usuarioForaProjeto;
 	
 	@Override
@@ -90,6 +89,7 @@ public class TeamManager extends AbstractManager<Team, Integer> implements
 
 	@Override
 	public List<Usuario> consultarUsuarioPorEmpresaForaDoProjeto(Projeto projeto) {
+		
 		List<Usuario> usuarioEmpresa = iUsuarioEmpresaManager.consultarUsuarioPorEmpresa(projeto.getEmpresa().getCodigo());
 		List<Usuario> usuarioProjeto = teamRepositorio.consultarUsuarioPorProjeto(projeto.getCodigo());
 		
