@@ -7,7 +7,6 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.expression.spel.ast.Projection;
 import org.springframework.stereotype.Repository;
 
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
@@ -20,7 +19,7 @@ public class TeamRepositorio extends AbstractRepositorio<Team, Integer> {
 	/**
 	 * Consulta de usuários por projeto
 	 * 
-	 * @param projeto
+	 * @param id do projeto
 	 * @return coleção de usuários
 	 */
 	@SuppressWarnings("unchecked")
@@ -61,7 +60,14 @@ public class TeamRepositorio extends AbstractRepositorio<Team, Integer> {
 		
 		return Collections.checkedList(criteria.list(), Team.class);
 	}
-	
+
+	/**
+	 * Consulta de usuários da empresa por projeto
+	 * 
+	 * @param projeto
+	 * @return coleção de usuários na empresa que não está no projeto
+	 */
+
 	@SuppressWarnings("unchecked")
 	public List<Usuario> consultarUsuarioPorEmpresaForaDoProjeto(Projeto projeto) {
         Criteria criteria = createCriteria();
