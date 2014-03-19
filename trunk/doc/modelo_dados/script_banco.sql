@@ -457,6 +457,7 @@ select * from Sprint;
 select * from itembacklog;
 select * from usuarioempresa;
 select * from timeprojeto;
+select * from sprintBacklog;
 
 select * from `itembacklog` as ib
 	inner join `sprintbacklog` as sp
