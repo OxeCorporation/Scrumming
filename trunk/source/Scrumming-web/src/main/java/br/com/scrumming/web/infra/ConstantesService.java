@@ -21,5 +21,7 @@ public final class ConstantesService {
 	public final class Sprint {
 		public static final String URL_SALVAR = "http://localhost:8080/Scrumming/service/sprint/save";
 		public static final String URL_CONSULTAR_SPRINT_DTO = "http://localhost:8080/Scrumming/service/sprint/{sprintID}";
+		public static final String URL_CONSULTAR_POR_PROJETO = "http://localhost:8080/Scrumming/service/sprint/list/{projetoID}";
+		public static final String URL_FECHAR_SPRINT = "http://localhost:8080/Scrumming/service/sprint/{sprint}";
 	}
 }
