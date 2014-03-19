@@ -414,7 +414,7 @@ insert
         ItemBacklog
         (criterio_aceitacao, descricao, nome, FK_projeto, roi, situacao_backlog, story_points, valor_negocio) 
     values
-        ('BLA', 'BLU', 'ITEM1', 1, 2.0, 0, 2, 2.0);
+        ('SEM CRITERIO', 'SEM DESCRICAO', 'ITEM2', 1, 2.0, 0, 2, 2.0);
 
 -- Item03 (Sprint02)
 insert 
@@ -422,14 +422,14 @@ insert
         ItemBacklog
         (criterio_aceitacao, descricao, nome, FK_projeto, roi, situacao_backlog, story_points, valor_negocio) 
     values
-        ('BLA', 'BLU', 'ITEM1', 1, 2.0, 0, 2, 2.0);
+        ('COM CRITERIO', 'COM DESCRICAO', 'ITEM3', 1, 2.0, 0, 2, 2.0);
 -- Item04 (Sem associação)
 insert 
     into
         ItemBacklog
         (criterio_aceitacao, descricao, nome, FK_projeto, roi, situacao_backlog, story_points, valor_negocio) 
     values
-        ('BLA', 'BLU', 'ITEM1', 1, 2.0, 0, 2, 2.0);
+        ('NADA', 'NADA', 'ITEM4', 1, 2.0, 0, 2, 2.0);
 
 insert
 	into

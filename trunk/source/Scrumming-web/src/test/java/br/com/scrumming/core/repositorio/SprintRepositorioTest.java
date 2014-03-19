@@ -18,6 +18,7 @@ import br.com.scrumming.domain.SprintDTO;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 import br.com.scrumming.domain.enuns.SituacaoProjetoEnum;
 import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
+import br.com.scrumming.web.clientService.SprintClientService;
 
 public class SprintRepositorioTest extends AbstractRepositorioTest {
 
@@ -31,6 +32,8 @@ public class SprintRepositorioTest extends AbstractRepositorioTest {
 
 	@Autowired
 	private SprintManager sprintManager;
+	
+	private SprintClientService clientService = new SprintClientService();
 
 	//@Test
 	public void verificarConsultaPorProjeto() {
@@ -308,7 +311,7 @@ public class SprintRepositorioTest extends AbstractRepositorioTest {
 		
 		save(spBacklo1, spBacklo2, spBacklo3);
 		SprintDTO dto = new SprintDTO();
-		dto = sprintManager.consultarSprintDTO(0);
+		dto = clientService.consultarSprintDTO(0);
 		System.out.println("OPA!!!");
 		Assert.assertTrue("NÃO ENCONTRADO", dto != null);
 	}

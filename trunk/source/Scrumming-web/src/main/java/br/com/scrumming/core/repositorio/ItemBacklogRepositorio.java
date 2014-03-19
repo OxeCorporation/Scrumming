@@ -27,15 +27,13 @@ public class ItemBacklogRepositorio extends AbstractRepositorio<ItemBacklog, Int
     }
     
     /**
-     * Consultar a lista de Itens que pertecem à SprintBacklog.
-     * @param sprint
-     * @return
+     * Consultar um item pelo se ID
+     * @param Integer itemID
+     * @return um objeto do tipo ItemBacklog
      */
-    @SuppressWarnings("unchecked")
-	public List<ItemBacklog> consultarPorSprintBacklog(Integer sprintID) {
+    public ItemBacklog consultarItemPorID(Integer itemID) {
     	Criteria criteria = createCriteria();
-        criteria.createAlias("sprintBacklog", "sprintBacklog");
-        criteria.add(Restrictions.eq("sprintBacklog.sprint.codigo", sprintID));
-        return Collections.checkedList(criteria.list(), ItemBacklog.class);
+        criteria.add(Restrictions.eq("codigo", itemID));
+        return (ItemBacklog) criteria.uniqueResult();
     }
 }

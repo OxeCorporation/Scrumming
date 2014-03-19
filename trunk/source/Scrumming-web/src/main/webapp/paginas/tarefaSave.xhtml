@@ -23,10 +23,10 @@
 					<p:panel header="Detalhar Tarefa">
 						<h:panelGrid columns="1">						
 							<h:outputText value="Resumo" /> 
-							<p:inputText id="nome" required="true" value="#{tarefaBean.tarefa.descricao}" requiredMessage="Preencha o resumo" disabled="#{tarefaBean.tarefa.descricao} != null}" />
+							<p:inputText id="nome" required="true" size="100" value="#{tarefaBean.tarefa.nome}" requiredMessage="Preencha o resumo" disabled="#{tarefaBean.tarefa.nome} != null}" />
 							
 							<h:outputText value="Descrição" /> 
-							<p:inputTextarea id="descricao" required="false" value="#{tarefaBean.tarefa.descricao}" />
+							<p:inputTextarea id="descricao" required="false" rows="3" cols="100" value="#{tarefaBean.tarefa.descricao}" />
 							
 							<h:outputText value="Tempo estimado (H)" /> 
 							<p:inputText id="tempoEstimado" required="true" value="#{tarefaBean.tarefa.tempoEstimado}" requiredMessage="Preencha o tempo estimado em horas" />							

@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -60,14 +61,16 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
         criteria.createAlias("sprint", "sprint");
         criteria.add(Restrictions.eq("sprint.codigo", sprintID));
         criteria.add(Restrictions.eq("isAtivo", true));
-        return Collections.checkedList(criteria.list(), SprintBacklog.class);
+        criteria.setProjection(Projections.property("itemBacklog"));
+        return Collections.checkedList(criteria.list(), ItemBacklog.class);
 	}
 	
+	/*
 	@SuppressWarnings("unchecked")
 	public List<ItemBacklog> consultarItensSprintBacklogPorSprint(Integer sprintID) {
         Criteria criteria = createCriteria();
         criteria.createAlias("sprint", "sprint");
         criteria.add(Restrictions.eq("sprint.codigo", sprintID));
         return Collections.checkedList(criteria.list(), SprintBacklog.class);
-	}
+	}*/
 }

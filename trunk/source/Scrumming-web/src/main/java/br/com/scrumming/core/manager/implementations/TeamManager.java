@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.ITeamManager;
+import br.com.scrumming.core.manager.interfaces.IUsuarioEmpresaManager;
 import br.com.scrumming.core.repositorio.TeamRepositorio;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Team;
@@ -25,7 +26,12 @@ public class TeamManager extends AbstractManager<Team, Integer> implements
 
 	@Autowired
 	private TeamRepositorio teamRepositorio;
+	
+	@Autowired
+	private IUsuarioEmpresaManager iUsuarioEmpresaManager;
 
+	private List<Usuario> usuarioForaProjeto;
+	
 	@Override
 	public AbstractRepositorio<Team, Integer> getRepositorio() {
 		return this.teamRepositorio;
@@ -79,5 +85,23 @@ public class TeamManager extends AbstractManager<Team, Integer> implements
 
 	public void setTeamRepositorio(TeamRepositorio teamRepositorio) {
 		this.teamRepositorio = teamRepositorio;
+	}
+
+	@Override
+	public List<Usuario> consultarUsuarioPorEmpresaForaDoProjeto(Projeto projeto) {
+		
+		List<Usuario> usuarioEmpresa = iUsuarioEmpresaManager.consultarUsuarioPorEmpresa(projeto.getEmpresa().getCodigo());
+		List<Usuario> usuarioProjeto = teamRepositorio.consultarUsuarioPorProjeto(projeto.getCodigo());
+		
+		for (int i = 0; i <= usuarioEmpresa.size(); i++) {
+			for (int j = 0; j < usuarioProjeto.size(); j++) {
+				if (usuarioEmpresa.get(i).getCodigo()== usuarioProjeto.get(j).getCodigo()){
+					continue;
+				}else{
+					usuarioForaProjeto.add(usuarioEmpresa.get(i));
+				}
+			}
+		}
+		return usuarioForaProjeto;
 	}
 }

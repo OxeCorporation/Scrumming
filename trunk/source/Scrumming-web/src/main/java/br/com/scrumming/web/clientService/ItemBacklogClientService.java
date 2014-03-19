@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.scrumming.domain.ItemBacklog;
-import br.com.scrumming.domain.Tarefa;
 
 public class ItemBacklogClientService {
 	
@@ -39,5 +38,16 @@ public class ItemBacklogClientService {
 		String url = "http://localhost:8080/Scrumming/service/itemBacklog/{item}";
 		
 		restTemplate.postForEntity(url, HttpEntity.EMPTY, void.class, item);
+	}
+	
+	public ItemBacklog consultarItemPorID(Integer itemID) {
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		String url = "http://localhost:8080/Scrumming/service/itemBacklog/{itemID}";
+		
+		ResponseEntity<ItemBacklog> itemBacklog = restTemplate.getForEntity(url, ItemBacklog.class, itemID);
+
+		return itemBacklog.getBody();
 	}
 }
