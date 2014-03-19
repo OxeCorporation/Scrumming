@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.scrumming.core.manager.interfaces.ISprintManager;
+import br.com.scrumming.domain.ItemsTasksDTO;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
 
@@ -21,11 +22,18 @@ public class SprintService {
     @Autowired
     private ISprintManager sprintManager;
     
+    /*POSTS*/
     @RequestMapping(method = RequestMethod.POST, value = "/save")
     public String salvarSprint(@RequestBody SprintDTO sprintDTO) {
     	return this.sprintManager.salvarSprint(sprintDTO);
     }
     
+    @RequestMapping(method = RequestMethod.POST, value = "/close")
+    public void fechar(@PathVariable Integer sprintID) {
+    	sprintManager.fecharSprint(sprintID);
+    }
+    
+    /*GETS*/
     @RequestMapping(method = RequestMethod.GET, value = "/list/{projetoId}")
     public List<Sprint> consultarPorProjeto(@PathVariable Integer projetoId) {
     	return new ArrayList<Sprint>(sprintManager.consultarPorProjeto(projetoId));
@@ -36,9 +44,11 @@ public class SprintService {
     	return sprintManager.consultarSprintDTO(sprintID);
     }
     
-    @RequestMapping(method = RequestMethod.PUT, value = "/{sprint}")
-    public void fechar(@PathVariable Sprint sprint) {
-    	sprintManager.fecharSprint(sprint);
+    
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/itemsTarefas")
+    public List<ItemsTasksDTO> consultarItemsAndTasksDTO(Integer sprintID) {
+    	return sprintManager.consultarItemsAndTasksDTO(sprintID);
     }
 
     /* getters and setters */

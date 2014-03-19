@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpEntity;
 
+import br.com.scrumming.domain.ItemsTasksDTO;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
 import br.com.scrumming.web.infra.AbstractClientService;
@@ -27,7 +28,6 @@ public class SprintClientService extends AbstractClientService {
 	 * @return lista de Sprints
 	 */
 	public List<Sprint> consultarSprintsPorProjeto(Integer projetoID) {
-
 		return Arrays.asList(getRestTemplate().getForObject(ConstantesService.Sprint.URL_CONSULTAR_POR_PROJETO, Sprint[].class, projetoID));
 	}
 	
@@ -39,12 +39,21 @@ public class SprintClientService extends AbstractClientService {
 	public SprintDTO consultarSprintDTO(Integer sprintID) {
 		return getRestTemplate().getForObject(ConstantesService.Sprint.URL_CONSULTAR_SPRINT_DTO, SprintDTO.class, sprintID);
 	}
+
+	/**
+	 * Consulta a lista dos itens e tarefas associadas à uma sprint.
+	 * @param sprintID
+	 * @return
+	 */
+	public List<ItemsTasksDTO> consultarItemsAndTasksDTO(Integer sprintID) {
+		return Arrays.asList(getRestTemplate().getForObject(ConstantesService.Sprint.URL_CONSULTAR_ITEMS_TAREFAS, ItemsTasksDTO[].class, sprintID));
+	}
 	
 	/**
 	 * Efetua o fechamento de uma Sprint.
 	 * @param sprint
 	 */
-	public void fecharSprint(Sprint sprint) {
-		getRestTemplate().put(ConstantesService.Sprint.URL_FECHAR_SPRINT, HttpEntity.EMPTY, sprint);
+	public void fecharSprint(Integer sprintID) {
+		getRestTemplate().put(ConstantesService.Sprint.URL_FECHAR_SPRINT, HttpEntity.EMPTY, sprintID);
 	}
 }

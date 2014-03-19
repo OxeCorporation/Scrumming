@@ -12,8 +12,10 @@ import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
 import br.com.scrumming.core.manager.interfaces.ISprintBacklogManager;
 import br.com.scrumming.core.manager.interfaces.ISprintManager;
+import br.com.scrumming.core.manager.interfaces.ITarefaManager;
 import br.com.scrumming.core.repositorio.SprintRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
+import br.com.scrumming.domain.ItemsTasksDTO;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
 import br.com.scrumming.domain.SprintDTO;
@@ -36,6 +38,8 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 
 	@Autowired
 	private IItemBacklogManager itemBacklogManager;
+	
+	private ITarefaManager tarefaManager;
 
 	@Override
 	public AbstractRepositorio<Sprint, Integer> getRepositorio() {
@@ -117,19 +121,46 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		return sprintDTO;
 	}
 
+	/**
+	 * consulta a lista de itens e suas respectivas tarefas de uma Sprint para ser exibida na tela.
+	 */
+	public List<ItemsTasksDTO> consultarItemsAndTasksDTO(Integer sprintID) {
+		// Lista que será retornada à tela
+		List<ItemsTasksDTO> listaDTO = new ArrayList<>();
+		// Busca a lista dos Itens de Backlog de uma Sprint.
+		List<ItemBacklog> itemsDaSprint = new ArrayList<>(); 
+		itemsDaSprint = sprintBacklogManager.consultarItensAtivosBacklogPorSprint(sprintID); 
+		
+		if (itemsDaSprint.size() > 0) {
+			// Para cada item
+			for (ItemBacklog itemBacklog : itemsDaSprint) {
+				// Instancia um DTO que será adicionado à lista.
+				ItemsTasksDTO itDTO = new ItemsTasksDTO();
+				// Seta o item ao DTO
+				itDTO.setItem(itemBacklog);
+				//Seta a lista de tarefas desse item ao DTO.
+				itDTO.setTarefas(tarefaManager.consultarPorItemBacklog(itemBacklog.getChave()));
+				listaDTO.add(itDTO);
+			}
+		}
+		return listaDTO;
+	}
+	
 	// 08
 	/**
 	 * Função para gerenciar o fechamento da Sprint
 	 */
 	@Override
-	public void fecharSprint(Sprint sprint) {
+	public void fecharSprint(Integer sprintID) {
 
 		List<SprintBacklog> itens = (List<SprintBacklog>) sprintBacklogManager
-				.consultarPorCampo("codigo", sprint.getChave());
+				.consultarPorCampo("codigo", sprintID);
 		for (SprintBacklog item : itens) {
 
 			item.setAtivo(false);
 		}
+		Sprint sprint = new Sprint();
+		sprint = findByKey(sprintID);
 		sprint.setSituacaoSprint(SituacaoSprintEnum.FECHADA);
 		insertOrUpdate(sprint);
 	}
