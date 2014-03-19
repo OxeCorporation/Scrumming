@@ -13,7 +13,7 @@ public class ProjetoDTO implements Serializable {
 	
 	private List<Team> timeProjeto;
 	
-	private List<Usuario> usuarioEmpresa;
+	private List<Usuario> usuarioEmpresaNotTeam;
 
 	// Teste commit Ubuntu
 	public Integer getCodigo() {
@@ -41,11 +41,11 @@ public class ProjetoDTO implements Serializable {
 	}
 
 	public List<Usuario> getUsuarioEmpresa() {
-		return usuarioEmpresa;
+		return usuarioEmpresaNotTeam;
 	}
 
 	public void setUsuarioEmpresa(List<Usuario> usuarioEmpresa) {
-		this.usuarioEmpresa = usuarioEmpresa;
+		this.usuarioEmpresaNotTeam = usuarioEmpresa;
 	}
 	
 	

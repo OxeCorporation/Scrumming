@@ -65,28 +65,6 @@ public class TeamManager extends AbstractManager<Team, Integer> implements
 		}
 	}
 
-
-	/*@Override
-	public List<Usuario> consultarUsuarioPorEmpresa(Integer empresaID) {
-		return null;// teamRepositorio.consultarUsuarioPorEmpresa(empresaID);
-	}*/
-	
-/*	@Override
-	public List<Usuario> addTimeProjeto(List<Usuario> usuarioEmpresa, Integer empresaID){
-		usuarioEmpresa=consultarUsuarioPorEmpresa(empresaID);
-		return teamRepositorio.consultarUsuarioPorProjeto(empresaID);
-	}*/
-
-
-	/* getters and setters */
-	public TeamRepositorio getTeamRepositorio() {
-		return teamRepositorio;
-	}
-
-	public void setTeamRepositorio(TeamRepositorio teamRepositorio) {
-		this.teamRepositorio = teamRepositorio;
-	}
-
 	@Override
 	public List<Usuario> consultarUsuarioPorEmpresaForaDoProjeto(Projeto projeto) {
 		
@@ -104,4 +82,21 @@ public class TeamManager extends AbstractManager<Team, Integer> implements
 		}
 		return usuarioForaProjeto;
 	}
+
+	@Override
+	public void desassociarUsuarioDoTeamProjeto(Projeto projetoPersistido,
+			List<Team> team) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/* getters and setters */
+	public TeamRepositorio getTeamRepositorio() {
+		return teamRepositorio;
+	}
+
+	public void setTeamRepositorio(TeamRepositorio teamRepositorio) {
+		this.teamRepositorio = teamRepositorio;
+	}
+
 }

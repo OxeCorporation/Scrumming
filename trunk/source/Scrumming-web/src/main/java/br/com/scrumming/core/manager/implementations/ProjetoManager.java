@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.IProjetoManager;
-import br.com.scrumming.core.manager.interfaces.ITeamManager;
-import br.com.scrumming.core.manager.interfaces.IUsuarioEmpresaManager;
 import br.com.scrumming.core.repositorio.ProjetoRepositorio;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.ProjetoDTO;
@@ -27,12 +25,9 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 
     @Autowired
     private ProjetoRepositorio projetoRepositorio;
-   // private TeamRepositorio teamRepositorio;
     
 	@Autowired
-	private ITeamManager iTeamManage;
-	private IUsuarioEmpresaManager iUsuarioEmpresaManager;
-
+	private TeamManager teamManage;
 
     @Override
     public AbstractRepositorio<Projeto, Integer> getRepositorio() {
@@ -45,7 +40,6 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 		String retorno = "";
 		Projeto projeto = projetoDTO.getProjeto();
 		List<Team> team = projetoDTO.getTimeProjeto();
-	//	List<Usuario> usuarioEmpresa = projetoDTO.getUsuarioEmpresa();
 		// Persiste o objeto Projeto e retorna a chave.
 		Integer projetoID = insertOrUpdate(projeto);
 		
@@ -55,7 +49,7 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 			Projeto projetoPersistido = findByKey(projetoID);
 			
 			if (CollectionUtils.isNotEmpty(team)) {
-				iTeamManage.associarTeamProjeto(projetoPersistido, team);
+				teamManage.associarTeamProjeto(projetoPersistido, team);
 			}
 		}
 		
@@ -69,7 +63,7 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 		// Seta o Projeto
 		projetoDTO.setProjeto(findByKey(projetoID));
 		// Seta a lista de Times do projeto
-		projetoDTO.setTimeProjeto(iTeamManage.consultaTeamPorProjeto(projetoID));
+		projetoDTO.setTimeProjeto(teamManage.consultaTeamPorProjeto(projetoID));
 		// Pesquisa todos os usuarios da empresa
 		//projetoDTO.setUsuarioEmpresa(iUsuarioEmpresaManager.consultarUsuarioPorEmpresa(projetoDTO.getProjeto().getEmpresa().getCodigo()));
 		return projetoDTO;
