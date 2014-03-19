@@ -24,4 +24,11 @@ public final class ConstantesService {
 		public static final String URL_CONSULTAR_POR_PROJETO = "http://localhost:8080/Scrumming/service/sprint/list/{projetoID}";
 		public static final String URL_FECHAR_SPRINT = "http://localhost:8080/Scrumming/service/sprint/{sprint}";
 	}
+	
+	public final class ItemBacklog{
+		public static final String URL_SALVAR = "http://localhost:8080/Scrumming/service/itemBacklog/{itemBacklog}";
+		public static final String URL_CONSULTAR_POR_PROJETO = "http://localhost:8080/Scrumming/service/itemBacklog/list/{projetoID}";
+		public static final String URL_CANCELAR = "http://localhost:8080/Scrumming/service/itemBacklog/{item}";
+		public static final String URL_CONSLTAR_POR_ID = "http://localhost:8080/Scrumming/service/itemBacklog/{itemID}";
+	}
 }
