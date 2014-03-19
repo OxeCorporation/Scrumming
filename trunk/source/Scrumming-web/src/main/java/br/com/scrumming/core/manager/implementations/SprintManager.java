@@ -92,25 +92,23 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		Sprint sprint = new Sprint();
 		List<ItemBacklog> itensDisponiveis = new ArrayList<>();
 		List<ItemBacklog> sprintBacklog = new ArrayList<>();
-
+		
 		// Seta a Sprint
 		sprint = findByKey(sprintID);
 		sprintDTO.setSprint(sprint);
-
+		
 		// Seta a lista de itens ativos que representam o SprintBacklog
 		sprintBacklog = sprintBacklogManager.consultarItensAtivosBacklogPorSprint(sprintID);
 		sprintDTO.setSprintBacklog(sprintBacklog);
 
 		// Pesquisa todos os itens do Product Backlog
 		List<ItemBacklog> productBacklog = new ArrayList<>();
-		productBacklog = itemBacklogManager.consultarPorProjeto(sprintDTO
-				.getSprint().getProjeto().getChave());
+		productBacklog = itemBacklogManager.consultarPorProjeto(sprintDTO.getSprint().getProjeto().getChave());
 
 		// Percorre todos os itens do backlog para verificar os que não foram
 		// atribuidos às Sprints
 		for (ItemBacklog item : productBacklog) {
-			SprintBacklog spBacklog = sprintBacklogManager
-					.consultaAtivosPorChaveComposta(sprint, item);
+			SprintBacklog spBacklog = sprintBacklogManager.consultaAtivosPorChaveComposta(sprint, item);
 			if (spBacklog == null) {
 				itensDisponiveis.add(item);
 			}

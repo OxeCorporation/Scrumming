@@ -3,25 +3,18 @@ package br.com.scrumming.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SprintDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-
-	private Integer codigo;
 	
 	private Sprint sprint;
 	
 	private List<ItemBacklog> sprintBacklog;
 	
 	private List<ItemBacklog> productBacklog;
-	
-	public Integer getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
-	}
 
 	public Sprint getSprint() {
 		return sprint;

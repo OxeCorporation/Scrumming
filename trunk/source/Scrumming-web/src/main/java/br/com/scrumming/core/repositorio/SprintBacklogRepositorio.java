@@ -61,8 +61,8 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
         criteria.createAlias("sprint", "sprint");
         criteria.add(Restrictions.eq("sprint.codigo", sprintID));
         criteria.add(Restrictions.eq("isAtivo", true));
-        criteria.setProjection(Projections.property("ItemBacklog"));
-        return Collections.checkedList(criteria.list(), SprintBacklog.class);
+        criteria.setProjection(Projections.property("itemBacklog"));
+        return Collections.checkedList(criteria.list(), ItemBacklog.class);
 	}
 	
 	/*

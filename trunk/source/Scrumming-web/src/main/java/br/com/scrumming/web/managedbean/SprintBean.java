@@ -31,7 +31,8 @@ public class SprintBean extends AbstractBean {
 	}
 	
 	public String consultarSprintDTO() {
-		scs.consultarSprintDTO(new Integer(1));
+		SprintDTO a;
+		a = scs.consultarSprintDTO(new Integer(1));
 		if (scs != null) {
 			System.out.println("Deu Certo");
 		} else {
