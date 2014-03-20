@@ -9,37 +9,39 @@
 	<ui:define name="conteudo">
 	  <h:panelGroup id="usuarioPanel">
 	  
-	  	<h:panelGrid columns="3">  
-  	        <h:outputLabel value="#{mensagens.label_buscar_nome}"/>  
-    	    <p:inputText id="input_nome" value="#{watermarkBean.keyword}"/>  
-       	    <p:watermark for="input_nome" value="Search with a keyword" />  
-	    </h:panelGrid>
-	  		
-	  	
-	  	
-		<p:dataTable id="tabelaUsuarios" var="usuario" value="#{cadastroUsuarioBean.usuarios}" sortBy="#{usuario.nome}">
-		
-			<f:facet name="header">
-					<h:outputText value="#{mensagens.label_usuarios_cadastrados}"/>
-			</f:facet>
-			
-			<p:column headerText="#{mensagens.label_nome}" sortBy="nome">
-				<h:outputText value="#{usuario.nome}" />
-			</p:column>
-			<p:column headerText="#{mensagens.label_email}" sortBy="email">
-				<h:outputText value="#{usuario.email}" />
-			</p:column>
-	     	<p:column headerText="#{mensagens.label_ativo}" sortBy="ativo" >
-				<h:outputText value="#{usuario.ativo}" />	
-			</p:column>
-			
-			<f:facet name="footer">
-					<p:commandButton id="cadastrarBotao" value="#{mensagens.botao_cadastrar}" action="#{cadastroUsuarioBean.novo}" ajax="false" />
-					<p:commandButton id="detalharBotao" value="#{mensagens.botao_detalhar}" action="#{cadastroUsuarioBean.detalhar}" ajax="false" />
-					<p:commandButton id="alterarBotao" value="#{mensagens.botao_alterar}" action="#{cadastroUsuarioBean.alterar}" ajax="false" />
-					<p:commandButton id="excluirBotao" value="#{mensagens.botao_excluir}" action="#{cadastroUsuarioBean.excluir}"  ajax="false" />
-			</f:facet>
-		</p:dataTable>
+		  	<h:panelGroup columns="3">  
+	  	        <h:outputText value="#{mensagens.label_buscar_nome}: "/>  <span style="margin: 2px;"/>
+	    	    <p:inputText id="input_nome" placeholder="#{mansagens.label_nome_usuario}"/> <span style="margin: 2px;"/>
+	    	    <p:commandButton value="#{mensagens.botao_buscar}"/> 
+		    </h:panelGroup>
+		  	<br/>
+		  	<br/>
+		  	<h:panelGroup>
+				<p:dataTable id="tabelaUsuarios" var="usuario" value="#{cadastroUsuarioBean.usuarios}" sortBy="#{usuario.nome}">
+				
+					<f:facet name="header">
+							<h:outputText value="#{mensagens.label_usuarios_cadastrados}"/>
+					</f:facet>
+					
+					<p:column headerText="#{mensagens.label_nome}" sortBy="nome">
+						<h:outputText value="#{usuario.nome}" />
+					</p:column>
+					<p:column headerText="#{mensagens.label_email}" sortBy="email">
+						<h:outputText value="#{usuario.email}" />
+					</p:column>
+			     	<p:column headerText="#{mensagens.label_ativo}" sortBy="ativo" >
+						<h:outputText value="#{usuario.ativo}" />	
+					</p:column>
+					
+					<f:facet name="footer">
+							<p:commandButton id="cadastrarBotao" value="#{mensagens.botao_cadastrar}" action="#{cadastroUsuarioBean.novo}" ajax="false" />
+							<p:commandButton id="detalharBotao" value="#{mensagens.botao_detalhar}" action="#{cadastroUsuarioBean.detalhar}" ajax="false" />
+							<p:commandButton id="alterarBotao" value="#{mensagens.botao_alterar}" action="#{cadastroUsuarioBean.alterar}" ajax="false" />
+							<p:commandButton id="excluirBotao" value="#{mensagens.botao_excluir}" action="#{cadastroUsuarioBean.excluir}"  ajax="false" />
+					</f:facet>
+				</p:dataTable>
+		   </h:panelGroup>
+		   
 	   </h:panelGroup>
 	</ui:define>
 </ui:composition>
