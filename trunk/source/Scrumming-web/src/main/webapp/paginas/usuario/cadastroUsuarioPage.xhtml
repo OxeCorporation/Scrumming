@@ -11,8 +11,11 @@
 	  
 		  	<h:panelGroup columns="3">  
 	  	        <h:outputText value="#{mensagens.label_buscar_nome}: "/>  <span style="margin: 2px;"/>
-	    	    <p:inputText id="input_nome" placeholder="#{mansagens.label_nome_usuario}"/> <span style="margin: 2px;"/>
-	    	    <p:commandButton value="#{mensagens.botao_buscar}"/> 
+	    	    <p:inputText id="input_nome" placeholder="#{mansagens.label_nome_usuario}">
+	    	    	<f:validateBean disabled="true"/>
+	    	    </p:inputText>
+	    	     <span style="margin: 2px;"/>
+	    	    <p:commandButton value="#{mensagens.botao_buscar}" action="#{cadastroUsuarioBean.pesquisarPorNome}"/> 
 		    </h:panelGroup>
 		  	<br/>
 		  	<br/>

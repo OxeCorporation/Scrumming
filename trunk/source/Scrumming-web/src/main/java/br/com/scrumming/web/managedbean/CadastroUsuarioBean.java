@@ -17,6 +17,10 @@ public class CadastroUsuarioBean extends AbstractBean {
     private List<Usuario> usuarios;
     private Empresa empresa;
 
+    public String pesquisarPorNome(){
+    	return "";
+    }
+    
     @Override
     public void inicializar() {
         usuarios = new ArrayList<Usuario>();

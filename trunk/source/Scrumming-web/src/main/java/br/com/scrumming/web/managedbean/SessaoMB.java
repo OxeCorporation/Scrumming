@@ -39,6 +39,13 @@ public class SessaoMB extends AbstractBean {
         return redirecionar(PaginasUtil.Geral.LOGIN_PAGE);
     }
 
+    public String bemvindoPage(){
+    	return redirecionar(PaginasUtil.Geral.BENVINDO_PAGE);
+    }
+    
+    public String cadastroUsuarioPage(){
+    	return redirecionar(PaginasUtil.Usuario.CADASTRO_USUARIO_PAGE);
+    }
     /* getters and setters */
     public Usuario getUsuario() {
         return usuario;

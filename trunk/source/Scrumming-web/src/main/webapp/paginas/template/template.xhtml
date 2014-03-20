@@ -67,21 +67,21 @@
 				<li>
 					<div style="margin-left: 20px; margin-top: 20px;">
 						<img class="img-circle img-responsive"
-							src="http://img.elo7.com.br/product/140x112/E104C/tela-70x90-cangaceiro-cod-195.jpg" />
+							src="http://dicionarioinformal.com.br/image/m/1418.jpg" />
 						<h3 align="center">
 							<h:outputText value="#{sessaoMB.usuario.nome}" />
 						</h3>
 					</div>
 				</li>
 				<li>
-				  <h:commandLink action="bemvindo.xhtml">
+				  <h:commandLink action="#{sessaoMB.bemvindoPage}">
 				      <i class="fa fa-list-alt fa-fw"></i>
 				      Dashboard
 				  </h:commandLink>
 				 </li>
 				<ui:fragment rendered="#{sessaoMB.usuario.empresa}">
 					<li>
-						<h:commandLink action="usuario/cadastroUsuarioPage.xhtml">
+						<h:commandLink action="#{sessaoMB.cadastroUsuarioPage}">
 					     	<i class="fa fa-user fa-fw" /> 
 					     	<h:outputText value="#{mensagens.label_cadastro_usuarios}" />
 					     </h:commandLink>
