@@ -32,4 +32,12 @@ public final class ConstantesService {
 		public static final String URL_CANCELAR = "http://localhost:8080/Scrumming/service/itemBacklog/{item}";
 		public static final String URL_CONSLTAR_POR_ID = "http://localhost:8080/Scrumming/service/itemBacklog/{itemID}";
 	}
+	
+	public final class Projeto{
+		public static final String URL_SALVAR_PROJETO = "http://localhost:8080/Scrumming/service/projeto/{projetoDTO}";
+		public static final String URL_DELETE_PROJETO = "http://localhost:8080/Scrumming/service/deleteProjeto/{projetoID}";
+		public static final String URL_CANCELAR_PROJETO = "http://localhost:8080/Scrumming/service/projeto/{projetoID}";
+		public static final String URL_CONSLTAR_POR_EMPRESA = "http://localhost:8080/Scrumming/service/empresa/list/{empresaID}";
+	}
+
 }
