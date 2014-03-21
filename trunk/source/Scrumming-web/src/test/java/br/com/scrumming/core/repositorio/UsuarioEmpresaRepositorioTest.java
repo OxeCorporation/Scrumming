@@ -66,6 +66,7 @@ public class UsuarioEmpresaRepositorioTest extends AbstractRepositorioTest {
 		Assert.assertEquals(OBJETOS_DEVERIAM_SER_IGUAIS, empresa, empresas.get(0));
 	}
 	
+	
 	@Test
 	public void verificarConsultarEmpesasPorUsuarioComVariasEmpresas(){
 		Empresa empresa = EmpresaUtil.criar("A Organizações Tabajara");
