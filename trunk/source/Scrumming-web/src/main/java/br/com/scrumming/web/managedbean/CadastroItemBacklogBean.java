@@ -8,6 +8,7 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.web.clientService.ItemBacklogClientService;
+import br.com.scrumming.web.infra.PaginasUtil;
 
 @ManagedBean
 @ViewScoped
@@ -22,6 +23,10 @@ public class CadastroItemBacklogBean extends AbstractBean {
         itens = new ArrayList<ItemBacklog>();
         clienteService = new ItemBacklogClientService();
         itemBacklog = new ItemBacklog();
+    }
+    
+    public String cadastroItemBacklogPage(){
+    	return redirecionar(PaginasUtil.ItemBacklog.CADASTRO_ITEM_BACKLOG);
     }
     
 	public String salvarItemBacklog() {

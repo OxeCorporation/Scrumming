@@ -9,4 +9,8 @@ public final class PaginasUtil {
     public final class Usuario{
     	public static final String CADASTRO_USUARIO_PAGE = "/paginas/usuario/cadastroUsuarioPage.xhtml";
     }
+    
+    public final class ItemBacklog{
+    	public static final String CADASTRO_ITEM_BACKLOG = "/paginas/itembacklog/itembacklogPage.xhtml";
+    }
 }
