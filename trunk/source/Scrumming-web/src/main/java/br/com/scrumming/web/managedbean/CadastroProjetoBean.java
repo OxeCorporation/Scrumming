@@ -27,7 +27,7 @@ public class CadastroProjetoBean extends AbstractBean {
     }
 
     public String novo() {
-        clienteService.salvarProjeto(projeto);
+       // clienteService.salvarProjeto(projeto);
         return "";
     }
 
@@ -37,13 +37,13 @@ public class CadastroProjetoBean extends AbstractBean {
     }
 
     public String alterar() {
-        clienteService.salvarProjeto(projeto);
+       // clienteService.salvarProjeto(projeto);
         return "";
 
     }
 
     public String excluir() {
-        clienteService.deletarProjeto(projeto);
+        clienteService.deletarProjeto(projeto.getCodigo());
         return "";
     }
 
