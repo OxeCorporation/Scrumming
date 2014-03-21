@@ -75,8 +75,8 @@
 				</li>
 				<li>
 				  <h:commandLink action="#{sessaoMB.bemvindoPage}">
-				      <i class="fa fa-list-alt fa-fw"></i>
-				      Dashboard
+				      <i class="fa fa-list-alt fa-fw"/>
+				      <h:outputText value="#{mensagens.label_dashboard}"/>
 				  </h:commandLink>
 				 </li>
 				<ui:fragment rendered="#{sessaoMB.usuario.empresa}">
@@ -90,13 +90,13 @@
 					<li>
 					    <a href="itemBacklog.xhtml"> 
 					      <i class="fa fa-list-ul fa-fw" />
-					       Manter Backlog
+					        <h:outputText value="#{mensagens.label_backlog}"/>
 					    </a>
 					</li>
 					<li>
 						<a href="tarefaSprint.xhtml"> 
 							<i class="fa fa-refresh fa-fw" />
-							Manter Sprint
+							<h:outputText value= "#{mensagens.label_sprint}" />
 						</a>
 					</li>
 			</ul>

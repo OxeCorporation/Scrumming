@@ -46,4 +46,45 @@ public class UsuarioEmpresaRepositorioTest extends AbstractRepositorioTest {
 		Assert.assertTrue(usuarios.size() == 4);
 		Assert.assertEquals(OBJETOS_DEVERIAM_SER_IGUAIS, usuario5, usuarios.get(0));
 	}
+	
+	@Test
+	public void verificarConsultarEmpresaPorUsuarioComUmaEmpresa(){
+		Empresa empresa = EmpresaUtil.criar("Organizações Tabajara");
+		save(empresa);
+		
+		Usuario usuario = UsuarioUtil.criar("Fulano");
+		save(usuario);
+		
+		UsuarioEmpresa usuarioEmpresa = UsuarioEmpresaUtil.criarFuncionario(empresa, usuario);
+		save(usuarioEmpresa);
+		
+		Integer codigoUsuario = findAll(Usuario.class).get(0).getCodigo();
+		
+		List<Empresa> empresas = usuarioEmpresaRepositorio.consultarEmpresaPorUsuario(codigoUsuario);
+		
+		Assert.assertTrue(empresas.size() == 1);
+		Assert.assertEquals(OBJETOS_DEVERIAM_SER_IGUAIS, empresa, empresas.get(0));
+	}
+	
+	@Test
+	public void verificarConsultarEmpesasPorUsuarioComVariasEmpresas(){
+		Empresa empresa = EmpresaUtil.criar("A Organizações Tabajara");
+		Empresa empresa1 = EmpresaUtil.criar("B Organizações TUTUTU");
+		save(empresa,empresa1);
+		
+		Usuario usuario = UsuarioUtil.criar("Fulano");
+		save(usuario);
+		
+		
+		UsuarioEmpresa usuarioEmpresa1 = UsuarioEmpresaUtil.criarFuncionario(empresa, usuario);
+		UsuarioEmpresa usuarioEmpresa2 = UsuarioEmpresaUtil.criarFuncionario(empresa1, usuario);
+		save(usuarioEmpresa1,usuarioEmpresa2);
+		
+		Integer codigoUsuario = findAll(Usuario.class).get(0).getCodigo();
+		
+		List<Empresa> empresas = usuarioEmpresaRepositorio.consultarEmpresaPorUsuario(codigoUsuario);
+		
+		Assert.assertTrue(empresas.size() == 2);
+		Assert.assertEquals(OBJETOS_DEVERIAM_SER_IGUAIS, empresa, empresas.get(0));
+	}
 }

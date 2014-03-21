@@ -4,6 +4,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
+import br.com.scrumming.core.service.EmpresaService;
+import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.clientService.UsuarioClientService;
 import br.com.scrumming.web.infra.FacesMessageUtil;
@@ -15,7 +17,7 @@ public class SessaoMB extends AbstractBean {
 
     private UsuarioClientService usuarioClientService = new UsuarioClientService();
     private Usuario usuario;
-
+    private Empresa empresa;
     private String senha;
     private String login;
 
@@ -24,11 +26,17 @@ public class SessaoMB extends AbstractBean {
         if (usuario == null) {
             FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.LABEL_LOGIN_SENHA_INVALIDO);
             return "";
+        }else if(usuario.isEmpresa()){
+        	configurarEmpresa();
         }
         return redirecionar(PaginasUtil.Geral.BENVINDO_PAGE);
     }
 
-    public boolean isUsuarioLogado() {
+    private void configurarEmpresa() {
+		
+	}
+
+	public boolean isUsuarioLogado() {
         return usuario != null;
     }
 
@@ -70,4 +78,12 @@ public class SessaoMB extends AbstractBean {
     public void setLogin(String login) {
         this.login = login;
     }
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
 }

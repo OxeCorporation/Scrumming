@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.DateTime;
@@ -86,5 +88,24 @@ public class Empresa extends ObjetoPersistente<Integer> {
 
     public void setAtivo(boolean isAtivo) {
         this.isAtivo = isAtivo;
+    }
+    
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(this.codigo).toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean isEquals = false;
+
+        if (obj == this) {
+            isEquals = true;
+        } else if (obj instanceof Empresa) {
+        	Empresa empresa = (Empresa) obj;
+
+            isEquals = new EqualsBuilder().append(this.codigo, empresa.getCodigo()).isEquals();
+        }
+        return isEquals;
     }
 }
