@@ -21,7 +21,8 @@ public class SprintBean extends AbstractBean {
 	private List<ItemBacklog> availableBacklog;
 	private SprintDTO sprintDTO;
 	private SprintClientService sprintClientService;
-	
+	private Sprint sprintSelecionada;
+
 	@Override
 	public void inicializar() {
 		sprintClientService = new SprintClientService();
@@ -82,14 +83,18 @@ public class SprintBean extends AbstractBean {
 	 * @param sprintID
 	 * @return
 	 */
-	public String fecharSprint(Integer sprintID) {
-		sprintClientService.fecharSprint(sprintID);
+	public String fecharSprint() {
+		sprintClientService.fecharSprint(sprintSelecionada.getChave());
 		return "";
 	}
 	
 	public String sprintDetailPage() {
     	return redirecionar(PaginasUtil.Sprint.SPRINT_DETAIL_PAGE);
     }
+	
+	public String sprintCadastroPage() {
+		return redirecionar(PaginasUtil.Sprint.SPRINT_CADASTRO_PAGE);
+	}
 		
 	/*Getters and Setters*/
 	
@@ -139,5 +144,13 @@ public class SprintBean extends AbstractBean {
 
 	public void setSprintClientService(SprintClientService sprintClientService) {
 		this.sprintClientService = sprintClientService;
+	}
+	
+	public Sprint getSprintSelecionada() {
+		return sprintSelecionada;
+	}
+
+	public void setSprintSelecionada(Sprint sprintSelecionada) {
+		this.sprintSelecionada = sprintSelecionada;
 	}
 }

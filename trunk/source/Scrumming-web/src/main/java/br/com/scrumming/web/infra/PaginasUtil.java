@@ -17,6 +17,6 @@ public final class PaginasUtil {
     public final class Sprint {
     	public static final String SPRINT_PAGE = "/paginas/sprint/sprint.xhtml";
     	public static final String SPRINT_DETAIL_PAGE = "/paginas/sprint/sprintdetail.xhtml";
-    	
+    	public static final String SPRINT_CADASTRO_PAGE = "/paginas/sprint/sprintcadastro.xhtml";
     }
 }
