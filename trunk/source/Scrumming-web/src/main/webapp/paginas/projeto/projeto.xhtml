@@ -5,11 +5,11 @@
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
 	template="/paginas/template/template.xhtml">
 
-	<!-- CORPO DA TELA DE LISTAGEM DAS SPRINTS -->
+	<!-- CORPO DA TELA DE LISTAGEM DOS PROJETOS -->
 	<ui:define name="conteudo">
+
 		<div style="width: 80%; float: left">
-			<h1><h:outputText value="#{sprintBean.testeFlash}" /> </h1>
-			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA AS SPRINTS -->
+			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA OS PROJETOS -->
 			<p:dataGrid var="sprint" value="#{sprintBean.sprintsDoProjeto}"
 				columns="1" style="width:100%;">
 				<p:panel styleClass="col-md-12 column">
