@@ -9,6 +9,7 @@ import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
 import br.com.scrumming.web.clientService.SprintClientService;
+import br.com.scrumming.web.infra.PaginasUtil;
 
 @ManagedBean
 @ViewScoped
@@ -85,6 +86,10 @@ public class SprintBean extends AbstractBean {
 		sprintClientService.fecharSprint(sprintID);
 		return "";
 	}
+	
+	public String sprintDetailPage() {
+    	return redirecionar(PaginasUtil.Sprint.SPRINT_DETAIL_PAGE);
+    }
 		
 	/*Getters and Setters*/
 	

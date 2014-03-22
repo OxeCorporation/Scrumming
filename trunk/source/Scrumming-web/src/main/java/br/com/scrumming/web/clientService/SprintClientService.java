@@ -28,7 +28,7 @@ public class SprintClientService extends AbstractClientService {
 	 * @return lista de Sprints
 	 */
 	public List<Sprint> consultarSprintsPorProjeto(Integer projetoID) {
-		return Arrays.asList(getRestTemplate().getForObject(ConstantesService.Sprint.URL_CONSULTAR_POR_PROJETO, Sprint[].class, projetoID));
+		return Arrays.asList(getRestTemplate().getForObject(getURIService(ConstantesService.Sprint.URL_CONSULTAR_POR_PROJETO), Sprint[].class, projetoID));
 	}
 	
 	/**
