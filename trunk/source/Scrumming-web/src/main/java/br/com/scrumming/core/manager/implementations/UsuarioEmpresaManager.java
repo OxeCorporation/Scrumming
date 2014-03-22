@@ -9,6 +9,7 @@ import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.IUsuarioEmpresaManager;
 import br.com.scrumming.core.repositorio.UsuarioEmpresaRepositorio;
+import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.UsuarioEmpresa;
 
@@ -25,6 +26,16 @@ public class UsuarioEmpresaManager extends
 	@Autowired
 	private UsuarioEmpresaRepositorio usuarioEmpresaRepositorio;
 
+	@Override
+	public List<Usuario> consultarUsuarioPorEmpresa(Integer empresaID) {
+		return usuarioEmpresaRepositorio.consultarUsuarioPorEmpresa(empresaID);
+	}
+	
+	@Override
+	public List<Empresa> consultarEmpresaPorUsuario(Integer usuarioID) {
+		return usuarioEmpresaRepositorio.consultarEmpresaPorUsuario(usuarioID);
+	}
+
 	/* getters and setters */
 	@Override
 	public AbstractRepositorio<UsuarioEmpresa, Integer> getRepositorio() {
@@ -40,8 +51,4 @@ public class UsuarioEmpresaManager extends
 		this.usuarioEmpresaRepositorio = usuarioEmpresaRepositorio;
 	}
 
-	@Override
-	public List<Usuario> consultarUsuarioPorEmpresa(Integer empresaID) {
-		return usuarioEmpresaRepositorio.consultarUsuarioPorEmpresa(empresaID);
-	}
 }

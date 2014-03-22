@@ -12,8 +12,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.FacesRequestAttributes;
 
 import br.com.scrumming.domain.Contato;
+import br.com.scrumming.web.infra.AbstractClientService;
 
-public class ContatoClientService {
+public class ContatoClientService extends AbstractClientService {
 
     public List<Contato> findAll() {
 

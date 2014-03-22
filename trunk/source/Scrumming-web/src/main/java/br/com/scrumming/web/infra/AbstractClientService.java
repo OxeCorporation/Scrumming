@@ -11,9 +11,9 @@ public abstract class AbstractClientService {
 
 	private static final String APPLICATION_DOMAIN = ApplicationPropertiesUtil
 			.get(ConstantesApplication.APLICATION_DOMAIN);
-
+	private static final String APPLICATION_SERVICE_PATH = ApplicationPropertiesUtil.get(ConstantesApplication.APLICATION_PATH_SERVICE);
 	protected String getURIService(String service) {
-		return APPLICATION_DOMAIN + service;
+		return APPLICATION_DOMAIN + APPLICATION_SERVICE_PATH + service;
 	}
 
 	protected RestTemplate getRestTemplate() {

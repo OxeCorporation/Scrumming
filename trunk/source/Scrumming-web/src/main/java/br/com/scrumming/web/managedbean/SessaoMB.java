@@ -4,7 +4,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
-import br.com.scrumming.core.service.EmpresaService;
 import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.clientService.UsuarioClientService;
@@ -15,69 +14,70 @@ import br.com.scrumming.web.infra.PaginasUtil;
 @SessionScoped
 public class SessaoMB extends AbstractBean {
 
-    private UsuarioClientService usuarioClientService = new UsuarioClientService();
-    private Usuario usuario;
-    private Empresa empresa;
-    private String senha;
-    private String login;
+	private UsuarioClientService usuarioClientService = new UsuarioClientService();
+	private Usuario usuario;
+	private Empresa empresa;
+	private String senha;
+	private String login;
 
-    public String efetuarLogin() {
-        usuario = usuarioClientService.obterUsuario(login, senha);
-        if (usuario == null) {
-            FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.LABEL_LOGIN_SENHA_INVALIDO);
-            return "";
-        }else if(usuario.isEmpresa()){
-        	configurarEmpresa();
-        }
-        return redirecionar(PaginasUtil.Geral.BENVINDO_PAGE);
-    }
+	public String efetuarLogin() {
+		usuario = usuarioClientService.obterUsuario(login, senha);
+		if (usuario == null) {
+			FacesMessageUtil
+					.adicionarMensagemInfo(ConstantesMensagem.LABEL_LOGIN_SENHA_INVALIDO);
+			return "";
+		}
+		configurarEmpresa();
+		return redirecionar(PaginasUtil.Geral.BENVINDO_PAGE);
+	}
 
-    private void configurarEmpresa() {
-		
+	private void configurarEmpresa() {
+
 	}
 
 	public boolean isUsuarioLogado() {
-        return usuario != null;
-    }
+		return usuario != null;
+	}
 
-    public String logout() {
-        usuario = null;
-        senha = null;
-        login = null;
-        return redirecionar(PaginasUtil.Geral.LOGIN_PAGE);
-    }
+	public String logout() {
+		usuario = null;
+		senha = null;
+		login = null;
+		return redirecionar(PaginasUtil.Geral.LOGIN_PAGE);
+	}
 
-    public String bemvindoPage(){
-    	return redirecionar(PaginasUtil.Geral.BENVINDO_PAGE);
-    }
-    
-    public String cadastroUsuarioPage(){
-    	return redirecionar(PaginasUtil.Usuario.CADASTRO_USUARIO_PAGE);
-    }
-    /* getters and setters */
-    public Usuario getUsuario() {
-        return usuario;
-    }
+	public String bemvindoPage() {
+		return redirecionar(PaginasUtil.Geral.BENVINDO_PAGE);
+	}
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+	public String cadastroUsuarioPage() {
+		return redirecionar(PaginasUtil.Usuario.CADASTRO_USUARIO_PAGE);
+	}
 
-    public String getSenha() {
-        return senha;
-    }
+	/* getters and setters */
+	public Usuario getUsuario() {
+		return usuario;
+	}
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
-    public String getLogin() {
-        return login;
-    }
+	public String getSenha() {
+		return senha;
+	}
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
 
 	public Empresa getEmpresa() {
 		return empresa;
