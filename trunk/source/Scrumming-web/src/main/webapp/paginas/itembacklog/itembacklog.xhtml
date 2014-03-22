@@ -9,12 +9,12 @@
 	<ui:define name="conteudo">
 		
 		<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA OS ITENS DE BACKLOG -->
-		<p:dataGrid var="item" value="#{cadastroItemBacklogBean.itens}" columns="1" style="width:90%">
+		<p:dataGrid var="item" value="#{itemBacklogBean.itens}" columns="1" style="width:90%">
 			<p:panel styleClass="col-md-12 column">
 				
 				<p:panel>
 					<f:facet name="header">
-						<p:commandLink action="#{cadastroItemBacklogBean.itembacklogDetailPage}">
+						<p:commandLink action="#{itemBacklogBean.itembacklogDetailPage}">
 							<h:outputText value="#{item.nome}" style="color:blue; text-decoration:underline" />
 						</p:commandLink>
 					</f:facet>					
@@ -24,14 +24,14 @@
 						<h:outputText value="#{item.descricao}" />
 							<p:commandLink title="Alterar Item"><!-- Inserir o action do commandLink -->
 								<h:outputText styleClass="fa fa-pencil-square-o" style="margin:0 auto; float:right" />
-								<f:setPropertyActionListener value="#{item}" target="#{cadastroItemBacklogBean.itemSelecionado}"/>
+								<f:setPropertyActionListener value="#{item}" target="#{itemBacklogBean.itemSelecionado}"/>
 							</p:commandLink>
 						<br />
 						<h:outputLabel value="#{mensagens.label_criterio_aceitacao}" />
 						<h:outputText value="#{item.criterioAceitacao}" />
-							<p:commandLink title="Cancelar Item" action="#{cadastroItemBacklogBean.cancelarItemBacklog}">
+							<p:commandLink title="Cancelar Item" action="#{itemBacklogBean.cancelarItemBacklog}">
 								<h:outputText styleClass="fa fa-lock" style="margin:0 auto; float:right" />
-								<f:setPropertyActionListener value="#{item}" target="#{cadastroItemBacklogBean.itemSelecionado}"/>
+								<f:setPropertyActionListener value="#{item}" target="#{itemBacklogBean.itemSelecionado}"/>
 							</p:commandLink>		
 					</h:panelGroup>					
 				</p:panel>

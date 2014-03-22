@@ -11,7 +11,7 @@ import br.com.scrumming.web.infra.PaginasUtil;
 
 @ManagedBean
 @ViewScoped
-public class CadastroItemBacklogBean extends AbstractBean {
+public class ItemBacklogBean extends AbstractBean {
 
     private List<ItemBacklog> itens;
     private ItemBacklog itemBacklog;
@@ -26,7 +26,7 @@ public class CadastroItemBacklogBean extends AbstractBean {
         
     }
     
-    public CadastroItemBacklogBean(){
+    public ItemBacklogBean(){
     	inicializar();
     	consultarPorProjeto(new Integer(1));
     }
