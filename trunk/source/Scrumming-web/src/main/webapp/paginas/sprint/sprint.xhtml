@@ -13,44 +13,43 @@
 			<p:dataGrid var="sprint" value="#{sprintBean.sprintsDoProjeto}"
 				columns="1" style="width:100%;">
 				<p:panel styleClass="col-md-12 column">
-					<p:panel>
-						<f:facet name="header">
+					<h:panelGroup style="width:100%">
+						<h:panelGroup>
 							<p:commandLink action="#{sprintBean.sprintDetailPage}">
 								<h:outputText value="#{sprint.nome}"
 									style="color:blue; text-decoration:underline" />
 							</p:commandLink>
-						</f:facet>
-						<h:panelGroup style="width:100%">
-							<h:panelGroup>
-								<h:outputLabel value="#{mensagens.label_dataINI_sprint}" />
-								<h:outputText value="#{sprint.dataInicio}" />
-								<p:commandLink title="Alterar sprint"
-									action="#{sprintBean.sprintCadastroPage}">
-									<h:outputText styleClass="fa fa-pencil-square-o"
-										style="margin:0 auto; float:right" />
-									<f:setPropertyActionListener value="#{sprint}"
-										target="#{sprintBean.sprintSelecionada}" />
-								</p:commandLink>
-								<br />
-								<h:outputLabel value="#{mensagens.label_dataFIM_sprint}" />
-								<h:outputText value="#{sprint.dataFim}" />
-								<p:commandLink title="Fechar sprint"
-									action="#{sprintBean.fecharSprint}">
-									<h:outputText styleClass="fa fa-lock"
-										style="margin:0 auto; float:right" />
-									<f:setPropertyActionListener value="#{sprint}"
-										target="#{sprintBean.sprintSelecionada}" />
-								</p:commandLink>
-								<br />
-								<h:outputText value="#{sprint.descricao}" />
-							</h:panelGroup>
-
+							<br/>
+							<h:outputLabel value="#{mensagens.label_dataINI_sprint}" />
+							<h:outputText value="#{sprint.dataInicio}" />
+							<p:commandLink title="Alterar sprint"
+								action="#{sprintBean.sprintCadastroPage}">
+								<h:outputText styleClass="fa fa-pencil-square-o"
+									style="margin:0 auto; float:right" />
+								<f:setPropertyActionListener value="#{sprint}"
+									target="#{sprintBean.sprintSelecionada}" />
+							</p:commandLink>
+							<br />
+							<h:outputLabel value="#{mensagens.label_dataFIM_sprint}" />
+							<h:outputText value="#{sprint.dataFim}" />
+							<p:commandLink title="Fechar sprint"
+								action="#{sprintBean.fecharSprint}">
+								<h:outputText styleClass="fa fa-lock"
+									style="margin:0 auto; float:right" />
+								<f:setPropertyActionListener value="#{sprint}"
+									target="#{sprintBean.sprintSelecionada}" />
+							</p:commandLink>
+							<br />
+							<h:outputText value="#{sprint.descricao}" />
 						</h:panelGroup>
-					</p:panel>
+					</h:panelGroup>
 				</p:panel>
 			</p:dataGrid>
 		</div>
-		<div style="width: 20%; float: left;">
+		<div style="width: 3%; float: left;">
+			<h:outputText style="color:#FFFFFF" value="."></h:outputText>
+		</div>
+		<div style="width: 17%; float: left;">
 			<p:commandLink title="Nova sprint"
 				action="#{sprintBean.sprintCadastroPage}">
 				<h:outputText styleClass="fa fa-plus" style="margin:0 auto;" />
