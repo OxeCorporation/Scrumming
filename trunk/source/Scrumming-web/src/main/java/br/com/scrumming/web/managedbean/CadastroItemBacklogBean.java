@@ -1,6 +1,5 @@
 package br.com.scrumming.web.managedbean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -41,7 +40,7 @@ public class CadastroItemBacklogBean extends AbstractBean {
     	return "";
     }
 
-    public String excluir() {
+    public String cancelarItemBacklog() {
        	clienteService.cancelarItemBacklog(itemBacklog);
         return "";
     }

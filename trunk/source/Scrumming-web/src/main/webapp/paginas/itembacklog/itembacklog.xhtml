@@ -5,12 +5,12 @@
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
 	template="/paginas/template/template.xhtml">
 	
-<!-- CORPO DA TELA DE LISTAGEM DAS SPRINTS -->
+<!-- CORPO DA TELA DE LISTAGEM DOS ITENS DE BACKLOG -->
 	<ui:define name="conteudo">
 		
-		<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA AS SPRINTS -->
-		<p:dataGrid var="item" value="#{cadastroItemBacklogBean.itens}" columns="1">
-			<p:panel styleClass="col-md-9 column">
+		<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA OS ITENS DE BACKLOG -->
+		<p:dataGrid var="item" value="#{cadastroItemBacklogBean.itens}" columns="1" style="width:90%">
+			<p:panel styleClass="col-md-12 column">
 				
 				<p:panel>
 					<f:facet name="header">
@@ -22,12 +22,17 @@
 						<!-- FAZER O AJUSTE PARA ORGANIZAR O LAYOUT -->
 						<h:outputLabel value="#{mensagens.label_descricao_item_backlog}" />
 						<h:outputText value="#{item.descricao}" />
+							<p:commandLink title="Alterar Item"><!-- Inserir o action do commandLink -->
+								<h:outputText styleClass="fa fa-pencil-square-o" style="margin:0 auto; float:right" />
+								<f:setPropertyActionListener value="#{item}" target="#{cadastroItemBacklogBean.itemSelecionado}"/>
+							</p:commandLink>
 						<br />
 						<h:outputLabel value="#{mensagens.label_criterio_aceitacao}" />
 						<h:outputText value="#{item.criterioAceitacao}" />
-						
-						
-				  		
+							<p:commandLink title="Cancelar Item" action="#{cadastroItemBacklogBean.cancelarItemBacklog}">
+								<h:outputText styleClass="fa fa-lock" style="margin:0 auto; float:right" />
+								<f:setPropertyActionListener value="#{item}" target="#{cadastroItemBacklogBean.itemSelecionado}"/>
+							</p:commandLink>		
 					</h:panelGroup>					
 				</p:panel>
 				
