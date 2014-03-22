@@ -30,7 +30,7 @@ public class SprintBean extends AbstractBean {
 	
 	public SprintBean() {
 		inicializar();
-		// TODO: Daniel terá que trazer o ID do projeto selecionado na lista de projetos para enviar como parametro.
+		// TODO: Daniel tera que trazer o ID do projeto selecionado na lista de projetos para enviar como parametro.
 		consultarSprintsPorProjeto(new Integer(1));
 	}
 	

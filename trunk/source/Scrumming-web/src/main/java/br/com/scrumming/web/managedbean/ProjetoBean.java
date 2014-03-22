@@ -1,51 +1,36 @@
 package br.com.scrumming.web.managedbean;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.web.clientService.ProjetoClientService;
 
 @ManagedBean
 @ViewScoped
-public class CadastroProjetoBean extends AbstractBean {
+public class ProjetoBean extends AbstractBean {
 
     private List<Projeto> projetos;
     private Projeto projeto;
     private Projeto projetoSelecionado;
-
     private ProjetoClientService clienteService;
 
     @Override
     public void inicializar() {
-        projetos = new ArrayList<Projeto>();
         clienteService = new ProjetoClientService();
-        projeto = new Projeto();
     }
-
-    public String novo() {
-       // clienteService.salvarProjeto(projeto);
-        return "";
+    
+    public ProjetoBean() {
+    	inicializar();
+    	consultarProjetosPorEmpresa();
     }
-
-    public String detalhar() {
-        return "";
-
+    
+    public void consultarProjetosPorEmpresa() {
+    	
     }
-
-    public String alterar() {
-       // clienteService.salvarProjeto(projeto);
-        return "";
-
-    }
-
-    public String excluir() {
-        clienteService.deletarProjeto(projeto.getCodigo());
-        return "";
-    }
+    
+    
+    
 
     /* getters and setters */
     public List<Projeto> getProjetos() {
@@ -72,4 +57,11 @@ public class CadastroProjetoBean extends AbstractBean {
         this.projetoSelecionado = projetoSelecionado;
     }
 
+    public ProjetoClientService getClienteService() {
+		return clienteService;
+	}
+
+	public void setClienteService(ProjetoClientService clienteService) {
+		this.clienteService = clienteService;
+	}
 }

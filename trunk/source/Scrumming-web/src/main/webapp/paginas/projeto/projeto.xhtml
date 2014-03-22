@@ -1,0 +1,79 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+	template="/paginas/template/template.xhtml">
+
+	<!-- CORPO DA TELA DE LISTAGEM DOS PROJETOS -->
+	<ui:define name="conteudo">
+
+		<div style="width: 80%; float: left">
+			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA OS PROJETOS -->
+			<p:dataGrid var="sprint" value="#{sprintBean.sprintsDoProjeto}"
+				columns="1" style="width:100%;">
+				<p:panel styleClass="col-md-12 column">
+					<h:panelGroup style="width:100%">
+						<h:panelGroup>
+							<p:commandLink action="#{sprintBean.sprintDetailPage}">
+								<h:outputText value="#{sprint.nome}"
+									style="color:blue; text-decoration:underline" />
+							</p:commandLink>
+							<br/>
+							<h:outputLabel value="#{mensagens.label_dataINI_sprint}" />
+							<h:outputText value="#{sprint.dataInicio}" />
+							<p:commandLink title="Alterar sprint"
+								action="#{sprintBean.sprintCadastroPage}">
+								<h:outputText styleClass="fa fa-pencil-square-o"
+									style="margin:0 auto; float:right" />
+								<f:setPropertyActionListener value="#{sprint}"
+									target="#{sprintBean.sprintSelecionada}" />
+							</p:commandLink>
+							<br />
+							<h:outputLabel value="#{mensagens.label_dataFIM_sprint}" />
+							<h:outputText value="#{sprint.dataFim}" />
+							<p:commandLink title="Fechar sprint"
+								action="#{sprintBean.fecharSprint}">
+								<h:outputText styleClass="fa fa-lock"
+									style="margin:0 auto; float:right" />
+								<f:setPropertyActionListener value="#{sprint}"
+									target="#{sprintBean.sprintSelecionada}" />
+							</p:commandLink>
+							<br />
+							<h:outputText value="#{sprint.descricao}" />
+						</h:panelGroup>
+					</h:panelGroup>
+				</p:panel>
+			</p:dataGrid>
+		</div>
+		<div style="width: 3%; float: left;">
+			<h:outputText style="color:#FFFFFF" value="."></h:outputText>
+		</div>
+		<div style="width: 17%; float: left;">
+			<p:commandLink title="Nova sprint"
+				action="#{sprintBean.sprintCadastroPage}">
+				<h:outputText styleClass="fa fa-plus" style="margin:0 auto;" />
+				<!-- <f:setPropertyActionListener value="#{sprint}"
+					target="#{sprintBean.sprintSelecionada}" /> -->
+			</p:commandLink>
+			<p:commandLink title="Nova sprint"
+				action="#{sprintBean.sprintCadastroPage}">
+				<h:outputText value="Nova sprint" />
+				<!-- <f:setPropertyActionListener value="#{sprint}"
+					target="#{sprintBean.sprintSelecionada}" /> -->
+			</p:commandLink>
+		</div>
+	</ui:define>
+	<!-- CARREGA AS OPCOES NO MENU LATERAL -->
+	<ui:define name="menu_lateral">
+		<li><h:commandLink action="#{sessaoMB.ItemBacklogPage}">
+				<i class="fa fa-list" />
+				<h:outputText value="#{mensagens.label_backlog}" />
+			</h:commandLink></li>
+		<li><h:commandLink action="#{sessaoMB.SprintPage}">
+				<i class="fa fa-bar-chart-o" />
+				<h:outputText value="#{mensagens.label_sprint}" />
+			</h:commandLink></li>
+	</ui:define>
+
+</ui:composition>
