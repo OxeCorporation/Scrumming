@@ -11,17 +11,26 @@
 		<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA AS SPRINTS -->
 		<p:dataGrid var="item" value="#{cadastroItemBacklogBean.itens}" columns="1">
 			<p:panel styleClass="col-md-9 column">
-				<p:panel header="#{item.nome}" style="text-align:left">
-					
-					<h:panelGrid columns="1" style="width:100%">
+				
+				<p:panel>
+					<f:facet name="header">
+						<p:commandLink action="#{cadastroItemBacklogBean.itembacklogDetailPage}">
+							<h:outputText value="#{item.nome}" style="color:blue; text-decoration:underline" />
+						</p:commandLink>
+					</f:facet>					
+					<h:panelGroup columns="1" style="width:100%">
 						<!-- FAZER O AJUSTE PARA ORGANIZAR O LAYOUT -->
 						<h:outputLabel value="#{mensagens.label_descricao_item_backlog}" />
 						<h:outputText value="#{item.descricao}" />
+						<br />
 						<h:outputLabel value="#{mensagens.label_criterio_aceitacao}" />
 						<h:outputText value="#{item.criterioAceitacao}" />
-					</h:panelGrid>
-					
+						
+						
+				  		
+					</h:panelGroup>					
 				</p:panel>
+				
 			</p:panel>
 			<h:panelGroup class="col-md-3 column"></h:panelGroup>
 		</p:dataGrid>

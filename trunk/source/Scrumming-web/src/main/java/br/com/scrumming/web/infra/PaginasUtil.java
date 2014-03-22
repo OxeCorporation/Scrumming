@@ -12,6 +12,7 @@ public final class PaginasUtil {
     
     public final class ItemBacklog{
     	public static final String ITEM_BACKLOG_PAGE = "/paginas/itembacklog/itembacklog.xhtml";
+    	public static final String ITEM_BACKLOG_DETAIL_PAGE= "/paginas/itembacklog/itembacklogdetailPage.xhtml";
     }
     
     public final class Sprint {

@@ -8,6 +8,7 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.web.clientService.ItemBacklogClientService;
+import br.com.scrumming.web.infra.PaginasUtil;
 
 @ManagedBean
 @ViewScoped
@@ -15,6 +16,7 @@ public class CadastroItemBacklogBean extends AbstractBean {
 
     private List<ItemBacklog> itens;
     private ItemBacklog itemBacklog;
+    private ItemBacklog itemSelecionado;
     private ItemBacklogClientService clienteService;
 
     @Override
@@ -28,6 +30,10 @@ public class CadastroItemBacklogBean extends AbstractBean {
     public CadastroItemBacklogBean(){
     	inicializar();
     	consultarPorProjeto(new Integer(1));
+    }
+    
+    public String itembacklogDetailPage(){
+    	return redirecionar(PaginasUtil.ItemBacklog.ITEM_BACKLOG_DETAIL_PAGE);
     }
     
 	public String salvarItemBacklog() {
@@ -66,6 +72,14 @@ public class CadastroItemBacklogBean extends AbstractBean {
 
 	public void setItemBacklog(ItemBacklog itemBacklog) {
 		this.itemBacklog = itemBacklog;
+	}
+
+	public ItemBacklog getItemSelecionado() {
+		return itemSelecionado;
+	}
+
+	public void setItemSelecionado(ItemBacklog itemSelecionado) {
+		this.itemSelecionado = itemSelecionado;
 	}
 
     
