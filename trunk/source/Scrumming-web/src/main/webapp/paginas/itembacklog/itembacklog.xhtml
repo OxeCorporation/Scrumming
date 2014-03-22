@@ -4,35 +4,19 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
 	template="/paginas/template/template.xhtml">
-	
-<h:head>
-	<meta charset="utf-8"/>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>	
-    
-    <h:outputStylesheet library="css" name="bootstrap.min.css"  />
-	<h:outputStylesheet library="css" name="font-awesome.css" />
-    <h:outputStylesheet library="css" name="sb-admin.css"  />
-</h:head>
-
-<h:body>	
-	<div class="container">
-		<div class="row">  
-			<h:form id="formItemBacklog">				
-				<p:panel header="#{cadastroItemBacklogBean.itemBacklog.nome}">
-					<h:panelGrid columns="1">						
-						<h:outputText value="#{cadastroItemBacklogBean.itemBacklog.descricao}" /> 						
-						
-						<h:outputText value="#{cadastroItemBacklogBean.itemBacklog.criterioAceitacao}" />													
-					</h:panelGrid>
+	<ui:define name="conteudo">
+		<h:panelGroup styleClass="container" display="block">
+			<div class="row clearfix">
+				<p:panel styleClass="col-md-9 column">					
+					<p:panel header="Item 01" style="text-align:left">
+						<h:panelGrid columns="1" style="width:100%">
+							<h:outputText value="Descrição do item" />
+						</h:panelGrid>
+					</p:panel>
+					
 				</p:panel>
-						
-				<p:panel>
-					<p:commandButton update="" icon="ui-icon-disk" value="Nova Tarefa" actionListener="#{}" />					
-				</p:panel>								
-			</h:form>	
-		</div>
-	</div>
-</h:body>	
-</html>
+				<h:panelGroup class="col-md-3 column"></h:panelGroup>
+			</div>
+		</h:panelGroup>
+	</ui:define>
 </ui:composition>
