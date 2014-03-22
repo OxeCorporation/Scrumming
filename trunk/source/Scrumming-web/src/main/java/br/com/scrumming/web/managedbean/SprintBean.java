@@ -9,6 +9,7 @@ import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
 import br.com.scrumming.web.clientService.SprintClientService;
+import br.com.scrumming.web.infra.FlashScoped;
 
 @ManagedBean
 @ViewScoped
@@ -20,14 +21,12 @@ public class SprintBean extends AbstractBean {
 	private List<ItemBacklog> availableBacklog;
 	private SprintDTO sprintDTO;
 	private SprintClientService sprintClientService;
+	@FlashScoped
+    private String testeFlash;
 	
 	@Override
 	public void inicializar() {
 		sprintClientService = new SprintClientService();
-	}
-	
-	public SprintBean() {
-		inicializar();
 		// TODO: Daniel terá que trazer o ID do projeto selecionado na lista de projetos para enviar como parametro.
 		consultarSprintsPorProjeto(new Integer(1));
 	}
@@ -134,5 +133,13 @@ public class SprintBean extends AbstractBean {
 
 	public void setSprintClientService(SprintClientService sprintClientService) {
 		this.sprintClientService = sprintClientService;
+	}
+
+	public String getTesteFlash() {
+		return testeFlash;
+	}
+
+	public void setTesteFlash(String testeFlash) {
+		this.testeFlash = testeFlash;
 	}
 }

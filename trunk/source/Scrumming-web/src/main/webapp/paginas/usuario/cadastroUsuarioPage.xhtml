@@ -8,17 +8,16 @@
 
 	<ui:define name="conteudo">
 		<h:panelGroup id="usuarioPanel">
-
+			
 			<h:panelGroup columns="3">
-				<h:outputText value="#{mensagens.label_buscar_nome}: " />
+				<h:outputText value="IR PARA SPRINT" />
 				<span style="margin: 2px;" />
 				<p:inputText id="input_nome"
-					placeholder="#{mansagens.label_nome_usuario}">
-					<f:validateBean disabled="true" />
+					placeholder="#{mansagens.label_nome_usuario}" value="#{cadastroUsuarioBean.testeFlash}">
 				</p:inputText>
 				<span style="margin: 2px;" />
-				<p:commandButton value="#{mensagens.botao_buscar}"
-					action="#{cadastroUsuarioBean.pesquisarPorNome}" />
+				<p:commandButton value="IR"
+					action="#{cadastroUsuarioBean.sprintPage}" />
 			</h:panelGroup>
 			<br />
 			<br />
@@ -60,13 +59,10 @@
 		</h:panelGroup>
 	</ui:define>
 	<ui:define name="menu_lateral">
-		<li><h:commandLink action="#{sessaoMB.ItemBacklogPage}">
+		<li><h:commandLink action="#{sessaoMB.itemBacklogPage}">
 				<i class="fa fa-list" />
 				<h:outputText value="#{mensagens.label_backlog}" />
-			</h:commandLink></li>
-		<li><h:commandLink action="#{sessaoMB.SprintPage}">
-				<i class="fa fa-bar-chart-o" />
-				<h:outputText value="#{mensagens.label_sprint}" />
-			</h:commandLink></li>
+			</h:commandLink>
+	   </li>
 	</ui:define>
 </ui:composition>

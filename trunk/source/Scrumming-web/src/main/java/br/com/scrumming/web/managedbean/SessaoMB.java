@@ -1,12 +1,17 @@
 package br.com.scrumming.web.managedbean;
 
+import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.clientService.UsuarioClientService;
+import br.com.scrumming.web.clientService.UsuarioEmpresaClientService;
 import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.PaginasUtil;
 
@@ -15,8 +20,11 @@ import br.com.scrumming.web.infra.PaginasUtil;
 public class SessaoMB extends AbstractBean {
 
 	private UsuarioClientService usuarioClientService = new UsuarioClientService();
+	private UsuarioEmpresaClientService usuarioEmpresaClientService = new UsuarioEmpresaClientService();
 	private Usuario usuario;
-	private Empresa empresa;
+	private List<Empresa> empresas;
+	private Empresa empresaSelecionada;
+	
 	private String senha;
 	private String login;
 
@@ -24,7 +32,7 @@ public class SessaoMB extends AbstractBean {
 		usuario = usuarioClientService.obterUsuario(login, senha);
 		if (usuario == null) {
 			FacesMessageUtil
-					.adicionarMensagemInfo(ConstantesMensagem.LABEL_LOGIN_SENHA_INVALIDO);
+					.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_LOGIN_SENHA_INVALIDO);
 			return "";
 		}
 		configurarEmpresa();
@@ -32,7 +40,15 @@ public class SessaoMB extends AbstractBean {
 	}
 
 	private void configurarEmpresa() {
-
+		empresas = usuarioEmpresaClientService
+				.consultarEmpresasPorUsuario(usuario.getCodigo());
+		if(CollectionUtils.isEmpty(empresas)){
+			FacesMessageUtil
+			.adicionarMensagemErro(ConstantesMensagem.MENSAGEM_ERRO_EMPRESA_VINCULADA);
+			return;
+		}else if(empresas.size() == 1){
+			empresaSelecionada = empresas.get(0);
+		}
 	}
 
 	public boolean isUsuarioLogado() {
@@ -49,14 +65,14 @@ public class SessaoMB extends AbstractBean {
 	public String bemvindoPage() {
 		return redirecionar(PaginasUtil.Geral.BENVINDO_PAGE);
 	}
-	
-    public String SprintPage() {
-    	return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
-    }
-    
-    public String ItemBacklogPage() {
-    	return redirecionar(PaginasUtil.ItemBacklog.ITEM_BACKLOG_PAGE);
-    }
+
+	public String SprintPage() {
+		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
+	}
+
+	public String ItemBacklogPage() {
+		return redirecionar(PaginasUtil.ItemBacklog.ITEM_BACKLOG_PAGE);
+	}
 
 	public String cadastroUsuarioPage() {
 		return redirecionar(PaginasUtil.Usuario.CADASTRO_USUARIO_PAGE);
@@ -87,11 +103,19 @@ public class SessaoMB extends AbstractBean {
 		this.login = login;
 	}
 
-	public Empresa getEmpresa() {
-		return empresa;
+	public List<Empresa> getEmpresas() {
+		return empresas;
 	}
 
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
+	public void setEmpresas(List<Empresa> empresas) {
+		this.empresas = empresas;
+	}
+
+	public Empresa getEmpresaSelecionada() {
+		return empresaSelecionada;
+	}
+
+	public void setEmpresaSelecionada(Empresa empresaSelecionada) {
+		this.empresaSelecionada = empresaSelecionada;
 	}
 }

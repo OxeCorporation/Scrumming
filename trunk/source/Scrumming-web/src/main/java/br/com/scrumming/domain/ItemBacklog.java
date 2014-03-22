@@ -16,6 +16,7 @@ import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "ItemBacklog")

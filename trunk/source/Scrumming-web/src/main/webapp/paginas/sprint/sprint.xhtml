@@ -7,7 +7,7 @@
 	
 	<!-- CORPO DA TELA DE LISTAGEM DAS SPRINTS -->
 	<ui:define name="conteudo">
-		
+		<h1><h:outputText value="#{sprintBean.testeFlash}" /> </h1>
 		<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA AS SPRINTS -->
 		<p:dataGrid var="sprint" value="#{sprintBean.sprintsDoProjeto}" columns="1">
 			<p:panel styleClass="col-md-9 column">

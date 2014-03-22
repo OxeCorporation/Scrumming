@@ -39,5 +39,8 @@ public final class ConstantesService {
 		public static final String URL_CANCELAR_PROJETO = "http://localhost:8080/Scrumming/service/projeto/{projetoID}";
 		public static final String URL_CONSLTAR_POR_EMPRESA = "http://localhost:8080/Scrumming/service/empresa/list/{empresaID}";
 	}
-
+	public final class UsuarioEmpresa{
+		public static final String URL_CONSULTAR_EMPRESAS_POR_USUARIO = "/usuario_empresa/usuario/{usuarioID}";
+		public static final String URL_CONSULTAR_USUARIOS_POR_EMPRESA = "/usuario_empresa/empresa/{empresaID}";
+	}
 }

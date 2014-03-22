@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.web.clientService.ProjetoClientService;
 
@@ -13,21 +14,19 @@ import br.com.scrumming.web.clientService.ProjetoClientService;
 @ViewScoped
 public class CadastroProjetoBean extends AbstractBean {
 
-    private List<Projeto> projetos;
-    private Projeto projeto;
+    
+	private Empresa empresa;
+	private List<Projeto> projetos;
     private Projeto projetoSelecionado;
-
     private ProjetoClientService clienteService;
-
+    
     @Override
     public void inicializar() {
         projetos = new ArrayList<Projeto>();
         clienteService = new ProjetoClientService();
-        projeto = new Projeto();
     }
 
     public String novo() {
-       // clienteService.salvarProjeto(projeto);
         return "";
     }
 
@@ -37,13 +36,11 @@ public class CadastroProjetoBean extends AbstractBean {
     }
 
     public String alterar() {
-       // clienteService.salvarProjeto(projeto);
         return "";
 
     }
 
     public String excluir() {
-        clienteService.deletarProjeto(projeto.getCodigo());
         return "";
     }
 
@@ -56,14 +53,7 @@ public class CadastroProjetoBean extends AbstractBean {
         this.projetos = projetos;
     }
 
-    public Projeto getProjeto() {
-        return projeto;
-    }
-
-    public void setProjeto(Projeto projeto) {
-        this.projeto = projeto;
-    }
-
+    
     public Projeto getProjetoSelecionado() {
         return projetoSelecionado;
     }
