@@ -20,17 +20,17 @@ public final class ConstantesService {
 	
 	public final class Sprint {
 		public static final String URL_SALVAR = "/sprint/save";
-		public static final String URL_CONSULTAR_SPRINT_DTO = "/sprint/{sprintID}";
+		public static final String URL_CONSULTAR_SPRINT_DTO = "http://localhost:8080/Scrumming/service/sprint/{sprintID}";
 		public static final String URL_CONSULTAR_POR_PROJETO = "http://localhost:8080/Scrumming/service/sprint/list/{projetoID}";
-		public static final String URL_CONSULTAR_ITEMS_TAREFAS = "/sprint/itensTarefas";
-		public static final String URL_FECHAR_SPRINT = "/sprint/close";
+		public static final String URL_CONSULTAR_ITEMS_TAREFAS = "http://localhost:8080/Scrumming/service/sprint/itensTarefas";
+		public static final String URL_FECHAR_SPRINT = "http://localhost:8080/Scrumming/service/sprint/close";
 	}
 	
 	public final class ItemBacklog{
-		public static final String URL_SALVAR = "/itemBacklog/{itemBacklog}";
-		public static final String URL_CONSULTAR_POR_PROJETO = "/itemBacklog/list/{projetoID}";
-		public static final String URL_CANCELAR = "/itemBacklog/{item}";
-		public static final String URL_CONSLTAR_POR_ID = "/itemBacklog/{itemID}";
+		public static final String URL_SALVAR = "http://localhost:8080/Scrumming/service/itemBacklog/{itemBacklog}";
+		public static final String URL_CONSULTAR_POR_PROJETO = "http://localhost:8080/Scrumming/service/itemBacklog/list/{projetoID}";
+		public static final String URL_CANCELAR = "http://localhost:8080/Scrumming/service/itemBacklog/{item}";
+		public static final String URL_CONSLTAR_POR_ID = "http://localhost:8080/Scrumming/service/itemBacklog/{itemID}";
 	}
 	
 	public final class Projeto{
