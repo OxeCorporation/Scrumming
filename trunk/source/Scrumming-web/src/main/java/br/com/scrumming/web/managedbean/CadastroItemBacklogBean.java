@@ -19,9 +19,15 @@ public class CadastroItemBacklogBean extends AbstractBean {
 
     @Override
     public void inicializar() {
-        itens = new ArrayList<ItemBacklog>();
+        //itens = new ArrayList<ItemBacklog>();
         clienteService = new ItemBacklogClientService();
-        itemBacklog = new ItemBacklog();
+       // itemBacklog = new ItemBacklog();
+        
+    }
+    
+    public CadastroItemBacklogBean(){
+    	inicializar();
+    	consultarPorProjeto(new Integer(1));
     }
     
 	public String salvarItemBacklog() {
@@ -32,6 +38,12 @@ public class CadastroItemBacklogBean extends AbstractBean {
     public String excluir() {
        	clienteService.cancelarItemBacklog(itemBacklog);
         return "";
+    }
+    
+    public String consultarPorProjeto(Integer projetoID){
+    	// criado para teste
+    	itens= clienteService.consultarItemPorProjeto(projetoID);
+    	return "";
     }
     
     public String consultarItemPorID() {
