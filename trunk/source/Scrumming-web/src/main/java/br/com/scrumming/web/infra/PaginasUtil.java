@@ -11,7 +11,7 @@ public final class PaginasUtil {
     }
     
     public final class ItemBacklog{
-    	public static final String CADASTRO_ITEM_BACKLOG = "/paginas/itembacklog/itembacklogPage.xhtml";
+    	public static final String ITEM_BACKLOG_PAGE = "/paginas/itembacklog/itembacklog.xhtml";
     }
     
     public final class Sprint {

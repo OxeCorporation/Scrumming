@@ -53,6 +53,10 @@ public class SessaoMB extends AbstractBean {
     public String SprintPage() {
     	return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
     }
+    
+    public String ItemBacklogPage() {
+    	return redirecionar(PaginasUtil.ItemBacklog.ITEM_BACKLOG_PAGE);
+    }
 
 	public String cadastroUsuarioPage() {
 		return redirecionar(PaginasUtil.Usuario.CADASTRO_USUARIO_PAGE);
