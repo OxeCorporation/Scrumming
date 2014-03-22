@@ -93,19 +93,12 @@
 					        <h:outputText value="#{mensagens.label_backlog}"/>
 					    </a>
 					</li>
-					<ui:fragment rendered="#{sessaoMB.usuario.empresa}">
-					<li>
-						<h:commandLink action="#{sessaoMB.SprintPage}">
-					     	<i class="fa fa-user fa-fw" /> 
-					     	<h:outputText value="#{mensagens.label_sprint}" />
-					     </h:commandLink>
-					</li>
-				</ui:fragment>
-			</ul>
-		</div>
 				<ui:insert name="menu_lateral">
 
 				</ui:insert>
+			</ul>
+		</div>
+				
 			</nav>
 			<div id="page-wrapper">
 				<div class="row">
