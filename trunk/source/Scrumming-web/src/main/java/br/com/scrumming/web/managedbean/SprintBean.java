@@ -6,7 +6,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.domain.ItemBacklog;
-import br.com.scrumming.domain.ItemsTasksDTO;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
 import br.com.scrumming.web.clientService.SprintClientService;
@@ -16,19 +15,20 @@ import br.com.scrumming.web.clientService.SprintClientService;
 public class SprintBean extends AbstractBean {
 	
 	private Sprint sprint;
+	private List<Sprint> sprintsDoProjeto;
 	private List<ItemBacklog> sprintBacklog;
 	private List<ItemBacklog> availableBacklog;
 	private SprintDTO sprintDTO;
-	private List<ItemsTasksDTO> itemsTasksDTO;
 	private SprintClientService sprintClientService;
 	
 	@Override
 	public void inicializar() {
-		/*sprint = new Sprint();
-		sprintBacklog = new ArrayList<>();
-		availableBacklog = new ArrayList<>();
-		sprintDTO = new SprintDTO();*/
 		sprintClientService = new SprintClientService();
+	}
+	
+	public SprintBean() {
+		inicializar();
+		consultarSprintsPorProjeto(new Integer(1));
 	}
 	
 	/*Funções disponíveis para as telas da Sprint e SprintBacklog*/
@@ -48,7 +48,7 @@ public class SprintBean extends AbstractBean {
 	 * @return
 	 */
 	public String consultarSprintsPorProjeto(Integer projetoID) {
-		sprintClientService.consultarSprintsPorProjeto(projetoID);
+		sprintsDoProjeto = sprintClientService.consultarSprintsPorProjeto(projetoID);
 		return "";
 	}
 	
@@ -71,7 +71,7 @@ public class SprintBean extends AbstractBean {
 	 * @return
 	 */
 	public String consultarItemTarefas(Integer sprintID) {
-		itemsTasksDTO = sprintClientService.consultarItemsAndTasksDTO(sprintID);
+		sprintClientService.consultarItemsAndTasksDTO(sprintID);
 		return "";
 	}
 	
@@ -84,7 +84,7 @@ public class SprintBean extends AbstractBean {
 		sprintClientService.fecharSprint(sprintID);
 		return "";
 	}
-	
+		
 	/*Getters and Setters*/
 	
 	public Sprint getSprint() {
@@ -117,5 +117,21 @@ public class SprintBean extends AbstractBean {
 
 	public void setSprintDTO(SprintDTO sprintDTO) {
 		this.sprintDTO = sprintDTO;
+	}
+
+	public List<Sprint> getSprintsDoProjeto() {
+		return sprintsDoProjeto;
+	}
+
+	public void setSprintsDoProjeto(List<Sprint> sprintsDoProjeto) {
+		this.sprintsDoProjeto = sprintsDoProjeto;
+	}
+
+	public SprintClientService getSprintClientService() {
+		return sprintClientService;
+	}
+
+	public void setSprintClientService(SprintClientService sprintClientService) {
+		this.sprintClientService = sprintClientService;
 	}
 }
