@@ -4,7 +4,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
-import br.com.scrumming.core.service.EmpresaService;
 import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.clientService.UsuarioClientService;
@@ -54,6 +53,11 @@ public class SessaoMB extends AbstractBean {
     public String cadastroUsuarioPage(){
     	return redirecionar(PaginasUtil.Usuario.CADASTRO_USUARIO_PAGE);
     }
+    
+    public String SprintPage() {
+    	return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
+    }
+    
     /* getters and setters */
     public Usuario getUsuario() {
         return usuario;
