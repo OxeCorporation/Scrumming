@@ -90,8 +90,14 @@
 				</ui:fragment>
 				<li>
 					<h:commandLink action="#{sessaoMB.itemBacklogPage}" >
-						<i class="fa fa-list" />
+						<i class="fa fa-list fa-fw" />
 						<h:outputText value="#{mensagens.label_backlog}" />
+					</h:commandLink>
+	   			</li>
+	   			<li>
+					<h:commandLink action="#{sessaoMB.sprintPage}" >
+						<i class="fa fa-spinner fa-fw" />
+						<h:outputText value="#{mensagens.label_sprint}" />
 					</h:commandLink>
 	   			</li>
 				<ui:insert name="menu_lateral">

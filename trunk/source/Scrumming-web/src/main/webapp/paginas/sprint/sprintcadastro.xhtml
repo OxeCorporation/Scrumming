@@ -11,16 +11,4 @@
 		<h:outputText value="Tela de cadastro da Sprint sera feita aki \o/"></h:outputText>
 	</ui:define>
 
-	<!-- CARREGA AS OPCOES NO MENU LATERAL -->
-	<ui:define name="menu_lateral">
-		<li><h:commandLink action="#{sessaoMB.ItemBacklogPage}">
-				<i class="fa fa-list" />
-				<h:outputText value="#{mensagens.label_backlog}" />
-			</h:commandLink></li>
-		<li><h:commandLink action="#{sessaoMB.SprintPage}">
-				<i class="fa fa-bar-chart-o" />
-				<h:outputText value="#{mensagens.label_sprint}" />
-			</h:commandLink></li>
-	</ui:define>
-
 </ui:composition>
