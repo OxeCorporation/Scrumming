@@ -48,7 +48,9 @@
 							<i class="fa fa-caret-down"></i>
 					</a>
 						<ul class="dropdown-menu dropdown-user">
-							<li><a href="#"><i class="fa fa-user fa-fw"></i> User
+							<li>
+							   <a href="#">
+							     <i class="fa fa-user fa-fw"></i> User
 									Profile</a></li>
 							<li><a href="#"><i class="fa fa-gear fa-fw"></i>
 									Settings</a></li>
@@ -88,6 +90,12 @@
 					     </h:commandLink>
 					</li>
 				</ui:fragment>
+	   			<li>
+					<h:commandLink action="#{sessaoMB.projetoPage}" >
+						<i class="fa fa-briefcase fa-fw" />
+						<h:outputText value="#{mensagens.label_projeto}" />
+					</h:commandLink>
+	   			</li>
 				<li>
 					<h:commandLink action="#{sessaoMB.itemBacklogPage}" >
 						<i class="fa fa-list fa-fw" />
@@ -98,12 +106,6 @@
 					<h:commandLink action="#{sessaoMB.sprintPage}" >
 						<i class="fa fa-spinner fa-fw" />
 						<h:outputText value="#{mensagens.label_sprint}" />
-					</h:commandLink>
-	   			</li>
-	   			<li>
-					<h:commandLink action="#{sessaoMB.projetoPage}" >
-						<i class="fa fa-briefcase fa-fw" />
-						<h:outputText value="#{mensagens.label_projeto}" />
 					</h:commandLink>
 	   			</li>
 				<ui:insert name="menu_lateral">
