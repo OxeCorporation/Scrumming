@@ -20,4 +20,8 @@ public final class PaginasUtil {
     	public static final String SPRINT_DETAIL_PAGE = "/paginas/sprint/sprintdetail.xhtml";
     	public static final String SPRINT_CADASTRO_PAGE = "/paginas/sprint/sprintcadastro.xhtml";
     }
+    
+    public final class Projeto{
+    	public static final String PROJETO_PAGE = "/paginas/projeto/projeto.xhtml";
+    }
 }

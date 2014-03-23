@@ -83,7 +83,7 @@
 				<ui:fragment rendered="#{sessaoMB.usuario.empresa}">
 					<li>
 						<h:commandLink action="#{sessaoMB.cadastroUsuarioPage}">
-					     	<i class="fa fa-user fa-fw" /> 
+					     	<i class="fa fa-users fa-fw" /> 
 					     	<h:outputText value="#{mensagens.label_cadastro_usuarios}" />
 					     </h:commandLink>
 					</li>
@@ -98,6 +98,12 @@
 					<h:commandLink action="#{sessaoMB.sprintPage}" >
 						<i class="fa fa-spinner fa-fw" />
 						<h:outputText value="#{mensagens.label_sprint}" />
+					</h:commandLink>
+	   			</li>
+	   			<li>
+					<h:commandLink action="#{sessaoMB.projetoPage}" >
+						<i class="fa fa-briefcase fa-fw" />
+						<h:outputText value="#{mensagens.label_projeto}" />
 					</h:commandLink>
 	   			</li>
 				<ui:insert name="menu_lateral">

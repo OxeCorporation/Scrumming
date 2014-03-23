@@ -78,6 +78,9 @@ public class SessaoMB {
 		return redirecionar(PaginasUtil.Usuario.CADASTRO_USUARIO_PAGE);
 	}
 
+	public String projetoPage(){
+		return redirecionar(PaginasUtil.Projeto.PROJETO_PAGE);
+	}
 	
 	private String redirecionar(String page){
 		return page + "?faces-redirect=true";
