@@ -1,5 +1,7 @@
 package br.com.scrumming.web.managedbean;
 
+import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -12,6 +14,7 @@ public class TarefaBean extends AbstractBean {
 	
 	private Tarefa tarefa;
 	private TarefaClientService tarefaClientService;
+	private List<Tarefa> tarefasDoItem;
 	
 	@Override
     public void inicializar() {
@@ -23,6 +26,10 @@ public class TarefaBean extends AbstractBean {
 		tarefaClientService.salvarTarefa(tarefa);
 	}
 	
+	public void consultarTarefasPorItemBacklog(Integer itemBacklogID) {
+		setTarefasDoItem(tarefaClientService.consultarTarefasPorItemBacklog(itemBacklogID));
+	}
+	
 	/* getters and setters */
 	public Tarefa getTarefa() {
 		return tarefa;
@@ -30,5 +37,13 @@ public class TarefaBean extends AbstractBean {
 
 	public void setTarefa(Tarefa tarefa) {
 		this.tarefa = tarefa;
+	}
+
+	public List<Tarefa> getTarefasDoItem() {
+		return tarefasDoItem;
+	}
+
+	public void setTarefasDoItem(List<Tarefa> tarefasDoItem) {
+		this.tarefasDoItem = tarefasDoItem;
 	}
 }
