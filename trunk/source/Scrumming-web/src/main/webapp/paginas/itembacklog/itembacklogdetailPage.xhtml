@@ -1,60 +1,58 @@
-<ui:composition xmlns:h="http://java.sun.com/jsf/html"
+<ui:composition 
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf"
-	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui" 	
 	template="/paginas/template/template.xhtml">
 
-	<!-- CORPO DA TELA DA SPRINTS -->
 	<ui:define name="conteudo">
-		<p:tabView id="tabView">
+		<div class="col-md-9">
+			<p:panel header="#{item.nome}" footer="Critério de Aceitação: #{item.criterioAceitacao}">
+				<h:outputText value="#{item.descricao}" />
+			</p:panel>
+			
+			<p:dataGrid var="tarefa" value="#{tarefaBean.tarefasDoItem}" columns="1" style="width:100%;">			
+						
+			    <p:panel id="pnl" header="#{tarefa.nome}" toggleable="true" toggleSpeed="500" widgetVar="panel">			  
+			        <p:ajax event="close" listener="#{panelBean.handleClose}" update="growl" />	                
+			        
+			        <h:outputText value="#{tarefa.descricao}" />  		
+			        
+			        <p:commandLink title="Alterar tarefa"
+						action="#{tarefaBean.}">
+						<h:outputText styleClass="fa fa-pencil-square-o"
+							style="margin:0 auto; float:right" />
+						<f:setPropertyActionListener value="#{}"
+							target="#{}" />
+					</p:commandLink>
+					
+					<p:commandLink title="Remover tarefa"
+						action="#{tarefaBean.}">
+						<h:outputText styleClass="fa fa-trash-o"
+							style="margin:0 auto; float:right" />
+						<f:setPropertyActionListener value="#{}"
+							target="#{}" />
+					</p:commandLink>	  		        
+			    </p:panel>  			
+			
+			</p:dataGrid>
+		</div>
 
-			<p:tab id="tab1" title="Godfather Part I">
-				<h:panelGrid columns="2" cellpadding="10">
-					<p:graphicImage id="tab1Img"
-						value="/images/godfather/godfather1.jpg" />
-					<h:outputText id="tab1Text"
-						value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.  
-                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. T  
-                hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect,  
-                but given to ruthless violence whenever anything stands against the good of the family." />
-				</h:panelGrid>
-			</p:tab>
-
-			<p:tab id="tab2" title="Godfather Part II">
-				<h:panelGrid columns="2" cellpadding="10">
-					<p:graphicImage id="tab2Img"
-						value="/images/godfather/godfather2.jpg" />
-					<h:outputText id="tab2Text"
-						value="Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather, parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream.  
-            In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy,  
-            killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows." />
-				</h:panelGrid>
-			</p:tab>
-
-			<p:tab id="tab3" title="Godfather Part III">
-				<h:panelGrid columns="2" cellpadding="10">
-					<p:graphicImage id="tab3Img"
-						value="/images/godfather/godfather3.jpg" />
-					<h:outputText id="tab3Text"
-						value="After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family.  
-                Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate." />
-				</h:panelGrid>
-			</p:tab>
-
-		</p:tabView>
-	</ui:define>
-
-	<!-- CARREGA AS OPCOES NO MENU LATERAL -->
-	<ui:define name="menu_lateral">
-		<li><h:commandLink action="#{sessaoMB.ItemBacklogPage}">
-				<i class="fa fa-list" />
-				<h:outputText value="#{mensagens.label_backlog}" />
-			</h:commandLink></li>
-		<li><h:commandLink action="#{sessaoMB.SprintPage}">
-				<i class="fa fa-bar-chart-o" />
-				<h:outputText value="#{mensagens.label_sprint}" />
-			</h:commandLink></li>
+		<div class="col-md-3">
+			<p:commandLink title="Nova tarefa"
+				action="#{tarefaBean.}">
+				<h:outputText styleClass="fa fa-plus" style="margin:0 auto;" />
+				<!-- <f:setPropertyActionListener value="#{}"
+					target="#{}" /> -->
+			</p:commandLink>
+			<p:commandLink title="Nova tarefa"
+				action="#{tarefaBean.}">
+				<h:outputText value="Nova tarefa" />
+				<!-- <f:setPropertyActionListener value="#{}"
+					target="#{}" /> -->
+			</p:commandLink>
+		</div>
 	</ui:define>
 
 </ui:composition>
