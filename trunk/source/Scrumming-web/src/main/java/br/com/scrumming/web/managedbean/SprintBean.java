@@ -9,9 +9,7 @@ import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
 import br.com.scrumming.web.clientService.SprintClientService;
-
 import br.com.scrumming.web.infra.FlashScoped;
-
 import br.com.scrumming.web.infra.PaginasUtil;
 
 
@@ -95,6 +93,7 @@ public class SprintBean extends AbstractBean {
 		return "";
 	}
 	
+	/*Métodos de redirecionamento das páginas*/	
 	public String sprintDetailPage() {
     	return redirecionar(PaginasUtil.Sprint.SPRINT_DETAIL_PAGE);
     }
@@ -102,7 +101,7 @@ public class SprintBean extends AbstractBean {
 	public String sprintCadastroPage() {
 		return redirecionar(PaginasUtil.Sprint.SPRINT_CADASTRO_PAGE);
 	}
-		
+	
 	/*Getters and Setters*/
 	
 	public Sprint getSprint() {

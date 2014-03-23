@@ -27,11 +27,11 @@ public class ProjetoService {
         this.projetoManager.insertOrUpdate(projeto);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{allProjeto}")
-    public List<Projeto> listarTodos() {
-        return new ArrayList<Projeto>(projetoManager.findAll());
+    @RequestMapping(method = RequestMethod.GET, value = "/list/{empresaID}")
+    public List<Projeto> consultarPorEmpresa(@PathVariable Integer empresaID) {
+    	return new ArrayList<Projeto>(projetoManager.consultarPorEmpresa(empresaID));
     }
-
+    
     @RequestMapping(method = RequestMethod.GET, value = "/{nomeProjeto}")
     public List<Projeto> consultarPorNome(@PathVariable String nome) {
 

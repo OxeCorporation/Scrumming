@@ -23,6 +23,7 @@ public final class PaginasUtil {
     
     public final class Projeto{
     	public static final String PROJETO_PAGE = "/paginas/projeto/projeto.xhtml";
+    	public static final String PROJETO_DETAIL_PAGE = "/paginas/projeto/projetodetail.xhtml";
     	public static final String PROJETO_CADASTRO_PAGE = "/paginas/projeto/projetocadastro.xhtml";
     }
 }

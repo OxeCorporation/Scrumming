@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.scrumming.core.infra.AbstractRepositorioTest;
+import br.com.scrumming.core.manager.implementations.ProjetoManager;
 import br.com.scrumming.core.manager.interfaces.ITeamManager;
 import br.com.scrumming.core.manager.interfaces.IUsuarioEmpresaManager;
 import br.com.scrumming.domain.Empresa;
@@ -27,6 +28,9 @@ public class ProjetoRepositorioTest extends AbstractRepositorioTest {
 	private ProjetoRepositorio projetoRepositorio;
 	
 	@Autowired
+	private ProjetoManager projetoManager;
+	
+	@Autowired
 	private TeamRepositorio teamRepositorio;
 
 	@Autowired
@@ -36,6 +40,42 @@ public class ProjetoRepositorioTest extends AbstractRepositorioTest {
 	private ITeamManager iTeamManager;
 
 	@Test
+	public void consultarProjetosPorEmpresa() {
+		Empresa empresa1 = new Empresa();
+		empresa1.setNome("Empresa1");
+		empresa1.setAtivo(true);
+		empresa1.setDataCadastro(NOW);
+		
+		save(empresa1);
+		
+		// Projeto 1
+		Projeto projeto1 = new Projeto();
+		projeto1.setCodigo(5);
+		projeto1.setNome("Projeto_01");
+		projeto1.setDescricao("teste01");
+		projeto1.setEmpresa(empresa1);
+		projeto1.setDataCadastro(NOW);
+		projeto1.setDataInicio(NOW);
+		projeto1.setDataFim(FIM);
+		projeto1.setSituacaoProjeto(SituacaoProjetoEnum.ATIVO);
+
+		// Projeto 2
+		Projeto projeto2 = new Projeto();
+		projeto2.setNome("Projeto_02");
+		projeto2.setDescricao("teste02");
+		projeto2.setEmpresa(empresa1);
+		projeto2.setDataCadastro(NOW);
+		projeto2.setDataInicio(NOW);
+		projeto2.setDataFim(FIM);
+		projeto2.setSituacaoProjeto(SituacaoProjetoEnum.ATIVO);
+		
+		save(projeto1, projeto2);
+		
+		/*List<Projeto> projetos = 
+		Assert.assertTrue("NÃO ENCONTRADO", itens != null);*/
+	}
+	
+	//@Test
 	public void verConsultaPorProjeto() {
 		// daniel, refaser teste, mito confuso e errado.
 		// Empresas
@@ -181,4 +221,6 @@ public class ProjetoRepositorioTest extends AbstractRepositorioTest {
 		
 
 	}
+
+	
 }

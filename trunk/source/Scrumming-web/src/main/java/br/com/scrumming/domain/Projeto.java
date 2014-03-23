@@ -41,8 +41,8 @@ public class Projeto extends ObjetoPersistente<Integer> {
     private Integer codigo;
 
     @ManyToOne
-    @JoinColumn(name = "FK_empresa", referencedColumnName = "PK_empresa")
-    private Empresa Empresa;
+    @JoinColumn(name="FK_empresa", referencedColumnName="PK_empresa")
+    private Empresa empresa;
 
     @Column(name = "nome", columnDefinition = "varchar(50)")
     @NotBlank
@@ -135,20 +135,20 @@ public class Projeto extends ObjetoPersistente<Integer> {
         this.dataCadastro = dataCadastro;
     }
 
-    public Empresa getEmpresa() {
-        return Empresa;
-    }
-
-    public void setEmpresa(Empresa empresa) {
-        Empresa = empresa;
-    }
-
 	public SituacaoProjetoEnum getSituacaoProjeto() {
 		return situacaoProjeto;
 	}
 
 	public void setSituacaoProjeto(SituacaoProjetoEnum situacaoProjeto) {
 		this.situacaoProjeto = situacaoProjeto;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 

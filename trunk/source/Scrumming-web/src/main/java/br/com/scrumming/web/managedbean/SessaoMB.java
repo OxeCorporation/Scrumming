@@ -65,7 +65,7 @@ public class SessaoMB {
 	public String bemvindoPage() {
 		return redirecionar(PaginasUtil.Geral.BENVINDO_PAGE);
 	}
-
+	
 	public String sprintPage() {
 		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
 	}

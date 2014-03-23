@@ -1,16 +1,19 @@
 package br.com.scrumming.web.managedbean;
 
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.web.clientService.ProjetoClientService;
+import br.com.scrumming.web.infra.PaginasUtil;
 
 @ManagedBean
 @ViewScoped
 public class ProjetoBean extends AbstractBean {
 
-    private List<Projeto> projetos;
+    private List<Projeto> projetosDaEmpresa;
     private Projeto projeto;
     private Projeto projetoSelecionado;
     private ProjetoClientService clienteService;
@@ -22,25 +25,24 @@ public class ProjetoBean extends AbstractBean {
     
     public ProjetoBean() {
     	inicializar();
-    	consultarProjetosPorEmpresa();
+    	consultarProjetosPorEmpresa(new Integer(1));
     }
     
-    public void consultarProjetosPorEmpresa() {
-    	
+    public String consultarProjetosPorEmpresa(Integer empresaID) {
+    	projetosDaEmpresa = clienteService.consultarProjetosPorEmpresa(empresaID);
+    	return "";
     }
     
-    
-    
+    /*Métodos de redirecionamento das páginas*/
+    public String projetoDetailPage() {
+    	return redirecionar(PaginasUtil.Projeto.PROJETO_DETAIL_PAGE);
+    }
+	
+	public String projetoCadastroPage() {
+		return redirecionar(PaginasUtil.Projeto.PROJETO_CADASTRO_PAGE);
+	}    
 
     /* getters and setters */
-    public List<Projeto> getProjetos() {
-        return projetos;
-    }
-
-    public void setProjetos(List<Projeto> projetos) {
-        this.projetos = projetos;
-    }
-
     public Projeto getProjeto() {
         return projeto;
     }
@@ -63,5 +65,13 @@ public class ProjetoBean extends AbstractBean {
 
 	public void setClienteService(ProjetoClientService clienteService) {
 		this.clienteService = clienteService;
+	}
+
+	public List<Projeto> getProjetosDaEmpresa() {
+		return projetosDaEmpresa;
+	}
+
+	public void setProjetosDaEmpresa(List<Projeto> projetosDaEmpresa) {
+		this.projetosDaEmpresa = projetosDaEmpresa;
 	}
 }

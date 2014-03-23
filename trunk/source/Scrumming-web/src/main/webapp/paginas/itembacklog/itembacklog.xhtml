@@ -4,41 +4,55 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
 	template="/paginas/template/template.xhtml">
-	
-<!-- CORPO DA TELA DE LISTAGEM DOS ITENS DE BACKLOG -->
+
+	<!-- CORPO DA TELA DE LISTAGEM DOS ITENS DE BACKLOG -->
 	<ui:define name="conteudo">
-		
+
 		<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA OS ITENS DE BACKLOG -->
-		<p:dataGrid var="item" value="#{itemBacklogBean.itens}" columns="1" style="width:90%">
+		<p:dataGrid var="item" value="#{itemBacklogBean.itens}" columns="1"
+			style="width:90%">
 			<p:panel styleClass="col-md-12 column">
-				
+
 				<p:panel>
 					<f:facet name="header">
 						<p:commandLink action="#{itemBacklogBean.itembacklogDetailPage}">
-							<h:outputText value="#{item.nome}" style="color:blue; text-decoration:underline" />
+							<h:outputText value="#{item.nome}"
+								style="color:blue; text-decoration:underline" />
 						</p:commandLink>
-					</f:facet>					
+					</f:facet>
 					<h:panelGroup columns="1" style="width:100%">
 						<!-- FAZER O AJUSTE PARA ORGANIZAR O LAYOUT -->
 						<h:outputLabel value="#{mensagens.label_descricao_item_backlog}" />
 						<h:outputText value="#{item.descricao}" />
-							<p:commandLink title="Alterar Item"><!-- Inserir o action do commandLink -->
-								<h:outputText styleClass="fa fa-pencil-square-o" style="margin:0 auto; float:right" />
-								<f:setPropertyActionListener value="#{item}" target="#{itemBacklogBean.itemSelecionado}"/>
-							</p:commandLink>
+						<p:commandLink title="Alterar Item">
+							<!-- Inserir o action do commandLink -->
+							<h:outputText styleClass="fa fa-pencil-square-o"
+								style="margin:0 auto; float:right" />
+							<f:setPropertyActionListener value="#{item}"
+								target="#{itemBacklogBean.itemSelecionado}" />
+						</p:commandLink>
 						<br />
 						<h:outputLabel value="#{mensagens.label_criterio_aceitacao}" />
 						<h:outputText value="#{item.criterioAceitacao}" />
-							<p:commandLink title="Cancelar Item" action="#{itemBacklogBean.cancelarItemBacklog}">
-								<h:outputText styleClass="fa fa-lock" style="margin:0 auto; float:right" />
-								<f:setPropertyActionListener value="#{item}" target="#{itemBacklogBean.itemSelecionado}"/>
-							</p:commandLink>		
-					</h:panelGroup>					
+						<p:commandLink title="Cancelar Item"
+							action="#{itemBacklogBean.cancelarItemBacklog}">
+							<h:outputText styleClass="fa fa-lock"
+								style="margin:0 auto; float:right" />
+							<f:setPropertyActionListener value="#{item}"
+								target="#{itemBacklogBean.itemSelecionado}" />
+						</p:commandLink>
+					</h:panelGroup>
 				</p:panel>
-				
+
 			</p:panel>
 			<h:panelGroup class="col-md-3 column"></h:panelGroup>
 		</p:dataGrid>
-		
+
+	</ui:define>
+	<ui:define name="menu_lateral">
+		<li><h:commandLink action="#{sessaoMB.sprintPage}">
+				<i class="fa fa-bar-chart-o" />
+				<h:outputText value="#{mensagens.label_sprint}" />
+			</h:commandLink></li>
 	</ui:define>
 </ui:composition>

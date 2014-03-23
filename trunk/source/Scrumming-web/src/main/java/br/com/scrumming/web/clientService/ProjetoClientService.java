@@ -15,7 +15,7 @@ public class ProjetoClientService extends AbstractClientService {
 	}
 
 	public List<Projeto> consultarProjetosPorEmpresa(Integer empresaID) {
-		return Arrays.asList(getRestTemplate().getForObject(ConstantesService.Projeto.URL_CONSLTAR_POR_EMPRESA, Projeto[].class, empresaID));
+		return Arrays.asList(getRestTemplate().getForObject(getURIService(ConstantesService.Projeto.URL_CONSULTAR_POR_EMPRESA), Projeto[].class, empresaID));
 	}
 
 	public String deletarProjeto(Integer projetoID) {

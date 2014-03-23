@@ -30,6 +30,19 @@ public class ProjetoRepositorio extends AbstractRepositorio<Projeto, Integer> {
     }
 	
 	/**
+	 * Lista dos projetos da empresa.
+	 * @param empresaID
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Projeto> consultarPorEmpresa(Integer empresaID) {
+		Criteria criteria = createCriteria();
+        criteria.createAlias("empresa", "empresa");
+        criteria.add(Restrictions.eq("empresa.codigo", empresaID));
+        return Collections.checkedList(criteria.list(), Projeto.class);
+    }
+	
+	/**
 	 * Função que efetua a consulta da Sprint filtrando por um período específico.
 	 * @param dataInicio Data de cadastro
 	 * @param dataFim Data de cadastro

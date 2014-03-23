@@ -75,6 +75,11 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
     }
     
     @Override
+    public List<Projeto> consultarPorEmpresa(Integer empresaID) {
+    	return projetoRepositorio.consultarPorEmpresa(empresaID);
+    }
+    
+    @Override
 	public List<Projeto> consultarPorPeriodo(DateTime dataInicio, DateTime dataFim) {
 		return projetoRepositorio.consultarPorPeriodo(dataInicio, dataFim);
 	}

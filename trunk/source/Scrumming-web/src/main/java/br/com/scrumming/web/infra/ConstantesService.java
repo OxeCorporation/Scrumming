@@ -20,24 +20,24 @@ public final class ConstantesService {
 	
 	public final class Sprint {
 		public static final String URL_SALVAR = "/sprint/save";
-		public static final String URL_CONSULTAR_SPRINT_DTO = "http://localhost:8080/Scrumming/service/sprint/{sprintID}";
+		public static final String URL_CONSULTAR_SPRINT_DTO = "/sprint/{sprintID}";
 		public static final String URL_CONSULTAR_POR_PROJETO = "/sprint/list/{projetoID}";
-		public static final String URL_CONSULTAR_ITEMS_TAREFAS = "http://localhost:8080/Scrumming/service/sprint/itensTarefas";
-		public static final String URL_FECHAR_SPRINT = "http://localhost:8080/Scrumming/service/sprint/close";
+		public static final String URL_CONSULTAR_ITEMS_TAREFAS = "/sprint/itensTarefas";
+		public static final String URL_FECHAR_SPRINT = "/sprint/close";
 	}
 	
 	public final class ItemBacklog{
-		public static final String URL_SALVAR = "http://localhost:8080/Scrumming/service/itemBacklog/{itemBacklog}";
-		public static final String URL_CONSULTAR_POR_PROJETO = "http://localhost:8080/Scrumming/service/itemBacklog/list/{projetoID}";
-		public static final String URL_CANCELAR = "http://localhost:8080/Scrumming/service/itemBacklog/{item}";
-		public static final String URL_CONSLTAR_POR_ID = "http://localhost:8080/Scrumming/service/itemBacklog/{itemID}";
+		public static final String URL_SALVAR = "/itemBacklog/{itemBacklog}";
+		public static final String URL_CONSULTAR_POR_PROJETO = "/itemBacklog/list/{projetoID}";
+		public static final String URL_CANCELAR = "/itemBacklog/{item}";
+		public static final String URL_CONSLTAR_POR_ID = "/itemBacklog/{itemID}";
 	}
 	
 	public final class Projeto{
-		public static final String URL_SALVAR_PROJETO = "http://localhost:8080/Scrumming/service/projeto/{projetoDTO}";
-		public static final String URL_DELETE_PROJETO = "http://localhost:8080/Scrumming/service/deleteProjeto/{projetoID}";
-		public static final String URL_CANCELAR_PROJETO = "http://localhost:8080/Scrumming/service/projeto/{projetoID}";
-		public static final String URL_CONSLTAR_POR_EMPRESA = "http://localhost:8080/Scrumming/service/empresa/list/{empresaID}";
+		public static final String URL_SALVAR_PROJETO = "/projeto/{projetoDTO}";
+		public static final String URL_DELETE_PROJETO = "/projeto/deleteProjeto/{projetoID}";
+		public static final String URL_CANCELAR_PROJETO = "/projeto/{projetoID}";
+		public static final String URL_CONSULTAR_POR_EMPRESA = "/projeto/list/{empresaID}";
 	}
 	public final class UsuarioEmpresa{
 		public static final String URL_CONSULTAR_EMPRESAS_POR_USUARIO = "/usuario_empresa/usuario/{usuarioID}";
