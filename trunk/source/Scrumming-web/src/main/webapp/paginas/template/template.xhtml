@@ -65,8 +65,8 @@
 			<nav class="navbar-default navbar-static-side" role="navigation">
 				<div class="sidebar-collapse">
 			<ul class="nav" id="side-menu">
-				<li>
-					<div style="margin-left: 20px; margin-top: 20px;">
+				<li> 
+					<div align="center">
 						<img class="img-circle img-responsive"
 							src="http://dicionarioinformal.com.br/image/m/1418.jpg" />
 						<h3 align="center">
@@ -83,13 +83,31 @@
 				<ui:fragment rendered="#{sessaoMB.usuario.empresa}">
 					<li>
 						<h:commandLink action="#{sessaoMB.cadastroUsuarioPage}">
-					     	<i class="fa fa-user fa-fw" /> 
+					     	<i class="fa fa-users fa-fw" /> 
 					     	<h:outputText value="#{mensagens.label_cadastro_usuarios}" />
 					     </h:commandLink>
 					</li>
 				</ui:fragment>
+				<li>
+					<h:commandLink action="#{sessaoMB.itemBacklogPage}" >
+						<i class="fa fa-list fa-fw" />
+						<h:outputText value="#{mensagens.label_backlog}" />
+					</h:commandLink>
+	   			</li>
+	   			<li>
+					<h:commandLink action="#{sessaoMB.sprintPage}" >
+						<i class="fa fa-spinner fa-fw" />
+						<h:outputText value="#{mensagens.label_sprint}" />
+					</h:commandLink>
+	   			</li>
+	   			<li>
+					<h:commandLink action="#{sessaoMB.projetoPage}" >
+						<i class="fa fa-briefcase fa-fw" />
+						<h:outputText value="#{mensagens.label_projeto}" />
+					</h:commandLink>
+	   			</li>
 				<ui:insert name="menu_lateral">
-
+	
 				</ui:insert>
 			</ul>
 		</div>
