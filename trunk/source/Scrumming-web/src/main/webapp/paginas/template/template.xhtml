@@ -88,8 +88,14 @@
 					     </h:commandLink>
 					</li>
 				</ui:fragment>
+				<li>
+					<h:commandLink action="#{sessaoMB.itemBacklogPage}" >
+						<i class="fa fa-list" />
+						<h:outputText value="#{mensagens.label_backlog}" />
+					</h:commandLink>
+	   			</li>
 				<ui:insert name="menu_lateral">
-
+	
 				</ui:insert>
 			</ul>
 		</div>

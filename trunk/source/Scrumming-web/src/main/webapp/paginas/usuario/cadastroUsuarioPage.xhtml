@@ -9,17 +9,6 @@
 	<ui:define name="conteudo">
 		<h:panelGroup id="usuarioPanel">
 			
-			<h:panelGroup columns="3">
-				<h:outputText value="IR PARA SPRINT" />
-				<span style="margin: 2px;" />
-				<p:inputText id="input_nome"
-					placeholder="#{mansagens.label_nome_usuario}" value="#{cadastroUsuarioBean.testeFlash}">
-				</p:inputText>
-				<span style="margin: 2px;" />
-				<p:commandButton value="IR"
-					action="#{cadastroUsuarioBean.sprintPage}" />
-			</h:panelGroup>
-			<br />
 			<br />
 			<h:panelGroup>
 				<p:dataTable id="tabelaUsuarios" var="usuario"
@@ -57,12 +46,5 @@
 			</h:panelGroup>
 
 		</h:panelGroup>
-	</ui:define>
-	<ui:define name="menu_lateral">
-		<li><h:commandLink action="#{sessaoMB.itemBacklogPage}">
-				<i class="fa fa-list" />
-				<h:outputText value="#{mensagens.label_backlog}" />
-			</h:commandLink>
-	   </li>
 	</ui:define>
 </ui:composition>

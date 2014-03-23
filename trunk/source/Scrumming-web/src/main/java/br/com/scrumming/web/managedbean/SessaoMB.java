@@ -17,7 +17,7 @@ import br.com.scrumming.web.infra.PaginasUtil;
 
 @ManagedBean
 @SessionScoped
-public class SessaoMB extends AbstractBean {
+public class SessaoMB {
 
 	private UsuarioClientService usuarioClientService = new UsuarioClientService();
 	private UsuarioEmpresaClientService usuarioEmpresaClientService = new UsuarioEmpresaClientService();
@@ -66,11 +66,11 @@ public class SessaoMB extends AbstractBean {
 		return redirecionar(PaginasUtil.Geral.BENVINDO_PAGE);
 	}
 
-	public String SprintPage() {
+	public String sprintPage() {
 		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
 	}
 
-	public String ItemBacklogPage() {
+	public String itemBacklogPage() {
 		return redirecionar(PaginasUtil.ItemBacklog.ITEM_BACKLOG_PAGE);
 	}
 
@@ -78,6 +78,10 @@ public class SessaoMB extends AbstractBean {
 		return redirecionar(PaginasUtil.Usuario.CADASTRO_USUARIO_PAGE);
 	}
 
+	
+	private String redirecionar(String page){
+		return page + "?faces-redirect=true";
+	}
 	/* getters and setters */
 	public Usuario getUsuario() {
 		return usuario;
