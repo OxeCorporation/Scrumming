@@ -16,6 +16,7 @@
 							<f:facet name="header">
 								<p:commandLink action="#{itemBacklogBean.itembacklogDetailPage}">
 									<h:outputText value="#{item.nome}" style="color:blue; text-decoration:underline" />
+									<f:setPropertyActionListener value="#{item}" target="#{itemBacklogBean.itemSelecionado}"/>
 								</p:commandLink>
 							</f:facet>					
 							<h:panelGroup columns="1" style="width:100%">
