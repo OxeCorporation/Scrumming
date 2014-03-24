@@ -4,7 +4,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:p="http://primefaces.org/ui">
-	  
+    
 	<h:form id="formTarefa">
 		<p:dialog showEffect="fade" hideEffect="explode" id="dlgTarefaSave" header="Tarefa" modal="true" var="exec" resizable="false" widgetVar="dlgTarefaSave">
 			<p:panel header="Detalhar Tarefa">
@@ -19,11 +19,10 @@
 					<p:inputText id="tempoEstimado" required="true" value="#{tarefaBean.tarefa.tempoEstimado}" requiredMessage="Preencha o tempo estimado em horas" />							
 				</h:panelGrid>
 			</p:panel>
-					
-			<p:panel>
-				<p:commandButton update=":main" icon="ui-icon-disk" value="Salvar" actionListener="#{tarefaBean.salvar}" />
-				<p:commandButton process="@none" icon="ui-icon-cancel" value="Cancelar" onclick="dlgTarefaSave.hide()" />
-			</p:panel>						
+			
+			<p:commandButton process="@none" icon="ui-icon-cancel" value="Cancelar" onclick="dlgTarefaSave.hide()" style="margin:0 auto; float:right"/>
+			<p:commandButton update=":main" icon="ui-icon-disk" value="Salvar" actionListener="#{tarefaBean.salvar}" style="margin:0 auto; float:right"/>								
 		</p:dialog>
 	</h:form>	
+	
 </ui:composition>
