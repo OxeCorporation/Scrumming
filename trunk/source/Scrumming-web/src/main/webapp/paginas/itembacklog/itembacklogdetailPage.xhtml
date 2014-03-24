@@ -6,55 +6,50 @@
 
 	<ui:define name="conteudo">
 		<h:panelGroup class="col-md-9">
-			<p:panel header="#{itemBacklogBean.itemSelecionado}"
-				footer="#{itemBacklogBean.itemSelecionado.criterioAceitacao}">
+			<p:panel header="#{itemBacklogBean.itemSelecionado}" footer="#{itemBacklogBean.itemSelecionado.criterioAceitacao}">
 				<h:outputText value="#{itemBacklogBean.itemSelecionado.descricao}" />
 			</p:panel>
 
-			<p:dataGrid var="tarefa" value="#{tarefaBean.tarefasDoItem}"
-				columns="1" style="width:100%;">
-				<p:panel header="#{tarefa.nome}" toggleable="true" toggleSpeed="500"
-					widgetVar="panel">
+			<p:dataGrid var="tarefa" value="#{tarefaBean.tarefasDoItem}" columns="1" style="width:100%;">
+				<p:panel header="#{tarefa.nome}" toggleable="true" toggleSpeed="500" widgetVar="panel">
 					<h:outputText value="#{tarefa.descricao}" />
 
-					<p:commandLink title="Alterar tarefa" update=":main:formTarefa"
-						oncomplete="dlgTarefaSave.show()">
-						<h:outputText styleClass="fa fa-pencil-square-o"
-							style="margin:0 auto; float:right" />
-
+					<p:commandLink title="Alterar tarefa" update=":main:formTarefa" oncomplete="dlgTarefaSave.show()">
+						<h:outputText styleClass="fa fa-pencil-square-o" style="margin:0 auto; float:right" />
 					</p:commandLink>
 
-					<p:commandLink title="Remover tarefa"
-						action="#{tarefaBean.removerTarefa}">
-						<h:outputText styleClass="fa fa-trash-o"
-							style="margin:0 auto; float:right" />
-
+					<p:commandLink title="Remover tarefa" action="#{tarefaBean.removerTarefa}">
+						<h:outputText styleClass="fa fa-trash-o" style="margin:0 auto; float:right" />
 					</p:commandLink>
 				</p:panel>
 			</p:dataGrid>
 		</h:panelGroup>
 
 		<h:panelGroup class="col-md-3">
-			<p:commandLink update=":main:formTarefa"
-				oncomplete="dlgTarefaSave.show()">
+			<p:commandLink update=":main:formTarefa" oncomplete="dlgTarefaSave.show()">
 				<h:outputText styleClass="fa fa-plus" style="margin:0 auto;" />
 			</p:commandLink>
-			<p:commandLink update=":main:formTarefa"
-				oncomplete="dlgTarefaSave.show()">
+			<p:commandLink update=":main:formTarefa" oncomplete="dlgTarefaSave.show()">
 				<h:outputText value="Nova tarefa" />
 			</p:commandLink>
 		</h:panelGroup>
 
 		<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />
 	</ui:define>
+	
 	<ui:define name="menu_lateral">
-		<li><h:commandLink action="#{sessaoMB.itemBacklogPage}">
+		<li>
+			<h:commandLink action="#{sessaoMB.itemBacklogPage}">
 				<i class="fa fa-list" />
 				<h:outputText value="#{mensagens.label_backlog}" />
-			</h:commandLink></li>
-		<li><h:commandLink action="#{sessaoMB.sprintPage}">
+			</h:commandLink>
+		</li>
+		<li>
+			<h:commandLink action="#{sessaoMB.sprintPage}">
 				<i class="fa fa-bar-chart-o" />
 				<h:outputText value="#{mensagens.label_sprint}" />
-			</h:commandLink></li>
+			</h:commandLink>
+		</li>
 	</ui:define>
+	
 </ui:composition>
