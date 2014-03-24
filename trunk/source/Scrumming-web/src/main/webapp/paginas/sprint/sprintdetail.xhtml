@@ -35,7 +35,16 @@
 						value="Aqui sera criado o grafico de burndown e burnup da sprint" />
 				</h:panelGrid>
 			</p:tab>
-
 		</p:tabView>
+	</ui:define>
+	<ui:define name="menu_lateral">
+		<li><h:commandLink action="#{sessaoMB.itemBacklogPage}">
+				<i class="fa fa-list" />
+				<h:outputText value="#{mensagens.label_backlog}" />
+			</h:commandLink></li>
+		<li><h:commandLink action="#{sessaoMB.sprintPage}">
+				<i class="fa fa-bar-chart-o" />
+				<h:outputText value="#{mensagens.label_sprint}" />
+			</h:commandLink></li>
 	</ui:define>
 </ui:composition>
