@@ -7,9 +7,24 @@
 
 	<!-- CORPO DA TELA DA SPRINTS -->
 	<ui:define name="conteudo">
+		<h:panelGroup var="sprint" value="#{sprintBean.sprintSelecionada}">
+			<p:commandLink action="#{sprintBean.sprintDetailPage}">
+				<h:outputText value="#{sprint.nome}"
+					style="color:blue; text-decoration:underline" />
+			</p:commandLink>
+			<br />
+			<h:outputLabel value="#{mensagens.label_dataINI}" />
+			<h:outputText value="#{sprint.dataInicio}" />
+			<br />
+			<h:outputLabel value="#{mensagens.label_dataFIM}" />
+			<h:outputText value="#{sprint.dataFim}" />
+			<br />
+			<h:outputText value="#{sprint.descricao}" />
+		</h:panelGroup>
+
 		<p:tabView id="tabView">
 
-			<p:tab id="tab1" title="Detalhes da Sprint">
+			<p:tab id="tab1" title="Sprint Backlog">
 				<h:panelGrid columns="2" cellpadding="10">
 					<p:graphicImage id="tab1Img"
 						value="/images/godfather/godfather1.jpg" />
