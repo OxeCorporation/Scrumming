@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<title><h:outputText value="#{mensagens.label_nomeProjeto}" />
+	</title>
+
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="font-awesome.css" />
+	<h:outputStylesheet library="css"
+		name="plugins/morris/morris-0.4.3.min.css" />
+	<h:outputStylesheet library="css" name="plugins/timeline/timeline.css" />
+	<h:outputStylesheet library="css" name="sb-admin.css" />
+	<ui:insert name="head">
+	</ui:insert>
+</h:head>
+
+<h:body>
+
+	<div id="wrapper">
+		<h:form id="main">
+			<p:growl id="growlGeral" showDetail="true" sticky="true" />
+			<nav class="navbar navbar-default navbar-static-top"
+				role="navigation" style="margin-bottom: 0">
+				<div class="navbar-header">
+					<p:button type="button" styleClass="navbar-toggle">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</p:button>
+					<i class="navbar-brand"> <h:outputText
+							value="#{mensagens.label_nomeProjeto}" />
+					</i>
+				</div>
+				<!-- /.navbar-header -->
+
+				<ul class="nav navbar-top-links navbar-right">
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
+							<i class="fa fa-caret-down"></i>
+					</a>
+						<ul class="dropdown-menu dropdown-user">
+							<li><a href="#"> <i class="fa fa-user fa-fw"></i> User
+									Profile
+							</a></li>
+							<li><a href="#"><i class="fa fa-gear fa-fw"></i>
+									Settings</a></li>
+							<li class="divider"></li>
+							<li><a href="login.xhtml"><i
+									class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+						</ul> <!-- /.dropdown-user --></li>
+					<!-- /.dropdown -->
+				</ul>
+				<ui:insert name="menu_superior">
+				</ui:insert>
+			</nav>
+
+			<nav class="navbar-default navbar-static-side" role="navigation">
+				<div class="sidebar-collapse">
+					<ul class="nav" id="side-menu">
+						<li>
+							<div align="center">
+								<img class="img-circle img-responsive"
+									src="http://dicionarioinformal.com.br/image/m/1418.jpg" />
+								<h3 align="center">
+									<h:outputText value="#{sessaoMB.usuario.nome}" />
+								</h3>
+							</div>
+						</li>
+						<li><h:commandLink action="#{sessaoMB.bemvindoPage}">
+								<i class="fa fa-list-alt fa-fw" />
+								<h:outputText value="#{mensagens.label_dashboard}" />
+							</h:commandLink></li>
+						<li><h:commandLink action="#{sessaoMB.projetoPage}">
+								<i class="fa fa-briefcase fa-fw" />
+								<h:outputText value="#{mensagens.label_projeto}" />
+							</h:commandLink></li>
+						<ui:fragment rendered="#{sessaoMB.usuario.empresa}">
+							<li><h:commandLink action="#{sessaoMB.cadastroUsuarioPage}">
+									<i class="fa fa-users fa-fw" />
+									<h:outputText value="#{mensagens.label_cadastro_usuarios}" />
+								</h:commandLink></li>
+						</ui:fragment>
+						<ui:insert name="menu_lateral">
+
+						</ui:insert>
+					</ul>
+				</div>
+
+			</nav>
+			<div id="page-wrapper">
+				<div class="row">
+					<div class="col-lg-12" style="margin-top: 30px">
+						<ui:insert name="conteudo" redenred="#{sessaoMB.usuarioLogado}">
+							<h1 class="page-header">Blank</h1>
+						</ui:insert>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</div>
+
+	<h:outputScript library="js"
+		name="plugins/metisMenu/jquery.metisMenu.js" />
+	<h:outputScript library="js" name="sb-admin.js" />
+	<h:outputScript library="js" name="bootstrap.min.js" />
+	<h:outputScript library="js" name="plugins/morris/raphael-2.1.0.min.js" />
+	<h:outputScript library="js" name="plugins/morris/morris.js" />
+	<h:outputScript library="js" name="demo/dashboard-demo.js" />
+
+</h:body>
+
+</html>
