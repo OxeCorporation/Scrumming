@@ -6,11 +6,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.core.service.UsuarioEmpresaService;
 import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.clientService.UsuarioClientService;
 import br.com.scrumming.web.clientService.UsuarioEmpresaClientService;
+import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.PaginasUtil;
 import br.com.scrumming.web.infra.jsf.ListaDataModel;
 
@@ -50,6 +52,7 @@ public class CadastroUsuarioBean extends AbstractBean {
     	usuarioClientService.salvarUsuario(usuario, empresa.getCodigo());
     	atualizarLista();
     	usuario = new Usuario();
+    	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
         return "";
     }
 
