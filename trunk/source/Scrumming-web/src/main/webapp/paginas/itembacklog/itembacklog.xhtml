@@ -14,10 +14,12 @@
 				
 				<p:panel>
 					<f:facet name="header">
-						<p:commandLink action="#{itemBacklogBean.itembacklogDetailPage}">
-							<h:outputText value="#{item.nome}" style="color:blue; text-decoration:underline" />
+						<p:commandLink action="#{itemBacklogBean.itembacklogDetailPage}">							
+							<h:outputText value="#{item.nome}" style="color:blue; text-decoration:underline" />		
+							<f:setPropertyActionListener value="#{item}" target="#{itemBacklogBean.itemSelecionado}"/>												
 						</p:commandLink>
-					</f:facet>					
+					</f:facet>		
+								
 					<h:panelGroup columns="1" style="width:100%">
 						<!-- FAZER O AJUSTE PARA ORGANIZAR O LAYOUT -->
 						<h:outputLabel value="#{mensagens.label_descricao_item_backlog}" />
