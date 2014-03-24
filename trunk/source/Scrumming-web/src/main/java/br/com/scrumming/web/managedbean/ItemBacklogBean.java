@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.web.clientService.ItemBacklogClientService;
 import br.com.scrumming.web.infra.PaginasUtil;
@@ -23,6 +22,7 @@ public class ItemBacklogBean extends AbstractBean {
         //itens = new ArrayList<ItemBacklog>();
         clienteService = new ItemBacklogClientService();
        // itemBacklog = new ItemBacklog();
+        itemSelecionado = new ItemBacklog();
         
     }
     

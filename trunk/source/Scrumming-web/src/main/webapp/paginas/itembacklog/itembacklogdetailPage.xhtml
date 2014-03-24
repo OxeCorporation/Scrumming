@@ -8,51 +8,36 @@
 
 	<ui:define name="conteudo">
 		<div class="col-md-9">
-			<p:panel header="#{item.nome}" footer="Critério de Aceitação: #{item.criterioAceitacao}">
-				<h:outputText value="#{item.descricao}" />
+			<p:panel header="#{itemBacklogBean.itemSelecionado}" footer="#{itemBacklogBean.itemSelecionado.criterioAceitacao}">
+				<h:outputText value="#{itemBacklogBean.itemSelecionado.descricao}" />
 			</p:panel>
-			
-			<p:dataGrid var="tarefa" value="#{tarefaBean.tarefasDoItem}" columns="1" style="width:100%;">			
-						
-			    <p:panel id="pnl" header="#{tarefa.nome}" toggleable="true" toggleSpeed="500" widgetVar="panel">			  
-			        <p:ajax event="close" listener="#{panelBean.handleClose}" update="growl" />	                
-			        
+					
+			<p:dataGrid var="tarefa" value="#{tarefaBean.tarefasDoItem}" columns="1" style="width:100%;">						
+			    <p:panel header="#{tarefa.nome}" toggleable="true" toggleSpeed="500" widgetVar="panel">   
 			        <h:outputText value="#{tarefa.descricao}" />  		
 			        
-			        <p:commandLink title="Alterar tarefa"
-						action="#{tarefaBean.}">
-						<h:outputText styleClass="fa fa-pencil-square-o"
-							style="margin:0 auto; float:right" />
-						<f:setPropertyActionListener value="#{}"
-							target="#{}" />
+			    	<p:commandLink title="Alterar tarefa" update=":main:formTarefa" oncomplete="dlgTarefaSave.show()">
+						<h:outputText styleClass="fa fa-pencil-square-o" style="margin:0 auto; float:right" />
+						
 					</p:commandLink>
 					
-					<p:commandLink title="Remover tarefa"
-						action="#{tarefaBean.}">
-						<h:outputText styleClass="fa fa-trash-o"
-							style="margin:0 auto; float:right" />
-						<f:setPropertyActionListener value="#{}"
-							target="#{}" />
-					</p:commandLink>	  		        
-			    </p:panel>  			
-			
-			</p:dataGrid>
+					<p:commandLink title="Remover tarefa" action="#{tarefaBean.removerTarefa}">
+						<h:outputText styleClass="fa fa-trash-o" style="margin:0 auto; float:right" />
+						
+					</p:commandLink>      		        
+			    </p:panel>			
+			</p:dataGrid>	
 		</div>
 
 		<div class="col-md-3">
-			<p:commandLink title="Nova tarefa"
-				action="#{tarefaBean.}">
+			<p:commandLink update=":main:formTarefa" oncomplete="dlgTarefaSave.show()">
 				<h:outputText styleClass="fa fa-plus" style="margin:0 auto;" />
-				<!-- <f:setPropertyActionListener value="#{}"
-					target="#{}" /> -->
 			</p:commandLink>
-			<p:commandLink title="Nova tarefa"
-				action="#{tarefaBean.}">
+			<p:commandLink update=":main:formTarefa" oncomplete="dlgTarefaSave.show()">
 				<h:outputText value="Nova tarefa" />
-				<!-- <f:setPropertyActionListener value="#{}"
-					target="#{}" /> -->
 			</p:commandLink>
-		</div>
-	</ui:define>
-
+		</div>		
+		
+		<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />		
+	</ui:define>		
 </ui:composition>

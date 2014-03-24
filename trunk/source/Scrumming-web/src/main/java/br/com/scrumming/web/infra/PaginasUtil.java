@@ -26,4 +26,8 @@ public final class PaginasUtil {
     	public static final String PROJETO_DETAIL_PAGE = "/paginas/projeto/projetodetail.xhtml";
     	public static final String PROJETO_CADASTRO_PAGE = "/paginas/projeto/projetocadastro.xhtml";
     }
+    
+    public final class Tarefa{
+    	public static final String SAVE_PAGE = "/paginas/tarefa/tarefaSave.xhtml";
+    }
 }

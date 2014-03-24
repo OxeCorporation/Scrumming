@@ -7,6 +7,7 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.web.clientService.TarefaClientService;
+import br.com.scrumming.web.infra.PaginasUtil;
 
 @ManagedBean
 @ViewScoped
@@ -28,6 +29,14 @@ public class TarefaBean extends AbstractBean {
 	
 	public void consultarTarefasPorItemBacklog(Integer itemBacklogID) {
 		setTarefasDoItem(tarefaClientService.consultarTarefasPorItemBacklog(itemBacklogID));
+	}
+	
+	public String tarefaCadastroPage() {
+		return redirecionar(PaginasUtil.Tarefa.SAVE_PAGE);
+	}
+	
+	public void removerTarefa(Tarefa tarefa){
+		tarefaClientService.removerTarefa(tarefa);
 	}
 	
 	/* getters and setters */
