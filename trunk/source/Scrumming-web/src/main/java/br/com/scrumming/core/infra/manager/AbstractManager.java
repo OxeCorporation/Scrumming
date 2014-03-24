@@ -27,6 +27,13 @@ public abstract class AbstractManager<Entidade extends ObjetoPersistente<Chave>,
         }
     }
 
+    public Chave save(Entidade entidade){
+    	try {
+			return getRepositorio().save(entidade);
+		} catch (Exception e) {
+			 throw new RuntimeException(e);
+		}
+    }
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void remove(Entidade entidade) {

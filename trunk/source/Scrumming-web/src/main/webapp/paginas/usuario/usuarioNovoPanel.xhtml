@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:scrum="http://xmlns.jcp.org/jsf/composite/compenentes">
+
+	<p:dialog id="novoUsuarioModal" widgetVar="novoUsuarioModal"
+		modal="true" closable="false" draggable="false" width="450" height="350" resizable="false"
+		header="#{mensagens.label_cadastro_usuarios}" styleClass="panel-heading">
+
+
+		<fieldset>
+
+			<div class="form-group">
+				<p:outputLabel value="#{mensagens.label_nome_usuario}" styleClass="col-md-4 control-label" for="txtNome"/>
+				<div class="col-md-6">
+					<p:inputText id="txtNome" placeholder="#{mesagens.label_digite_nome_usuario}" styleClass="form-control input-md" value="#{cadastroUsuarioBean.usuario.nome}"/>
+				</div>
+			</div>
+			<br/>
+			<br/>
+			<br/>
+			<div class="form-group">
+				<p:outputLabel value="#{mensagens.label_email}" styleClass="col-md-4 control-label" for="txtEmail"/>
+				<div class="col-md-6">
+					<p:inputText id="txtEmail" placeholder="#{mesagens.label_digite_email_usuario}" styleClass="form-control input-md" value="#{cadastroUsuarioBean.usuario.email}"/>
+				</div>
+			</div>
+			<br/>
+			<br/>
+			<div class="form-group">
+				<p:outputLabel value="#{mensagens.label_login}" styleClass="col-md-4 control-label" for="txtLogin"/>
+				<div class="col-md-6">
+					<p:inputText id="txtLogin" placeholder="#{mesagens.label_digite_login_usuario}" styleClass="form-control input-md" value="#{cadastroUsuarioBean.usuario.login}"/>
+				</div>
+			</div>
+			<br/>
+			<br/>
+			<div class="form-group">
+				<p:outputLabel value="#{mensagens.label_senha}" styleClass="col-md-4 control-label" for="txtSenha"/>
+				<div class="col-md-6">
+					<p:password id="txtSenha" placeholder="#{mesagens.label_digite_senha_usuario}" styleClass="form-control input-md" value="#{cadastroUsuarioBean.usuario.senha}"/>
+				</div>
+			</div>
+		 </fieldset>
+
+
+
+		<f:facet name="footer">
+			<div align="center">
+				<p:commandButton value="#{mensagens.label_salvar}"
+					action="#{cadastroUsuarioBean.novo}" update="@form"
+					oncomplete="novoUsuarioModal.hide()" />
+				<span />
+				<p:commandButton value="#{mensagens.botao_cancelar}"
+					onclick="novoUsuarioModal.hide()" />
+			</div>
+		</f:facet>
+	</p:dialog>
+
+</ui:composition>

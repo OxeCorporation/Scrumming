@@ -17,6 +17,8 @@ public interface IManager<Entidade extends ObjetoPersistente<Chave>, Chave exten
      */
     Chave insertOrUpdate(Entidade element);
 
+    
+    Chave save(Entidade entidade);
     /**
      * Remove uma entidade
      * 

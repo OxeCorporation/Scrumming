@@ -27,7 +27,7 @@ public class UsuarioService {
     public List<Usuario> listarTodos() {
         return new ArrayList<Usuario>(usuarioManager.findAll());
     }
-
+    
     @RequestMapping(method = RequestMethod.GET, value = "/{nome}")
     public List<Usuario> consultarPorNome(@PathVariable String nome) {
 
@@ -42,18 +42,13 @@ public class UsuarioService {
         return retorno;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/{usuario}")
-    public void salvar(@PathVariable @Valid Usuario usuario) {
-        this.usuarioManager.insertOrUpdate(usuario);
-    }
-
     @RequestMapping(method = RequestMethod.POST, value = "/login/{login}/{senha}")
     public Usuario obterUsuario(@PathVariable String login, @PathVariable String senha) {
         return this.usuarioManager.consultarPorLoginSenha(login, senha);
     }
-    @RequestMapping(method = RequestMethod.POST, value = "/usu")
-    public String salvarUsuario(@RequestBody Usuario usuario){
-    	return usuario.getNome() + " Salvo";
+    @RequestMapping(method = RequestMethod.POST, value = "/usu/{empresaID}")
+    public void salvarUsuario(@RequestBody Usuario usuario,@PathVariable Integer empresaID){
+    	usuarioManager.salvarUsuario(usuario, empresaID);
     }
     
     public IUsuarioManager getUsuarioManager() {

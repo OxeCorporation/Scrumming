@@ -47,6 +47,8 @@ public interface Repositorio<Entidade, Chave> {
      */
     void remove(Entidade key) throws RepositoryException;
 
+    
+    Chave save(Entidade entidade);
     /**
      * Método que busca na base de dados de acordo com um filtro estabelecido
      * 

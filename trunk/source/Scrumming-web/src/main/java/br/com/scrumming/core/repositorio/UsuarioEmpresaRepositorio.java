@@ -25,6 +25,7 @@ public class UsuarioEmpresaRepositorio extends AbstractRepositorio<UsuarioEmpres
         criteria.addOrder(Order.asc("usuarioAlias.nome"));
         criteria.add(Restrictions.eq("empresaAlias.codigo", empresaID));
         criteria.add(Restrictions.eq("usuarioAlias.empresa", false));
+        criteria.add(Restrictions.eq("ativo", true));
         criteria.setProjection(Projections.property("usuario"));
         return Collections.checkedList(criteria.list(), Usuario.class);
 	}
@@ -41,6 +42,7 @@ public class UsuarioEmpresaRepositorio extends AbstractRepositorio<UsuarioEmpres
 		Criteria criteria = criarAliasUsuarioEmpresa();
 		criteria.addOrder(Order.asc("empresaAlias.nome"));
 		criteria.add(Restrictions.eq("usuarioAlias.codigo", usuarioID));
+		criteria.add(Restrictions.eq("ativo", true));
 		criteria.setProjection(Projections.property("empresa"));
 		return Collections.checkedList(criteria.list(), Empresa.class);
 	}

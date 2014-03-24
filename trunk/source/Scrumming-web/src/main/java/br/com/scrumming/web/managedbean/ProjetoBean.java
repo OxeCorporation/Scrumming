@@ -7,6 +7,7 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.web.clientService.ProjetoClientService;
+import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
 
 @ManagedBean
@@ -15,6 +16,7 @@ public class ProjetoBean extends AbstractBean {
 
     private List<Projeto> projetosDaEmpresa;
     private Projeto projeto;
+    @FlashScoped
     private Projeto projetoSelecionado;
     private ProjetoClientService clienteService;
 

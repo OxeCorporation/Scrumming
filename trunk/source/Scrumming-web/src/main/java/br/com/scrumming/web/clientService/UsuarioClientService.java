@@ -20,4 +20,10 @@ public class UsuarioClientService extends AbstractClientService {
 				getURIService(ConstantesService.Usuario.SALVAR_USUARIO),
 				usuario, String.class);
 	}
+
+	public void salvarUsuario(Usuario usuario, Integer empresaID) {
+		getRestTemplate().postForObject(
+				getURIService(ConstantesService.Usuario.SALVAR_USUARIO_EMP),
+				usuario, void.class, empresaID);
+	}
 }

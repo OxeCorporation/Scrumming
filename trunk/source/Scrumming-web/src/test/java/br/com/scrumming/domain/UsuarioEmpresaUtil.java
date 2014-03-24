@@ -7,7 +7,7 @@ public class UsuarioEmpresaUtil {
         UsuarioEmpresa usuarioDaEmpresa = new UsuarioEmpresa();
         usuarioDaEmpresa.setEmpresa(empresa);
         usuarioDaEmpresa.setUsuario(usuario);
-        usuarioDaEmpresa.setIsUsuarioEmpresa(1);
+        usuarioDaEmpresa.setAtivo(true);
         return usuarioDaEmpresa;
     }
 }

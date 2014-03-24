@@ -1,17 +1,18 @@
 package br.com.scrumming.web.managedbean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
+import br.com.scrumming.core.service.UsuarioEmpresaService;
 import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
-import br.com.scrumming.web.infra.FlashScoped;
+import br.com.scrumming.web.clientService.UsuarioClientService;
+import br.com.scrumming.web.clientService.UsuarioEmpresaClientService;
 import br.com.scrumming.web.infra.PaginasUtil;
+import br.com.scrumming.web.infra.jsf.ListaDataModel;
 
 @ManagedBean
 @ViewScoped
@@ -19,10 +20,10 @@ public class CadastroUsuarioBean extends AbstractBean {
 
     private Usuario usuarioSelecionado;
     private List<Usuario> usuarios;
-
-    @FlashScoped
-    private String testeFlash;
-    
+    private ListaDataModel<Usuario> dataModelUsuario;
+    private UsuarioEmpresaClientService empresaService;
+    private UsuarioClientService usuarioClientService;
+    private Usuario usuario = new Usuario();
     @ManagedProperty(value="#{sessaoMB.empresaSelecionada}")
     private Empresa empresa;
 
@@ -32,14 +33,23 @@ public class CadastroUsuarioBean extends AbstractBean {
     
     @Override
     public void inicializar() {
-        usuarios = new ArrayList<Usuario>();
+    	usuarioClientService = new UsuarioClientService();
+    	empresaService = new UsuarioEmpresaClientService();
+    	atualizarLista();
     }
 
+    private void atualizarLista(){
+    	 usuarios = empresaService.consultarUsuariosPorEmpresa(empresa.getCodigo());
+         dataModelUsuario = new ListaDataModel<Usuario>(usuarios);
+    }
     public String sprintPage(){
     	return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
     }
     
     public String novo() {
+    	usuarioClientService.salvarUsuario(usuario, empresa.getCodigo());
+    	atualizarLista();
+    	usuario = new Usuario();
         return "";
     }
 
@@ -83,11 +93,19 @@ public class CadastroUsuarioBean extends AbstractBean {
         this.empresa = empresa;
     }
 
-	public String getTesteFlash() {
-		return testeFlash;
+	public ListaDataModel<Usuario> getDataModelUsuario() {
+		return dataModelUsuario;
 	}
 
-	public void setTesteFlash(String testeFlash) {
-		this.testeFlash = testeFlash;
+	public void setDataModelUsuario(ListaDataModel<Usuario> dataModelUsuario) {
+		this.dataModelUsuario = dataModelUsuario;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }

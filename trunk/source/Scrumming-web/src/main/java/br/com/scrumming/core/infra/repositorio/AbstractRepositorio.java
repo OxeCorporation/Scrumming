@@ -56,6 +56,11 @@ public abstract class AbstractRepositorio<Entidade extends ObjetoPersistente<Cha
 		return entidade.getChave();
 	}
 
+	@SuppressWarnings("unchecked")
+	public Chave save(Entidade entidade){
+		return (Chave) getSession().save(entidade);
+	}
+	
 	@Override
 	/** {@inheritDoc} */
 	public void remove(Entidade entidade) throws RepositoryException {

@@ -29,7 +29,7 @@ public class UsuarioEmpresa extends ObjetoPersistente<Integer> {
     private Usuario usuario;
 
     @Column(name = "is_usuarioEmpresa", columnDefinition = "bit", length = 1)
-    private Integer isUsuarioEmpresa;
+    private boolean ativo;
 
     /*Getters e and setters*/
     @Override
@@ -55,11 +55,11 @@ public class UsuarioEmpresa extends ObjetoPersistente<Integer> {
 		this.usuario = usuario;
 	}
 
-	public Integer getIsUsuarioEmpresa() {
-		return isUsuarioEmpresa;
+	public boolean isAtivo() {
+		return ativo;
 	}
 
-	public void setIsUsuarioEmpresa(Integer isUsuarioEmpresa) {
-		this.isUsuarioEmpresa = isUsuarioEmpresa;
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 }

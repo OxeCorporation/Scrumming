@@ -8,9 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
+import br.com.scrumming.core.manager.interfaces.IEmpresaManager;
+import br.com.scrumming.core.manager.interfaces.IUsuarioEmpresaManager;
 import br.com.scrumming.core.manager.interfaces.IUsuarioManager;
 import br.com.scrumming.core.repositorio.UsuarioRepositorio;
+import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
+import br.com.scrumming.domain.UsuarioEmpresa;
 
 @Service
 public class UsuarioManager extends AbstractManager<Usuario, Integer> implements IUsuarioManager {
@@ -23,6 +27,12 @@ public class UsuarioManager extends AbstractManager<Usuario, Integer> implements
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
 
+    @Autowired
+    private IEmpresaManager empresaManager;
+    
+    @Autowired
+    private IUsuarioEmpresaManager usuarioEmpresaManager;
+    
     @Override
     public AbstractRepositorio<Usuario, Integer> getRepositorio() {
         return this.usuarioRepositorio;
@@ -34,6 +44,24 @@ public class UsuarioManager extends AbstractManager<Usuario, Integer> implements
         return usuarioRepositorio.consultarPorNome(nome);
     }
 
+
+	@Override
+	public void salvarUsuario(Usuario usuario, Integer empresaID) {
+		
+		Empresa empresa = empresaManager.findByKey(empresaID);
+		
+		usuario.setAtivo(true);
+		
+		save(usuario);
+		
+		UsuarioEmpresa usuarioEmpresa = new UsuarioEmpresa();
+		usuarioEmpresa.setUsuario(usuario);
+		usuarioEmpresa.setEmpresa(empresa);
+		usuarioEmpresa.setAtivo(true);
+		
+		usuarioEmpresaManager.insertOrUpdate(usuarioEmpresa);
+	}
+    
     /* getters and sertters */
     public UsuarioRepositorio getUsuarioRepositorio() {
         return usuarioRepositorio;
@@ -48,4 +76,20 @@ public class UsuarioManager extends AbstractManager<Usuario, Integer> implements
         return usuarioRepositorio.consultarPorLoginSenha(login, senha);
     }
 
+	public IEmpresaManager getEmpresaManager() {
+		return empresaManager;
+	}
+
+	public void setEmpresaManager(IEmpresaManager empresaManager) {
+		this.empresaManager = empresaManager;
+	}
+
+	public IUsuarioEmpresaManager getUsuarioEmpresaManager() {
+		return usuarioEmpresaManager;
+	}
+
+	public void setUsuarioEmpresaManager(
+			IUsuarioEmpresaManager usuarioEmpresaManager) {
+		this.usuarioEmpresaManager = usuarioEmpresaManager;
+	}
 }

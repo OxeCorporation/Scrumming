@@ -11,16 +11,23 @@ public abstract class AbstractClientService {
 
 	private static final String APPLICATION_DOMAIN = ApplicationPropertiesUtil
 			.get(ConstantesApplication.APLICATION_DOMAIN);
-	private static final String APPLICATION_SERVICE_PATH = ApplicationPropertiesUtil.get(ConstantesApplication.APLICATION_PATH_SERVICE);
+	private static final String APPLICATION_SERVICE_PATH = ApplicationPropertiesUtil
+			.get(ConstantesApplication.APLICATION_PATH_SERVICE);
+
+	private RestTemplate restTemplate = null;
+
 	protected String getURIService(String service) {
 		return APPLICATION_DOMAIN + APPLICATION_SERVICE_PATH + service;
 	}
 
 	protected RestTemplate getRestTemplate() {
-		RestTemplate rt = new RestTemplate();
-		rt.getMessageConverters()
-				.add(new MappingJackson2HttpMessageConverter());
-		rt.getMessageConverters().add(new StringHttpMessageConverter());
-		return rt;
+		if (restTemplate == null) {
+			restTemplate = new RestTemplate();
+			restTemplate.getMessageConverters().add(
+					new MappingJackson2HttpMessageConverter());
+			restTemplate.getMessageConverters().add(
+					new StringHttpMessageConverter());
+		}
+		return restTemplate;
 	}
 }

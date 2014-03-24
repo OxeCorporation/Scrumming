@@ -4,9 +4,12 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.web.clientService.ItemBacklogClientService;
+import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
+import br.com.scrumming.web.infra.PaginasUtil.Projeto;
 
 @ManagedBean
 @ViewScoped
@@ -16,7 +19,9 @@ public class ItemBacklogBean extends AbstractBean {
     private ItemBacklog itemBacklog;
     private ItemBacklog itemSelecionado;
     private ItemBacklogClientService clienteService;
-
+    
+    @FlashScoped
+    private Projeto projetoSelecionado;
     @Override
     public void inicializar() {
         //itens = new ArrayList<ItemBacklog>();
