@@ -7,9 +7,24 @@
 
 	<!-- CORPO DA TELA DA SPRINTS -->
 	<ui:define name="conteudo">
+		<h:panelGroup var="sprint" value="#{sprintBean.sprintSelecionada}">
+			<p:commandLink action="#{sprintBean.sprintDetailPage}">
+				<h:outputText value="#{sprint.nome}"
+					style="color:blue; text-decoration:underline" />
+			</p:commandLink>
+			<br />
+			<h:outputLabel value="#{mensagens.label_dataINI}" />
+			<h:outputText value="#{sprint.dataInicio}" />
+			<br />
+			<h:outputLabel value="#{mensagens.label_dataFIM}" />
+			<h:outputText value="#{sprint.dataFim}" />
+			<br />
+			<h:outputText value="#{sprint.descricao}" />
+		</h:panelGroup>
+
 		<p:tabView id="tabView">
 
-			<p:tab id="tab1" title="Detalhes da Sprint">
+			<p:tab id="tab1" title="Sprint Backlog">
 				<h:panelGrid columns="2" cellpadding="10">
 					<p:graphicImage id="tab1Img"
 						value="/images/godfather/godfather1.jpg" />
@@ -35,7 +50,16 @@
 						value="Aqui sera criado o grafico de burndown e burnup da sprint" />
 				</h:panelGrid>
 			</p:tab>
-
 		</p:tabView>
+	</ui:define>
+	<ui:define name="menu_lateral">
+		<li><h:commandLink action="#{sessaoMB.itemBacklogPage}">
+				<i class="fa fa-list" />
+				<h:outputText value="#{mensagens.label_backlog}" />
+			</h:commandLink></li>
+		<li><h:commandLink action="#{sessaoMB.sprintPage}">
+				<i class="fa fa-bar-chart-o" />
+				<h:outputText value="#{mensagens.label_sprint}" />
+			</h:commandLink></li>
 	</ui:define>
 </ui:composition>

@@ -1,0 +1,42 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+	template="/paginas/template/template.xhtml">
+	
+	<!-- CORPO DA TELA DE ITEMBACKLOG -->
+	<ui:define name="conteudo">
+		<p:panel>
+			<h:outputLabel value="#{mensagens.label_nome_item_backlog}" />
+					<br/>
+						<p:inputText id="txtNome" style="width:80%"/>
+					<br/>
+					<h:outputLabel value="#{mensagens.label_descricao_item_backlog}" />
+					<br/>
+						<p:inputTextarea id="txtDescricao" rows="3" style="width:80%" cols="33" />
+					<br/>
+					<h:outputLabel value="#{mensagens.label_criterio_aceitacao}" />
+					<br/>
+						<p:inputTextarea id="txtCriterioAceitacao" rows="3" style="width:80%" cols="33" />
+					<br/>
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="button1id"></label>
+				<div class="col-md-8">
+					<button id="salvar" name="salvar" class="btn btn-success">Salvar</button>
+					<button id="cancelar" name="cancelar" class="btn btn-danger">Cancelar</button>
+				</div>
+			</div>
+		</p:panel>
+	</ui:define>
+	<ui:define name="menu_lateral">
+ 	<li><h:commandLink action="#{sessaoMB.itemBacklogPage}">
+ 	 <i class="fa fa-list" />
+ 	 <h:outputText value="#{mensagens.label_backlog}" />
+ 	 </h:commandLink></li>
+ 	<li><h:commandLink action="#{sessaoMB.sprintPage}">
+ 	 <i class="fa fa-bar-chart-o" />
+ 	 <h:outputText value="#{mensagens.label_sprint}" />
+ 	 </h:commandLink></li>
+ </ui:define>
+</ui:composition>

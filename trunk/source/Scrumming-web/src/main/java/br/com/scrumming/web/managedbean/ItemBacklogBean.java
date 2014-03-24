@@ -22,13 +22,17 @@ public class ItemBacklogBean extends AbstractBean {
         //itens = new ArrayList<ItemBacklog>();
         clienteService = new ItemBacklogClientService();
        // itemBacklog = new ItemBacklog();
-        itemSelecionado = new ItemBacklog();
+        //itemSelecionado = new ItemBacklog();
         
     }
     
     public ItemBacklogBean(){
     	inicializar();
     	consultarPorProjeto(new Integer(1));
+    }
+    
+    public String cadastrarItemBacklogPage(){
+    	return redirecionar(PaginasUtil.ItemBacklog.CADASTRAR_ITEM_BACKLOG);
     }
     
     public String itembacklogDetailPage(){
