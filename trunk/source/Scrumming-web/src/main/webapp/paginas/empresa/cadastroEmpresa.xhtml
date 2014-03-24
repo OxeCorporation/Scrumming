@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:scrum="http://xmlns.jcp.org/jsf/composite/compenentes"
+	template="/paginas/template/template.xhtml">
+
+	<ui:define name="conteudo">
+		<h:panelGroup id="empresaPanel">
+			<form class="form-horizontal">
+				<fieldset>
+					<!-- Cadastro da Empresa -->
+					<legend>Cadastro da Empresa</legend>
+
+					<!-- Nome da Empresa-->
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="txtNomeEmpresa">Nome
+							da Empresa:</label>
+						<div class="col-md-4">
+							<input id="txtNomeEmpresa" name="txtNomeEmpresa" type="text"
+								placeholder="Informe o nome da empresa"
+								class="form-control input-md" required="" />
+						</div>
+					</div>
+
+					<!-- Nome do Usuário-->
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="txtNomeUsuario">Nome
+							do Usuário:</label>
+						<div class="col-md-4">
+							<input id="txtNomeUsuario" name="txtNomeUsuario" type="text"
+								placeholder="Informe o nome do usuário"
+								class="form-control input-md" required="" />
+						</div>
+					</div>
+
+					<!-- E-mail-->
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="txtEmail">E-mail:</label>
+						<div class="col-md-4">
+							<input id="txtEmail" name="txtEmail" type="text"
+								placeholder="Informe o e-mail" class="form-control input-md"
+								required="" />
+						</div>
+					</div>
+
+					<!-- Login-->
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="txtLogin">Login:</label>
+						<div class="col-md-4">
+							<input id="txtLogin" name="txtLogin" type="text"
+								placeholder="Informe o login" class="form-control input-md"
+								required="" />
+						</div>
+					</div>
+
+					<!-- Senha-->
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="txtSenha">Senha:</label>
+						<div class="col-md-4">
+							<input id="txtSenha" name="txtSenha" type="text"
+								placeholder="Informe a senha" class="form-control input-md"
+								required="" />
+						</div>
+					</div>
+
+					<!-- Botão Salvar -->
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="btnSalvar"></label>
+						<div class="col-md-4">
+							<button id="btnSalvar" name="btnSalvar" class="btn btn-primary">Salvar</button>
+						</div>
+					</div>
+
+				</fieldset>
+			</form>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>
