@@ -10,13 +10,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "ItemBacklog")
@@ -153,4 +154,23 @@ public class ItemBacklog extends ObjetoPersistente<Integer> {
 	public void setAtivo(boolean isAtivo) {
 		this.isAtivo = isAtivo;
 	}
+	
+	@Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(this.codigo).toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean isEquals = false;
+
+        if (obj == this) {
+            isEquals = true;
+        } else if (obj instanceof ItemBacklog) {
+        	ItemBacklog item = (ItemBacklog) obj;
+
+            isEquals = new EqualsBuilder().append(this.codigo, item.getCodigo()).isEquals();
+        }
+        return isEquals;
+    }
 }
