@@ -21,8 +21,9 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
 
     @Autowired
     private TarefaRepositorio tarefaRepositorio;
+    
 
-    @Override
+	@Override
     public AbstractRepositorio<Tarefa, Integer> getRepositorio() {
         return this.tarefaRepositorio;
     }
@@ -43,5 +44,15 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
     public List<Tarefa> consultarPorItemBacklog(Integer itemBacklogID) {
         return this.tarefaRepositorio.consultarPorItemBacklog(itemBacklogID);
     }
+    
+    
+    /* getters and sertters */
+    public TarefaRepositorio getTarefaRepositorio() {
+		return tarefaRepositorio;
+	}
+
+	public void setTarefaRepositorio(TarefaRepositorio tarefaRepositorio) {
+		this.tarefaRepositorio = tarefaRepositorio;
+	}
 
 }
