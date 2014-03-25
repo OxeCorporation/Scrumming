@@ -15,7 +15,7 @@
 				<p:panel header="#{tarefa.nome}" toggleable="true" toggleSpeed="500" widgetVar="panel">
 					<h:outputText value="#{tarefa.descricao}" />
 
-					<p:commandLink title="Alterar tarefa" update=":main:formTarefa" oncomplete="dlgTarefaSave.show()">
+					<p:commandLink title="Alterar tarefa" onclick="dlgTarefaSave.show()">
 						<h:outputText styleClass="fa fa-pencil-square-o" style="margin:0 auto; float:right" />
 					</p:commandLink>
 
@@ -27,10 +27,10 @@
 		</h:panelGroup>
 
 		<h:panelGroup class="col-md-3">
-			<p:commandLink update=":main:formTarefa" oncomplete="dlgTarefaSave.show()">
+			<p:commandLink onclick="dlgTarefaSave.show()">
 				<h:outputText styleClass="fa fa-plus" style="margin:0 auto;" />
 			</p:commandLink>
-			<p:commandLink update=":main:formTarefa" oncomplete="dlgTarefaSave.show()">
+			<p:commandLink onclick="dlgTarefaSave.show()">
 				<h:outputText value="Nova tarefa" />
 			</p:commandLink>
 		</h:panelGroup>

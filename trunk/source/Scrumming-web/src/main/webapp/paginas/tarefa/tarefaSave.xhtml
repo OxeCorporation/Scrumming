@@ -21,7 +21,7 @@
 			</p:panel>
 			
 			<p:commandButton process="@none" icon="ui-icon-cancel" value="Cancelar" onclick="dlgTarefaSave.hide()" style="margin:0 auto; float:right"/>
-			<p:commandButton update=":main" icon="ui-icon-disk" value="Salvar" actionListener="#{tarefaBean.salvar}" style="margin:0 auto; float:right"/>								
+			<p:commandButton update="@form" oncomplete="dlgTarefaSave.hide()" value="Salvar" actionListener="#{tarefaBean.salvar}" icon="ui-icon-disk" style="margin:0 auto; float:right"/>								
 		</p:dialog>
 	</h:form>	
 	
