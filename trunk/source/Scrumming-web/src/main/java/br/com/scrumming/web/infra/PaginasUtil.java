@@ -31,4 +31,8 @@ public final class PaginasUtil {
     public final class Tarefa{
     	public static final String SAVE_PAGE = "/paginas/tarefa/tarefaSave.xhtml";
     }
+    
+    public final class Empresa{
+    	public static final String CADASTRO_EMPRESA = "/paginas/empresa/cadastroEmpresa.xhtml";
+    }
 }
