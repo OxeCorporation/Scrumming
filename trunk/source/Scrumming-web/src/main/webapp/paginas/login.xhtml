@@ -48,15 +48,17 @@
 									value="#{mensagens.botao_entrar_sistema}"
 									styleClass="btn btn-lg btn-success btn-block" update="@form" />
 
+
 								<p:commandLink id="cadastroEmpresa_link"
-									action="#{sessaoMB.cadastroEmpresa}"
-									value="#{mensagens.label_registre_se_aqui}" 
-									style="margin:0 auto; float:right" immediate="true"/>
+									value="#{mensagens.label_registre_se_aqui}"
+									onclick="dlgCadastroEmpresa.show()"
+									style="margin:0 auto; float:right" immediate="true" />
 							</fieldset>
 						</div>
 					</div>
 				</div>
 			</div>
+			<ui:include src="/paginas/empresa/cadastroEmpresa.xhtml" />
 		</h:form>
 	</div>
 
