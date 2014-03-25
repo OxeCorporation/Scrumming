@@ -3,84 +3,29 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
-	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:scrum="http://xmlns.jcp.org/jsf/composite/compenentes"
-	template="/paginas/template/template.xhtml">
-
-	<ui:define name="conteudo">
-		<h:panelGroup id="empresaPanel">
-			<form class="form-horizontal">
-				<fieldset>
-					<!-- Cadastro da Empresa -->
-					<legend>Cadastro da Empresa</legend>
-
-					<!-- Nome da Empresa-->
-					<div class="form-group">
-						<label class="col-md-4 control-label" for="txtNomeEmpresa">Nome
-							da Empresa:</label>
-						<div class="col-md-4">
-							<input id="txtNomeEmpresa" name="txtNomeEmpresa" type="text"
-								placeholder="Informe o nome da sua empresa"
-								class="form-control input-md" required="" />
-						</div>
-						<br />
-					</div>
-
-					<!-- Nome do Usuário-->
-					<div class="form-group">
-						<label class="col-md-4 control-label" for="txtNomeUsuario">Nome
-							do Usuário:</label>
-						<div class="col-md-4">
-							<input id="txtNomeUsuario" name="txtNomeUsuario" type="text"
-								placeholder="Informe o nome do seu usuário"
-								class="form-control input-md" required="" />
-						</div>
-						<br />
-					</div>
-
-					<!-- E-mail-->
-					<div class="form-group">
-						<label class="col-md-4 control-label" for="txtEmail">E-mail:</label>
-						<div class="col-md-4">
-							<input id="txtEmail" name="txtEmail" type="text"
-								placeholder="Informe o seu e-mail" class="form-control input-md"
-								required="" />
-						</div>
-						<br />
-					</div>
-
-					<!-- Login-->
-					<div class="form-group">
-						<label class="col-md-4 control-label" for="txtLogin">Login:</label>
-						<div class="col-md-4">
-							<input id="txtLogin" name="txtLogin" type="text"
-								placeholder="Informe o seu login" class="form-control input-md"
-								required="" />
-						</div>
-						<br />
-					</div>
-
-					<!-- Senha-->
-					<div class="form-group">
-						<label class="col-md-4 control-label" for="txtSenha">Senha:</label>
-						<div class="col-md-4">
-							<input id="txtSenha" name="txtSenha" type="password"
-								placeholder="Informe a sua senha" class="form-control input-md"
-								required="" />
-						</div>
-						<br /> <br />
-					</div>
-
-					<!-- Botão Salvar -->
-					<div class="form-group">
-						<label class="col-md-4 control-label" for="btnSalvar"></label>
-						<div class="col-md-4">
-							<button id="btnSalvar" name="btnSalvar" class="btn btn-primary">Salvar</button>
-						</div>
-					</div>
-				</fieldset>
-			</form>
-		</h:panelGroup>
-	</ui:define>
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog showEffect="fade" hideEffect="explode" id="dlgCadastroEmpresa" header="Cadastro da Empresa" modal="true" var="exec" resizable="false" widgetVar="dlgCadastroEmpresa">
+		<p:panel>
+			<h:panelGrid columns="1">						
+				<h:outputText value="Nome da Empresa" /> 
+				<p:inputText id="txtNomeEmpresa" required="true" value="#{tarefaBean.tarefa.nome}" requiredMessage="Nome da Empresa:" />
+				
+				<h:outputText value="Nome do Usuário" /> 
+				<p:inputText id="txtNomeUsuario" required="true" value="#{tarefaBean.tarefa.descricao}" requiredMessage="Nome do Usuário:" />
+				
+				<h:outputText value="E-mail" /> 
+				<p:inputText id="txtEmail" required="true" value="#{tarefaBean.tarefa.tempoEstimado}" requiredMessage="E-mail:" />
+				
+				<h:outputText value="Login" /> 
+				<p:inputText id="txtLogin" required="true" value="#{tarefaBean.tarefa.tempoEstimado}" requiredMessage="Login:" />							
+				
+				<h:outputText value="Senha" /> 
+				<p:password id="txtSenha" required="true" value="#{tarefaBean.tarefa.tempoEstimado}" requiredMessage="Senha:" />
+			</h:panelGrid>
+		</p:panel>
+		
+		<p:commandButton process="@none" icon="ui-icon-cancel" value="Cancelar" onclick="dlgTarefaSave.hide()" style="margin:0 auto; float:right" immediate="true"/>
+		<p:commandButton update="@form" oncomplete="dlgTarefaSave.hide()" value="Salvar" action="#{tarefaBean.salvar}" icon="ui-icon-disk" style="margin:0 auto; float:right"/>								
+	</p:dialog>
 </ui:composition>
