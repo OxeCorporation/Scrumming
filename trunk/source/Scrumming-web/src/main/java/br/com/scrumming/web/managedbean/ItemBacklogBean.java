@@ -17,6 +17,7 @@ public class ItemBacklogBean extends AbstractBean {
 
     private List<ItemBacklog> itens;
     private ItemBacklog itemBacklog;
+    @FlashScoped
     private ItemBacklog itemSelecionado;
     private ItemBacklogClientService clienteService;
     
