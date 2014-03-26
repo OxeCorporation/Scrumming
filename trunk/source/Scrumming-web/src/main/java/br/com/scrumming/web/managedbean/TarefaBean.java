@@ -7,12 +7,14 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.web.clientService.TarefaClientService;
+import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
 
 @ManagedBean
 @ViewScoped
 public class TarefaBean extends AbstractBean {
 	
+	@FlashScoped
 	private Tarefa tarefa;
 	private TarefaClientService tarefaClientService;
 	private List<Tarefa> tarefasDoItem;

@@ -32,6 +32,7 @@
 			</p:commandLink>
 			<p:commandLink onclick="dlgTarefaSave.show()">
 				<h:outputText value="Nova tarefa" />
+				<f:setPropertyActionListener value="#{itemBacklogBean.itemSelecionado}" target="#{tarefaBean.tarefa.itemBacklog}"/>
 			</p:commandLink>
 		</h:panelGroup>
 
