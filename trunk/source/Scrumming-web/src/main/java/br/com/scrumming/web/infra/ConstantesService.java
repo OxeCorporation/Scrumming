@@ -12,10 +12,10 @@ public final class ConstantesService {
 	
 	public final class Tarefa{
 		
-		public static final String URL_SALVAR = "http://localhost:8080/Scrumming/service/tarefa/{tarefa}";
-		public static final String URL_CONSULTAR_POR_ITEM_BACKLOG = "http://localhost:8080/Scrumming/service/tarefa/list/{itemBacklogID}";
-		public static final String URL_CONSULTAR = "http://localhost:8080/Scrumming/service/tarefa/{tarefaID}";
-		public static final String URL_REMOVER = "http://localhost:8080/Scrumming/service/tarefa/{tarefa}";
+		public static final String URL_SALVAR = "/tarefa/{tarefa}";
+		public static final String URL_CONSULTAR_POR_ITEM_BACKLOG = "/tarefa/list/{itemBacklogID}";
+		public static final String URL_CONSULTAR = "/tarefa/{tarefaID}";
+		public static final String URL_REMOVER = "/tarefa/{tarefaID}";
 	}
 	
 	public final class Sprint {
