@@ -4,25 +4,23 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:p="http://primefaces.org/ui">
-    
-	<h:form id="formTarefa">
-		<p:dialog showEffect="fade" hideEffect="explode" id="dlgTarefaSave" header="Tarefa" modal="true" var="exec" resizable="false" widgetVar="dlgTarefaSave">
-			<p:panel header="Detalhar Tarefa">
-				<h:panelGrid columns="1">						
-					<h:outputText value="Resumo" /> 
-					<p:inputText id="nome" required="true" size="100" value="#{tarefaBean.tarefa.nome}" requiredMessage="Preencha o resumo" disabled="#{tarefaBean.tarefa.nome} != null}" />
-					
-					<h:outputText value="Descricao" /> 
-					<p:inputTextarea id="descricao" required="false" rows="3" cols="100" value="#{tarefaBean.tarefa.descricao}" />
-					
-					<h:outputText value="Tempo estimado (H)" /> 
-					<p:inputText id="tempoEstimado" required="true" value="#{tarefaBean.tarefa.tempoEstimado}" requiredMessage="Preencha o tempo estimado em horas" />							
-				</h:panelGrid>
-			</p:panel>
-			
-			<p:commandButton process="@none" icon="ui-icon-cancel" value="Cancelar" onclick="dlgTarefaSave.hide()" style="margin:0 auto; float:right"/>
-			<p:commandButton update="@form" oncomplete="dlgTarefaSave.hide()" value="Salvar" action="#{tarefaBean.salvar}" icon="ui-icon-disk" style="margin:0 auto; float:right"/>								
-		</p:dialog>
-	</h:form>	
+    	
+	<p:dialog showEffect="fade" hideEffect="explode" id="dlgTarefaSave" header="Tarefa" modal="true" var="exec" resizable="false" widgetVar="dlgTarefaSave">
+		<p:panel header="Detalhar Tarefa">
+			<h:panelGrid columns="1">						
+				<h:outputText value="Resumo" /> 
+				<p:inputText id="nome" required="true" size="100" value="#{tarefaBean.tarefa.nome}" requiredMessage="Preencha o resumo" disabled="#{tarefaBean.tarefa.nome} != null}" />
+				
+				<h:outputText value="Descricao" /> 
+				<p:inputTextarea id="descricao" required="false" rows="3" cols="100" value="#{tarefaBean.tarefa.descricao}" />
+				
+				<h:outputText value="Tempo estimado (H)" /> 
+				<p:inputText id="tempoEstimado" required="true" value="#{tarefaBean.tarefa.tempoEstimado}" requiredMessage="Preencha o tempo estimado em horas" />							
+			</h:panelGrid>
+		</p:panel>
+		
+		<p:commandButton process="@none" icon="ui-icon-cancel" value="Cancelar" onclick="dlgTarefaSave.hide()" style="margin:0 auto; float:right"/>
+		<p:commandButton update="@form" oncomplete="dlgTarefaSave.hide()" value="Salvar" action="#{tarefaBean.salvar}" icon="ui-icon-disk" style="margin:0 auto; float:right"/>								
+	</p:dialog>	
 	
 </ui:composition>
