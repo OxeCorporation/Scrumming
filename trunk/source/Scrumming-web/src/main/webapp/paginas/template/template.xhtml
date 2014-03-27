@@ -54,7 +54,7 @@
 							<li><a href="#"><i class="fa fa-gear fa-fw"></i>
 									Settings</a></li>
 							<li class="divider"></li>
-							<li><h:commandLink action="#{sessaoMB.logout}"><i
+							<li><h:commandLink immediate="true" action="#{sessaoMB.logout}"><i
 									class="fa fa-sign-out fa-fw"></i> Logout</h:commandLink></li>
 						</ul> <!-- /.dropdown-user --></li>
 					<!-- /.dropdown -->
@@ -75,16 +75,16 @@
 								</h3>
 							</div>
 						</li>
-						<li><h:commandLink action="#{sessaoMB.bemvindoPage}">
+						<li><h:commandLink immediate="true" action="#{sessaoMB.bemvindoPage}">
 								<i class="fa fa-list-alt fa-fw" />
 								<h:outputText value="#{mensagens.label_dashboard}" />
 							</h:commandLink></li>
-						<li><h:commandLink action="#{sessaoMB.projetoPage}">
+						<li><h:commandLink immediate="true" action="#{sessaoMB.projetoPage}">
 								<i class="fa fa-briefcase fa-fw" />
 								<h:outputText value="#{mensagens.label_projeto}" />
 							</h:commandLink></li>
 						<ui:fragment rendered="#{sessaoMB.usuario.empresa}">
-							<li><h:commandLink action="#{sessaoMB.cadastroUsuarioPage}">
+							<li><h:commandLink immediate="true" action="#{sessaoMB.cadastroUsuarioPage}">
 									<i class="fa fa-users fa-fw" />
 									<h:outputText value="#{mensagens.label_cadastro_usuarios}" />
 								</h:commandLink></li>

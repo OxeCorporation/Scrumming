@@ -41,13 +41,13 @@
 	
 	<ui:define name="menu_lateral">
 		<li>
-			<h:commandLink action="#{projetoBean.itemBacklogPage}">
+			<h:commandLink immediate="true" action="#{projetoBean.itemBacklogPage}">
 				<i class="fa fa-list" />
 				<h:outputText value="#{mensagens.label_backlog}" />
 			</h:commandLink>
 		</li>
 		<li>
-			<h:commandLink action="#{projetoBean.sprintPage}">
+			<h:commandLink immediate="true" action="#{projetoBean.sprintPage}">
 				<i class="fa fa-bar-chart-o" />
 				<h:outputText value="#{mensagens.label_sprint}" />
 			</h:commandLink>
