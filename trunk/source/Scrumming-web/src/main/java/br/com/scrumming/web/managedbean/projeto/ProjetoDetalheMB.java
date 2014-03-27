@@ -13,12 +13,7 @@ public class ProjetoDetalheMB extends AbstractBean {
 
 	@FlashScoped
     private Projeto projetoSelecionado;	
-	@Override
-	protected void inicializar() {
-		@SuppressWarnings("unused")
-		int o = 1;
-	}
-	
+		
 	/*Métodos para o redirecionamento das páginas*/
 	public String sprintPage() {
 		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);

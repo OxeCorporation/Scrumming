@@ -18,12 +18,6 @@ public class SprintDetalheMB extends AbstractBean {
 	@FlashScoped
 	private Projeto projetoSelecionado;
 	
-	@Override
-	public void inicializar() {
-		@SuppressWarnings("unused")
-		int o = 1;
-	}
-	
 	/*Métodos para redirecionamento das páginas*/
 	public String sprintCadastroPage() {
 		return redirecionar(PaginasUtil.Sprint.SPRINT_CADASTRO_PAGE);

@@ -7,6 +7,7 @@
 
 	<!-- CORPO DA TELA DA SPRINTS -->
 	<ui:define name="conteudo">
+	<h:outputText value="#{sprintDetalheMB.projetoSelecionado.nome}"></h:outputText>
 		<h:panelGroup var="sprint"
 			value="#{sprintDetalheMB.sprintSelecionada}">
 			<h:outputText value="#{sprint.nome}"
