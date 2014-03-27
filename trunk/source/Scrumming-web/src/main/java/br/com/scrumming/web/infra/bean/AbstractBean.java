@@ -1,4 +1,4 @@
-package br.com.scrumming.web.managedbean;
+package br.com.scrumming.web.infra.bean;
 
 import java.lang.reflect.Field;
 

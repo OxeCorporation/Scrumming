@@ -2,10 +2,11 @@ package br.com.scrumming.web.managedbean.sprint;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
-import br.com.scrumming.web.managedbean.AbstractBean;
+import br.com.scrumming.web.infra.bean.AbstractBean;
 
 @ManagedBean
 @ViewScoped
