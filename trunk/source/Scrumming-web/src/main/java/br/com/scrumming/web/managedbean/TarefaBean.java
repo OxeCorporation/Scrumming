@@ -5,8 +5,10 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.web.clientService.TarefaClientService;
+import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
 
@@ -27,6 +29,7 @@ public class TarefaBean extends AbstractBean {
 	
 	public void salvar() {
 		tarefaClientService.salvarTarefa(tarefa);
+    	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 	}
 	
 	public void consultarTarefasPorItemBacklog(Integer itemBacklogID) {
