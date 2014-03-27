@@ -5,8 +5,6 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.web.clientService.ProjetoClientService;
@@ -14,9 +12,7 @@ import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
 
 @ManagedBean
-@ViewScoped
 @RequestScoped
-@SessionScoped
 public class ProjetoBean extends AbstractBean {
 
     private List<Projeto> projetosDaEmpresa;

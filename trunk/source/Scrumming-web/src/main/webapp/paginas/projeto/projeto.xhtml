@@ -19,7 +19,7 @@
 								<h:outputText value="#{projeto.nome}"
 									style="color:blue; text-decoration:underline" />
 									<f:setPropertyActionListener value="#{projeto}"
-									target="#{projetoBean.projetoSelecionado}" />
+									target="#{sessaoMB.projetoSelecionado}" />
 							</p:commandLink>
 							<br />
 							<h:outputLabel value="#{mensagens.label_dataINI}" />
@@ -29,7 +29,7 @@
 								<h:outputText styleClass="fa fa-pencil-square-o"
 									style="margin:0 auto; float:right" />
 								<f:setPropertyActionListener value="#{projeto}"
-									target="#{projetoBean.projetoSelecionado}" />
+									target="#{sessaoMB.projetoSelecionado}" />
 							</p:commandLink>
 							<br />
 							<h:outputText value="#{projeto.descricao}" />

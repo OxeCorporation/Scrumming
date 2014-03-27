@@ -46,18 +46,14 @@
 		<div style="width: 17%; float: left;">
 			<p:commandLink title="Novo Item Backlog" action="#{itemBacklogBean.cadastrarItemBacklogPage}">
 				<h:outputText styleClass="fa fa-plus" style="margin:0 auto;" />
-				<!-- <f:setPropertyActionListener value="#{sprint}"
-					target="#{sprintBean.sprintSelecionada}" /> -->
 			</p:commandLink>
 			<p:commandLink title="Novo Item Backlog" action="#{itemBacklogBean.cadastrarItemBacklogPage}">
 				<h:outputText value="Novo Item Backlog" />
-				<!-- <f:setPropertyActionListener value="#{sprint}"
-					target="#{sprintBean.sprintSelecionada}" /> -->
 			</p:commandLink>
 		</div>
 	</ui:define>
 	<ui:define name="menu_lateral">
-	 <li><h:commandLink action="#{sessaoMB.sprintPage}">
+	 <li><h:commandLink action="#{projetoBean.sprintPage}">
 	 	<i class="fa fa-bar-chart-o" />
 	 	 <h:outputText value="#{mensagens.label_sprint}" />
 	 </h:commandLink></li>

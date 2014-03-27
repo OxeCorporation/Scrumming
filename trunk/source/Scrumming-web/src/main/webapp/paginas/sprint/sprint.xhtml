@@ -9,7 +9,7 @@
 	<ui:define name="conteudo">
 		<div style="width: 80%; float: left">
 			<h1>
-				<h:outputText value="#{projetoBean.projetoSelecionado.nome}" />
+				<h:outputText value="#{sessaoMB.projetoSelecionado.nome}" />
 			</h1>
 			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA AS SPRINTS -->
 			<p:dataGrid var="sprint" value="#{sprintBean.sprintsDoProjeto}"
@@ -68,7 +68,7 @@
 	</ui:define>
 
 	<ui:define name="menu_lateral">
-		<li><h:commandLink action="#{sessaoMB.itemBacklogPage}">
+		<li><h:commandLink action="#{projetoBean.itemBacklogPage}">
 				<i class="fa fa-list" />
 				<h:outputText value="#{mensagens.label_backlog}" />
 			</h:commandLink></li>

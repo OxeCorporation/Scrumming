@@ -5,8 +5,6 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
-
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
@@ -15,7 +13,6 @@ import br.com.scrumming.web.infra.PaginasUtil;
 
 
 @ManagedBean
-@ViewScoped
 @RequestScoped
 public class SprintBean extends AbstractBean {
 	
@@ -25,8 +22,8 @@ public class SprintBean extends AbstractBean {
 	private List<ItemBacklog> availableBacklog;
 	private SprintDTO sprintDTO;
 	private SprintClientService sprintClientService;
-	@ManagedProperty(value="#{projetoBean}")
-	private ProjetoBean projetoBean;
+	@ManagedProperty(value="#{sessaoMB}")
+    private SessaoMB sessaoMB;
 	
 
 	private Sprint sprintSelecionada;
@@ -37,7 +34,7 @@ public class SprintBean extends AbstractBean {
 		sprintClientService = new SprintClientService();
 
 		// TODO: Daniel terá que trazer o ID do projeto selecionado na lista de projetos para enviar como parametro.
-		consultarSprintsPorProjeto(projetoBean.getProjetoSelecionado().getCodigo());
+		consultarSprintsPorProjeto(sessaoMB.getProjetoSelecionado().getCodigo());
 	}
 	
 	/*Funções disponíveis para as telas da Sprint e SprintBacklog*/
@@ -161,11 +158,11 @@ public class SprintBean extends AbstractBean {
 		this.sprintSelecionada = sprintSelecionada;
 	}
 
-	public ProjetoBean getProjetoBean() {
-		return projetoBean;
+	public SessaoMB getSessaoMB() {
+		return sessaoMB;
 	}
 
-	public void setProjetoBean(ProjetoBean projetoBean) {
-		this.projetoBean = projetoBean;
+	public void setSessaoMB(SessaoMB sessaoMB) {
+		this.sessaoMB = sessaoMB;
 	}
 }
