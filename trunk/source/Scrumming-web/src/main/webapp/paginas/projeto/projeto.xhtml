@@ -18,6 +18,8 @@
 							<p:commandLink action="#{projetoBean.projetoDetailPage}">
 								<h:outputText value="#{projeto.nome}"
 									style="color:blue; text-decoration:underline" />
+									<f:setPropertyActionListener value="#{projeto}"
+									target="#{projetoBean.projetoSelecionado}" />
 							</p:commandLink>
 							<br />
 							<h:outputLabel value="#{mensagens.label_dataINI}" />
@@ -26,8 +28,8 @@
 								action="#{projetoBean.projetoCadastroPage}">
 								<h:outputText styleClass="fa fa-pencil-square-o"
 									style="margin:0 auto; float:right" />
-								<f:setPropertyActionListener value="#{sprint}"
-									target="#{sprintBean.sprintSelecionada}" />
+								<f:setPropertyActionListener value="#{projeto}"
+									target="#{projetoBean.projetoSelecionado}" />
 							</p:commandLink>
 							<br />
 							<h:outputText value="#{projeto.descricao}" />
@@ -43,14 +45,10 @@
 			<p:commandLink title="Novo projeto"
 				action="#{projetoBean.projetoCadastroPage}">
 				<h:outputText styleClass="fa fa-plus" style="margin:0 auto;" />
-				<!-- <f:setPropertyActionListener value="#{sprint}"
-					target="#{sprintBean.sprintSelecionada}" /> -->
 			</p:commandLink>
 			<p:commandLink title="Novo projeto"
 				action="#{projetoBean.projetoCadastroPage}">
 				<h:outputText value="Novo projeto" />
-				<!-- <f:setPropertyActionListener value="#{sprint}"
-					target="#{sprintBean.sprintSelecionada}" /> -->
 			</p:commandLink>
 		</div>
 	</ui:define>

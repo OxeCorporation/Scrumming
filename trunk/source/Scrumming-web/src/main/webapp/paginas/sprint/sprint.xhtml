@@ -9,7 +9,7 @@
 	<ui:define name="conteudo">
 		<div style="width: 80%; float: left">
 			<h1>
-				<h:outputText value="#{sprintBean.testeFlash}" />
+				<h:outputText value="#{projetoBean.projetoSelecionado.nome}" />
 			</h1>
 			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA AS SPRINTS -->
 			<p:dataGrid var="sprint" value="#{sprintBean.sprintsDoProjeto}"

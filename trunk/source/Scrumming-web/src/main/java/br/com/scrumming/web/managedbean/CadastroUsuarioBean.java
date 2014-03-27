@@ -7,7 +7,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
-import br.com.scrumming.core.service.UsuarioEmpresaService;
 import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.clientService.UsuarioClientService;
@@ -44,6 +43,7 @@ public class CadastroUsuarioBean extends AbstractBean {
     	 usuarios = empresaService.consultarUsuariosPorEmpresa(empresa.getCodigo());
          dataModelUsuario = new ListaDataModel<Usuario>(usuarios);
     }
+    
     public String sprintPage(){
     	return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
     }

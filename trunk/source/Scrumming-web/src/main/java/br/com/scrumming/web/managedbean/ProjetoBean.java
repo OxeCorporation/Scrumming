@@ -2,7 +2,10 @@ package br.com.scrumming.web.managedbean;
 
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.domain.Projeto;
@@ -12,6 +15,8 @@ import br.com.scrumming.web.infra.PaginasUtil;
 
 @ManagedBean
 @ViewScoped
+@RequestScoped
+@SessionScoped
 public class ProjetoBean extends AbstractBean {
 
     private List<Projeto> projetosDaEmpresa;
@@ -19,15 +24,13 @@ public class ProjetoBean extends AbstractBean {
     @FlashScoped
     private Projeto projetoSelecionado;
     private ProjetoClientService clienteService;
+    @ManagedProperty(value="#{sessaoMB}")
+    private SessaoMB sessaoMB;
 
     @Override
     public void inicializar() {
         clienteService = new ProjetoClientService();
-    }
-    
-    public ProjetoBean() {
-    	inicializar();
-    	consultarProjetosPorEmpresa(new Integer(1));
+        consultarProjetosPorEmpresa(sessaoMB.getEmpresaSelecionada().getCodigo());
     }
     
     public String consultarProjetosPorEmpresa(Integer empresaID) {
@@ -42,7 +45,15 @@ public class ProjetoBean extends AbstractBean {
 	
 	public String projetoCadastroPage() {
 		return redirecionar(PaginasUtil.Projeto.PROJETO_CADASTRO_PAGE);
-	}    
+	}
+	
+	public String sprintPage() {
+		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
+	}
+
+	public String itemBacklogPage() {
+		return redirecionar(PaginasUtil.ItemBacklog.ITEM_BACKLOG_PAGE);
+	}
 
     /* getters and setters */
     public Projeto getProjeto() {
@@ -75,5 +86,13 @@ public class ProjetoBean extends AbstractBean {
 
 	public void setProjetosDaEmpresa(List<Projeto> projetosDaEmpresa) {
 		this.projetosDaEmpresa = projetosDaEmpresa;
+	}
+
+	public SessaoMB getSessaoMB() {
+		return sessaoMB;
+	}
+
+	public void setSessaoMB(SessaoMB sessaoMB) {
+		this.sessaoMB = sessaoMB;
 	}
 }

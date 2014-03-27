@@ -24,7 +24,6 @@ public class SessaoMB {
 	private Usuario usuario;
 	private List<Empresa> empresas;
 	private Empresa empresaSelecionada;
-	
 	private String senha;
 	private String login;
 
@@ -66,12 +65,8 @@ public class SessaoMB {
 		return redirecionar(PaginasUtil.Geral.BENVINDO_PAGE);
 	}
 	
-	public String sprintPage() {
-		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
-	}
-
-	public String itemBacklogPage() {
-		return redirecionar(PaginasUtil.ItemBacklog.ITEM_BACKLOG_PAGE);
+	public String cadastroEmpresa(){
+		return redirecionar(PaginasUtil.Empresa.CADASTRO_EMPRESA);
 	}
 
 	public String cadastroUsuarioPage() {
@@ -80,14 +75,6 @@ public class SessaoMB {
 
 	public String projetoPage(){
 		return redirecionar(PaginasUtil.Projeto.PROJETO_PAGE);
-	}
-
-	public String cadastroProjeto(){
-		return redirecionar(PaginasUtil.Projeto.PROJETO_CADASTRO_PAGE);
-	}
-	
-	public String cadastroEmpresa(){
-		return redirecionar(PaginasUtil.Empresa.CADASTRO_EMPRESA);
 	}
 
 	private String redirecionar(String page){
