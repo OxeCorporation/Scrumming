@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.infra.AbstractClientService;
 import br.com.scrumming.web.infra.ConstantesService;
 
@@ -15,9 +16,13 @@ public class TarefaClientService extends AbstractClientService {
 	
 	public void salvarTarefa(Tarefa tarefa) {
 
-		RestTemplate restTemplate = new RestTemplate();
+		/*RestTemplate restTemplate = new RestTemplate();
 		restTemplate.postForEntity(ConstantesService.Tarefa.URL_SALVAR, 
-								   HttpEntity.EMPTY, void.class, tarefa);
+								   HttpEntity.EMPTY, void.class, tarefa);*/
+		
+		getRestTemplate().postForObject(
+				getURIService(ConstantesService.Tarefa.URL_SALVAR),
+				tarefa, void.class);
 	}
 	
 	public List<Tarefa> consultarTarefasPorItemBacklog(Integer itemBacklogID) {
