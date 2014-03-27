@@ -7,11 +7,10 @@
 
 	<!-- CORPO DA TELA DA SPRINTS -->
 	<ui:define name="conteudo">
-		<h:panelGroup var="sprint" value="#{sprintBean.sprintSelecionada}">
-			<p:commandLink action="#{sprintBean.sprintDetailPage}">
-				<h:outputText value="#{sprint.nome}"
-					style="color:blue; text-decoration:underline" />
-			</p:commandLink>
+		<h:panelGroup var="sprint"
+			value="#{sprintDetalheMB.sprintSelecionada}">
+			<h:outputText value="#{sprint.nome}"
+				style="color:blue; text-decoration:underline" />
 			<br />
 			<h:outputLabel value="#{mensagens.label_dataINI}" />
 			<h:outputText value="#{sprint.dataInicio}" />
@@ -53,11 +52,11 @@
 		</p:tabView>
 	</ui:define>
 	<ui:define name="menu_lateral">
-		<li><h:commandLink action="#{sessaoMB.itemBacklogPage}">
+		<li><h:commandLink action="#{sprintDetalheMB.itemBacklogPage}">
 				<i class="fa fa-list" />
 				<h:outputText value="#{mensagens.label_backlog}" />
 			</h:commandLink></li>
-		<li><h:commandLink action="#{sessaoMB.sprintPage}">
+		<li><h:commandLink action="#{sprintDetalheMB.sprintPage}">
 				<i class="fa fa-bar-chart-o" />
 				<h:outputText value="#{mensagens.label_sprint}" />
 			</h:commandLink></li>

@@ -12,19 +12,19 @@ public final class PaginasUtil {
     
     public final class ItemBacklog{
     	public static final String ITEM_BACKLOG_PAGE = "/paginas/itembacklog/itembacklog.xhtml";
-    	public static final String ITEM_BACKLOG_DETAIL_PAGE= "/paginas/itembacklog/itembacklogdetailPage.xhtml";
+    	public static final String ITEM_BACKLOG_DETAIL_PAGE= "/paginas/itembacklog/itembacklogdetalhe.xhtml";
     	public static final String CADASTRAR_ITEM_BACKLOG = "/paginas/itembacklog/itembacklogcadastro.xhtml";
     }
     
     public final class Sprint {
     	public static final String SPRINT_PAGE = "/paginas/sprint/sprint.xhtml";
-    	public static final String SPRINT_DETAIL_PAGE = "/paginas/sprint/sprintdetail.xhtml";
+    	public static final String SPRINT_DETAIL_PAGE = "/paginas/sprint/sprintdetalhe.xhtml";
     	public static final String SPRINT_CADASTRO_PAGE = "/paginas/sprint/sprintcadastro.xhtml";
     }
     
     public final class Projeto{
     	public static final String PROJETO_PAGE = "/paginas/projeto/projeto.xhtml";
-    	public static final String PROJETO_DETAIL_PAGE = "/paginas/projeto/projetodetail.xhtml";
+    	public static final String PROJETO_DETAIL_PAGE = "/paginas/projeto/projetodetalhe.xhtml";
     	public static final String PROJETO_CADASTRO_PAGE = "/paginas/projeto/projetocadastro.xhtml";
     }
     

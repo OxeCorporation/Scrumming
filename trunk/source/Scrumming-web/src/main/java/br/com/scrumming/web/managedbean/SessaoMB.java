@@ -9,7 +9,6 @@ import org.apache.commons.collections.CollectionUtils;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.Empresa;
-import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.clientService.UsuarioClientService;
 import br.com.scrumming.web.clientService.UsuarioEmpresaClientService;
@@ -27,7 +26,6 @@ public class SessaoMB {
 	private Empresa empresaSelecionada;
 	private String senha;
 	private String login;
-	private Projeto projetoSelecionado;
 
 	public String efetuarLogin() {
 		usuario = usuarioClientService.obterUsuario(login, senha);
@@ -121,13 +119,5 @@ public class SessaoMB {
 
 	public void setEmpresaSelecionada(Empresa empresaSelecionada) {
 		this.empresaSelecionada = empresaSelecionada;
-	}
-
-	public Projeto getProjetoSelecionado() {
-		return projetoSelecionado;
-	}
-
-	public void setProjetoSelecionado(Projeto projetoSelecionado) {
-		this.projetoSelecionado = projetoSelecionado;
 	}
 }

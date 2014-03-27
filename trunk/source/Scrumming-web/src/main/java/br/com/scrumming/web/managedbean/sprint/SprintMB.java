@@ -1,20 +1,23 @@
-package br.com.scrumming.web.managedbean;
+package br.com.scrumming.web.managedbean.sprint;
 
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
+
 import br.com.scrumming.domain.ItemBacklog;
+import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
 import br.com.scrumming.web.clientService.SprintClientService;
+import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
+import br.com.scrumming.web.managedbean.AbstractBean;
 
 
 @ManagedBean
-@RequestScoped
-public class SprintBean extends AbstractBean {
+@ViewScoped
+public class SprintMB extends AbstractBean {
 	
 	private Sprint sprint;
 	private List<Sprint> sprintsDoProjeto;
@@ -22,19 +25,16 @@ public class SprintBean extends AbstractBean {
 	private List<ItemBacklog> availableBacklog;
 	private SprintDTO sprintDTO;
 	private SprintClientService sprintClientService;
-	@ManagedProperty(value="#{sessaoMB}")
-    private SessaoMB sessaoMB;
-	
-
+	@FlashScoped
+	private Projeto projetoSelecionado;
+	@FlashScoped
 	private Sprint sprintSelecionada;
 
 
 	@Override
 	public void inicializar() {
 		sprintClientService = new SprintClientService();
-
-		// TODO: Daniel terá que trazer o ID do projeto selecionado na lista de projetos para enviar como parametro.
-		consultarSprintsPorProjeto(sessaoMB.getProjetoSelecionado().getCodigo());
+		sprintsDoProjeto = sprintClientService.consultarSprintsPorProjeto(projetoSelecionado.getCodigo());
 	}
 	
 	/*Funções disponíveis para as telas da Sprint e SprintBacklog*/
@@ -45,16 +45,6 @@ public class SprintBean extends AbstractBean {
 	 */
 	public String salvarSprint() {
 		sprintClientService.salvarSprint(sprintDTO);
-		return "";
-	}
-	
-	/**
-	 * Traz a lista de todas as Sprints do projeto.
-	 * @param projetoID
-	 * @return
-	 */
-	public String consultarSprintsPorProjeto(Integer projetoID) {
-		sprintsDoProjeto = sprintClientService.consultarSprintsPorProjeto(projetoID);
 		return "";
 	}
 	
@@ -91,13 +81,17 @@ public class SprintBean extends AbstractBean {
 		return "";
 	}
 	
-	/*Métodos de redirecionamento das páginas*/	
+	/*Métodos para redirecionamento das páginas*/
 	public String sprintDetailPage() {
     	return redirecionar(PaginasUtil.Sprint.SPRINT_DETAIL_PAGE);
     }
 	
 	public String sprintCadastroPage() {
 		return redirecionar(PaginasUtil.Sprint.SPRINT_CADASTRO_PAGE);
+	}
+	
+	public String itemBacklogPage() {
+		return redirecionar(PaginasUtil.ItemBacklog.ITEM_BACKLOG_PAGE);
 	}
 	
 	/*Getters and Setters*/
@@ -158,11 +152,11 @@ public class SprintBean extends AbstractBean {
 		this.sprintSelecionada = sprintSelecionada;
 	}
 
-	public SessaoMB getSessaoMB() {
-		return sessaoMB;
+	public Projeto getProjetoSelecionado() {
+		return projetoSelecionado;
 	}
 
-	public void setSessaoMB(SessaoMB sessaoMB) {
-		this.sessaoMB = sessaoMB;
+	public void setProjetoSelecionado(Projeto projetoSelecionado) {
+		this.projetoSelecionado = projetoSelecionado;
 	}
 }

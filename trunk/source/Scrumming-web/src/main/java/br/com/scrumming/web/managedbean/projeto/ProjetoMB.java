@@ -1,37 +1,34 @@
-package br.com.scrumming.web.managedbean;
+package br.com.scrumming.web.managedbean.projeto;
 
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 
+import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.web.clientService.ProjetoClientService;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
+import br.com.scrumming.web.managedbean.AbstractBean;
 
 @ManagedBean
-@RequestScoped
-public class ProjetoBean extends AbstractBean {
+@ViewScoped
+public class ProjetoMB extends AbstractBean {
 
     private List<Projeto> projetosDaEmpresa;
     private Projeto projeto;
     @FlashScoped
     private Projeto projetoSelecionado;
     private ProjetoClientService clienteService;
-    @ManagedProperty(value="#{sessaoMB}")
-    private SessaoMB sessaoMB;
+    @ManagedProperty(value="#{sessaoMB.empresaSelecionada}")
+    private Empresa empresa;
 
     @Override
     public void inicializar() {
         clienteService = new ProjetoClientService();
-        consultarProjetosPorEmpresa(sessaoMB.getEmpresaSelecionada().getCodigo());
-    }
-    
-    public String consultarProjetosPorEmpresa(Integer empresaID) {
-    	projetosDaEmpresa = clienteService.consultarProjetosPorEmpresa(empresaID);
-    	return "";
+        projetosDaEmpresa = clienteService.consultarProjetosPorEmpresa(empresa.getCodigo());
     }
     
     /*Métodos de redirecionamento das páginas*/
@@ -41,14 +38,6 @@ public class ProjetoBean extends AbstractBean {
 	
 	public String projetoCadastroPage() {
 		return redirecionar(PaginasUtil.Projeto.PROJETO_CADASTRO_PAGE);
-	}
-	
-	public String sprintPage() {
-		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
-	}
-
-	public String itemBacklogPage() {
-		return redirecionar(PaginasUtil.ItemBacklog.ITEM_BACKLOG_PAGE);
 	}
 
     /* getters and setters */
@@ -84,11 +73,11 @@ public class ProjetoBean extends AbstractBean {
 		this.projetosDaEmpresa = projetosDaEmpresa;
 	}
 
-	public SessaoMB getSessaoMB() {
-		return sessaoMB;
+	public Empresa getEmpresa() {
+		return empresa;
 	}
 
-	public void setSessaoMB(SessaoMB sessaoMB) {
-		this.sessaoMB = sessaoMB;
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 }

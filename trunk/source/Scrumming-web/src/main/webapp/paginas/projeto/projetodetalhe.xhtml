@@ -8,24 +8,23 @@
 	<!-- CORPO DA TELA DA SPRINTS -->
 	<ui:define name="conteudo">
 		<p:tabView id="tabView">
-
 			<p:tab id="tab1" title="Detalhes do Projeto">
 				<h:panelGrid columns="2" cellpadding="10">
 					<p:graphicImage id="tab1Img"
 						value="/images/godfather/godfather1.jpg" />
 					<h:outputText id="tab1Text"
-						value="Aqui sera criado o layout com os detalhes do projeto" />
+						value="Aqui sera criado o layout com os detalhes do projeto: " />
+					<h:outputText value="#{projetoDetalheMB.projetoSelecionado.nome}" />
 				</h:panelGrid>
 			</p:tab>
-
 		</p:tabView>
 	</ui:define>
 	<ui:define name="menu_lateral">
-		<li><h:commandLink action="#{projetoBean.itemBacklogPage}">
+		<li><h:commandLink action="#{projetoDetalheMB.itemBacklogPage}">
 				<i class="fa fa-list" />
 				<h:outputText value="#{mensagens.label_backlog}" />
 			</h:commandLink></li>
-		<li><h:commandLink action="#{projetoBean.sprintPage}">
+		<li><h:commandLink action="#{projetoDetalheMB.sprintPage}">
 				<i class="fa fa-bar-chart-o" />
 				<h:outputText value="#{mensagens.label_sprint}" />
 			</h:commandLink></li>

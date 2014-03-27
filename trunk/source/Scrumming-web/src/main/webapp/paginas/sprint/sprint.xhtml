@@ -9,37 +9,39 @@
 	<ui:define name="conteudo">
 		<div style="width: 80%; float: left">
 			<h1>
-				<h:outputText value="#{sessaoMB.projetoSelecionado.nome}" />
+				<h:outputText value="#{sprintMB.projetoSelecionado.nome}" />
 			</h1>
 			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA AS SPRINTS -->
-			<p:dataGrid var="sprint" value="#{sprintBean.sprintsDoProjeto}"
+			<p:dataGrid var="sprint" value="#{sprintMB.sprintsDoProjeto}"
 				columns="1" style="width:100%;">
 				<p:panel styleClass="col-md-12 column">
 					<h:panelGroup style="width:100%">
 						<h:panelGroup>
-							<p:commandLink action="#{sprintBean.sprintDetailPage}">
+							<p:commandLink action="#{sprintMB.sprintDetailPage}">
 								<h:outputText value="#{sprint.nome}"
 									style="color:blue; text-decoration:underline" />
+									<f:setPropertyActionListener value="#{sprint}"
+									target="#{sprintMB.sprintSelecionada}" />
 							</p:commandLink>
 							<br />
 							<h:outputLabel value="#{mensagens.label_dataINI}" />
 							<h:outputText value="#{sprint.dataInicio}"/>
 							<p:commandLink title="Alterar sprint"
-								action="#{sprintBean.sprintCadastroPage}">
+								action="#{sprintMB.sprintCadastroPage}">
 								<h:outputText styleClass="fa fa-pencil-square-o"
 									style="margin:0 auto; float:right" />
 								<f:setPropertyActionListener value="#{sprint}"
-									target="#{sprintBean.sprintSelecionada}" />
+									target="#{sprintMB.sprintSelecionada}" />
 							</p:commandLink>
 							<br />
 							<h:outputLabel value="#{mensagens.label_dataFIM}" />
 							<h:outputText value="#{sprint.dataFim}" />
 							<p:commandLink title="Fechar sprint"
-								action="#{sprintBean.fecharSprint}">
+								action="#{sprintMB.fecharSprint}">
 								<h:outputText styleClass="fa fa-lock"
 									style="margin:0 auto; float:right" />
 								<f:setPropertyActionListener value="#{sprint}"
-									target="#{sprintBean.sprintSelecionada}" />
+									target="#{sprintMB.sprintSelecionada}" />
 							</p:commandLink>
 							<br />
 							<h:outputText value="#{sprint.descricao}" />
@@ -53,22 +55,18 @@
 		</div>
 		<div style="width: 17%; float: left;">
 			<p:commandLink title="Nova sprint"
-				action="#{sprintBean.sprintCadastroPage}">
+				action="#{sprintMB.sprintCadastroPage}">
 				<h:outputText styleClass="fa fa-plus" style="margin:0 auto;" />
-				<!-- <f:setPropertyActionListener value="#{sprint}"
-					target="#{sprintBean.sprintSelecionada}" /> -->
 			</p:commandLink>
 			<p:commandLink title="Nova sprint"
 				action="#{sprintBean.sprintCadastroPage}">
 				<h:outputText value="Nova sprint" />
-				<!-- <f:setPropertyActionListener value="#{sprint}"
-					target="#{sprintBean.sprintSelecionada}" /> -->
 			</p:commandLink>
 		</div>
 	</ui:define>
 
 	<ui:define name="menu_lateral">
-		<li><h:commandLink action="#{projetoBean.itemBacklogPage}">
+		<li><h:commandLink action="#{sprintBean.itemBacklogPage}">
 				<i class="fa fa-list" />
 				<h:outputText value="#{mensagens.label_backlog}" />
 			</h:commandLink></li>

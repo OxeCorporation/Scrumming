@@ -7,29 +7,28 @@
 
 	<!-- CORPO DA TELA DE LISTAGEM DOS PROJETOS -->
 	<ui:define name="conteudo">
-
 		<div style="width: 80%; float: left">
 			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA OS PROJETOS -->
-			<p:dataGrid var="projeto" value="#{projetoBean.projetosDaEmpresa}"
+			<p:dataGrid var="projeto" value="#{projetoMB.projetosDaEmpresa}"
 				columns="1" style="width:100%;">
 				<p:panel styleClass="col-md-12 column">
 					<h:panelGroup style="width:100%">
 						<h:panelGroup>
-							<p:commandLink action="#{projetoBean.projetoDetailPage}">
+							<p:commandLink action="#{projetoMB.projetoDetailPage}">
 								<h:outputText value="#{projeto.nome}"
 									style="color:blue; text-decoration:underline" />
-									<f:setPropertyActionListener value="#{projeto}"
-									target="#{sessaoMB.projetoSelecionado}" />
+								<f:setPropertyActionListener value="#{projeto}"
+									target="#{projetoMB.projetoSelecionado}" />
 							</p:commandLink>
 							<br />
 							<h:outputLabel value="#{mensagens.label_dataINI}" />
 							<h:outputText value="#{projeto.dataInicio}" />
 							<p:commandLink title="Alterar projeto"
-								action="#{projetoBean.projetoCadastroPage}">
+								action="#{projetoMB.projetoCadastroPage}">
 								<h:outputText styleClass="fa fa-pencil-square-o"
 									style="margin:0 auto; float:right" />
 								<f:setPropertyActionListener value="#{projeto}"
-									target="#{sessaoMB.projetoSelecionado}" />
+									target="#{projetoMB.projetoSelecionado}" />
 							</p:commandLink>
 							<br />
 							<h:outputText value="#{projeto.descricao}" />
@@ -43,14 +42,13 @@
 		</div>
 		<div style="width: 17%; float: left;">
 			<p:commandLink title="Novo projeto"
-				action="#{projetoBean.projetoCadastroPage}">
+				action="#{projetoMB.projetoCadastroPage}">
 				<h:outputText styleClass="fa fa-plus" style="margin:0 auto;" />
 			</p:commandLink>
 			<p:commandLink title="Novo projeto"
-				action="#{projetoBean.projetoCadastroPage}">
+				action="#{projetoMB.projetoCadastroPage}">
 				<h:outputText value="Novo projeto" />
 			</p:commandLink>
 		</div>
 	</ui:define>
-
 </ui:composition>
