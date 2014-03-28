@@ -57,16 +57,13 @@
 			<p:commandLink title="Nova sprint"
 				action="#{sprintMB.sprintCadastroPage}">
 				<h:outputText styleClass="fa fa-plus" style="margin:0 auto;" />
-			</p:commandLink>
-			<p:commandLink title="Nova sprint"
-				action="#{sprintBean.sprintCadastroPage}">
 				<h:outputText value="Nova sprint" />
 			</p:commandLink>
 		</div>
 	</ui:define>
 
 	<ui:define name="menu_lateral">
-		<li><h:commandLink action="#{sprintBean.itemBacklogPage}">
+		<li><h:commandLink action="#{sprintMB.itemBacklogPage}">
 				<i class="fa fa-list" />
 				<h:outputText value="#{mensagens.label_backlog}" />
 			</h:commandLink></li>

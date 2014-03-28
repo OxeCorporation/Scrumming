@@ -6,10 +6,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.domain.ItemBacklog;
+import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.web.clientService.ItemBacklogClientService;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
-import br.com.scrumming.web.infra.PaginasUtil.Projeto;
 import br.com.scrumming.web.infra.bean.AbstractBean;
 
 @ManagedBean
@@ -23,12 +23,6 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	private ItemBacklogClientService clienteService;
 	@FlashScoped
 	private Projeto projetoSelecionado;
-
-	@Override
-	public void inicializar() {
-		@SuppressWarnings("unused")
-		int o = 1;
-	}
 
 	/* Métodos para redirecionamento das páginas */
 	public String itemBacklogCadastroPage() {
@@ -88,6 +82,14 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 
 	public void setItemSelecionado(ItemBacklog itemSelecionado) {
 		this.itemSelecionado = itemSelecionado;
+	}
+
+	public Projeto getProjetoSelecionado() {
+		return projetoSelecionado;
+	}
+
+	public void setProjetoSelecionado(Projeto projetoSelecionado) {
+		this.projetoSelecionado = projetoSelecionado;
 	}
 
 }

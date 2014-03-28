@@ -7,6 +7,7 @@
 	
 	<!-- CORPO DA TELA DE ITEMBACKLOG -->
 	<ui:define name="conteudo">
+	<h:outputText value="#{itemBacklogCadastroMB.projetoSelecionado.nome}"></h:outputText>
 		<p:panel>
 			<h:outputLabel value="#{mensagens.label_nome_item_backlog}" />
 					<br/>
@@ -30,11 +31,11 @@
 		</p:panel>
 	</ui:define>
 	<ui:define name="menu_lateral">
- 	<li><h:commandLink action="#{sessaoMB.itemBacklogPage}">
+ 	<li><h:commandLink action="#{itemBacklogCadastroMB.itemBacklogPage}">
  	 <i class="fa fa-list" />
  	 <h:outputText value="#{mensagens.label_backlog}" />
  	 </h:commandLink></li>
- 	<li><h:commandLink action="#{sessaoMB.sprintPage}">
+ 	<li><h:commandLink action="#{itemBacklogCadastroMB.sprintPage}">
  	 <i class="fa fa-bar-chart-o" />
  	 <h:outputText value="#{mensagens.label_sprint}" />
  	 </h:commandLink></li>

@@ -2,7 +2,6 @@ package br.com.scrumming.web.managedbean.sprint;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.web.infra.FlashScoped;
