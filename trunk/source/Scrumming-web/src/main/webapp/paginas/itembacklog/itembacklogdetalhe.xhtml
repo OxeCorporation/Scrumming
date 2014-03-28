@@ -5,6 +5,7 @@
 	template="/paginas/template/template.xhtml">
 
 	<ui:define name="conteudo">
+	<h:outputText value="#{itemBacklogDetalheMB.projetoSelecionado.nome}"></h:outputText>
 		<h:panelGroup class="col-md-9">
 			<p:panel header="#{itemBacklogDetalheMB.itemSelecionado.nome}"
 				footer="#{itemBacklogDetalheMB.itemSelecionado.criterioAceitacao}">
