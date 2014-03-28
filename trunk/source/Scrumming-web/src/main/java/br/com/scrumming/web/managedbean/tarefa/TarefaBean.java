@@ -1,4 +1,4 @@
-package br.com.scrumming.web.managedbean;
+package br.com.scrumming.web.managedbean.tarefa;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import br.com.scrumming.web.clientService.TarefaClientService;
 import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
+import br.com.scrumming.web.infra.bean.AbstractBean;
 
 @ManagedBean
 @ViewScoped

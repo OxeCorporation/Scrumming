@@ -12,7 +12,7 @@ import br.com.scrumming.domain.SprintDTO;
 import br.com.scrumming.web.clientService.SprintClientService;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
-import br.com.scrumming.web.managedbean.AbstractBean;
+import br.com.scrumming.web.infra.bean.AbstractBean;
 
 
 @ManagedBean

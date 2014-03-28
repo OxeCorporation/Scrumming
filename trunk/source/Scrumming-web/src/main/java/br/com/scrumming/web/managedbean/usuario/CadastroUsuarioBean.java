@@ -1,4 +1,4 @@
-package br.com.scrumming.web.managedbean;
+package br.com.scrumming.web.managedbean.usuario;
 
 import java.util.List;
 
@@ -13,6 +13,7 @@ import br.com.scrumming.web.clientService.UsuarioClientService;
 import br.com.scrumming.web.clientService.UsuarioEmpresaClientService;
 import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.PaginasUtil;
+import br.com.scrumming.web.infra.bean.AbstractBean;
 import br.com.scrumming.web.infra.jsf.ListaDataModel;
 
 @ManagedBean

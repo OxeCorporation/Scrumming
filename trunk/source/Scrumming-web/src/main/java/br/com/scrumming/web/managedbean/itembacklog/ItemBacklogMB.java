@@ -10,7 +10,7 @@ import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.web.clientService.ItemBacklogClientService;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
-import br.com.scrumming.web.managedbean.AbstractBean;
+import br.com.scrumming.web.infra.bean.AbstractBean;
 
 @ManagedBean
 @ViewScoped
