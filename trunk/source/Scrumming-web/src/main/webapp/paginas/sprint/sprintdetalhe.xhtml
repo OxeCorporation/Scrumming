@@ -7,7 +7,7 @@
 
 	<!-- CORPO DA TELA DA SPRINTS -->
 	<ui:define name="conteudo">
-	<h:outputText value="#{sprintDetalheMB.projetoSelecionado.nome}"></h:outputText>
+	<h:outputText style="color: white" value="#{sprintDetalheMB.projetoSelecionado.nome}"></h:outputText>
 		<h:panelGroup var="sprint"
 			value="#{sprintDetalheMB.sprintSelecionada}">
 			<h:outputText value="#{sprint.nome}"
@@ -21,9 +21,7 @@
 			<br />
 			<h:outputText value="#{sprint.descricao}" />
 		</h:panelGroup>
-
 		<p:tabView id="tabView">
-
 			<p:tab id="tab1" title="Sprint Backlog">
 				<h:panelGrid columns="2" cellpadding="10">
 					<p:graphicImage id="tab1Img"
@@ -32,7 +30,6 @@
 						value="Aqui sera criado o layout com os detalhes da Sprint" />
 				</h:panelGrid>
 			</p:tab>
-
 			<p:tab id="tab2" title="Sprint Board">
 				<h:panelGrid columns="2" cellpadding="10">
 					<p:graphicImage id="tab2Img"
@@ -41,7 +38,6 @@
 						value="Aqui sera criado o Board da Sprint" />
 				</h:panelGrid>
 			</p:tab>
-
 			<p:tab id="tab3" title="Charts">
 				<h:panelGrid columns="2" cellpadding="10">
 					<p:graphicImage id="tab3Img"
