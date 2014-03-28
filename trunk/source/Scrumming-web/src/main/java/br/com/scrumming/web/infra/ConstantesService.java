@@ -43,4 +43,10 @@ public final class ConstantesService {
 		public static final String URL_CONSULTAR_EMPRESAS_POR_USUARIO = "/usuario_empresa/usuario/{usuarioID}";
 		public static final String URL_CONSULTAR_USUARIOS_POR_EMPRESA = "/usuario_empresa/empresa/{empresaID}";
 	}
+	public final class Empresa{
+		public static final String SALVAR_EMPRESA = "/empresa/{empresa}";
+		public static final String LISTAR_TODAS_EMPRESAS = "/empresa";
+		public static final String CONSULTAR_POR_NOME = "/empresa/{nome}";
+		public static final String CONSULTAR_POR_CODIGO = "/empresa/{empresaID}";
+	}
 }
