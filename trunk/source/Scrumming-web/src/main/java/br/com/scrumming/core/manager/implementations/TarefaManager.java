@@ -10,6 +10,7 @@ import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.ITarefaManager;
 import br.com.scrumming.core.repositorio.TarefaRepositorio;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
 @Service
 public class TarefaManager extends AbstractManager<Tarefa, Integer> implements ITarefaManager {
@@ -30,6 +31,7 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
 
     @Override
     public void salvar(Tarefa tarefa) {
+    	tarefa.setSituacao(SituacaoTarefaEnum.PARA_FAZER);
         insertOrUpdate(tarefa);
     }
 
