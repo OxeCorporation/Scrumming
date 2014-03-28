@@ -7,9 +7,11 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import br.com.scrumming.core.manager.interfaces.ITarefaManager;
 import br.com.scrumming.domain.Tarefa;
 
@@ -20,8 +22,8 @@ public class TarefaService {
 	@Autowired
 	private ITarefaManager tarefaManager;
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/{tarefa}")
-    public void salvar(@PathVariable @Valid Tarefa tarefa){
+	@RequestMapping(method = RequestMethod.POST)
+    public void salvar(@RequestBody Tarefa tarefa){
 		tarefaManager.salvar(tarefa);
 	}
 	
