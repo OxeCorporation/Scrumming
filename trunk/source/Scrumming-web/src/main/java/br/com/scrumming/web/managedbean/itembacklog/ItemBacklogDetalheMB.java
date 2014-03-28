@@ -24,12 +24,6 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	@FlashScoped
 	private Projeto projetoSelecionado;
 
-	@Override
-	public void inicializar() {
-		@SuppressWarnings("unused")
-		int o = 1;
-	}
-
 	/* Métodos para redirecionamento das páginas */
 	public String itemBacklogCadastroPage() {
 		return redirecionar(PaginasUtil.ItemBacklog.CADASTRAR_ITEM_BACKLOG);
