@@ -47,8 +47,8 @@ public class EmpresaManager extends
 	 * @return Uma lista de Empresas
 	 */
 	@Override
-	public List<Empresa> consultarPorCodigo(Integer EmpresaID) {
-		return empresaRepositorio.consultarPorCodigo(EmpresaID);
+	public List<Empresa> consultarPorCodigo(Integer empresaID) {
+		return empresaRepositorio.consultarPorCodigo(empresaID);
 	}
 
 	/* getters and setters */

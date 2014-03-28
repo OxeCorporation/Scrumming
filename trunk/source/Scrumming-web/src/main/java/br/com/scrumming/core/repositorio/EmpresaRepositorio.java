@@ -34,10 +34,10 @@ public class EmpresaRepositorio extends AbstractRepositorio<Empresa, Integer> {
 	 * @return Uma lista de Empresas
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Empresa> consultarPorCodigo(Integer EmpresaID){
+	public List<Empresa> consultarPorCodigo(Integer empresaID){
 		Criteria criteria = createCriteria();
         criteria.createAlias("empresa", "empresa");
-        criteria.add(Restrictions.eq("empresa.codigo", EmpresaID));
+        criteria.add(Restrictions.eq("empresa.codigo", empresaID));
         return Collections.checkedList(criteria.list(), Empresa.class);
 	}
 }

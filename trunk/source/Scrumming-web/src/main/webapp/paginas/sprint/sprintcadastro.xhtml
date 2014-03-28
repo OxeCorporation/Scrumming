@@ -7,9 +7,18 @@
 
 	<!-- CORPO DA TELA DA SPRINTS -->
 	<ui:define name="conteudo">
-		<h:outputText value="#{sprintCadastroMB.projetoSelecionado.nome}"></h:outputText>
-		<h:outputText value="#{sprintCadastroMB.sprintSelecionada.nome}"></h:outputText>
-		<h:outputText value="Tela de cadastro da Sprint sera feita aki \o/"></h:outputText>
+		<h:outputText style="color: white" value="#{sprintCadastroMB.sprintSelecionada.nome}"></h:outputText>
+		<h:outputText style="color: white" value="#{sprintCadastroMB.projetoSelecionado.nome}"></h:outputText>
+		<h:panelGroup>
+			<!-- Text input-->
+			<label class="col-md-4 control-label" for="nome" style="width: 100px">Nome:</label>
+			<input id="nome" name="nome" type="text" placeholder="Nome da sprint"
+				class="form-control input-md" required="required" style="width: 200px" />
+			<!-- Textarea -->
+			<label class="col-md-4 control-label" for="objetivo" style="width: 100px">Objetivo:</label>
+			<textarea class="form-control" id="objetivo" name="objetivo"
+				style="width: 500px; height: 200px"></textarea>
+		</h:panelGroup>
 	</ui:define>
 	<ui:define name="menu_lateral">
 		<li><h:commandLink action="#{sprintCadastroMB.itemBacklogPage}">

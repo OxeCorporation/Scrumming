@@ -8,9 +8,7 @@
 	<!-- CORPO DA TELA DE LISTAGEM DAS SPRINTS -->
 	<ui:define name="conteudo">
 		<div style="width: 80%; float: left">
-			<h1>
-				<h:outputText value="#{sprintMB.projetoSelecionado.nome}" />
-			</h1>
+			<h:outputText style="color: white" value="#{sprintMB.projetoSelecionado.nome}" />
 			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA AS SPRINTS -->
 			<p:dataGrid var="sprint" value="#{sprintMB.sprintsDoProjeto}"
 				columns="1" style="width:100%;">
@@ -20,12 +18,12 @@
 							<p:commandLink action="#{sprintMB.sprintDetailPage}">
 								<h:outputText value="#{sprint.nome}"
 									style="color:blue; text-decoration:underline" />
-									<f:setPropertyActionListener value="#{sprint}"
+								<f:setPropertyActionListener value="#{sprint}"
 									target="#{sprintMB.sprintSelecionada}" />
 							</p:commandLink>
 							<br />
 							<h:outputLabel value="#{mensagens.label_dataINI}" />
-							<h:outputText value="#{sprint.dataInicio}"/>
+							<h:outputText value="#{sprint.dataInicio}" />
 							<p:commandLink title="Alterar sprint"
 								action="#{sprintMB.sprintCadastroPage}">
 								<h:outputText styleClass="fa fa-pencil-square-o"
@@ -61,12 +59,10 @@
 			</p:commandLink>
 		</div>
 	</ui:define>
-
 	<ui:define name="menu_lateral">
 		<li><h:commandLink action="#{sprintMB.itemBacklogPage}">
 				<i class="fa fa-list" />
 				<h:outputText value="#{mensagens.label_backlog}" />
 			</h:commandLink></li>
 	</ui:define>
-
 </ui:composition>

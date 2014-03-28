@@ -47,9 +47,9 @@ public class EmpresaService {
 	 * @param Nome da Empresa
 	 * @return Uma lista de Empresas
 	 */
-	@RequestMapping(method = RequestMethod.GET, value = "/list/{empresaId}")
-    public List<Empresa> consultarPorCodigo(@PathVariable Integer empresaId) {
-    	return new ArrayList<Empresa>(empresaManager.consultarPorCodigo(empresaId));
+	@RequestMapping(method = RequestMethod.GET, value = "/list/{empresaID}")
+    public List<Empresa> consultarPorCodigo(@PathVariable Integer empresaID) {
+    	return new ArrayList<Empresa>(empresaManager.consultarPorCodigo(empresaID));
     }
 	
 	/**
