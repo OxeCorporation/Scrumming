@@ -3,6 +3,7 @@ package br.com.scrumming.web.managedbean.sprint;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
@@ -14,16 +15,12 @@ public class SprintCadastroMB extends AbstractBean {
 
 	@FlashScoped
 	private Sprint sprintSelecionada;
-	
-	@Override
-	public void inicializar() {
-		@SuppressWarnings("unused")
-		int o = 1;
-	}
-	
+	@FlashScoped
+	private Projeto projetoSelecionado;
+		
 	/*Métodos para redirecionamento das páginas*/
-	public String sprintCadastroPage() {
-		return redirecionar(PaginasUtil.Sprint.SPRINT_CADASTRO_PAGE);
+	public String sprintPage() {
+		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
 	}
 	
 	public String itemBacklogPage() {
@@ -37,5 +34,13 @@ public class SprintCadastroMB extends AbstractBean {
 
 	public void setSprintSelecionada(Sprint sprintSelecionada) {
 		this.sprintSelecionada = sprintSelecionada;
+	}
+
+	public Projeto getProjetoSelecionado() {
+		return projetoSelecionado;
+	}
+
+	public void setProjetoSelecionado(Projeto projetoSelecionado) {
+		this.projetoSelecionado = projetoSelecionado;
 	}
 }
