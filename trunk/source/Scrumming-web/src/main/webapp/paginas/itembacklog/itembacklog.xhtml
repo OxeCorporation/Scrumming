@@ -67,7 +67,7 @@
 		
 	</ui:define>
 	<ui:define name="menu_lateral">
-		<li><h:commandLink action="#{itemBacklogMB.sprintPage}">
+		<li><h:commandLink immediate="true" action="#{itemBacklogMB.sprintPage}">
 				<i class="fa fa-bar-chart-o" />
 				<h:outputText value="#{mensagens.label_sprint}" />
 			</h:commandLink></li>

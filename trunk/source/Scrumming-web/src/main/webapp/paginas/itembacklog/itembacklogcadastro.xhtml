@@ -9,16 +9,47 @@
 		<p:panel header="#{itemBacklogCadastroMB.projetoSelecionado.nome}">
 			<h:panelGrid columns="1" >
 				<h:outputText value="Titulo" /> 
-				<p:inputText id="nome" required="true" size="100" value="#{itemBacklogCadastroMB.itemBacklog.nome}" requiredMessage="Preencha o resumo" disabled="#{itemBacklogCadastroMB.itemBacklog.nome} != null}" />
+				<p:inputText id="nome" required="true" size="100" 	
+							 value="#{itemBacklogCadastroMB.itemBacklog.nome}" 
+							 requiredMessage="Preencha o resumo" 
+							 disabled="#{itemBacklogCadastroMB.itemBacklog.nome} != null}" />
 				
 				<h:outputText value="Descricao" /> 
-				<p:inputTextarea id="descricao" required="false" rows="3" cols="100" value="#{itemBacklogCadastroMB.itemBacklog.descricao}" />
+				<p:inputTextarea id="descricao" required="false" rows="3" cols="100" 
+								 value="#{itemBacklogCadastroMB.itemBacklog.descricao}" />
 				
 				<h:outputText value="Criterio de Aceitacao" /> 
-				<p:inputTextarea id="criterioAceitacao" required="false" rows="3" cols="100" value="#{itemBacklogCadastroMB.itemBacklog.criterioAceitacao}" />
-			</h:panelGrid>
+				<p:inputTextarea id="criterioAceitacao" required="false" rows="3" cols="100" 
+								 value="#{itemBacklogCadastroMB.itemBacklog.criterioAceitacao}" />
+
+				<h:outputText id="output" value="Valor de Negocio %#{itemBacklogCadastroMB.number}" style="color:black" />
+				<h:inputHidden id="txtValorNegocio" value="#{itemBacklogCadastroMB.number}" style="color:black"/>
+				<p:slider for="txtValorNegocio" display="output" 
+						  style="width:200px;color:black" 
+						  displayTemplate="Valor de Negocio %{value}" step="5" />
+				
+				<h:outputText id="outputStoryPoint" value="Story Points %#{itemBacklogCadastroMB.number}" style="float:left; color:black" />
+				<h:inputHidden id="txtStoryPoint" value="#{itemBacklogCadastroMB.number}" style="float:left; color:black"/>
+				<p:slider for="txtStoryPoint" display="outputStoryPoint" style="width:200px;color:black" displayTemplate="Story Points %{value}" step="5" />
+				
+				<h:outputLabel id="outputRoi" value="Calculo do Roi"/>
+
+				<h:outputText value="Situacao: " />
+				<p:selectOneRadio id="situacao" value="#{formBean.number}">
+					<f:selectItem itemLabel="FAZER" itemValue="1" />
+					<f:selectItem itemLabel="FAZENDO" itemValue="2" />
+					<f:selectItem itemLabel="FEITO" itemValue="3" />
+				</p:selectOneRadio>
+
+				<h:outputText value="Status: " />
+				<p:selectOneRadio id="status" value="#{formBean.number}">
+					<f:selectItem itemLabel="ATIVO" itemValue="1" />
+					<f:selectItem itemLabel="INATIVO" itemValue="2" />
+				</p:selectOneRadio>
+				
+			</h:panelGrid> 
 		</p:panel>
-		
+			
 		<p:commandButton process="@none" icon="ui-icon-cancel" value="Cancelar" onclick="dlgItemSave.hide()" style="margin:0 auto; float:right"/>
 		<p:commandButton update="@form" oncomplete="dlgItemSave.hide()" value="Salvar" action="#{itemBacklogCadastroMB.salvarItemBacklog}" icon="ui-icon-disk" style="margin:0 auto; float:right"/>								
 	</p:dialog>	

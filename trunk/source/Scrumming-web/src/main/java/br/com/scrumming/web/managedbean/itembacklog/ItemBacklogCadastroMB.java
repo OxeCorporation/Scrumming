@@ -17,17 +17,18 @@ import br.com.scrumming.web.infra.bean.AbstractBean;
 public class ItemBacklogCadastroMB extends AbstractBean {
 
 	private List<ItemBacklog> itens;
+	@FlashScoped
 	private ItemBacklog itemBacklog;
 	@FlashScoped
 	private ItemBacklog itemSelecionado;
 	private ItemBacklogClientService clienteService;
 	@FlashScoped
 	private Projeto projetoSelecionado;
-
+	private int number;
+	
 	@Override
 	public void inicializar() {
-		@SuppressWarnings("unused")
-		int o = 1;
+		itemBacklog= new ItemBacklog();
 	}
 
 	/* Métodos para redirecionamento das páginas */
@@ -92,6 +93,19 @@ public class ItemBacklogCadastroMB extends AbstractBean {
 
 	public void setProjetoSelecionado(Projeto projetoSelecionado) {
 		this.projetoSelecionado = projetoSelecionado;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		int contador= 0;
+		while(contador <= 100){
+			number= contador + 5;
+			contador++;
+		}		
+		this.number = number;
 	}
 
 }

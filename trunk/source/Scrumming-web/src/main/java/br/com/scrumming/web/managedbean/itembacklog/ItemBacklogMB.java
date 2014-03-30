@@ -17,6 +17,7 @@ import br.com.scrumming.web.infra.bean.AbstractBean;
 public class ItemBacklogMB extends AbstractBean {
 
     private List<ItemBacklog> itens;
+    @FlashScoped
     private ItemBacklog itemBacklog;
     @FlashScoped
     private ItemBacklog itemSelecionado;
