@@ -20,6 +20,9 @@ import br.com.scrumming.web.infra.jsf.ListaDataModel;
 @ViewScoped
 public class CadastroUsuarioBean extends AbstractBean {
 
+	/**
+	 * TESTE COM SVN
+	 */
     private Usuario usuarioSelecionado;
     private List<Usuario> usuarios;
     private ListaDataModel<Usuario> dataModelUsuario;
