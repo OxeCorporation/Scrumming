@@ -68,6 +68,7 @@ public class CadastroUsuarioBean extends AbstractBean {
     public String alterar() {
     	if(usuarioSelecionado == null){
     	 // TODO esc exibir uma mensagem de usuario deve ser selecionado
+    		
     	}
         return "";
     }
