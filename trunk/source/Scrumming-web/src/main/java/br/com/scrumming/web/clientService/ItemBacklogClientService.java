@@ -23,13 +23,8 @@ public class ItemBacklogClientService extends AbstractClientService{
 	
 	public List<ItemBacklog> consultarItemPorProjeto(Integer projetoID) {
 
-		RestTemplate restTemplate = new RestTemplate();
-
-		String url = "http://localhost:8080/Scrumming/service/itemBacklog/list/{projetoID}";
-
-		ResponseEntity<ItemBacklog[]> listaDeItens = restTemplate.getForEntity(url, ItemBacklog[].class, projetoID);
-
-		return Arrays.asList(listaDeItens.getBody());
+		ResponseEntity<ItemBacklog[]> forEntity = getRestTemplate().getForEntity(getURIService(ConstantesService.ItemBacklog.URL_CONSULTAR_POR_PROJETO), ItemBacklog[].class, projetoID);
+		return Arrays.asList(forEntity.getBody());
 	}
 	
 	public void cancelarItemBacklog(ItemBacklog item) {

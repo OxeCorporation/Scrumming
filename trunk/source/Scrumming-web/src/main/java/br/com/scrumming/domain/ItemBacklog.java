@@ -1,5 +1,7 @@
 package br.com.scrumming.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -18,6 +21,7 @@ import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "ItemBacklog")
@@ -67,6 +71,9 @@ public class ItemBacklog extends ObjetoPersistente<Integer> {
     @Column(name = "is_ativo", columnDefinition = "bit")
     private boolean isAtivo;
     
+    @OneToMany(mappedBy="itemBacklog")
+    @JsonManagedReference
+    private List<Tarefa> tarefas;
 
 	/* getters and setters */
     @Override
@@ -173,4 +180,12 @@ public class ItemBacklog extends ObjetoPersistente<Integer> {
         }
         return isEquals;
     }
+
+	public List<Tarefa> getTarefas() {
+		return tarefas;
+	}
+
+	public void setTarefas(List<Tarefa> tarefas) {
+		this.tarefas = tarefas;
+	}
 }
