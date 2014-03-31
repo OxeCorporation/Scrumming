@@ -8,9 +8,9 @@
 	<!-- CORPO DA TELA DE LISTAGEM DOS ITENS DE BACKLOG -->
 	<ui:define name="conteudo">
 		<div style="width: 80%; float: left">
-			<h1>
-				<h:outputText value="#{itemBacklogMB.projetoSelecionado.nome}" />
-			</h1>
+			
+				<h:outputText style="color:white" value="#{itemBacklogMB.projetoSelecionado.nome}" />
+		
 			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA OS ITENS DE BACKLOG -->
 			<p:dataGrid var="item" value="#{itemBacklogMB.itens}" columns="1"
 				style="width:100%">

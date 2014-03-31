@@ -5,9 +5,10 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:p="http://primefaces.org/ui">
     	
-	<p:dialog showEffect="fade" hideEffect="explode" id="dlgItemSave" header="ItemBacklog" modal="true" var="exec" resizable="false" widgetVar="dlgItemSave">
-		<p:panel header="#{itemBacklogCadastroMB.projetoSelecionado.nome}">
-			<h:panelGrid columns="1" >
+	<p:dialog showEffect="fade" hideEffect="explode" id="dlgItemSave" header="ItemBacklog" modal="true" var="exec" resizable="false" widgetVar="dlgItemSave" >
+		<!-- style="background-color:#4682B4;" -->
+		<p:panel header="#{itemBacklogCadastroMB.projetoSelecionado.nome}" >
+			<h:panelGrid columns="1"  >
 				<h:outputText value="Titulo" /> 
 				<p:inputText id="nome" required="true" size="100" 	
 							 value="#{itemBacklogCadastroMB.itemBacklog.nome}" 
@@ -21,31 +22,18 @@
 				<h:outputText value="Criterio de Aceitacao" /> 
 				<p:inputTextarea id="criterioAceitacao" required="false" rows="3" cols="100" 
 								 value="#{itemBacklogCadastroMB.itemBacklog.criterioAceitacao}" />
-
-				<h:outputText id="output" value="Valor de Negocio %#{itemBacklogCadastroMB.number}" style="color:black" />
-				<h:inputHidden id="txtValorNegocio" value="#{itemBacklogCadastroMB.number}" style="color:black"/>
-				<p:slider for="txtValorNegocio" display="output" 
-						  style="width:200px;color:black" 
-						  displayTemplate="Valor de Negocio %{value}" step="5" />
 				
-				<h:outputText id="outputStoryPoint" value="Story Points %#{itemBacklogCadastroMB.number}" style="float:left; color:black" />
-				<h:inputHidden id="txtStoryPoint" value="#{itemBacklogCadastroMB.number}" style="float:left; color:black"/>
-				<p:slider for="txtStoryPoint" display="outputStoryPoint" style="width:200px;color:black" displayTemplate="Story Points %{value}" step="5" />
+				<h:outputText id="outValorNegocio" value="Valor de Negocio #{itemBacklogCadastroMB.number}" style="color:black" />
+				<h:inputHidden id="txtValorNegocio" value="#{itemBacklogCadastroMB.number}" style="color:black; width:100%"/>
+				<p:slider for="txtValorNegocio" display="outValorNegocio" 
+						  style="width:200px; color:black; width:100%" 
+						  displayTemplate="Valor de Negocio {value}" step="5" />
 				
-				<h:outputLabel id="outputRoi" value="Calculo do Roi"/>
-
-				<h:outputText value="Situacao: " />
-				<p:selectOneRadio id="situacao" value="#{formBean.number}">
-					<f:selectItem itemLabel="FAZER" itemValue="1" />
-					<f:selectItem itemLabel="FAZENDO" itemValue="2" />
-					<f:selectItem itemLabel="FEITO" itemValue="3" />
-				</p:selectOneRadio>
-
-				<h:outputText value="Status: " />
-				<p:selectOneRadio id="status" value="#{formBean.number}">
-					<f:selectItem itemLabel="ATIVO" itemValue="1" />
-					<f:selectItem itemLabel="INATIVO" itemValue="2" />
-				</p:selectOneRadio>
+				<h:outputText id="outStoryPoint" value="Story Points #{itemBacklogCadastroMB.number}" style="float:left; color:black" />
+				<h:inputHidden id="txtStoryPoint" value="#{itemBacklogCadastroMB.number}" style="float:left; color:black; width:100%"/>
+				<p:slider for="txtStoryPoint" display="outStoryPoint" 
+						  style="width:200px; float:left; width:100%" 
+						  displayTemplate="Story Points {value}" step="5" />
 				
 			</h:panelGrid> 
 		</p:panel>

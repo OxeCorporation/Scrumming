@@ -42,6 +42,7 @@ public class ItemBacklogCadastroMB extends AbstractBean {
 
 	/* Funções específicas da tela */
 	public String salvarItemBacklog() {
+		itemBacklog.setProjeto(projetoSelecionado);
 		clienteService.salvarItemBacklog(itemBacklog);
 		return "";
 	}
@@ -57,7 +58,7 @@ public class ItemBacklogCadastroMB extends AbstractBean {
 		return "";
 	}
 
-	public String consultarItemPorID() {
+	public String consultarItemPorID() { 
 		clienteService.consultarItemPorID(itemBacklog.getChave());
 		return "";
 	}
