@@ -10,6 +10,7 @@ import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
 import br.com.scrumming.core.repositorio.ItemBacklogRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
+import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 
 @Service
 public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> implements IItemBacklogManager {
@@ -25,6 +26,8 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
     @Override
 	public void salvarItemBlacklog(ItemBacklog itemBacklog) {
     	if (itemBacklog != null) {
+    		itemBacklog.setSituacaoBacklog(SituacaoItemBacklogEnum.FAZER);
+    		itemBacklog.setAtivo(true);
     		insertOrUpdate(itemBacklog);
 		}
 	}

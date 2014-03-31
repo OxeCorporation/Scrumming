@@ -8,20 +8,22 @@
 	<!-- CORPO DA TELA DE LISTAGEM DAS SPRINTS -->
 	<ui:define name="conteudo">
 		<div style="width: 80%; float: left">
-			<h:outputText style="color: white" value="#{sprintMB.projetoSelecionado.nome}" />
+			<h:outputText style="color: white"
+				value="#{sprintMB.projetoSelecionado.nome}" />
 			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA AS SPRINTS -->
 			<p:dataGrid var="sprint" value="#{sprintMB.sprintsDoProjeto}"
 				columns="1" style="width:100%;">
 				<p:panel styleClass="col-md-12 column">
-					<h:panelGroup style="width:100%">
-						<h:panelGroup>
+					<p:panel>
+						<f:facet name="header">
 							<p:commandLink action="#{sprintMB.sprintDetailPage}">
 								<h:outputText value="#{sprint.nome}"
 									style="color:blue; text-decoration:underline" />
 								<f:setPropertyActionListener value="#{sprint}"
 									target="#{sprintMB.sprintSelecionada}" />
 							</p:commandLink>
-							<br />
+						</f:facet>
+						<h:panelGroup style="width:100%">
 							<h:outputLabel value="#{mensagens.label_dataINI}" />
 							<h:outputText value="#{sprint.dataInicio}" />
 							<p:commandLink title="Alterar sprint"
@@ -44,7 +46,7 @@
 							<br />
 							<h:outputText value="#{sprint.descricao}" />
 						</h:panelGroup>
-					</h:panelGroup>
+					</p:panel>
 				</p:panel>
 			</p:dataGrid>
 		</div>

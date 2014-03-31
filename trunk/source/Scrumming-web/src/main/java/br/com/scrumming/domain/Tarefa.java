@@ -18,11 +18,16 @@ import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.DateTime;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import br.com.scrumming.core.infra.repositorio.HibernateTypes;
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
+import br.com.scrumming.core.infra.util.JodaDateTimeJsonDeserializer;
+import br.com.scrumming.core.infra.util.JodaDateTimeJsonSerializer;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity
 @Table(name = "Tarefa")
@@ -65,8 +70,9 @@ public class Tarefa extends ObjetoPersistente<Integer> {
 	
 	@Type(type = HibernateTypes.JODA_DATE_TIME)
     @Column(name = "data_Atribuicao")
-    private DateTime dataAtribuicao;
-
+	@JsonSerialize(using = JodaDateTimeJsonSerializer.class)
+    @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
+	private DateTime dataAtribuicao;
 	
 	@Override
 	@JsonIgnore
@@ -85,6 +91,7 @@ public class Tarefa extends ObjetoPersistente<Integer> {
 		this.codigo = codigo;
 	}
 
+	@JsonBackReference
 	public ItemBacklog getItemBacklog() {
 		return itemBacklog;
 	}

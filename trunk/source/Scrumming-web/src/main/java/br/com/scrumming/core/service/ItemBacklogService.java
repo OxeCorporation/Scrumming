@@ -1,6 +1,5 @@
 package br.com.scrumming.core.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -33,7 +32,7 @@ public class ItemBacklogService {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/list/{projetoId}")
     public List<ItemBacklog> consultarPorProjeto(@PathVariable Integer projetoId) {
-    	return new ArrayList<ItemBacklog>(itemBacklogManager.consultarPorProjeto(projetoId));
+    	return itemBacklogManager.consultarPorProjeto(projetoId);
     }
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/{itemID}")

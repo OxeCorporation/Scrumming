@@ -1,7 +1,6 @@
 package br.com.scrumming.web.managedbean.sprint;
 
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import br.com.scrumming.domain.ItemBacklog;
@@ -12,7 +11,6 @@ import br.com.scrumming.web.clientService.SprintClientService;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
 import br.com.scrumming.web.infra.bean.AbstractBean;
-
 
 @ManagedBean
 @ViewScoped

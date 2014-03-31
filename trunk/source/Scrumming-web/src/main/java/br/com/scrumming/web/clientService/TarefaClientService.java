@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.scrumming.domain.Tarefa;
-import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.infra.AbstractClientService;
 import br.com.scrumming.web.infra.ConstantesService;
 
@@ -26,11 +25,7 @@ public class TarefaClientService extends AbstractClientService {
 	}
 	
 	public List<Tarefa> consultarTarefasPorItemBacklog(Integer itemBacklogID) {
-
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Tarefa[]> tarefas = restTemplate.getForEntity(ConstantesService.Tarefa.URL_CONSULTAR_POR_ITEM_BACKLOG, Tarefa[].class, itemBacklogID);
-
-		return Arrays.asList(tarefas.getBody());
+		return Arrays.asList(getRestTemplate().getForObject(getURIService(ConstantesService.Tarefa.URL_CONSULTAR_POR_ITEM_BACKLOG), Tarefa[].class, itemBacklogID));
 	}
 	
 	public Tarefa consultarTarefa(Integer tarefaID) {
