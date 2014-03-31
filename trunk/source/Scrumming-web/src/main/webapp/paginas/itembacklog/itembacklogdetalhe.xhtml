@@ -5,7 +5,6 @@
 	template="/paginas/template/template.xhtml">
 
 	<ui:define name="conteudo">
-	<h:outputText value="#{itemBacklogDetalheMB.projetoSelecionado.nome}"></h:outputText>
 		<h:panelGroup class="col-md-9">
 			<p:panel header="#{itemBacklogDetalheMB.itemSelecionado.nome}"
 				footer="#{itemBacklogDetalheMB.itemSelecionado.criterioAceitacao}">
@@ -13,7 +12,7 @@
 					value="#{itemBacklogDetalheMB.itemSelecionado.descricao}" />
 			</p:panel>
 
-			<p:dataGrid var="tarefa" value="#{tarefaBean.tarefasDoItem}"
+			<p:dataGrid var="tarefa" value="#{itemBacklogDetalheMB.itemSelecionado.tarefas}"
 				columns="1" style="width:100%;">
 				<p:panel header="#{tarefa.nome}" toggleable="true" toggleSpeed="500"
 					widgetVar="panel">
@@ -35,7 +34,7 @@
 		</h:panelGroup>
 
 		<h:panelGroup class="col-md-3">
-		  <p:commandLink id="salvaButton" oncomplete="dlgTarefaSave.show()" process="@this">
+		  <p:commandLink oncomplete="dlgTarefaSave.show()" process="@this">
 				<i class="fa fa-plus" style="margin:0 auto;" />
 				<h:outputText value="Nova tarefa" />
 				<f:setPropertyActionListener value="#{itemBacklogDetalheMB.itemSelecionado}" target="#{tarefaBean.tarefa.itemBacklog}"/>
