@@ -17,7 +17,7 @@
 			<div class="form-group">
 				<p:outputLabel value="#{mensagens.label_nome_usuario}" styleClass="col-md-4 control-label" for="txtNome"/>
 				<div class="col-md-6">
-					<p:inputText id="txtNome" placeholder="#{mesagens.label_digite_nome_usuario}" styleClass="form-control input-md" value="#{cadastroUsuarioBean.usuario.nome}"/>
+					<p:inputText id="txtNome" placeholder="#{mesagens.label_digite_nome_usuario}" styleClass="form-control input-md" value="#{cadastroUsuarioBean.usuarioSelecionado.nome}"/>
 				</div>
 			</div>
 			<br/>
@@ -26,7 +26,7 @@
 			<div class="form-group">
 				<p:outputLabel value="#{mensagens.label_email}" styleClass="col-md-4 control-label" for="txtEmail"/>
 				<div class="col-md-6">
-					<p:inputText id="txtEmail" placeholder="#{mesagens.label_digite_email_usuario}" styleClass="form-control input-md" value="#{cadastroUsuarioBean.usuario.email}"/>
+					<p:inputText id="txtEmail" placeholder="#{mesagens.label_digite_email_usuario}" styleClass="form-control input-md" value="#{cadastroUsuarioBean.usuarioSelecionado.email}"/>
 				</div>
 			</div>
 			<br/>
@@ -34,7 +34,7 @@
 			<div class="form-group">
 				<p:outputLabel value="#{mensagens.label_login}" styleClass="col-md-4 control-label" for="txtLogin"/>
 				<div class="col-md-6">
-					<p:inputText id="txtLogin" placeholder="#{mesagens.label_digite_login_usuario}" styleClass="form-control input-md" value="#{cadastroUsuarioBean.usuario.login}"/>
+					<p:inputText id="txtLogin" placeholder="#{mesagens.label_digite_login_usuario}" styleClass="form-control input-md" value="#{cadastroUsuarioBean.usuarioSelecionado.login}" />
 				</div>
 			</div>
 			<br/>
@@ -42,7 +42,7 @@
 			<div class="form-group">
 				<p:outputLabel value="#{mensagens.label_senha}" styleClass="col-md-4 control-label" for="txtSenha"/>
 				<div class="col-md-6">
-					<p:password id="txtSenha" placeholder="#{mesagens.label_digite_senha_usuario}" styleClass="form-control input-md" value="#{cadastroUsuarioBean.usuario.senha}"/>
+					<p:password id="txtSenha" placeholder="#{mesagens.label_digite_senha_usuario}" styleClass="form-control input-md" value="#{cadastroUsuarioBean.usuarioSelecionado.senha}" redisplay="true" />
 				</div>
 			</div>
 		 </fieldset>
@@ -53,10 +53,10 @@
 			<div align="center">
 				<p:commandButton value="#{mensagens.label_salvar}"
 					action="#{cadastroUsuarioBean.novo}" update="@form"
-					oncomplete="novoUsuarioModal.hide()" />
+					oncomplete="novoUsuarioModal.hide()" ajax="false"/>
 				<span />
 				<p:commandButton value="#{mensagens.botao_cancelar}"
-					onclick="novoUsuarioModal.hide()" >
+					onclick="novoUsuarioModal.hide()" />
 			</div>
 		</f:facet>
 	</p:dialog>

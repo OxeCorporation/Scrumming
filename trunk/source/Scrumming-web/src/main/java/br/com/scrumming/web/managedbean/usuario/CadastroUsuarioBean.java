@@ -25,9 +25,9 @@ public class CadastroUsuarioBean extends AbstractBean {
     private ListaDataModel<Usuario> dataModelUsuario;
     private UsuarioEmpresaClientService empresaService;
     private UsuarioClientService usuarioClientService;
-    private Usuario usuario = new Usuario();
     @ManagedProperty(value="#{sessaoMB.empresaSelecionada}")
     private Empresa empresa;
+    private boolean editavel = true;
 
     public String pesquisarPorNome(){
     	return "";
@@ -50,21 +50,23 @@ public class CadastroUsuarioBean extends AbstractBean {
     }
     
     public String novo() {
-    	usuarioClientService.salvarUsuario(usuario, empresa.getCodigo());
+    	usuarioClientService.salvarUsuario(usuarioSelecionado, empresa.getCodigo());
     	atualizarLista();
-    	usuario = new Usuario();
+    	usuarioSelecionado = new Usuario();
     	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
         return "";
     }
 
-    public String detalhar() {
-        return "";
-
+    public String cadastrar(){
+    	usuarioSelecionado = new Usuario();
+    	return "";
     }
-
+    
     public String alterar() {
+    	if(usuarioSelecionado == null){
+    	 // TODO esc exibir uma mensagem de usuario deve ser selecionado
+    	}
         return "";
-
     }
 
     public String excluir() {
@@ -86,7 +88,7 @@ public class CadastroUsuarioBean extends AbstractBean {
     }
 
     public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
-        this.usuarioSelecionado = usuarioSelecionado;
+    		this.usuarioSelecionado = usuarioSelecionado;
     }
 
     public Empresa getEmpresa() {
@@ -105,11 +107,11 @@ public class CadastroUsuarioBean extends AbstractBean {
 		this.dataModelUsuario = dataModelUsuario;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public boolean isEditavel() {
+		return editavel;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setEditavel(boolean editavel) {
+		this.editavel = editavel;
 	}
 }
