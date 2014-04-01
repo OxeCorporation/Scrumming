@@ -1,6 +1,5 @@
 package br.com.scrumming.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,14 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.NotBlank;
-
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -74,7 +70,7 @@ public class ItemBacklog extends ObjetoPersistente<Integer> {
     
     @OneToMany(mappedBy="itemBacklog")
     @JsonManagedReference
-    private List<Tarefa> tarefas = new ArrayList<>();
+    private List<Tarefa> tarefas;
 
 	/* getters and setters */
     @Override

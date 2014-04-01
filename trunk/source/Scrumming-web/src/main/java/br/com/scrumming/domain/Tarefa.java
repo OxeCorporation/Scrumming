@@ -33,9 +33,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @Table(name = "Tarefa")
 public class Tarefa extends ObjetoPersistente<Integer> {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
