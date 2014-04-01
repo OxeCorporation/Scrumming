@@ -348,6 +348,23 @@ NOW(),
 1,
 1);
 
+INSERT INTO `scrumming`.`usuario`
+(`nome`,
+`email`,
+`login`,
+`senha`,
+`data_cadastro`,
+`is_ativo`,
+`is_empresa`)
+VALUES
+('Funcionário Teste',
+'funcionario@gmail.com',
+'func',
+'func',
+NOW(),
+1,
+0);
+
 INSERT INTO `scrumming`.`empresa`
 (`nome`,
 `data_cadastro`,
@@ -365,6 +382,17 @@ INSERT INTO `scrumming`.`usuarioEmpresa`
 VALUES
 (1,
 1,
+1,
+1);
+
+INSERT INTO `scrumming`.`usuarioEmpresa`
+(`FK_empresa`,
+`FK_usuario`,
+`is_usuarioEmpresa`,
+`is_ativo`)
+VALUES
+(1,
+2,
 1,
 1);
 
@@ -452,6 +480,41 @@ insert
 	values
 		(2, 3, true);
 
+INSERT
+	INTO `scrumming`.`tarefa`
+		(`FK_itemBacklog`, `FK_usuario`, `nome`, `descricao`, `situacao_tarefa`, `tempo_estimado`) 
+	VALUES 
+		('1', '1', 'teste01', 'teste01', '0', '1');
+
+INSERT
+	INTO `scrumming`.`tarefa`
+		(`FK_itemBacklog`, `FK_usuario`, `nome`, `descricao`, `situacao_tarefa`, `tempo_estimado`) 
+	VALUES 
+		('1', '1', 'teste02', 'teste02', '0', '1');
+
+INSERT
+	INTO `scrumming`.`tarefa`
+		(`FK_itemBacklog`, `FK_usuario`, `nome`, `descricao`, `situacao_tarefa`, `tempo_estimado`) 
+	VALUES 
+		('1', '1', 'teste03', 'teste03', '0', '1');
+
+INSERT
+	INTO `scrumming`.`tarefa`
+		(`FK_itemBacklog`, `FK_usuario`, `nome`, `descricao`, `situacao_tarefa`, `tempo_estimado`) 
+	VALUES 
+		('2', '1', 'teste04', 'teste04', '0', '1');
+
+INSERT
+	INTO `scrumming`.`tarefa`
+		(`FK_itemBacklog`, `FK_usuario`, `nome`, `descricao`, `situacao_tarefa`, `tempo_estimado`) 
+	VALUES 
+		('2', '1', 'teste05', 'teste05', '0', '1');
+
+
+-- *******************************************************************************
+--                                Consultas
+-- *******************************************************************************
+
 select * from Projeto;
 select * from Sprint;
 select * from itembacklog;
@@ -459,43 +522,8 @@ select * from usuarioempresa;
 select * from timeprojeto;
 select * from sprintBacklog;
 select * from tarefa;
-
-select * from `itembacklog` as ib
-	inner join `sprintbacklog` as sp
-	on ib.PK_backlog = sp.FK_backlog
-	and sp.FK_sprint = 1
-	and sp.is_ativo = true;
-
-
--- *******************************************************************************
---            Criação das VIEWs para retornar consultas personalizadas.
--- *******************************************************************************
-
--- Consulta para trazer uma lista de ItensBacklog que foram cadastradas em alguma
--- SprintBacklog.
-
-CREATE OR REPLACE VIEW `VIEW_sprintBacklog` AS
-select 
-ib.PK_backlog,
-ib.FK_projeto,
-sp.FK_sprint,
-ib.nome,
-ib.descricao,
-ib.criterio_aceitacao,
-ib.prioridade,
-ib.story_points,
-ib.valor_negocio,
-ib.roi,
-ib.is_ativo as ativo,
-ib.situacao_backlog
-from itembacklog as ib
-inner join sprintbacklog as sp
-on ib.PK_backlog = sp.FK_backlog
-and sp.is_ativo = true;
-
-select * from `view_sprintBacklog`
-where FK_sprint = 2
-and FK_projeto = 1;
+select * from usuario;
+select * from empresa;
 
 -- *******************************************************************************
 --                               FIM DO SCRIPT
