@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.scrumming.core.manager.interfaces.ISprintBacklogManager;
 import br.com.scrumming.core.manager.interfaces.ISprintManager;
-import br.com.scrumming.domain.ItemsTasksDTO;
+import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
 
@@ -21,6 +22,9 @@ public class SprintService {
 
     @Autowired
     private ISprintManager sprintManager;
+    
+    @Autowired
+    private ISprintBacklogManager sprintBacklogManager;
     
     /*POSTS*/
     @RequestMapping(method = RequestMethod.POST, value = "/save")
@@ -44,11 +48,9 @@ public class SprintService {
     	return sprintManager.consultarSprintDTO(sprintID);
     }
     
-    
-    
-    @RequestMapping(method = RequestMethod.GET, value = "/itemsTarefas")
-    public List<ItemsTasksDTO> consultarItemsAndTasksDTO(Integer sprintID) {
-    	return sprintManager.consultarItemsAndTasksDTO(sprintID);
+    @RequestMapping(method = RequestMethod.GET, value = "/sprintBacklog/list/{sprintID}")
+    public List<ItemBacklog> consultarSprintBacklog(@PathVariable Integer sprintID) {
+    	return sprintBacklogManager.consultarSprintBacklog(sprintID);
     }
 
     /* getters and setters */

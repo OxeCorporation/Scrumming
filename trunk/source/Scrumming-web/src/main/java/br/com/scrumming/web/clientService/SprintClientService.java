@@ -4,8 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 
-import br.com.scrumming.domain.ItemsTasksDTO;
+import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
 import br.com.scrumming.web.infra.AbstractClientService;
@@ -31,6 +32,12 @@ public class SprintClientService extends AbstractClientService {
 		return Arrays.asList(getRestTemplate().getForObject(getURIService(ConstantesService.Sprint.URL_CONSULTAR_POR_PROJETO), Sprint[].class, projetoID));
 	}
 	
+	public List<ItemBacklog> consultarSprintBacklog(Integer sprintID) {
+		
+		ResponseEntity<ItemBacklog[]> forEntity = getRestTemplate().getForEntity(getURIService(ConstantesService.Sprint.URL_CONSULTAR_SPRINT_BACKLOG), ItemBacklog[].class, sprintID);
+		return Arrays.asList(forEntity.getBody());
+	}
+	
 	/**
 	 * Consulta para objer e exibir os dados da tela de cadastro da Sprint.
 	 * @param sprintID Chave da Sprint.
@@ -38,15 +45,6 @@ public class SprintClientService extends AbstractClientService {
 	 */
 	public SprintDTO consultarSprintDTO(Integer sprintID) {
 		return getRestTemplate().getForObject(ConstantesService.Sprint.URL_CONSULTAR_SPRINT_DTO, SprintDTO.class, sprintID);
-	}
-
-	/**
-	 * Consulta a lista dos itens e tarefas associadas à uma sprint.
-	 * @param sprintID
-	 * @return
-	 */
-	public List<ItemsTasksDTO> consultarItemsAndTasksDTO(Integer sprintID) {
-		return Arrays.asList(getRestTemplate().getForObject(ConstantesService.Sprint.URL_CONSULTAR_ITEMS_TAREFAS, ItemsTasksDTO[].class, sprintID));
 	}
 	
 	/**

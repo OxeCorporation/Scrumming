@@ -59,16 +59,6 @@ public class SprintMB extends AbstractBean {
 	}
 	
 	/**
-	 * Consulta a lista dos items da sprint e suas tarefas.
-	 * @param sprintID
-	 * @return
-	 */
-	public String consultarItemTarefas(Integer sprintID) {
-		sprintClientService.consultarItemsAndTasksDTO(sprintID);
-		return "";
-	}
-	
-	/**
 	 * Fecha uma Sprint.
 	 * @param sprintID
 	 * @return
