@@ -56,13 +56,13 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 		List<ItemBacklog> itemsDaSprint = new ArrayList<>();
 		itemsDaSprint = consultarItensAtivosBacklogPorSprint(sprintID);
 
-		/*if (itemsDaSprint.size() > 0) {
+		if (itemsDaSprint.size() > 0) {
 			// Para cada item
 			for (ItemBacklog itemBacklog : itemsDaSprint) {
 				// Seta a lista de tarefas desse item.
-				itemBacklog.setTarefas(tarefaManager.consultarPorItemBacklog(itemBacklog.getChave()));
+				itemBacklog.setTarefas(tarefaManager.consultarPorItemBacklog(itemBacklog.getCodigo()));
 			}
-		}*/
+		}
 		return itemsDaSprint;
 	}
 	/*

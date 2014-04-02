@@ -26,8 +26,7 @@ public class SprintMB extends AbstractBean {
 	private Projeto projetoSelecionado;
 	@FlashScoped
 	private Sprint sprintSelecionada;
-
-
+	
 	@Override
 	public void inicializar() {
 		sprintClientService = new SprintClientService();

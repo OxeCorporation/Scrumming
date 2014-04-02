@@ -16,8 +16,9 @@ public class TarefaRepositorio extends AbstractRepositorio<Tarefa, Integer>{
 	@SuppressWarnings("unchecked")
     public List<Tarefa> consultarPorItemBacklog(Integer itemBacklogID) {
         Criteria criteria = createCriteria();
-        criteria.createAlias("ItemBacklog", "ItemBacklog");
+        criteria.createAlias("itemBacklog", "itemBacklog");
         criteria.add(Restrictions.eq("itemBacklog.codigo", itemBacklogID));
+        criteria.add(Restrictions.eq("isAtivo", true));
         return Collections.checkedList(criteria.list(), Tarefa.class);
     }
 	

@@ -61,6 +61,9 @@ public class Tarefa extends ObjetoPersistente<Integer> {
 	@NotNull
     private SituacaoTarefaEnum situacao;
 	
+	@Column(name = "is_ativo", columnDefinition = "bit")
+    private boolean isAtivo;
+	
 	@Column(name = "tempo_estimado", columnDefinition = "Integer", length = 11)
 	@NotNull
     private Integer tempoEstimado;
@@ -174,4 +177,12 @@ public class Tarefa extends ObjetoPersistente<Integer> {
         }
         return isEquals;
     }
+
+	public boolean isAtivo() {
+		return isAtivo;
+	}
+
+	public void setAtivo(boolean isAtivo) {
+		this.isAtivo = isAtivo;
+	}
 }
