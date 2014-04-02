@@ -80,6 +80,10 @@ public class SprintMB extends AbstractBean {
 		return redirecionar(PaginasUtil.ItemBacklog.ITEM_BACKLOG_PAGE);
 	}
 	
+	public String projetoPage() {
+		return redirecionar(PaginasUtil.Projeto.PROJETO_PAGE);
+	}
+	
 	/*Getters and Setters*/
 	
 	public Sprint getSprint() {

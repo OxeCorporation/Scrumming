@@ -9,10 +9,17 @@
 		<div style="width: 80%; float: left">
 			<h:panelGroup var="sprint"
 				value="#{sprintDetalheMB.sprintSelecionada}">
-				<h3>
-					<h:outputText value="#{sprintDetalheMB.sprintSelecionada.nome}" />
-				</h3>
-				<br />
+				<h:commandLink immediate="true" action="#{sprintDetalheMB.sprintDetalhePage}">
+					<h:outputText value="#{sprintDetalheMB.sprintSelecionada.nome}"
+						style="color: #428BCA; 
+					text-decoration: none; 
+					background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+					font-family: Arial;
+				    font-size: 16px;
+				    line-height: 1.42857;
+				    font-weight: bold;" />
+				</h:commandLink>
+				<BR />
 				<h:outputLabel value="#{mensagens.label_dataINI}" />
 				<h:outputText
 					value="#{sprintDetalheMB.sprintSelecionada.dataInicio}" />
@@ -32,45 +39,57 @@
 						style="width:100%">
 						<p:panel styleClass="col-md-12 column">
 							<f:facet name="header">
-								<p:commandLink action="#{sprintDetalheMB.itembacklogDetalhePage}"
+								<p:commandLink
+									action="#{sprintDetalheMB.itembacklogDetalhePage}"
 									immediate="true">
 									<h:outputText value="#{item.nome}"
-										style="color:blue; text-decoration:underline" />
+										style="color: #428BCA; 
+									text-decoration: none; 
+									background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+									font-family: Arial;
+								    font-size: 14px;
+								    line-height: 1.42857;
+								    font-weight: bold;" />
 									<f:setPropertyActionListener value="#{item}"
 										target="#{sprintDetalheMB.itemSelecionado}" />
 								</p:commandLink>
 								<br />
-								<h:outputLabel value="#{mensagens.label_descricao_item_backlog}" />
-								<h:outputText value="#{item.descricao}" />
+								<h:outputText value="#{item.descricao}"
+									style="font-family: Arial;
+								    font-size: 14px;
+								    line-height: 1.42857;
+								    font-weight: normal;" />
 								<!-- BOTAO CADASTRAR NOVA TAREFA -->
 								<p:commandLink title="Nova tarefa"
 									onclick="dlgTarefaSave.show()">
 									<h:outputText styleClass="fa fa-plus"
-										style="margin:0 auto; float: right;" />
-									<f:setPropertyActionListener value="#{item}" target="#{tarefaBean.tarefa.itemBacklog}"/>
+										style="margin:0 auto; float: right; color: #428BCA;" />
+									<f:setPropertyActionListener value="#{item}"
+										target="#{tarefaBean.tarefa.itemBacklog}" />
 								</p:commandLink>
 							</f:facet>
 							<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />
 						</p:panel>
 						<h:panelGroup class="col-md-3 column"></h:panelGroup>
-						<p:dataGrid var="tarefa" value="#{item.tarefas}"
-							columns="1" style="width:100%">
+						<p:dataGrid var="tarefa" value="#{item.tarefas}" columns="1"
+							style="width:100%">
 							<p:panel styleClass="col-md-12 column">
-								<p:panel>
+								<p:panel style="height: 65px">
 									<h:outputText value="#{tarefa.nome}" />
 									<!-- BOTAO ALTERAR TAREFA -->
 									<p:commandLink title="Alterar Tarefa"
 										onclick="dlgTarefaSave.show()">
 										<h:outputText styleClass="fa fa-pencil-square-o"
-											style="margin:0 auto; float:right" />
+											style="margin:0 auto; float:right; color: #428BCA;" />
 										<f:setPropertyActionListener value="#{tarefa}"
 											target="#{tarefaBean.tarefa}" />
 									</p:commandLink>
+									<br />
 									<!-- BOTAO EXCLUIR TAREFA -->
 									<p:commandLink title="Remover tarefa"
 										action="#{tarefaBean.removerTarefa}">
 										<h:outputText styleClass="fa fa-trash-o"
-											style="margin:0 auto; float:right" />
+											style="margin:0 auto; float:right; color: #428BCA;" />
 									</p:commandLink>
 								</p:panel>
 							</p:panel>
@@ -96,10 +115,7 @@
 				</p:tab>
 			</p:tabView>
 		</div>
-		<div style="width: 3%; float: left;">
-			<h:outputText style="color:#FFFFFF" value="."></h:outputText>
-		</div>
-		<div style="width: 17%; float: left;">
+		<div style="width: 16%; float: right; position: fixed; left: 83%;">
 			<h:outputText value="Exibir o time do projeto nessa coluna." />
 		</div>
 	</ui:define>

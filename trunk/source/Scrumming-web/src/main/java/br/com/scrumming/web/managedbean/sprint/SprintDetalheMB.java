@@ -48,6 +48,10 @@ public class SprintDetalheMB extends AbstractBean {
 	public String sprintPage() {
 		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
 	}
+	
+	public String sprintDetalhePage() {
+		return redirecionar(PaginasUtil.Sprint.SPRINT_DETAIL_PAGE);
+	}
 
 	/* Getters anda Setters */
 	public Sprint getSprintSelecionada() {
