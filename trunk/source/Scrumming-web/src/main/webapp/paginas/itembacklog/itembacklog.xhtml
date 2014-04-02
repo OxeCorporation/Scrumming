@@ -7,15 +7,21 @@
 
 	<!-- CORPO DA TELA DE LISTAGEM DOS ITENS DE BACKLOG -->
 	<ui:define name="conteudo">
-		<div style="width: 80%; float: left">			
-				<h:outputText style="color:white" value="#{itemBacklogMB.projetoSelecionado.nome}" />		
+		<div style="width: 80%; float: left">
+			<h2>
+				<h:outputText value="#{itemBacklogMB.projetoSelecionado.nome}" />
+			</h2>
+			<h:outputLabel value="#{mensagens.label_dataINI}" />
+			<h:outputText value="#{itemBacklogMB.projetoSelecionado.dataInicio}" />
+			<BR /> <BR />
 			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA OS ITENS DE BACKLOG -->
 			<p:dataGrid var="item" value="#{itemBacklogMB.itens}" columns="1"
 				style="width:100%">
 				<p:panel styleClass="col-md-12 column">
 					<p:panel>
 						<f:facet name="header">
-							<p:commandLink action="#{itemBacklogMB.itembacklogDetalhePage}" immediate="true">
+							<p:commandLink action="#{itemBacklogMB.itembacklogDetalhePage}"
+								immediate="true">
 								<h:outputText value="#{item.nome}"
 									style="color:blue; text-decoration:underline" />
 								<f:setPropertyActionListener value="#{item}"
@@ -29,19 +35,20 @@
 							<!-- BOTAO ALTERAR ITEMBACKLOG -->
 							<p:commandLink title="Alterar Item" onclick="dlgItemSave.show()">
 								<h:outputText styleClass="fa fa-pencil-square-o"
-											  style="margin:0 auto; float:right" />
+									style="margin:0 auto; float:right" />
 								<f:setPropertyActionListener value="#{item}"
-															 target="#{itemBacklogMB.itemSelecionado}" />
+									target="#{itemBacklogMB.itemSelecionado}" />
 							</p:commandLink>
 							<br />
 							<h:outputLabel value="#{mensagens.label_criterio_aceitacao}" />
 							<h:outputText value="#{item.criterioAceitacao}" />
 							<!-- BOTAO CANCELAR ITEMBACKLOG -->
-							<p:commandLink title="Cancelar Item" action="#{itemBacklogMB.cancelarItemBacklog}">
+							<p:commandLink title="Cancelar Item"
+								action="#{itemBacklogMB.cancelarItemBacklog}">
 								<h:outputText styleClass="fa fa-lock"
-											  style="margin:0 auto; float:right" />
+									style="margin:0 auto; float:right" />
 								<f:setPropertyActionListener value="#{item}"
-															 target="#{itemBacklogMB.itemSelecionado}" />
+									target="#{itemBacklogMB.itemSelecionado}" />
 							</p:commandLink>
 						</h:panelGroup>
 					</p:panel>
@@ -53,19 +60,21 @@
 			<h:outputText style="color:#FFFFFF" value="."></h:outputText>
 		</div>
 		<div style="width: 17%; float: left;">
-		  <p:commandLink id="salvaButton" oncomplete="dlgItemSave.show()" process="@this">
-				<i class="fa fa-plus" style="margin:0 auto;" />
+			<p:commandLink id="salvaButton" oncomplete="dlgItemSave.show()"
+				process="@this">
+				<i class="fa fa-plus" style="margin: 0 auto;" />
 				<h:outputText value="Novo Item Backlog" />
-				<f:setPropertyActionListener value="#{itemBacklogMB.itemBacklog}" 
-											 target="#{ItemBacklogCadastroMB.itemBacklog}"/>
+				<f:setPropertyActionListener value="#{itemBacklogMB.itemBacklog}"
+					target="#{ItemBacklogCadastroMB.itemBacklog}" />
 			</p:commandLink>
 			<ui:include src="/paginas/itembacklog/itembacklogcadastro.xhtml" />
 		</div>
 
-		
+
 	</ui:define>
 	<ui:define name="menu_lateral">
-		<li><h:commandLink immediate="true" action="#{itemBacklogMB.sprintPage}">
+		<li><h:commandLink immediate="true"
+				action="#{itemBacklogMB.sprintPage}">
 				<i class="fa fa-bar-chart-o" />
 				<h:outputText value="#{mensagens.label_sprint}" />
 			</h:commandLink></li>

@@ -8,8 +8,13 @@
 	<!-- CORPO DA TELA DE LISTAGEM DAS SPRINTS -->
 	<ui:define name="conteudo">
 		<div style="width: 80%; float: left">
-			<h:outputText style="color: white"
-				value="#{sprintMB.projetoSelecionado.nome}" />
+			<h2>
+				<h:outputText value="#{sprintMB.projetoSelecionado.nome}" />
+			</h2>
+			<h:outputLabel value="#{mensagens.label_dataINI}" />
+			<h:outputText value="#{sprintMB.projetoSelecionado.dataInicio}" />
+			<BR />
+			<BR />
 			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA AS SPRINTS -->
 			<p:dataGrid var="sprint" value="#{sprintMB.sprintsDoProjeto}"
 				columns="1" style="width:100%;">
@@ -50,10 +55,10 @@
 				</p:panel>
 			</p:dataGrid>
 		</div>
-		<div style="width: 3%; float: left;">
+		<div style="width: 3%; float: left; position: relative;">
 			<h:outputText style="color:#FFFFFF" value="."></h:outputText>
 		</div>
-		<div style="width: 17%; float: left;">
+		<div style="width: 17%; float: right; position: fixed; left: 85%">
 			<p:commandLink title="Nova sprint"
 				action="#{sprintMB.sprintCadastroPage}">
 				<h:outputText styleClass="fa fa-plus" style="margin:0 auto;" />
