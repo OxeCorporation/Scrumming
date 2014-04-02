@@ -5,30 +5,36 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:p="http://primefaces.org/ui">
     	
-	<p:dialog showEffect="fade" hideEffect="explode" id="dlgItemSave" header="ItemBacklog" modal="true" var="exec" resizable="false" widgetVar="dlgItemSave" >
+	<p:dialog showEffect="fade" hideEffect="explode" id="dlgItemSave" modal="true" var="exec" resizable="false" widgetVar="dlgItemSave" >
 		<h:outputStylesheet library="css" name="scrumming.css" />
-		<p:panel header="#{itemBacklogCadastroMB.projetoSelecionado.nome}" >
+		<f:facet name="header">
+			<h:outputText styleClass="label-page-title" value="ItemBacklog" />
+		</f:facet>
+		<p:panel>
+			<f:facet name="header">
+				<h:outputText styleClass="label-grid-header" value="#{itemBacklogCadastroMB.projetoSelecionado.nome}" />
+			</f:facet>
 			<h:panelGrid columns="1"  >
-				<h:outputText value="Titulo" /> 
-				<p:inputText id="nome" required="true" size="100" 	
+				<h:outputLabel styleClass="label-default" value="Titulo" /> 
+				<p:inputText styleClass="output-default" id="nome" required="true" size="100" 	
 							 value="#{itemBacklogCadastroMB.itemBacklog.nome}" 
 							 requiredMessage="Preencha o resumo" 
 							 disabled="#{itemBacklogCadastroMB.itemBacklog.nome} != null}" />
-				
-				<h:outputText value="Descricao" /> 
+				<br/>
+				<h:outputLabel styleClass="label-default" value="Descricao" /> 
 				<p:inputTextarea id="descricao" required="false" rows="3" cols="100" 
 								 value="#{itemBacklogCadastroMB.itemBacklog.descricao}" />
-				
-				<h:outputText value="Criterio de Aceitacao" /> 
-				<p:inputTextarea id="criterioAceitacao" required="false" rows="3" cols="100" 
+				<br/>
+				<h:outputLabel styleClass="label-default" value="Criterio de Aceitacao" /> 
+				<p:inputTextarea styleClass="output-default" id="criterioAceitacao" required="false" rows="3" cols="100" 
 								 value="#{itemBacklogCadastroMB.itemBacklog.criterioAceitacao}" />
-				
+				<br/>
 				<h:outputText id="outValorNegocio" value="Valor de Negocio #{itemBacklogCadastroMB.number}" style="color:black" />
 				<h:inputHidden id="txtValorNegocio" value="#{itemBacklogCadastroMB.number}" style="color:black; width:100%"/>
 				<p:slider for="txtValorNegocio" display="outValorNegocio" 
 						  style="width:200px; color:black; width:100%" 
 						  displayTemplate="Valor de Negocio {value}" step="5" />
-				
+				<br/>
 				<h:outputText id="outStoryPoint" value="Story Points #{itemBacklogCadastroMB.number}" style="float:left; color:black" />
 				<h:inputHidden id="txtStoryPoint" value="#{itemBacklogCadastroMB.number}" style="float:left; color:black; width:100%"/>
 				<p:slider for="txtStoryPoint" display="outStoryPoint" 

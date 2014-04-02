@@ -25,7 +25,7 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	@FlashScoped
 	private Projeto projetoSelecionado;
 
-	/* MÃ©todos para redirecionamento das pÃ¡ginas */
+	/* Métodos para redirecionamento das páginas */
 	public String itemBacklogCadastroPage() {
 		return redirecionar(PaginasUtil.ItemBacklog.CADASTRAR_ITEM_BACKLOG);
 	}
@@ -33,12 +33,16 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	public String itemBacklogPage() {
 		return redirecionar(PaginasUtil.ItemBacklog.ITEM_BACKLOG_PAGE);
 	}
+	
+	public String itemBacklogDetalhePage() {
+		return redirecionar(PaginasUtil.ItemBacklog.ITEM_BACKLOG_DETAIL_PAGE);
+	}
 
 	public String sprintPage() {
 		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
 	}
 
-	/* FunÃ§Ãµes especÃ­ficas da tela */
+	/* Funções específicas da tela */
 	public String salvarItemBacklog() {
 		clienteService.salvarItemBacklog(itemBacklog);
 		return "";
