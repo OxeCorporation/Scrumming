@@ -83,8 +83,18 @@
     margin-left: 5px;
 }
 
+/*
+* Ícone da barra lateral direita.
+*/
 .right-sidebar-icon {
 	margin:5px;
+}
+
+/*
+* Ícone da barra lateral esquerda.
+*/
+.left-sidebar-icon {
+	margin:2px;
 }
 
 .inside-grid-icon {

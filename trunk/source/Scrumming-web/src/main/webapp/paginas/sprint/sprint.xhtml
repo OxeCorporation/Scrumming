@@ -56,14 +56,14 @@
 		<div style="width: 16%; float: right; position: fixed; left: 83%;">
 			<p:commandLink title="Nova sprint"
 				action="#{sprintMB.sprintCadastroPage}">
-				<h:outputText styleClass="fa fa-plus right-sidebar-icon" />
+				<i class="fa fa-plus right-sidebar-icon" />
 				<h:outputText value="Nova sprint" />
 			</p:commandLink>
 		</div>
 	</ui:define>
 	<ui:define name="menu_lateral">
 		<li><h:commandLink action="#{sprintMB.itemBacklogPage}">
-				<i class="fa fa-list" />
+				<i class="fa fa-list left-sidebar-icon" />
 				<h:outputText value="#{mensagens.label_backlog}" />
 			</h:commandLink></li>
 	</ui:define>

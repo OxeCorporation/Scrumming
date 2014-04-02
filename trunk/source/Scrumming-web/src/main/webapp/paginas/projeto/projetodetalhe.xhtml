@@ -4,9 +4,9 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
 	template="/paginas/template/template.xhtml">
-
 	<!-- CORPO DA TELA DA SPRINTS -->
 	<ui:define name="conteudo">
+		<h:outputStylesheet library="css" name="scrumming.css" />
 		<p:tabView id="tabView">
 			<p:tab id="tab1" title="Detalhes do Projeto">
 				<h:panelGrid columns="2" cellpadding="10">
@@ -21,11 +21,12 @@
 	</ui:define>
 	<ui:define name="menu_lateral">
 		<li><h:commandLink action="#{projetoDetalheMB.itemBacklogPage}">
-				<i class="fa fa-list" />
+				<i class="fa fa-list left-sidebar-icon" />
 				<h:outputText value="#{mensagens.label_backlog}" />
 			</h:commandLink></li>
-		<li><h:commandLink action="#{projetoDetalheMB.sprintPage}">
-				<i class="fa fa-bar-chart-o" />
+		<li><h:commandLink immediate="true"
+				action="#{projetoDetalheMB.sprintPage}">
+				<i class="fa fa-bar-chart-o left-sidebar-icon" />
 				<h:outputText value="#{mensagens.label_sprint}" />
 			</h:commandLink></li>
 	</ui:define>

@@ -7,12 +7,14 @@
 
 	<!-- CORPO DA TELA DE LISTAGEM DOS ITENS DE BACKLOG -->
 	<ui:define name="conteudo">
+		<h:outputStylesheet library="css" name="scrumming.css" />
 		<div style="width: 80%; float: left">
-			<h2>
-				<h:outputText value="#{itemBacklogMB.projetoSelecionado.nome}" />
-			</h2>
-			<h:outputLabel value="#{mensagens.label_dataINI}" />
-			<h:outputText value="#{itemBacklogMB.projetoSelecionado.dataInicio}" />
+			<h:commandLink immediate="true" action="#{itemBacklogMB.projetoPage}">
+				<h:outputText styleClass="label-page-title" value="#{itemBacklogMB.projetoSelecionado.nome}" />
+			</h:commandLink>
+			<BR />
+			<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataINI}" />
+			<h:outputText styleClass="output-small" value="#{itemBacklogMB.projetoSelecionado.dataInicio}" />
 			<BR /> <BR />
 			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA OS ITENS DE BACKLOG -->
 			<p:dataGrid var="item" value="#{itemBacklogMB.itens}" columns="1"
@@ -22,31 +24,28 @@
 						<f:facet name="header">
 							<p:commandLink action="#{itemBacklogMB.itembacklogDetalhePage}"
 								immediate="true">
-								<h:outputText value="#{item.nome}"
-									style="color:blue; text-decoration:underline" />
+								<h:outputText value="#{item.nome}" styleClass="label-grid-header" />
 								<f:setPropertyActionListener value="#{item}"
 									target="#{itemBacklogMB.itemSelecionado}" />
 							</p:commandLink>
 						</f:facet>
 						<h:panelGroup columns="1" style="width:100%">
 							<!-- FAZER O AJUSTE PARA ORGANIZAR O LAYOUT -->
-							<h:outputLabel value="#{mensagens.label_descricao_item_backlog}" />
-							<h:outputText value="#{item.descricao}" />
+							<h:outputLabel styleClass="label-default" value="#{mensagens.label_descricao_item_backlog}" />
+							<h:outputText styleClass="output-default" value="#{item.descricao}" />
 							<!-- BOTAO ALTERAR ITEMBACKLOG -->
 							<p:commandLink title="Alterar Item" onclick="dlgItemSave.show()">
-								<h:outputText styleClass="fa fa-pencil-square-o"
-									style="margin:0 auto; float:right" />
+								<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
 								<f:setPropertyActionListener value="#{item}"
 									target="#{itemBacklogMB.itemSelecionado}" />
 							</p:commandLink>
 							<br />
-							<h:outputLabel value="#{mensagens.label_criterio_aceitacao}" />
-							<h:outputText value="#{item.criterioAceitacao}" />
+							<h:outputLabel styleClass="label-default" value="#{mensagens.label_criterio_aceitacao}" />
+							<h:outputText styleClass="output-default" value="#{item.criterioAceitacao}" />
 							<!-- BOTAO CANCELAR ITEMBACKLOG -->
 							<p:commandLink title="Cancelar Item"
 								action="#{itemBacklogMB.cancelarItemBacklog}">
-								<h:outputText styleClass="fa fa-lock"
-									style="margin:0 auto; float:right" />
+								<h:outputText styleClass="fa fa-lock  inside-grid-icon" />
 								<f:setPropertyActionListener value="#{item}"
 									target="#{itemBacklogMB.itemSelecionado}" />
 							</p:commandLink>
@@ -56,13 +55,10 @@
 				<h:panelGroup class="col-md-3 column"></h:panelGroup>
 			</p:dataGrid>
 		</div>
-		<div style="width: 3%; float: left;">
-			<h:outputText style="color:#FFFFFF" value="."></h:outputText>
-		</div>
-		<div style="width: 17%; float: left;">
+	<div style="width: 16%; float: right; position: fixed; left: 83%;">
 			<p:commandLink id="salvaButton" oncomplete="dlgItemSave.show()"
 				process="@this">
-				<i class="fa fa-plus" style="margin: 0 auto;" />
+				<i class="fa fa-plus  right-sidebar-icon" />
 				<h:outputText value="Novo Item Backlog" />
 				<f:setPropertyActionListener value="#{itemBacklogMB.itemBacklog}"
 					target="#{ItemBacklogCadastroMB.itemBacklog}" />
@@ -75,7 +71,7 @@
 	<ui:define name="menu_lateral">
 		<li><h:commandLink immediate="true"
 				action="#{itemBacklogMB.sprintPage}">
-				<i class="fa fa-bar-chart-o" />
+				<i class="fa fa-bar-chart-o left-sidebar-icon" />
 				<h:outputText value="#{mensagens.label_sprint}" />
 			</h:commandLink></li>
 	</ui:define>

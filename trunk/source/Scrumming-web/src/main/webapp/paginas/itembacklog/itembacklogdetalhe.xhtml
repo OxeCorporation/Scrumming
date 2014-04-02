@@ -5,6 +5,7 @@
 	template="/paginas/template/template.xhtml">
 
 	<ui:define name="conteudo">
+		<h:outputStylesheet library="css" name="scrumming.css" />
 		<div class="col-md-9">
 			<p:panel header="#{itemBacklogDetalheMB.itemSelecionado.nome}"
 				footer="#{itemBacklogDetalheMB.itemSelecionado.criterioAceitacao}">
@@ -52,12 +53,12 @@
 	<ui:define name="menu_lateral">
 		<li><h:commandLink immediate="true"
 				action="#{itemBacklogDetalheMB.itemBacklogPage}">
-				<i class="fa fa-list" />
+				<i class="fa fa-list left-sidebar-icon" />
 				<h:outputText value="#{mensagens.label_backlog}" />
 			</h:commandLink></li>
 		<li><h:commandLink immediate="true"
 				action="#{itemBacklogDetalheMB.sprintPage}">
-				<i class="fa fa-bar-chart-o" />
+				<i class="fa fa-bar-chart-o left-sidebar-icon" />
 				<h:outputText value="#{mensagens.label_sprint}" />
 			</h:commandLink></li>
 	</ui:define>

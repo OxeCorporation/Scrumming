@@ -59,6 +59,10 @@ public class ItemBacklogMB extends AbstractBean {
     public String sprintPage() {
 		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
 	}
+    
+    public String projetoPage() {
+    	return redirecionar(PaginasUtil.Projeto.PROJETO_PAGE);
+    }
 
     /* getters and setters */
     public List<ItemBacklog> getItens() {

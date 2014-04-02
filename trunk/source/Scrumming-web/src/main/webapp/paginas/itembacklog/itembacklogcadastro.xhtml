@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
     	
 	<p:dialog showEffect="fade" hideEffect="explode" id="dlgItemSave" header="ItemBacklog" modal="true" var="exec" resizable="false" widgetVar="dlgItemSave" >
-		<!-- style="background-color:#4682B4;" -->
+		<h:outputStylesheet library="css" name="scrumming.css" />
 		<p:panel header="#{itemBacklogCadastroMB.projetoSelecionado.nome}" >
 			<h:panelGrid columns="1"  >
 				<h:outputText value="Titulo" /> 
