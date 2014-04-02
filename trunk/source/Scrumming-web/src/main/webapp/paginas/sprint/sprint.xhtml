@@ -4,29 +4,16 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
 	template="/paginas/template/template.xhtml">
-
 	<!-- CORPO DA TELA DE LISTAGEM DAS SPRINTS -->
 	<ui:define name="conteudo">
+		<h:outputStylesheet library="css" name="scrumming.css" />
 		<div style="width: 80%; float: left">
 			<h:commandLink immediate="true" action="#{sprintMB.projetoPage}">
-				<h:outputText value="#{sprintMB.projetoSelecionado.nome}"
-					style="color: #428BCA; 
-					text-decoration: none; 
-					background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-					font-family: Arial;
-				    font-size: 16px;
-				    line-height: 1.42857;
-				    font-weight: bold;" />
+				<h:outputText styleClass="label-page-title" value="#{sprintMB.projetoSelecionado.nome}" />
 			</h:commandLink>
 			<BR />
-			<h:outputLabel value="#{mensagens.label_dataINI}"
-				style="background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-				font-family: Arial;
-			    font-size: 14px;
-			    line-height: 1.42857;
-			    font-weight: normal;
-			    margin-right: 5px;" />
-			<h:outputText value="#{sprintMB.projetoSelecionado.dataInicio}" />
+			<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataINI}" />
+			<h:outputText styleClass="output-small" value="#{sprintMB.projetoSelecionado.dataInicio}" />
 			<BR /> <BR />
 			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA AS SPRINTS -->
 			<p:dataGrid var="sprint" value="#{sprintMB.sprintsDoProjeto}"
@@ -35,71 +22,28 @@
 					<p:panel>
 						<f:facet name="header">
 							<p:commandLink action="#{sprintMB.sprintDetailPage}">
-								<h:outputText value="#{sprint.nome}"
-									style="color: #428BCA; 
-									text-decoration: none; 
-									background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-									font-family: Arial;
-								    font-size: 14px;
-								    line-height: 1.42857;
-								    font-weight: bold;" />
+								<h:outputText value="#{sprint.nome}" styleClass="label-grid-header"/>
 								<f:setPropertyActionListener value="#{sprint}"
 									target="#{sprintMB.sprintSelecionada}" />
 							</p:commandLink>
 						</f:facet>
 						<h:panelGroup style="width:100%">
-							<h:outputLabel value="#{mensagens.label_dataINI}"
-								style="background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-									font-family: Arial;
-								    font-size: 10px;
-								    line-height: 1.42857;
-								    font-weight: normal;
-								    margin-right: 5px;" />
-							<h:outputText value="#{sprint.dataInicio}"
-								style="background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-									font-family: Arial;
-								    font-size: 10px;
-								    line-height: 1.42857;
-								    font-weight: normal;" />
+							<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataINI}" />
+							<h:outputText styleClass="output-small" value="#{sprint.dataInicio}" />
 							<p:commandLink title="Alterar sprint"
 								action="#{sprintMB.sprintCadastroPage}">
-								<h:outputText styleClass="fa fa-pencil-square-o"
-									style="margin:0 auto; float:right; color: #428BCA;" />
+								<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
 								<f:setPropertyActionListener value="#{sprint}"
 									target="#{sprintMB.sprintSelecionada}" />
 							</p:commandLink>
-							<h:outputLabel value="|"
-								style="background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-									font-family: Arial;
-								    font-size: 10px;
-								    line-height: 1.42857;
-								    font-weight: normal;
-								    margin-right: 5px;
-								    margin-left: 5px;" />
-							<h:outputLabel value="#{mensagens.label_dataFIM}"
-								style="background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-									font-family: Arial;
-								    font-size: 10px;
-								    line-height: 1.42857;
-								    font-weight: normal;
-								    margin-right: 5px;" />
-							<h:outputText value="#{sprint.dataFim}"
-								style="background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-									font-family: Arial;
-								    font-size: 10px;
-								    line-height: 1.42857;
-								    font-weight: normal;" />
+							<h:outputLabel value="|" styleClass="pipe-separator" />
+							<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataFIM}" />
+							<h:outputText styleClass="output-small" value="#{sprint.dataFim}" />
 							<br />
-							<h:outputText value="#{sprint.descricao}"
-								style="background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-									font-family: Arial;
-								    font-size: 14px;
-								    line-height: 1.42857;
-								    font-weight: normal;" />
+							<h:outputText styleClass="output-default" value="#{sprint.descricao}" />
 							<p:commandLink title="Fechar sprint"
 								action="#{sprintMB.fecharSprint}">
-								<h:outputText styleClass="fa fa-lock"
-									style="margin:0 auto; float:right; color: #428BCA;" />
+								<h:outputText styleClass="fa fa-lock inside-grid-icon" />
 								<f:setPropertyActionListener value="#{sprint}"
 									target="#{sprintMB.sprintSelecionada}" />
 							</p:commandLink>
@@ -111,7 +55,7 @@
 		<div style="width: 16%; float: right; position: fixed; left: 83%;">
 			<p:commandLink title="Nova sprint"
 				action="#{sprintMB.sprintCadastroPage}">
-				<h:outputText styleClass="fa fa-plus" style="margin:5px;" />
+				<h:outputText styleClass="fa fa-plus right-sidebar-icon" />
 				<h:outputText value="Nova sprint" />
 			</p:commandLink>
 		</div>

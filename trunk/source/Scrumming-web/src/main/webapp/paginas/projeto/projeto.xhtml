@@ -7,6 +7,7 @@
 
 	<!-- CORPO DA TELA DE LISTAGEM DOS PROJETOS -->
 	<ui:define name="conteudo">
+		<h:outputStylesheet library="css" name="scrumming.css" />
 		<div style="width: 80%; float: left;">
 			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA OS PROJETOS -->
 			<p:dataGrid var="projeto" value="#{projetoMB.projetosDaEmpresa}"
@@ -15,26 +16,22 @@
 					<p:panel>
 						<f:facet name="header">
 							<p:commandLink action="#{projetoMB.projetoDetailPage}">
-								<h:outputText value="#{projeto.nome}"
-									style="color: #428BCA; 
-									text-decoration: none; 
-									background: none repeat scroll 0 0 rgba(0, 0, 0, 0);" />
+								<h:outputText styleClass="label-grid-header" value="#{projeto.nome}" />
 								<f:setPropertyActionListener value="#{projeto}"
 									target="#{projetoMB.projetoSelecionado}" />
 							</p:commandLink>
 						</f:facet>
 						<h:panelGroup style="width:100%">
-							<h:outputLabel value="#{mensagens.label_dataINI}" />
-							<h:outputText value="#{projeto.dataInicio}" />
+							<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataINI}" />
+							<h:outputText styleClass="output-small" value="#{projeto.dataInicio}" />
 							<p:commandLink title="Alterar projeto"
 								action="#{projetoMB.projetoCadastroPage}">
-								<h:outputText styleClass="fa fa-pencil-square-o"
-									style="margin:0 auto; float:right" />
+								<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
 								<f:setPropertyActionListener value="#{projeto}"
 									target="#{projetoMB.projetoSelecionado}" />
 							</p:commandLink>
 							<br />
-							<h:outputText value="#{projeto.descricao}" />
+							<h:outputText styleClass="output-default" value="#{projeto.descricao}" />
 						</h:panelGroup>
 					</p:panel>
 				</p:panel>
@@ -43,7 +40,7 @@
 		<div style="width: 16%; float: right; position: fixed; left: 83%;">
 			<p:commandLink title="Novo projeto"
 				action="#{projetoMB.projetoCadastroPage}">
-				<h:outputText styleClass="fa fa-plus" style="margin:0 auto;" />
+				<h:outputText styleClass="fa fa-plus right-sidebar-icon" />
 			</p:commandLink>
 			<p:commandLink title="Novo projeto"
 				action="#{projetoMB.projetoCadastroPage}">

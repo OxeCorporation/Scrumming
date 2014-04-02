@@ -6,29 +6,22 @@
 	template="/paginas/template/template.xhtml">
 
 	<ui:define name="conteudo">
+		<h:outputStylesheet library="css" name="scrumming.css" />
 		<div style="width: 80%; float: left">
 			<h:panelGroup var="sprint"
 				value="#{sprintDetalheMB.sprintSelecionada}">
 				<h:commandLink immediate="true" action="#{sprintDetalheMB.sprintDetalhePage}">
-					<h:outputText value="#{sprintDetalheMB.sprintSelecionada.nome}"
-						style="color: #428BCA; 
-					text-decoration: none; 
-					background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-					font-family: Arial;
-				    font-size: 16px;
-				    line-height: 1.42857;
-				    font-weight: bold;" />
+					<h:outputText styleClass="label-page-title" value="#{sprintDetalheMB.sprintSelecionada.nome}" />
 				</h:commandLink>
 				<BR />
-				<h:outputLabel value="#{mensagens.label_dataINI}" />
-				<h:outputText
-					value="#{sprintDetalheMB.sprintSelecionada.dataInicio}" />
+				<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataINI}" />
+				<h:outputText styleClass="output-small" value="#{sprintDetalheMB.sprintSelecionada.dataInicio}" />
+				<h:outputLabel value="|" styleClass="pipe-separator" />
+				<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataFIM}" />
+				<h:outputText styleClass="output-small" value="#{sprintDetalheMB.sprintSelecionada.dataFim}" />
 				<br />
-				<h:outputLabel value="#{mensagens.label_dataFIM}" />
-				<h:outputText value="#{sprintDetalheMB.sprintSelecionada.dataFim}" />
 				<br />
-				<br />
-				<h:outputText value="#{sprintDetalheMB.sprintSelecionada.descricao}" />
+				<h:outputText styleClass="output-default" value="#{sprintDetalheMB.sprintSelecionada.descricao}" />
 				<br />
 				<br />
 			</h:panelGroup>
@@ -42,31 +35,19 @@
 								<p:commandLink
 									action="#{sprintDetalheMB.itembacklogDetalhePage}"
 									immediate="true">
-									<h:outputText value="#{item.nome}"
-										style="color: #428BCA; 
-									text-decoration: none; 
-									background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-									font-family: Arial;
-								    font-size: 14px;
-								    line-height: 1.42857;
-								    font-weight: bold;" />
+									<h:outputText styleClass="label-grid-header" value="#{item.nome}" />
 									<f:setPropertyActionListener value="#{item}"
 										target="#{sprintDetalheMB.itemSelecionado}" />
 								</p:commandLink>
-								<br />
-								<h:outputText value="#{item.descricao}"
-									style="font-family: Arial;
-								    font-size: 14px;
-								    line-height: 1.42857;
-								    font-weight: normal;" />
 								<!-- BOTAO CADASTRAR NOVA TAREFA -->
 								<p:commandLink title="Nova tarefa"
 									onclick="dlgTarefaSave.show()">
-									<h:outputText styleClass="fa fa-plus"
-										style="margin:0 auto; float: right; color: #428BCA;" />
+									<h:outputText styleClass="fa fa-plus inside-grid-icon" />
 									<f:setPropertyActionListener value="#{item}"
 										target="#{tarefaBean.tarefa.itemBacklog}" />
 								</p:commandLink>
+								<br />
+								<h:outputText styleClass="output-default" value="#{item.descricao}" />
 							</f:facet>
 							<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />
 						</p:panel>
@@ -79,8 +60,7 @@
 									<!-- BOTAO ALTERAR TAREFA -->
 									<p:commandLink title="Alterar Tarefa"
 										onclick="dlgTarefaSave.show()">
-										<h:outputText styleClass="fa fa-pencil-square-o"
-											style="margin:0 auto; float:right; color: #428BCA;" />
+										<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
 										<f:setPropertyActionListener value="#{tarefa}"
 											target="#{tarefaBean.tarefa}" />
 									</p:commandLink>
@@ -88,8 +68,7 @@
 									<!-- BOTAO EXCLUIR TAREFA -->
 									<p:commandLink title="Remover tarefa"
 										action="#{tarefaBean.removerTarefa}">
-										<h:outputText styleClass="fa fa-trash-o"
-											style="margin:0 auto; float:right; color: #428BCA;" />
+										<h:outputText styleClass="fa fa-trash-o inside-grid-icon" />
 									</p:commandLink>
 								</p:panel>
 							</p:panel>
