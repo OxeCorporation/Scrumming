@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
@@ -78,7 +79,12 @@ public class Projeto extends ObjetoPersistente<Integer> {
     @Column(name = "situacao_projeto", columnDefinition = "Integer", length = 1)
     private SituacaoProjetoEnum situacaoProjeto;
 
-
+    @Transient
+    private String dataInicioFormatada;
+    
+    @Transient
+    private String dataFimFormatada;
+    
     /**
      * Getters e and setters
      */
@@ -152,6 +158,13 @@ public class Projeto extends ObjetoPersistente<Integer> {
 		this.empresa = empresa;
 	}
 
+	public String getDataInicioFormatada() {
+		dataInicioFormatada =  getDataInicio().toString("dd/MM/yyyy");
+		return dataInicioFormatada;
+	}
 
-
+	public String getDataFimFormatada() {
+		dataFimFormatada =  getDataFim().toString("dd/MM/yyyy");
+		return dataFimFormatada;
+	}
 }

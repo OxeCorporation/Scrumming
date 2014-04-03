@@ -14,11 +14,11 @@
 			</h:commandLink>
 			<BR />
 			<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataINI}" />
-			<h:outputText styleClass="output-small" value="#{sprintMB.projetoSelecionado.dataInicio}" />
+			<h:outputText styleClass="output-small" value="#{sprintMB.projetoSelecionado.dataInicioFormatada}" />
 			<BR /> <BR />
 			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA AS SPRINTS -->
 			<p:dataGrid var="sprint" value="#{sprintMB.sprintsDoProjeto}"
-				columns="1" style="width:100%;">
+				columns="1" style="width:100%;" target="#{sprintMB.sprint}">
 				<p:panel styleClass="col-md-12 column">
 					<p:panel>
 						<f:facet name="header">
@@ -30,7 +30,7 @@
 						</f:facet>
 						<h:panelGroup style="width:100%">
 							<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataINI}" />
-							<h:outputText styleClass="output-small" value="#{sprint.dataInicio}" />
+							<h:outputText styleClass="output-small" value="#{sprint.dataInicioFormatada}"/>					
 							<p:commandLink title="Alterar sprint"
 								action="#{sprintMB.sprintCadastroPage}">
 								<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
@@ -39,7 +39,7 @@
 							</p:commandLink>
 							<h:outputLabel value="|" styleClass="pipe-separator" />
 							<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataFIM}" />
-							<h:outputText styleClass="output-small" value="#{sprint.dataFim}" />
+							<h:outputText styleClass="output-small" value="#{sprint.dataFimFormatada}" />
 							<br />
 							<h:outputText styleClass="output-default" value="#{sprint.descricao}" />
 							<p:commandLink title="Fechar sprint"

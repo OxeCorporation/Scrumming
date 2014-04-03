@@ -1,6 +1,7 @@
 package br.com.scrumming.web.managedbean.sprint;
 
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import br.com.scrumming.domain.ItemBacklog;
@@ -65,7 +66,7 @@ public class SprintMB extends AbstractBean {
 	public String fecharSprint() {
 		sprintClientService.fecharSprint(sprintSelecionada.getChave());
 		return "";
-	}
+	}	
 	
 	/*Métodos para redirecionamento das páginas*/
 	public String sprintDetailPage() {
