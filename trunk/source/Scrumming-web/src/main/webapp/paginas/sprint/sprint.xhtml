@@ -4,17 +4,18 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
 	template="/paginas/template/template.xhtml">
-
+	
 	<!-- CORPO DA TELA DE LISTAGEM DAS SPRINTS -->
 	<ui:define name="conteudo">
+		<h:outputStylesheet library="css" name="scrumming.css" />
 		<div style="width: 80%; float: left">
-			<h2>
-				<h:outputText value="#{sprintMB.projetoSelecionado.nome}" />
-			</h2>
-			<h:outputLabel value="#{mensagens.label_dataINI}" />
-			<h:outputText value="#{sprintMB.projetoSelecionado.dataInicio}" />
+			<h:commandLink immediate="true" action="#{sprintMB.projetoPage}">
+				<h:outputText styleClass="label-page-title" value="#{sprintMB.projetoSelecionado.nome}" />
+			</h:commandLink>
 			<BR />
-			<BR />
+			<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataINI}" />
+			<h:outputText styleClass="output-small" value="#{sprintMB.projetoSelecionado.dataInicio}" />
+			<BR /> <BR />
 			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA AS SPRINTS -->
 			<p:dataGrid var="sprint" value="#{sprintMB.sprintsDoProjeto}"
 				columns="1" style="width:100%;">
@@ -22,50 +23,47 @@
 					<p:panel>
 						<f:facet name="header">
 							<p:commandLink action="#{sprintMB.sprintDetailPage}">
-								<h:outputText value="#{sprint.nome}"
-									style="color:blue; text-decoration:underline" />
+								<h:outputText value="#{sprint.nome}" styleClass="label-grid-header"/>
 								<f:setPropertyActionListener value="#{sprint}"
 									target="#{sprintMB.sprintSelecionada}" />
 							</p:commandLink>
 						</f:facet>
 						<h:panelGroup style="width:100%">
-							<h:outputLabel value="#{mensagens.label_dataINI}" />
-							<h:outputText value="#{sprint.dataInicio}" lang="pt"/>
+							<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataINI}" />
+							<h:outputText styleClass="output-small" value="#{sprint.dataInicio}" />
 							<p:commandLink title="Alterar sprint"
 								action="#{sprintMB.sprintCadastroPage}">
-								<h:outputText styleClass="fa fa-pencil-square-o"
-									style="margin:0 auto; float:right" />
+								<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
 								<f:setPropertyActionListener value="#{sprint}"
 									target="#{sprintMB.sprintSelecionada}" />
 							</p:commandLink>
+							<h:outputLabel value="|" styleClass="pipe-separator" />
+							<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataFIM}" />
+							<h:outputText styleClass="output-small" value="#{sprint.dataFim}" />
 							<br />
-							<h:outputLabel value="#{mensagens.label_dataFIM}" />
-							<h:outputText value="#{sprint.dataFim}" />
+							<h:outputText styleClass="output-default" value="#{sprint.descricao}" />
 							<p:commandLink title="Fechar sprint"
 								action="#{sprintMB.fecharSprint}">
-								<h:outputText styleClass="fa fa-lock"
-									style="margin:0 auto; float:right" />
+								<h:outputText styleClass="fa fa-lock inside-grid-icon" />
 								<f:setPropertyActionListener value="#{sprint}"
 									target="#{sprintMB.sprintSelecionada}" />
 							</p:commandLink>
-							<br />
-							<h:outputText value="#{sprint.descricao}" />
 						</h:panelGroup>
 					</p:panel>
 				</p:panel>
 			</p:dataGrid>
 		</div>
-		<div style="width: 20%; float: right; position: fixed; left: 83%">
+		<div style="width: 16%; float: right; position: fixed; left: 83%;">
 			<p:commandLink title="Nova sprint"
 				action="#{sprintMB.sprintCadastroPage}">
-				<h:outputText styleClass="fa fa-plus" style="margin:0 auto;" />
+				<i class="fa fa-plus right-sidebar-icon" />
 				<h:outputText value="Nova sprint" />
 			</p:commandLink>
 		</div>
 	</ui:define>
 	<ui:define name="menu_lateral">
 		<li><h:commandLink action="#{sprintMB.itemBacklogPage}">
-				<i class="fa fa-list" />
+				<i class="fa fa-list left-sidebar-icon" />
 				<h:outputText value="#{mensagens.label_backlog}" />
 			</h:commandLink></li>
 	</ui:define>

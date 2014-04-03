@@ -6,22 +6,22 @@
 	template="/paginas/template/template.xhtml">
 
 	<ui:define name="conteudo">
+		<h:outputStylesheet library="css" name="scrumming.css" />
 		<div style="width: 80%; float: left">
 			<h:panelGroup var="sprint"
 				value="#{sprintDetalheMB.sprintSelecionada}">
-				<h3>
-					<h:outputText value="#{sprintDetalheMB.sprintSelecionada.nome}" />
-				</h3>
+				<h:commandLink immediate="true" action="#{sprintDetalheMB.sprintDetalhePage}">
+					<h:outputText styleClass="label-page-title" value="#{sprintDetalheMB.sprintSelecionada.nome}" />
+				</h:commandLink>
+				<BR />
+				<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataINI}" />
+				<h:outputText styleClass="output-small" value="#{sprintDetalheMB.sprintSelecionada.dataInicio}" />
+				<h:outputLabel value="|" styleClass="pipe-separator" />
+				<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataFIM}" />
+				<h:outputText styleClass="output-small" value="#{sprintDetalheMB.sprintSelecionada.dataFim}" />
 				<br />
-				<h:outputLabel value="#{mensagens.label_dataINI}" />
-				<h:outputText
-					value="#{sprintDetalheMB.sprintSelecionada.dataInicio}" />
 				<br />
-				<h:outputLabel value="#{mensagens.label_dataFIM}" />
-				<h:outputText value="#{sprintDetalheMB.sprintSelecionada.dataFim}" />
-				<br />
-				<br />
-				<h:outputText value="#{sprintDetalheMB.sprintSelecionada.descricao}" />
+				<h:outputText styleClass="output-default" value="#{sprintDetalheMB.sprintSelecionada.descricao}" />
 				<br />
 				<br />
 			</h:panelGroup>
@@ -32,45 +32,43 @@
 						style="width:100%">
 						<p:panel styleClass="col-md-12 column">
 							<f:facet name="header">
-								<p:commandLink action="#{sprintDetalheMB.itembacklogDetalhePage}"
+								<p:commandLink
+									action="#{sprintDetalheMB.itembacklogDetalhePage}"
 									immediate="true">
-									<h:outputText value="#{item.nome}"
-										style="color:blue; text-decoration:underline" />
+									<h:outputText styleClass="label-grid-header" value="#{item.nome}" />
 									<f:setPropertyActionListener value="#{item}"
 										target="#{sprintDetalheMB.itemSelecionado}" />
 								</p:commandLink>
-								<br />
-								<h:outputLabel value="#{mensagens.label_descricao_item_backlog}" />
-								<h:outputText value="#{item.descricao}" />
 								<!-- BOTAO CADASTRAR NOVA TAREFA -->
 								<p:commandLink title="Nova tarefa"
 									onclick="dlgTarefaSave.show()">
-									<h:outputText styleClass="fa fa-plus"
-										style="margin:0 auto; float: right;" />
-									<f:setPropertyActionListener value="#{item}" target="#{tarefaBean.tarefa.itemBacklog}"/>
+									<h:outputText styleClass="fa fa-plus inside-grid-icon" />
+									<f:setPropertyActionListener value="#{item}"
+										target="#{tarefaBean.tarefa.itemBacklog}" />
 								</p:commandLink>
+								<br />
+								<h:outputText styleClass="output-default" value="#{item.descricao}" />
 							</f:facet>
 							<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />
 						</p:panel>
 						<h:panelGroup class="col-md-3 column"></h:panelGroup>
-						<p:dataGrid var="tarefa" value="#{item.tarefas}"
-							columns="1" style="width:100%">
+						<p:dataGrid var="tarefa" value="#{item.tarefas}" columns="1"
+							style="width:100%">
 							<p:panel styleClass="col-md-12 column">
-								<p:panel>
+								<p:panel style="height: 65px">
 									<h:outputText value="#{tarefa.nome}" />
 									<!-- BOTAO ALTERAR TAREFA -->
 									<p:commandLink title="Alterar Tarefa"
 										onclick="dlgTarefaSave.show()">
-										<h:outputText styleClass="fa fa-pencil-square-o"
-											style="margin:0 auto; float:right" />
+										<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
 										<f:setPropertyActionListener value="#{tarefa}"
 											target="#{tarefaBean.tarefa}" />
 									</p:commandLink>
+									<br />
 									<!-- BOTAO EXCLUIR TAREFA -->
 									<p:commandLink title="Remover tarefa"
 										action="#{tarefaBean.removerTarefa}">
-										<h:outputText styleClass="fa fa-trash-o"
-											style="margin:0 auto; float:right" />
+										<h:outputText styleClass="fa fa-trash-o inside-grid-icon" />
 									</p:commandLink>
 								</p:panel>
 							</p:panel>
@@ -96,22 +94,19 @@
 				</p:tab>
 			</p:tabView>
 		</div>
-		<div style="width: 3%; float: left;">
-			<h:outputText style="color:#FFFFFF" value="."></h:outputText>
-		</div>
-		<div style="width: 17%; float: left;">
+		<div style="width: 16%; float: right; position: fixed; left: 83%;">
 			<h:outputText value="Exibir o time do projeto nessa coluna." />
 		</div>
 	</ui:define>
 	<ui:define name="menu_lateral">
 		<li><h:commandLink immediate="true"
 				action="#{sprintDetalheMB.itemBacklogPage}">
-				<i class="fa fa-list" />
+				<i class="fa fa-list left-sidebar-icon" />
 				<h:outputText value="#{mensagens.label_backlog}" />
 			</h:commandLink></li>
 		<li><h:commandLink immediate="true"
 				action="#{sprintDetalheMB.sprintPage}">
-				<i class="fa fa-bar-chart-o" />
+				<i class="fa fa-bar-chart-o left-sidebar-icon" />
 				<h:outputText value="#{mensagens.label_sprint}" />
 			</h:commandLink></li>
 	</ui:define>

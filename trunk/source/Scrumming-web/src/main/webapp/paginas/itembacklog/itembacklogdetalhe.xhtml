@@ -5,61 +5,69 @@
 	template="/paginas/template/template.xhtml">
 
 	<ui:define name="conteudo">
-		<h:panelGroup class="col-md-9">
-			<p:panel header="#{itemBacklogDetalheMB.itemSelecionado.nome}"
-				footer="#{itemBacklogDetalheMB.itemSelecionado.criterioAceitacao}">
-				<h:outputText
-					value="#{itemBacklogDetalheMB.itemSelecionado.descricao}" />
-			</p:panel>
-			<p:panel header="Tarefas" toggleable="true" toggleSpeed="500" collapsed="true">
+		<h:outputStylesheet library="css" name="scrumming.css" />
+		<div class="col-md-9">
+			<p:panel toggleable="true" toggleSpeed="500" collapsed="true">
+				<f:facet name="header">
+					<h:commandLink immediate="true"
+						action="#{itemBacklogDetalheMB.itemBacklogDetalhePage}">
+						<h:outputText styleClass="label-grid-header"
+							value="#{itemBacklogDetalheMB.itemSelecionado.nome}" />
+					</h:commandLink>
+					<br />
+					<h:outputText styleClass="label-default"
+						value="#{itemBacklogDetalheMB.itemSelecionado.descricao}" />
+					<br />
+					<h:outputText styleClass="output-default"
+						value="#{itemBacklogDetalheMB.itemSelecionado.criterioAceitacao}" />
+				</f:facet>
 				<p:dataGrid var="tarefa"
 					value="#{itemBacklogDetalheMB.itemSelecionado.tarefas}" columns="1"
 					style="width:100%;"
 					rendered="#{not empty itemBacklogDetalheMB.itemSelecionado.tarefas}">
-					<p:panel widgetVar="pn#{tarefa.codigo}" header="#{tarefa.nome}">
-						<h:outputText value="pn#{tarefa.codigo}" />
-						<h:outputText value="#{tarefa.descricao}" />
-
+					<p:panel widgetVar="pn#{tarefa.codigo}" style="height: 100px;">
+						<f:facet name="header">
+							<h:outputText styleClass="label-grid-header"
+								value="#{tarefa.nome}" />
+						</f:facet>
+						<h:outputText styleClass="label-default"
+							value="pn#{tarefa.codigo}" />
+						<h:outputText styleClass="output-default"
+							value="#{tarefa.descricao}" />
 						<p:commandLink title="Alterar tarefa"
 							onclick="dlgTarefaSave.show()">
-							<h:outputText styleClass="fa fa-pencil-square-o"
-								style="margin:0 auto; float:right" />
+							<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
 						</p:commandLink>
-
+						<br />
 						<p:commandLink title="Remover tarefa"
 							action="#{tarefaBean.removerTarefa}">
-							<h:outputText styleClass="fa fa-trash-o"
-								style="margin:0 auto; float:right" />
+							<h:outputText styleClass="fa fa-trash-o inside-grid-icon" />
 						</p:commandLink>
 					</p:panel>
 				</p:dataGrid>
 			</p:panel>
-		</h:panelGroup>
-
-		<h:panelGroup class="col-md-3">
+		</div>
+		<div class="col-md-3">
 			<p:commandLink oncomplete="dlgTarefaSave.show()" process="@this">
-				<i class="fa fa-plus" style="margin: 0 auto;" />
+				<i class="fa fa-plus right-sidebar-icon" />
 				<h:outputText value="Nova tarefa" />
 				<f:setPropertyActionListener
 					value="#{itemBacklogDetalheMB.itemSelecionado}"
 					target="#{tarefaBean.tarefa.itemBacklog}" />
 			</p:commandLink>
-		</h:panelGroup>
-
+		</div>
 		<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />
 	</ui:define>
-
 	<ui:define name="menu_lateral">
 		<li><h:commandLink immediate="true"
 				action="#{itemBacklogDetalheMB.itemBacklogPage}">
-				<i class="fa fa-list" />
+				<i class="fa fa-list left-sidebar-icon" />
 				<h:outputText value="#{mensagens.label_backlog}" />
 			</h:commandLink></li>
 		<li><h:commandLink immediate="true"
 				action="#{itemBacklogDetalheMB.sprintPage}">
-				<i class="fa fa-bar-chart-o" />
+				<i class="fa fa-bar-chart-o left-sidebar-icon" />
 				<h:outputText value="#{mensagens.label_sprint}" />
 			</h:commandLink></li>
 	</ui:define>
-
 </ui:composition>
