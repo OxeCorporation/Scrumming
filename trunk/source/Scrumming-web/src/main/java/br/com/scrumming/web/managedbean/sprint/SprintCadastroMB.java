@@ -17,6 +17,7 @@ public class SprintCadastroMB extends AbstractBean {
 	private Sprint sprintSelecionada;
 	@FlashScoped
 	private Projeto projetoSelecionado;
+	private int dias;
 		
 	/*Métodos para redirecionamento das páginas*/
 	public String sprintPage() {
@@ -42,5 +43,13 @@ public class SprintCadastroMB extends AbstractBean {
 
 	public void setProjetoSelecionado(Projeto projetoSelecionado) {
 		this.projetoSelecionado = projetoSelecionado;
+	}
+
+	public int getDias() {
+		return dias;
+	}
+
+	public void setDias(int dias) {
+		this.dias = dias;
 	}
 }

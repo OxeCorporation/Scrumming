@@ -44,10 +44,12 @@
 			</h:panelGrid> 
 		</p:panel>
 			
-		<p:commandButton update="panel" process="@this" icon="ui-icon-cancel" value="Cancelar" onclick="dlgItemSave.hide()" style="margin:0 auto; float:right">
+		<p:commandButton update="panel" process="@this" icon="ui-icon-cancel" value="Cancelar" onclick="dlgItemSave.hide()" styleClass="button">
 			<p:resetInput target="panel" />
 		</p:commandButton>
-		<p:commandButton update="@form" oncomplete="dlgItemSave.hide()" value="Salvar" action="#{itemBacklogCadastroMB.salvarItemBacklog}" icon="ui-icon-disk" style="margin:0 auto; float:right"/>								
+		<p:commandButton update="@form" oncomplete="dlgItemSave.hide()" value="Salvar" action="#{itemBacklogCadastroMB.salvarItemBacklog}" icon="ui-icon-disk" styleClass="button">
+			<p:resetInput target="panel" />
+		</p:commandButton>								
 	</p:dialog>	
 	
 </ui:composition>

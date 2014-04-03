@@ -15,35 +15,49 @@
 			value="#{sprintCadastroMB.projetoSelecionado.nome}"></h:outputText>
 		<br />
 		<div style="width: 75%; float: left">
-		<h:panelGroup style="width:100%">
-			<p:panel>
-				<!-- Text input-->
-				<h:outputLabel styleClass="label-default"
-					value="#{mensagens.label_nome}"/>
-				<h:inputText id="nome" name="nome" type="text"
-					placeholder="Nome da sprint"
-					class="form-control input-md output-default" required="true"
-					style="width: 500px" />
-					<br/>
-				<!-- Textarea -->
-				<h:outputLabel styleClass="label-default"
-					value="#{mensagens.label_objetivo}" />
-				<h:inputTextarea class="form-control text-area" id="objetivo" name="objetivo"  />
-			</p:panel>
-			<br/>
-			<p:panel>
-				<!-- Text input-->
-				<h:outputLabel styleClass="label-default"
-					value="#{mensagens.label_dataINI}"/>
-					<br/>
-				<p:calendar value="#{sprintCadastroMB.sprintSelecionada.dataInicio}" id="popupCal" /> 
-					<br/>
-				<!-- Textarea -->
-				<h:outputLabel styleClass="label-default"
-					value="#{mensagens.label_objetivo}" />
-				<h:inputTextarea class="form-control text-area" id="objetivo1" name="objetivo1"  />
-			</p:panel>
-		</h:panelGroup>
+			<h:panelGroup style="width:100%">
+				<h:panelGroup>
+					<p:panel>
+						<!-- Text input-->
+						<h:outputLabel styleClass="label-default"
+							value="#{mensagens.label_nome}" />
+						<h:inputText id="nome" name="nome" type="text"
+							placeholder="Nome da sprint"
+							class="form-control input-md output-default" required="true"
+							style="width: 500px" />
+						<br />
+						<!-- Textarea -->
+						<h:outputLabel styleClass="label-default"
+							value="#{mensagens.label_objetivo}" />
+						<h:inputTextarea class="form-control text-area" id="objetivo"
+							name="objetivo" />
+					</p:panel>
+				</h:panelGroup>
+				<br />
+				<h:panelGroup>
+					<p:panel style="height: 200px;">
+						
+						<h:panelGrid columns="3" cellpadding="5"> 
+							
+							<h:outputLabel styleClass="label-default" value="Data de início" />
+							<p:calendar value="#{sprintCadastroMB.sprintSelecionada.dataInicio}" id="popupCalInicio"/>
+							
+							<h:outputLabel styleClass="label-default" value="Duração" />
+							<p:selectOneMenu id="city" value="#{sprintCadastroMB.dias}">
+								<f:selectItem itemLabel="1 semana" itemValue="6" />
+								<f:selectItem itemLabel="2 semanas" itemValue="13" />
+								<f:selectItem itemLabel="3 semanas" itemValue="20" />
+								<f:selectItem itemLabel="4 semanas" itemValue="27" />
+							</p:selectOneMenu>
+							
+							<h:outputLabel styleClass="label-default" value="Data da revisão" />
+							<p:calendar value="#{sprintCadastroMB.sprintSelecionada.dataInicio}" id="popupCalRevisao" />
+								
+						</h:panelGrid>
+						
+					</p:panel>
+				</h:panelGroup>
+			</h:panelGroup>
 		</div>
 		<div style="width: 25%; float: right; position: fixed; left: 80%;">
 			<p:commandLink title="Nova sprint"
@@ -65,16 +79,21 @@
 				<h:outputText value="#{mensagens.label_sprint}" />
 			</h:commandLink></li>
 	</ui:define>
-	<p:dialog header="Selecione a data" widgetVar="dialog"   
-            showEffect="fade" hideEffect="fade">  
-      
-        <h:panelGrid id="display" columns="2" cellpadding="5">  
-            <h:outputText value="Data:" />  
-            <h:outputText value="#{sprintCadastroMB.sprintSelecionada.dataInicio}" id="popupDate">  
-                <f:convertDateTime pattern="dd/MM/yyyy"/>  
-            </h:outputText>  
-              
-        </h:panelGrid>  
-          
-    </p:dialog> 
+	<p:dialog header="Selecione a data" widgetVar="dialog"
+		showEffect="fade" hideEffect="fade">
+		<h:panelGrid id="display" columns="2" cellpadding="5">
+			<h:outputText value="Data:" />
+			<h:outputText
+				value="#{sprintCadastroMB.sprintSelecionada.dataInicio}"
+				id="popupDateInicio">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</h:outputText>			
+			<h:outputText value="Data:" />
+			<h:outputText
+				value="#{sprintCadastroMB.sprintSelecionada.dataRevisao}"
+				id="popupDateRevisao">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</h:outputText>
+		</h:panelGrid>
+	</p:dialog>
 </ui:composition>
