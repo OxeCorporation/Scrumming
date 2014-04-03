@@ -12,10 +12,11 @@ import br.com.scrumming.core.repositorio.UsuarioEmpresaRepositorio;
 import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.UsuarioEmpresa;
+import br.com.scrumming.domain.UsuarioEmpresaChave;
 
 @Service
 public class UsuarioEmpresaManager extends
-		AbstractManager<UsuarioEmpresa, Integer> implements
+		AbstractManager<UsuarioEmpresa, UsuarioEmpresaChave> implements
 		IUsuarioEmpresaManager {
 
 	/**
@@ -38,7 +39,7 @@ public class UsuarioEmpresaManager extends
 
 	/* getters and setters */
 	@Override
-	public AbstractRepositorio<UsuarioEmpresa, Integer> getRepositorio() {
+	public AbstractRepositorio<UsuarioEmpresa, UsuarioEmpresaChave> getRepositorio() {
 		return this.usuarioEmpresaRepositorio;
 	}
 

@@ -20,10 +20,7 @@ import br.com.scrumming.web.infra.jsf.ListaDataModel;
 @ViewScoped
 public class CadastroUsuarioBean extends AbstractBean {
 
-	/**
-	 * TESTE COM SVN
-	 */
-    private Usuario usuarioSelecionado;
+	private Usuario usuarioSelecionado;
     private List<Usuario> usuarios;
     private ListaDataModel<Usuario> dataModelUsuario;
     private UsuarioEmpresaClientService empresaService;
@@ -35,7 +32,7 @@ public class CadastroUsuarioBean extends AbstractBean {
     public String pesquisarPorNome(){
     	return "";
     }
-    
+    	
     @Override
     public void inicializar() {
     	usuarioClientService = new UsuarioClientService();
@@ -56,9 +53,13 @@ public class CadastroUsuarioBean extends AbstractBean {
     	usuarioClientService.salvarUsuario(usuarioSelecionado, empresa.getCodigo());
     	atualizarLista();
     	usuarioSelecionado = new Usuario();
-    	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+    	mensagemSucesso();
         return "";
     }
+
+	private void mensagemSucesso() {
+		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+	}
 
     public String cadastrar(){
     	usuarioSelecionado = new Usuario();
@@ -74,6 +75,9 @@ public class CadastroUsuarioBean extends AbstractBean {
     }
 
     public String excluir() {
+    	usuarioClientService.desativarUsuario(usuarioSelecionado.getCodigo(),empresa.getCodigo());
+    	atualizarLista();
+    	mensagemSucesso();
         return "";
     }
 

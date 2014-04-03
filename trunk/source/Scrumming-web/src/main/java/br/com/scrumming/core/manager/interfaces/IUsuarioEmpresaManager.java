@@ -6,8 +6,9 @@ import br.com.scrumming.core.infra.manager.IManager;
 import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.UsuarioEmpresa;
+import br.com.scrumming.domain.UsuarioEmpresaChave;
 
-public interface IUsuarioEmpresaManager extends IManager<UsuarioEmpresa, Integer> {
+public interface IUsuarioEmpresaManager extends IManager<UsuarioEmpresa, UsuarioEmpresaChave> {
 
 	/**
 	 * Consulta os usuario de uma determinada empresa

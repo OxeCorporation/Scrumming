@@ -26,4 +26,10 @@ public class UsuarioClientService extends AbstractClientService {
 				getURIService(ConstantesService.Usuario.SALVAR_USUARIO_EMP),
 				usuario, void.class, empresaID);
 	}
+
+	public void desativarUsuario(Integer usuarioID, Integer empresaID) {
+		getRestTemplate().postForObject(
+				getURIService(ConstantesService.Usuario.DESATIVAR_USUARIO),
+				HttpEntity.EMPTY, void.class, usuarioID, empresaID);
+	}
 }

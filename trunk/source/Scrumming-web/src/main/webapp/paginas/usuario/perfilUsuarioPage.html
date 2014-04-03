@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:scrum="http://xmlns.jcp.org/jsf/composite/compenentes"
+	template="/paginas/template/template.xhtml">
+
+	<ui:define name="conteudo">
+	<h:panelGroup id="usuarioPerfilPanel">
+     	<fieldset>
+
+			<div class="form-group">
+				<p:outputLabel value="#{mensagens.label_nome_usuario}" styleClass="col-md-4 control-label" for="txtNome"/>
+				<div class="col-md-6">
+					<p:inputText id="txtNome" placeholder="#{mesagens.label_digite_nome_usuario}" styleClass="form-control input-md"/>
+				</div>
+			</div>
+			<br/>
+			<br/>
+			<br/>
+			<div class="form-group">
+				<p:outputLabel value="#{mensagens.label_email}" styleClass="col-md-4 control-label" for="txtEmail"/>
+				<div class="col-md-6">
+					<p:inputText id="txtEmail" placeholder="#{mesagens.label_digite_email_usuario}" styleClass="form-control input-md" />
+				</div>
+			</div>
+			<br/>
+			<br/>
+			<div class="form-group">
+				<p:outputLabel value="#{mensagens.label_login}" styleClass="col-md-4 control-label" for="txtLogin"/>
+				<div class="col-md-6">
+					<p:inputText id="txtLogin" placeholder="#{mesagens.label_digite_login_usuario}" styleClass="form-control input-md" />
+				</div>
+			</div>
+			<br/>
+			<br/>
+			<div class="form-group">
+				<p:outputLabel value="#{mensagens.label_senha}" styleClass="col-md-4 control-label" for="txtSenha"/>
+				<div class="col-md-6">
+					<p:password id="txtSenha" placeholder="#{mesagens.label_digite_senha_usuario}" styleClass="form-control input-md"  redisplay="true" />
+				</div>
+			</div>
+		 </fieldset>
+	</h:panelGroup>   	
+	</ui:define>
+</ui:composition>

@@ -8,6 +8,7 @@ public final class ConstantesService {
 		public static final String OBTER_USUARIO_LOGIN = "/usuario/login/{login}/{senha}";
 		public static final String SALVAR_USUARIO = "/usuario/usu";
 		public static final String SALVAR_USUARIO_EMP = "/usuario/usu/{empresaID}";
+		public static final String DESATIVAR_USUARIO = "/usuario/desativar/{usuarioID}/{empresaID}";
 	}
 	
 	public final class Tarefa{

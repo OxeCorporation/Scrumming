@@ -13,9 +13,10 @@ import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.UsuarioEmpresa;
+import br.com.scrumming.domain.UsuarioEmpresaChave;
 
 @Repository
-public class UsuarioEmpresaRepositorio extends AbstractRepositorio<UsuarioEmpresa, Integer> {
+public class UsuarioEmpresaRepositorio extends AbstractRepositorio<UsuarioEmpresa, UsuarioEmpresaChave> {
 	
 	private static final String UNCHECKED = "unchecked";
 
