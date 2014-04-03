@@ -5,7 +5,7 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:p="http://primefaces.org/ui">
     	
-	<p:dialog showEffect="fade" hideEffect="explode" id="dlgItemSave" modal="true" var="exec" resizable="false" widgetVar="dlgItemSave" >
+	<p:dialog showEffect="fade" hideEffect="explode" id="dlgItemSave" modal="true" var="exec" resizable="false" widgetVar="dlgItemSave">
 		<h:outputStylesheet library="css" name="scrumming.css" />
 		<f:facet name="header">
 			<h:outputText styleClass="label-page-title" value="ItemBacklog" />
@@ -14,7 +14,7 @@
 			<f:facet name="header">
 				<h:outputText styleClass="label-grid-header" value="#{itemBacklogCadastroMB.projetoSelecionado.nome}" />
 			</f:facet>
-			<h:panelGrid columns="1"  >
+			<h:panelGrid columns="1"  id="panel">
 				<h:outputLabel styleClass="label-default" value="Titulo" /> 
 				<p:inputText styleClass="output-default" id="nome" required="true" style="width: 500px" 	
 							 value="#{itemBacklogCadastroMB.itemBacklog.nome}" 
@@ -44,7 +44,9 @@
 			</h:panelGrid> 
 		</p:panel>
 			
-		<p:commandButton process="@none" icon="ui-icon-cancel" value="Cancelar" onclick="dlgItemSave.hide()" style="margin:0 auto; float:right"/>
+		<p:commandButton update="panel" process="@this" icon="ui-icon-cancel" value="Cancelar" onclick="dlgItemSave.hide()" style="margin:0 auto; float:right">
+			<p:resetInput target="panel" />
+		</p:commandButton>
 		<p:commandButton update="@form" oncomplete="dlgItemSave.hide()" value="Salvar" action="#{itemBacklogCadastroMB.salvarItemBacklog}" icon="ui-icon-disk" style="margin:0 auto; float:right"/>								
 	</p:dialog>	
 	
