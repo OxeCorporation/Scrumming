@@ -9,27 +9,72 @@
 	<ui:define name="conteudo">
 		<h:outputStylesheet library="css" name="scrumming.css" />
 		<!-- Trecho será retirado posteriormente -->
-		<h:outputText style="color: white" value="#{sprintCadastroMB.sprintSelecionada.nome}"></h:outputText>
-		<h:outputText style="color: white" value="#{sprintCadastroMB.projetoSelecionado.nome}"></h:outputText>
-		<h:panelGroup>
-			<!-- Text input-->
-			<label class="col-md-4 label-default" for="nome" style="width: 100px">Nome:</label>
-			<input id="nome" name="nome" type="text" placeholder="Nome da sprint"
-				class="form-control input-md" required="required" style="width: 200px" />
-			<!-- Textarea -->
-			<label class="col-md-4 label-default" for="objetivo" style="width: 100px">Objetivo:</label>
-			<textarea class="form-control" id="objetivo" name="objetivo"
-				style="width: 500px; height: 200px"></textarea>
+		<h:outputText style="color: white"
+			value="#{sprintCadastroMB.sprintSelecionada.nome}"></h:outputText>
+		<h:outputText style="color: white"
+			value="#{sprintCadastroMB.projetoSelecionado.nome}"></h:outputText>
+		<br />
+		<div style="width: 75%; float: left">
+		<h:panelGroup style="width:100%">
+			<p:panel>
+				<!-- Text input-->
+				<h:outputLabel styleClass="label-default"
+					value="#{mensagens.label_nome}"/>
+				<h:inputText id="nome" name="nome" type="text"
+					placeholder="Nome da sprint"
+					class="form-control input-md output-default" required="true"
+					style="width: 500px" />
+					<br/>
+				<!-- Textarea -->
+				<h:outputLabel styleClass="label-default"
+					value="#{mensagens.label_objetivo}" />
+				<h:inputTextarea class="form-control text-area" id="objetivo" name="objetivo"  />
+			</p:panel>
+			<br/>
+			<p:panel>
+				<!-- Text input-->
+				<h:outputLabel styleClass="label-default"
+					value="#{mensagens.label_dataINI}"/>
+					<br/>
+				<p:calendar value="#{sprintCadastroMB.sprintSelecionada.dataInicio}" id="popupCal" /> 
+					<br/>
+				<!-- Textarea -->
+				<h:outputLabel styleClass="label-default"
+					value="#{mensagens.label_objetivo}" />
+				<h:inputTextarea class="form-control text-area" id="objetivo1" name="objetivo1"  />
+			</p:panel>
 		</h:panelGroup>
+		</div>
+		<div style="width: 25%; float: right; position: fixed; left: 80%;">
+			<p:commandLink title="Nova sprint"
+				action="#{sprintCadastroMB.sprintPage}">
+				<i class="fa fa-plus right-sidebar-icon" />
+				<h:outputText value="Nova sprint" />
+			</p:commandLink>
+		</div>
 	</ui:define>
 	<ui:define name="menu_lateral">
-		<li><h:commandLink action="#{sprintCadastroMB.itemBacklogPage}">
+		<li><h:commandLink immediate="true"
+				action="#{sprintCadastroMB.itemBacklogPage}">
 				<i class="fa fa-list left-sidebar-icon" />
 				<h:outputText value="#{mensagens.label_backlog}" />
 			</h:commandLink></li>
-		<li><h:commandLink action="#{sprintCadastroMB.sprintPage}">
+		<li><h:commandLink immediate="true"
+				action="#{sprintCadastroMB.sprintPage}">
 				<i class="fa fa-bar-chart-o left-sidebar-icon" />
 				<h:outputText value="#{mensagens.label_sprint}" />
 			</h:commandLink></li>
 	</ui:define>
+	<p:dialog header="Selecione a data" widgetVar="dialog"   
+            showEffect="fade" hideEffect="fade">  
+      
+        <h:panelGrid id="display" columns="2" cellpadding="5">  
+            <h:outputText value="Data:" />  
+            <h:outputText value="#{sprintCadastroMB.sprintSelecionada.dataInicio}" id="popupDate">  
+                <f:convertDateTime pattern="dd/MM/yyyy"/>  
+            </h:outputText>  
+              
+        </h:panelGrid>  
+          
+    </p:dialog> 
 </ui:composition>

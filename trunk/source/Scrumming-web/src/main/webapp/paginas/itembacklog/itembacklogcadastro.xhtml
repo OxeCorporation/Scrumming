@@ -16,17 +16,17 @@
 			</f:facet>
 			<h:panelGrid columns="1"  >
 				<h:outputLabel styleClass="label-default" value="Titulo" /> 
-				<p:inputText styleClass="output-default" id="nome" required="true" size="100" 	
+				<p:inputText styleClass="output-default" id="nome" required="true" style="width: 500px" 	
 							 value="#{itemBacklogCadastroMB.itemBacklog.nome}" 
 							 requiredMessage="Preencha o resumo" 
 							 disabled="#{itemBacklogCadastroMB.itemBacklog.nome} != null}" />
 				<br/>
 				<h:outputLabel styleClass="label-default" value="Descricao" /> 
-				<p:inputTextarea id="descricao" required="false" rows="3" cols="100" 
+				<h:inputTextarea id="descricao" required="false" class="form-control text-area" 
 								 value="#{itemBacklogCadastroMB.itemBacklog.descricao}" />
 				<br/>
 				<h:outputLabel styleClass="label-default" value="Criterio de Aceitacao" /> 
-				<p:inputTextarea styleClass="output-default" id="criterioAceitacao" required="false" rows="3" cols="100" 
+				<h:inputTextarea class="form-control text-area" id="criterioAceitacao" required="false" 
 								 value="#{itemBacklogCadastroMB.itemBacklog.criterioAceitacao}" />
 				<br/>
 				<h:outputText id="outValorNegocio" value="Valor de Negocio #{itemBacklogCadastroMB.number}" style="color:black" />
