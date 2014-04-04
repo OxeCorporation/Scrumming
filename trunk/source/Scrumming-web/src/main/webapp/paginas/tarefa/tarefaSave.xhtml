@@ -12,7 +12,7 @@
 				<p:inputText id="nome" required="true" size="100" value="#{tarefaBean.tarefa.nome}" requiredMessage="Preencha o resumo" disabled="#{tarefaBean.tarefa.nome} != null}" />
 				
 				<h:outputText value="Descricao" /> 
-				<p:inputTextarea id="descricao" required="false" rows="3" cols="100" value="#{tarefaBean.tarefa.descricao}" />
+				<p:inputTextarea id="descricao" required="false" rows="3" cols="80" value="#{tarefaBean.tarefa.descricao}" />
 				
 				<h:outputText value="Tempo estimado (H)" /> 
 				<p:inputText id="tempoEstimado" required="true" value="#{tarefaBean.tarefa.tempoEstimado}" requiredMessage="Preencha o tempo estimado em horas" />							

@@ -5,7 +5,6 @@
 	template="/paginas/template/template.xhtml">
 
 	<ui:define name="conteudo">
-		<h:outputStylesheet library="css" name="scrumming.css" />
 		<div class="col-md-9">
 			<p:panel toggleable="true" toggleSpeed="500" collapsed="true">
 				<f:facet name="header">
@@ -49,8 +48,8 @@
 		</div>
 		<div class="col-md-3">
 			<p:commandLink oncomplete="dlgTarefaSave.show()" process="@this">
-				<i class="fa fa-plus right-sidebar-icon" />
-				<h:outputText value="Nova tarefa" />
+				<i class="fa fa-plus right-sidebar-icon" style="float:right; position: fixed; margin-top: 8px"/>
+				<h:outputText value="Nova tarefa" style="float:right; position: fixed; margin-left: 22px; margin-top: 5px"/>
 				<f:setPropertyActionListener
 					value="#{itemBacklogDetalheMB.itemSelecionado}"
 					target="#{tarefaBean.tarefa.itemBacklog}" />
