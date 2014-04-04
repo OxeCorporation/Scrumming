@@ -22,8 +22,17 @@
 <h:body>
 
 	<div id="wrapper">
+		<p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">  
+  			  <f:facet name="start">  
+        			<p:graphicImage library="images" name="loading.gif"/>  
+    		  </f:facet>  
+  
+		    <f:facet name="complete">  
+        		<h:outputText value="" />  
+    		</f:facet>  
+		</p:ajaxStatus>
 		<h:form id="main">
-			<p:growl id="growlGeral" showDetail="true" sticky="true" />
+			<p:growl id="growlGeral" showDetail="true" sticky="true" autoUpdate="true" />
 			<nav class="navbar navbar-default navbar-static-top"
 				role="navigation" style="margin-bottom: 0; position: fixed; width: 100%; height: 30px;">
 				<div class="navbar-header">
@@ -40,20 +49,32 @@
 				<!-- /.navbar-header -->
 
 				<ul class="nav navbar-top-links navbar-right">
-					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
-							<i class="fa fa-caret-down"></i>
-					</a>
-						<ul class="dropdown-menu dropdown-user">
-							<li><a href="#" style="color: #428BCA;"> <i class="fa fa-user fa-fw"></i> User
-									Profile
-							</a></li>
-							<li><a href="#" style="color: #428BCA;"><i class="fa fa-gear fa-fw"></i>
-									Settings</a></li>
+					<li class="dropdown">
+					  <a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
+					        <i class="fa fa-user fa-fw"/>
+							<i class="fa fa-caret-down"/>
+					  </a>
+					  <ul class="dropdown-menu dropdown-user">
+							<li>
+							    <h:commandLink immediate="true" action="#{sessaoMB.perfilPage}" style="color: #428BCA;"> 
+							    	<i class="fa fa-user fa-fw"/>
+									<h:outputText value="#{mensagens.label_perfil_usuario}"/>
+								</h:commandLink>
+							</li>
+							<li>
+							    <a href="#" style="color: #428BCA;">
+							    	<i class="fa fa-gear fa-fw"/>
+									Settings
+								</a>
+							</li>
 							<li class="divider"></li>
-							<li><h:commandLink immediate="true" action="#{sessaoMB.logout}" style="color: #428BCA;"><i
-									class="fa fa-sign-out fa-fw"></i> Logout</h:commandLink></li>
-						</ul> <!-- /.dropdown-user --></li>
+							<li>
+							    <h:commandLink immediate="true" action="#{sessaoMB.logout}" style="color: #428BCA;">
+							    <i class="fa fa-sign-out fa-fw"/> Logout
+							    </h:commandLink>
+							</li>
+						</ul> <!-- /.dropdown-user -->
+					</li>
 					<!-- /.dropdown -->
 				</ul>
 				<ui:insert name="menu_superior">

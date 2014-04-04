@@ -8,6 +8,7 @@ public final class PaginasUtil {
     }
     public final class Usuario{
     	public static final String CADASTRO_USUARIO_PAGE = "/paginas/usuario/cadastroUsuarioPage.xhtml";
+    	public static final String PERFIL_USUARIO_PAGE = "/paginas/usuario/perfilUsuarioPage.xhtml";
     }
     
     public final class ItemBacklog{
