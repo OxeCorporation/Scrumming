@@ -18,12 +18,22 @@ public class EmpresaBean extends AbstractBean {
 	private Empresa empresa;
 	private EmpresaClientService empresaClientService;
 	
+	/**
+	 * Inicializar objetos da Empresa
+	 * @param
+	 * @return void
+	 */
 	@Override
     public void inicializar() {
 		empresa = new Empresa();
 		empresaClientService = new EmpresaClientService();
 	}
 	
+	/**
+	 * Salvar uma empresa
+	 * @param
+	 * @return void
+	 */
 	public void salvarEmpresa() {
 		empresaClientService.salvarEmpresa(empresa);
     	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
