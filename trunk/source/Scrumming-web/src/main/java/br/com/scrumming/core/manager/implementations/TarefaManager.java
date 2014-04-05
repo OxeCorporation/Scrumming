@@ -38,7 +38,7 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
     	tarefa.setSituacao(SituacaoTarefaEnum.PARA_FAZER);
     	tarefa.setItemBacklog(itemBacklog);
     	
-    	tarefaRepositorio.insertOrUpdate(tarefa);
+    	insertOrUpdate(tarefa);
     }
 
     @Override

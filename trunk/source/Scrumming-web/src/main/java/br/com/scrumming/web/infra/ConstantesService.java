@@ -13,7 +13,7 @@ public final class ConstantesService {
 	
 	public final class Tarefa{
 		private Tarefa(){}
-		public static final String URL_SALVAR = "/tarefa/{itemBacklogManagerID}";
+		public static final String URL_SALVAR = "/tarefa/save/{itemBacklogManagerID}";
 		public static final String URL_CONSULTAR_POR_ITEM_BACKLOG = "/tarefa/list/{itemBacklogID}";
 		public static final String URL_CONSULTAR = "/tarefa/{tarefaID}";
 		public static final String URL_REMOVER = "/tarefa/{tarefaID}";

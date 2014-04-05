@@ -22,7 +22,7 @@ public class TarefaService {
 	@Autowired
 	private ITarefaManager tarefaManager;
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/tarefa/{itemBacklogManagerID}")
+	@RequestMapping(method = RequestMethod.POST, value = "/save/{itemBacklogManagerID}")
     public void salvar(@RequestBody Tarefa tarefa,@PathVariable Integer itemBacklogManagerID){
 		tarefaManager.salvar(tarefa, itemBacklogManagerID);
 	}
