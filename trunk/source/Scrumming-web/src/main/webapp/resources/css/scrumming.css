@@ -138,3 +138,9 @@
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #428bca;
 }
+
+.ui-growl {
+	position: fixed;
+	top: 15%;
+	right: 30%; 
+}
