@@ -19,17 +19,22 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
      * Serial Version
      */
     private static final long serialVersionUID = 1L;
-
+    
+    private Double roi;
+    
     @Autowired
     private ItemBacklogRepositorio itemRepositorio;
     
     @Override
-	public void salvarItemBlacklog(ItemBacklog itemBacklog) {
-    	if (itemBacklog != null) {
+	public void salvarItemBacklog(ItemBacklog itemBacklog) {
+    	//if (itemBacklog != null) {
+    		/**roi = itemBacklog.getValorNegocio() / itemBacklog.getStoryPoints();
+    		itemBacklog.setRoi(roi);
+    		*/
     		itemBacklog.setSituacaoBacklog(SituacaoItemBacklogEnum.FAZER);
     		itemBacklog.setAtivo(true);
     		insertOrUpdate(itemBacklog);
-		}
+		//}
 	}
     
     @Override

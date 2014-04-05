@@ -20,6 +20,10 @@ import br.com.scrumming.web.infra.jsf.ListaDataModel;
 @ViewScoped
 public class CadastroUsuarioBean extends AbstractBean {
 
+	/**
+	 * serial version
+	 */
+	private static final long serialVersionUID = 1L;
 	private Usuario usuarioSelecionado;
 	private Usuario usuario = new Usuario();
     private List<Usuario> usuarios;
