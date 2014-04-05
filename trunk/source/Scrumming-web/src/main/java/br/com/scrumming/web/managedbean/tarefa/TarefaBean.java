@@ -31,12 +31,7 @@ public class TarefaBean extends AbstractBean {
 		tarefa = new Tarefa();
 		tarefaClientService = new TarefaClientService();
 	}
-	
-	public void salvar() {
-		tarefaClientService.salvarTarefa(tarefa, tarefa.getItemBacklog().getCodigo());
-    	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
-	}
-	
+
 	public void consultarTarefasPorItemBacklog(Integer itemBacklogID) {
 		setTarefasDoItem(tarefaClientService.consultarTarefasPorItemBacklog(itemBacklogID));
 	}
