@@ -20,7 +20,7 @@
 					<h:outputText styleClass="output-default"
 						value="#{itemBacklogDetalheMB.itemSelecionado.criterioAceitacao}" />
 				</f:facet>
-				<p:dataGrid var="tarefa"
+				<p:dataGrid var="tarefa" id="dataGridTarefas"
 					value="#{itemBacklogDetalheMB.itemSelecionado.tarefas}" columns="1"
 					style="width:100%;"
 					rendered="#{not empty itemBacklogDetalheMB.itemSelecionado.tarefas}">
@@ -50,9 +50,6 @@
 			<p:commandLink oncomplete="dlgTarefaSave.show()" process="@this">
 				<i class="fa fa-plus right-sidebar-icon" style="float:right; position: fixed; margin-top: 8px"/>
 				<h:outputText value="Nova tarefa" style="float:right; position: fixed; margin-left: 22px; margin-top: 5px"/>
-				<f:setPropertyActionListener
-					value="#{itemBacklogDetalheMB.itemSelecionado}"
-					target="#{tarefaBean.tarefa.itemBacklog}" />
 			</p:commandLink>
 		</div>
 		<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />
