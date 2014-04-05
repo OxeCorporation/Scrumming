@@ -29,14 +29,14 @@
 				<h:inputTextarea class="form-control text-area" id="criterioAceitacao" required="false" 
 								 value="#{itemBacklogCadastroMB.itemBacklog.criterioAceitacao}" />
 				<br/>
-				<h:outputText id="outValorNegocio" value="Valor de Negocio #{itemBacklogCadastroMB.number}" style="color:black" />
-				<h:inputHidden id="txtValorNegocio" value="#{itemBacklogCadastroMB.number}" style="color:black; width:100%"/>
+				<h:outputText id="outValorNegocio" value="Valor de Negocio #{itemBacklogCadastroMB.itemBacklog.valorNegocio}" style="color:black" />
+				<h:inputHidden id="txtValorNegocio" value="#{itemBacklogCadastroMB.itemBacklog.valorNegocio}" style="color:black; width:100%"/>
 				<p:slider for="txtValorNegocio" display="outValorNegocio" 
 						  style="width:200px; color:black; width:100%" 
 						  displayTemplate="Valor de Negocio {value}" step="5" />
 				<br/>
-				<h:outputText id="outStoryPoint" value="Story Points #{itemBacklogCadastroMB.number}" style="float:left; color:black" />
-				<h:inputHidden id="txtStoryPoint" value="#{itemBacklogCadastroMB.number}" style="float:left; color:black; width:100%"/>
+				<h:outputText id="outStoryPoint" value="Story Points #{itemBacklogCadastroMB.itemBacklog.storyPoints}" style="float:left; color:black" />
+				<h:inputHidden id="txtStoryPoint" value="#{itemBacklogCadastroMB.itemBacklog.storyPoints}" style="float:left; color:black; width:100%"/>
 				<p:slider for="txtStoryPoint" display="outStoryPoint" 
 						  style="width:200px; float:left; width:100%" 
 						  displayTemplate="Story Points {value}" step="5" />

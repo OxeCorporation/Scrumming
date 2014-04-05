@@ -28,7 +28,7 @@ public final class ConstantesService {
 	}
 	
 	public final class ItemBacklog{
-		public static final String URL_SALVAR = "/itemBacklog/{itemBacklog}";
+		public static final String URL_SALVAR = "/itemBacklog/save";
 		public static final String URL_CONSULTAR_POR_PROJETO = "/itemBacklog/list/{projetoID}";
 		public static final String URL_CANCELAR = "/itemBacklog/{item}";
 		public static final String URL_CONSLTAR_POR_ID = "/itemBacklog/{itemID}";
