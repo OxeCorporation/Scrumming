@@ -12,4 +12,6 @@ public interface IUsuarioManager extends IManager<Usuario, Integer> {
     Usuario consultarPorLoginSenha(String login, String senha);
     
     void salvarUsuario(Usuario usuario, Integer empresaID);
+
+	void desativar(Integer usuarioID, Integer empresaID);
 }

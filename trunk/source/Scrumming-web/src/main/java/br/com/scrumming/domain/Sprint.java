@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
@@ -29,7 +30,7 @@ public class Sprint extends ObjetoPersistente<Integer> {
 
     /**
      * Serial Version
-     */
+      */
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -55,7 +56,7 @@ public class Sprint extends ObjetoPersistente<Integer> {
     @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
     private DateTime dataInicio;
-
+    
     @Type(type = HibernateTypes.JODA_DATE_TIME)
     @Column(name = "data_fim")
     @NotNull
@@ -86,6 +87,12 @@ public class Sprint extends ObjetoPersistente<Integer> {
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "situacao_sprint", columnDefinition = "Integer", length = 1)
     private SituacaoSprintEnum situacaoSprint;
+    
+    @Transient
+    private String dataInicioFormatada;
+
+    @Transient
+    private String dataFimFormatada;
 
     /* getters and setters */
     @Override
@@ -150,6 +157,14 @@ public class Sprint extends ObjetoPersistente<Integer> {
         this.dataRevisao = dataRevisao;
     }
 
+    public DateTime getDataFechamento() {
+		return dataFechamento;
+	}
+
+	public void setDataFechamento(DateTime dataFechamento) {
+		this.dataFechamento = dataFechamento;
+	}
+    
     public DateTime getDataCadastro() {
 		return dataCadastro;
 	}
@@ -164,5 +179,15 @@ public class Sprint extends ObjetoPersistente<Integer> {
 
 	public void setSituacaoSprint(SituacaoSprintEnum situacaoSprint) {
 		this.situacaoSprint = situacaoSprint;
+	}
+
+	public String getDataInicioFormatada() {
+		dataInicioFormatada =  getDataInicio().toString("dd/MM/yyyy");
+		return dataInicioFormatada;
+	}
+
+	public String getDataFimFormatada() {
+		dataFimFormatada =  getDataFim().toString("dd/MM/yyyy");
+		return dataFimFormatada;
 	}
 }

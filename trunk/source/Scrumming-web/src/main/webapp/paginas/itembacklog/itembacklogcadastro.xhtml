@@ -5,7 +5,7 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:p="http://primefaces.org/ui">
     	
-	<p:dialog showEffect="fade" hideEffect="explode" id="dlgItemSave" modal="true" var="exec" resizable="false" widgetVar="dlgItemSave" >
+	<p:dialog showEffect="fade" hideEffect="explode" id="dlgItemSave" modal="true" var="exec" resizable="false" widgetVar="dlgItemSave" closable="false">
 		<h:outputStylesheet library="css" name="scrumming.css" />
 		<f:facet name="header">
 			<h:outputText styleClass="label-page-title" value="ItemBacklog" />
@@ -14,29 +14,29 @@
 			<f:facet name="header">
 				<h:outputText styleClass="label-grid-header" value="#{itemBacklogCadastroMB.projetoSelecionado.nome}" />
 			</f:facet>
-			<h:panelGrid columns="1"  >
+			<h:panelGrid columns="1"  id="panel">
 				<h:outputLabel styleClass="label-default" value="Titulo" /> 
-				<p:inputText styleClass="output-default" id="nome" required="true" size="100" 	
+				<p:inputText styleClass="output-default" id="nome" required="true" style="width: 500px" 	
 							 value="#{itemBacklogCadastroMB.itemBacklog.nome}" 
 							 requiredMessage="Preencha o resumo" 
 							 disabled="#{itemBacklogCadastroMB.itemBacklog.nome} != null}" />
 				<br/>
 				<h:outputLabel styleClass="label-default" value="Descricao" /> 
-				<p:inputTextarea id="descricao" required="false" rows="3" cols="100" 
+				<h:inputTextarea id="descricao" required="false" class="form-control text-area" 
 								 value="#{itemBacklogCadastroMB.itemBacklog.descricao}" />
 				<br/>
 				<h:outputLabel styleClass="label-default" value="Criterio de Aceitacao" /> 
-				<p:inputTextarea styleClass="output-default" id="criterioAceitacao" required="false" rows="3" cols="100" 
+				<h:inputTextarea class="form-control text-area" id="criterioAceitacao" required="false" 
 								 value="#{itemBacklogCadastroMB.itemBacklog.criterioAceitacao}" />
 				<br/>
-				<h:outputText id="outValorNegocio" value="Valor de Negocio #{itemBacklogCadastroMB.number}" style="color:black" />
-				<h:inputHidden id="txtValorNegocio" value="#{itemBacklogCadastroMB.number}" style="color:black; width:100%"/>
+				<h:outputText id="outValorNegocio" value="Valor de Negocio #{itemBacklogCadastroMB.itemBacklog.valorNegocio}" style="color:black" />
+				<h:inputHidden id="txtValorNegocio" value="#{itemBacklogCadastroMB.itemBacklog.valorNegocio}" style="color:black; width:100%"/>
 				<p:slider for="txtValorNegocio" display="outValorNegocio" 
 						  style="width:200px; color:black; width:100%" 
 						  displayTemplate="Valor de Negocio {value}" step="5" />
 				<br/>
-				<h:outputText id="outStoryPoint" value="Story Points #{itemBacklogCadastroMB.number}" style="float:left; color:black" />
-				<h:inputHidden id="txtStoryPoint" value="#{itemBacklogCadastroMB.number}" style="float:left; color:black; width:100%"/>
+				<h:outputText id="outStoryPoint" value="Story Points #{itemBacklogCadastroMB.itemBacklog.storyPoints}" style="float:left; color:black" />
+				<h:inputHidden id="txtStoryPoint" value="#{itemBacklogCadastroMB.itemBacklog.storyPoints}" style="float:left; color:black; width:100%"/>
 				<p:slider for="txtStoryPoint" display="outStoryPoint" 
 						  style="width:200px; float:left; width:100%" 
 						  displayTemplate="Story Points {value}" step="5" />
@@ -44,8 +44,12 @@
 			</h:panelGrid> 
 		</p:panel>
 			
-		<p:commandButton process="@none" icon="ui-icon-cancel" value="Cancelar" onclick="dlgItemSave.hide()" style="margin:0 auto; float:right"/>
-		<p:commandButton update="@form" oncomplete="dlgItemSave.hide()" value="Salvar" action="#{itemBacklogCadastroMB.salvarItemBacklog}" icon="ui-icon-disk" style="margin:0 auto; float:right"/>								
+		<p:commandButton update="panel" process="@this" icon="ui-icon-cancel" value="Cancelar" onclick="dlgItemSave.hide()" styleClass="button">
+			<p:resetInput target="panel" />
+		</p:commandButton>
+		<p:commandButton update="@form" oncomplete="dlgItemSave.hide()" value="Salvar" action="#{itemBacklogCadastroMB.salvarItemBacklog}" icon="ui-icon-disk" styleClass="button">
+			<p:resetInput target="panel" />
+		</p:commandButton>								
 	</p:dialog>	
 	
 </ui:composition>

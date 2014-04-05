@@ -17,6 +17,10 @@ import br.com.scrumming.web.infra.bean.AbstractBean;
 @ViewScoped
 public class TarefaBean extends AbstractBean {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@FlashScoped
 	private Tarefa tarefa;
 	private TarefaClientService tarefaClientService;
@@ -27,12 +31,7 @@ public class TarefaBean extends AbstractBean {
 		tarefa = new Tarefa();
 		tarefaClientService = new TarefaClientService();
 	}
-	
-	public void salvar() {
-		tarefaClientService.salvarTarefa(tarefa);
-    	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
-	}
-	
+
 	public void consultarTarefasPorItemBacklog(Integer itemBacklogID) {
 		setTarefasDoItem(tarefaClientService.consultarTarefasPorItemBacklog(itemBacklogID));
 	}

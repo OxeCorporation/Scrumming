@@ -8,11 +8,12 @@ public final class ConstantesService {
 		public static final String OBTER_USUARIO_LOGIN = "/usuario/login/{login}/{senha}";
 		public static final String SALVAR_USUARIO = "/usuario/usu";
 		public static final String SALVAR_USUARIO_EMP = "/usuario/usu/{empresaID}";
+		public static final String DESATIVAR_USUARIO = "/usuario/desativar/{usuarioID}/{empresaID}";
 	}
 	
 	public final class Tarefa{
 		private Tarefa(){}
-		public static final String URL_SALVAR = "/tarefa";
+		public static final String URL_SALVAR = "/tarefa/save/{itemBacklogManagerID}";
 		public static final String URL_CONSULTAR_POR_ITEM_BACKLOG = "/tarefa/list/{itemBacklogID}";
 		public static final String URL_CONSULTAR = "/tarefa/{tarefaID}";
 		public static final String URL_REMOVER = "/tarefa/{tarefaID}";
@@ -27,7 +28,7 @@ public final class ConstantesService {
 	}
 	
 	public final class ItemBacklog{
-		public static final String URL_SALVAR = "/itemBacklog/{itemBacklog}";
+		public static final String URL_SALVAR = "/itemBacklog/save";
 		public static final String URL_CONSULTAR_POR_PROJETO = "/itemBacklog/list/{projetoID}";
 		public static final String URL_CANCELAR = "/itemBacklog/{item}";
 		public static final String URL_CONSLTAR_POR_ID = "/itemBacklog/{itemID}";

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
 @Repository
 public class TarefaRepositorio extends AbstractRepositorio<Tarefa, Integer>{
@@ -18,7 +19,7 @@ public class TarefaRepositorio extends AbstractRepositorio<Tarefa, Integer>{
         Criteria criteria = createCriteria();
         criteria.createAlias("itemBacklog", "itemBacklog");
         criteria.add(Restrictions.eq("itemBacklog.codigo", itemBacklogID));
-        criteria.add(Restrictions.eq("isAtivo", true));
+        criteria.add(Restrictions.not(Restrictions.eq("situacao", SituacaoTarefaEnum.CANCELADO)));
         return Collections.checkedList(criteria.list(), Tarefa.class);
     }
 	

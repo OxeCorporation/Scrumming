@@ -9,18 +9,18 @@
 		<p:panel header="Detalhar Tarefa">
 			<h:panelGrid columns="1">						
 				<h:outputText value="Resumo" /> 
-				<p:inputText id="nome" required="true" size="100" value="#{tarefaBean.tarefa.nome}" requiredMessage="Preencha o resumo" disabled="#{tarefaBean.tarefa.nome} != null}" />
+				<p:inputText id="nome" required="true" size="100" value="#{itemBacklogDetalheMB.tarefa.nome}" requiredMessage="Preencha o resumo" />
 				
 				<h:outputText value="Descricao" /> 
-				<p:inputTextarea id="descricao" required="false" rows="3" cols="100" value="#{tarefaBean.tarefa.descricao}" />
+				<p:inputTextarea id="descricao" required="false" rows="3" cols="80" value="#{itemBacklogDetalheMB.tarefa.descricao}" />
 				
 				<h:outputText value="Tempo estimado (H)" /> 
-				<p:inputText id="tempoEstimado" required="true" value="#{tarefaBean.tarefa.tempoEstimado}" requiredMessage="Preencha o tempo estimado em horas" />							
+				<p:inputText id="tempoEstimado" required="true" value="#{itemBacklogDetalheMB.tarefa.tempoEstimado}" requiredMessage="Preencha o tempo estimado em horas" />							
 			</h:panelGrid>
 		</p:panel>
 		
 		<p:commandButton process="@none" icon="ui-icon-cancel" value="Cancelar" onclick="dlgTarefaSave.hide()" style="margin:0 auto; float:right"/>
-		<p:commandButton update="@form" oncomplete="dlgTarefaSave.hide()" value="Salvar" action="#{tarefaBean.salvar}" icon="ui-icon-disk" style="margin:0 auto; float:right"/>								
+		<p:commandButton update="@form" oncomplete="dlgTarefaSave.hide()" value="Salvar" action="#{itemBacklogDetalheMB.salvarTarefa}" icon="ui-icon-disk" style="margin:0 auto; float:right"/>								
 	</p:dialog>	
 	
 </ui:composition>

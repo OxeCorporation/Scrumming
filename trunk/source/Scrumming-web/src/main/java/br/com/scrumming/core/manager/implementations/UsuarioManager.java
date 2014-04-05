@@ -15,6 +15,7 @@ import br.com.scrumming.core.repositorio.UsuarioRepositorio;
 import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.UsuarioEmpresa;
+import br.com.scrumming.domain.UsuarioEmpresaChave;
 
 @Service
 public class UsuarioManager extends AbstractManager<Usuario, Integer> implements IUsuarioManager {
@@ -91,5 +92,16 @@ public class UsuarioManager extends AbstractManager<Usuario, Integer> implements
 	public void setUsuarioEmpresaManager(
 			IUsuarioEmpresaManager usuarioEmpresaManager) {
 		this.usuarioEmpresaManager = usuarioEmpresaManager;
+	}
+
+	@Override
+	public void desativar(Integer usuarioID, Integer empresaID) {
+
+		Usuario usuario = findByKey(usuarioID);
+		Empresa empresa = empresaManager.findByKey(empresaID);
+		
+		UsuarioEmpresa usuarioEmpresa = usuarioEmpresaManager.findByKey(new UsuarioEmpresaChave(empresa, usuario));
+		usuarioEmpresa.setAtivo(false);
+		usuarioEmpresaManager.insertOrUpdate(usuarioEmpresa);
 	}
 }

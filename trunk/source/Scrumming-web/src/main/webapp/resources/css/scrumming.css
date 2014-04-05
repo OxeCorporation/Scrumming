@@ -4,36 +4,36 @@
 .label-default {
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
 	font-family: Arial;
-    font-size: 14px;
-    line-height: 1.42857;
-    font-weight: normal;
-    margin-right: 5px;
+	font-size: 14px;
+	line-height: 1.42857;
+	font-weight: normal;
+	margin-right: 5px;
 }
 
 /*
 * Label do header das tabelas
 */
 .label-grid-header {
-	color: #428BCA; 
-	text-decoration: none; 
+	color: #FFFFFF;
+	text-decoration: none;
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
 	font-family: Arial;
-    font-size: 14px;
-    line-height: 1.42857;
-    font-weight: bold;
+	font-size: 14px;
+	line-height: 1.42857;
+	font-weight: bold;
 }
 
 /*
 * Label do título das páginas
 */
 .label-page-title {
-	color: #428BCA; 
-	text-decoration: none; 
+	color: #428BCA;
+	text-decoration: none;
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
 	font-family: Arial;
-    font-size: 16px;
-    line-height: 1.42857;
-    font-weight: bold;
+	font-size: 16px;
+	line-height: 1.42857;
+	font-weight: bold;
 }
 
 /*
@@ -42,9 +42,9 @@
 .output-default {
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
 	font-family: Arial;
-    font-size: 14px;
-    line-height: 1.42857;
-    font-weight: normal;
+	font-size: 14px;
+	line-height: 1.42857;
+	font-weight: normal;
 }
 
 /*
@@ -53,9 +53,9 @@
 .output-small {
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
 	font-family: Arial;
-    font-size: 10px;
-    line-height: 1.42857;
-    font-weight: normal;
+	font-size: 10px;
+	line-height: 1.42857;
+	font-weight: normal;
 }
 
 /*
@@ -64,10 +64,10 @@
 .label-small {
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
 	font-family: Arial;
-    font-size: 10px;
-    line-height: 1.42857;
-    font-weight: normal;
-    margin-right: 5px;
+	font-size: 10px;
+	line-height: 1.42857;
+	font-weight: normal;
+	margin-right: 5px;
 }
 
 /*
@@ -76,29 +76,71 @@
 .pipe-separator {
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
 	font-family: Arial;
-    font-size: 10px;
-    line-height: 1.42857;
-    font-weight: normal;
-    margin-right: 5px;
-    margin-left: 5px;
+	font-size: 10px;
+	line-height: 1.42857;
+	font-weight: normal;
+	margin-right: 5px;
+	margin-left: 5px;
 }
 
 /*
 * Ícone da barra lateral direita.
 */
 .right-sidebar-icon {
-	margin:5px;
+	margin: 5px;
 }
 
 /*
 * Ícone da barra lateral esquerda.
 */
 .left-sidebar-icon {
-	margin:2px;
+	margin: 2px;
 }
 
 .inside-grid-icon {
-	margin:0 auto;
-	float:right;
+	margin: 0 auto;
+	float: right;
 	color: #428BCA;
+}
+
+.text-area {
+	width: 500px !important;
+	min-height: 100px !important;
+}
+
+.button {
+	margin: 3px;
+	float: right;
+	color: #428BCA;
+}
+
+.row {
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.navbar-default .navbar-brand {
+    color: #fff;
+}
+
+.navbar-default {
+    background-color: #428bca;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+}
+
+.navbar-toggle {
+    background-color: #fff;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #428bca;
+}
+
+.ui-growl {
+	position: fixed;
+	top: 15%;
+	right: 30%; 
 }

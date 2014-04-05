@@ -21,21 +21,22 @@ import br.com.scrumming.web.infra.jsf.ListaDataModel;
 public class CadastroUsuarioBean extends AbstractBean {
 
 	/**
-	 * TESTE COM SVN
+	 * serial version
 	 */
-    private Usuario usuarioSelecionado;
+	private static final long serialVersionUID = 1L;
+	private Usuario usuarioSelecionado;
+	private Usuario usuario = new Usuario();
     private List<Usuario> usuarios;
     private ListaDataModel<Usuario> dataModelUsuario;
     private UsuarioEmpresaClientService empresaService;
     private UsuarioClientService usuarioClientService;
     @ManagedProperty(value="#{sessaoMB.empresaSelecionada}")
     private Empresa empresa;
-    private boolean editavel = true;
 
     public String pesquisarPorNome(){
     	return "";
     }
-    
+    	
     @Override
     public void inicializar() {
     	usuarioClientService = new UsuarioClientService();
@@ -52,28 +53,35 @@ public class CadastroUsuarioBean extends AbstractBean {
     	return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
     }
     
-    public String novo() {
-    	usuarioClientService.salvarUsuario(usuarioSelecionado, empresa.getCodigo());
+    public void salvar() {
+    	usuarioClientService.salvarUsuario(usuario, empresa.getCodigo());
     	atualizarLista();
-    	usuarioSelecionado = new Usuario();
-    	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
-        return "";
+    	usuario = new Usuario();
+    	mensagemSucesso();
     }
 
-    public String cadastrar(){
-    	usuarioSelecionado = new Usuario();
+	private void mensagemSucesso() {
+		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+	}
+    
+    public String novoUsuario(){
+    	usuario = new Usuario();
     	return "";
     }
-    
     public String alterar() {
     	if(usuarioSelecionado == null){
-    	 // TODO esc exibir uma mensagem de usuario deve ser selecionado
+    		//TODO esdras - MEnsagem de erro nenhun usuario selecionado
+    	}else{
+    		usuario = usuarioSelecionado;
     		
     	}
         return "";
     }
 
-    public String excluir() {
+    public String desativar() {
+    	usuarioClientService.desativarUsuario(usuarioSelecionado.getCodigo(),empresa.getCodigo());
+    	atualizarLista();
+    	mensagemSucesso();
         return "";
     }
 
@@ -111,11 +119,11 @@ public class CadastroUsuarioBean extends AbstractBean {
 		this.dataModelUsuario = dataModelUsuario;
 	}
 
-	public boolean isEditavel() {
-		return editavel;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setEditavel(boolean editavel) {
-		this.editavel = editavel;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }

@@ -13,7 +13,7 @@ import br.com.scrumming.web.infra.ConstantesService;
 
 public class TarefaClientService extends AbstractClientService {
 	
-	public void salvarTarefa(Tarefa tarefa) {
+	public void salvarTarefa(Tarefa tarefa, Integer itemBacklogManagerID) {
 
 		/*RestTemplate restTemplate = new RestTemplate();
 		restTemplate.postForEntity(ConstantesService.Tarefa.URL_SALVAR, 
@@ -21,7 +21,7 @@ public class TarefaClientService extends AbstractClientService {
 		
 		getRestTemplate().postForObject(
 				getURIService(ConstantesService.Tarefa.URL_SALVAR),
-				tarefa, void.class);
+				tarefa, void.class, itemBacklogManagerID);
 	}
 	
 	public List<Tarefa> consultarTarefasPorItemBacklog(Integer itemBacklogID) {

@@ -5,9 +5,13 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
+import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.web.clientService.ItemBacklogClientService;
+import br.com.scrumming.web.clientService.TarefaClientService;
+import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
 import br.com.scrumming.web.infra.bean.AbstractBean;
@@ -24,6 +28,16 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	private ItemBacklogClientService clienteService;
 	@FlashScoped
 	private Projeto projetoSelecionado;
+	private TarefaClientService tarefaClientService;
+	private Tarefa tarefa;	
+	
+
+	@Override
+    public void inicializar() {
+		tarefa = new Tarefa();
+		tarefaClientService = new TarefaClientService();
+		atualizarListaDeTarefas();
+	}
 
 	/* Métodos para redirecionamento das páginas */
 	public String itemBacklogCadastroPage() {
@@ -42,7 +56,18 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
 	}
 
+	
 	/* Funções específicas da tela */
+	private void atualizarListaDeTarefas() {
+		itemSelecionado.setTarefas(tarefaClientService.consultarTarefasPorItemBacklog(itemSelecionado.getCodigo()));
+	}
+	
+	public void salvarTarefa() {
+		tarefaClientService.salvarTarefa(tarefa, itemSelecionado.getCodigo());
+		atualizarListaDeTarefas();
+    	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+	}
+	
 	public String salvarItemBacklog() {
 		clienteService.salvarItemBacklog(itemBacklog);
 		return "";
@@ -64,6 +89,7 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 		return "";
 	}
 
+	
 	/* getters and setters */
 	public List<ItemBacklog> getItens() {
 		return itens;
@@ -95,6 +121,14 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 
 	public void setProjetoSelecionado(Projeto projetoSelecionado) {
 		this.projetoSelecionado = projetoSelecionado;
+	}
+	
+	public Tarefa getTarefa() {
+		return tarefa;
+	}
+
+	public void setTarefa(Tarefa tarefa) {
+		this.tarefa = tarefa;
 	}
 
 }
