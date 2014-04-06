@@ -10,6 +10,8 @@ public class SprintDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
+	private int dias;
+	
 	private Sprint sprint;
 	
 	private List<ItemBacklog> sprintBacklog;
@@ -38,5 +40,13 @@ public class SprintDTO implements Serializable {
 
 	public void setProductBacklog(List<ItemBacklog> productBacklog) {
 		this.productBacklog = productBacklog;
+	}
+
+	public int getDias() {
+		return dias;
+	}
+
+	public void setDias(int dias) {
+		this.dias = dias;
 	}	
 }

@@ -1,7 +1,6 @@
 package br.com.scrumming.web.managedbean.sprint;
 
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import br.com.scrumming.domain.ItemBacklog;
@@ -17,6 +16,7 @@ import br.com.scrumming.web.infra.bean.AbstractBean;
 @ViewScoped
 public class SprintMB extends AbstractBean {
 	
+	private static final long serialVersionUID = 1L;
 	private Sprint sprint;
 	private List<Sprint> sprintsDoProjeto;
 	private List<ItemBacklog> sprintBacklog;
@@ -35,15 +35,6 @@ public class SprintMB extends AbstractBean {
 	}
 	
 	/*Funções disponíveis para as telas da Sprint e SprintBacklog*/
-	
-	/**
-	 * Salva o sprintDTO
-	 * @return
-	 */
-	public String salvarSprint() {
-		sprintClientService.salvarSprint(sprintDTO);
-		return "";
-	}
 	
 	/**
 	 * Consulta o DTO da Sprint.

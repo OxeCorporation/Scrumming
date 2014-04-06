@@ -56,8 +56,8 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 
 		String retorno = "";
 		Sprint sprint = sprintDTO.getSprint();
-		List<ItemBacklog> itensBacklogSprint = sprintDTO.getSprintBacklog();
-		List<ItemBacklog> itensBacklogProduto = sprintDTO.getProductBacklog();
+		//List<ItemBacklog> itensBacklogSprint = sprintDTO.getSprintBacklog();
+		//List<ItemBacklog> itensBacklogProduto = sprintDTO.getProductBacklog();
 
 		// Persiste o objeto Sprint e retorna a chave.
 		Integer sprintID = insertOrUpdate(sprint);
@@ -69,7 +69,7 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 			// Busca o objeto persistido pela chave.
 			Sprint sprintPersistido = findByKey(sprintID);
 
-			if (CollectionUtils.isNotEmpty(itensBacklogSprint)) {
+			/*if (CollectionUtils.isNotEmpty(itensBacklogSprint)) {
 				// TODO: Testar se funciona
 				sprintBacklogManager.associarItemASprint(sprintPersistido,
 						itensBacklogSprint);
@@ -78,7 +78,7 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 				// TODO: Testar se funciona
 				sprintBacklogManager.desassociarItemASprint(sprintPersistido,
 						itensBacklogProduto);
-			}
+			}*/
 		}
 		return retorno;
 	}
