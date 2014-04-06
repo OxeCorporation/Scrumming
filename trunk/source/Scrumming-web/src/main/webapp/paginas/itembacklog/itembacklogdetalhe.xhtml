@@ -5,7 +5,7 @@
 	template="/paginas/template/template.xhtml">
 
 	<ui:define name="conteudo">
-		<div class="col-md-9">
+		<h:panelGroup styleClass="col-md-9 column div-center">
 			<p:panel toggleable="true" toggleSpeed="500" collapsed="true">
 				<f:facet name="header">
 					<h:commandLink immediate="true"
@@ -47,13 +47,13 @@
 					</p:panel>
 				</p:dataGrid>
 			</p:panel>
-		</div>
-		<div class="col-md-3">
+		</h:panelGroup>
+		<h:panelGroup styleClass="col-md-3 column div-right">
 			<p:commandLink oncomplete="dlgTarefaSave.show()" process="@this">
 				<i class="fa fa-plus right-sidebar-icon" style="float:right; position: fixed; margin-top: 8px"/>
 				<h:outputText value="Nova tarefa" style="float:right; position: fixed; margin-left: 22px; margin-top: 5px"/>
 			</p:commandLink>
-		</div>
+		</h:panelGroup>
 		<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />
 		<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">  
         	<p:commandButton value="#{mensagens.botao_confirmar}" action="#{itemBacklogDetalheMB.removerTarefa}" update="@form" ajax="false" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  

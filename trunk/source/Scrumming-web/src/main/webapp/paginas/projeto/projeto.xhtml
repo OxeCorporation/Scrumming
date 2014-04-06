@@ -8,7 +8,7 @@
 	<!-- CORPO DA TELA DE LISTAGEM DOS PROJETOS -->
 	<ui:define name="conteudo">
 		<h:outputStylesheet library="css" name="scrumming.css" />
-		<div style="width: 80%; float: left;">
+		<h:panelGroup styleClass="col-md-9 column div-center">
 			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA OS PROJETOS -->
 			<p:dataGrid var="projeto" value="#{projetoMB.projetosDaEmpresa}"
 				columns="1" style="width:100%;">
@@ -36,8 +36,8 @@
 					</p:panel>
 				</p:panel>
 			</p:dataGrid>
-		</div>
-		<div style="width: 16%; float: right; position: fixed; left: 83%;">
+		</h:panelGroup>
+		<h:panelGroup styleClass="col-md-3 column div-right">
 			<p:commandLink title="Novo projeto"
 				action="#{projetoMB.projetoCadastroPage}">
 				<h:outputText styleClass="fa fa-plus right-sidebar-icon" />
@@ -46,6 +46,6 @@
 				action="#{projetoMB.projetoCadastroPage}">
 				<h:outputText value="Novo projeto" />
 			</p:commandLink>
-		</div>
+		</h:panelGroup>
 	</ui:define>
 </ui:composition>

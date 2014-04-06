@@ -58,7 +58,7 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		Sprint sprint = sprintDTO.getSprint();
 		//List<ItemBacklog> itensBacklogSprint = sprintDTO.getSprintBacklog();
 		//List<ItemBacklog> itensBacklogProduto = sprintDTO.getProductBacklog();
-
+		sprint.setDataFim(sprint.getDataInicio().plusDays(sprintDTO.getDias()));
 		// Persiste o objeto Sprint e retorna a chave.
 		Integer sprintID = insertOrUpdate(sprint);
 
