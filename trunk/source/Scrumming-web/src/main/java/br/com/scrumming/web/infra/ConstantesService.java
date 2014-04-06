@@ -50,4 +50,11 @@ public final class ConstantesService {
 		public static final String CONSULTAR_POR_NOME = "/empresa/{nome}";
 		public static final String CONSULTAR_POR_CODIGO = "/empresa/{empresaID}";
 	}
+	
+	public final class DailyScrum {
+		public static final String URL_SALVAR = "/dailyscrum/save";
+		public static final String URL_CONSULTAR_POR_SPRINT = "/dailyscrum/list/{sprintID}";
+		public static final String URL_CONSULTAR_PROXIMO_DAILYSCRUM = "/dailyscrum/{projetoID}";
+	}
+
 }
