@@ -22,7 +22,6 @@ public class SprintCadastroMB extends AbstractBean {
 	private Sprint sprintSelecionada;
 	@FlashScoped
 	private Projeto projetoSelecionado;
-	private int dias;
 	private SprintClientService sprintClientService;
 	private SprintDTO sprintDTO;
 	
@@ -66,14 +65,6 @@ public class SprintCadastroMB extends AbstractBean {
 
 	public void setProjetoSelecionado(Projeto projetoSelecionado) {
 		this.projetoSelecionado = projetoSelecionado;
-	}
-
-	public int getDias() {
-		return dias;
-	}
-
-	public void setDias(int dias) {
-		this.dias = dias;
 	}
 
 	public SprintDTO getSprintDTO() {
