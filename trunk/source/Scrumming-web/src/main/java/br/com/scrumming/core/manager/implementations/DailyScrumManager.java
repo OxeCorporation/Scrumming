@@ -1,5 +1,7 @@
 package br.com.scrumming.core.manager.implementations;
 
+import java.util.Calendar;
+
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,15 +33,32 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer> impl
  
 	@Override
 	public String salvarDailyScrum(DailyScrum dailyScrum) {
-
+		
+		int e;
 		String retorno = "";
 		DateTime dataInicio = dailyScrum.getSprint().getDataInicio();
 		DateTime dataFim = dailyScrum.getSprint().getDataFim();
 		
-		for (int i = dataInicio.getDayOfMonth(); i < dataFim.getDayOfMonth(); i++) {
-			dailyScrumRepositorio.save(dailyScrum);			
+		if (dataInicio.isAfterNow()){
+			 e = dataInicio.getDayOfMonth();
+			 retorno="DailyScrum Salvo com sucesso.";
+			 salve(dailyScrum, e, dataInicio, dataFim);
+		}else{
+			Calendar.getInstance();
+			e =  Calendar.DAY_OF_MONTH;
+			retorno = "DailyScrum Sailvo. Próxima DailyScrum " + Calendar.DATE + " Horário: "+ dailyScrum.getDataHora().getHourOfDay()
+					+":"+dailyScrum.getDataHora().getMillisOfDay();
+			 salve(dailyScrum, e, dataInicio, dataFim);
 		}
 		return retorno;
+	}
+
+	private void salve(DailyScrum dailyScrum, int e, DateTime dataInicio,
+			DateTime dataFim) {
+		for (int i=e ; i < dataFim.getDayOfMonth(); i++) {
+			dailyScrumRepositorio.save(dailyScrum);			
+			dailyScrum.setDataHora(dataInicio.plusDays(1));
+		}
 	}
 
 }
