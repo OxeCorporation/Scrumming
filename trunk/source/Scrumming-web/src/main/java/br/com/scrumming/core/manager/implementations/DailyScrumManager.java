@@ -15,68 +15,77 @@ import br.com.scrumming.domain.DailyScrum;
 import br.com.scrumming.domain.Sprint;
 
 @Service
-public class DailyScrumManager extends AbstractManager<DailyScrum, Integer> implements IDailyScrumManager {
+public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
+		implements IDailyScrumManager {
 
-    /**
-     * Serial Version
-     */
-    private static final long serialVersionUID = 1L;
+	/**
+	 * Serial Version
+	 */
+	private static final long serialVersionUID = 1L;
 
-    @Autowired
-    private DailyScrumRepositorio dailyScrumRepositorio;
-    
+	@Autowired
+	private DailyScrumRepositorio dailyScrumRepositorio;
+
 	@Autowired
 	private TeamManager teamManage;
 
-    @Override
-    public AbstractRepositorio<DailyScrum, Integer> getRepositorio() {
-        return this.dailyScrumRepositorio;
-    }
- 
+	@Override
+	public AbstractRepositorio<DailyScrum, Integer> getRepositorio() {
+		return this.dailyScrumRepositorio;
+	}
+
 	@Override
 	public String salvarDailyScrum(DailyScrum dailyScrum) {
-		
+
 		int e;
 		String retorno = "";
 		DateTime dataInicio = dailyScrum.getSprint().getDataInicio();
 		DateTime dataFim = dailyScrum.getSprint().getDataFim();
-		
-		if (dataInicio.isAfterNow()){
-			 e = dataInicio.getDayOfMonth();
-			 retorno="DailyScrum Salvo com sucesso.";
-			 salve(dailyScrum, e, dataInicio, dataFim);
+		if (dailyScrum.getCodigo() == null) {
+			if (dataInicio.isAfterNow()) {
+				e = dataInicio.getDayOfMonth();
+				retorno = "DailyScrum Salvo com sucesso.";
+				salve(dailyScrum, e, dataInicio, dataFim);
+			} else {
+				Calendar.getInstance();
+				e = Calendar.DAY_OF_MONTH;
+				retorno = "DailyScrum Sailvo. Próxima DailyScrum "
+						+ Calendar.DATE + " Horário: "
+						+ dailyScrum.getDataHora().getHourOfDay() + ":"
+						+ dailyScrum.getDataHora().getMillisOfDay();
+				salve(dailyScrum, e, dataInicio, dataFim);
+			}
 		}else{
-			Calendar.getInstance();
-			e =  Calendar.DAY_OF_MONTH;
-			retorno = "DailyScrum Sailvo. Próxima DailyScrum " + Calendar.DATE + " Horário: "+ dailyScrum.getDataHora().getHourOfDay()
-					+":"+dailyScrum.getDataHora().getMillisOfDay();
-			 salve(dailyScrum, e, dataInicio, dataFim);
+			dailyScrumRepositorio.save(dailyScrum);
+			retorno = "DailyScrum Alterado";
 		}
 		return retorno;
 	}
 
-	
-	
 	private void salve(DailyScrum dailyScrum, int e, DateTime dataInicio,
 			DateTime dataFim) {
-		for (int i=e ; i < dataFim.getDayOfMonth(); i++) {
-			dailyScrumRepositorio.save(dailyScrum);			
+		for (int i = e; i < dataFim.getDayOfMonth(); i++) {
+			dailyScrumRepositorio.save(dailyScrum);
 			dailyScrum.setDataHora(dataInicio.plusDays(1));
 		}
 	}
 
 	@Override
 	public List<DailyScrum> listarDailyScrumDaSprint(Sprint sprint) {
-		return dailyScrumRepositorio.listarDailyScrumPorSprint(sprint.getCodigo());
+		return dailyScrumRepositorio.listarDailyScrumPorSprint(sprint
+				.getCodigo());
 	}
 
 	@Override
 	public DailyScrum consultarProximoDailyScrum(Sprint sprint) {
-		List<DailyScrum> dailyLista = dailyScrumRepositorio.listarDailyScrumPorSprint(sprint.getCodigo());
+		List<DailyScrum> dailyLista = dailyScrumRepositorio
+				.listarDailyScrumPorSprint(sprint.getCodigo());
 
 		for (int i = 0; i < dailyLista.size(); i++) {
-			if (dailyLista.get(i).getDataHora().isAfterNow()){
-				return dailyScrumRepositorio.consultarProximoDailyScrum(dailyLista.get(i).getCodigo());
+			if (dailyLista.get(i).getDataHora().isAfterNow()) {
+				return dailyScrumRepositorio
+						.consultarProximoDailyScrum(dailyLista.get(i)
+								.getCodigo());
 			}
 		}
 		return null;
