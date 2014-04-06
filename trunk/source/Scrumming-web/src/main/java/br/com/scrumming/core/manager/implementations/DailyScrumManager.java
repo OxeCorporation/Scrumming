@@ -71,15 +71,14 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 	}
 
 	@Override
-	public List<DailyScrum> listarDailyScrumDaSprint(Sprint sprint) {
-		return dailyScrumRepositorio.listarDailyScrumPorSprint(sprint
-				.getCodigo());
+	public List<DailyScrum> listarDailyScrumDaSprint(int sprintID) {
+		return dailyScrumRepositorio.listarDailyScrumPorSprint(sprintID);
 	}
 
 	@Override
-	public DailyScrum consultarProximoDailyScrum(Sprint sprint) {
+	public DailyScrum consultarProximoDailyScrum(int sprintID) {
 		List<DailyScrum> dailyLista = dailyScrumRepositorio
-				.listarDailyScrumPorSprint(sprint.getCodigo());
+				.listarDailyScrumPorSprint(sprintID);
 
 		for (int i = 0; i < dailyLista.size(); i++) {
 			if (dailyLista.get(i).getDataHora().isAfterNow()) {
