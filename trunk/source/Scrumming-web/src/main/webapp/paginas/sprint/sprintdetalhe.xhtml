@@ -7,9 +7,8 @@
 
 	<ui:define name="conteudo">
 		<h:outputStylesheet library="css" name="scrumming.css" />
-		<div style="width: 80%; float: left">
-			<h:panelGroup var="sprint"
-				value="#{sprintDetalheMB.sprintSelecionada}">
+		<h:panelGroup styleClass="col-md-9 column div-center">
+			<h:panelGroup var="sprint" value="#{sprintDetalheMB.sprintSelecionada}">
 				<h:commandLink immediate="true" action="#{sprintDetalheMB.sprintDetalhePage}">
 					<h:outputText styleClass="label-page-title" value="#{sprintDetalheMB.sprintSelecionada.nome}" />
 				</h:commandLink>
@@ -93,10 +92,10 @@
 					</h:panelGrid>
 				</p:tab>
 			</p:tabView>
-		</div>
-		<div style="width: 16%; float: right; position: fixed; left: 83%;">
+		</h:panelGroup>
+		<h:panelGroup styleClass="col-md-3 column div-right">
 			<h:outputText value="Exibir o time do projeto nessa coluna." />
-		</div>
+		</h:panelGroup>
 	</ui:define>
 	<ui:define name="menu_lateral">
 		<li><h:commandLink immediate="true"
