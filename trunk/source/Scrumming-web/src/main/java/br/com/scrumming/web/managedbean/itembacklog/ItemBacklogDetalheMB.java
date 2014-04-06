@@ -74,10 +74,11 @@ public class ItemBacklogDetalheMB extends AbstractBean {
     	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 	}
 	
-	public void removerTarefa(){
+	public String removerTarefa(){
 		tarefaClientService.removerTarefa(tarefaSelecionada);
 		atualizarListaDeTarefas();
 		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+		return "";
 	}
 	
 	public String salvarItemBacklog() {
