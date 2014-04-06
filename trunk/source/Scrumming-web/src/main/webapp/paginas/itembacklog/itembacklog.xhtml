@@ -42,12 +42,12 @@
 							<br />
 							<h:outputLabel styleClass="label-default" value="#{mensagens.label_criterio_aceitacao}" />
 							<h:outputText styleClass="output-default" value="#{item.criterioAceitacao}" />
+							
 							<!-- BOTAO CANCELAR ITEMBACKLOG -->
-							<p:commandLink title="Cancelar Item"
-								action="#{itemBacklogMB.cancelarItemBacklog}">
+							<p:commandLink title="Cancelar Item" action="#{itemBacklogMB.cancelarItemBacklog}">
 								<h:outputText styleClass="fa fa-lock  inside-grid-icon" />
 								<f:setPropertyActionListener value="#{item}"
-									target="#{itemBacklogMB.itemSelecionado}" />
+															 target="#{itemBacklogMB.itemSelecionado}" />
 							</p:commandLink>
 						</h:panelGroup>
 					</p:panel>
