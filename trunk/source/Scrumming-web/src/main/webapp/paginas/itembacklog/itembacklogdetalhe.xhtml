@@ -29,19 +29,21 @@
 							<h:outputText styleClass="label-grid-header"
 								value="#{tarefa.nome}" />
 						</f:facet>
-						<h:outputText styleClass="label-default"
-							value="pn#{tarefa.codigo}" />
 						<h:outputText styleClass="output-default"
 							value="#{tarefa.descricao}" />
 						<p:commandLink title="Alterar tarefa"
 							onclick="dlgTarefaSave.show()">
 							<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
+							<f:setPropertyActionListener value="#{tarefa}"
+									target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
 						</p:commandLink>
-						<br />
-						<p:commandLink title="Remover tarefa"
-							action="#{tarefaBean.removerTarefa}">
+						<br/>
+						<h:commandLink id="removerTarefaHLink" immediate="true"
+							action="#{itemBacklogDetalheMB.removerTarefa}">
 							<h:outputText styleClass="fa fa-trash-o inside-grid-icon" />
-						</p:commandLink>
+							<f:setPropertyActionListener value="#{tarefa}"
+									target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
+						</h:commandLink>
 					</p:panel>
 				</p:dataGrid>
 			</p:panel>
@@ -53,6 +55,10 @@
 			</p:commandLink>
 		</div>
 		<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">  
+        	<p:commandButton value="#{mensagens.botao_confirmar}" action="#{itemBacklogDetalheMB.removerTarefa}" update="@form" ajax="false" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  
+        	<p:commandButton value="#{mensagens.botao_cancelar}" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
+    	</p:confirmDialog>
 	</ui:define>
 	<ui:define name="menu_lateral">
 		<li><h:commandLink immediate="true"
