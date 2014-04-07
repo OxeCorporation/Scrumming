@@ -23,6 +23,16 @@ public class EmpresaService {
 	private IEmpresaManager empresaManager;
 	
 	/**
+	 * Salvar uma empresa
+	 * @param Empresa
+	 * @return void
+	 */
+	@RequestMapping(method = RequestMethod.POST, value = "/salvar/")
+    public void salvar(@RequestBody Empresa empresa, @RequestBody Usuario usuario) {
+		empresaManager.salvar(empresa, usuario);
+    }
+	
+	/**
 	 * Consultar Empresas pelo nome
 	 * @param Nome da Empresa
 	 * @return Uma lista de Empresas
@@ -59,16 +69,6 @@ public class EmpresaService {
 	public List<Empresa> listarTodas() {
 		return new ArrayList<Empresa>(empresaManager.findAll());
 	}
-	
-	/**
-	 * Salvar uma empresa
-	 * @param Empresa
-	 * @return void
-	 */
-	@RequestMapping(method = RequestMethod.POST, value = "/salvar/")
-    public void salvar(@RequestBody Empresa empresa, @RequestBody Usuario usuario) {
-		empresaManager.salvar(empresa, usuario);
-    }
 	
 	/* getters and setters */
 	public IEmpresaManager getEmpresaManager() {
