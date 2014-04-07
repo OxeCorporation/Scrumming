@@ -3,8 +3,6 @@ package br.com.scrumming.core.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.scrumming.core.manager.interfaces.IEmpresaManager;
 import br.com.scrumming.domain.Empresa;
+import br.com.scrumming.domain.Usuario;
 
 @RestController
 @RequestMapping("/empresa")
@@ -66,19 +65,9 @@ public class EmpresaService {
 	 * @param Empresa
 	 * @return void
 	 */
-	@RequestMapping(method = RequestMethod.POST, value = "/{empresa}")
-    public void salvar(@PathVariable @Valid Empresa empresa) {
-        this.empresaManager.insertOrUpdate(empresa);
-    }
-	
-	/**
-	 * Salvar uma empresa
-	 * @param Empresa
-	 * @return String informando Empresa Salva
-	 */
-	@RequestMapping(method = RequestMethod.POST, value = "/empresa")
-    public String salvarEmpresa(@RequestBody Empresa empresa){
-    	return empresa.getNome() + " Salva";
+	@RequestMapping(method = RequestMethod.POST, value = "/salvar/")
+    public void salvar(@RequestBody Empresa empresa, @RequestBody Usuario usuario) {
+		empresaManager.salvar(empresa, usuario);
     }
 	
 	/* getters and setters */
