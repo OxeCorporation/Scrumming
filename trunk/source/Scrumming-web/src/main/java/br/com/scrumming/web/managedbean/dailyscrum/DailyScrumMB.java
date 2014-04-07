@@ -28,13 +28,17 @@ public class DailyScrumMB extends AbstractBean {
 	}
 	
 	public String listarDailyScrumDaSprint(Integer sprintID){
-		dailyScrumsDaSprint = dailyScrumClientService.consultarDailyScrumPorSprints(sprintID);
+		setDailyScrumsDaSprint(dailyScrumClientService.consultarDailyScrumPorSprints(sprintID));
 		return "";
 	}
 	
 	public String consultarProximoDailyScrum(Integer sprintID){
-		dailyScrum = (DailyScrum)dailyScrumClientService.consultarProximoDailyScrum(sprintID);
+		setDailyScrum((DailyScrum)dailyScrumClientService.consultarProximoDailyScrum(sprintID));
 		return "";
+	}
+	
+	public void salvarDailyScrum(){
+		dailyScrumClientService.salvarDailyScrum(dailyScrum);
 	}
 
 	public DailyScrum getDailyScrum() {
