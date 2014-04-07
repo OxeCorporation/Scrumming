@@ -31,6 +31,11 @@ public class EmpresaManager extends
 		return this.empresaRepositorio;
 	}
 	
+	/**
+	 * Salvar uma empresa
+	 * @param Empresa
+	 * @return void
+	 */
 	@Override
     public void salvar(Empresa empresa, Usuario usuario) {
     	insertOrUpdate(empresa);
