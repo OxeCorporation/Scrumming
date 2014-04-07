@@ -20,29 +20,29 @@
 					<h:outputText styleClass="output-default"
 						value="#{itemBacklogDetalheMB.itemSelecionado.criterioAceitacao}" />
 				</f:facet>
-				<p:dataGrid var="tarefa" id="dataGridTarefas"
+				<p:dataGrid var="taref" id="dataGridTarefas"
 					value="#{itemBacklogDetalheMB.itemSelecionado.tarefas}" columns="1"
 					style="width:100%;"
 					rendered="#{not empty itemBacklogDetalheMB.itemSelecionado.tarefas}">
-					<p:panel widgetVar="pn#{tarefa.codigo}" style="height: 100px;">
+					<p:panel widgetVar="pn#{taref.codigo}" style="height: 100px;">
 						<f:facet name="header">
 							<h:outputText styleClass="label-grid-header"
-								value="#{tarefa.nome}" />
+								value="#{taref.nome}" />
 						</f:facet> 
 						<h:outputText styleClass="output-default"
-							value="#{tarefa.descricao}" />
+							value="#{taref.descricao}" />
 						<p:commandLink id="alterarTarefaLink"
 							action="#{itemBacklogDetalheMB.preparaParaAlterar}"
-							oncomplete="dlgTarefaSave.show()" process="@this">
+							oncomplete="dlgTarefaSave.show()" process="@this" update="@widgetVar(dlgTarefaSave)">
 							<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
-							<f:setPropertyActionListener value="#{tarefa}"
+							<f:setPropertyActionListener value="#{taref}"
 									target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
 						</p:commandLink>
 						<br/>
 						<h:commandLink id="removerTarefaLink" immediate="true"
 							action="#{itemBacklogDetalheMB.removerTarefa}">
 							<h:outputText styleClass="fa fa-trash-o inside-grid-icon" />
-							<f:setPropertyActionListener value="#{tarefa}"
+							<f:setPropertyActionListener value="#{taref}"
 									target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
 						</h:commandLink>
 					</p:panel>
