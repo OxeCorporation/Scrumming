@@ -46,4 +46,20 @@ public class ProjetoCadastroMB extends AbstractBean {
 	public void setProjetoSelecionado(Projeto projetoSelecionado) {
 		this.projetoSelecionado = projetoSelecionado;
 	}
+
+	public ProjetoDTO getProjetoDTO() {
+		return projetoDTO;
+	}
+
+	public void setProjetoDTO(ProjetoDTO projetoDTO) {
+		this.projetoDTO = projetoDTO;
+	}
+
+	public ProjetoClientService getProjetoClientService() {
+		return projetoClientService;
+	}
+
+	public void setProjetoClientService(ProjetoClientService projetoClientService) {
+		this.projetoClientService = projetoClientService;
+	}
 }
