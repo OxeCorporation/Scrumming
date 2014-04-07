@@ -29,6 +29,7 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	@FlashScoped
 	private Projeto projetoSelecionado;
 	private TarefaClientService tarefaClientService;
+	@FlashScoped
 	private Tarefa tarefa;
 	@FlashScoped
 	private Tarefa tarefaSelecionada;
@@ -65,7 +66,9 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	
 	/* Funções específicas da tela */
 	private void atualizarListaDeTarefas() {
-		itemSelecionado.setTarefas(tarefaClientService.consultarTarefasPorItemBacklog(itemSelecionado.getCodigo()));
+		if (itemSelecionado != null) {
+			itemSelecionado.setTarefas(tarefaClientService.consultarTarefasPorItemBacklog(itemSelecionado.getCodigo()));
+		}
 	}
 	
 	public void salvarTarefa() {
@@ -79,6 +82,10 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 		atualizarListaDeTarefas();
 		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 		return "";
+	}
+	
+	public void preparaParaAlterar() {
+		tarefa = tarefaSelecionada;
 	}
 	
 	public String salvarItemBacklog() {
