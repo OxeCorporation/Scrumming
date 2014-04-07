@@ -61,7 +61,7 @@
 				<ui:include src="/paginas/usuario/usuarioNovoPanel.xhtml" />
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">  
         			<p:commandButton value="#{mensagens.botao_confirmar}" action="#{cadastroUsuarioBean.desativar}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update="tabelaUsuarios"/>  
-        			<p:commandButton value="#{mensagens.botao_cancelar}" styleClass="ui-confirmdialog-no" icon="ui-icon-close" update="tabelaUsuarios"/>       
+        			<p:commandButton value="#{mensagens.botao_cancelar}" styleClass="ui-confirmdialog-no" icon="ui-icon-close" update="tabelaUsuarios" immediate="true"/>       
     			</p:confirmDialog>
 			</h:panelGroup>
 		</h:panelGroup>
