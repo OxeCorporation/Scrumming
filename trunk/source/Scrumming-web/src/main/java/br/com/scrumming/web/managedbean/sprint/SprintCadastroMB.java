@@ -1,9 +1,12 @@
 package br.com.scrumming.web.managedbean.sprint;
 
+import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
+import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
@@ -23,7 +26,9 @@ public class SprintCadastroMB extends AbstractBean {
 	@FlashScoped
 	private Projeto projetoSelecionado;
 	private SprintClientService sprintClientService;
+	@FlashScoped
 	private SprintDTO sprintDTO;
+	private List<ItemBacklog> itensDisponiveis;
 	
 	@Override
 	public void inicializar() {
@@ -35,10 +40,16 @@ public class SprintCadastroMB extends AbstractBean {
 	 * Salva o sprintDTO
 	 * @return
 	 */
-	public void salvarSprint() {
+	public String salvarSprint() {
+		sprintDTO.getSprint().setProjeto(projetoSelecionado);
 		sprintClientService.salvarSprint(sprintDTO);
-		sprintPage();
 		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
+	}
+	
+	public String consultarItensDisponiveis() {
+		itensDisponiveis = sprintClientService.consultarItensDisponiveis(projetoSelecionado.getCodigo());
+		return "";
 	}
 	
 	/*Métodos para redirecionamento das páginas*/
@@ -73,5 +84,13 @@ public class SprintCadastroMB extends AbstractBean {
 
 	public void setSprintDTO(SprintDTO sprintDTO) {
 		this.sprintDTO = sprintDTO;
+	}
+
+	public List<ItemBacklog> getItensDisponiveis() {
+		return itensDisponiveis;
+	}
+
+	public void setItensDisponiveis(List<ItemBacklog> itensDisponiveis) {
+		this.itensDisponiveis = itensDisponiveis;
 	}
 }

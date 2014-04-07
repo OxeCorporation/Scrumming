@@ -21,6 +21,7 @@ public class SprintMB extends AbstractBean {
 	private List<Sprint> sprintsDoProjeto;
 	private List<ItemBacklog> sprintBacklog;
 	private List<ItemBacklog> availableBacklog;
+	@FlashScoped
 	private SprintDTO sprintDTO;
 	private SprintClientService sprintClientService;
 	@FlashScoped

@@ -2,11 +2,9 @@ package br.com.scrumming.core.manager.implementations;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.collections.CollectionUtils;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
@@ -56,6 +54,10 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 
 		String retorno = "";
 		Sprint sprint = sprintDTO.getSprint();
+		sprint.setDataInicio(new DateTime(sprintDTO.getDataInicio()));
+		sprint.setDataRevisao(new DateTime(sprintDTO.getDataRevisao()));
+		sprint.setSituacaoSprint(SituacaoSprintEnum.ABERTA);
+		sprint.setDataCadastro(new DateTime());
 		//List<ItemBacklog> itensBacklogSprint = sprintDTO.getSprintBacklog();
 		//List<ItemBacklog> itensBacklogProduto = sprintDTO.getProductBacklog();
 		sprint.setDataFim(sprint.getDataInicio().plusDays(sprintDTO.getDias()));

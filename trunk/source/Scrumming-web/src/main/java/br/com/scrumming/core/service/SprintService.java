@@ -43,6 +43,11 @@ public class SprintService {
     	return new ArrayList<Sprint>(sprintManager.consultarPorProjeto(projetoId));
     }
     
+    @RequestMapping(method = RequestMethod.GET, value = "/list/disponiveis/{projetoID}")
+    public List<ItemBacklog> consultarItensDisponiveis(@PathVariable Integer projetoID) {
+    	return new ArrayList<ItemBacklog>(sprintBacklogManager.consultarItensAtivosSprintBacklogPorProjeto(projetoID));
+    }
+    
     @RequestMapping(method = RequestMethod.GET, value = "/{sprintID}")
     public SprintDTO consultarSprintDTO(@PathVariable Integer sprintID) {
     	return sprintManager.consultarSprintDTO(sprintID);
