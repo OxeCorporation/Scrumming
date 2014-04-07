@@ -14,6 +14,17 @@ import br.com.scrumming.web.infra.ConstantesService;
 public class EmpresaClientService extends AbstractClientService {
 
 	/**
+	 * Salvar uma empresa
+	 * @param Empresa
+	 * @return void
+	 */
+	public void salvar(Empresa empresa, Usuario usuario) {
+		getRestTemplate().postForObject(
+				getURIService(ConstantesService.Empresa.SALVAR_EMPRESA),
+				empresa, void.class, usuario, void.class);
+	}
+	
+	/**
 	 * Consultar Empresas pelo nome
 	 * @param Nome da Empresa
 	 * @return Uma lista de Empresas
@@ -46,16 +57,5 @@ public class EmpresaClientService extends AbstractClientService {
 				ConstantesService.Empresa.LISTAR_TODAS_EMPRESAS,
 				Empresa[].class);
 		return Arrays.asList(listaEmpresas.getBody());
-	}
-	
-	/**
-	 * Salvar uma empresa
-	 * @param Empresa
-	 * @return void
-	 */
-	public void salvar(Empresa empresa, Usuario usuario) {
-		getRestTemplate().postForObject(
-				getURIService(ConstantesService.Empresa.SALVAR_EMPRESA),
-				empresa, void.class, usuario, void.class);
 	}
 }
