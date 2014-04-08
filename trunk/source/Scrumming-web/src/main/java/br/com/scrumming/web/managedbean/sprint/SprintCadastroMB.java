@@ -1,5 +1,6 @@
 package br.com.scrumming.web.managedbean.sprint;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -32,7 +33,7 @@ public class SprintCadastroMB extends AbstractBean {
 	private SprintDTO sprintDTO;
 	@FlashScoped
 	private List<ItemBacklog> itensDisponiveis;
-	
+	@FlashScoped
 	private List<ItemBacklog> sprintBacklog;
 	
 	@Override
@@ -57,11 +58,25 @@ public class SprintCadastroMB extends AbstractBean {
 		return "";
 	}
 	
+	/**
+	 * Adiciona um item à lista de SprintBacklog e o retira da lista de itens disponíveis.
+	 * @param ddEvent
+	 */
 	public void onDisponivelDrop(DragDropEvent ddEvent) {  
         ItemBacklog item = ((ItemBacklog) ddEvent.getData());
         sprintBacklog.add(item);
         itensDisponiveis.remove(item);
     }
+	
+	/**
+	 * Adiciona um item à lista de itens disponíveis e o retira da lista de SprintBacklog.
+	 * @param ddEvent
+	 */
+	public void onBacklogDrop(DragDropEvent ddEvent) {
+		ItemBacklog item = ((ItemBacklog) ddEvent.getData());
+		itensDisponiveis.add(item);
+		sprintBacklog.remove(item);
+	}
 	
 	/*Métodos para redirecionamento das páginas*/
 	public String sprintPage() {
