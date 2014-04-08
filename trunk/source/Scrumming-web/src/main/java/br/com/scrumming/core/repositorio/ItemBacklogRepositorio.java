@@ -24,7 +24,7 @@ public class ItemBacklogRepositorio extends AbstractRepositorio<ItemBacklog, Int
         Criteria criteria = createCriteria();
         criteria.createAlias("projeto", "projeto");
         criteria.add(Restrictions.eq("projeto.codigo", projetoID));
-        criteria.add(Restrictions.eq("isAtivo", true));
+        //criteria.add(Restrictions.eq("isAtivo", true));
         return Collections.checkedList(criteria.list(), ItemBacklog.class);
     }
     

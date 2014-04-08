@@ -30,20 +30,23 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
     @Autowired
     private ISprintBacklogManager sprintBacklogManager;
     
+    private double roi;
+    
     @Autowired
     private ISprintManager sprintManager;
     
     @Override
 	public void salvarItemBacklog(ItemBacklog itemBacklog) {
     	
-    	
-    	
-    		/**roi = itemBacklog.getValorNegocio() / itemBacklog.getStoryPoints();
-    		itemBacklog.setRoi(roi);
-    		*/
-    		
+    	if (itemBacklog.getCodigo() != null) {
+			insertOrUpdate(itemBacklog);
+		}else{
+    		roi =  itemBacklog.getValorNegocio() / itemBacklog.getStoryPoints();
+    		itemBacklog.setRoi(roi);    		
+    		itemBacklog.setAtivo(true);
     		itemBacklog.setSituacaoBacklog(SituacaoItemBacklogEnum.FAZER);
     		insertOrUpdate(itemBacklog);
+		}
 	}
     
     @Override
