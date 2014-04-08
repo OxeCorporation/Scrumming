@@ -20,29 +20,29 @@
 					<h:outputText styleClass="output-default"
 						value="#{itemBacklogDetalheMB.itemSelecionado.criterioAceitacao}" />
 				</f:facet>
-				<p:dataGrid var="taref" id="dataGridTarefas"
+				<p:dataGrid var="tarefa" id="dataGridTarefas"
 					value="#{itemBacklogDetalheMB.itemSelecionado.tarefas}" columns="1"
 					style="width:100%;"
 					rendered="#{not empty itemBacklogDetalheMB.itemSelecionado.tarefas}">
-					<p:panel widgetVar="pn#{taref.codigo}" style="height: 100px;">
+					<p:panel widgetVar="pn#{tarefa.codigo}" style="height: 100px;">
 						<f:facet name="header">
 							<h:outputText styleClass="label-grid-header"
-								value="#{taref.nome}" />
+								value="#{tarefa.nome}" />
 						</f:facet> 
 						<h:outputText styleClass="output-default"
-							value="#{taref.descricao}" />
+							value="#{tarefa.descricao}" />
 						<p:commandLink id="alterarTarefaLink"
 							action="#{itemBacklogDetalheMB.preparaParaAlterar}"
 							oncomplete="dlgTarefaSave.show()" process="@this" update="@widgetVar(dlgTarefaSave)">
 							<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
-							<f:setPropertyActionListener value="#{taref}"
+							<f:setPropertyActionListener value="#{tarefa}"
 									target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
 						</p:commandLink>
 						<br/>
 						<h:commandLink id="removerTarefaLink" immediate="true"
 							action="#{itemBacklogDetalheMB.removerTarefa}">
 							<h:outputText styleClass="fa fa-trash-o inside-grid-icon" />
-							<f:setPropertyActionListener value="#{taref}"
+							<f:setPropertyActionListener value="#{tarefa}"
 									target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
 						</h:commandLink>
 					</p:panel>
@@ -50,7 +50,8 @@
 			</p:panel>
 		</h:panelGroup>
 		<h:panelGroup styleClass="col-md-3 column div-right">
-			<p:commandLink oncomplete="dlgTarefaSave.show()" process="@this">
+			<p:commandLink action="#{itemBacklogDetalheMB.preparaParaInserir}"
+				oncomplete="dlgTarefaSave.show()" process="@this">
 				<i class="fa fa-plus right-sidebar-icon" style="float:right; position: fixed; margin-top: 8px"/>
 				<h:outputText value="Nova tarefa" style="float:right; position: fixed; margin-left: 22px; margin-top: 5px"/>
 			</p:commandLink>
