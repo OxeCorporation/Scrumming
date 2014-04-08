@@ -64,14 +64,19 @@
 							</f:facet>
 							<p:outputPanel id="dropArea">
 								<h:outputText value="!!!Drop here!!!" rendered="#{empty sprintCadastroMB.sprintBacklog}" style="font-size:24px;" />
-								<p:dataTable var="item" value="#{sprintCadastroMB.sprintBacklog}" rendered="#{not empty sprintCadastroMB.sprintBacklog}">
-									<p:column headerText="Nome">
-										<h:outputText value="#{item.nome}" />
-									</p:column>
-									<p:column headerText="Descrição">  
-										<h:outputText value="#{item.descricao}" />  
-									</p:column> 
-								</p:dataTable>
+								<p:dataGrid var="item" value="#{sprintCadastroMB.sprintBacklog}" rendered="#{not empty sprintCadastroMB.sprintBacklog}">
+									<p:column>  
+					  
+									<p:panel id="pnl1" header="#{item.nome}" style="text-align:center">  
+										<h:panelGrid columns="1" style="width:100%">  
+											<p:outputLabel value="#{item.descricao}" />  
+										</h:panelGrid>  
+									</p:panel>  
+					  
+									<p:draggable for="pnl1" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel"/>  
+					  
+								</p:column> 
+								</p:dataGrid>
 							</p:outputPanel>
 						</p:panel>
 						</h:panelGroup>
@@ -99,6 +104,11 @@
 					  
 						</p:panel>  
 						</h:panelGroup>
+						<script type="text/javascript">
+							function handleDrop(event, ui) {
+								var draggable = ui.draggable, helper = ui.helper, position = ui.position, offset = ui.offset;
+							}
+						</script>
 						<p:droppable for="sprintBacklog" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="itensDisponiveis" onDrop="handleDrop">  
 							<p:ajax listener="#{sprintCadastroMB.onDisponivelDrop}" update="dropArea itensDisponiveis" />  
 						</p:droppable>
