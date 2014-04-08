@@ -28,6 +28,7 @@ public class SprintCadastroMB extends AbstractBean {
 	private SprintClientService sprintClientService;
 	@FlashScoped
 	private SprintDTO sprintDTO;
+	@FlashScoped
 	private List<ItemBacklog> itensDisponiveis;
 	
 	@Override

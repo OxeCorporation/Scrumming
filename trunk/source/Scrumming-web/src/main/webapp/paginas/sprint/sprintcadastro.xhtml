@@ -30,12 +30,12 @@
 					<h:panelGroup>
 						<p:panel style="height: 100px;">
 							<h:panelGroup style="width: 150px">
-								<div class="col-md-3 column">
+								<h:panelGroup styleClass="col-md-3 column">
 									<h:outputLabel styleClass="label-default" value="Data de início" />
 									<br/>
 									<p:calendar value="#{sprintCadastroMB.sprintDTO.dataInicio}" id="popupCalInicio" required="true"/>
-								</div>	
-								<div class="col-md-2 column">
+								</h:panelGroup>
+								<h:panelGroup styleClass="col-md-2 column">
 									<h:outputLabel styleClass="label-default" value="Duração" />
 									<br/>
 									<p:selectOneMenu id="city" value="#{sprintCadastroMB.sprintDTO.dias}">
@@ -44,39 +44,44 @@
 										<f:selectItem itemLabel="3 semanas" itemValue="20" />
 										<f:selectItem itemLabel="4 semanas" itemValue="27" />
 									</p:selectOneMenu>
-								</div>
-								<div class="col-md-3 column">
+								</h:panelGroup>
+								<h:panelGroup styleClass="col-md-3 column">
 									<h:outputLabel styleClass="label-default" value="Data da revisão" />
 									<br/>
 									<p:calendar value="#{sprintCadastroMB.sprintDTO.dataRevisao}" id="popupCalRevisao" required="true" />
-								</div>
-								<div class="col-md-4 column">
-								</div>
+								</h:panelGroup>
+								<h:panelGroup styleClass="col-md-4 column" />
 							</h:panelGroup>
 						</p:panel>
 					</h:panelGroup>
 					<br/>
-					<h:panelGroup>
-						<p:fieldset legend="Itens disponíveis">  
-					        <p:dataGrid id="availableItems" var="item" value="#{sprintCadastroMB.itens}" columns="3">
-					            <p:column>
-					                <p:panel id="pnl" header="#{car.model}" style="text-align:center">  
-					                    <h:panelGrid columns="1" style="width:100%">
-					                        <p:graphicImage value="/images/cars/#{car.manufacturer}.jpg"/> 
-					                    </h:panelGrid>
-					                </p:panel>
-					                <p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel"/>
-					            </p:column>
-					        </p:dataGrid>
-					    </p:fieldset>
-					</h:panelGroup>
+					<p:panel style="display: table;">
+						<h:panelGroup styleClass="col-md-5 column">
+							<p:fieldset>  
+						        
+						    </p:fieldset>
+						</h:panelGroup>
+						<h:panelGroup styleClass="col-md-2 column"/>
+						<h:panelGroup styleClass="col-md-5 column">
+							<p:fieldset>  
+						        <p:dataGrid id="availableItems" var="item" value="#{sprintCadastroMB.itensDisponiveis}" columns="1">
+						            <p:column>
+						                <p:panel id="pnl" header="#{item.nome}" style="text-align:center">  
+						                    <h:panelGrid columns="1" style="width:100%">
+						                        <p:outputLabel value="#{item.descricao}"></p:outputLabel> 
+						                    </h:panelGrid>
+						                </p:panel>
+						                <p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel"/>
+						            </p:column>
+						        </p:dataGrid>
+						    </p:fieldset>
+						</h:panelGroup>
+					</p:panel>
 					<br/>
-					<h:panelGroup>
-						<p:panel style="height: 56px;">
-							<h:commandButton process="@none" icon="ui-icon-cancel" value="Cancelar" action="#{sprintCadastroMB.sprintPage}" styleClass="button"/>
-							<h:commandButton value="Salvar" action="#{sprintCadastroMB.salvarSprint}" icon="ui-icon-disk" styleClass="button"/>
-						</p:panel>
-					</h:panelGroup>
+					<p:panel style="height: 56px;">
+						<h:commandButton process="@none" icon="ui-icon-cancel" value="Cancelar" action="#{sprintCadastroMB.sprintPage}" styleClass="button"/>
+						<h:commandButton value="Salvar" action="#{sprintCadastroMB.salvarSprint}" icon="ui-icon-disk" styleClass="button"/>
+					</p:panel>
 				</p:panel>
 			</h:panelGroup>
 		</h:panelGroup>

@@ -2,9 +2,11 @@ package br.com.scrumming.core.manager.implementations;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
@@ -102,20 +104,17 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		sprintDTO.setSprint(sprint);
 
 		// Seta a lista de itens ativos que representam o SprintBacklog
-		sprintBacklog = sprintBacklogManager
-				.consultarItensAtivosBacklogPorSprint(sprintID);
+		sprintBacklog = sprintBacklogManager.consultarItensAtivosBacklogPorSprint(sprintID);
 		sprintDTO.setSprintBacklog(sprintBacklog);
 
 		// Pesquisa todos os itens do Product Backlog
 		List<ItemBacklog> productBacklog = new ArrayList<>();
-		productBacklog = itemBacklogManager.consultarPorProjeto(sprintDTO
-				.getSprint().getProjeto().getChave());
+		productBacklog = itemBacklogManager.consultarPorProjeto(sprintDTO.getSprint().getProjeto().getChave());
 
 		// Percorre todos os itens do backlog para verificar os que não foram
 		// atribuidos às Sprints
 		for (ItemBacklog item : productBacklog) {
-			SprintBacklog spBacklog = sprintBacklogManager
-					.consultaAtivosPorChaveComposta(sprint, item);
+			SprintBacklog spBacklog = sprintBacklogManager.consultaAtivosPorChaveComposta(sprint, item);
 			if (spBacklog == null) {
 				itensDisponiveis.add(item);
 			}
@@ -123,34 +122,6 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		sprintDTO.setProductBacklog(itensDisponiveis);
 		return sprintDTO;
 	}
-
-	/**
-	 * consulta a lista de itens e suas respectivas tarefas de uma Sprint para
-	 * ser exibida na tela.
-	 */
-	/*public List<ItemsTasksDTO> consultarItemsAndTasksDTO(Integer sprintID) {
-		// Lista que será retornada à tela
-		List<ItemsTasksDTO> listaDTO = new ArrayList<>();
-		// Busca a lista dos Itens de Backlog de uma Sprint.
-		List<ItemBacklog> itemsDaSprint = new ArrayList<>();
-		itemsDaSprint = sprintBacklogManager
-				.consultarItensAtivosBacklogPorSprint(sprintID);
-
-		if (itemsDaSprint.size() > 0) {
-			// Para cada item
-			for (ItemBacklog itemBacklog : itemsDaSprint) {
-				// Instancia um DTO que será adicionado à lista.
-				ItemsTasksDTO itDTO = new ItemsTasksDTO();
-				// Seta o item ao DTO
-				itDTO.setItem(itemBacklog);
-				// Seta a lista de tarefas desse item ao DTO.
-				itDTO.setTarefas(tarefaManager
-						.consultarPorItemBacklog(itemBacklog.getChave()));
-				listaDTO.add(itDTO);
-			}
-		}
-		return listaDTO;
-	}*/
 
 	/**
 	 * Função para gerenciar o fechamento da Sprint

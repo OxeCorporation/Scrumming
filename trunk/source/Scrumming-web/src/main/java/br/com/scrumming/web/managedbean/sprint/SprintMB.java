@@ -1,8 +1,10 @@
 package br.com.scrumming.web.managedbean.sprint;
 
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
@@ -28,6 +30,8 @@ public class SprintMB extends AbstractBean {
 	private Projeto projetoSelecionado;
 	@FlashScoped
 	private Sprint sprintSelecionada;
+	@FlashScoped
+	private List<ItemBacklog> itensDisponiveis;
 	
 	@Override
 	public void inicializar() {
@@ -58,7 +62,12 @@ public class SprintMB extends AbstractBean {
 	public String fecharSprint() {
 		sprintClientService.fecharSprint(sprintSelecionada.getChave());
 		return "";
-	}	
+	}
+	
+	public String consultarItensDisponiveis() {
+		itensDisponiveis = sprintClientService.consultarItensDisponiveis(projetoSelecionado.getCodigo());
+		return sprintCadastroPage();
+	}
 	
 	/*Métodos para redirecionamento das páginas*/
 	public String sprintDetailPage() {
@@ -141,5 +150,13 @@ public class SprintMB extends AbstractBean {
 
 	public void setProjetoSelecionado(Projeto projetoSelecionado) {
 		this.projetoSelecionado = projetoSelecionado;
+	}
+
+	public List<ItemBacklog> getItensDisponiveis() {
+		return itensDisponiveis;
+	}
+
+	public void setItensDisponiveis(List<ItemBacklog> itensDisponiveis) {
+		this.itensDisponiveis = itensDisponiveis;
 	}
 }
