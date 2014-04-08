@@ -140,7 +140,6 @@ CREATE TABLE IF NOT EXISTS `Tarefa` (
   `situacao_tarefa` INT(1) UNSIGNED NOT NULL,
   `tempo_estimado` INT(11) UNSIGNED NOT NULL,
   `data_atribuicao` TIMESTAMP NULL,
-  `is_ativo` BOOL NOT NULL DEFAULT true,
   PRIMARY KEY (`PK_tarefa`),
   INDEX `Tarefa_FKIndex1` (`FK_usuario` ASC),
   INDEX `Tarefa_FKIndex2` (`FK_itemBacklog` ASC),
