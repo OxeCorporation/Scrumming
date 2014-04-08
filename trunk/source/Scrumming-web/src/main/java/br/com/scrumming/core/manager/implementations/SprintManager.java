@@ -2,11 +2,9 @@ package br.com.scrumming.core.manager.implementations;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.collections.CollectionUtils;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
@@ -56,9 +54,13 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 
 		String retorno = "";
 		Sprint sprint = sprintDTO.getSprint();
-		List<ItemBacklog> itensBacklogSprint = sprintDTO.getSprintBacklog();
-		List<ItemBacklog> itensBacklogProduto = sprintDTO.getProductBacklog();
-
+		sprint.setDataInicio(new DateTime(sprintDTO.getDataInicio()));
+		sprint.setDataRevisao(new DateTime(sprintDTO.getDataRevisao()));
+		sprint.setSituacaoSprint(SituacaoSprintEnum.ABERTA);
+		sprint.setDataCadastro(new DateTime());
+		//List<ItemBacklog> itensBacklogSprint = sprintDTO.getSprintBacklog();
+		//List<ItemBacklog> itensBacklogProduto = sprintDTO.getProductBacklog();
+		sprint.setDataFim(sprint.getDataInicio().plusDays(sprintDTO.getDias()));
 		// Persiste o objeto Sprint e retorna a chave.
 		Integer sprintID = insertOrUpdate(sprint);
 
@@ -69,7 +71,7 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 			// Busca o objeto persistido pela chave.
 			Sprint sprintPersistido = findByKey(sprintID);
 
-			if (CollectionUtils.isNotEmpty(itensBacklogSprint)) {
+			/*if (CollectionUtils.isNotEmpty(itensBacklogSprint)) {
 				// TODO: Testar se funciona
 				sprintBacklogManager.associarItemASprint(sprintPersistido,
 						itensBacklogSprint);
@@ -78,7 +80,7 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 				// TODO: Testar se funciona
 				sprintBacklogManager.desassociarItemASprint(sprintPersistido,
 						itensBacklogProduto);
-			}
+			}*/
 		}
 		return retorno;
 	}

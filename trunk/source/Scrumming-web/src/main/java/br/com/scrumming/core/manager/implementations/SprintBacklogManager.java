@@ -65,11 +65,10 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 		}
 		return itemsDaSprint;
 	}
-	/*
-	@Override
-	public List<ItemBacklog> consultarItensSprintBacklogPorSprint(Integer sprintID) {
-		return sprintBacklogRepositorio.consultarItensSprintBacklogPorSprint(sprintID);
-	}*/
+
+	public List<ItemBacklog> consultarItensAtivosSprintBacklogPorProjeto(Integer projetoID) {
+		return sprintBacklogRepositorio.consultarItensAtivosSprintBacklogPorProjeto(projetoID);
+	}
 	
 	/**
 	 * Associa um Item de Backlog a uma Sprint.

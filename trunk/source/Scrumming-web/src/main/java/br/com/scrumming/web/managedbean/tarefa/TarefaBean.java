@@ -36,13 +36,9 @@ public class TarefaBean extends AbstractBean {
 		setTarefasDoItem(tarefaClientService.consultarTarefasPorItemBacklog(itemBacklogID));
 	}
 	
-	public String tarefaCadastroPage() {
-		return redirecionar(PaginasUtil.Tarefa.SAVE_PAGE);
-	}
 	
-	public void removerTarefa(Tarefa tarefa){
-		tarefaClientService.removerTarefa(tarefa);
-	}
+	
+	
 	
 	/* getters and setters */
 	public Tarefa getTarefa() {

@@ -1,10 +1,17 @@
 package br.com.scrumming.web.managedbean.sprint;
 
+import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.scrumming.core.infra.util.ConstantesMensagem;
+import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
+import br.com.scrumming.domain.SprintDTO;
+import br.com.scrumming.web.clientService.SprintClientService;
+import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
 import br.com.scrumming.web.infra.bean.AbstractBean;
@@ -13,12 +20,38 @@ import br.com.scrumming.web.infra.bean.AbstractBean;
 @ViewScoped
 public class SprintCadastroMB extends AbstractBean {
 
+	private static final long serialVersionUID = 1L;
 	@FlashScoped
 	private Sprint sprintSelecionada;
 	@FlashScoped
 	private Projeto projetoSelecionado;
-	private int dias;
-		
+	private SprintClientService sprintClientService;
+	@FlashScoped
+	private SprintDTO sprintDTO;
+	private List<ItemBacklog> itensDisponiveis;
+	
+	@Override
+	public void inicializar() {
+		sprintDTO = new SprintDTO();
+		sprintClientService = new SprintClientService();
+	}
+	
+	/**
+	 * Salva o sprintDTO
+	 * @return
+	 */
+	public String salvarSprint() {
+		sprintDTO.getSprint().setProjeto(projetoSelecionado);
+		sprintClientService.salvarSprint(sprintDTO);
+		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
+	}
+	
+	public String consultarItensDisponiveis() {
+		itensDisponiveis = sprintClientService.consultarItensDisponiveis(projetoSelecionado.getCodigo());
+		return "";
+	}
+	
 	/*Métodos para redirecionamento das páginas*/
 	public String sprintPage() {
 		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
@@ -45,11 +78,19 @@ public class SprintCadastroMB extends AbstractBean {
 		this.projetoSelecionado = projetoSelecionado;
 	}
 
-	public int getDias() {
-		return dias;
+	public SprintDTO getSprintDTO() {
+		return sprintDTO;
 	}
 
-	public void setDias(int dias) {
-		this.dias = dias;
+	public void setSprintDTO(SprintDTO sprintDTO) {
+		this.sprintDTO = sprintDTO;
+	}
+
+	public List<ItemBacklog> getItensDisponiveis() {
+		return itensDisponiveis;
+	}
+
+	public void setItensDisponiveis(List<ItemBacklog> itensDisponiveis) {
+		this.itensDisponiveis = itensDisponiveis;
 	}
 }

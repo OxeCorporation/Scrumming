@@ -37,8 +37,8 @@ public class TarefaService {
     	return new ArrayList<Tarefa>(tarefaManager.consultarPorItemBacklog(itemBacklogID));
     }
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/{tarefaID}")
-    public void remover(@PathVariable @Valid Tarefa tarefa) {
+	@RequestMapping(method = RequestMethod.POST, value ="/remove/")
+    public void remover(@RequestBody Tarefa tarefa) {
     	tarefaManager.remover(tarefa);
     }
 

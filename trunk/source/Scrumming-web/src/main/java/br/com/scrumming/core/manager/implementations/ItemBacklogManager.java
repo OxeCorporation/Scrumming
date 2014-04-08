@@ -20,26 +20,32 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
      */
     private static final long serialVersionUID = 1L;
     
-    private Double roi;
-    
     @Autowired
     private ItemBacklogRepositorio itemRepositorio;
     
     @Override
 	public void salvarItemBacklog(ItemBacklog itemBacklog) {
-    	//if (itemBacklog != null) {
+    	
+    	
+    	
     		/**roi = itemBacklog.getValorNegocio() / itemBacklog.getStoryPoints();
     		itemBacklog.setRoi(roi);
     		*/
+    		
     		itemBacklog.setSituacaoBacklog(SituacaoItemBacklogEnum.FAZER);
-    		itemBacklog.setAtivo(true);
     		insertOrUpdate(itemBacklog);
-		//}
 	}
     
     @Override
 	public void cancelarItem(ItemBacklog item) {
-		item.setAtivo(false);		
+    	if (item.getCodigo() != null){
+			if (item.isAtivo() == true) {
+				item.setAtivo(false);
+			}else{
+				item.setAtivo(true);
+			}
+		insertOrUpdate(item);
+	    }
 	}
     
     @Override
@@ -55,7 +61,7 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
     public AbstractRepositorio<ItemBacklog, Integer> getRepositorio() {
         return this.itemRepositorio;
     }
-
+    
 	/*Getters and Setters*/
 	public ItemBacklogRepositorio getItemRepositorio() {
 		return itemRepositorio;
@@ -64,4 +70,5 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
 	public void setItemRepositorio(ItemBacklogRepositorio itemRepositorio) {
 		this.itemRepositorio = itemRepositorio;
 	}
+
 }

@@ -32,8 +32,17 @@ public class SprintClientService extends AbstractClientService {
 		return Arrays.asList(getRestTemplate().getForObject(getURIService(ConstantesService.Sprint.URL_CONSULTAR_POR_PROJETO), Sprint[].class, projetoID));
 	}
 	
+	public List<ItemBacklog> consultarItensDisponiveis(Integer projetoID) {
+		ResponseEntity<ItemBacklog[]> forEntity = getRestTemplate().getForEntity(getURIService(ConstantesService.Sprint.URL_CONSULTAR_ITENS_DISPONIVEIS), ItemBacklog[].class, projetoID);
+		return Arrays.asList(forEntity.getBody());
+	}
+	
+	/**
+	 * 
+	 * @param sprintID
+	 * @return
+	 */
 	public List<ItemBacklog> consultarSprintBacklog(Integer sprintID) {
-		
 		ResponseEntity<ItemBacklog[]> forEntity = getRestTemplate().getForEntity(getURIService(ConstantesService.Sprint.URL_CONSULTAR_SPRINT_BACKLOG), ItemBacklog[].class, sprintID);
 		return Arrays.asList(forEntity.getBody());
 	}

@@ -8,7 +8,7 @@
 	<!-- CORPO DA TELA DE LISTAGEM DAS SPRINTS -->
 	<ui:define name="conteudo">
 		<h:outputStylesheet library="css" name="scrumming.css" />
-		<div style="width: 80%; float: left">
+		<h:panelGroup styleClass="col-md-9 column div-center">
 			<h:commandLink immediate="true" action="#{sprintMB.projetoPage}">
 				<h:outputText styleClass="label-page-title" value="#{sprintMB.projetoSelecionado.nome}" />
 			</h:commandLink>
@@ -52,14 +52,13 @@
 					</p:panel>
 				</p:panel>
 			</p:dataGrid>
-		</div>
-		<div style="width: 16%; float: right; position: fixed; left: 83%;">
-			<p:commandLink title="Nova sprint"
-				action="#{sprintMB.sprintCadastroPage}">
+		</h:panelGroup>
+		<h:panelGroup styleClass="col-md-3 column div-right">
+			<p:commandLink title="Nova sprint" action="#{sprintMB.sprintCadastroPage}">
 				<i class="fa fa-plus right-sidebar-icon" />
 				<h:outputText value="Nova sprint" />
 			</p:commandLink>
-		</div>
+		</h:panelGroup>
 	</ui:define>
 	<ui:define name="menu_lateral">
 		<li><h:commandLink action="#{sprintMB.itemBacklogPage}">

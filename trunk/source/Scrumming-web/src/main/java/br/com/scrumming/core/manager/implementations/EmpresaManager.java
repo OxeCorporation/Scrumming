@@ -11,6 +11,7 @@ import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.IEmpresaManager;
 import br.com.scrumming.core.repositorio.EmpresaRepositorio;
 import br.com.scrumming.domain.Empresa;
+import br.com.scrumming.domain.Usuario;
 
 @Service
 public class EmpresaManager extends 
@@ -29,6 +30,16 @@ public class EmpresaManager extends
 	public AbstractRepositorio<Empresa, Integer> getRepositorio() {
 		return this.empresaRepositorio;
 	}
+	
+	/**
+	 * Salvar uma empresa
+	 * @param Empresa
+	 * @return void
+	 */
+	@Override
+    public void salvar(Empresa empresa, Usuario usuario) {
+    	insertOrUpdate(empresa);
+    }
 
 	/**
 	 * Consultar Empresas pelo nome

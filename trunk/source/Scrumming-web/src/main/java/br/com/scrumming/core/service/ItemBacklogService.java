@@ -2,8 +2,6 @@ package br.com.scrumming.core.service;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,8 +24,8 @@ public class ItemBacklogService {
 		itemBacklogManager.salvarItemBacklog(itemBacklog);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/{item}")
-    public void cancelarItemBacklog(@PathVariable @Valid ItemBacklog item){
+	@RequestMapping(method = RequestMethod.POST, value = "/cancel")
+    public void cancelarItemBacklog(@RequestBody ItemBacklog item){
 		itemBacklogManager.cancelarItem(item);
 	}
 	

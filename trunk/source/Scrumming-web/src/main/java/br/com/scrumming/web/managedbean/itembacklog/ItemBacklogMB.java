@@ -5,9 +5,11 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.web.clientService.ItemBacklogClientService;
+import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
 import br.com.scrumming.web.infra.bean.AbstractBean;
@@ -29,6 +31,7 @@ public class ItemBacklogMB extends AbstractBean {
     public void inicializar() {
         clienteService = new ItemBacklogClientService();
         itens = clienteService.consultarItemPorProjeto(projetoSelecionado.getCodigo());
+        
     }
     
     /*Funções específicas da tela*/
@@ -37,8 +40,15 @@ public class ItemBacklogMB extends AbstractBean {
     	return "";
     }
 
+	public String atualizar(){
+		clienteService.salvarItemBacklog(itemSelecionado);
+		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+		return "";
+	}
+	
     public String cancelarItemBacklog() {
-       	clienteService.cancelarItemBacklog(itemBacklog);
+       	clienteService.cancelarItemBacklog(itemSelecionado);
+       	atualizar();
         return "";
     }
     

@@ -29,7 +29,10 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	@FlashScoped
 	private Projeto projetoSelecionado;
 	private TarefaClientService tarefaClientService;
-	private Tarefa tarefa;	
+	@FlashScoped
+	private Tarefa tarefa;
+	@FlashScoped
+	private Tarefa tarefaSelecionada;
 	
 
 	@Override
@@ -55,17 +58,34 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	public String sprintPage() {
 		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
 	}
+	
+	public String tarefaCadastroPage() {
+		return redirecionar(PaginasUtil.Tarefa.SAVE_PAGE);
+	}
 
 	
 	/* Funções específicas da tela */
 	private void atualizarListaDeTarefas() {
-		itemSelecionado.setTarefas(tarefaClientService.consultarTarefasPorItemBacklog(itemSelecionado.getCodigo()));
+		if (itemSelecionado != null) {
+			itemSelecionado.setTarefas(tarefaClientService.consultarTarefasPorItemBacklog(itemSelecionado.getCodigo()));
+		}
 	}
 	
 	public void salvarTarefa() {
 		tarefaClientService.salvarTarefa(tarefa, itemSelecionado.getCodigo());
 		atualizarListaDeTarefas();
     	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+	}
+	
+	public String removerTarefa(){
+		tarefaClientService.removerTarefa(tarefaSelecionada);
+		atualizarListaDeTarefas();
+		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+		return "";
+	}
+	
+	public void preparaParaAlterar() {
+		tarefa = tarefaSelecionada;
 	}
 	
 	public String salvarItemBacklog() {
@@ -129,6 +149,14 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 
 	public void setTarefa(Tarefa tarefa) {
 		this.tarefa = tarefa;
+	}
+
+	public Tarefa getTarefaSelecionada() {
+		return tarefaSelecionada;
+	}
+
+	public void setTarefaSelecionada(Tarefa tarefaSelecionada) {
+		this.tarefaSelecionada = tarefaSelecionada;
 	}
 
 }

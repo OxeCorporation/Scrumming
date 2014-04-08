@@ -50,18 +50,17 @@
 							value="#{mensagens.botao_alterar}"
 							oncomplete="novoUsuarioModal.show()"
 							action="#{cadastroUsuarioBean.alterar}" 
-							process="@this" 
 							update="@form"/>
 						<p:commandButton id="excluirBotao"
-							value="#{mensagens.botao_desativar}">
-							 <p:confirm header="#{mensagens.label_desativar_usuario}" message="#{mensagens.mensagem_info_usuario_sera_desativado}" icon="ui-icon-alert" />  
+							value="#{mensagens.botao_desativar}" action="#{cadastroUsuarioBean.desativar}" immediate="true" update="tabelaUsuarios">
+							 <p:confirm header="#{mensagens.label_desativar_usuario}" message="#{mensagens.mensagem_info_usuario_sera_desativado}" icon="ui-icon-alert"/>  
 						</p:commandButton>
 					</f:facet>
 				</p:dataTable>
 				<ui:include src="/paginas/usuario/usuarioNovoPanel.xhtml" />
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">  
-        			<p:commandButton value="#{mensagens.botao_confirmar}" action="#{cadastroUsuarioBean.desativar}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update="tabelaUsuarios"/>  
-        			<p:commandButton value="#{mensagens.botao_cancelar}" styleClass="ui-confirmdialog-no" icon="ui-icon-close" update="tabelaUsuarios"/>       
+        			<p:commandButton value="#{mensagens.botao_confirmar}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" immediate="true"/>  
+        			<p:commandButton value="#{mensagens.botao_cancelar}" styleClass="ui-confirmdialog-no" icon="ui-icon-close" immediate="true"/>       
     			</p:confirmDialog>
 			</h:panelGroup>
 		</h:panelGroup>

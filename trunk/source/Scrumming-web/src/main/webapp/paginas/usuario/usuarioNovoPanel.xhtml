@@ -8,8 +8,10 @@
 
 	<p:dialog id="novoUsuarioModal" widgetVar="novoUsuarioModal"
 		modal="true" closable="false" draggable="false" width="450" height="350" resizable="false"
-		header="#{mensagens.label_cadastro_usuarios}" styleClass="panel-heading">
+		header="#{mensagens.label_cadastro_usuarios}" styleClass="panel-heading" visible="#{facesContext.validationFailed}">
 
+			<p:messages id="messagesNovoUsuario"  showDetail="true" autoUpdate="true" showSummary="false" closable="true" />
+			<br/>
 			<div class="form-group">
 				<p:outputLabel value="#{mensagens.label_nome_usuario}" styleClass="col-md-4 control-label" for="txtNome"/>
 				<div class="col-md-6">
@@ -26,7 +28,8 @@
 				<div class="col-md-6">
 					<p:inputText id="txtEmail" 
 					   placeholder="#{mesagens.label_digite_email_usuario}" 
-					   styleClass="form-control input-md" value="#{cadastroUsuarioBean.usuario.email}"/>
+					   styleClass="form-control input-md" value="#{cadastroUsuarioBean.usuario.email}"
+					   validatorMessage="#{mensagens.mensagem_email_invalido}"/>
 				</div>
 			</div>
 			<br/>
@@ -57,13 +60,13 @@
 				    id="salvarButton" 
 				    value="#{mensagens.label_salvar}"
 					action="#{cadastroUsuarioBean.salvar}" 
-					update="@form"
-					oncomplete="novoUsuarioModal.hide()" />
+					update="@form"/>
 				<span />
 				<p:commandButton 
 				    id="salvarCancelarButton" 
 				    value="#{mensagens.botao_cancelar}"
-					onclick="novoUsuarioModal.hide()" />
+					onclick="novoUsuarioModal.hide()" 
+					immediate="true"/>
 			</div>
 		</f:facet>
 	</p:dialog>

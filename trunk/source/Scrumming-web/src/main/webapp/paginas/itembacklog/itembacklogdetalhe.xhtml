@@ -5,7 +5,7 @@
 	template="/paginas/template/template.xhtml">
 
 	<ui:define name="conteudo">
-		<div class="col-md-9">
+		<h:panelGroup styleClass="col-md-9 column div-center">
 			<p:panel toggleable="true" toggleSpeed="500" collapsed="true">
 				<f:facet name="header">
 					<h:commandLink immediate="true"
@@ -20,39 +20,42 @@
 					<h:outputText styleClass="output-default"
 						value="#{itemBacklogDetalheMB.itemSelecionado.criterioAceitacao}" />
 				</f:facet>
-				<p:dataGrid var="tarefa" id="dataGridTarefas"
+				<p:dataGrid var="taref" id="dataGridTarefas"
 					value="#{itemBacklogDetalheMB.itemSelecionado.tarefas}" columns="1"
 					style="width:100%;"
 					rendered="#{not empty itemBacklogDetalheMB.itemSelecionado.tarefas}">
-					<p:panel widgetVar="pn#{tarefa.codigo}" style="height: 100px;">
+					<p:panel widgetVar="pn#{taref.codigo}" style="height: 100px;">
 						<f:facet name="header">
 							<h:outputText styleClass="label-grid-header"
-								value="#{tarefa.nome}" />
-						</f:facet>
-						<h:outputText styleClass="label-default"
-							value="pn#{tarefa.codigo}" />
+								value="#{taref.nome}" />
+						</f:facet> 
 						<h:outputText styleClass="output-default"
-							value="#{tarefa.descricao}" />
-						<p:commandLink title="Alterar tarefa"
-							onclick="dlgTarefaSave.show()">
+							value="#{taref.descricao}" />
+						<p:commandLink id="alterarTarefaLink"
+							action="#{itemBacklogDetalheMB.preparaParaAlterar}"
+							oncomplete="dlgTarefaSave.show()" process="@this" update="@widgetVar(dlgTarefaSave)">
 							<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
+							<f:setPropertyActionListener value="#{taref}"
+									target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
 						</p:commandLink>
-						<br />
-						<p:commandLink title="Remover tarefa"
-							action="#{tarefaBean.removerTarefa}">
+						<br/>
+						<h:commandLink id="removerTarefaLink" immediate="true"
+							action="#{itemBacklogDetalheMB.removerTarefa}">
 							<h:outputText styleClass="fa fa-trash-o inside-grid-icon" />
-						</p:commandLink>
+							<f:setPropertyActionListener value="#{taref}"
+									target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
+						</h:commandLink>
 					</p:panel>
 				</p:dataGrid>
 			</p:panel>
-		</div>
-		<div class="col-md-3">
+		</h:panelGroup>
+		<h:panelGroup styleClass="col-md-3 column div-right">
 			<p:commandLink oncomplete="dlgTarefaSave.show()" process="@this">
 				<i class="fa fa-plus right-sidebar-icon" style="float:right; position: fixed; margin-top: 8px"/>
 				<h:outputText value="Nova tarefa" style="float:right; position: fixed; margin-left: 22px; margin-top: 5px"/>
 			</p:commandLink>
-		</div>
-		<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />
+		</h:panelGroup>
+		<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />		
 	</ui:define>
 	<ui:define name="menu_lateral">
 		<li><h:commandLink immediate="true"

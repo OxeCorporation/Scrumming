@@ -17,6 +17,7 @@ import br.com.scrumming.web.infra.bean.AbstractBean;
 @ViewScoped
 public class SprintDetalheMB extends AbstractBean {
 
+	private static final long serialVersionUID = 1L;
 	private List<ItemBacklog> itens;
 	@FlashScoped
 	private Sprint sprintSelecionada;

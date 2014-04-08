@@ -5,6 +5,7 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.Empresa;
+import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.clientService.EmpresaClientService;
 import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.FlashScoped;
@@ -14,8 +15,14 @@ import br.com.scrumming.web.infra.bean.AbstractBean;
 @ViewScoped
 public class EmpresaBean extends AbstractBean {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@FlashScoped
 	private Empresa empresa;
+	@FlashScoped
+	private Usuario usuario;
 	private EmpresaClientService empresaClientService;
 	
 	/**
@@ -26,6 +33,7 @@ public class EmpresaBean extends AbstractBean {
 	@Override
     public void inicializar() {
 		empresa = new Empresa();
+		usuario = new Usuario();
 		empresaClientService = new EmpresaClientService();
 	}
 	
@@ -34,8 +42,8 @@ public class EmpresaBean extends AbstractBean {
 	 * @param
 	 * @return void
 	 */
-	public void salvarEmpresa() {
-		empresaClientService.salvarEmpresa(empresa);
+	public void salvar() {
+		empresaClientService.salvar(empresa, usuario);
     	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 	}
 	
@@ -46,5 +54,13 @@ public class EmpresaBean extends AbstractBean {
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
+	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }

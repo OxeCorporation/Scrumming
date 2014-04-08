@@ -38,7 +38,11 @@ public class TarefaClientService extends AbstractClientService {
 	
 	public void removerTarefa(Tarefa tarefa) {
 		
-		RestTemplate restTemplate = new RestTemplate();		
-		restTemplate.postForEntity(ConstantesService.Tarefa.URL_REMOVER, HttpEntity.EMPTY, void.class, tarefa);
+		/*RestTemplate restTemplate = new RestTemplate();		
+		restTemplate.postForEntity(ConstantesService.Tarefa.URL_REMOVER, HttpEntity.EMPTY, void.class, tarefa);*/
+		
+		getRestTemplate().postForObject(
+				getURIService(ConstantesService.Tarefa.URL_REMOVER),
+				tarefa, void.class);
 	}
 }

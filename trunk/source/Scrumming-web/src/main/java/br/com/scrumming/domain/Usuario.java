@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
@@ -34,6 +35,7 @@ public class Usuario extends ObjetoPersistente<Integer> {
     private String nome;
 
     @Column(name = "email", columnDefinition = "varchar(50)")
+    @Email
     private String email;
 
     @Column(name = "login", columnDefinition = "varchar(30)")
