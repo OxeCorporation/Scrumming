@@ -55,28 +55,36 @@
 						</p:panel>
 					</h:panelGroup>
 					<br/>
-					<p:panel style="display: table;">
-						<h:panelGroup styleClass="col-md-5 column">
-							<p:fieldset>  
-						        
-						    </p:fieldset>
-						</h:panelGroup>
-						<h:panelGroup styleClass="col-md-2 column"/>
-						<h:panelGroup styleClass="col-md-5 column">
-							<p:fieldset>  
-						        <p:dataGrid id="availableItems" var="item" value="#{sprintCadastroMB.itensDisponiveis}" columns="1">
-						            <p:column>
-						                <p:panel id="pnl" header="#{item.nome}" style="text-align:center">  
-						                    <h:panelGrid columns="1" style="width:100%">
-						                        <p:outputLabel value="#{item.descricao}"></p:outputLabel> 
-						                    </h:panelGrid>
-						                </p:panel>
-						                <p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel"/>
-						            </p:column>
-						        </p:dataGrid>
-						    </p:fieldset>
-						</h:panelGroup>
-					</p:panel>
+					<p:fieldset>  
+				        <p:dataGrid id="availableItems" var="spBacklog" value="#{sprintCadastroMB.sprintBacklog}" columns="1">
+				            <p:column>
+				                <p:panel id="pnl" header="#{spBacklog.nome}" style="text-align:center">
+				                    <h:panelGrid columns="1" style="width:100%">
+				                        <p:outputLabel value="#{spBacklog.descricao}"></p:outputLabel>
+				                    </h:panelGrid>
+				                </p:panel>
+				                <p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel"/>
+				            </p:column>
+				        </p:dataGrid>
+				    </p:fieldset>
+				    <p:fieldset id="fsSprintBacklog" style="margin-top:20px">
+				        <p:outputPanel id="dropArea">
+				            <h:outputText value="!!!Solte aqui!!!" style="font-size:24px;" />
+				            <p:dataGrid id="availableItems1" var="aiBacklog" value="#{sprintCadastroMB.itensDisponiveis}" columns="1">
+					            <p:column>
+					                <p:panel id="pnl1" header="#{aiBacklog.nome}" style="text-align:center">
+					                    <h:panelGrid columns="1" style="width:100%">
+					                        <p:outputLabel value="#{aiBacklog.descricao}"></p:outputLabel>
+					                    </h:panelGrid>
+					                </p:panel>
+					                <p:draggable for="pnl1" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel"/>
+					            </p:column>
+					        </p:dataGrid>				  
+				        </p:outputPanel>
+				    </p:fieldset>
+				    <p:droppable for="fsSprintBacklog" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="sprintBacklog" onDrop="handleDrop">  
+				          <p:ajax listener="#{sprintCadastroMB.onDisponivelDrop}" update="dropArea availableItems" />
+				    </p:droppable>
 					<br/>
 					<p:panel style="height: 56px;">
 						<h:commandButton process="@none" icon="ui-icon-cancel" value="Cancelar" action="#{sprintCadastroMB.sprintPage}" styleClass="button"/>

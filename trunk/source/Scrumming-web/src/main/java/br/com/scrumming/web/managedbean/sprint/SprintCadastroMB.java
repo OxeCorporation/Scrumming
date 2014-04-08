@@ -5,6 +5,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.primefaces.event.DragDropEvent;
+
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
@@ -31,6 +33,8 @@ public class SprintCadastroMB extends AbstractBean {
 	@FlashScoped
 	private List<ItemBacklog> itensDisponiveis;
 	
+	private List<ItemBacklog> sprintBacklog;
+	
 	@Override
 	public void inicializar() {
 		sprintDTO = new SprintDTO();
@@ -52,6 +56,12 @@ public class SprintCadastroMB extends AbstractBean {
 		itensDisponiveis = sprintClientService.consultarItensDisponiveis(projetoSelecionado.getCodigo());
 		return "";
 	}
+	
+	public void onDisponivelDrop(DragDropEvent ddEvent) {  
+        ItemBacklog item = ((ItemBacklog) ddEvent.getData());
+        sprintBacklog.add(item);
+        itensDisponiveis.remove(item);
+    }
 	
 	/*Métodos para redirecionamento das páginas*/
 	public String sprintPage() {
@@ -93,5 +103,13 @@ public class SprintCadastroMB extends AbstractBean {
 
 	public void setItensDisponiveis(List<ItemBacklog> itensDisponiveis) {
 		this.itensDisponiveis = itensDisponiveis;
+	}
+
+	public List<ItemBacklog> getSprintBacklog() {
+		return sprintBacklog;
+	}
+
+	public void setSprintBacklog(List<ItemBacklog> sprintBacklog) {
+		this.sprintBacklog = sprintBacklog;
 	}
 }
