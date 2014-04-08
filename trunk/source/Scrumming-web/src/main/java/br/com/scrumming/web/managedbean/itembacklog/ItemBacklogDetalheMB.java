@@ -38,6 +38,7 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	@Override
     public void inicializar() {
 		tarefa = new Tarefa();
+		tarefaSelecionada = new Tarefa();
 		tarefaClientService = new TarefaClientService();
 		atualizarListaDeTarefas();
 	}
@@ -71,17 +72,27 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 		}
 	}
 	
-	public void salvarTarefa() {
+	public String salvarTarefa() {
 		tarefaClientService.salvarTarefa(tarefa, itemSelecionado.getCodigo());
+		limparObjetoTarefa();
 		atualizarListaDeTarefas();
     	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+    	return "";
 	}
 	
+	private void limparObjetoTarefa() {
+		tarefa = null;		
+	}
+
 	public String removerTarefa(){
 		tarefaClientService.removerTarefa(tarefaSelecionada);
 		atualizarListaDeTarefas();
 		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 		return "";
+	}
+	
+	public void preparaParaInserir() {
+		tarefa = new Tarefa();
 	}
 	
 	public void preparaParaAlterar() {
