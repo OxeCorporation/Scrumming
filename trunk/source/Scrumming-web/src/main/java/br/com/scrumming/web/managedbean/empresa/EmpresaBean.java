@@ -44,7 +44,12 @@ public class EmpresaBean extends AbstractBean {
 	 */
 	public void salvar() {
 		empresaClientService.salvar(empresa, usuario);
-    	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+		empresa = new Empresa();
+		mensagemSucesso();
+	}
+	
+	private void mensagemSucesso() {
+		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 	}
 	
 	/* getters and setters */
