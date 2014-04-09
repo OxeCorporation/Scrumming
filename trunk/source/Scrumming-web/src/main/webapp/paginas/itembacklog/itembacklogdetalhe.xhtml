@@ -26,7 +26,7 @@
 				<f:facet name="header">					
 					<h:outputText styleClass="label-grid-header" value="#{mensagens.label_lista_de_tarefas}" />
 				</f:facet>
-				<p:dataGrid var="tarefa" id="dataGridTarefas"
+				<p:dataGrid var="tarefa" id="dataGridTarefas" widgetVar="dataGridTarefas"
 					value="#{itemBacklogDetalheMB.itemSelecionado.tarefas}" 
 					columns="1" style="width:100%;"
 					emptyMessage="#{mensagens.label_lista_de_tarefas_vazia}">
@@ -40,7 +40,8 @@
 						
 						<p:commandLink id="alterarTarefaLink" title="#{mensagens.label_alterar_tarefa}"
 							action="#{itemBacklogDetalheMB.preparaParaAlterar}"
-							oncomplete="dlgTarefaSave.show()" process="@this" update="@widgetVar(dlgTarefaSave)">
+							oncomplete="dlgTarefaSave.show()" 
+							process="@this" update="@widgetVar(dlgTarefaSave)">
 							<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
 							<f:setPropertyActionListener value="#{tarefa}"
 								target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
@@ -51,16 +52,27 @@
 						<h:outputLabel styleClass="label-default" value="#{mensagens.label_tempo_estimado}#{mensagens.label_dois_pontos}" />
 						<h:outputText styleClass="output-default" value="#{tarefa.tempoEstimado}" />
 						
-						<h:commandLink id="removerTarefaLink" immediate="true"
+						<p:commandLink id="removerTarefaLink" immediate="true"
 							title="#{mensagens.label_remover_tarefa}"
-							action="#{itemBacklogDetalheMB.removerTarefa}">
+							action="#{itemBacklogDetalheMB.removerTarefa}" 
+							process="@this" update="@widgetVar(dataGridTarefas)">
 							<h:outputText styleClass="fa fa-trash-o inside-grid-icon" />
 							<f:setPropertyActionListener value="#{tarefa}"
 								target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
-						</h:commandLink>
+							<p:confirm header="#{mensagens.label_remover_tarefa}" 
+								message="#{mensagens.mensagem_tarefa_sera_removida}" icon="ui-icon-alert"/>
+						</p:commandLink>
 					</p:panel>
 				</p:dataGrid>
-				</p:panel>
+			</p:panel>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode"> 
+				<p:commandButton value="#{mensagens.botao_cancelar}" styleClass="ui-confirmdialog-no" 
+					icon="ui-icon-close" immediate="true" style="margin:0 auto; float:right"/>  
+        		<p:commandButton value="#{mensagens.botao_confirmar}" styleClass="ui-confirmdialog-yes" 
+        			icon="ui-icon-check" immediate="true" style="margin:0 auto; float:right"/>        		      
+    		</p:confirmDialog>
+    		
 		</h:panelGroup>
 		<h:panelGroup styleClass="col-md-3 column div-right">
 			<p:commandLink action="#{itemBacklogDetalheMB.preparaParaInserir}"
