@@ -20,6 +20,10 @@ import br.com.scrumming.web.infra.bean.AbstractBean;
 @ViewScoped
 public class ItemBacklogDetalheMB extends AbstractBean {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4605021646391355541L;
 	private List<ItemBacklog> itens;
 	@FlashScoped
 	private ItemBacklog itemBacklog;
