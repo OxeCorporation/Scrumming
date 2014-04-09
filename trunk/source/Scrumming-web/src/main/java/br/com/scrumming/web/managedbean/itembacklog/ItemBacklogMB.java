@@ -44,9 +44,7 @@ public class ItemBacklogMB extends AbstractBean {
     }
 
 	public void atualizarListaDeItens(){
-		if (itemSelecionado != null) {
-			
-		}
+		
 	}
 	
     public String cancelarItemBacklog() {

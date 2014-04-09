@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
@@ -36,6 +37,7 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
     private ISprintManager sprintManager;
     
     @Override
+    @Transactional(rollbackFor = Exception.class)
 	public void salvarItemBacklog(ItemBacklog itemBacklog) {
     	
     	if (itemBacklog.getCodigo() != null) {
@@ -50,6 +52,7 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
 	}
     
     @Override
+    @Transactional(rollbackFor = Exception.class)
 	public void cancelarItem(ItemBacklog item) {
     	if (item.getCodigo() != null){
 			if (item.isAtivo() == true) {
