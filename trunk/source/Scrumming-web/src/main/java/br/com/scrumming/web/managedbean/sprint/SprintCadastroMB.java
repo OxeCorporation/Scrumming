@@ -34,6 +34,7 @@ public class SprintCadastroMB extends AbstractBean {
 	private List<ItemBacklog> itensDisponiveis;
 	@FlashScoped
 	private List<ItemBacklog> sprintBacklog;
+	private ItemBacklog itemSelecionado;
 	
 	@Override
 	public void inicializar() {
@@ -75,6 +76,16 @@ public class SprintCadastroMB extends AbstractBean {
 		ItemBacklog item = ((ItemBacklog) ddEvent.getData());
 		itensDisponiveis.add(item);
 		sprintBacklog.remove(item);
+	}
+	
+	public void setSprintBacklog() {
+		itensDisponiveis.remove(itemSelecionado);
+		sprintBacklog.add(itemSelecionado);
+	}
+	
+	public void unsetSprintBacklog() {
+		itensDisponiveis.add(itemSelecionado);
+		sprintBacklog.remove(itemSelecionado);
 	}
 	
 	/*Métodos para redirecionamento das páginas*/
@@ -125,5 +136,13 @@ public class SprintCadastroMB extends AbstractBean {
 
 	public void setSprintBacklog(List<ItemBacklog> sprintBacklog) {
 		this.sprintBacklog = sprintBacklog;
+	}
+
+	public ItemBacklog getItemSelecionado() {
+		return itemSelecionado;
+	}
+
+	public void setItemSelecionado(ItemBacklog itemSelecionado) {
+		this.itemSelecionado = itemSelecionado;
 	}
 }

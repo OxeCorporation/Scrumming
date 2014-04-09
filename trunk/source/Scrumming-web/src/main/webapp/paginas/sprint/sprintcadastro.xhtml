@@ -56,62 +56,54 @@
 					</h:panelGroup>
 					<br/>
 					<!-- *********************************************************************************************** -->
-				   	<p:fieldset>
+				   	<p:fieldset id="tables">
 						<h:panelGroup styleClass="col-md-5 column">
-						<p:panel id="sprintBacklog">  
+						<p:panel>  
 							<f:facet name="header">
-								<h:outputText value="Sprint Backlog" />
+								<h:outputText value="SprintBacklog" />
 							</f:facet>
-							<p:outputPanel id="dropArea">
-								<h:outputText value="!!!Drop here!!!" rendered="#{empty sprintCadastroMB.sprintBacklog}" style="font-size:24px;" />
-								<p:dataGrid var="item" value="#{sprintCadastroMB.sprintBacklog}" rendered="#{not empty sprintCadastroMB.sprintBacklog}">
-									<p:column>  
-					  
-									<p:panel id="pnl1" header="#{item.nome}" style="text-align:center">  
+							<p:dataGrid id="dgSprint" var="itemSprint" value="#{sprintCadastroMB.sprintBacklog}" columns="1">
+								<p:column>
+									<p:panel header="#{itemSprint.nome}" style="text-align:center">  
 										<h:panelGrid columns="1" style="width:100%">  
-											<p:outputLabel value="#{item.descricao}" />  
+											<p:outputLabel value="#{itemSprint.descricao}" />  
 										</h:panelGrid>  
-									</p:panel>  
-					  
-									<p:draggable for="pnl1" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel"/>  
-					  
-								</p:column> 
-								</p:dataGrid>
-							</p:outputPanel>
-						</p:panel>
+									</p:panel>
+								</p:column>
+							</p:dataGrid>
+						</p:panel>  
 						</h:panelGroup>
-						<h:panelGroup styleClass="col-md-2 column"/>			  
+							<h:panelGroup styleClass="col-md-2 column" style="text-align:center; margin-top:100px;">
+								<p:panel>
+									<h:commandLink immediate="true" update="tables" action="#{sprintCadastroMB.setSprintBacklog}">
+										<i class="fa fa-arrow-left fa-2x" style="color: #428BCA;"></i>
+										<f:setPropertyActionListener value="#{item}" target="#{sprintCadastroMB.itemDisponivelSelecionado}" />
+									</h:commandLink>
+								</p:panel>
+									<br/>
+								<p:panel>
+									<h:commandLink immediate="true" update="tables">
+										<i class="fa fa-arrow-right fa-2x" style="color: #428BCA;"></i>
+										<f:setPropertyActionListener value="#{dgSprint}" target="#{sprintCadastroMB.sprintBacklogSelecionado}" />
+									</h:commandLink>
+								</p:panel>
+							</h:panelGroup>			  
 						<h:panelGroup styleClass="col-md-5 column">
 						<p:panel>  
 							<f:facet name="header">
 								<h:outputText value="Itens Disponiveis" />
 							</f:facet>
-							<p:dataGrid id="itensDisponiveis" var="item" value="#{sprintCadastroMB.itensDisponiveis}" columns="1">  
-					  
-								<p:column>  
-					  
-									<p:panel id="pnl" header="#{item.nome}" style="text-align:center">  
+							<p:dataGrid id="dgItem" var="item" value="#{sprintCadastroMB.itensDisponiveis}" columns="1">
+								<p:column>
+									<p:panel header="#{item.nome}" style="text-align:center">  
 										<h:panelGrid columns="1" style="width:100%">  
 											<p:outputLabel value="#{item.descricao}" />  
 										</h:panelGrid>  
-									</p:panel>  
-					  
-									<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel"/>  
-					  
-								</p:column>  
-					  
-							</p:dataGrid>  
-					  
+									</p:panel>
+								</p:column>
+							</p:dataGrid>
 						</p:panel>  
 						</h:panelGroup>
-						<script type="text/javascript">
-							function handleDrop(event, ui) {
-								var draggable = ui.draggable, helper = ui.helper, position = ui.position, offset = ui.offset;
-							}
-						</script>
-						<p:droppable for="sprintBacklog" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="itensDisponiveis" onDrop="handleDrop">  
-							<p:ajax listener="#{sprintCadastroMB.onDisponivelDrop}" update="dropArea itensDisponiveis" />  
-						</p:droppable>
 					</p:fieldset>
 				    <!-- *********************************************************************************************** -->
 					<br/>
