@@ -57,6 +57,7 @@
 					<br/>
 					<!-- *********************************************************************************************** -->
 				   	<p:fieldset id="tables">
+						
 						<h:panelGroup styleClass="col-md-5 column">
 						<p:panel>  
 							<f:facet name="header">
@@ -73,21 +74,23 @@
 							</p:dataGrid>
 						</p:panel>  
 						</h:panelGroup>
-							<h:panelGroup styleClass="col-md-2 column" style="text-align:center; margin-top:100px;">
-								<p:panel>
-									<h:commandLink immediate="true" update="tables" action="#{sprintCadastroMB.setSprintBacklog}">
-										<i class="fa fa-arrow-left fa-2x" style="color: #428BCA;"></i>
-										<f:setPropertyActionListener value="#{item}" target="#{sprintCadastroMB.itemDisponivelSelecionado}" />
-									</h:commandLink>
-								</p:panel>
-									<br/>
-								<p:panel>
-									<h:commandLink immediate="true" update="tables">
-										<i class="fa fa-arrow-right fa-2x" style="color: #428BCA;"></i>
-										<f:setPropertyActionListener value="#{dgSprint}" target="#{sprintCadastroMB.sprintBacklogSelecionado}" />
-									</h:commandLink>
-								</p:panel>
-							</h:panelGroup>			  
+						
+						<h:panelGroup styleClass="col-md-2 column" style="text-align:center; margin-top:100px;">
+							<p:panel>
+								<h:commandLink immediate="true" update="tables" action="#{sprintCadastroMB.moveItemToSprint}">
+									<i class="fa fa-arrow-left fa-2x" style="color: #428BCA;"></i>
+									<f:setPropertyActionListener value="#{item}" target="#{sprintCadastroMB.itemSelecionado}" />
+								</h:commandLink>
+							</p:panel>
+								<br/>
+							<p:panel>
+								<h:commandLink immediate="true" update="tables" action="#{sprintCadastroMB.removeItemFromSprint}">
+									<i class="fa fa-arrow-right fa-2x" style="color: #428BCA;"></i>
+									<f:setPropertyActionListener value="#{dgSprint}" target="#{sprintCadastroMB.itemSelecionado}" />
+								</h:commandLink>
+							</p:panel>
+						</h:panelGroup>	
+								  
 						<h:panelGroup styleClass="col-md-5 column">
 						<p:panel>  
 							<f:facet name="header">
@@ -104,6 +107,7 @@
 							</p:dataGrid>
 						</p:panel>  
 						</h:panelGroup>
+						
 					</p:fieldset>
 				    <!-- *********************************************************************************************** -->
 					<br/>

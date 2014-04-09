@@ -78,14 +78,16 @@ public class SprintCadastroMB extends AbstractBean {
 		sprintBacklog.remove(item);
 	}
 	
-	public void setSprintBacklog() {
+	public String moveItemToSprint() {
 		itensDisponiveis.remove(itemSelecionado);
 		sprintBacklog.add(itemSelecionado);
+		return "";
 	}
 	
-	public void unsetSprintBacklog() {
+	public String removeItemFromSprint() {
 		itensDisponiveis.add(itemSelecionado);
 		sprintBacklog.remove(itemSelecionado);
+		return "";
 	}
 	
 	/*Métodos para redirecionamento das páginas*/
