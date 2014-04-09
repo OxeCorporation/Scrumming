@@ -5,7 +5,9 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:p="http://primefaces.org/ui">
     	
-	<p:dialog showEffect="fade" hideEffect="explode" id="dlgTarefaSave" header="Tarefa" modal="true" var="exec" resizable="false" widgetVar="dlgTarefaSave">
+	<p:dialog showEffect="fade" hideEffect="explode" id="dlgTarefaSave" header="Tarefa" 
+		modal="true" var="exec" resizable="false" widgetVar="dlgTarefaSave"
+		visible="#{facesContext.validationFailed}">
 		<p:panel>
 			<h:panelGrid columns="1">						
 				<h:outputText value="#{mensagens.label_resumo}" /> 
@@ -20,7 +22,7 @@
 		</p:panel>
 		<br/>
 		<p:commandButton process="@none" icon="ui-icon-cancel" value="#{mensagens.botao_cancelar}" onclick="dlgTarefaSave.hide()" style="margin:0 auto; float:right"/>
-		<p:commandButton update="@form" oncomplete="dlgTarefaSave.hide()" value="#{mensagens.botao_confirmar}" action="#{itemBacklogDetalheMB.salvarTarefa}" icon="ui-icon-disk" style="margin:0 auto; float:right"/>								
+		<p:commandButton update="@form" value="#{mensagens.botao_confirmar}" action="#{itemBacklogDetalheMB.salvarTarefa}" icon="ui-icon-disk" style="margin:0 auto; float:right"/>								
 	</p:dialog>	
 	
 </ui:composition>
