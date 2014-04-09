@@ -14,10 +14,10 @@
 							value="#{itemBacklogDetalheMB.itemSelecionado.nome}" />
 					</h:commandLink>
 				</f:facet>
-				<h:outputLabel styleClass="label-default" value="#{mensagens.label_descricao}" />
+				<h:outputLabel styleClass="label-default" value="#{mensagens.label_descricao}#{mensagens.label_dois_pontos}" />
 				<h:outputText styleClass="label-default" value="#{itemBacklogDetalheMB.itemSelecionado.descricao}" />
 				<br />
-				<h:outputLabel styleClass="label-default" value="#{mensagens.label_criterio_aceitacao}" />
+				<h:outputLabel styleClass="label-default" value="#{mensagens.label_criterio_aceitacao}#{mensagens.label_dois_pontos}" />
 				<h:outputText styleClass="output-default" value="#{itemBacklogDetalheMB.itemSelecionado.criterioAceitacao}" />
 				
 				
@@ -35,10 +35,10 @@
 							<h:outputText styleClass="label-grid-header" value="#{tarefa.nome}" />
 						</f:facet> 
 						
-						<h:outputLabel styleClass="label-default" value="#{mensagens.label_descricao}" />
+						<h:outputLabel styleClass="label-default" value="#{mensagens.label_descricao}#{mensagens.label_dois_pontos}" />
 						<h:outputText styleClass="output-default" value="#{tarefa.descricao}" />
 						
-						<p:commandLink id="alterarTarefaLink"
+						<p:commandLink id="alterarTarefaLink" title="#{mensagens.label_alterar_tarefa}"
 							action="#{itemBacklogDetalheMB.preparaParaAlterar}"
 							oncomplete="dlgTarefaSave.show()" process="@this" update="@widgetVar(dlgTarefaSave)">
 							<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
@@ -48,10 +48,11 @@
 						
 						<br/>
 						
-						<h:outputLabel styleClass="label-default" value="#{mensagens.label_tempo_estimado}" />
+						<h:outputLabel styleClass="label-default" value="#{mensagens.label_tempo_estimado}#{mensagens.label_dois_pontos}" />
 						<h:outputText styleClass="output-default" value="#{tarefa.tempoEstimado}" />
 						
 						<h:commandLink id="removerTarefaLink" immediate="true"
+							title="#{mensagens.label_remover_tarefa}"
 							action="#{itemBacklogDetalheMB.removerTarefa}">
 							<h:outputText styleClass="fa fa-trash-o inside-grid-icon" />
 							<f:setPropertyActionListener value="#{tarefa}"
