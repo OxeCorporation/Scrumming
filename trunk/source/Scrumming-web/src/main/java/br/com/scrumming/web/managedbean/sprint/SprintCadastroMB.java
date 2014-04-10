@@ -1,9 +1,12 @@
 package br.com.scrumming.web.managedbean.sprint;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
@@ -62,20 +65,40 @@ public class SprintCadastroMB extends AbstractBean {
 	}
 	
 	public String moveItemToSprint() {
-		ItemBacklog itemToRemove = new ItemBacklog();
-		for (ItemBacklog item : itensDisponiveis) {
-			if (item.getCodigo() == itemSelecionado.getCodigo()) {
-				itemToRemove = item;
+		if (itemSelecionado != null) {
+			List<ItemBacklog> listToRemove = new LinkedList<>(itensDisponiveis);
+			ItemBacklog itemToRemove = new ItemBacklog();
+			for (ItemBacklog item : itensDisponiveis) {
+				if (item.getCodigo() == itemSelecionado.getCodigo()) {
+					itemToRemove = item;
+				}
 			}
+			listToRemove.remove(itemToRemove);
+			itensDisponiveis = listToRemove;
+			sprintBacklog.add(itemSelecionado);
+			itemSelecionado = null;
+		} else {
+			FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_SELECIONAR_ITEM_LISTA);
 		}
-		itensDisponiveis.remove(itemToRemove);
-		sprintBacklog.add(itemSelecionado);
 		return "";
 	}
 	
 	public String removeItemFromSprint() {
 		itensDisponiveis.add(itemSelecionado);
-		sprintBacklog.remove(itemSelecionado);
+		if (itemSelecionado != null) {
+			List<ItemBacklog> listToRemove = new LinkedList<>(sprintBacklog);
+			ItemBacklog itemToRemove = new ItemBacklog();
+			for (ItemBacklog item : sprintBacklog) {
+				if (item.getCodigo() == itemSelecionado.getCodigo()) {
+					itemToRemove = item;
+				}
+			}
+			listToRemove.remove(itemToRemove);
+			sprintBacklog = listToRemove;
+			itemSelecionado = null;
+		} else {
+			FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_SELECIONAR_ITEM_LISTA);
+		}
 		return "";
 	}
 	
