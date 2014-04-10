@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.scrumming.domain.Empresa;
-import br.com.scrumming.domain.Usuario;
+import br.com.scrumming.domain.EmpresaDTO;
 import br.com.scrumming.web.infra.AbstractClientService;
 import br.com.scrumming.web.infra.ConstantesService;
 
@@ -18,10 +18,10 @@ public class EmpresaClientService extends AbstractClientService {
 	 * @param Empresa
 	 * @return void
 	 */
-	public void salvar(Empresa empresa, Usuario usuario) {
+	public void salvar(EmpresaDTO empresaDTO) {
 		getRestTemplate().postForObject(
 				getURIService(ConstantesService.Empresa.SALVAR_EMPRESA),
-				empresa, void.class, usuario, void.class);
+				empresaDTO, void.class);
 	}
 	
 	/**
