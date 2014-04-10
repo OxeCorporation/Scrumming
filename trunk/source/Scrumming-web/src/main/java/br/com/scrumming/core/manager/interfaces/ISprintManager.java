@@ -10,6 +10,6 @@ public interface ISprintManager extends IManager<Sprint, Integer> {
 
     String salvarSprint(SprintDTO sprintDTO);
 	List<Sprint> consultarPorProjeto(Integer projetoID);
-    void fecharSprint(Integer sprintID);
+    void fecharSprint(Sprint sprint);
     SprintDTO consultarSprintDTO(Integer sprintID);
 }

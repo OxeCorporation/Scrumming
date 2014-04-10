@@ -2,10 +2,7 @@ package br.com.scrumming.web.clientService;
 
 import java.util.Arrays;
 import java.util.List;
-
-import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
@@ -32,13 +29,18 @@ public class SprintClientService extends AbstractClientService {
 		return Arrays.asList(getRestTemplate().getForObject(getURIService(ConstantesService.Sprint.URL_CONSULTAR_POR_PROJETO), Sprint[].class, projetoID));
 	}
 	
+	/**
+	 * Consulta os itens de backlog que estão disponíveis para serem associados à uma sprint.
+	 * @param projetoID
+	 * @return
+	 */
 	public List<ItemBacklog> consultarItensDisponiveis(Integer projetoID) {
 		ResponseEntity<ItemBacklog[]> forEntity = getRestTemplate().getForEntity(getURIService(ConstantesService.Sprint.URL_CONSULTAR_ITENS_DISPONIVEIS), ItemBacklog[].class, projetoID);
 		return Arrays.asList(forEntity.getBody());
 	}
 	
 	/**
-	 * 
+	 * Função para consultar a sprintBacklog
 	 * @param sprintID
 	 * @return
 	 */
@@ -60,7 +62,7 @@ public class SprintClientService extends AbstractClientService {
 	 * Efetua o fechamento de uma Sprint.
 	 * @param sprint
 	 */
-	public void fecharSprint(Integer sprintID) {
-		getRestTemplate().put(getURIService(ConstantesService.Sprint.URL_FECHAR_SPRINT), HttpEntity.EMPTY, sprintID);
+	public void fecharSprint(Sprint sprint) {
+		getRestTemplate().postForObject(getURIService(ConstantesService.Sprint.URL_FECHAR_SPRINT), sprint, void.class);
 	}
 }

@@ -63,6 +63,19 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
 	}
 	
 	/**
+	 * Consulta uma lista de sprintbacklog ativos por sprint
+	 * @param sprint
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<SprintBacklog> listarAtivosPorSprint(Sprint sprint) {
+		Criteria criteria = createCriteria();
+		criteria.add(Restrictions.eq("sprint", sprint));
+		criteria.add(Restrictions.eq("isAtivo", true));
+		return Collections.checkedList(criteria.list(), SprintBacklog.class);
+	}
+	
+	/**
 	 * Consulta os Itens Backlog ativos de uma sprint.	
 	 * @param sprintID
 	 * @return

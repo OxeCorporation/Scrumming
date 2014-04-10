@@ -47,6 +47,11 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 	}
 	
 	@Override
+	public List<SprintBacklog> listarAtivosPorSprint(Sprint sprint) {
+		return sprintBacklogRepositorio.listarAtivosPorSprint(sprint);
+	}
+	
+	@Override
 	public SprintBacklog consultarAtivoPorItem(ItemBacklog item) {
 		return sprintBacklogRepositorio.consultarAtivoPorItem(item);
 	}

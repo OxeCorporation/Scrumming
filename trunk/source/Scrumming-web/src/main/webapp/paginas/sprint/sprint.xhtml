@@ -24,8 +24,7 @@
 						<f:facet name="header">
 							<p:commandLink action="#{sprintMB.sprintDetailPage}">
 								<h:outputText value="#{sprint.nome}" />
-								<f:setPropertyActionListener value="#{sprint}"
-									target="#{sprintMB.sprintSelecionada}" />
+								<f:setPropertyActionListener value="#{sprint}" target="#{sprintMB.sprintSelecionada}" />
 							</p:commandLink>
 						</f:facet>
 						<h:panelGroup style="width:100%">
@@ -33,19 +32,16 @@
 							<h:outputText styleClass="output-small" value="#{sprint.dataInicioFormatada}"/>					
 							<p:commandLink title="Alterar sprint" action="#{sprintMB.consultarSprintDTO}" ajax="false">
 								<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
-								<f:setPropertyActionListener value="#{sprint}"
-									target="#{sprintMB.sprintSelecionada}" />
+								<f:setPropertyActionListener value="#{sprint}" target="#{sprintMB.sprintSelecionada}" />
 							</p:commandLink>
 							<h:outputLabel value="|" styleClass="pipe-separator" />
 							<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataFIM}" />
 							<h:outputText styleClass="output-small" value="#{sprint.dataFimFormatada}" />
 							<br />
 							<h:outputText styleClass="output-default" value="#{sprint.descricao}" />
-							<p:commandLink title="Fechar sprint"
-								action="#{sprintMB.fecharSprint}">
+							<p:commandLink title="Fechar sprint" action="#{sprintMB.fecharSprint}"  ajax="false" update="@form">
 								<h:outputText styleClass="fa fa-lock inside-grid-icon" />
-								<f:setPropertyActionListener value="#{sprint}"
-									target="#{sprintMB.sprintSelecionada}" />
+								<f:setPropertyActionListener value="#{sprint}" target="#{sprintMB.sprintSelecionada}" />
 							</p:commandLink>
 						</h:panelGroup>
 					</p:panel>

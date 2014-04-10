@@ -128,16 +128,15 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 	 */
 	@Transactional(rollbackFor=Exception.class)
 	@Override
-	public void fecharSprint(Integer sprintID) {
+	public void fecharSprint(Sprint sprint) {
 
-		List<SprintBacklog> itens = (List<SprintBacklog>) sprintBacklogManager
-				.consultarPorCampo("codigo", sprintID);
+		Sprint sprintConsulta = findByKey(sprint.getCodigo());
+		
+		List<SprintBacklog> itens = sprintBacklogManager.listarAtivosPorSprint(sprintConsulta);
 		for (SprintBacklog item : itens) {
-
 			item.setAtivo(false);
 		}
-		Sprint sprint = new Sprint();
-		sprint = findByKey(sprintID);
+		sprint = findByKey(sprint.getCodigo());
 		sprint.setSituacaoSprint(SituacaoSprintEnum.FECHADA);
 		insertOrUpdate(sprint);
 	}

@@ -37,8 +37,8 @@ public class SprintService {
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/close")
-    public void fechar(@PathVariable Integer sprintID) {
-    	sprintManager.fecharSprint(sprintID);
+    public void fechar(@RequestBody Sprint sprint) {
+    	sprintManager.fecharSprint(sprint);
     }
     
     /*GETS*/

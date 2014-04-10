@@ -59,8 +59,8 @@ public class SprintMB extends AbstractBean {
 	 * @return
 	 */
 	public String fecharSprint() {
-		sprintClientService.fecharSprint(sprintSelecionada.getChave());
-		return "";
+		sprintClientService.fecharSprint(sprintSelecionada);
+		return sprintPage();
 	}
 	
 	public String consultarItensDisponiveis() {
@@ -69,6 +69,10 @@ public class SprintMB extends AbstractBean {
 	}
 	
 	/*Métodos para redirecionamento das páginas*/
+	public String sprintPage() {
+		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
+	}
+	
 	public String sprintDetailPage() {
     	return redirecionar(PaginasUtil.Sprint.SPRINT_DETAIL_PAGE);
     }
