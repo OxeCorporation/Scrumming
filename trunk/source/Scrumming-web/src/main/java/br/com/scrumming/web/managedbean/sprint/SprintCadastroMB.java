@@ -3,10 +3,8 @@ package br.com.scrumming.web.managedbean.sprint;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
@@ -35,6 +33,7 @@ public class SprintCadastroMB extends AbstractBean {
 	@FlashScoped
 	private List<ItemBacklog> sprintBacklog;
 	private ItemBacklog itemSelecionado;
+	private ItemBacklog sprintBacklogSelecionado;
 	
 	@Override
 	public void inicializar() {
@@ -44,7 +43,9 @@ public class SprintCadastroMB extends AbstractBean {
 		if (sprintBacklog == null) {
 			sprintBacklog = new ArrayList<>();
 		}
-		sprintDTO = new SprintDTO();
+		if (sprintDTO == null) {
+			sprintDTO = new SprintDTO();
+		}
 		sprintClientService = new SprintClientService();
 	}
 	
@@ -59,11 +60,10 @@ public class SprintCadastroMB extends AbstractBean {
 		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
 	}
 	
-	public String consultarItensDisponiveis() {
-		itensDisponiveis = sprintClientService.consultarItensDisponiveis(projetoSelecionado.getCodigo());
-		return "";
-	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public String moveItemToSprint() {
 		if (itemSelecionado != null) {
 			List<ItemBacklog> listToRemove = new LinkedList<>(itensDisponiveis);
@@ -83,19 +83,23 @@ public class SprintCadastroMB extends AbstractBean {
 		return "";
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String removeItemFromSprint() {
-		itensDisponiveis.add(itemSelecionado);
-		if (itemSelecionado != null) {
+		if (sprintBacklogSelecionado != null) {
 			List<ItemBacklog> listToRemove = new LinkedList<>(sprintBacklog);
 			ItemBacklog itemToRemove = new ItemBacklog();
 			for (ItemBacklog item : sprintBacklog) {
-				if (item.getCodigo() == itemSelecionado.getCodigo()) {
+				if (item.getCodigo() == sprintBacklogSelecionado.getCodigo()) {
 					itemToRemove = item;
 				}
 			}
 			listToRemove.remove(itemToRemove);
 			sprintBacklog = listToRemove;
-			itemSelecionado = null;
+			itensDisponiveis.add(sprintBacklogSelecionado);
+			sprintBacklogSelecionado = null;
 		} else {
 			FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_SELECIONAR_ITEM_LISTA);
 		}
@@ -158,5 +162,13 @@ public class SprintCadastroMB extends AbstractBean {
 
 	public void setItemSelecionado(ItemBacklog itemSelecionado) {
 		this.itemSelecionado = itemSelecionado;
+	}
+
+	public ItemBacklog getSprintBacklogSelecionado() {
+		return sprintBacklogSelecionado;
+	}
+
+	public void setSprintBacklogSelecionado(ItemBacklog sprintBacklogSelecionado) {
+		this.sprintBacklogSelecionado = sprintBacklogSelecionado;
 	}
 }

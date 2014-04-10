@@ -6,6 +6,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
@@ -35,34 +36,31 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 	private ISprintBacklogManager sprintBacklogManager;
 
 	@Autowired
-	private IItemBacklogManager itemBacklogManager;
-
-	
+	private IItemBacklogManager itemBacklogManager;	
 
 	@Override
 	public AbstractRepositorio<Sprint, Integer> getRepositorio() {
 		return this.sprintRepositorio;
 	}
 
-	// 01
 	@Override
 	public List<Sprint> consultarPorProjeto(Integer projetoID) {
 		return sprintRepositorio.consultarPorProjeto(projetoID);
 	}
 
-	// 04
+	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public String salvarSprint(SprintDTO sprintDTO) {
 
 		String retorno = "";
 		Sprint sprint = sprintDTO.getSprint();
 		sprint.setDataInicio(new DateTime(sprintDTO.getDataInicio()));
+		sprint.setDataFim(new DateTime(sprintDTO.getDataFim()));
 		sprint.setDataRevisao(new DateTime(sprintDTO.getDataRevisao()));
 		sprint.setSituacaoSprint(SituacaoSprintEnum.ABERTA);
 		sprint.setDataCadastro(new DateTime());
 		//List<ItemBacklog> itensBacklogSprint = sprintDTO.getSprintBacklog();
 		//List<ItemBacklog> itensBacklogProduto = sprintDTO.getProductBacklog();
-		sprint.setDataFim(sprint.getDataInicio().plusDays(sprintDTO.getDias()));
 		// Persiste o objeto Sprint e retorna a chave.
 		Integer sprintID = insertOrUpdate(sprint);
 
@@ -87,7 +85,7 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		return retorno;
 	}
 
-	// 05, 06, 07
+	@Transactional(readOnly=true)
 	@Override
 	public SprintDTO consultarSprintDTO(Integer sprintID) {
 
@@ -102,6 +100,9 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		// Seta a Sprint
 		sprint = findByKey(sprintID);
 		sprintDTO.setSprint(sprint);
+		sprintDTO.setDataInicio(sprint.getDataInicio().toDate());
+		sprintDTO.setDataFim(sprint.getDataFim().toDate());
+		sprintDTO.setDataRevisao(sprint.getDataRevisao().toDate());
 
 		// Seta a lista de itens ativos que representam o SprintBacklog
 		sprintBacklog = sprintBacklogManager.consultarItensAtivosBacklogPorSprint(sprintID);
@@ -109,7 +110,7 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 
 		// Pesquisa todos os itens do Product Backlog
 		List<ItemBacklog> productBacklog = new ArrayList<>();
-		productBacklog = itemBacklogManager.consultarPorProjeto(sprintDTO.getSprint().getProjeto().getChave());
+		productBacklog = itemBacklogManager.consultarItensDisponiveisPorProjeto(sprint.getProjeto().getCodigo());
 
 		// Percorre todos os itens do backlog para verificar os que não foram
 		// atribuidos às Sprints
@@ -126,6 +127,7 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 	/**
 	 * Função para gerenciar o fechamento da Sprint
 	 */
+	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public void fecharSprint(Integer sprintID) {
 

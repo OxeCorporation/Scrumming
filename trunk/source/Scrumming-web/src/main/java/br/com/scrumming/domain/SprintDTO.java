@@ -12,9 +12,9 @@ public class SprintDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int dias;
-	
 	private Date dataInicio;
+	
+	private Date dataFim;
 	
 	private Date dataRevisao;
 	
@@ -54,14 +54,6 @@ public class SprintDTO implements Serializable {
 		this.productBacklog = productBacklog;
 	}
 
-	public int getDias() {
-		return dias;
-	}
-
-	public void setDias(int dias) {
-		this.dias = dias;
-	}
-
 	public Date getDataInicio() {
 		return dataInicio;
 	}
@@ -76,5 +68,13 @@ public class SprintDTO implements Serializable {
 
 	public void setDataRevisao(Date dataRevisao) {
 		this.dataRevisao = dataRevisao;
+	}
+
+	public Date getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
 	}	
 }

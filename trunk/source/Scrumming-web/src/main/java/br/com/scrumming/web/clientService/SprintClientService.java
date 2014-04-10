@@ -53,7 +53,7 @@ public class SprintClientService extends AbstractClientService {
 	 * @return Objeto DTO que representa os dados da tela da Sprint.
 	 */
 	public SprintDTO consultarSprintDTO(Integer sprintID) {
-		return getRestTemplate().getForObject(ConstantesService.Sprint.URL_CONSULTAR_SPRINT_DTO, SprintDTO.class, sprintID);
+		return getRestTemplate().getForObject(getURIService(ConstantesService.Sprint.URL_CONSULTAR_SPRINT_DTO), SprintDTO.class, sprintID);
 	}
 	
 	/**
@@ -61,6 +61,6 @@ public class SprintClientService extends AbstractClientService {
 	 * @param sprint
 	 */
 	public void fecharSprint(Integer sprintID) {
-		getRestTemplate().put(ConstantesService.Sprint.URL_FECHAR_SPRINT, HttpEntity.EMPTY, sprintID);
+		getRestTemplate().put(getURIService(ConstantesService.Sprint.URL_FECHAR_SPRINT), HttpEntity.EMPTY, sprintID);
 	}
 }

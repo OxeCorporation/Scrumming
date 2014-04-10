@@ -19,19 +19,18 @@ import br.com.scrumming.web.infra.bean.AbstractBean;
 public class SprintMB extends AbstractBean {
 	
 	private static final long serialVersionUID = 1L;
-	private Sprint sprint;
 	private List<Sprint> sprintsDoProjeto;
-	private List<ItemBacklog> sprintBacklog;
-	private List<ItemBacklog> availableBacklog;
-	@FlashScoped
-	private SprintDTO sprintDTO;
 	private SprintClientService sprintClientService;
 	@FlashScoped
 	private Projeto projetoSelecionado;
 	@FlashScoped
 	private Sprint sprintSelecionada;
 	@FlashScoped
+	private SprintDTO sprintDTO;
+	@FlashScoped
 	private List<ItemBacklog> itensDisponiveis;
+	@FlashScoped
+	private List<ItemBacklog> sprintBacklog;
 	
 	@Override
 	public void inicializar() {
@@ -46,12 +45,12 @@ public class SprintMB extends AbstractBean {
 	 * @param sprintID Código da Sprint.
 	 * @return 
 	 */
-	public String consultarSprintDTO(Integer sprintID) {
-		sprintDTO = sprintClientService.consultarSprintDTO(sprintID);
-		sprint = sprintDTO.getSprint();
+	public String consultarSprintDTO() {
+		sprintDTO = sprintClientService.consultarSprintDTO(sprintSelecionada.getCodigo());
+		sprintSelecionada = sprintDTO.getSprint();
 		sprintBacklog = sprintDTO.getSprintBacklog();
-		availableBacklog = sprintDTO.getProductBacklog();
-		return "";
+		itensDisponiveis = sprintDTO.getProductBacklog();
+		return sprintCadastroPage();
 	}
 	
 	/**
@@ -87,29 +86,12 @@ public class SprintMB extends AbstractBean {
 	}
 	
 	/*Getters and Setters*/
-	
-	public Sprint getSprint() {
-		return sprint;
-	}
-
-	public void setSprint(Sprint sprint) {
-		this.sprint = sprint;
-	}
-
 	public List<ItemBacklog> getSprintBacklog() {
 		return sprintBacklog;
 	}
 
 	public void setSprintBacklog(List<ItemBacklog> sprintBacklog) {
 		this.sprintBacklog = sprintBacklog;
-	}
-
-	public List<ItemBacklog> getAvailableBacklog() {
-		return availableBacklog;
-	}
-
-	public void setAvailableBacklog(List<ItemBacklog> availableBacklog) {
-		this.availableBacklog = availableBacklog;
 	}
 
 	public SprintDTO getSprintDTO() {
