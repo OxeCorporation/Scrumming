@@ -4,8 +4,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
-import br.com.scrumming.domain.Empresa;
-import br.com.scrumming.domain.Usuario;
+import br.com.scrumming.domain.EmpresaDTO;
 import br.com.scrumming.web.clientService.EmpresaClientService;
 import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.FlashScoped;
@@ -20,9 +19,7 @@ public class EmpresaBean extends AbstractBean {
 	 */
 	private static final long serialVersionUID = 1L;
 	@FlashScoped
-	private Empresa empresa;
-	@FlashScoped
-	private Usuario usuario;
+	private EmpresaDTO empresaDTO;
 	private EmpresaClientService empresaClientService;
 	
 	/**
@@ -32,8 +29,7 @@ public class EmpresaBean extends AbstractBean {
 	 */
 	@Override
     public void inicializar() {
-		empresa = new Empresa();
-		usuario = new Usuario();
+		empresaDTO = new EmpresaDTO();
 		empresaClientService = new EmpresaClientService();
 	}
 	
@@ -43,8 +39,8 @@ public class EmpresaBean extends AbstractBean {
 	 * @return void
 	 */
 	public void salvar() {
-		empresaClientService.salvar(empresa, usuario);
-		empresa = new Empresa();
+		empresaClientService.salvar(empresaDTO);
+		empresaDTO = new EmpresaDTO();
 		mensagemSucesso();
 	}
 	
@@ -53,19 +49,11 @@ public class EmpresaBean extends AbstractBean {
 	}
 	
 	/* getters and setters */
-	public Empresa getEmpresa() {
-		return empresa;
+	public EmpresaDTO getEmpresaDTO() {
+		return empresaDTO;
 	}
 
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
-	
-	public Usuario getUsuario() {
-		return usuario;
-	}
-	
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setEmpresaDTO(EmpresaDTO empresaDTO) {
+		this.empresaDTO = empresaDTO;
 	}
 }
