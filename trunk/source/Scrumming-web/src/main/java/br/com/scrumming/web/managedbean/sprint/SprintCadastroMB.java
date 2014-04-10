@@ -2,10 +2,8 @@ package br.com.scrumming.web.managedbean.sprint;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
@@ -64,7 +62,13 @@ public class SprintCadastroMB extends AbstractBean {
 	}
 	
 	public String moveItemToSprint() {
-		itensDisponiveis.remove(itemSelecionado);
+		ItemBacklog itemToRemove = new ItemBacklog();
+		for (ItemBacklog item : itensDisponiveis) {
+			if (item.getCodigo() == itemSelecionado.getCodigo()) {
+				itemToRemove = item;
+			}
+		}
+		itensDisponiveis.remove(itemToRemove);
 		sprintBacklog.add(itemSelecionado);
 		return "";
 	}
