@@ -5,11 +5,9 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.web.clientService.ItemBacklogClientService;
-import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
 import br.com.scrumming.web.infra.bean.AbstractBean;
@@ -26,30 +24,30 @@ public class ItemBacklogMB extends AbstractBean {
     private ItemBacklogClientService clienteService;
     @FlashScoped
     private Projeto projetoSelecionado;
+    private List<ItemBacklog> listaDataGrid;
    
     @Override
     public void inicializar() {
     	itemBacklog= new ItemBacklog();
         clienteService = new ItemBacklogClientService();
-        itens = clienteService.consultarItemPorProjeto(projetoSelecionado.getCodigo());
-        
+        atualizarListaDeItens();
     }
     
     /*Funções específicas da tela*/
 	public String salvarItemBacklog() {
 		itemBacklog.setProjeto(projetoSelecionado);
-		itemBacklog.setRoi(20.0);
 		clienteService.salvarItemBacklog(itemBacklog);
+		atualizarListaDeItens();
 		return "";
     }
 
 	public void atualizarListaDeItens(){
-		
+			itens= clienteService.consultarItemPorProjeto(projetoSelecionado.getCodigo());
 	}
 	
     public String cancelarItemBacklog() {
        	clienteService.cancelarItemBacklog(itemSelecionado);
-       	//atualizar();
+       	atualizarListaDeItens();
         return "";
     }
     

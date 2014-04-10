@@ -8,11 +8,11 @@
 	<p:dialog showEffect="fade" hideEffect="explode" id="dlgItemSave" modal="true" var="exec" resizable="false" widgetVar="dlgItemSave" closable="false">
 		<h:outputStylesheet library="css" name="scrumming.css" />
 		<f:facet name="header">
-			<h:outputText styleClass="label-page-title" value="ItemBacklog" />
+			<h:outputText styleClass="label-page-title" value="#{itemBacklogMB.projetoSelecionado.nome}" />
 		</f:facet>
 		<p:panel>
 			<f:facet name="header">
-				<h:outputText styleClass="label-grid-header" value="#{itemBacklogMB.projetoSelecionado.nome}" />
+				<h:outputText styleClass="label-grid-header" value="Detalhes do Item Backlog" />
 			</f:facet>
 			<h:panelGrid columns="1"  id="panel">
 				<h:outputLabel styleClass="label-default" value="Titulo" /> 
@@ -44,12 +44,9 @@
 			</h:panelGrid> 
 		</p:panel>
 			
-		<p:commandButton update="panel" process="@this" icon="ui-icon-cancel" value="Cancelar" onclick="dlgItemSave.hide()" styleClass="button">
-			<p:resetInput target="panel" />			
-		</p:commandButton>
-		<p:commandButton update="@form" oncomplete="dlgItemSave.hide()" value="Salvar" action="#{itemBacklogMB.salvarItemBacklog}" icon="ui-icon-disk" styleClass="button">
-			<p:resetInput target="panel" />
-		</p:commandButton>								
+		<p:commandButton update="panel" process="@this" icon="ui-icon-cancel" value="Cancelar" oncomplete="dlgItemSave.hide()" styleClass="button"/>
+		<p:commandButton update="panel" oncomplete="dlgItemSave.hide()" value="Salvar" action="#{itemBacklogMB.salvarItemBacklog}" icon="ui-icon-disk" styleClass="button" ajax="false"/>								
+								
 	</p:dialog>	
 	
 </ui:composition>
