@@ -96,6 +96,9 @@ public class Sprint extends ObjetoPersistente<Integer> {
 
     @Transient
     private String dataFimFormatada;
+    
+    @Transient
+    private String statusSprint;
 
     /* getters and setters */
     @Override
@@ -198,5 +201,13 @@ public class Sprint extends ObjetoPersistente<Integer> {
 		} catch (NullPointerException e) {			
 		}		
 		return dataFimFormatada;
+	}
+
+	public String getStatusSprint() {
+		return statusSprint;
+	}
+
+	public void setStatusSprint(String statusSprint) {
+		this.statusSprint = statusSprint;
 	}
 }

@@ -39,6 +39,9 @@ public class SprintMB extends AbstractBean {
 	}
 	
 	/*Funções disponíveis para as telas da Sprint e SprintBacklog*/
+	public void checkSprintStatus() {
+		
+	}
 	
 	/**
 	 * Consulta o DTO da Sprint.

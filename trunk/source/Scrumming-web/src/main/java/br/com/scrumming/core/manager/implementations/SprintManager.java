@@ -46,7 +46,21 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 
 	@Override
 	public List<Sprint> consultarPorProjeto(Integer projetoID) {
-		return sprintRepositorio.consultarPorProjeto(projetoID);
+		List<Sprint> sprints = sprintRepositorio.consultarPorProjeto(projetoID);
+		List<Sprint> sprintToShow = new ArrayList<>();
+		for (Sprint sprint : sprints) {
+			if (sprint.getSituacaoSprint() == SituacaoSprintEnum.FECHADA) {
+				sprint.setStatusSprint("Fechada");
+			} else if (DateTime.now().isAfter(sprint.getDataInicio()) && DateTime.now().isBefore(sprint.getDataFim())) {
+				sprint.setStatusSprint("Atual");
+			} else if (DateTime.now().isAfter(sprint.getDataFim()) && sprint.getSituacaoSprint() == SituacaoSprintEnum.ABERTA) {
+				sprint.setStatusSprint("Expirada");
+			} else {
+				sprint.setStatusSprint("");
+			}
+			sprintToShow.add(sprint);
+		}
+		return sprintToShow;
 	}
 
 	@Transactional(rollbackFor=Exception.class)
@@ -138,6 +152,7 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		}
 		sprint = findByKey(sprint.getCodigo());
 		sprint.setSituacaoSprint(SituacaoSprintEnum.FECHADA);
+		sprint.setDataFechamento(DateTime.now());
 		insertOrUpdate(sprint);
 	}
 
