@@ -24,22 +24,35 @@ public class ItemBacklogMB extends AbstractBean {
     private ItemBacklogClientService clienteService;
     @FlashScoped
     private Projeto projetoSelecionado;
+    private List<ItemBacklog> listaDataGrid;
    
     @Override
     public void inicializar() {
+    	itemBacklog= new ItemBacklog();
         clienteService = new ItemBacklogClientService();
-        itens = clienteService.consultarItemPorProjeto(projetoSelecionado.getCodigo());
+        atualizarListaDeItens();
     }
     
     /*Funções específicas da tela*/
 	public String salvarItemBacklog() {
-    	clienteService.salvarItemBacklog(itemBacklog);
-    	return "";
+		itemBacklog.setProjeto(projetoSelecionado);
+		clienteService.salvarItemBacklog(itemBacklog);
+		atualizarListaDeItens();
+		return "";
     }
 
+	public void atualizarListaDeItens(){
+			itens= clienteService.consultarItemPorProjeto(projetoSelecionado.getCodigo());
+	}
+	
     public String cancelarItemBacklog() {
-       	clienteService.cancelarItemBacklog(itemBacklog);
+       	clienteService.cancelarItemBacklog(itemSelecionado);
+       	atualizarListaDeItens();
         return "";
+    }
+    
+    public void alterar(){
+    	itemBacklog= itemSelecionado;
     }
     
     public String consultarItemPorID() {

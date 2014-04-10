@@ -2,9 +2,11 @@ package br.com.scrumming.core.repositorio;
 
 import java.util.Collections;
 import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.domain.Sprint;
 
@@ -12,7 +14,7 @@ import br.com.scrumming.domain.Sprint;
 public class SprintRepositorio extends AbstractRepositorio<Sprint, Integer> {
 
 	/**
-	 * Consulta Sprints pelo nome
+	 * Consulta Sprints abertas por projeto
 	 * @param nome Nome da Sprint
 	 * @return Uma colação de Sprints
 	 */

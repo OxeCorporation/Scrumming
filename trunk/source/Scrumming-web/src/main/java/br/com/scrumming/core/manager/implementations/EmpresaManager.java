@@ -9,8 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.IEmpresaManager;
+import br.com.scrumming.core.manager.interfaces.IUsuarioEmpresaManager;
+import br.com.scrumming.core.manager.interfaces.IUsuarioManager;
 import br.com.scrumming.core.repositorio.EmpresaRepositorio;
 import br.com.scrumming.domain.Empresa;
+import br.com.scrumming.domain.EmpresaDTO;
+import br.com.scrumming.domain.Usuario;
+import br.com.scrumming.domain.UsuarioEmpresa;
 
 @Service
 public class EmpresaManager extends 
@@ -25,10 +30,43 @@ public class EmpresaManager extends
 	@Autowired
     private EmpresaRepositorio empresaRepositorio;
 	
+	@Autowired
+	private IUsuarioManager usuarioManager;
+	
+	@Autowired
+	private IUsuarioEmpresaManager usuarioEmpresaManager;
+	
 	@Override
 	public AbstractRepositorio<Empresa, Integer> getRepositorio() {
 		return this.empresaRepositorio;
 	}
+	
+	/**
+	 * Salvar uma empresa
+	 * @param Empresa
+	 * @return void
+	 */
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+    public void salvar(EmpresaDTO empresaDTO) {
+    	//Salva a empresa
+		Empresa empresa = empresaDTO.getEmpresa();
+		empresa.setAtivo(true);
+		insertOrUpdate(empresa);
+		
+		//Salva o usuário
+		Usuario usuario = empresaDTO.getUsuario();
+		usuario.setAtivo(true);
+		usuario.setEmpresa(true);
+		usuarioManager.insertOrUpdate(usuario);
+		
+		//Salva o usuário empresa
+		UsuarioEmpresa usuarioEmpresa = new UsuarioEmpresa();
+		usuarioEmpresa.setEmpresa(empresa);
+		usuarioEmpresa.setUsuario(usuario);
+		usuarioEmpresa.setAtivo(true);
+		usuarioEmpresaManager.insertOrUpdate(usuarioEmpresa);
+    }
 
 	/**
 	 * Consultar Empresas pelo nome
@@ -47,6 +85,7 @@ public class EmpresaManager extends
 	 * @return Uma lista de Empresas
 	 */
 	@Override
+	@Transactional(readOnly = true)
 	public List<Empresa> consultarPorCodigo(Integer empresaID) {
 		return empresaRepositorio.consultarPorCodigo(empresaID);
 	}

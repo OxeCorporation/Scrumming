@@ -13,24 +13,25 @@ public final class ConstantesService {
 	
 	public final class Tarefa{
 		private Tarefa(){}
-		public static final String URL_SALVAR = "/tarefa";
+		public static final String URL_SALVAR = "/tarefa/save/{itemBacklogManagerID}";
 		public static final String URL_CONSULTAR_POR_ITEM_BACKLOG = "/tarefa/list/{itemBacklogID}";
 		public static final String URL_CONSULTAR = "/tarefa/{tarefaID}";
-		public static final String URL_REMOVER = "/tarefa/{tarefaID}";
+		public static final String URL_REMOVER = "/tarefa/remove/";
 	}
 	
 	public final class Sprint {
 		public static final String URL_SALVAR = "/sprint/save";
 		public static final String URL_CONSULTAR_SPRINT_DTO = "/sprint/{sprintID}";
 		public static final String URL_CONSULTAR_POR_PROJETO = "/sprint/list/{projetoID}";
+		public static final String URL_CONSULTAR_ITENS_DISPONIVEIS = "/sprint/list/disponiveis/{projetoID}";
 		public static final String URL_CONSULTAR_SPRINT_BACKLOG = "/sprint/sprintBacklog/list/{sprintID}";
 		public static final String URL_FECHAR_SPRINT = "/sprint/close";
 	}
 	
 	public final class ItemBacklog{
-		public static final String URL_SALVAR = "/itemBacklog/{itemBacklog}";
+		public static final String URL_SALVAR = "/itemBacklog/save";
 		public static final String URL_CONSULTAR_POR_PROJETO = "/itemBacklog/list/{projetoID}";
-		public static final String URL_CANCELAR = "/itemBacklog/{item}";
+		public static final String URL_CANCELAR = "/itemBacklog/cancel";
 		public static final String URL_CONSLTAR_POR_ID = "/itemBacklog/{itemID}";
 	}
 	
@@ -45,9 +46,15 @@ public final class ConstantesService {
 		public static final String URL_CONSULTAR_USUARIOS_POR_EMPRESA = "/usuario_empresa/empresa/{empresaID}";
 	}
 	public final class Empresa{
-		public static final String SALVAR_EMPRESA = "/empresa/{empresa}";
-		public static final String LISTAR_TODAS_EMPRESAS = "/empresa";
+		public static final String SALVAR_EMPRESA = "/empresa/salvar";
+		public static final String LISTAR_TODAS_EMPRESAS = "/empresa/listar";
 		public static final String CONSULTAR_POR_NOME = "/empresa/{nome}";
 		public static final String CONSULTAR_POR_CODIGO = "/empresa/{empresaID}";
+	}
+	
+	public final class DailyScrum {
+		public static final String URL_SALVAR = "/dailyscrum/save";
+		public static final String URL_CONSULTAR_POR_SPRINT = "/dailyscrum/list/{sprintID}";
+		public static final String URL_CONSULTAR_PROXIMO_DAILYSCRUM = "/dailyscrum/{projetoID}";
 	}
 }

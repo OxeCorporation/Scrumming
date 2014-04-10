@@ -26,12 +26,15 @@ public class ItemBacklogCadastroMB extends AbstractBean {
 	private Projeto projetoSelecionado;
 	private int number;
 	
+	
+	
 	@Override
 	public void inicializar() {
 		itemBacklog= new ItemBacklog();
+		clienteService = new ItemBacklogClientService();
 	}
 
-	/* Métodos para redirecionamento das páginas */
+	/* MÃ©todos para redirecionamento das pÃ¡ginas */
 	public String itemBacklogPage() {
 		return redirecionar(PaginasUtil.ItemBacklog.ITEM_BACKLOG_PAGE);
 	}
@@ -40,20 +43,25 @@ public class ItemBacklogCadastroMB extends AbstractBean {
 		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
 	}
 
-	/* Funções específicas da tela */
+	/* FunÃ§Ãµes especÃ­ficas da tela */
 	public String salvarItemBacklog() {
 		itemBacklog.setProjeto(projetoSelecionado);
+		itemBacklog.setRoi(20.0);
 		clienteService.salvarItemBacklog(itemBacklog);
+		atualizar();
 		return "";
 	}
 
+	private void atualizar(){
+		itens = clienteService.consultarItemPorProjeto(projetoSelecionado.getCodigo());
+	}
+	
 	public String cancelarItemBacklog() {
 		clienteService.cancelarItemBacklog(itemBacklog);
 		return "";
 	}
 
 	public String consultarPorProjeto(Integer projetoID) {
-		// criado para teste
 		itens = clienteService.consultarItemPorProjeto(projetoID);
 		return "";
 	}
@@ -62,6 +70,8 @@ public class ItemBacklogCadastroMB extends AbstractBean {
 		clienteService.consultarItemPorID(itemBacklog.getChave());
 		return "";
 	}
+	
+	
 
 	/* getters and setters */
 	public List<ItemBacklog> getItens() {

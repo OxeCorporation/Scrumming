@@ -1,5 +1,5 @@
 /*
-* Label padrão
+* Label padrao
 */
 .label-default {
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
@@ -14,7 +14,7 @@
 * Label do header das tabelas
 */
 .label-grid-header {
-	color: #428BCA;
+	color: #FFFFFF;
 	text-decoration: none;
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
 	font-family: Arial;
@@ -24,7 +24,7 @@
 }
 
 /*
-* Label do título das páginas
+* Label do titulo das paginas
 */
 .label-page-title {
 	color: #428BCA;
@@ -37,7 +37,7 @@
 }
 
 /*
-* Texto padrão
+* Texto padrao
 */
 .output-default {
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
@@ -84,14 +84,14 @@
 }
 
 /*
-* Ícone da barra lateral direita.
+* Icone da barra lateral direita.
 */
 .right-sidebar-icon {
 	margin: 5px;
 }
 
 /*
-* Ícone da barra lateral esquerda.
+* Icone da barra lateral esquerda.
 */
 .left-sidebar-icon {
 	margin: 2px;
@@ -104,12 +104,50 @@
 }
 
 .text-area {
-	width: 500px !important;
+	width: 100% !important;
 	min-height: 100px !important;
 }
 
 .button {
-	margin: 3px;
+	margin: 5px;
 	float: right;
 	color: #428BCA;
+}
+
+.row {
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.navbar-default .navbar-brand {
+    color: #fff;
+}
+
+.navbar-default {
+    background-color: #428bca;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+}
+
+.navbar-toggle {
+    background-color: #fff;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #428bca;
+}
+
+.ui-growl {
+	padding-top: 55px;
+	padding-right: 5px;
+}
+
+.div-center {
+	float:left;
+}
+
+.div-right {
+	position: fixed;
 }

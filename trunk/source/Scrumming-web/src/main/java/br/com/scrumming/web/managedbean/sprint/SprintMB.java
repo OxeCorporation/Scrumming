@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
@@ -17,16 +18,19 @@ import br.com.scrumming.web.infra.bean.AbstractBean;
 @ViewScoped
 public class SprintMB extends AbstractBean {
 	
-	private Sprint sprint;
+	private static final long serialVersionUID = 1L;
 	private List<Sprint> sprintsDoProjeto;
-	private List<ItemBacklog> sprintBacklog;
-	private List<ItemBacklog> availableBacklog;
-	private SprintDTO sprintDTO;
 	private SprintClientService sprintClientService;
 	@FlashScoped
 	private Projeto projetoSelecionado;
 	@FlashScoped
 	private Sprint sprintSelecionada;
+	@FlashScoped
+	private SprintDTO sprintDTO;
+	@FlashScoped
+	private List<ItemBacklog> itensDisponiveis;
+	@FlashScoped
+	private List<ItemBacklog> sprintBacklog;
 	
 	@Override
 	public void inicializar() {
@@ -37,25 +41,16 @@ public class SprintMB extends AbstractBean {
 	/*Funções disponíveis para as telas da Sprint e SprintBacklog*/
 	
 	/**
-	 * Salva o sprintDTO
-	 * @return
-	 */
-	public String salvarSprint() {
-		sprintClientService.salvarSprint(sprintDTO);
-		return "";
-	}
-	
-	/**
 	 * Consulta o DTO da Sprint.
 	 * @param sprintID Código da Sprint.
 	 * @return 
 	 */
-	public String consultarSprintDTO(Integer sprintID) {
-		sprintDTO = sprintClientService.consultarSprintDTO(sprintID);
-		sprint = sprintDTO.getSprint();
+	public String consultarSprintDTO() {
+		sprintDTO = sprintClientService.consultarSprintDTO(sprintSelecionada.getCodigo());
+		sprintSelecionada = sprintDTO.getSprint();
 		sprintBacklog = sprintDTO.getSprintBacklog();
-		availableBacklog = sprintDTO.getProductBacklog();
-		return "";
+		itensDisponiveis = sprintDTO.getProductBacklog();
+		return sprintCadastroPage();
 	}
 	
 	/**
@@ -64,11 +59,20 @@ public class SprintMB extends AbstractBean {
 	 * @return
 	 */
 	public String fecharSprint() {
-		sprintClientService.fecharSprint(sprintSelecionada.getChave());
-		return "";
-	}	
+		sprintClientService.fecharSprint(sprintSelecionada);
+		return sprintPage();
+	}
+	
+	public String consultarItensDisponiveis() {
+		itensDisponiveis = sprintClientService.consultarItensDisponiveis(projetoSelecionado.getCodigo());
+		return sprintCadastroPage();
+	}
 	
 	/*Métodos para redirecionamento das páginas*/
+	public String sprintPage() {
+		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
+	}
+	
 	public String sprintDetailPage() {
     	return redirecionar(PaginasUtil.Sprint.SPRINT_DETAIL_PAGE);
     }
@@ -86,29 +90,12 @@ public class SprintMB extends AbstractBean {
 	}
 	
 	/*Getters and Setters*/
-	
-	public Sprint getSprint() {
-		return sprint;
-	}
-
-	public void setSprint(Sprint sprint) {
-		this.sprint = sprint;
-	}
-
 	public List<ItemBacklog> getSprintBacklog() {
 		return sprintBacklog;
 	}
 
 	public void setSprintBacklog(List<ItemBacklog> sprintBacklog) {
 		this.sprintBacklog = sprintBacklog;
-	}
-
-	public List<ItemBacklog> getAvailableBacklog() {
-		return availableBacklog;
-	}
-
-	public void setAvailableBacklog(List<ItemBacklog> availableBacklog) {
-		this.availableBacklog = availableBacklog;
 	}
 
 	public SprintDTO getSprintDTO() {
@@ -149,5 +136,13 @@ public class SprintMB extends AbstractBean {
 
 	public void setProjetoSelecionado(Projeto projetoSelecionado) {
 		this.projetoSelecionado = projetoSelecionado;
+	}
+
+	public List<ItemBacklog> getItensDisponiveis() {
+		return itensDisponiveis;
+	}
+
+	public void setItensDisponiveis(List<ItemBacklog> itensDisponiveis) {
+		this.itensDisponiveis = itensDisponiveis;
 	}
 }

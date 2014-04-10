@@ -22,9 +22,9 @@ public class TarefaService {
 	@Autowired
 	private ITarefaManager tarefaManager;
 	
-	@RequestMapping(method = RequestMethod.POST)
-    public void salvar(@RequestBody Tarefa tarefa){
-		tarefaManager.salvar(tarefa);
+	@RequestMapping(method = RequestMethod.POST, value = "/save/{itemBacklogManagerID}")
+    public void salvar(@RequestBody Tarefa tarefa,@PathVariable Integer itemBacklogManagerID){
+		tarefaManager.salvar(tarefa, itemBacklogManagerID);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/{tarefaID}")
@@ -37,8 +37,8 @@ public class TarefaService {
     	return new ArrayList<Tarefa>(tarefaManager.consultarPorItemBacklog(itemBacklogID));
     }
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/{tarefaID}")
-    public void remover(@PathVariable @Valid Tarefa tarefa) {
+	@RequestMapping(method = RequestMethod.POST, value ="/remove/")
+    public void remover(@RequestBody Tarefa tarefa) {
     	tarefaManager.remover(tarefa);
     }
 

@@ -8,9 +8,77 @@
 	<!-- CORPO DA TELA DE CADASTRO DO PROJETO -->
 	<ui:define name="conteudo">
 		<h:outputStylesheet library="css" name="scrumming.css" />
+		<!-- Trecho será retirado posteriormente -->
+		<h:outputText style="color: white"
+			value="#{sprintCadastroMB.sprintSelecionada.nome}" />
+		<h:outputText style="color: white"
+			value="#{sprintCadastroMB.projetoSelecionado.nome}" />
+		<br />
+		<h:panelGroup styleClass="col-md-9 column div-center">
+			<h:panelGroup style="width:100%">
+				<p:panel id="panel">
+					<h:panelGroup>
+						<p:panel>
+							<!-- Text input-->
+							<h:outputLabel styleClass="label-default"
+								value="#{mensagens.label_nome}" />
+							<h:inputText id="nome" name="nome"
+								value="#{sprintCadastroMB.sprintDTO.sprint.nome}" type="text"
+								placeholder="Nome da sprint"
+								class="form-control input-md output-default" required="true"
+								style="width: 500px" />
+							<br />
+							<!-- Textarea -->
+							<h:outputLabel styleClass="label-default"
+								value="#{mensagens.label_objetivo}" />
+							<h:inputTextarea
+								value="#{projetoCadastroMB.projetoDTO.projeto.descricao}"
+								class="form-control text-area" id="objetivo" name="objetivo"
+								required="true" />
+						</p:panel>
+						<h:panelGroup style="width: 150px">
+							<div class="col-md-3 column">
+								<br />
+								<h:outputLabel styleClass="label-default" value="Data de início" />
+								<br />
+								<p:calendar
+									value="#{projetoCadastroMB.projetoDTO.projeto.dataInicio}"
+									id="popupCalInicio" required="true" />
+							</div>
+							<div class="col-md-2 column">
+								<br />
+								<h:outputLabel styleClass="label-default" value="Situação" />
+								<p:selectOneMenu id="situacao"
+									value="#{projetoCadastroMB.projetoDTO.projeto.situacaoProjeto}">
+									<f:selectItem itemLabel="Ativo" itemValue="1" />
+									<f:selectItem itemLabel="Inativo" itemValue="2" />
+									<f:selectItem itemLabel="Cancelado" itemValue="3" />
+								</p:selectOneMenu>
+							</div>
+							<div class="col-md-4 column"></div>
+						</h:panelGroup>
+
+					</h:panelGroup>
+					<br />
+					<h:panelGroup>
+						<p:panel style="height: 100px;">
+							<h:panelGroup style="width: 150px">
+							</h:panelGroup>
+						</p:panel>
+					</h:panelGroup>
+					<p:commandButton process="@none" icon="ui-icon-cancel"
+						value="Cancelar" action="#{sprintCadastroMB.sprintPage}"
+						style="margin:0 auto; float:right" />
+					<p:commandButton value="Salvar"
+						action="#{sprintCadastroMB.salvarSprint}" icon="ui-icon-disk"
+						style="margin:0 auto; float:right" />
+				</p:panel>
+			</h:panelGroup>
+		</h:panelGroup>
+		<!--	<h:outputStylesheet library="css" name="scrumming.css" />
 		<h:outputText
 			value="Aqui será feito o formulário de cadastro do projeto: " />
-		<h:outputText value="#{projetoDetalheMB.projetoSelecionado.nome}" />
+		<h:outputText value="#{projetoDetalheMB.projetoSelecionado.nome}" />-->
 	</ui:define>
 
 </ui:composition>

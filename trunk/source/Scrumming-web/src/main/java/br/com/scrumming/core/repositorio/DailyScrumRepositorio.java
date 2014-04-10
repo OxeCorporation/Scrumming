@@ -12,10 +12,17 @@ import br.com.scrumming.domain.DailyScrum;
 public class DailyScrumRepositorio  extends AbstractRepositorio<DailyScrum, Integer> {
 
 	@SuppressWarnings("unchecked")
-	public List<DailyScrum> consultarListaPorSprint(Integer sprintID) {
+	public List<DailyScrum> listarDailyScrumPorSprint(Integer sprintID) {
 		Criteria criteria = createCriteria();
         criteria.createAlias("sprint", "sprint");
         criteria.add(Restrictions.eq("sprint.codigo", sprintID));
         return Collections.checkedList(criteria.list(), DailyScrum.class);
+	}
+	
+	public DailyScrum consultarProximoDailyScrum(int DailyScrumID) {
+		Criteria criteria = createCriteria();
+        //criteria.createAlias("sprint", "sprint");
+        criteria.add(Restrictions.eq("codigo", DailyScrumID));
+        return (DailyScrum) criteria.uniqueResult();
 	}
 }

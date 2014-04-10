@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
+import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
 import br.com.scrumming.core.manager.interfaces.ITarefaManager;
 import br.com.scrumming.core.repositorio.TarefaRepositorio;
+import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
@@ -22,7 +25,8 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
 
     @Autowired
     private TarefaRepositorio tarefaRepositorio;
-    
+    @Autowired
+    private IItemBacklogManager itemBacklogManager;
 
 	@Override
     public AbstractRepositorio<Tarefa, Integer> getRepositorio() {
@@ -30,9 +34,13 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
     }
 
     @Override
-    public void salvar(Tarefa tarefa) {
+    @Transactional(rollbackFor = Exception.class)
+    public void salvar(Tarefa tarefa, Integer itemBacklogManagerID) {
+    	ItemBacklog itemBacklog = itemBacklogManager.findByKey(itemBacklogManagerID);
     	tarefa.setSituacao(SituacaoTarefaEnum.PARA_FAZER);
-        insertOrUpdate(tarefa);
+    	tarefa.setItemBacklog(itemBacklog);
+    	
+    	insertOrUpdate(tarefa);
     }
 
     @Override

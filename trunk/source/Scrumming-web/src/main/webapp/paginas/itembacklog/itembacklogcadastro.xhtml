@@ -8,35 +8,35 @@
 	<p:dialog showEffect="fade" hideEffect="explode" id="dlgItemSave" modal="true" var="exec" resizable="false" widgetVar="dlgItemSave" closable="false">
 		<h:outputStylesheet library="css" name="scrumming.css" />
 		<f:facet name="header">
-			<h:outputText styleClass="label-page-title" value="ItemBacklog" />
+			<h:outputText styleClass="label-page-title" value="#{itemBacklogMB.projetoSelecionado.nome}" />
 		</f:facet>
 		<p:panel>
 			<f:facet name="header">
-				<h:outputText styleClass="label-grid-header" value="#{itemBacklogCadastroMB.projetoSelecionado.nome}" />
+				<h:outputText styleClass="label-grid-header" value="Detalhes do Item Backlog" />
 			</f:facet>
 			<h:panelGrid columns="1"  id="panel">
 				<h:outputLabel styleClass="label-default" value="Titulo" /> 
 				<p:inputText styleClass="output-default" id="nome" required="true" style="width: 500px" 	
-							 value="#{itemBacklogCadastroMB.itemBacklog.nome}" 
-							 requiredMessage="Preencha o resumo" 
+							 value="#{itemBacklogMB.itemBacklog.nome}" 
+							 requiredMessage="Preencha o Nome do Item" 
 							 disabled="#{itemBacklogCadastroMB.itemBacklog.nome} != null}" />
 				<br/>
 				<h:outputLabel styleClass="label-default" value="Descricao" /> 
 				<h:inputTextarea id="descricao" required="false" class="form-control text-area" 
-								 value="#{itemBacklogCadastroMB.itemBacklog.descricao}" />
+								 value="#{itemBacklogMB.itemBacklog.descricao}" />
 				<br/>
 				<h:outputLabel styleClass="label-default" value="Criterio de Aceitacao" /> 
 				<h:inputTextarea class="form-control text-area" id="criterioAceitacao" required="false" 
-								 value="#{itemBacklogCadastroMB.itemBacklog.criterioAceitacao}" />
+								 value="#{itemBacklogMB.itemBacklog.criterioAceitacao}" />
 				<br/>
-				<h:outputText id="outValorNegocio" value="Valor de Negocio #{itemBacklogCadastroMB.number}" style="color:black" />
-				<h:inputHidden id="txtValorNegocio" value="#{itemBacklogCadastroMB.number}" style="color:black; width:100%"/>
+				<h:outputText id="outValorNegocio" value="Valor de Negocio #{itemBacklogMB.itemBacklog.valorNegocio}" style="color:black" />
+				<h:inputHidden id="txtValorNegocio" value="#{itemBacklogMB.itemBacklog.valorNegocio}" style="color:black; width:100%"/>
 				<p:slider for="txtValorNegocio" display="outValorNegocio" 
 						  style="width:200px; color:black; width:100%" 
 						  displayTemplate="Valor de Negocio {value}" step="5" />
 				<br/>
-				<h:outputText id="outStoryPoint" value="Story Points #{itemBacklogCadastroMB.number}" style="float:left; color:black" />
-				<h:inputHidden id="txtStoryPoint" value="#{itemBacklogCadastroMB.number}" style="float:left; color:black; width:100%"/>
+				<h:outputText id="outStoryPoint" value="Story Points #{itemBacklogMB.itemBacklog.storyPoints}" style="float:left; color:black" />
+				<h:inputHidden id="txtStoryPoint" value="#{itemBacklogMB.itemBacklog.storyPoints}" style="float:left; color:black; width:100%"/>
 				<p:slider for="txtStoryPoint" display="outStoryPoint" 
 						  style="width:200px; float:left; width:100%" 
 						  displayTemplate="Story Points {value}" step="5" />
@@ -44,12 +44,9 @@
 			</h:panelGrid> 
 		</p:panel>
 			
-		<p:commandButton update="panel" process="@this" icon="ui-icon-cancel" value="Cancelar" onclick="dlgItemSave.hide()" styleClass="button">
-			<p:resetInput target="panel" />
-		</p:commandButton>
-		<p:commandButton update="@form" oncomplete="dlgItemSave.hide()" value="Salvar" action="#{itemBacklogCadastroMB.salvarItemBacklog}" icon="ui-icon-disk" styleClass="button">
-			<p:resetInput target="panel" />
-		</p:commandButton>								
+		<p:commandButton update="panel" process="@this" icon="ui-icon-cancel" value="Cancelar" oncomplete="dlgItemSave.hide()" styleClass="button"/>
+		<p:commandButton update="panel" oncomplete="dlgItemSave.hide()" value="Salvar" action="#{itemBacklogMB.salvarItemBacklog}" icon="ui-icon-disk" styleClass="button" ajax="false"/>								
+								
 	</p:dialog>	
 	
 </ui:composition>

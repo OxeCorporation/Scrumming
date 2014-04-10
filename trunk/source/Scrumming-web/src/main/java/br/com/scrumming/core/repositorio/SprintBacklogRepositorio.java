@@ -51,7 +51,32 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
 	}
 	
 	/**
-	 * Consulta os Itens Backlog que estão na sprint.	
+	 * Retorna um SprintBacklog ativo por itembacklog.
+	 * @param item
+	 * @return
+	 */
+	public SprintBacklog consultarAtivoPorItem(ItemBacklog item) {
+		Criteria criteria = createCriteria();
+		criteria.add(Restrictions.eq("itemBacklog", item));
+		criteria.add(Restrictions.eq("isAtivo", true));
+		return (SprintBacklog) criteria.uniqueResult();
+	}
+	
+	/**
+	 * Consulta uma lista de sprintbacklog ativos por sprint
+	 * @param sprint
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<SprintBacklog> listarAtivosPorSprint(Sprint sprint) {
+		Criteria criteria = createCriteria();
+		criteria.add(Restrictions.eq("sprint", sprint));
+		criteria.add(Restrictions.eq("isAtivo", true));
+		return Collections.checkedList(criteria.list(), SprintBacklog.class);
+	}
+	
+	/**
+	 * Consulta os Itens Backlog ativos de uma sprint.	
 	 * @param sprintID
 	 * @return
 	 */
@@ -64,13 +89,4 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
         criteria.setProjection(Projections.property("itemBacklog"));
         return Collections.checkedList(criteria.list(), ItemBacklog.class);
 	}
-	
-	/*
-	@SuppressWarnings("unchecked")
-	public List<ItemBacklog> consultarItensSprintBacklogPorSprint(Integer sprintID) {
-        Criteria criteria = createCriteria();
-        criteria.createAlias("sprint", "sprint");
-        criteria.add(Restrictions.eq("sprint.codigo", sprintID));
-        return Collections.checkedList(criteria.list(), SprintBacklog.class);
-	}*/
 }

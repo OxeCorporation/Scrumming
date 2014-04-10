@@ -1,5 +1,6 @@
 package br.com.scrumming.web.infra.bean;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 
 import javax.annotation.PostConstruct;
@@ -10,7 +11,12 @@ import br.com.scrumming.web.infra.FlashFactoryUtil;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.ReflectionUtils;
 
-public abstract class AbstractBean {
+public abstract class AbstractBean implements Serializable{
+	
+	/**
+	 * serial version
+	 */
+	private static final long serialVersionUID = 1L;
 
 	protected void inicializar() {
 

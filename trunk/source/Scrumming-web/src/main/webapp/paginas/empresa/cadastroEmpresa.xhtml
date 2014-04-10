@@ -10,24 +10,24 @@
 			<p:panel>
 				<h:panelGrid columns="1">						
 					<h:outputText value="Nome da Empresa" /> 
-					<p:inputText id="txtNomeEmpresa" required="true" value="#{tarefaBean.tarefa.nome}" requiredMessage="Nome da Empresa:" />
+					<p:inputText id="txtNomeEmpresa" required="true" value="#{empresaBean.empresaDTO.empresa.nome}" requiredMessage="Nome da Empresa:" />
 					
 					<h:outputText value="Nome do Usuário" /> 
-					<p:inputText id="txtNomeUsuario" required="true" value="#{tarefaBean.tarefa.descricao}" requiredMessage="Nome do Usuário:" />
+					<p:inputText id="txtNomeUsuario" required="true" value="#{empresaBean.empresaDTO.usuario.nome}" requiredMessage="Nome do Usuário:" />
 					
 					<h:outputText value="E-mail" /> 
-					<p:inputText id="txtEmail" required="true" value="#{tarefaBean.tarefa.tempoEstimado}" requiredMessage="E-mail:" />
+					<p:inputText id="txtEmail" required="true" value="#{empresaBean.empresaDTO.usuario.email}" requiredMessage="E-mail:" />
 					
 					<h:outputText value="Login" /> 
-					<p:inputText id="txtLogin" required="true" value="#{tarefaBean.tarefa.tempoEstimado}" requiredMessage="Login:" />							
+					<p:inputText id="txtLogin" required="true" value="#{empresaBean.empresaDTO.usuario.login}" requiredMessage="Login:" />							
 					
 					<h:outputText value="Senha" /> 
-					<p:password id="txtSenha" required="true" value="#{tarefaBean.tarefa.tempoEstimado}" requiredMessage="Senha:" />
+					<p:password id="txtSenha" required="true" value="#{empresaBean.empresaDTO.usuario.senha}" requiredMessage="Senha:" />
 				</h:panelGrid>
 			</p:panel>
 			
-			<p:commandButton process="@none" icon="ui-icon-cancel" value="Cancelar" onclick="dlgTarefaSave.hide()" style="margin:0 auto; float:right" immediate="true"/>
-			<p:commandButton update="@form" oncomplete="dlgTarefaSave.hide()" value="Salvar" action="#{tarefaBean.salvar}" icon="ui-icon-disk" style="margin:0 auto; float:right"/>								
+			<p:commandButton process="@none" icon="ui-icon-cancel" value="Cancelar" onclick="dlgCadastroEmpresa.hide()" style="margin:0 auto; float:right" immediate="true"/>
+			<p:commandButton update="@form" oncomplete="dlgCadastroEmpresa.hide()" value="Salvar" action="#{empresaBean.salvar}" icon="ui-icon-disk" style="margin:0 auto; float:right"/>								
 		</p:dialog>
 	</h:form>
 </ui:composition>

@@ -3,7 +3,6 @@ package br.com.scrumming.web.clientService;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,17 +22,17 @@ public class ItemBacklogClientService extends AbstractClientService{
 	
 	public List<ItemBacklog> consultarItemPorProjeto(Integer projetoID) {
 
-		ResponseEntity<ItemBacklog[]> forEntity = getRestTemplate().getForEntity(getURIService(ConstantesService.ItemBacklog.URL_CONSULTAR_POR_PROJETO), ItemBacklog[].class, projetoID);
+		ResponseEntity<ItemBacklog[]> forEntity = getRestTemplate().
+									getForEntity(getURIService(ConstantesService.
+									ItemBacklog.URL_CONSULTAR_POR_PROJETO), ItemBacklog[].class, projetoID);
 		return Arrays.asList(forEntity.getBody());
 	}
 	
 	public void cancelarItemBacklog(ItemBacklog item) {
 		
-		RestTemplate restTemplate = new RestTemplate();
-		
-		String url = "http://localhost:8080/Scrumming/service/itemBacklog/{item}";
-		
-		restTemplate.postForEntity(url, HttpEntity.EMPTY, void.class, item);
+		getRestTemplate().postForObject(
+				getURIService(ConstantesService.ItemBacklog.URL_CANCELAR),
+				item, void.class);
 	}
 	
 	public ItemBacklog consultarItemPorID(Integer itemID) {

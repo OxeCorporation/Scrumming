@@ -5,9 +5,13 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
+import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.web.clientService.ItemBacklogClientService;
+import br.com.scrumming.web.clientService.TarefaClientService;
+import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
 import br.com.scrumming.web.infra.bean.AbstractBean;
@@ -16,6 +20,10 @@ import br.com.scrumming.web.infra.bean.AbstractBean;
 @ViewScoped
 public class ItemBacklogDetalheMB extends AbstractBean {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4605021646391355541L;
 	private List<ItemBacklog> itens;
 	@FlashScoped
 	private ItemBacklog itemBacklog;
@@ -24,6 +32,20 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	private ItemBacklogClientService clienteService;
 	@FlashScoped
 	private Projeto projetoSelecionado;
+	private TarefaClientService tarefaClientService;
+	@FlashScoped
+	private Tarefa tarefa;
+	@FlashScoped
+	private Tarefa tarefaSelecionada;
+	
+
+	@Override
+    public void inicializar() {
+		tarefa = new Tarefa();
+		tarefaSelecionada = new Tarefa();
+		tarefaClientService = new TarefaClientService();
+		atualizarListaDeTarefas();
+	}
 
 	/* Métodos para redirecionamento das páginas */
 	public String itemBacklogCadastroPage() {
@@ -41,8 +63,46 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	public String sprintPage() {
 		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
 	}
+	
+	public String tarefaCadastroPage() {
+		return redirecionar(PaginasUtil.Tarefa.SAVE_PAGE);
+	}
 
+	
 	/* Funções específicas da tela */
+	private void atualizarListaDeTarefas() {
+		if (itemSelecionado != null) {
+			itemSelecionado.setTarefas(tarefaClientService.consultarTarefasPorItemBacklog(itemSelecionado.getCodigo()));
+		}
+	}
+	
+	public String salvarTarefa() {
+		tarefaClientService.salvarTarefa(tarefa, itemSelecionado.getCodigo());
+		limparObjetoTarefa();
+		atualizarListaDeTarefas();
+    	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+    	return "";
+	}
+	
+	private void limparObjetoTarefa() {
+		tarefa = null;		
+	}
+
+	public String removerTarefa(){
+		tarefaClientService.removerTarefa(tarefaSelecionada);
+		atualizarListaDeTarefas();
+		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+		return "";
+	}
+	
+	public void preparaParaInserir() {
+		tarefa = new Tarefa();
+	}
+	
+	public void preparaParaAlterar() {
+		tarefa = tarefaSelecionada;
+	}
+	
 	public String salvarItemBacklog() {
 		clienteService.salvarItemBacklog(itemBacklog);
 		return "";
@@ -64,6 +124,7 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 		return "";
 	}
 
+	
 	/* getters and setters */
 	public List<ItemBacklog> getItens() {
 		return itens;
@@ -95,6 +156,22 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 
 	public void setProjetoSelecionado(Projeto projetoSelecionado) {
 		this.projetoSelecionado = projetoSelecionado;
+	}
+	
+	public Tarefa getTarefa() {
+		return tarefa;
+	}
+
+	public void setTarefa(Tarefa tarefa) {
+		this.tarefa = tarefa;
+	}
+
+	public Tarefa getTarefaSelecionada() {
+		return tarefaSelecionada;
+	}
+
+	public void setTarefaSelecionada(Tarefa tarefaSelecionada) {
+		this.tarefaSelecionada = tarefaSelecionada;
 	}
 
 }
