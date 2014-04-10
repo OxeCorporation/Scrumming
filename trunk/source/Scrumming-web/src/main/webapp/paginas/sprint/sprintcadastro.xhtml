@@ -19,7 +19,7 @@
 						<p:panel>
 							<!-- Text input-->
 							<h:outputLabel styleClass="label-default" value="#{mensagens.label_nome}" />
-							<h:inputText id="nome" name="nome" value="#{sprintCadastroMB.sprintSelecionada.nome}" type="text" placeholder="Nome da sprint" class="form-control input-md output-default" required="true" style="width: 500px" />
+							<h:inputText id="nome" name="nome" value="#{sprintCadastroMB.sprintSelecionada.nome}" type="text" placeholder="Nome da sprint" class="form-control input-md output-default" required="true" style="width: 100%" />
 							<br />
 							<!-- Textarea -->
 							<h:outputLabel styleClass="label-default" value="#{mensagens.label_objetivo}" />
@@ -30,22 +30,21 @@
 					<h:panelGroup>
 						<p:panel style="height: 100px;">
 							<h:panelGroup style="width: 150px">
-								<h:panelGroup styleClass="col-md-3 column">
+								<h:panelGroup styleClass="col-md-4 column">
 									<h:outputLabel styleClass="label-default" value="Data de início" />
 									<br/>
 									<p:calendar value="#{sprintCadastroMB.sprintDTO.dataInicio}" id="popupCalInicio" required="true"/>
 								</h:panelGroup>
-								<h:panelGroup styleClass="col-md-3 column">
+								<h:panelGroup styleClass="col-md-4 column">
 									<h:outputLabel styleClass="label-default" value="Data de Fim" />
 									<br/>
 									<p:calendar value="#{sprintCadastroMB.sprintDTO.dataFim}" id="popupCalFim" required="true"/>
 								</h:panelGroup>
-								<h:panelGroup styleClass="col-md-3 column">
+								<h:panelGroup styleClass="col-md-4 column">
 									<h:outputLabel styleClass="label-default" value="Data da revisão" />
 									<br/>
 									<p:calendar value="#{sprintCadastroMB.sprintDTO.dataRevisao}" id="popupCalRevisao" required="true" />
 								</h:panelGroup>
-								<h:panelGroup styleClass="col-md-3 column" />
 							</h:panelGroup>
 						</p:panel>
 					</h:panelGroup>
@@ -112,7 +111,7 @@
 					</p:fieldset>
 				    <!-- *********************************************************************************************** -->
 					<br/>
-					<p:panel style="height: 56px;">
+					<p:panel style="height: 65px;">
 						<p:commandButton immediate="true" process="@none" icon="ui-icon-cancel" value="Cancelar" action="#{sprintCadastroMB.sprintPage}" styleClass="button" ajax="false">
 							<p:resetInput target="panel" />
 						</p:commandButton>

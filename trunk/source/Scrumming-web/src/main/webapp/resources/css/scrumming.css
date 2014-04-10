@@ -104,7 +104,7 @@
 }
 
 .text-area {
-	width: 500px !important;
+	width: 100% !important;
 	min-height: 100px !important;
 }
 
@@ -140,9 +140,8 @@
 }
 
 .ui-growl {
-	position: fixed;
-	top: 15%;
-	right: 30%; 
+	padding-top: 55px;
+	padding-right: 5px;
 }
 
 .div-center {
