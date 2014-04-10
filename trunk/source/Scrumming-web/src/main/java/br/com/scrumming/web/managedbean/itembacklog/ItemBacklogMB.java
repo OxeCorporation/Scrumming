@@ -29,6 +29,7 @@ public class ItemBacklogMB extends AbstractBean {
    
     @Override
     public void inicializar() {
+    	itemBacklog= new ItemBacklog();
         clienteService = new ItemBacklogClientService();
         itens = clienteService.consultarItemPorProjeto(projetoSelecionado.getCodigo());
         
@@ -36,20 +37,24 @@ public class ItemBacklogMB extends AbstractBean {
     
     /*Funções específicas da tela*/
 	public String salvarItemBacklog() {
-    	clienteService.salvarItemBacklog(itemBacklog);
-    	return "";
+		itemBacklog.setProjeto(projetoSelecionado);
+		itemBacklog.setRoi(20.0);
+		clienteService.salvarItemBacklog(itemBacklog);
+		return "";
     }
 
-	public String atualizar(){
-		clienteService.salvarItemBacklog(itemSelecionado);
-		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
-		return "";
+	public void atualizarListaDeItens(){
+		
 	}
 	
     public String cancelarItemBacklog() {
        	clienteService.cancelarItemBacklog(itemSelecionado);
-       	atualizar();
+       	//atualizar();
         return "";
+    }
+    
+    public void alterar(){
+    	itemBacklog= itemSelecionado;
     }
     
     public String consultarItemPorID() {

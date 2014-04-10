@@ -31,20 +31,23 @@
 						</f:facet>
 						<h:panelGroup columns="1" style="width:100%">
 							<!-- FAZER O AJUSTE PARA ORGANIZAR O LAYOUT -->
-							<h:outputLabel styleClass="label-default" value="#{mensagens.label_descricao_item_backlog}" />
+							<h:outputLabel styleClass="label-default" value="#{mensagens.label_descricao}#{mensagens.label_dois_pontos}" />
 							<h:outputText styleClass="output-default" value="#{item.descricao}" />
+							
 							<!-- BOTAO ALTERAR ITEMBACKLOG -->
-							<p:commandLink title="Alterar Item" onclick="dlgItemSave.show()">
+							<p:commandLink id="alterarItemBacklog" 
+										   action="#{itemBacklogMB.alterar}"
+										   oncomplete="dlgItemSave.show()" process="@this" update="@widgetVar(dlgItemSave)">
 								<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
 								<f:setPropertyActionListener value="#{item}"
-									target="#{itemBacklogMB.itemSelecionado}" />
+															 target="#{itemBacklogMB.itemSelecionado}" />
 							</p:commandLink>
 							<br />
-							<h:outputLabel styleClass="label-default" value="#{mensagens.label_criterio_aceitacao}" />
+							<h:outputLabel styleClass="label-default" value="#{mensagens.label_criterio_aceitacao}#{mensagens.label_dois_pontos}" />
 							<h:outputText styleClass="output-default" value="#{item.criterioAceitacao}" />
 							
 							<!-- BOTAO CANCELAR ITEMBACKLOG -->
-							<p:commandLink title="Cancelar Item" action="#{itemBacklogMB.cancelarItemBacklog}">
+							<p:commandLink title="Cancelar Item" action="#{itemBacklogMB.cancelarItemBacklog}" immediate="true">
 								<h:outputText styleClass="fa fa-lock  inside-grid-icon" />
 								<f:setPropertyActionListener value="#{item}"
 															 target="#{itemBacklogMB.itemSelecionado}" />
@@ -56,12 +59,9 @@
 			</p:dataGrid>
 		</h:panelGroup>
 		<h:panelGroup styleClass="col-md-3 column div-right">
-			<p:commandLink id="salvaButton" oncomplete="dlgItemSave.show()"
-				process="@this">
+			<p:commandLink id="salvaButton" oncomplete="dlgItemSave.show()" process="@this">
 				<i class="fa fa-plus  right-sidebar-icon" />
 				<h:outputText value="Novo Item Backlog" />
-				<f:setPropertyActionListener value="#{itemBacklogMB.itemBacklog}"
-					target="#{ItemBacklogCadastroMB.itemBacklog}" />
 			</p:commandLink>
 			<ui:include src="/paginas/itembacklog/itembacklogcadastro.xhtml" />
 		</h:panelGroup>

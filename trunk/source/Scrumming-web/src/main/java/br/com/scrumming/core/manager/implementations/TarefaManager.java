@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
@@ -33,6 +34,7 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void salvar(Tarefa tarefa, Integer itemBacklogManagerID) {
     	ItemBacklog itemBacklog = itemBacklogManager.findByKey(itemBacklogManagerID);
     	tarefa.setSituacao(SituacaoTarefaEnum.PARA_FAZER);

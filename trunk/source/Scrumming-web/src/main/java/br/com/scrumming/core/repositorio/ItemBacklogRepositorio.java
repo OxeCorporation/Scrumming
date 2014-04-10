@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +24,7 @@ public class ItemBacklogRepositorio extends AbstractRepositorio<ItemBacklog, Int
         Criteria criteria = createCriteria();
         criteria.createAlias("projeto", "projeto");
         criteria.add(Restrictions.eq("projeto.codigo", projetoID));
+        //criteria.add(Restrictions.eq("isAtivo", true));
         return Collections.checkedList(criteria.list(), ItemBacklog.class);
     }
     
@@ -36,4 +38,19 @@ public class ItemBacklogRepositorio extends AbstractRepositorio<ItemBacklog, Int
         criteria.add(Restrictions.eq("codigo", itemID));
         return (ItemBacklog) criteria.uniqueResult();
     }
+    
+    /**
+	 * Consulta os Itens Backlog ativos de um projeto.	
+	 * @param sprintID
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<ItemBacklog> consultarItensAtivosSprintBacklogPorProjeto(Integer projetoID) {
+        Criteria criteria = createCriteria();
+        criteria.setProjection(Projections.property("itemBacklog"));
+        criteria.createAlias("itemBacklog", "itemBacklog");
+        criteria.add(Restrictions.eq("itemBacklog.projeto.codigo", projetoID));
+        criteria.add(Restrictions.eq("itemBacklog.isAtivo", true));        
+        return Collections.checkedList(criteria.list(), ItemBacklog.class);
+	}
 }

@@ -34,7 +34,7 @@ public class ItemBacklogCadastroMB extends AbstractBean {
 		clienteService = new ItemBacklogClientService();
 	}
 
-	/* Métodos para redirecionamento das páginas */
+	/* MÃ©todos para redirecionamento das pÃ¡ginas */
 	public String itemBacklogPage() {
 		return redirecionar(PaginasUtil.ItemBacklog.ITEM_BACKLOG_PAGE);
 	}
@@ -43,7 +43,7 @@ public class ItemBacklogCadastroMB extends AbstractBean {
 		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
 	}
 
-	/* Funções específicas da tela */
+	/* FunÃ§Ãµes especÃ­ficas da tela */
 	public String salvarItemBacklog() {
 		itemBacklog.setProjeto(projetoSelecionado);
 		itemBacklog.setRoi(20.0);
