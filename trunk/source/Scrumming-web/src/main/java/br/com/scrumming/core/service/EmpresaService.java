@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.scrumming.core.manager.interfaces.IEmpresaManager;
 import br.com.scrumming.domain.Empresa;
-import br.com.scrumming.domain.Usuario;
+import br.com.scrumming.domain.EmpresaDTO;
 
 @RestController
 @RequestMapping("/empresa")
@@ -27,9 +27,9 @@ public class EmpresaService {
 	 * @param Empresa
 	 * @return void
 	 */
-	@RequestMapping(method = RequestMethod.POST, value = "/salvar/")
-    public void salvar(@RequestBody Empresa empresa, @RequestBody Usuario usuario) {
-		empresaManager.salvar(empresa, usuario);
+	@RequestMapping(method = RequestMethod.POST, value = "/salvar")
+    public void salvar(@RequestBody EmpresaDTO empresaDTO) {
+		empresaManager.salvar(empresaDTO);
     }
 	
 	/**
