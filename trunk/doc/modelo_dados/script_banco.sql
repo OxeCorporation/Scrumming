@@ -94,10 +94,10 @@ CREATE TABLE IF NOT EXISTS `Sprint` (
   `FK_projeto` INT(11) UNSIGNED NOT NULL,
   `nome` VARCHAR(50) NULL,
   `descricao` VARCHAR(500) NOT NULL,
+  `data_cadastro` TIMESTAMP NOT NULL,
   `data_inicio` TIMESTAMP NOT NULL,
   `data_fim` TIMESTAMP NOT NULL,
   `data_revisao` TIMESTAMP NOT NULL,
-  `data_cadastro` TIMESTAMP NOT NULL,
   `data_fechamento` TIMESTAMP NULL,
   `situacao_sprint` INT(1) UNSIGNED NOT NULL,
   PRIMARY KEY (`PK_sprint`),
@@ -402,7 +402,7 @@ insert
         Projeto
         (FK_empresa, data_cadastro, data_fim, data_inicio, descricao, nome, situacao_projeto) 
     values
-        (1, NOW(), NOW(), NOW(), 'teste descrição1', 'Projeto01', 1);
+        (1, NOW(), NOW(), NOW(), 'Descrição do projeto 01', 'Projeto 01', 1);
 
 -- Projeto02
 insert 
@@ -410,7 +410,7 @@ insert
         Projeto
         (FK_empresa, data_cadastro, data_fim, data_inicio, descricao, nome, situacao_projeto) 
     values
-        (1, NOW(), NOW(), NOW(), 'teste descrição2', 'Projeto02', 1);
+        (1, NOW(), NOW(), NOW(), 'Descrição do projeto 01', 'Projeto 02', 1);
 
 -- Sprint01
 insert 
@@ -418,7 +418,7 @@ insert
         Sprint
         (data_cadastro, data_fechamento, data_fim, data_inicio, data_revisao, descricao, nome, FK_projeto, situacao_sprint) 
     values
-        (now(), NULL, now(), now(), null, 'teste aksndlansd', 'Sprint01', 1, 1);
+        (now(), NULL, now(), now(), null, 'Descrição da Sprint 01', 'Sprint 01', 1, 0);
 
 -- Sprint02
 insert 
@@ -426,7 +426,7 @@ insert
         Sprint
         (data_cadastro, data_fechamento, data_fim, data_inicio, data_revisao, descricao, nome, FK_projeto, situacao_sprint) 
     values
-        (now(), NULL, now(), now(), null, 'teste aksndlansd', 'Sprint02', 1, 1);
+        (now(), NULL, now(), now(), null, 'Descrição da Sprint 02', 'Sprint 02', 1, 0);
 
 -- Item01 (Sprint01)
 insert 
@@ -434,7 +434,7 @@ insert
         ItemBacklog
         (criterio_aceitacao, descricao, nome, FK_projeto, roi, situacao_backlog, story_points, valor_negocio) 
     values
-        ('BLA', 'BLU', 'ITEM1', 1, 2.0, 0, 2, 2.0);
+        ('Critério 01', 'Descrição do item de backlog 01', 'Item 01', 1, 2.0, 0, 2, 2.0);
 
 -- Item02 (Sprint01)
 insert 
@@ -442,7 +442,7 @@ insert
         ItemBacklog
         (criterio_aceitacao, descricao, nome, FK_projeto, roi, situacao_backlog, story_points, valor_negocio) 
     values
-        ('SEM CRITERIO', 'SEM DESCRICAO', 'ITEM2', 1, 2.0, 0, 2, 2.0);
+        ('Critério 02', 'Descrição do item de backlog 02', 'Item 03', 1, 2.0, 0, 2, 2.0);
 
 -- Item03 (Sprint02)
 insert 
@@ -450,14 +450,30 @@ insert
         ItemBacklog
         (criterio_aceitacao, descricao, nome, FK_projeto, roi, situacao_backlog, story_points, valor_negocio) 
     values
-        ('COM CRITERIO', 'COM DESCRICAO', 'ITEM3', 1, 2.0, 0, 2, 2.0);
+        ('Critério 03', 'Descrição do item de backlog 03', 'Item 03', 1, 2.0, 0, 2, 2.0);
 -- Item04 (Sem associação)
 insert 
     into
         ItemBacklog
         (criterio_aceitacao, descricao, nome, FK_projeto, roi, situacao_backlog, story_points, valor_negocio) 
     values
-        ('NADA', 'NADA', 'ITEM4', 1, 2.0, 0, 2, 2.0);
+        ('Critério 04', 'Descrição do item de backlog 04', 'Item 04', 1, 2.0, 0, 2, 2.0);
+
+-- Item05 (Sem associação)
+insert 
+    into
+        ItemBacklog
+        (criterio_aceitacao, descricao, nome, FK_projeto, roi, situacao_backlog, story_points, valor_negocio) 
+    values
+        ('Critério 05', 'Descrição do item de backlog 05', 'Item 05', 1, 2.0, 0, 2, 2.0);
+
+-- Item06 (Sem associação)
+insert 
+    into
+        ItemBacklog
+        (criterio_aceitacao, descricao, nome, FK_projeto, roi, situacao_backlog, story_points, valor_negocio) 
+    values
+        ('Critério 06', 'Descrição do item de backlog 06', 'Item 06', 1, 2.0, 0, 2, 2.0);
 
 insert
 	into
@@ -484,31 +500,31 @@ INSERT
 	INTO `scrumming`.`tarefa`
 		(`FK_itemBacklog`, `FK_usuario`, `nome`, `descricao`, `situacao_tarefa`, `tempo_estimado`) 
 	VALUES 
-		('1', '1', 'teste01', 'teste01', '0', '1');
+		('1', '1', 'Tarefa 01', 'Descrição da tarefa 01', '0', '1');
 
 INSERT
 	INTO `scrumming`.`tarefa`
 		(`FK_itemBacklog`, `FK_usuario`, `nome`, `descricao`, `situacao_tarefa`, `tempo_estimado`) 
 	VALUES 
-		('1', '1', 'teste02', 'teste02', '0', '1');
+		('1', '1', 'Tarefa 02', 'Descrição da tarefa 02', '0', '1');
 
 INSERT
 	INTO `scrumming`.`tarefa`
 		(`FK_itemBacklog`, `FK_usuario`, `nome`, `descricao`, `situacao_tarefa`, `tempo_estimado`) 
 	VALUES 
-		('1', '1', 'teste03', 'teste03', '0', '1');
+		('1', '1', 'Tarefa 03', 'Descrição da tarefa 03', '0', '1');
 
 INSERT
 	INTO `scrumming`.`tarefa`
 		(`FK_itemBacklog`, `FK_usuario`, `nome`, `descricao`, `situacao_tarefa`, `tempo_estimado`) 
 	VALUES 
-		('2', '1', 'teste04', 'teste04', '0', '1');
+		('2', '1', 'Tarefa 04', 'Descrição da tarefa 04', '0', '1');
 
 INSERT
 	INTO `scrumming`.`tarefa`
 		(`FK_itemBacklog`, `FK_usuario`, `nome`, `descricao`, `situacao_tarefa`, `tempo_estimado`) 
 	VALUES 
-		('2', '1', 'teste05', 'teste05', '0', '1');
+		('2', '1', 'Tarefa 05', 'Descrição da tarefa 05', '0', '1');
 
 
 -- *******************************************************************************
