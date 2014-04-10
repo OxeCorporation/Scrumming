@@ -13,6 +13,7 @@ import br.com.scrumming.core.manager.interfaces.IUsuarioEmpresaManager;
 import br.com.scrumming.core.manager.interfaces.IUsuarioManager;
 import br.com.scrumming.core.repositorio.EmpresaRepositorio;
 import br.com.scrumming.domain.Empresa;
+import br.com.scrumming.domain.EmpresaDTO;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.UsuarioEmpresa;
 
@@ -47,13 +48,16 @@ public class EmpresaManager extends
 	 */
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-    public void salvar(Empresa empresa, Usuario usuario) {
+    public void salvar(EmpresaDTO empresaDTO) {
     	//Salva a empresa
+		Empresa empresa = empresaDTO.getEmpresa();
 		empresa.setAtivo(true);
 		insertOrUpdate(empresa);
 		
 		//Salva o usuário
+		Usuario usuario = empresaDTO.getUsuario();
 		usuario.setAtivo(true);
+		usuario.setEmpresa(true);
 		usuarioManager.insertOrUpdate(usuario);
 		
 		//Salva o usuário empresa
