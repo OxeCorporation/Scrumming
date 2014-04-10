@@ -55,6 +55,8 @@ public class SprintCadastroMB extends AbstractBean {
 	 */
 	public String salvarSprint() {
 		sprintDTO.getSprint().setProjeto(projetoSelecionado);
+		sprintDTO.setProductBacklog(itensDisponiveis);
+		sprintDTO.setSprintBacklog(sprintBacklog);
 		sprintClientService.salvarSprint(sprintDTO);
 		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);

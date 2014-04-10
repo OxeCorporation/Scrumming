@@ -3,6 +3,7 @@ package br.com.scrumming.core.manager.implementations;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,8 +60,8 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		sprint.setDataRevisao(new DateTime(sprintDTO.getDataRevisao()));
 		sprint.setSituacaoSprint(SituacaoSprintEnum.ABERTA);
 		sprint.setDataCadastro(new DateTime());
-		//List<ItemBacklog> itensBacklogSprint = sprintDTO.getSprintBacklog();
-		//List<ItemBacklog> itensBacklogProduto = sprintDTO.getProductBacklog();
+		List<ItemBacklog> itensBacklogSprint = sprintDTO.getSprintBacklog();
+		List<ItemBacklog> itensBacklogProduto = sprintDTO.getProductBacklog();
 		// Persiste o objeto Sprint e retorna a chave.
 		Integer sprintID = insertOrUpdate(sprint);
 
@@ -71,16 +72,14 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 			// Busca o objeto persistido pela chave.
 			Sprint sprintPersistido = findByKey(sprintID);
 
-			/*if (CollectionUtils.isNotEmpty(itensBacklogSprint)) {
+			if (CollectionUtils.isNotEmpty(itensBacklogSprint)) {
 				// TODO: Testar se funciona
-				sprintBacklogManager.associarItemASprint(sprintPersistido,
-						itensBacklogSprint);
+				sprintBacklogManager.associarItemASprint(sprintPersistido, itensBacklogSprint);
 			}
 			if (CollectionUtils.isNotEmpty(itensBacklogProduto)) {
 				// TODO: Testar se funciona
-				sprintBacklogManager.desassociarItemASprint(sprintPersistido,
-						itensBacklogProduto);
-			}*/
+				sprintBacklogManager.desassociarItemASprint(sprintPersistido, itensBacklogProduto);
+			}
 		}
 		return retorno;
 	}

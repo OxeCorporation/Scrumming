@@ -19,11 +19,11 @@
 						<p:panel>
 							<!-- Text input-->
 							<h:outputLabel styleClass="label-default" value="#{mensagens.label_nome}" />
-							<h:inputText id="nome" name="nome" value="#{sprintCadastroMB.sprintSelecionada.nome}" type="text" placeholder="Nome da sprint" class="form-control input-md output-default" required="true" style="width: 100%" />
+							<h:inputText id="nome" name="nome" value="#{sprintCadastroMB.sprintDTO.sprint.nome}" type="text" placeholder="Nome da sprint" class="form-control input-md output-default" required="true" style="width: 100%" />
 							<br />
 							<!-- Textarea -->
 							<h:outputLabel styleClass="label-default" value="#{mensagens.label_objetivo}" />
-							<h:inputTextarea value="#{sprintCadastroMB.sprintSelecionada.descricao}" class="form-control text-area" id="objetivo" name="objetivo" required="true" />
+							<h:inputTextarea value="#{sprintCadastroMB.sprintDTO.sprint.descricao}" class="form-control text-area" id="objetivo" name="objetivo" required="true" />
 						</p:panel>
 					</h:panelGroup>
 					<br />
@@ -115,7 +115,9 @@
 						<p:commandButton immediate="true" process="@none" icon="ui-icon-cancel" value="Cancelar" action="#{sprintCadastroMB.sprintPage}" styleClass="button" ajax="false">
 							<p:resetInput target="panel" />
 						</p:commandButton>
-						<p:commandButton value="Salvar" action="#{sprintCadastroMB.salvarSprint}" icon="ui-icon-disk" styleClass="button" ajax="false" />
+						<p:commandButton value="Salvar" action="#{sprintCadastroMB.salvarSprint}" icon="ui-icon-disk" styleClass="button" ajax="false">
+							<p:resetInput target="panel" />
+						</p:commandButton>
 					</p:panel>
 				</p:panel>
 			</h:panelGroup>
