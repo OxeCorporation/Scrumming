@@ -6,8 +6,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.primefaces.event.DragDropEvent;
-
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
@@ -63,26 +61,6 @@ public class SprintCadastroMB extends AbstractBean {
 	public String consultarItensDisponiveis() {
 		itensDisponiveis = sprintClientService.consultarItensDisponiveis(projetoSelecionado.getCodigo());
 		return "";
-	}
-	
-	/**
-	 * Adiciona um item à lista de SprintBacklog e o retira da lista de itens disponíveis.
-	 * @param ddEvent
-	 */
-	public void onDisponivelDrop(DragDropEvent ddEvent) {  
-        ItemBacklog item = ((ItemBacklog) ddEvent.getData());
-        sprintBacklog.add(item);
-        itensDisponiveis.remove(item);
-    }
-	
-	/**
-	 * Adiciona um item à lista de itens disponíveis e o retira da lista de SprintBacklog.
-	 * @param ddEvent
-	 */
-	public void onBacklogDrop(DragDropEvent ddEvent) {
-		ItemBacklog item = ((ItemBacklog) ddEvent.getData());
-		itensDisponiveis.add(item);
-		sprintBacklog.remove(item);
 	}
 	
 	public String moveItemToSprint() {
