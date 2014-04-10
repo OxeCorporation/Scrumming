@@ -56,7 +56,7 @@
 					</h:panelGroup>
 					<br/>
 					<!-- *********************************************************************************************** -->
-				   	<p:fieldset id="tables">
+				   	<p:fieldset id="fieldsetTables" widgetVar="fieldsetTables">
 						
 						<h:panelGroup styleClass="col-md-5 column">
 						<p:panel>  
@@ -64,29 +64,30 @@
 								<h:outputText value="SprintBacklog" />
 							</f:facet>
 							<p:dataGrid id="dgSprint" var="itemSprint" value="#{sprintCadastroMB.sprintBacklog}" columns="1">
-								<p:column>
-									<p:panel header="#{itemSprint.nome}" style="text-align:center">  
-										<h:panelGrid columns="1" style="width:100%">  
-											<p:outputLabel value="#{itemSprint.descricao}" />  
-										</h:panelGrid>  
-									</p:panel>
-								</p:column>
+								<h:commandLink immediate="true">
+									<p:column>
+										<p:panel header="#{itemSprint.nome}" style="text-align:center">  
+											<h:panelGrid columns="1" style="width:100%">  
+												<p:outputLabel value="#{itemSprint.descricao}" />  
+											</h:panelGrid>  
+										</p:panel>
+									</p:column>
+									<f:setPropertyActionListener value="#{item}" target="#{sprintCadastroMB.itemSelecionado}" />
+								</h:commandLink>
 							</p:dataGrid>
 						</p:panel>  
 						</h:panelGroup>
 						
 						<h:panelGroup styleClass="col-md-2 column" style="text-align:center; margin-top:100px;">
 							<p:panel>
-								<h:commandLink immediate="true" update="tables" action="#{sprintCadastroMB.moveItemToSprint}">
+								<h:commandLink immediate="true" update="@widgetVar(fieldsetTables)" action="#{sprintCadastroMB.moveItemToSprint}">
 									<i class="fa fa-arrow-left fa-2x" style="color: #428BCA;"></i>
-									<f:setPropertyActionListener value="#{item}" target="#{sprintCadastroMB.itemSelecionado}" />
 								</h:commandLink>
 							</p:panel>
 								<br/>
 							<p:panel>
-								<h:commandLink immediate="true" update="tables" action="#{sprintCadastroMB.removeItemFromSprint}">
+								<h:commandLink immediate="true" update="@widgetVar(fieldsetTables)" action="#{sprintCadastroMB.removeItemFromSprint}">
 									<i class="fa fa-arrow-right fa-2x" style="color: #428BCA;"></i>
-									<f:setPropertyActionListener value="#{dgSprint}" target="#{sprintCadastroMB.itemSelecionado}" />
 								</h:commandLink>
 							</p:panel>
 						</h:panelGroup>	
@@ -97,13 +98,16 @@
 								<h:outputText value="Itens Disponiveis" />
 							</f:facet>
 							<p:dataGrid id="dgItem" var="item" value="#{sprintCadastroMB.itensDisponiveis}" columns="1">
-								<p:column>
-									<p:panel header="#{item.nome}" style="text-align:center">  
-										<h:panelGrid columns="1" style="width:100%">  
-											<p:outputLabel value="#{item.descricao}" />  
-										</h:panelGrid>  
-									</p:panel>
-								</p:column>
+								<h:commandLink immediate="true">
+									<p:column>
+										<p:panel header="#{item.nome}" style="text-align:center">  
+											<h:panelGrid columns="1" style="width:100%">  
+												<p:outputLabel value="#{item.descricao}" />  
+											</h:panelGrid>  
+										</p:panel>
+									</p:column>
+									<f:setPropertyActionListener value="#{item}" target="#{sprintCadastroMB.itemSelecionado}" />
+								</h:commandLink>								
 							</p:dataGrid>
 						</p:panel>  
 						</h:panelGroup>
