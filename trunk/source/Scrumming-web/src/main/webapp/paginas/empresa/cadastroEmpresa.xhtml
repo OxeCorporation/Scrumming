@@ -10,19 +10,19 @@
 			<p:panel>
 				<h:panelGrid columns="1">						
 					<h:outputText value="Nome da Empresa" /> 
-					<p:inputText id="txtNomeEmpresa" required="true" value="#{empresaBean.empresa.nome}" requiredMessage="Nome da Empresa:" />
+					<p:inputText id="txtNomeEmpresa" required="true" value="#{empresaBean.empresaDTO.empresa.nome}" requiredMessage="Nome da Empresa:" />
 					
 					<h:outputText value="Nome do Usuário" /> 
-					<p:inputText id="txtNomeUsuario" required="true" value="#{empresaBean.usuario.nome}" requiredMessage="Nome do Usuário:" />
+					<p:inputText id="txtNomeUsuario" required="true" value="#{empresaBean.empresaDTO.usuario.nome}" requiredMessage="Nome do Usuário:" />
 					
 					<h:outputText value="E-mail" /> 
-					<p:inputText id="txtEmail" required="true" value="#{empresaBean.usuario.email}" requiredMessage="E-mail:" />
+					<p:inputText id="txtEmail" required="true" value="#{empresaBean.empresaDTO.usuario.email}" requiredMessage="E-mail:" />
 					
 					<h:outputText value="Login" /> 
-					<p:inputText id="txtLogin" required="true" value="#{empresaBean.usuario.login}" requiredMessage="Login:" />							
+					<p:inputText id="txtLogin" required="true" value="#{empresaBean.empresaDTO.usuario.login}" requiredMessage="Login:" />							
 					
 					<h:outputText value="Senha" /> 
-					<p:password id="txtSenha" required="true" value="#{empresaBean.usuario.senha}" requiredMessage="Senha:" />
+					<p:password id="txtSenha" required="true" value="#{empresaBean.empresaDTO.usuario.senha}" requiredMessage="Senha:" />
 				</h:panelGrid>
 			</p:panel>
 			
