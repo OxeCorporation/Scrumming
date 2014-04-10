@@ -45,8 +45,7 @@
 		</p:panel>
 			
 		<p:commandButton update="panel" process="@this" icon="ui-icon-cancel" value="Cancelar" onclick="dlgItemSave.hide()" styleClass="button">
-			<p:resetInput target="panel" />
-			
+			<p:resetInput target="panel" />			
 		</p:commandButton>
 		<p:commandButton update="@form" oncomplete="dlgItemSave.hide()" value="Salvar" action="#{itemBacklogMB.salvarItemBacklog}" icon="ui-icon-disk" styleClass="button">
 			<p:resetInput target="panel" />

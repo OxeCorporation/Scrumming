@@ -9,7 +9,7 @@
 		modal="true" var="exec" resizable="false" widgetVar="dlgTarefaSave"
 		visible="#{facesContext.validationFailed}">
 		<p:panel>
-			<h:panelGrid columns="1">						
+			<h:panelGrid columns="1" id="panel">						
 				<h:outputText value="#{mensagens.label_resumo}" /> 
 				<p:inputText id="nome" required="true" size="89" value="#{itemBacklogDetalheMB.tarefa.nome}" requiredMessage="Preencha o resumo" />
 				
@@ -21,8 +21,12 @@
 			</h:panelGrid>
 		</p:panel>
 		<br/>
-		<p:commandButton process="@none" icon="ui-icon-cancel" value="#{mensagens.botao_cancelar}" onclick="dlgTarefaSave.hide()" style="margin:0 auto; float:right"/>
-		<p:commandButton update="@form" value="#{mensagens.botao_confirmar}" action="#{itemBacklogDetalheMB.salvarTarefa}" icon="ui-icon-disk" style="margin:0 auto; float:right"/>								
+		<p:commandButton process="@none" icon="ui-icon-cancel" value="#{mensagens.botao_cancelar}" onclick="dlgTarefaSave.hide()" style="margin:0 auto; float:right">
+			<p:resetInput target="@form" />
+		</p:commandButton>
+		<p:commandButton update="@form" value="#{mensagens.botao_confirmar}" action="#{itemBacklogDetalheMB.salvarTarefa}" icon="ui-icon-disk" style="margin:0 auto; float:right">
+			<p:resetInput target="@form" />
+		</p:commandButton>								
 	</p:dialog>	
 	
 </ui:composition>
