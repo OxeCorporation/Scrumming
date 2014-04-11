@@ -6,6 +6,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
@@ -35,6 +36,7 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
     }
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public String salvarProjeto(ProjetoDTO projetoDTO) {
 
 		String retorno = "";
@@ -56,6 +58,7 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 		return retorno;
 	}
 
+	@Transactional(readOnly = true)
 	public ProjetoDTO consultarProjetoDTO(Integer projetoID) {
 		
 		// Cria o DTO que será enviado à tela para exibição

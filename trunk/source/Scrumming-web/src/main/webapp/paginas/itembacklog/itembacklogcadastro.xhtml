@@ -33,13 +33,13 @@
 				<h:inputHidden id="txtValorNegocio" value="#{itemBacklogMB.itemBacklog.valorNegocio}" style="color:black; width:100%"/>
 				<p:slider for="txtValorNegocio" display="outValorNegocio" 
 						  style="width:200px; color:black; width:100%" 
-						  displayTemplate="Valor de Negocio {value}" step="5" />
+						  displayTemplate="Valor de Negocio {value}"  step="5" />
 				<br/>
 				<h:outputText id="outStoryPoint" value="Story Points #{itemBacklogMB.itemBacklog.storyPoints}" style="float:left; color:black" />
 				<h:inputHidden id="txtStoryPoint" value="#{itemBacklogMB.itemBacklog.storyPoints}" style="float:left; color:black; width:100%"/>
 				<p:slider for="txtStoryPoint" display="outStoryPoint" 
 						  style="width:200px; float:left; width:100%" 
-						  displayTemplate="Story Points {value}" step="5" />
+						  displayTemplate="Story Points {value}"  step="5" />
 				
 			</h:panelGrid> 
 		</p:panel>

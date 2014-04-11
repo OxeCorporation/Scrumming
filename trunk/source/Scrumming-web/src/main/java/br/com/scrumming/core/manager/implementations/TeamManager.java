@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
@@ -66,10 +67,11 @@ public class TeamManager extends AbstractManager<Team, Integer> implements
 	}
 
 	@Override
-	public List<Usuario> consultarUsuarioPorEmpresaForaDoProjeto(Projeto projeto) {
+	@Transactional(readOnly = true)
+	public List<Usuario> consultarUsuarioPorEmpresaForaDoProjeto(Integer projetoID, Integer empresaID) {
 		
-		List<Usuario> usuarioEmpresa = iUsuarioEmpresaManager.consultarUsuarioPorEmpresa(projeto.getEmpresa().getCodigo());
-		List<Usuario> usuarioProjeto = teamRepositorio.consultarUsuarioPorProjeto(projeto.getCodigo());
+		List<Usuario> usuarioEmpresa = iUsuarioEmpresaManager.consultarUsuarioPorEmpresa(empresaID);
+		List<Usuario> usuarioProjeto = teamRepositorio.consultarUsuarioPorProjeto(projetoID);
 		
 		for (int i = 0; i <= usuarioEmpresa.size(); i++) {
 			for (int j = 0; j < usuarioProjeto.size(); j++) {
