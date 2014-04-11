@@ -25,7 +25,7 @@
 							<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataINI}" />
 							<h:outputText styleClass="output-small" value="#{projeto.dataInicioFormatada}" />
 							<p:commandLink title="Alterar projeto"
-								action="#{projetoMB.projetoCadastroPage}">
+								action="#{projetoMB.consultarUsuarioEmpresa}">
 								<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
 								<f:setPropertyActionListener value="#{projeto}"
 									target="#{projetoMB.projetoSelecionado}" />
@@ -38,13 +38,9 @@
 			</p:dataGrid>
 		</h:panelGroup>
 		<h:panelGroup styleClass="col-md-3 column div-right">
-			<p:commandLink title="Novo projeto"
-				action="#{projetoMB.projetoCadastroPage}">
-				<h:outputText styleClass="fa fa-plus right-sidebar-icon" />
-			</p:commandLink>
-			<p:commandLink title="Novo projeto"
-				action="#{projetoMB.projetoCadastroPage}">
-				<h:outputText value="Novo projeto" />
+			<p:commandLink title="Novo Projeto" action="#{projetoMB.consultarUsuarioEmpresa}">
+				<i class="fa fa-plus right-sidebar-icon" />
+				<h:outputText value="Novo Projeto" />
 			</p:commandLink>
 		</h:panelGroup>
 	</ui:define>
