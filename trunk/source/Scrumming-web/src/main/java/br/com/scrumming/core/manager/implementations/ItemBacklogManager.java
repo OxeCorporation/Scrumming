@@ -80,8 +80,8 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
     	// Percorre todos os itens do backlog para verificar os que não foram
 		// atribuidos às Sprints
 		for (ItemBacklog item : productBacklog) {
-			SprintBacklog spBacklog = (SprintBacklog) sprintBacklogManager.consultarAtivoPorItem(item);
-			if (spBacklog == null) {
+			List<SprintBacklog> spBacklog = sprintBacklogManager.consultarAtivoPorItem(item);
+			if (spBacklog == null || spBacklog.size() <= 0) {
 				itensDisponiveis.add(item);
 			}
 		}
