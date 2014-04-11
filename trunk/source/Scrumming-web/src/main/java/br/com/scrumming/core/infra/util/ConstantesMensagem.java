@@ -10,4 +10,5 @@ public class ConstantesMensagem {
     public static final String MENSAGEM_ERRO_EMPRESA_VINCULADA = "mensagem_erro_empresa_vinculada";
     public static final String MENSAGEM_OPERACAO_SUCESSO ="mensagem_operacao_sucesso";
     public static final String MENSAGEM_SELECIONAR_ITEM_LISTA ="mensagem_selecionar_item_lista";
+    public static final String MENSAGEM_ERRO_DATA_SPRINT ="mensagem_erro_data_sprint";
 }
