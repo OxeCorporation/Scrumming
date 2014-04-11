@@ -19,6 +19,7 @@ import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
 import br.com.scrumming.domain.SprintDTO;
+import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
 
 @Service
@@ -44,17 +45,22 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		return this.sprintRepositorio;
 	}
 
+	/**
+	 * Consulta as Sprints de um Projeto que serão exibidos na tela inicial da Sprint.
+	 */
 	@Override
 	public List<Sprint> consultarPorProjeto(Integer projetoID) {
 		List<Sprint> sprints = sprintRepositorio.consultarPorProjeto(projetoID);
 		List<Sprint> sprintToShow = new ArrayList<>();
 		for (Sprint sprint : sprints) {
+			sprint.setEditable(true);
 			if (sprint.getSituacaoSprint() == SituacaoSprintEnum.FECHADA) {
 				sprint.setStatusSprint("Fechada");
+				sprint.setEditable(false);
 			} else if (DateTime.now().isAfter(sprint.getDataInicio()) && DateTime.now().isBefore(sprint.getDataFim())) {
 				sprint.setStatusSprint("Atual");
 			} else if (DateTime.now().isAfter(sprint.getDataFim()) && sprint.getSituacaoSprint() == SituacaoSprintEnum.ABERTA) {
-				sprint.setStatusSprint("Expirada");
+				sprint.setStatusSprint("Expirada");				
 			} else {
 				sprint.setStatusSprint("");
 			}
@@ -63,43 +69,71 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		return sprintToShow;
 	}
 
-	@Transactional(rollbackFor=Exception.class)
+	/**
+	 * Salva ou altera a sprint e define a sprintbacklog.
+	 */
 	@Override
+	@Transactional(rollbackFor=Exception.class)
 	public String salvarSprint(SprintDTO sprintDTO) {
 
-		String retorno = "";
+		// Prepara os dados para a persistência.
+		String retorno = "1";
 		Sprint sprint = sprintDTO.getSprint();
 		sprint.setDataInicio(new DateTime(sprintDTO.getDataInicio()));
 		sprint.setDataFim(new DateTime(sprintDTO.getDataFim()));
 		sprint.setDataRevisao(new DateTime(sprintDTO.getDataRevisao()));
 		sprint.setSituacaoSprint(SituacaoSprintEnum.ABERTA);
 		sprint.setDataCadastro(new DateTime());
-		List<ItemBacklog> itensBacklogSprint = sprintDTO.getSprintBacklog();
-		List<ItemBacklog> itensBacklogProduto = sprintDTO.getProductBacklog();
-		// Persiste o objeto Sprint e retorna a chave.
-		Integer sprintID = insertOrUpdate(sprint);
-
-		// Caso sera inserido ou alterado a Sprint
-		if (sprintID != null) {
-
-			retorno = "Registro foi salvo";
-			// Busca o objeto persistido pela chave.
-			Sprint sprintPersistido = findByKey(sprintID);
-
-			if (CollectionUtils.isNotEmpty(itensBacklogSprint)) {
-				// TODO: Testar se funciona
-				sprintBacklogManager.associarItemASprint(sprintPersistido, itensBacklogSprint);
+		
+		/*List<Sprint> sprints = consultarPorProjeto(sprint.getProjeto().getCodigo());
+		DateTime sprintINI = sprint.getDataInicio();*/
+		
+		boolean freeToPersiste = true;
+		// Verifica se a data da Sprint inserida ou alterada está em conflito com alguma cadastrada.
+		
+		/*DateTime lastSprintEndDate = sprints.get(sprints.size() -1).getDataFim();
+		
+		if (sprintINI.isBefore(lastSprintEndDate) || sprintINI.isEqual(lastSprintEndDate)) {
+			if (sprint.getCodigo() != null) {
+				freeToPersiste = false;
+			} else {
+				
 			}
-			if (CollectionUtils.isNotEmpty(itensBacklogProduto)) {
-				// TODO: Testar se funciona
-				sprintBacklogManager.desassociarItemASprint(sprintPersistido, itensBacklogProduto);
+		}*/
+		
+		if (freeToPersiste) {
+			// Persiste o objeto Sprint e retorna a chave.
+			Integer sprintID = insertOrUpdate(sprint);
+
+			List<ItemBacklog> itensBacklogSprint = sprintDTO.getSprintBacklog();
+			List<ItemBacklog> itensBacklogProduto = sprintDTO.getProductBacklog();
+			
+			// Caso sera inserido ou alterado a Sprint
+			if (sprintID != null) {
+
+				// Busca o objeto persistido pela chave.
+				Sprint sprintPersistido = findByKey(sprintID);
+
+				if (CollectionUtils.isNotEmpty(itensBacklogSprint)) {
+					// TODO: Testar se funciona
+					sprintBacklogManager.associarItemASprint(sprintPersistido, itensBacklogSprint);
+				}
+				if (CollectionUtils.isNotEmpty(itensBacklogProduto)) {
+					// TODO: Testar se funciona
+					sprintBacklogManager.desassociarItemASprint(sprintPersistido, itensBacklogProduto);
+				}
 			}
+		} else {
+			retorno = "0";
 		}
 		return retorno;
 	}
 
-	@Transactional(readOnly=true)
+	/**
+	 * Consulta os dados que serão exibidos nos campos da tela de Cadastro de Sprint
+	 */
 	@Override
+	@Transactional(readOnly=true)
 	public SprintDTO consultarSprintDTO(Integer sprintID) {
 
 		// Cria o DTO que será enviado à tela para exibição
@@ -148,7 +182,10 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		
 		List<SprintBacklog> itens = sprintBacklogManager.listarAtivosPorSprint(sprintConsulta);
 		for (SprintBacklog item : itens) {
-			item.setAtivo(false);
+			ItemBacklog itemBacklog = itemBacklogManager.findByKey(item.getItemBacklog().getCodigo());
+			if (itemBacklog.getSituacaoBacklog() != SituacaoItemBacklogEnum.FEITO) {
+				item.setAtivo(false);
+			}
 		}
 		sprint = findByKey(sprint.getCodigo());
 		sprint.setSituacaoSprint(SituacaoSprintEnum.FECHADA);
