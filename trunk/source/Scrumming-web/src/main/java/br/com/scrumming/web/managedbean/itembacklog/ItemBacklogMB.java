@@ -26,11 +26,11 @@ public class ItemBacklogMB extends AbstractBean {
     private ItemBacklogClientService clienteService;
     @FlashScoped
     private Projeto projetoSelecionado;
-    private List<ItemBacklog> listaDataGrid;
    
     @Override
     public void inicializar() {
     	itemBacklog= new ItemBacklog();
+    	setarStoryPointValorNegocio();
         clienteService = new ItemBacklogClientService();
         atualizarListaDeItens();
     }
@@ -61,6 +61,11 @@ public class ItemBacklogMB extends AbstractBean {
     
     public void alterar(){
     	itemBacklog= itemSelecionado;
+    }
+    
+    public void setarStoryPointValorNegocio(){
+    	itemBacklog.setStoryPoints(0);
+    	itemBacklog.setValorNegocio(0.0);
     }
     
     public String consultarItemPorID() {
