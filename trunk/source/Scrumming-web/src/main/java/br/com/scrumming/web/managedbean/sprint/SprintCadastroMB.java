@@ -3,8 +3,10 @@ package br.com.scrumming.web.managedbean.sprint;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
@@ -57,9 +59,15 @@ public class SprintCadastroMB extends AbstractBean {
 		sprintDTO.getSprint().setProjeto(projetoSelecionado);
 		sprintDTO.setProductBacklog(itensDisponiveis);
 		sprintDTO.setSprintBacklog(sprintBacklog);
-		sprintClientService.salvarSprint(sprintDTO);
-		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
-		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
+		String msg = sprintClientService.salvarSprint(sprintDTO);
+		String retorno = "";
+		if (msg.equals("1")) {
+			FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+			retorno = redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
+		} else {
+			FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_ERRO_DATA_SPRINT);
+		}
+		return retorno;
 	}
 	
 	/**

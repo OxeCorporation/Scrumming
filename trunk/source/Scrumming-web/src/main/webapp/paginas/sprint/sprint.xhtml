@@ -17,8 +17,7 @@
 			<h:outputText styleClass="output-small" value="#{sprintMB.projetoSelecionado.dataInicioFormatada}" />
 			<BR /> <BR />
 			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA AS SPRINTS -->
-			<p:dataGrid var="sprint" value="#{sprintMB.sprintsDoProjeto}"
-				columns="1" style="width:100%;" target="#{sprintMB.sprintSelecionada}">
+			<p:dataGrid var="sprint" value="#{sprintMB.sprintsDoProjeto}" columns="1" style="width:100%;" target="#{sprintMB.sprintSelecionada}">
 				<p:panel styleClass="col-md-12 column">
 					<p:panel>
 						<f:facet name="header">
@@ -35,19 +34,23 @@
 						<h:panelGroup style="width:100%">
 							<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataINI}" />
 							<h:outputText styleClass="output-small" value="#{sprint.dataInicioFormatada}"/>					
-							<p:commandLink title="Alterar sprint" action="#{sprintMB.consultarSprintDTO}" ajax="false">
-								<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
-								<f:setPropertyActionListener value="#{sprint}" target="#{sprintMB.sprintSelecionada}" />
-							</p:commandLink>
+							<ui:fragment rendered="#{sprint.editable}">
+								<p:commandLink title="Alterar sprint" action="#{sprintMB.consultarSprintDTO}" ajax="false">
+									<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
+									<f:setPropertyActionListener value="#{sprint}" target="#{sprintMB.sprintSelecionada}" />
+								</p:commandLink>
+							</ui:fragment>
 							<h:outputLabel value="|" styleClass="pipe-separator" />
 							<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataFIM}" />
 							<h:outputText styleClass="output-small" value="#{sprint.dataFimFormatada}" />
 							<br />
 							<h:outputText styleClass="output-default" value="#{sprint.descricao}" />
-							<p:commandLink title="Fechar sprint" action="#{sprintMB.fecharSprint}"  ajax="false" update="@form">
-								<h:outputText styleClass="fa fa-lock inside-grid-icon" />
-								<f:setPropertyActionListener value="#{sprint}" target="#{sprintMB.sprintSelecionada}" />
-							</p:commandLink>
+							<ui:fragment rendered="#{sprint.editable}">
+								<p:commandLink title="Fechar sprint" action="#{sprintMB.fecharSprint}"  ajax="false" update="@form">
+									<h:outputText styleClass="fa fa-lock inside-grid-icon" />
+									<f:setPropertyActionListener value="#{sprint}" target="#{sprintMB.sprintSelecionada}" />
+								</p:commandLink>
+							</ui:fragment>
 						</h:panelGroup>
 					</p:panel>
 				</p:panel>

@@ -37,12 +37,7 @@ public class SprintMB extends AbstractBean {
 		sprintClientService = new SprintClientService();
 		sprintsDoProjeto = sprintClientService.consultarSprintsPorProjeto(projetoSelecionado.getCodigo());
 	}
-	
-	/*Funções disponíveis para as telas da Sprint e SprintBacklog*/
-	public void checkSprintStatus() {
 		
-	}
-	
 	/**
 	 * Consulta o DTO da Sprint.
 	 * @param sprintID Código da Sprint.
@@ -55,7 +50,7 @@ public class SprintMB extends AbstractBean {
 		itensDisponiveis = sprintDTO.getProductBacklog();
 		return sprintCadastroPage();
 	}
-	
+		
 	/**
 	 * Fecha uma Sprint.
 	 * @param sprintID
