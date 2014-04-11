@@ -37,7 +37,8 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
     @Transactional(rollbackFor = Exception.class)
     public void salvar(Tarefa tarefa, Integer itemBacklogManagerID) {
     	ItemBacklog itemBacklog = itemBacklogManager.findByKey(itemBacklogManagerID);
-    	tarefa.setSituacao(SituacaoTarefaEnum.PARA_FAZER);
+    	if (tarefa.getSituacao() == null)
+    		tarefa.setSituacao(SituacaoTarefaEnum.PARA_FAZER);
     	tarefa.setItemBacklog(itemBacklog);
     	
     	insertOrUpdate(tarefa);
