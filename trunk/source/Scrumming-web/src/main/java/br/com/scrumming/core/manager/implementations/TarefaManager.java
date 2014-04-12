@@ -1,5 +1,6 @@
 package br.com.scrumming.core.manager.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +62,24 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
 
 	@Override
     public List<Tarefa> consultarPorItemBacklog(Integer itemBacklogID) {
-        return this.tarefaRepositorio.consultarPorItemBacklog(itemBacklogID);
+        List<Tarefa> listaDeTarefas = tarefaRepositorio.consultarPorItemBacklog(itemBacklogID);
+        List<Tarefa> novaListaDeTarefas = new ArrayList<>();
+        for (Tarefa tarefa : listaDeTarefas) {
+        	if (tarefa.getSituacao() == SituacaoTarefaEnum.PARA_FAZER){
+        		tarefa.setSituacaoDescricao("Para fazer");
+        	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.FAZENDO) {
+        		tarefa.setSituacaoDescricao("Fazendo");
+        	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.FEITO) {
+        		tarefa.setSituacaoDescricao("Feito");
+        	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.CANCELADO) {
+        		tarefa.setSituacaoDescricao("Cancelado");
+        	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.EM_IMPEDIMENTO) {
+        		tarefa.setSituacaoDescricao("Em impedimento");
+        	}
+        	
+        	novaListaDeTarefas.add(tarefa);
+        }
+		return novaListaDeTarefas;
     }
     
     

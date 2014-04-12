@@ -29,9 +29,14 @@
 					value="#{itemBacklogDetalheMB.itemSelecionado.tarefas}" 
 					columns="1" style="width:100%;"
 					emptyMessage="#{mensagens.label_lista_de_tarefas_vazia}">
-					<p:panel widgetVar="pn#{tarefa.codigo}" style="height: 100px;">
+					<p:panel widgetVar="pn#{tarefa.codigo}" styleClass="col-md-12 column">
 						<f:facet name="header">
-							<h:outputText styleClass="label-grid-header" value="#{tarefa.nome}" />
+							<h:panelGroup styleClass="col-md-8 column">
+								<h:outputText styleClass="label-grid-header" value="#{tarefa.nome}" />
+							</h:panelGroup>
+							<h:panelGroup styleClass="col-md-3 column" style="text-align:right">
+								<h:outputText value="#{tarefa.situacaoDescricao}" />
+							</h:panelGroup>
 						</f:facet> 
 						
 						<h:outputLabel styleClass="label-default" value="#{mensagens.label_descricao}#{mensagens.label_dois_pontos}" />
