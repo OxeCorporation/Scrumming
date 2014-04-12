@@ -2,8 +2,10 @@ package br.com.scrumming.web.managedbean.itembacklog;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
@@ -24,11 +26,11 @@ public class ItemBacklogMB extends AbstractBean {
     private ItemBacklogClientService clienteService;
     @FlashScoped
     private Projeto projetoSelecionado;
-    private List<ItemBacklog> listaDataGrid;
    
     @Override
     public void inicializar() {
     	itemBacklog= new ItemBacklog();
+    	setarStoryPointValorNegocio();
         clienteService = new ItemBacklogClientService();
         atualizarListaDeItens();
     }
@@ -38,6 +40,9 @@ public class ItemBacklogMB extends AbstractBean {
 		itemBacklog.setProjeto(projetoSelecionado);
 		clienteService.salvarItemBacklog(itemBacklog);
 		atualizarListaDeItens();
+		
+		FacesContext context = FacesContext.getCurrentInstance();         
+        context.addMessage(null, new FacesMessage("Operação Realizada com Sucesso!"));
 		return "";
     }
 
@@ -48,11 +53,19 @@ public class ItemBacklogMB extends AbstractBean {
     public String cancelarItemBacklog() {
        	clienteService.cancelarItemBacklog(itemSelecionado);
        	atualizarListaDeItens();
+       	
+       	FacesContext context = FacesContext.getCurrentInstance();         
+        context.addMessage(null, new FacesMessage("Item Backlog Cancelado com Sucesso!"));
         return "";
     }
     
     public void alterar(){
     	itemBacklog= itemSelecionado;
+    }
+    
+    public void setarStoryPointValorNegocio(){
+    	itemBacklog.setStoryPoints(0);
+    	itemBacklog.setValorNegocio(0.0);
     }
     
     public String consultarItemPorID() {

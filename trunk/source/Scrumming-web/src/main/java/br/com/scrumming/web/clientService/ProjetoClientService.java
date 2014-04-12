@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.ProjetoDTO;
+import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.infra.AbstractClientService;
 import br.com.scrumming.web.infra.ConstantesService;
 
@@ -20,6 +21,14 @@ public class ProjetoClientService extends AbstractClientService {
 
 	public String deletarProjeto(Integer projetoID) {
 		return getRestTemplate().postForObject(getURIService(ConstantesService.Projeto.URL_DELETE_PROJETO), projetoID, String.class);
+	}
+	
+	public List<Usuario> consultarUsuarioPorEmpresaForaDoProjeto(Integer projetoID, Integer empresaID){
+		return Arrays.asList(getRestTemplate().getForObject(getURIService(ConstantesService.Projeto.URL_CONSULTAR_POR_USURIO_EMPRESA_NOTPROJETO), Usuario[].class, projetoID, empresaID));
+	}
+
+	public List<Usuario> consultarUsuarioPorEmpresa(Integer empresaID){
+		return Arrays.asList(getRestTemplate().getForObject(getURIService(ConstantesService.Projeto.URL_CONSULTAR_POR_USURIO_EMPRESA), Usuario[].class, empresaID));
 	}
 
 }
