@@ -1,5 +1,6 @@
 package br.com.scrumming.core.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
 import br.com.scrumming.domain.ItemBacklog;
+import br.com.scrumming.domain.Sprint;
 
 @RestController
 @RequestMapping("/itemBacklog")
@@ -39,6 +41,10 @@ public class ItemBacklogService {
     	return itemBacklogManager.consultarItemPorID(itemId);
     }
 
+	@RequestMapping(method = RequestMethod.GET, value = "/list/{projetoIdSituacaoItem}")
+	public List<ItemBacklog> consultarSituacaoDoItemPorProjeto(Integer projetoID){
+		return new ArrayList<ItemBacklog>(itemBacklogManager.consultarSituacaoDoItemPorProjeto(projetoID));
+	}
 	/* getters and setters */
 	public IItemBacklogManager getItemBacklogManager() {
 		return itemBacklogManager;

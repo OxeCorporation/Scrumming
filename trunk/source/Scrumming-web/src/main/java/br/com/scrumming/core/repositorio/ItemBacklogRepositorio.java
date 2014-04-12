@@ -28,6 +28,15 @@ public class ItemBacklogRepositorio extends AbstractRepositorio<ItemBacklog, Int
         return Collections.checkedList(criteria.list(), ItemBacklog.class);
     }
     
+    @SuppressWarnings("unchecked")
+    public List<ItemBacklog> consultarSituacaoDoItemPorProjeto(Integer projetoID) {
+        Criteria criteria = createCriteria();
+        criteria.createAlias("projeto", "projeto");
+        criteria.add(Restrictions.eq("projeto.codigo", projetoID));
+        criteria.add(Restrictions.eq("isAtivo", true));
+        return Collections.checkedList(criteria.list(), ItemBacklog.class);
+    }
+    
     /**
      * Consultar um item pelo se ID
      * @param Integer itemID

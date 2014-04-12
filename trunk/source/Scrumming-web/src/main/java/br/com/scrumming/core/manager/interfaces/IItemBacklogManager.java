@@ -13,4 +13,5 @@ public interface IItemBacklogManager extends IManager<ItemBacklog, Integer> {
 	List<ItemBacklog> consultarPorProjeto(Integer projetoID);
 	ItemBacklog consultarItemPorID(Integer itemID);
 	List<ItemBacklog> consultarItensDisponiveisPorProjeto(Integer projetoID);
+	List<ItemBacklog> consultarSituacaoDoItemPorProjeto(Integer projetoID);
 }
