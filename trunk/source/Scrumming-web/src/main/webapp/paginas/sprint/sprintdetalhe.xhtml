@@ -27,7 +27,8 @@
 			<p:tabView id="tabView">
 				<p:tab id="tab1" title="Sprint Backlog">
 					<!-- CABEÇALHO DA LISTAGEM CONTENDO UM ITEM BACKLOG -->
-					<p:dataGrid var="item" value="#{sprintDetalheMB.itens}" columns="1" style="width:100%">
+					<p:dataGrid var="item" value="#{sprintDetalheMB.itens}" columns="1" style="width:100%"
+					emptyMessage="#{mensagens.mensagem_sem_registros}">
 						<p:panel styleClass="col-md-12 column">
 							<f:facet name="header">
 								<p:commandLink action="#{sprintDetalheMB.itembacklogDetalhePage}" immediate="true">
