@@ -22,6 +22,7 @@
 </h:head>
 
 <h:body>
+	<h:panelGroup rendered="#{sessaoMB.usuarioLogado}" >
 	<p:growl id="growlGeral"  showDetail="true" autoUpdate="true" showSummary="false"/>
 	<div id="wrapper">		
 		<h:form id="main">
@@ -110,6 +111,22 @@
 			</div>
 		</h:form>
 	</div>
+	</h:panelGroup>
+	<h:panelGroup rendered="#{not sessaoMB.usuarioLogado}">
+		<h:form id="erroForm">
+			<div class="jumbotron hero-spacer">
+            	<h1>
+					<h:outputText value="#{mensagens.mensagem_permicao_negada}" style="color: red;" />
+				</h1>
+            	<p>
+            		<h:outputText value="#{mensagens.mensagem_faca_login}"/>
+            	</p>
+            	<p>
+            		<h:commandLink value="#{mensagens.label_voltar_login}" action="/paginas/login.xhtml" styleClass="btn btn-primary btn-large"/>
+            	</p>
+        	</div>
+		</h:form>
+	</h:panelGroup>
 	<h:outputScript library="js" name="bootstrap.min.js" />
 </h:body>
 
