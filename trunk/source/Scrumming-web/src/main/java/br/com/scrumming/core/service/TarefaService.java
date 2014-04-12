@@ -38,7 +38,7 @@ public class TarefaService {
     }
 	
 	@RequestMapping(method = RequestMethod.POST, value ="/remove/")
-    public void remover(@RequestBody Tarefa tarefa) {
+    public void remover(@RequestBody Tarefa tarefa) throws Exception {
     	tarefaManager.remover(tarefa);
     }
 

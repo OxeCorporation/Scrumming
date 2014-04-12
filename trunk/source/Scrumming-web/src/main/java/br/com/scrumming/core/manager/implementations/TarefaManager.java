@@ -45,13 +45,21 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
     }
 
     @Override
-    public void remover(Tarefa tarefa) {
-        remove(tarefa);
-        // TODO falta criar validacoes para remover entidades que ainda nao existem
-        // as entidades são: ReporteTarefa e TarefaFaforita
+    public void remover(Tarefa tarefa) throws Exception {
+        //validarDados(tarefa);
+    	remove(tarefa);
     }
 
-    @Override
+    private void validarDados(Tarefa tarefa) throws Exception {		
+		if (tarefaRepositorio.existeReporteDeHorasNaTarefa(tarefa.getCodigo())) {
+			throw new Exception("Impossível remover. Existe reporte de horas para esta tarefa.");
+		}
+		if (tarefaRepositorio.tarefaFoiFavoritada(tarefa.getCodigo())) {
+			throw new Exception("Impossível remover. Essa tarefa foi favoritada por um usuário.");
+		}
+	}
+
+	@Override
     public List<Tarefa> consultarPorItemBacklog(Integer itemBacklogID) {
         return this.tarefaRepositorio.consultarPorItemBacklog(itemBacklogID);
     }
