@@ -41,14 +41,20 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
 	public void salvarItemBacklog(ItemBacklog itemBacklog) {
     	
     	if (itemBacklog.getCodigo() != null) {
-			insertOrUpdate(itemBacklog);
-		}else{
-    		roi =  itemBacklog.getValorNegocio() / itemBacklog.getStoryPoints();
-    		itemBacklog.setRoi(roi);    		
-    		itemBacklog.setAtivo(true);
-    		itemBacklog.setSituacaoBacklog(SituacaoItemBacklogEnum.FAZER);
-    		insertOrUpdate(itemBacklog);
-		}
+    	 	 insertOrUpdate(itemBacklog);
+    	 	}else{
+    	 	 double vn = itemBacklog.getValorNegocio();
+    	 	 double sp = Double.parseDouble(itemBacklog.getStoryPoints().toString());
+    	 	 if (vn == 0 || sp == 0) {
+    	 		 roi = 0.0;
+    	 	 } else {
+    	 		 roi = vn / sp;
+    	 	 }
+	    	  itemBacklog.setRoi(roi);  
+	    	  itemBacklog.setAtivo(true);
+	    	  itemBacklog.setSituacaoBacklog(SituacaoItemBacklogEnum.FAZER);
+	    	  insertOrUpdate(itemBacklog);
+    	 }
 	}
     
     @Override
