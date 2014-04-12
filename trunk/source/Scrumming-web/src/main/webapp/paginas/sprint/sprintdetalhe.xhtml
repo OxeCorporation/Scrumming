@@ -27,24 +27,25 @@
 			<p:tabView id="tabView">
 				<p:tab id="tab1" title="Sprint Backlog">
 					<!-- CABEÇALHO DA LISTAGEM CONTENDO UM ITEM BACKLOG -->
-					<p:dataGrid var="item" value="#{sprintDetalheMB.itens}" columns="1" style="width:100%">
+					<p:dataGrid var="item" value="#{sprintDetalheMB.itens}" columns="1" style="width:100%"
+					emptyMessage="#{mensagens.mensagem_sem_registros}">
 						<p:panel styleClass="col-md-12 column">
 							<f:facet name="header">
 								<p:commandLink action="#{sprintDetalheMB.itembacklogDetalhePage}" immediate="true">
 									<h:outputText styleClass="label-grid-header" value="#{item.nome}" />
 									<f:setPropertyActionListener value="#{item}" target="#{sprintDetalheMB.itemSelecionado}" />
 								</p:commandLink>
+								<br />
+								<h:outputText styleClass="output-default" value="#{item.descricao}" />
 								<!-- BOTAO CADASTRAR NOVA TAREFA -->
-								<!-- 
-								<p:commandLink title="Nova tarefa"
+								<!--
+								<p:commandLink immediate="true" title="Nova tarefa"
 									onclick="dlgTarefaSave.show()">
-									<h:outputText styleClass="fa fa-plus inside-grid-icon" />
+									<h:outputText styleClass="fa fa-plus inside-header-icon" />
 									<f:setPropertyActionListener value="#{item}"
 										target="#{tarefaBean.tarefa.itemBacklog}" />
 								</p:commandLink>
-								 -->
-								<br />
-								<h:outputText styleClass="output-default" value="#{item.descricao}" />
+								-->
 							</f:facet>
 							<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />
 						</p:panel>
@@ -54,15 +55,17 @@
 								<p:panel style="height: 65px">
 									<h:outputText value="#{tarefa.nome}" />
 									<!-- BOTAO ALTERAR TAREFA -->
-									<!--  
-										<p:commandLink title="Alterar Tarefa"
-											onclick="dlgTarefaSave.show()">
-											<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
-											<f:setPropertyActionListener value="#{tarefa}"
-												target="#{tarefaBean.tarefa}" />
-										</p:commandLink>
-									 -->
+									<!-- 
+									<p:commandLink id="alterarTarefaLink" title="#{mensagens.label_alterar_tarefa}"
+										action="#{sprintDetalheMB.preparaParaAlterarTarefa}"
+										oncomplete="dlgTarefaSave.show()" 
+										process="@this" update="@widgetVar(dlgTarefaSave)">
+										<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
+										<f:setPropertyActionListener value="#{tarefa}"
+											target="#{sprintDetalheMB.tarefaSelecionada}" />
+									</p:commandLink>
 									<br />
+									 -->
 									<!-- BOTAO EXCLUIR TAREFA -->
 									<!-- 
 										<p:commandLink title="Remover tarefa"
@@ -92,7 +95,7 @@
 			</p:tabView>
 		</h:panelGroup>
 		<h:panelGroup styleClass="col-md-3 column div-right">
-			<h:outputText value="Exibir o time do projeto nessa coluna." />
+			<h:outputText value="Sprint Team" />
 		</h:panelGroup>
 	</ui:define>
 	<ui:define name="menu_lateral">
