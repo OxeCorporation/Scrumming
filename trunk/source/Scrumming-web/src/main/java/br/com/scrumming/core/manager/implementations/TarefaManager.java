@@ -70,13 +70,13 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
 		List<Tarefa> novaListaDeTarefas = new ArrayList<>();
         for (Tarefa tarefa : listaDeTarefas) {
         	if (tarefa.getSituacao() == SituacaoTarefaEnum.PARA_FAZER){
-        		tarefa.setSituacaoDescricao("Para fazer");
+        		tarefa.setSituacaoDescricao("Planejada");
         	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.FAZENDO) {
-        		tarefa.setSituacaoDescricao("Fazendo");
+        		tarefa.setSituacaoDescricao("Em progresso");
         	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.FEITO) {
-        		tarefa.setSituacaoDescricao("Feito");
+        		tarefa.setSituacaoDescricao("Concluída");
         	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.CANCELADO) {
-        		tarefa.setSituacaoDescricao("Cancelado");
+        		tarefa.setSituacaoDescricao("Cancelada");
         	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.EM_IMPEDIMENTO) {
         		tarefa.setSituacaoDescricao("Em impedimento");
         	}

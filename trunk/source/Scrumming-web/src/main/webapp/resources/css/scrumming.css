@@ -103,6 +103,12 @@
 	color: #428BCA;
 }
 
+.inside-header-icon {
+	margin: 0 auto;
+	float: right;
+	color: #FFFFFF;
+}
+
 .text-area {
 	width: 100% !important;
 	min-height: 60px !important;
