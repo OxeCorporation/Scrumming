@@ -15,6 +15,7 @@ public final class ConstantesService {
 		private Tarefa(){}
 		public static final String URL_SALVAR = "/tarefa/save/{itemBacklogManagerID}";
 		public static final String URL_CONSULTAR_POR_ITEM_BACKLOG = "/tarefa/list/{itemBacklogID}";
+		public static final String URL_CONSULTAR_POR_ITEM_BACKLOG_IH_SITUACAO = "/tarefa/list/{itemBacklogID}/{situacao}";
 		public static final String URL_CONSULTAR = "/tarefa/{tarefaID}";
 		public static final String URL_REMOVER = "/tarefa/remove/";
 	}

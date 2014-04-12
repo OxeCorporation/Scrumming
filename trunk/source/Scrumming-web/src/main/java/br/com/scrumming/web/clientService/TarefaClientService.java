@@ -8,17 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.web.infra.AbstractClientService;
 import br.com.scrumming.web.infra.ConstantesService;
 
 public class TarefaClientService extends AbstractClientService {
 	
-	public void salvarTarefa(Tarefa tarefa, Integer itemBacklogManagerID) {
-
-		/*RestTemplate restTemplate = new RestTemplate();
-		restTemplate.postForEntity(ConstantesService.Tarefa.URL_SALVAR, 
-								   HttpEntity.EMPTY, void.class, tarefa);*/
-		
+	public void salvarTarefa(Tarefa tarefa, Integer itemBacklogManagerID) {		
 		getRestTemplate().postForObject(
 				getURIService(ConstantesService.Tarefa.URL_SALVAR),
 				tarefa, void.class, itemBacklogManagerID);
@@ -26,6 +22,12 @@ public class TarefaClientService extends AbstractClientService {
 	
 	public List<Tarefa> consultarTarefasPorItemBacklog(Integer itemBacklogID) {
 		return Arrays.asList(getRestTemplate().getForObject(getURIService(ConstantesService.Tarefa.URL_CONSULTAR_POR_ITEM_BACKLOG), Tarefa[].class, itemBacklogID));
+	}
+	
+	public List<Tarefa> consultarTarefasPorItemBacklogIhSituacao(Integer itemBacklogID, SituacaoTarefaEnum situacao) {
+		return Arrays.asList(getRestTemplate().getForObject(
+				getURIService(ConstantesService.Tarefa.URL_CONSULTAR_POR_ITEM_BACKLOG_IH_SITUACAO), 
+				Tarefa[].class, itemBacklogID, situacao));
 	}
 	
 	public Tarefa consultarTarefa(Integer tarefaID) {
@@ -36,11 +38,7 @@ public class TarefaClientService extends AbstractClientService {
 		return tarefa.getBody();
 	}
 	
-	public void removerTarefa(Tarefa tarefa) {
-		
-		/*RestTemplate restTemplate = new RestTemplate();		
-		restTemplate.postForEntity(ConstantesService.Tarefa.URL_REMOVER, HttpEntity.EMPTY, void.class, tarefa);*/
-		
+	public void removerTarefa(Tarefa tarefa) {		
 		getRestTemplate().postForObject(
 				getURIService(ConstantesService.Tarefa.URL_REMOVER),
 				tarefa, void.class);

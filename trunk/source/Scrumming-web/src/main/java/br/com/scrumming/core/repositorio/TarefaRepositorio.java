@@ -19,7 +19,16 @@ public class TarefaRepositorio extends AbstractRepositorio<Tarefa, Integer>{
         Criteria criteria = createCriteria();
         criteria.createAlias("itemBacklog", "itemBacklog");
         criteria.add(Restrictions.eq("itemBacklog.codigo", itemBacklogID));
-        criteria.add(Restrictions.not(Restrictions.eq("situacao", SituacaoTarefaEnum.CANCELADO)));
+        //criteria.add(Restrictions.not(Restrictions.eq("situacao", SituacaoTarefaEnum.CANCELADO)));
+        return Collections.checkedList(criteria.list(), Tarefa.class);
+    }
+	
+	@SuppressWarnings("unchecked")
+	public List<Tarefa> consultarPorItemBacklogIhSituacao(Integer itemBacklogID, SituacaoTarefaEnum situacao) {
+        Criteria criteria = createCriteria();
+        criteria.createAlias("itemBacklog", "itemBacklog");
+        criteria.add(Restrictions.eq("itemBacklog.codigo", itemBacklogID));
+        criteria.add(Restrictions.eq("situacao", situacao));
         return Collections.checkedList(criteria.list(), Tarefa.class);
     }
 	

@@ -63,7 +63,11 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
 	@Override
     public List<Tarefa> consultarPorItemBacklog(Integer itemBacklogID) {
         List<Tarefa> listaDeTarefas = tarefaRepositorio.consultarPorItemBacklog(itemBacklogID);
-        List<Tarefa> novaListaDeTarefas = new ArrayList<>();
+        return preencherNovaListaDeTarefas(listaDeTarefas);
+    }
+	
+	private List<Tarefa> preencherNovaListaDeTarefas(List<Tarefa> listaDeTarefas) {
+		List<Tarefa> novaListaDeTarefas = new ArrayList<>();
         for (Tarefa tarefa : listaDeTarefas) {
         	if (tarefa.getSituacao() == SituacaoTarefaEnum.PARA_FAZER){
         		tarefa.setSituacaoDescricao("Para fazer");
@@ -80,7 +84,12 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
         	novaListaDeTarefas.add(tarefa);
         }
 		return novaListaDeTarefas;
-    }
+	}
+
+	public List<Tarefa> consultarPorItemBacklogIhSituacao(Integer itemBacklogID, SituacaoTarefaEnum situacao) {		
+		List<Tarefa> listaDeTarefas = tarefaRepositorio.consultarPorItemBacklogIhSituacao(itemBacklogID, situacao);
+        return preencherNovaListaDeTarefas(listaDeTarefas);
+	}
     
     
     /* getters and sertters */

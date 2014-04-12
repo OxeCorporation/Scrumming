@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.scrumming.core.infra.manager.IManager;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
 public interface ITarefaManager extends IManager<Tarefa, Integer>{
 	
@@ -11,4 +12,5 @@ public interface ITarefaManager extends IManager<Tarefa, Integer>{
 	void remover(Tarefa tarefa) throws Exception;
 	
 	List<Tarefa> consultarPorItemBacklog(Integer itemBacklogID);
+	List<Tarefa> consultarPorItemBacklogIhSituacao(Integer itemBacklogID, SituacaoTarefaEnum situacao);
 }
