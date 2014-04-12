@@ -72,16 +72,16 @@
         			icon="ui-icon-check" immediate="true" style="margin:0 auto; float:right"/>        		      
     		</p:confirmDialog>    		
 		</h:panelGroup>
-		
+		<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />
 		<h:panelGroup styleClass="col-md-3 column div-right">
 			<p:commandLink action="#{itemBacklogDetalheMB.preparaParaInserir}"
-				oncomplete="dlgTarefaSave.show()" process="@this">
+				oncomplete="dlgTarefaSave.show()" process="@this" update="@widgetVar(dlgTarefaSave)">
 				<i class="fa fa-plus right-sidebar-icon" style="float:right; position: fixed; margin-top: 8px"/>
 				<h:outputText value="Nova tarefa" style="float:right; position: fixed; margin-left: 22px; margin-top: 5px"/>
 			</p:commandLink>
 		</h:panelGroup>
 		
-		<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />		
+				
 	</ui:define>
 	
 	<ui:define name="menu_lateral">
