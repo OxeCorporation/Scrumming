@@ -8,11 +8,16 @@
 		<h:panelGroup styleClass="col-md-9 column div-center">
 			<p:panel>
 				<f:facet name="header">
-					<h:commandLink immediate="true"
-						action="#{itemBacklogDetalheMB.itemBacklogDetalhePage}">
-						<h:outputText styleClass="label-grid-header"
-							value="#{itemBacklogDetalheMB.itemSelecionado.nome}" />
-					</h:commandLink>
+					<h:panelGroup styleClass="col-md-9 column">
+						<h:commandLink immediate="true"
+							action="#{itemBacklogDetalheMB.itemBacklogDetalhePage}">
+							<h:outputText styleClass="label-grid-header"
+								value="#{itemBacklogDetalheMB.itemSelecionado.nome}" />
+						</h:commandLink>
+					</h:panelGroup>
+					<h:panelGroup styleClass="col-md-3 column" style="text-align: right">
+						<h:outputText value="#{itemBacklogDetalheMB.itemSelecionado.statusItembacklog}" />
+					</h:panelGroup>
 				</f:facet>
 				<h:outputLabel styleClass="label-default" value="#{mensagens.label_descricao}#{mensagens.label_dois_pontos}" />
 				<h:outputText styleClass="label-default" value="#{itemBacklogDetalheMB.itemSelecionado.descricao}" />
@@ -31,7 +36,7 @@
 					emptyMessage="#{mensagens.label_lista_de_tarefas_vazia}">
 					<p:panel widgetVar="pn#{tarefa.codigo}" styleClass="col-md-12 column">
 						<f:facet name="header">
-							<h:panelGroup styleClass="col-md-8 column">
+							<h:panelGroup styleClass="col-md-9 column">
 								<h:outputText styleClass="label-grid-header" value="#{tarefa.nome}" />
 							</h:panelGroup>
 							<h:panelGroup styleClass="col-md-3 column" style="text-align:right">
