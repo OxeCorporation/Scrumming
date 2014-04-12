@@ -31,10 +31,10 @@
 					emptyMessage="#{mensagens.label_lista_de_tarefas_vazia}">
 					<p:panel widgetVar="pn#{tarefa.codigo}" styleClass="col-md-12 column">
 						<f:facet name="header">
-							<h:panelGroup styleClass="col-md-8 column">
+							<h:panelGroup styleClass="col-md-8">
 								<h:outputText styleClass="label-grid-header" value="#{tarefa.nome}" />
 							</h:panelGroup>
-							<h:panelGroup styleClass="col-md-3 column" style="text-align:right">
+							<h:panelGroup styleClass="col-md-3" style="text-align:right">
 								<h:outputText value="#{tarefa.situacaoDescricao}" />
 							</h:panelGroup>
 						</f:facet> 
@@ -66,6 +66,52 @@
 							<p:confirm header="#{mensagens.label_remover_tarefa}" 
 								message="#{mensagens.mensagem_tarefa_sera_removida}" icon="ui-icon-alert"/>
 						</p:commandLink>
+						
+						<br/>
+						<p:commandLink id="linkAtribuirParaMim" title="#{mensagens.label_atribuir_para_mim}"
+							action="#{itemBacklogDetalheMB.preparaParaAlterar}"
+							oncomplete="dlgTarefaSave.show()" 
+							process="@this" update="@widgetVar(dlgTarefaSave)">
+							<i class="fa fa-smile-o inside-grid-icon-left"></i>
+							<f:setPropertyActionListener value="#{tarefa}"
+								target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
+						</p:commandLink>
+						
+						<p:commandLink id="linkAtribuirPara" title="#{mensagens.label_atribuir_para}"
+							action="#{itemBacklogDetalheMB.preparaParaAlterar}"
+							oncomplete="dlgTarefaSave.show()" 
+							process="@this" update="@widgetVar(dlgTarefaSave)">
+							<i class="fa fa-share-square-o inside-grid-icon-left"></i>
+							<f:setPropertyActionListener value="#{tarefa}"
+								target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
+						</p:commandLink>
+						
+						<p:commandLink id="linkReporteHora" title="#{mensagens.label_reportar_hora}"
+							action="#{itemBacklogDetalheMB.preparaParaAlterar}"
+							oncomplete="dlgTarefaSave.show()" 
+							process="@this" update="@widgetVar(dlgTarefaSave)">
+							<i class="fa fa-clock-o inside-grid-icon-left"></i>
+							<f:setPropertyActionListener value="#{tarefa}"
+								target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
+						</p:commandLink>
+						
+						<p:commandLink id="linkAlterarSituacao" title="#{mensagens.label_alterar_situacao}"
+							action="#{itemBacklogDetalheMB.preparaParaAlterar}"
+							oncomplete="dlgTarefaSave.show()" 
+							process="@this" update="@widgetVar(dlgTarefaSave)">
+							<i class="fa fa-pencil inside-grid-icon-left"></i>
+							<f:setPropertyActionListener value="#{tarefa}"
+								target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
+						</p:commandLink>
+						
+						<p:commandLink id="linkFavoritarTarefa" title="#{mensagens.label_favoritar_tarefa}"
+							action="#{itemBacklogDetalheMB.preparaParaAlterar}"
+							oncomplete="dlgTarefaSave.show()" 
+							process="@this" update="@widgetVar(dlgTarefaSave)">
+							<i class="fa fa-heart-o inside-grid-icon-left"></i>
+							<f:setPropertyActionListener value="#{tarefa}"
+								target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
+						</p:commandLink>
 					</p:panel>
 				</p:dataGrid>
 			</p:panel>
@@ -77,7 +123,7 @@
         			icon="ui-icon-check" immediate="true" style="margin:0 auto; float:right"/>        		      
     		</p:confirmDialog>    		
 		</h:panelGroup>
-		<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />
+		
 		<h:panelGroup styleClass="col-md-3 column div-right">
 			<p:commandLink action="#{itemBacklogDetalheMB.preparaParaInserir}"
 				oncomplete="dlgTarefaSave.show()" process="@this" update="@widgetVar(dlgTarefaSave)">
@@ -85,8 +131,8 @@
 				<h:outputText value="Nova tarefa" style="float:right; position: fixed; margin-left: 22px; margin-top: 5px"/>
 			</p:commandLink>
 		</h:panelGroup>
-		
-				
+			
+		<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />	
 	</ui:define>
 	
 	<ui:define name="menu_lateral">

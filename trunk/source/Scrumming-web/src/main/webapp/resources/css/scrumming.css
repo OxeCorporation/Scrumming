@@ -103,6 +103,13 @@
 	color: #428BCA;
 }
 
+.inside-grid-icon-left {
+	margin: 5px;
+	float: left;
+	color: #428BCA;
+}
+
+
 .text-area {
 	width: 100% !important;
 	min-height: 60px !important;
