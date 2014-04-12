@@ -1,5 +1,6 @@
 package br.com.scrumming.web.managedbean.sprint;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -62,6 +63,8 @@ public class SprintMB extends AbstractBean {
 	}
 	
 	public String consultarItensDisponiveis() {
+		sprintDTO = new SprintDTO();
+		sprintBacklog = new ArrayList<>();
 		itensDisponiveis = sprintClientService.consultarItensDisponiveis(projetoSelecionado.getCodigo());
 		return sprintCadastroPage();
 	}
