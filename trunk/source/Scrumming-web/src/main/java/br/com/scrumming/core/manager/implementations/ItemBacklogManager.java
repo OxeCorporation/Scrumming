@@ -70,11 +70,11 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
     	List<ItemBacklog> item= new ArrayList<>();
     	for (ItemBacklog itembacklog : listaDeItens){
     		if (itembacklog.getSituacaoBacklog() == SituacaoItemBacklogEnum.FAZER) {
-				itembacklog.setStatusItembacklog("fazer");
+				itembacklog.setStatusItembacklog("Fazer");
 			}else if (itembacklog.getSituacaoBacklog() == SituacaoItemBacklogEnum.FAZENDO) {
-				itembacklog.setStatusItembacklog("fazendo");
+				itembacklog.setStatusItembacklog("Fazendo");
 			}else if (itembacklog.getSituacaoBacklog() == SituacaoItemBacklogEnum.FEITO) {
-				itembacklog.setStatusItembacklog("feito");
+				itembacklog.setStatusItembacklog("Feito");
 			}
     		item.add(itembacklog);
     	}
