@@ -75,12 +75,10 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
     	List<ItemBacklog> listaDeItens= itemRepositorio.consultarPorProjeto(projetoID);
     	List<ItemBacklog> item= new ArrayList<>();
     	for (ItemBacklog itembacklog : listaDeItens){
-    		if (itembacklog.getSituacaoBacklog() == SituacaoItemBacklogEnum.FAZER) {
-				itembacklog.setStatusItembacklog("Fazer");
-			}else if (itembacklog.getSituacaoBacklog() == SituacaoItemBacklogEnum.FAZENDO) {
-				itembacklog.setStatusItembacklog("Fazendo");
-			}else if (itembacklog.getSituacaoBacklog() == SituacaoItemBacklogEnum.FEITO) {
-				itembacklog.setStatusItembacklog("Feito");
+    		if (itembacklog.getSituacaoBacklog() == SituacaoItemBacklogEnum.FEITO) {
+    			itembacklog.setStatusItembacklog("Concluido");
+			}else {
+				itembacklog.setStatusItembacklog("");
 			}
     		item.add(itembacklog);
     	}
