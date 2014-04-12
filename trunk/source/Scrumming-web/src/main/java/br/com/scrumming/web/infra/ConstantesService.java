@@ -33,7 +33,6 @@ public final class ConstantesService {
 		public static final String URL_CONSULTAR_POR_PROJETO = "/itemBacklog/list/{projetoID}";
 		public static final String URL_CANCELAR = "/itemBacklog/cancel";
 		public static final String URL_CONSLTAR_POR_ID = "/itemBacklog/{itemID}";
-		public static final String URL_CONSULTAR_SITUACAO_POR_PROJETO = "/itemBacklog/list/{projetoIdSituacaoItem}";
 	}
 	
 	public final class Projeto{

@@ -28,13 +28,6 @@ public class ItemBacklogClientService extends AbstractClientService{
 		return Arrays.asList(forEntity.getBody());
 	}
 	
-	public List<ItemBacklog> consultarSituacaoDoItemPorProjeto(Integer projetoID){
-		ResponseEntity<ItemBacklog[]> forEntity = getRestTemplate().
-				getForEntity(getURIService(ConstantesService.
-				ItemBacklog.URL_CONSULTAR_SITUACAO_POR_PROJETO), ItemBacklog[].class, projetoID);
-		return Arrays.asList(forEntity.getBody());
-	}
-	
 	public void cancelarItemBacklog(ItemBacklog item) {
 		
 		getRestTemplate().postForObject(
