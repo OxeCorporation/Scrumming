@@ -15,7 +15,9 @@ import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
 import br.com.scrumming.domain.SprintBacklogChave;
+import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
+import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
 @Service
 public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintBacklogChave> implements ISprintBacklogManager {
@@ -69,8 +71,15 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 		if (itemsDaSprint.size() > 0) {
 			// Para cada item
 			for (ItemBacklog itemBacklog : itemsDaSprint) {
+				itemBacklog.setDeliverable(true);
 				// Seta a lista de tarefas desse item.
-				itemBacklog.setTarefas(tarefaManager.consultarPorItemBacklog(itemBacklog.getCodigo()));
+				List<Tarefa> tarefas = tarefaManager.consultarPorItemBacklog(itemBacklog.getCodigo());
+				for (Tarefa tarefa : tarefas) {
+					if (tarefa.getSituacao() != SituacaoTarefaEnum.FEITO) {
+						itemBacklog.setDeliverable(false);
+					}
+				}
+				itemBacklog.setTarefas(tarefas);
 			}
 		}
 		return itemsDaSprint;

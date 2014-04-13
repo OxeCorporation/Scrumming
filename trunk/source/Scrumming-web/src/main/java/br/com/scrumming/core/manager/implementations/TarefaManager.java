@@ -71,14 +71,19 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
         for (Tarefa tarefa : listaDeTarefas) {
         	if (tarefa.getSituacao() == SituacaoTarefaEnum.PARA_FAZER){
         		tarefa.setSituacaoDescricao("Planejada");
+        		tarefa.setBackgroundColor("background-color: grey");
         	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.FAZENDO) {
         		tarefa.setSituacaoDescricao("Em progresso");
+        		tarefa.setBackgroundColor("background-color: blue");
         	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.FEITO) {
         		tarefa.setSituacaoDescricao("Concluída");
+        		tarefa.setBackgroundColor("background-color: green");
         	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.CANCELADO) {
         		tarefa.setSituacaoDescricao("Cancelada");
+        		tarefa.setBackgroundColor("background-color: red");
         	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.EM_IMPEDIMENTO) {
         		tarefa.setSituacaoDescricao("Em impedimento");
+        		tarefa.setBackgroundColor("background-color: orange");
         	}
         	
         	novaListaDeTarefas.add(tarefa);

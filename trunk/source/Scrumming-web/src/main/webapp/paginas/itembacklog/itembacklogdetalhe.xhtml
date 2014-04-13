@@ -8,24 +8,17 @@
 		<h:panelGroup styleClass="col-md-9 column div-center">
 			<p:panel>
 				<f:facet name="header">
-					<h:panelGroup styleClass="col-md-9 column">
-						<h:commandLink immediate="true"
-							action="#{itemBacklogDetalheMB.itemBacklogDetalhePage}">
-							<h:outputText styleClass="label-grid-header"
-								value="#{itemBacklogDetalheMB.itemSelecionado.nome}" />
-						</h:commandLink>
-					</h:panelGroup>
-					<h:panelGroup styleClass="col-md-3 column" style="text-align: right">
-						<h:outputText value="#{itemBacklogDetalheMB.itemSelecionado.statusItembacklog}" />
-					</h:panelGroup>
+					<h:commandLink immediate="true" action="#{itemBacklogDetalheMB.itemBacklogDetalhePage}">
+						<h:outputText styleClass="label-grid-header" value="#{itemBacklogDetalheMB.itemSelecionado.nome}" />
+					</h:commandLink>
+					<h:outputText value="#{itemBacklogDetalheMB.itemSelecionado.statusItembacklog}" style="float: right" />
 				</f:facet>
 				<h:outputLabel styleClass="label-default" value="#{mensagens.label_descricao}#{mensagens.label_dois_pontos}" />
 				<h:outputText styleClass="label-default" value="#{itemBacklogDetalheMB.itemSelecionado.descricao}" />
 				<br />
 				<h:outputLabel styleClass="label-default" value="#{mensagens.label_criterio_aceitacao}#{mensagens.label_dois_pontos}" />
 				<h:outputText styleClass="output-default" value="#{itemBacklogDetalheMB.itemSelecionado.criterioAceitacao}" />
-			</p:panel>
-			
+			</p:panel>			
 			<p:panel toggleable="true" toggleSpeed="500" collapsed="false">
 				<f:facet name="header">					
 					<h:outputText styleClass="label-grid-header" value="#{mensagens.label_lista_de_tarefas}" />
@@ -35,88 +28,43 @@
 					columns="1" style="width:100%;"
 					emptyMessage="#{mensagens.label_lista_de_tarefas_vazia}">
 					<p:panel widgetVar="pn#{tarefa.codigo}" styleClass="col-md-12 column">
+						
 						<f:facet name="header">
-							<h:panelGroup styleClass="col-md-9 column">
-								<h:outputText styleClass="label-grid-header" value="#{tarefa.nome}" />
-							</h:panelGroup>
-							<h:panelGroup styleClass="col-md-3 column" style="text-align:right">
-								<h:outputText value="#{tarefa.situacaoDescricao}" />
-							</h:panelGroup>
-						</f:facet> 
+							<h:outputText styleClass="label-grid-header" value="#{tarefa.nome}" />							
+						</f:facet> 						
 						
-						<h:outputLabel styleClass="label-default" value="#{mensagens.label_descricao}#{mensagens.label_dois_pontos}" />
-						<h:outputText styleClass="output-default" value="#{tarefa.descricao}" />
-						
-						<p:commandLink id="alterarTarefaLink" title="#{mensagens.label_alterar_tarefa}"
-							action="#{itemBacklogDetalheMB.preparaParaAlterar}"
-							oncomplete="dlgTarefaSave.show()" 
-							process="@this" update="@widgetVar(dlgTarefaSave)">
-							<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
-							<f:setPropertyActionListener value="#{tarefa}"
-								target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
-						</p:commandLink>
-						
-						<br/>
-						
-						<h:outputLabel styleClass="label-default" value="#{mensagens.label_tempo_estimado}#{mensagens.label_dois_pontos}" />
-						<h:outputText styleClass="output-default" value="#{tarefa.tempoEstimado}" />
-						
-						<p:commandLink id="removerTarefaLink" immediate="true"
-							title="#{mensagens.label_remover_tarefa}"
-							action="#{itemBacklogDetalheMB.removerTarefa}" 
-							process="@this" update="@widgetVar(dataGridTarefas)">
-							<h:outputText styleClass="fa fa-trash-o inside-grid-icon" />
-							<f:setPropertyActionListener value="#{tarefa}"
-								target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
-							<p:confirm header="#{mensagens.label_remover_tarefa}" 
-								message="#{mensagens.mensagem_tarefa_sera_removida}" icon="ui-icon-alert"/>
-						</p:commandLink>
-						
-						<br/>
-						<p:commandLink id="linkAtribuirParaMim" title="#{mensagens.label_atribuir_para_mim}"
-							action="#{itemBacklogDetalheMB.preparaParaAlterar}"
-							oncomplete="dlgTarefaSave.show()" 
-							process="@this" update="@widgetVar(dlgTarefaSave)">
-							<i class="fa fa-smile-o inside-grid-icon-left"></i>
-							<f:setPropertyActionListener value="#{tarefa}"
-								target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
-						</p:commandLink>
-						
-						<p:commandLink id="linkAtribuirPara" title="#{mensagens.label_atribuir_para}"
-							action="#{itemBacklogDetalheMB.preparaParaAlterar}"
-							oncomplete="dlgTarefaSave.show()" 
-							process="@this" update="@widgetVar(dlgTarefaSave)">
-							<i class="fa fa-share-square-o inside-grid-icon-left"></i>
-							<f:setPropertyActionListener value="#{tarefa}"
-								target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
-						</p:commandLink>
-						
-						<p:commandLink id="linkReporteHora" title="#{mensagens.label_reportar_hora}"
-							action="#{itemBacklogDetalheMB.preparaParaAlterar}"
-							oncomplete="dlgTarefaSave.show()" 
-							process="@this" update="@widgetVar(dlgTarefaSave)">
-							<i class="fa fa-clock-o inside-grid-icon-left"></i>
-							<f:setPropertyActionListener value="#{tarefa}"
-								target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
-						</p:commandLink>
-						
-						<p:commandLink id="linkAlterarSituacao" title="#{mensagens.label_alterar_situacao}"
-							action="#{itemBacklogDetalheMB.preparaParaAlterar}"
-							oncomplete="dlgTarefaSave.show()" 
-							process="@this" update="@widgetVar(dlgTarefaSave)">
-							<i class="fa fa-pencil inside-grid-icon-left"></i>
-							<f:setPropertyActionListener value="#{tarefa}"
-								target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
-						</p:commandLink>
-						
-						<p:commandLink id="linkFavoritarTarefa" title="#{mensagens.label_favoritar_tarefa}"
-							action="#{itemBacklogDetalheMB.preparaParaAlterar}"
-							oncomplete="dlgTarefaSave.show()" 
-							process="@this" update="@widgetVar(dlgTarefaSave)">
-							<i class="fa fa-heart-o inside-grid-icon-left"></i>
-							<f:setPropertyActionListener value="#{tarefa}"
-								target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
-						</p:commandLink>
+						<h:panelGroup styleClass="col-md-9 column" style="text-align: justify;">
+							<h:outputText styleClass="output-default" value="#{tarefa.descricao}" />
+						</h:panelGroup>
+						<h:panelGroup styleClass="col-md-1 column">
+							<h:outputText value="#{tarefa.situacaoDescricao}" style="color: white; #{tarefa.backgroundColor};" styleClass="label-medium"/>
+						</h:panelGroup>
+						<h:panelGroup styleClass="col-md-1 column panel-estimated-time">
+							<h:outputText value="#{tarefa.tempoEstimado}H" style="font-size: 20px; text-align: center;"/>
+							<br/>
+							<h:outputText value="#{mensagens.label_tempo_estimado}" />
+						</h:panelGroup>
+						<h:panelGroup styleClass="col-md-1 column">
+							<p:commandLink id="alterarTarefaLink" title="#{mensagens.label_alterar_tarefa}"
+								action="#{itemBacklogDetalheMB.preparaParaAlterar}"
+								oncomplete="dlgTarefaSave.show()" 
+								process="@this" update="@widgetVar(dlgTarefaSave)">
+								<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
+								<f:setPropertyActionListener value="#{tarefa}"
+									target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
+							</p:commandLink>
+							<br/>
+							<p:commandLink id="removerTarefaLink" immediate="true"
+								title="#{mensagens.label_remover_tarefa}"
+								action="#{itemBacklogDetalheMB.removerTarefa}" 
+								process="@this" update="@widgetVar(dataGridTarefas)">
+								<h:outputText styleClass="fa fa-trash-o inside-grid-icon" />
+								<f:setPropertyActionListener value="#{tarefa}"
+									target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
+								<p:confirm header="#{mensagens.label_remover_tarefa}" 
+									message="#{mensagens.mensagem_tarefa_sera_removida}" icon="ui-icon-alert"/>
+							</p:commandLink>
+						</h:panelGroup>
 					</p:panel>
 				</p:dataGrid>
 			</p:panel>

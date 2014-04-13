@@ -42,7 +42,7 @@ public class SprintDetalheMB extends AbstractBean {
 		tarefaSelecionada = new Tarefa();
 		clienteService = new SprintClientService();
 		tarefaClientService = new TarefaClientService();
-		itens = clienteService.consultarSprintBacklog(sprintSelecionada.getCodigo());	
+		itens = clienteService.consultarSprintBacklog(sprintSelecionada.getCodigo());
 	}
 	
 	public void preparaParaInserirTarefa() {

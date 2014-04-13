@@ -29,48 +29,30 @@
 					<p:panel>
 						<f:facet name="header">
 							<p:commandLink action="#{sprintMB.sprintDetailPage}">
-								<h:panelGroup styleClass="col-md-9 column">
-									<h:outputText value="#{sprint.nome}" />
-								</h:panelGroup>
-								<h:panelGroup styleClass="col-md-3 column"
-									style="text-align:right">
-									<h:outputText value="#{sprint.statusSprint}" />
-								</h:panelGroup>
-								<f:setPropertyActionListener value="#{sprint}"
-									target="#{sprintMB.sprintSelecionada}" />
+								<h:outputText value="#{sprint.nome}" />
+								<f:setPropertyActionListener value="#{sprint}" target="#{sprintMB.sprintSelecionada}" />
 							</p:commandLink>
+							<h:outputText value="#{sprint.statusSprint}" style="float: right" />
 						</f:facet>
 						<h:panelGroup style="width:100%">
-							<h:outputLabel styleClass="label-small"
-								value="#{mensagens.label_dataINI}" />
-							<h:outputText styleClass="output-small"
-								value="#{sprint.dataInicioFormatada}" />
+							<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataINI}" />
+							<h:outputText styleClass="output-small" value="#{sprint.dataInicioFormatada}" />
 							<ui:fragment rendered="#{sprint.editable}">
-								<p:commandLink title="Alterar sprint"
-									action="#{sprintMB.consultarSprintDTO}" ajax="false">
-									<h:outputText
-										styleClass="fa fa-pencil-square-o inside-grid-icon" />
-									<f:setPropertyActionListener value="#{sprint}"
-										target="#{sprintMB.sprintSelecionada}" />
+								<p:commandLink title="Alterar sprint" action="#{sprintMB.consultarSprintDTO}" ajax="false">
+									<i class="fa fa-pencil-square-o inside-grid-icon"/>
+									<f:setPropertyActionListener value="#{sprint}" target="#{sprintMB.sprintSelecionada}" />
 								</p:commandLink>
 							</ui:fragment>
 							<h:outputLabel value="|" styleClass="pipe-separator" />
-							<h:outputLabel styleClass="label-small"
-								value="#{mensagens.label_dataFIM}" />
-							<h:outputText styleClass="output-small"
-								value="#{sprint.dataFimFormatada}" />
+							<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataFIM}" />
+							<h:outputText styleClass="output-small" value="#{sprint.dataFimFormatada}" />
 							<br />
-							<h:outputText styleClass="output-default"
-								value="#{sprint.descricao}" />
+							<h:outputText styleClass="output-default" value="#{sprint.descricao}" />
 							<ui:fragment rendered="#{sprint.editable}">
-								<p:commandLink title="Fechar sprint"
-									action="#{sprintMB.fecharSprint}" ajax="false" update="@form">
-									<h:outputText styleClass="fa fa-lock inside-grid-icon" />
-									<f:setPropertyActionListener value="#{sprint}"
-										target="#{sprintMB.sprintSelecionada}" />
-									<p:confirm header="#{mensagens.label_remover_tarefa}"
-										message="#{mensagens.mensagem_fechar_sprint}"
-										icon="ui-icon-alert" />
+								<p:commandLink title="Fechar sprint" action="#{sprintMB.fecharSprint}" ajax="false" update="@form">
+									<i class="fa fa-lock inside-grid-icon"/>
+									<f:setPropertyActionListener value="#{sprint}" target="#{sprintMB.sprintSelecionada}" />
+									<p:confirm header="#{mensagens.label_remover_tarefa}" message="#{mensagens.mensagem_fechar_sprint}" icon="ui-icon-alert" />
 								</p:commandLink>
 							</ui:fragment>
 						</h:panelGroup>

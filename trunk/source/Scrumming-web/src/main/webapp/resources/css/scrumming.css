@@ -47,8 +47,29 @@
 	font-weight: normal;
 }
 
+.panel-estimated-time {
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+	text-align: center;
+	vertical-align: middle;
+	font-family: Arial;
+	font-size: 14px;
+	line-height: 1.42857;
+	font-weight: normal;
+}
+
 /*
-* Texto reduzido
+* Texto medio
+*/
+.output-medium {
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+	font-family: Arial;
+	font-size: 12px;
+	line-height: 1.42857;
+	font-weight: normal;
+}
+
+/*
+* Texto pequeno
 */
 .output-small {
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
@@ -59,7 +80,19 @@
 }
 
 /*
-* Label reduzido
+* Label medio
+*/
+.label-medium {
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+	font-family: Arial;
+	font-size: 12px;
+	line-height: 1.42857;
+	font-weight: normal;
+	margin-right: 5px;
+}
+
+/*
+* Label pequeno
 */
 .label-small {
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
@@ -110,7 +143,7 @@
 }
 
 .inside-header-icon {
-	margin: 0 auto;
+	margin: 5px;
 	float: right;
 	color: #FFFFFF;
 }
@@ -132,23 +165,23 @@
 }
 
 .navbar-default .navbar-brand {
-    color: #fff;
+	color: #fff;
 }
 
 .navbar-default {
-    background-color: #428bca;
+	background-color: #428bca;
 }
 
-.navbar-default .navbar-nav > li > a {
-    color: #fff;
+.navbar-default .navbar-nav>li>a {
+	color: #fff;
 }
 
 .navbar-toggle {
-    background-color: #fff;
+	background-color: #fff;
 }
 
 .navbar-default .navbar-toggle .icon-bar {
-    background-color: #428bca;
+	background-color: #428bca;
 }
 
 .ui-growl {
@@ -157,7 +190,7 @@
 }
 
 .div-center {
-	float:left;
+	float: left;
 }
 
 .div-right {
