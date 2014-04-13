@@ -72,6 +72,9 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 			// Para cada item
 			for (ItemBacklog itemBacklog : itemsDaSprint) {
 				itemBacklog.setDeliverable(true);
+				if (itemBacklog.getSituacaoBacklog() == SituacaoItemBacklogEnum.FEITO) {
+					itemBacklog.setDeliverable(false);
+				}
 				// Seta a lista de tarefas desse item.
 				List<Tarefa> tarefas = tarefaManager.consultarPorItemBacklog(itemBacklog.getCodigo());
 				for (Tarefa tarefa : tarefas) {

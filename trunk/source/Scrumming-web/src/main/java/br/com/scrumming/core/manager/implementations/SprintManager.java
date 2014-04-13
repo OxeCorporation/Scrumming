@@ -23,7 +23,8 @@ import br.com.scrumming.domain.SprintDTO;
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
-
+import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
+	
 @Service
 public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		ISprintManager {
@@ -188,8 +189,15 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		List<SprintBacklog> itens = sprintBacklogManager.listarAtivosPorSprint(sprintConsulta);
 		for (SprintBacklog item : itens) {
 			ItemBacklog itemBacklog = itemBacklogManager.findByKey(item.getItemBacklog().getCodigo());
+			
 			if (itemBacklog.getSituacaoBacklog() != SituacaoItemBacklogEnum.FEITO) {
+				List<Tarefa> tarefas = tarefaManager.consultarPorItemBacklogIhNotSituacao(itemBacklog.getCodigo(), SituacaoTarefaEnum.FEITO);
+				if (tarefas.size() == 0) {
+					itemBacklog.setSituacaoBacklog(SituacaoItemBacklogEnum.FEITO);
+					itemBacklogManager.insertOrUpdate(itemBacklog);
+				}
 				item.setAtivo(false);
+				sprintBacklogManager.insertOrUpdate(item);
 			}
 		}
 		sprint = findByKey(sprint.getCodigo());

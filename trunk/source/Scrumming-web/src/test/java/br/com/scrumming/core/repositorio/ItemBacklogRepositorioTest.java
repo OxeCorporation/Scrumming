@@ -1,7 +1,5 @@
 package br.com.scrumming.core.repositorio;
 
-import java.util.List;
-
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;

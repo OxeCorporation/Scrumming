@@ -6,9 +6,7 @@ import java.util.List;
 import javax.faces.model.DataModel;
 import javax.faces.model.DataModelEvent;
 import javax.faces.model.DataModelListener;
-import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.CollectionType;
 import org.primefaces.model.SelectableDataModel;
 
 public class ListaDataModel<T extends Serializable> extends DataModel<T> implements SelectableDataModel<T>{

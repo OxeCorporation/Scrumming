@@ -154,13 +154,6 @@ public class ItemBacklog extends ObjetoPersistente<Integer> {
         this.roi = roi;
     }
 
-    public SituacaoItemBacklogEnum getSituacaoBacklog() {
-        return situacaoBacklog;
-    }
-
-    public void setSituacaoBacklog(SituacaoItemBacklogEnum situacaoBacklog) {
-        this.situacaoBacklog = situacaoBacklog;
-    }
     
     public boolean isAtivo() {
 		return isAtivo;
@@ -211,5 +204,13 @@ public class ItemBacklog extends ObjetoPersistente<Integer> {
 
 	public void setDeliverable(boolean deliverable) {
 		this.deliverable = deliverable;
+	}
+
+	public SituacaoItemBacklogEnum getSituacaoBacklog() {
+		return situacaoBacklog;
+	}
+
+	public void setSituacaoBacklog(SituacaoItemBacklogEnum situacaoBacklog) {
+		this.situacaoBacklog = situacaoBacklog;
 	}
 }

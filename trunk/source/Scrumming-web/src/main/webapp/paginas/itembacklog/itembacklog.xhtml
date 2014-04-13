@@ -22,16 +22,12 @@
 				<p:panel styleClass="col-md-12 column">
 					<p:panel>
 						<f:facet name="header">
-						<p:toolbarGroup style="text-align:right">
-							<p:commandLink action="#{itemBacklogMB.itembacklogDetalhePage}" immediate="true">
-								<h:outputText value="#{item.nome}" styleClass="label-grid-header"  />
-								<f:setPropertyActionListener value="#{item}" target="#{itemBacklogMB.itemSelecionado}" />
-							</p:commandLink>
-						</p:toolbarGroup>
-						<p:toolbarGroup style="text-align:right">
-							<p:commandButton  value="Story #{item.storyPoints}" style="font-size:75%;width:15%;float:right" immediate="true"/>
-							<p:commandButton  value="Valor #{item.valorNegocio}" style="font-size:75%;width:15%;float:right" immediate="true"/>
-						</p:toolbarGroup>
+						<p:commandLink action="#{itemBacklogMB.itembacklogDetalhePage}" immediate="true">
+							<h:outputText value="#{item.nome}"/>
+							<f:setPropertyActionListener value="#{item}" target="#{itemBacklogMB.itemSelecionado}" />
+						</p:commandLink>
+						<p:commandButton value="Story #{item.storyPoints}" style="font-size:75%; width:15%; float:right;" immediate="true"/>
+						<p:commandButton value="Valor #{item.valorNegocio}" style="font-size:75%; width:15%; float:right;" immediate="true"/>
 						</f:facet>
 						<h:panelGroup columns="1" style="width:100%">
 							<!-- FAZER O AJUSTE PARA ORGANIZAR O LAYOUT -->

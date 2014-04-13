@@ -12,7 +12,6 @@ import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.IDailyScrumManager;
 import br.com.scrumming.core.repositorio.DailyScrumRepositorio;
 import br.com.scrumming.domain.DailyScrum;
-import br.com.scrumming.domain.Sprint;
 
 @Service
 public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>

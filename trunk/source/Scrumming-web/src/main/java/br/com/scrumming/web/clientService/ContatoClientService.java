@@ -3,13 +3,8 @@ package br.com.scrumming.web.clientService;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-
-import org.primefaces.context.RequestContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.context.request.FacesRequestAttributes;
 
 import br.com.scrumming.domain.Contato;
 import br.com.scrumming.web.infra.AbstractClientService;

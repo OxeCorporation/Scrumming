@@ -10,6 +10,8 @@ import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
+import br.com.scrumming.web.clientService.ItemBacklogClientService;
 import br.com.scrumming.web.clientService.SprintClientService;
 import br.com.scrumming.web.clientService.TarefaClientService;
 import br.com.scrumming.web.infra.FacesMessageUtil;
@@ -29,22 +31,32 @@ public class SprintDetalheMB extends AbstractBean {
 	private Projeto projetoSelecionado;
 	@FlashScoped
 	private ItemBacklog itemSelecionado;
-	private SprintClientService clienteService;
+	private SprintClientService sprintClienteService;
 	@FlashScoped
 	private Tarefa tarefa;
 	@FlashScoped
 	private Tarefa tarefaSelecionada;
 	private TarefaClientService tarefaClientService;
+	private ItemBacklogClientService itemClienteService;
 		
 	@Override
 	public void inicializar() {
 		tarefa = new Tarefa();
 		tarefaSelecionada = new Tarefa();
-		clienteService = new SprintClientService();
+		sprintClienteService = new SprintClientService();
+		itemClienteService = new ItemBacklogClientService();
 		tarefaClientService = new TarefaClientService();
-		itens = clienteService.consultarSprintBacklog(sprintSelecionada.getCodigo());
+		itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo());
 	}
 	
+	/*FUNÇÕES REFERENTES AO ITEMBACKLOG*/
+	public void entregarItem() {
+		itemSelecionado.setSituacaoBacklog(SituacaoItemBacklogEnum.FEITO);
+		itemClienteService.salvarItemBacklog(itemSelecionado);
+		itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo());
+	}
+	
+	/* FUNÇÕES REFERENTES À TAREFA*/
 	public void preparaParaInserirTarefa() {
 		tarefa = new Tarefa();
 	}

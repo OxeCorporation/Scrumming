@@ -61,10 +61,10 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
     @Transactional(rollbackFor = Exception.class)
 	public void cancelarItem(ItemBacklog item) {
     	if (item.getCodigo() != null){
-			if (item.isAtivo() == true) {
-				item.setAtivo(false);
+			if (item.getSituacaoBacklog() != SituacaoItemBacklogEnum.CANCELADO) {
+				item.setSituacaoBacklog(SituacaoItemBacklogEnum.CANCELADO);
 			}else{
-				item.setAtivo(true);
+				item.setSituacaoBacklog(SituacaoItemBacklogEnum.FAZER);
 			}
 		insertOrUpdate(item);
 	    }

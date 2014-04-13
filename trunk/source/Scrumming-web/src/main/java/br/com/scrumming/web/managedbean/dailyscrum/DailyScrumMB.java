@@ -5,8 +5,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import br.com.scrumming.web.clientService.DailyScrumClientService;
 import br.com.scrumming.domain.DailyScrum;
+import br.com.scrumming.web.clientService.DailyScrumClientService;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.bean.AbstractBean;
 

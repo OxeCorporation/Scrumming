@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.scrumming.core.infra.AbstractRepositorioTest;
-import br.com.scrumming.core.repositorio.ContatoRepositorio;
 import br.com.scrumming.domain.Contato;
 import br.com.scrumming.domain.ContatoUtil;
 
