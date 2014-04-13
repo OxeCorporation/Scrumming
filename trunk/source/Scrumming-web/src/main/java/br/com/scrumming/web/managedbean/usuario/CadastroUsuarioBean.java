@@ -14,7 +14,6 @@ import br.com.scrumming.web.clientService.UsuarioEmpresaClientService;
 import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.PaginasUtil;
 import br.com.scrumming.web.infra.bean.AbstractBean;
-import br.com.scrumming.web.infra.jsf.ListaDataModel;
 
 @ManagedBean
 @ViewScoped
@@ -24,10 +23,8 @@ public class CadastroUsuarioBean extends AbstractBean {
 	 * serial version
 	 */
 	private static final long serialVersionUID = 1L;
-	private Usuario usuarioSelecionado;
 	private Usuario usuario = new Usuario();
     private List<Usuario> usuarios;
-    private ListaDataModel<Usuario> dataModelUsuario;
     private UsuarioEmpresaClientService empresaService;
     private UsuarioClientService usuarioClientService;
     @ManagedProperty(value="#{sessaoMB.empresaSelecionada}")
@@ -46,12 +43,12 @@ public class CadastroUsuarioBean extends AbstractBean {
 
     private void atualizarLista(){
     	 usuarios = empresaService.consultarUsuariosPorEmpresa(empresa.getCodigo());
-         dataModelUsuario = new ListaDataModel<Usuario>(usuarios);
     }
     
     public String sprintPage(){
     	return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
     }
+
     
     public void salvar() {
     	usuarioClientService.salvarUsuario(usuario, empresa.getCodigo());
@@ -68,18 +65,11 @@ public class CadastroUsuarioBean extends AbstractBean {
     	usuario = new Usuario();
     	return "";
     }
-    public String alterar() {
-    	if(usuarioSelecionado == null){
-    		//TODO esdras - MEnsagem de erro nenhun usuario selecionado
-    	}else{
-    		usuario = usuarioSelecionado;
-    		
-    	}
-        return "";
+    public void alterar() {
     }
 
     public String desativar() {
-    	usuarioClientService.desativarUsuario(usuarioSelecionado.getCodigo(),empresa.getCodigo());
+    	usuarioClientService.desativarUsuario(usuario.getCodigo(),empresa.getCodigo());
     	atualizarLista();
     	mensagemSucesso();
         return "";
@@ -95,14 +85,6 @@ public class CadastroUsuarioBean extends AbstractBean {
         this.usuarios = usuarios;
     }
 
-    public Usuario getUsuarioSelecionado() {
-        return usuarioSelecionado;
-    }
-
-    public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
-    		this.usuarioSelecionado = usuarioSelecionado;
-    }
-
     public Empresa getEmpresa() {
         return empresa;
     }
@@ -110,14 +92,6 @@ public class CadastroUsuarioBean extends AbstractBean {
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
     }
-
-	public ListaDataModel<Usuario> getDataModelUsuario() {
-		return dataModelUsuario;
-	}
-
-	public void setDataModelUsuario(ListaDataModel<Usuario> dataModelUsuario) {
-		this.dataModelUsuario = dataModelUsuario;
-	}
 
 	public Usuario getUsuario() {
 		return usuario;
