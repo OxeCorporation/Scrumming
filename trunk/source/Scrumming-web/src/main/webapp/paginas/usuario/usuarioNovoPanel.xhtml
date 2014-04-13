@@ -12,46 +12,45 @@
 
 			<p:messages id="messagesNovoUsuario"  showDetail="true" autoUpdate="true" showSummary="false" closable="true" />
 			<br/>
-			<div class="form-group">
-				<p:outputLabel value="#{mensagens.label_nome_usuario}" styleClass="col-md-4 control-label" for="txtNome"/>
-				<div class="col-md-6">
+			<h:panelGroup display="block" styleClass="form-group">
+				<p:outputLabel id="labelNome" value="#{mensagens.label_nome_usuario}" styleClass="col-md-4 control-label" for="txtNome"/>
+				<h:panelGroup display="block" styleClass="col-md-6">
 					<p:inputText id="txtNome" 
 					   placeholder="#{mesagens.label_digite_nome_usuario}" 
 					   styleClass="form-control input-md" value="#{cadastroUsuarioBean.usuario.nome}"/>
-				</div>
-			</div>
+			    </h:panelGroup>
+			</h:panelGroup>
 			<br/>
 			<br/>
 			<br/>
-			<div class="form-group">
-				<p:outputLabel value="#{mensagens.label_email}" styleClass="col-md-4 control-label" for="txtEmail"/>
-				<div class="col-md-6">
+			<h:panelGroup display="block" styleClass="form-group">
+				<p:outputLabel id="labelEmail" value="#{mensagens.label_email}" styleClass="col-md-4 control-label" for="txtEmail"/>
+				<h:panelGroup display="block" styleClass="col-md-6">
 					<p:inputText id="txtEmail" 
 					   placeholder="#{mesagens.label_digite_email_usuario}" 
 					   styleClass="form-control input-md" value="#{cadastroUsuarioBean.usuario.email}"
 					   validatorMessage="#{mensagens.mensagem_email_invalido}"/>
-				</div>
-			</div>
+				</h:panelGroup>
+			</h:panelGroup>
 			<br/>
 			<br/>
-			<div class="form-group">
-				<p:outputLabel value="#{mensagens.label_login}" styleClass="col-md-4 control-label" for="txtLogin"/>
-				<div class="col-md-6">
+			<h:panelGroup display="block" styleClass="form-group">
+				<p:outputLabel id="labelLogin" value="#{mensagens.label_login}" styleClass="col-md-4 control-label" for="txtLogin"/>
+				<h:panelGroup display="block" styleClass="col-md-6">
 					<p:inputText id="txtLogin" 
 					   placeholder="#{mesagens.label_digite_login_usuario}" styleClass="form-control input-md" 
 					   value="#{cadastroUsuarioBean.usuario.login}" />
-				</div>
-			</div>
+				</h:panelGroup>
+			</h:panelGroup>
 			<br/>
 			<br/>
-			<div class="form-group">
-				<p:outputLabel value="#{mensagens.label_senha}" styleClass="col-md-4 control-label" for="txtSenha"/>
-				<div class="col-md-6">
+			<h:panelGroup display="block" styleClass="form-group">
+				<p:outputLabel id="labelSenha" value="#{mensagens.label_senha}" styleClass="col-md-4 control-label" for="txtSenha"/>
+				<h:panelGroup display="block" styleClass="col-md-6">
 					<p:password id="txtSenha" placeholder="#{mesagens.label_digite_senha_usuario}" 
 					styleClass="form-control input-md" value="#{cadastroUsuarioBean.usuario.senha}" redisplay="true" />
-				</div>
-			</div>
-
+				</h:panelGroup>
+			</h:panelGroup>
 
 
 		<f:facet name="footer">
@@ -65,8 +64,9 @@
 				<p:commandButton 
 				    id="salvarCancelarButton" 
 				    value="#{mensagens.botao_cancelar}"
-					onclick="novoUsuarioModal.hide()" 
-					immediate="true"/>
+					onclick="novoUsuarioModal.hide()"
+					type="button"
+					update="@form" />
 			</div>
 		</f:facet>
 	</p:dialog>
