@@ -13,4 +13,5 @@ public interface ITarefaManager extends IManager<Tarefa, Integer>{
 	
 	List<Tarefa> consultarPorItemBacklog(Integer itemBacklogID);
 	List<Tarefa> consultarPorItemBacklogIhSituacao(Integer itemBacklogID, SituacaoTarefaEnum situacao);
+	List<Tarefa> consultarPorItemBacklogIhNotSituacao(Integer itemBacklogID, SituacaoTarefaEnum situacao);
 }

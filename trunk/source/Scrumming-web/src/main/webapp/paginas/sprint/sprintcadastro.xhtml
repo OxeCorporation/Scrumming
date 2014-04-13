@@ -9,8 +9,10 @@
 	<ui:define name="conteudo">
 		<h:outputStylesheet library="css" name="scrumming.css" />
 		<!-- Trecho será retirado posteriormente -->
-		<h:outputText style="color: white" value="#{sprintCadastroMB.sprintSelecionada.nome}"/>
-		<h:outputText style="color: white" value="#{sprintCadastroMB.projetoSelecionado.nome}"/>
+		<h:outputText style="color: white"
+			value="#{sprintCadastroMB.sprintSelecionada.nome}" />
+		<h:outputText style="color: white"
+			value="#{sprintCadastroMB.projetoSelecionado.nome}" />
 		<br />
 		<h:panelGroup styleClass="col-md-9 column div-center">
 			<h:panelGroup style="width:100%">
@@ -18,12 +20,21 @@
 					<h:panelGroup>
 						<p:panel>
 							<!-- Text input-->
-							<h:outputLabel styleClass="label-default" value="#{mensagens.label_nome}" />
-							<h:inputText id="nome" name="nome" value="#{sprintCadastroMB.sprintDTO.sprint.nome}" type="text" placeholder="Nome da sprint" class="form-control input-md output-default" required="true" style="width: 100%" />
+							<h:outputLabel styleClass="label-default"
+								value="#{mensagens.label_nome}" />
+							<h:inputText id="nome" name="nome"
+								value="#{sprintCadastroMB.sprintDTO.sprint.nome}" type="text"
+								placeholder="Nome da sprint"
+								class="form-control input-md output-default" required="true"
+								style="width: 100%" />
 							<br />
 							<!-- Textarea -->
-							<h:outputLabel styleClass="label-default" value="#{mensagens.label_objetivo}" />
-							<h:inputTextarea value="#{sprintCadastroMB.sprintDTO.sprint.descricao}" class="form-control text-area" id="objetivo" name="objetivo" required="true" />
+							<h:outputLabel styleClass="label-default"
+								value="#{mensagens.label_objetivo}" />
+							<h:inputTextarea
+								value="#{sprintCadastroMB.sprintDTO.sprint.descricao}"
+								class="form-control text-area" id="objetivo" name="objetivo"
+								required="true" />
 						</p:panel>
 					</h:panelGroup>
 					<br />
@@ -31,118 +42,147 @@
 						<p:panel style="height: 100px;">
 							<h:panelGroup style="width: 150px">
 								<h:panelGroup styleClass="col-md-4 column">
-									<h:outputLabel styleClass="label-default" value="Data de início" />
-									<br/>
-									<p:calendar value="#{sprintCadastroMB.sprintDTO.dataInicio}" id="popupCalInicio" required="true"/>
+									<h:outputLabel styleClass="label-default"
+										value="Data de início" />
+									<br />
+									<p:calendar value="#{sprintCadastroMB.sprintDTO.dataInicio}"
+										id="popupCalInicio" required="true" />
 								</h:panelGroup>
 								<h:panelGroup styleClass="col-md-4 column">
 									<h:outputLabel styleClass="label-default" value="Data de Fim" />
-									<br/>
-									<p:calendar value="#{sprintCadastroMB.sprintDTO.dataFim}" id="popupCalFim" required="true"/>
+									<br />
+									<p:calendar value="#{sprintCadastroMB.sprintDTO.dataFim}"
+										id="popupCalFim" required="true" />
 								</h:panelGroup>
 								<h:panelGroup styleClass="col-md-4 column">
-									<h:outputLabel styleClass="label-default" value="Data da revisão" />
-									<br/>
-									<p:calendar value="#{sprintCadastroMB.sprintDTO.dataRevisao}" id="popupCalRevisao" required="true" />
+									<h:outputLabel styleClass="label-default"
+										value="Data da revisão" />
+									<br />
+									<p:calendar value="#{sprintCadastroMB.sprintDTO.dataRevisao}"
+										id="popupCalRevisao" required="true" />
 								</h:panelGroup>
 							</h:panelGroup>
 						</p:panel>
 					</h:panelGroup>
-					<br/>
+					<br />
 					<!-- *********************************************************************************************** -->
-				   	<p:fieldset id="fieldsetTables" widgetVar="fieldsetTables">
-						
+					<p:fieldset id="fieldsetTables" widgetVar="fieldsetTables">
+
 						<h:panelGroup styleClass="col-md-5 column">
-						<p:panel>  
-							<f:facet name="header">
-								<h:outputText value="SprintBacklog" />
-							</f:facet>
-							<p:dataGrid id="dgSprint" var="itemSprint" value="#{sprintCadastroMB.sprintBacklog}" columns="1" emptyMessage="Sem registros" selectionMode="single">
-								<h:commandLink immediate="true">
-									<p:column>
-										<p:panel header="#{itemSprint.nome}" style="text-align:center">  
-											<h:panelGrid columns="1" style="width:100%">  
-												<p:outputLabel value="#{itemSprint.descricao}" />
-												<p:effect type="pulsate" event="click" />
-											</h:panelGrid>  
-										</p:panel>
-									</p:column>
-									<f:setPropertyActionListener value="#{itemSprint}" target="#{sprintCadastroMB.sprintBacklogSelecionado}" />
-								</h:commandLink>
-							</p:dataGrid>
-						</p:panel>  
+							<p:panel>
+								<f:facet name="header">
+									<h:outputText value="SprintBacklog" />
+								</f:facet>
+								<p:dataGrid id="dgSprint" var="itemSprint"
+									value="#{sprintCadastroMB.sprintBacklog}" columns="1"
+									emptyMessage="#{mensagens.mensagem_sem_registros}"
+									selectionMode="single">
+									<h:commandLink immediate="true">
+										<p:column>
+											<p:panel header="#{itemSprint.nome}"
+												style="text-align:center" toggleable="true" toggleSpeed="500" collapsed="true">
+												<h:panelGrid columns="1" style="width:100%">
+													<p:outputLabel styleClass="output-default" value="#{itemSprint.descricao}" />
+												</h:panelGrid>
+											</p:panel>
+										</p:column>
+										<f:setPropertyActionListener value="#{itemSprint}"
+											target="#{sprintCadastroMB.sprintBacklogSelecionado}" />
+									</h:commandLink>
+								</p:dataGrid>
+							</p:panel>
 						</h:panelGroup>
-						
-						<h:panelGroup styleClass="col-md-2 column" style="text-align:center; margin-top:100px;">
-							<h:commandLink immediate="true" update="@widgetVar(fieldsetTables)" action="#{sprintCadastroMB.moveItemToSprint}">
+
+						<h:panelGroup styleClass="col-md-2 column"
+							style="text-align:center; margin-top:100px;">
+							<h:commandLink immediate="true"
+								update="@widgetVar(fieldsetTables)"
+								action="#{sprintCadastroMB.moveItemToSprint}">
 								<p:panel>
 									<i class="fa fa-arrow-left fa-2x" style="color: #428BCA;"></i>
 								</p:panel>
 							</h:commandLink>
-							<br/>
-							<h:commandLink immediate="true" update="@widgetVar(fieldsetTables)" action="#{sprintCadastroMB.removeItemFromSprint}">
+							<br />
+							<h:commandLink immediate="true"
+								update="@widgetVar(fieldsetTables)"
+								action="#{sprintCadastroMB.removeItemFromSprint}">
 								<p:panel>
 									<i class="fa fa-arrow-right fa-2x" style="color: #428BCA;"></i>
 								</p:panel>
 							</h:commandLink>
-						</h:panelGroup>	
-								  
-						<h:panelGroup styleClass="col-md-5 column">
-						<p:panel>  
-							<f:facet name="header">
-								<h:outputText value="Itens Disponiveis" />
-							</f:facet>
-							<p:dataGrid id="dgItem" var="item" value="#{sprintCadastroMB.itensDisponiveis}" columns="1" emptyMessage="Sem registros">
-								<h:commandLink immediate="true">
-									<p:column>
-										<p:panel header="#{item.nome}" style="text-align:center">  
-											<h:panelGrid columns="1" style="width:100%">  
-												<p:outputLabel value="#{item.descricao}" />
-												<p:effect type="pulsate" event="click" />
-											</h:panelGrid>  
-										</p:panel>
-									</p:column>
-									<f:setPropertyActionListener value="#{item}" target="#{sprintCadastroMB.itemSelecionado}" />
-								</h:commandLink>								
-							</p:dataGrid>
-						</p:panel>  
 						</h:panelGroup>
-						
+
+						<h:panelGroup styleClass="col-md-5 column">
+							<p:panel>
+								<f:facet name="header">
+									<h:outputText value="Itens Disponiveis" />
+								</f:facet>
+									<p:dataGrid id="dgItem" var="item"
+									value="#{sprintCadastroMB.itensDisponiveis}" columns="1"
+									emptyMessage="#{mensagens.mensagem_sem_registros}"
+									selectionMode="single">
+									<h:commandLink immediate="true">
+										<p:column>
+											<p:panel header="#{item.nome}" style="text-align:center"  toggleable="true" toggleSpeed="500" collapsed="true">
+												<h:panelGrid columns="1" style="width:100%">
+													<p:outputLabel styleClass="output-default" value="#{item.descricao}" />
+												</h:panelGrid>
+											</p:panel>
+										</p:column>
+										<f:setPropertyActionListener value="#{item}"
+											target="#{sprintCadastroMB.itemSelecionado}" />
+									</h:commandLink>
+								</p:dataGrid>
+							</p:panel>
+						</h:panelGroup>
+
 					</p:fieldset>
-				    <!-- *********************************************************************************************** -->
-					<br/>
+					<!-- *********************************************************************************************** -->
+					<br />
 					<p:panel style="height: 65px;">
-						<p:commandButton immediate="true" process="@none" icon="ui-icon-cancel" value="Cancelar" action="#{sprintCadastroMB.sprintPage}" styleClass="button" ajax="false">
+						<p:commandButton immediate="true" process="@none"
+							icon="ui-icon-cancel" value="Cancelar"
+							action="#{sprintCadastroMB.sprintPage}" styleClass="button"
+							ajax="false">
 							<p:resetInput target="panel" />
 						</p:commandButton>
-						<p:commandButton value="Salvar" action="#{sprintCadastroMB.salvarSprint}" icon="ui-icon-disk" styleClass="button" ajax="false">
+						<p:commandButton value="Salvar"
+							action="#{sprintCadastroMB.salvarSprint}" icon="ui-icon-disk"
+							styleClass="button" ajax="false">
 							<p:resetInput target="panel" />
 						</p:commandButton>
 					</p:panel>
 				</p:panel>
 			</h:panelGroup>
 		</h:panelGroup>
-		<h:panelGroup styleClass="col-md-3 column div-right">			
+		<h:panelGroup styleClass="col-md-3 column div-right">
 		</h:panelGroup>
 	</ui:define>
 	<ui:define name="menu_lateral">
-		<li><h:commandLink immediate="true" action="#{sprintCadastroMB.itemBacklogPage}">
+		<li><h:commandLink immediate="true"
+				action="#{sprintCadastroMB.itemBacklogPage}">
 				<i class="fa fa-list left-sidebar-icon" />
 				<h:outputText value="#{mensagens.label_backlog}" />
 			</h:commandLink></li>
-		<li><h:commandLink immediate="true" action="#{sprintCadastroMB.sprintPage}">
+		<li><h:commandLink immediate="true"
+				action="#{sprintCadastroMB.sprintPage}">
 				<i class="fa fa-bar-chart-o left-sidebar-icon" />
 				<h:outputText value="#{mensagens.label_sprint}" />
 			</h:commandLink></li>
 	</ui:define>
-	<p:dialog header="Selecione a data" widgetVar="dialog" showEffect="fade" hideEffect="fade">
+	<p:dialog header="Selecione a data" widgetVar="dialog"
+		showEffect="fade" hideEffect="fade">
 		<h:panelGrid id="display" columns="2" cellpadding="5">
 			<h:outputText value="Data:" />
-			<h:outputText value="#{sprintCadastroMB.sprintSelecionada.dataInicio}" id="popupDateInicio">
+			<h:outputText
+				value="#{sprintCadastroMB.sprintSelecionada.dataInicio}"
+				id="popupDateInicio">
 				<f:convertDateTime pattern="dd/MM/yyyy" />
-			</h:outputText>			
+			</h:outputText>
 			<h:outputText value="Data:" />
-			<h:outputText value="#{sprintCadastroMB.sprintSelecionada.dataRevisao}" id="popupDateRevisao">
+			<h:outputText
+				value="#{sprintCadastroMB.sprintSelecionada.dataRevisao}"
+				id="popupDateRevisao">
 				<f:convertDateTime pattern="dd/MM/yyyy" />
 			</h:outputText>
 		</h:panelGrid>

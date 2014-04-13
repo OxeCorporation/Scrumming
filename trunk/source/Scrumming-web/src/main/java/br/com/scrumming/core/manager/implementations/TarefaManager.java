@@ -86,9 +86,15 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
 		return novaListaDeTarefas;
 	}
 
+	@Override
 	public List<Tarefa> consultarPorItemBacklogIhSituacao(Integer itemBacklogID, SituacaoTarefaEnum situacao) {		
 		List<Tarefa> listaDeTarefas = tarefaRepositorio.consultarPorItemBacklogIhSituacao(itemBacklogID, situacao);
         return preencherNovaListaDeTarefas(listaDeTarefas);
+	}
+	
+	@Override
+	public List<Tarefa> consultarPorItemBacklogIhNotSituacao(Integer itemBacklogID, SituacaoTarefaEnum situacao) {
+		return preencherNovaListaDeTarefas(tarefaRepositorio.consultarPorItemBacklogIhNotSituacao(itemBacklogID, situacao));
 	}
     
     

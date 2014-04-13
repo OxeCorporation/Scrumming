@@ -14,11 +14,13 @@ import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
 import br.com.scrumming.core.manager.interfaces.ISprintBacklogManager;
 import br.com.scrumming.core.manager.interfaces.ISprintManager;
+import br.com.scrumming.core.manager.interfaces.ITarefaManager;
 import br.com.scrumming.core.repositorio.SprintRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
 import br.com.scrumming.domain.SprintDTO;
+import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
 
@@ -39,6 +41,9 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 
 	@Autowired
 	private IItemBacklogManager itemBacklogManager;	
+	
+	@Autowired
+	private ITarefaManager tarefaManager;
 
 	@Override
 	public AbstractRepositorio<Sprint, Integer> getRepositorio() {

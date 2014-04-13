@@ -79,6 +79,9 @@ public class ItemBacklog extends ObjetoPersistente<Integer> {
     
     @Transient
     private String statusItembacklog;
+    
+    @Transient
+    private boolean deliverable;
 
 	/* getters and setters */
     @Override
@@ -200,5 +203,13 @@ public class ItemBacklog extends ObjetoPersistente<Integer> {
 
 	public void setStatusItembacklog(String statusItembacklog) {
 		this.statusItembacklog = statusItembacklog;
+	}
+
+	public boolean isDeliverable() {
+		return deliverable;
+	}
+
+	public void setDeliverable(boolean deliverable) {
+		this.deliverable = deliverable;
 	}
 }
