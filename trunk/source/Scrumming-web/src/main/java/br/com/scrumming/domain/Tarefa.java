@@ -78,6 +78,9 @@ public class Tarefa extends ObjetoPersistente<Integer> {
 	@Transient
 	private String backgroundColor;
 	
+	@Transient
+	private boolean estahConcluida;
+	
 	@Override
 	@JsonIgnore
 	public Integer getChave() {
@@ -185,5 +188,10 @@ public class Tarefa extends ObjetoPersistente<Integer> {
 
 	public void setBackgroundColor(String backgroundColor) {
 		this.backgroundColor = backgroundColor;
+	}
+
+	public boolean isEstahConcluida() {
+		estahConcluida = situacao == SituacaoTarefaEnum.FEITO;		
+		return estahConcluida;
 	}
 }

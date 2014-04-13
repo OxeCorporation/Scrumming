@@ -48,7 +48,8 @@
 							<p:commandLink id="alterarTarefaLink" title="#{mensagens.label_alterar_tarefa}"
 								action="#{itemBacklogDetalheMB.preparaParaAlterar}"
 								oncomplete="dlgTarefaSave.show()" 
-								process="@this" update="@widgetVar(dlgTarefaSave)">
+								process="@this" update="@widgetVar(dlgTarefaSave)"
+								rendered="#{! tarefa.estahConcluida}">
 								<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
 								<f:setPropertyActionListener value="#{tarefa}"
 									target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
@@ -57,7 +58,8 @@
 							<p:commandLink id="removerTarefaLink" immediate="true"
 								title="#{mensagens.label_remover_tarefa}"
 								action="#{itemBacklogDetalheMB.removerTarefa}" 
-								process="@this" update="@widgetVar(dataGridTarefas)">
+								process="@this" update="@widgetVar(dataGridTarefas)"
+								rendered="#{! tarefa.estahConcluida}">
 								<h:outputText styleClass="fa fa-trash-o inside-grid-icon" />
 								<f:setPropertyActionListener value="#{tarefa}"
 									target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
