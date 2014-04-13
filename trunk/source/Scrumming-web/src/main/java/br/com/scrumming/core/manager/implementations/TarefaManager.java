@@ -103,7 +103,7 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
 	}
     
     
-    /* getters and sertters */
+    /* getters and setters */
     public TarefaRepositorio getTarefaRepositorio() {
 		return tarefaRepositorio;
 	}
