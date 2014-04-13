@@ -1,5 +1,6 @@
 package br.com.scrumming.core.manager.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,16 +46,50 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
     }
 
     @Override
-    public void remover(Tarefa tarefa) {
-        remove(tarefa);
-        // TODO falta criar validacoes para remover entidades que ainda nao existem
-        // as entidades são: ReporteTarefa e TarefaFaforita
+    public void remover(Tarefa tarefa) throws Exception {
+        //validarDados(tarefa);
+    	remove(tarefa);
     }
 
-    @Override
+    private void validarDados(Tarefa tarefa) throws Exception {		
+		if (tarefaRepositorio.existeReporteDeHorasNaTarefa(tarefa.getCodigo())) {
+			throw new Exception("Impossível remover. Existe reporte de horas para esta tarefa.");
+		}
+		if (tarefaRepositorio.tarefaFoiFavoritada(tarefa.getCodigo())) {
+			throw new Exception("Impossível remover. Essa tarefa foi favoritada por um usuário.");
+		}
+	}
+
+	@Override
     public List<Tarefa> consultarPorItemBacklog(Integer itemBacklogID) {
-        return this.tarefaRepositorio.consultarPorItemBacklog(itemBacklogID);
+        List<Tarefa> listaDeTarefas = tarefaRepositorio.consultarPorItemBacklog(itemBacklogID);
+        return preencherNovaListaDeTarefas(listaDeTarefas);
     }
+	
+	private List<Tarefa> preencherNovaListaDeTarefas(List<Tarefa> listaDeTarefas) {
+		List<Tarefa> novaListaDeTarefas = new ArrayList<>();
+        for (Tarefa tarefa : listaDeTarefas) {
+        	if (tarefa.getSituacao() == SituacaoTarefaEnum.PARA_FAZER){
+        		tarefa.setSituacaoDescricao("Planejada");
+        	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.FAZENDO) {
+        		tarefa.setSituacaoDescricao("Em progresso");
+        	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.FEITO) {
+        		tarefa.setSituacaoDescricao("Concluída");
+        	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.CANCELADO) {
+        		tarefa.setSituacaoDescricao("Cancelada");
+        	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.EM_IMPEDIMENTO) {
+        		tarefa.setSituacaoDescricao("Em impedimento");
+        	}
+        	
+        	novaListaDeTarefas.add(tarefa);
+        }
+		return novaListaDeTarefas;
+	}
+
+	public List<Tarefa> consultarPorItemBacklogIhSituacao(Integer itemBacklogID, SituacaoTarefaEnum situacao) {		
+		List<Tarefa> listaDeTarefas = tarefaRepositorio.consultarPorItemBacklogIhSituacao(itemBacklogID, situacao);
+        return preencherNovaListaDeTarefas(listaDeTarefas);
+	}
     
     
     /* getters and sertters */

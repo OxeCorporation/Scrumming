@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -75,6 +76,9 @@ public class ItemBacklog extends ObjetoPersistente<Integer> {
     @OneToMany(mappedBy="itemBacklog")
     @JsonManagedReference
     private List<Tarefa> tarefas = new ArrayList<>();
+    
+    @Transient
+    private String statusItembacklog;
 
 	/* getters and setters */
     @Override
@@ -188,5 +192,13 @@ public class ItemBacklog extends ObjetoPersistente<Integer> {
 
 	public void setTarefas(List<Tarefa> tarefas) {
 		this.tarefas = tarefas;
+	}
+
+	public String getStatusItembacklog() {
+		return statusItembacklog;
+	}
+
+	public void setStatusItembacklog(String statusItembacklog) {
+		this.statusItembacklog = statusItembacklog;
 	}
 }

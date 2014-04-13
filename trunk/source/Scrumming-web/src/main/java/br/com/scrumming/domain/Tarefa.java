@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -71,6 +72,10 @@ public class Tarefa extends ObjetoPersistente<Integer> {
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
 	private DateTime dataAtribuicao;
 	
+	@Transient
+    private String situacaoDescricao;
+	
+	
 	@Override
 	@JsonIgnore
 	public Integer getChave() {
@@ -93,56 +98,45 @@ public class Tarefa extends ObjetoPersistente<Integer> {
 		return itemBacklog;
 	}
 
-
 	public void setItemBacklog(ItemBacklog itemBacklog) {
 		this.itemBacklog = itemBacklog;
 	}
-
 
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
-
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
 
 	public String getDescricao() {
 		return descricao;
 	}
 
-
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
 
 	public SituacaoTarefaEnum getSituacao() {
 		return situacao;
 	}
 
-
 	public void setSituacao(SituacaoTarefaEnum situacao) {
 		this.situacao = situacao;
 	}
-
 
 	public Integer getTempoEstimado() {
 		return tempoEstimado;
 	}
 
-
 	public void setTempoEstimado(Integer tempoEstimado) {
 		this.tempoEstimado = tempoEstimado;
 	}
 
-
 	public DateTime getDataAtribuicao() {
 		return dataAtribuicao;
 	}
-
 
 	public void setDataAtribuicao(DateTime dataAtribuicao) {
 		this.dataAtribuicao = dataAtribuicao;
@@ -156,6 +150,14 @@ public class Tarefa extends ObjetoPersistente<Integer> {
 		this.nome = nome;
 	}
 	
+	public String getSituacaoDescricao() {
+		return situacaoDescricao;
+	}
+
+	public void setSituacaoDescricao(String situacaoDescricao) {
+		this.situacaoDescricao = situacaoDescricao;
+	}
+
 	@Override
     public int hashCode() {
         return new HashCodeBuilder().append(this.codigo).toHashCode();

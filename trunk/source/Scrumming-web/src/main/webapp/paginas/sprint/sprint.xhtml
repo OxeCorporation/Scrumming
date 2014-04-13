@@ -22,10 +22,10 @@
 					<p:panel>
 						<f:facet name="header">
 							<p:commandLink action="#{sprintMB.sprintDetailPage}">
-								<h:panelGroup styleClass="col-md-6 column">
+								<h:panelGroup styleClass="col-md-9 column">
 									<h:outputText value="#{sprint.nome}" />
 								</h:panelGroup>
-								<h:panelGroup styleClass="col-md-6 column" style="text-align:right">
+								<h:panelGroup styleClass="col-md-3 column" style="text-align:right">
 									<h:outputText value="#{sprint.statusSprint}" />
 								</h:panelGroup>
 								<f:setPropertyActionListener value="#{sprint}" target="#{sprintMB.sprintSelecionada}" />

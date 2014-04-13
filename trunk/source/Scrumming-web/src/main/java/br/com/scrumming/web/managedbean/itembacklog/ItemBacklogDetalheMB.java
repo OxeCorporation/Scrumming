@@ -72,7 +72,7 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	/* Funções específicas da tela */
 	private void atualizarListaDeTarefas() {
 		if (itemSelecionado != null) {
-			itemSelecionado.setTarefas(tarefaClientService.consultarTarefasPorItemBacklog(itemSelecionado.getCodigo()));
+			itemSelecionado.setTarefas(tarefaClientService.consultarTarefasPorItemBacklog(itemSelecionado.getCodigo()));			
 		}
 	}
 	
