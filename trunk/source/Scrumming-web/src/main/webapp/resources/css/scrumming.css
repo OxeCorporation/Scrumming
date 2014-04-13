@@ -91,6 +91,16 @@
 	margin-right: 5px;
 }
 
+.label-situacao {
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+	font-family: Arial;
+	font-size: 12px;
+	line-height: 1.42857;
+	font-weight: normal;
+	margin-right: 5px;
+	text-align: center;
+}
+
 /*
 * Label pequeno
 */

@@ -33,18 +33,18 @@
 							<h:outputText styleClass="label-grid-header" value="#{tarefa.nome}" />							
 						</f:facet> 						
 						
-						<h:panelGroup styleClass="col-md-9 column" style="text-align: justify;">
+						<h:panelGroup styleClass="col-md-8 column" style="text-align: justify;">
 							<h:outputText styleClass="output-default" value="#{tarefa.descricao}" />
 						</h:panelGroup>
-						<h:panelGroup styleClass="col-md-1 column">
-							<h:outputText value="#{tarefa.situacaoDescricao}" style="color: white; #{tarefa.backgroundColor};" styleClass="label-medium"/>
+						<h:panelGroup styleClass="col-md-2 column">
+							<h:outputText value="#{tarefa.situacaoDescricao}" style="color: white; #{tarefa.backgroundColor};" styleClass="label-situacao"/>
 						</h:panelGroup>
 						<h:panelGroup styleClass="col-md-1 column panel-estimated-time">
 							<h:outputText value="#{tarefa.tempoEstimado}H" style="font-size: 20px; text-align: center;"/>
 							<br/>
 							<h:outputText value="#{mensagens.label_tempo_estimado}" />
 						</h:panelGroup>
-						<h:panelGroup styleClass="col-md-1 column">
+						<h:panelGroup styleClass="col-md-1 column" style="text-align:center;">
 							<p:commandLink id="alterarTarefaLink" title="#{mensagens.label_alterar_tarefa}"
 								action="#{itemBacklogDetalheMB.preparaParaAlterar}"
 								oncomplete="dlgTarefaSave.show()" 
