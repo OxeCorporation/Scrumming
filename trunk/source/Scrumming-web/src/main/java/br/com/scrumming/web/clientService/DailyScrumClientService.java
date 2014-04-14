@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import br.com.scrumming.domain.DailyScrum;
-import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.web.infra.AbstractClientService;
 import br.com.scrumming.web.infra.ConstantesService;
 
@@ -31,4 +30,11 @@ public class DailyScrumClientService extends AbstractClientService {
 		return forEntity.getBody();
 	}
 	
+	/**
+	 * Remove um Daily Scrum selecionado.
+	 * @param dailyScrum
+	 */
+	public void excluirDailyScrum(DailyScrum dailyScrum) {
+		getRestTemplate().postForObject(getURIService(ConstantesService.DailyScrum.URL_EXCLUIR_DAILY_SCRUM), dailyScrum, void.class);
+	}
 }

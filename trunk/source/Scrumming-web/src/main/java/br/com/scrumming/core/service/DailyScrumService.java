@@ -26,6 +26,10 @@ public class DailyScrumService {
     	return this.dailyScrumManager.salvarDailyScrum(dailyScrum);
     }
     
+    @RequestMapping(method = RequestMethod.POST, value = "/excluir")
+    public void excluirDailyScrum(@RequestBody DailyScrum dailyScrum) {
+    	dailyScrumManager.remove(dailyScrum);
+    }
    
     /*GETS*/
     @RequestMapping(method = RequestMethod.GET, value = "/list/{sprintID}")
@@ -37,7 +41,6 @@ public class DailyScrumService {
     public DailyScrum consultarProximoDaily(@PathVariable Integer sprintID) {
     	return dailyScrumManager.consultarProximoDailyScrum(sprintID);
     }
-
 
     /* getters and setters */
 	public IDailyScrumManager getDailyScrumManager() {

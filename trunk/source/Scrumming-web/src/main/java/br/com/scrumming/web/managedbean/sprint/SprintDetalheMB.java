@@ -28,8 +28,7 @@ import br.com.scrumming.web.infra.bean.AbstractBean;
 public class SprintDetalheMB extends AbstractBean {
 
 	private static final long serialVersionUID = 1L;
-	private DailyScrumClientService dailyClienteService; 
-	
+	private DailyScrumClientService dailyClienteService;	
 	private List<ItemBacklog> itens;
 	@FlashScoped
 	private Sprint sprintSelecionada;
@@ -46,7 +45,7 @@ public class SprintDetalheMB extends AbstractBean {
 	private ItemBacklogClientService itemClienteService;
 	@ManagedProperty(value="#{sessaoMB.usuario}")
 	private Usuario usuarioLogado;
-	
+	private DailyScrum dailyScrum;
 	private List<DailyScrum> dailies;
 	
 	@Override
@@ -59,7 +58,6 @@ public class SprintDetalheMB extends AbstractBean {
 		tarefaClientService = new TarefaClientService();
 		itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo());
 		dailies = dailyClienteService.consultarDailyScrumPorSprints(sprintSelecionada.getCodigo());
-		int a = 1;
 	}
 	
 	/*FUNÇÕES REFERENTES AO ITEMBACKLOG*/
@@ -67,6 +65,38 @@ public class SprintDetalheMB extends AbstractBean {
 		itemSelecionado.setSituacaoBacklog(SituacaoItemBacklogEnum.FEITO);
 		itemClienteService.salvarItemBacklog(itemSelecionado);
 		itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo());
+	}
+	
+	/*FUNÇÕES REFERENTES AO DAILY SCRUM*/
+	public void salvarDailyScrum() {
+		dailyClienteService.salvarDailyScrum(dailyScrum);
+	}
+	
+	public String novoDaily(){
+    	dailyScrum = new DailyScrum();
+    	return "";
+    }
+	
+	public void alterarDailyScrum() {		
+	}
+	
+	/**
+	 * Exclui um DailyScrum selecionado.
+	 * @return
+	 */
+	public String excluirDaily() {
+		dailyClienteService.excluirDailyScrum(dailyScrum);
+    	atualizarLista();
+    	mensagemSucesso();
+        return "";
+    }
+	
+	private void atualizarLista() {
+		dailies = dailyClienteService.consultarDailyScrumPorSprints(sprintSelecionada.getCodigo());
+	}
+	
+	private void mensagemSucesso() {
+		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 	}
 	
 	/* FUNÇÕES REFERENTES À TAREFA*/
@@ -198,5 +228,13 @@ public class SprintDetalheMB extends AbstractBean {
 
 	public void setDailies(List<DailyScrum> dailies) {
 		this.dailies = dailies;
+	}
+
+	public DailyScrum getDailyScrum() {
+		return dailyScrum;
+	}
+
+	public void setDailyScrum(DailyScrum dailyScrum) {
+		this.dailyScrum = dailyScrum;
 	}
 }
