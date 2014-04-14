@@ -537,7 +537,7 @@ INSERT
 -- select * from usuarioempresa;
 -- select * from timeprojeto;
 -- select * from sprintBacklog;
--- select * from tarefa;
+-- select * from tarefa where FK_itemBacklog = 7;
 -- select * from usuario;
 -- select * from empresa;
 
