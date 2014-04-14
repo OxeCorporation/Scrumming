@@ -74,6 +74,7 @@
 									<br/>
 									<br/>
 									<!-- AQUI SERÁ IMPLEMENTADO POR PABLO -->
+									<!-- BOTAO ATRIBUIR PARA MIM -->
 									<p:commandLink id="linkAtribuirParaMim" title="#{mensagens.label_atribuir_para_mim}"
 										action="#{sprintDetalheMB.preparaParaAlterarTarefa}"
 										oncomplete="dlgTarefaSave.show()" 
@@ -83,6 +84,7 @@
 											target="#{sprintDetalheMB.tarefaSelecionada}" />
 									</p:commandLink>
 									
+									<!-- BOTAO ATRIBUIR PARA OUTRO USUARIO -->
 									<p:commandLink id="linkAtribuirPara" title="#{mensagens.label_atribuir_para}"
 										action="#{itemBacklogDetalheMB.preparaParaAlterar}"
 										oncomplete="dlgTarefaSave.show()" 
@@ -92,6 +94,7 @@
 											target="#{sprintDetalheMB.tarefaSelecionada}" />
 									</p:commandLink>
 									
+									<!-- BOTAO REPORTE DE HORAS -->
 									<p:commandLink id="linkReporteHora" title="#{mensagens.label_reportar_hora}"
 										action="#{itemBacklogDetalheMB.preparaParaAlterar}"
 										oncomplete="dlgTarefaSave.show()" 
@@ -101,6 +104,7 @@
 											target="#{sprintDetalheMB.tarefaSelecionada}" />
 									</p:commandLink>
 									
+									<!-- BOTAO ALTERAR SITUACAO -->
 									<p:commandLink id="linkAlterarSituacao" title="#{mensagens.label_alterar_situacao}"
 										action="#{itemBacklogDetalheMB.preparaParaAlterar}"
 										oncomplete="dlgTarefaSave.show()" 
@@ -110,6 +114,7 @@
 											target="#{sprintDetalheMB.tarefaSelecionada}" />
 									</p:commandLink>
 									
+									<!-- BOTAO FAVORITAR TAREFA -->
 									<p:commandLink id="linkFavoritarTarefa" title="#{mensagens.label_favoritar_tarefa}"
 										action="#{itemBacklogDetalheMB.preparaParaAlterar}"
 										oncomplete="dlgTarefaSave.show()" 
