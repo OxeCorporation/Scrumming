@@ -27,7 +27,7 @@
 				<br />
 			</h:panelGroup>
 			<p:tabView id="tabView">
-				<p:tab id="tab1" title="Sprint Backlog">
+				<p:tab id="tab1" title="Sprint Backlog" id="tabSprintBacklog" widgetVar="tabSprintBacklog">
 					<!-- CABEÇALHO DA LISTAGEM CONTENDO UM ITEM BACKLOG -->
 					<p:dataGrid id="dtgSprintBacklog" var="item" value="#{sprintDetalheMB.itens}" columns="1" style="width:100%"
 					emptyMessage="#{mensagens.mensagem_sem_registros}">
@@ -64,8 +64,8 @@
 							</f:facet>
 							<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />						
 						
-						<p:dataGrid var="tarefa" value="#{item.tarefas}" 
-							columns="1" style="width:100%" widgetVar="dataGridTarefas"
+						<p:dataGrid var="tarefa" value="#{item.tarefas}" columns="1" 
+							style="width:100%" id="dataGridTarefas" widgetVar="dataGridTarefas"
 							emptyMessage="#{mensagens.label_lista_de_tarefas_vazia}">
 							<p:panel styleClass="col-md-12 column">
 								<h:panelGroup styleClass="col-md-11 column">
@@ -137,7 +137,7 @@
 									<p:commandLink id="removerTarefaLink" immediate="true"
 										title="#{mensagens.label_remover_tarefa}"
 										action="#{itemBacklogDetalheMB.removerTarefa}" 
-										process="@this" update="@widgetVar(dataGridTarefas)"
+										process="@this" update="@form"
 										rendered="#{! tarefa.estahConcluida}">
 										<h:outputText styleClass="fa fa-trash-o inside-grid-icon" />
 										<f:setPropertyActionListener value="#{tarefa}"
