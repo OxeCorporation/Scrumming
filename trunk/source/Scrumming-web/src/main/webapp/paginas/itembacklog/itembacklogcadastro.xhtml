@@ -24,11 +24,13 @@
 							 disabled="#{itemBacklogCadastroMB.itemBacklog.nome} != null}" />
 				<br/>
 				<h:outputLabel styleClass="label-default" value="#{mensagens.label_descricao_Projeto}" /> 
-				<h:inputTextarea id="descricao" required="false" class="form-control text-area" 
+				<h:inputTextarea id="descricao" required="true" class="form-control text-area"
+								 requiredMessage="Preencha o campo Descrição" 
 								 value="#{itemBacklogMB.itemBacklog.descricao}" />
 				<br/>
 				<h:outputLabel styleClass="label-default" value="#{mensagens.label_criterio_aceitacao}" /> 
-				<h:inputTextarea class="form-control text-area" id="criterioAceitacao" required="false" 
+				<h:inputTextarea class="form-control text-area" id="criterioAceitacao" required="true"
+								 requiredMessage="Informe o Critério de Aceitação" 
 								 value="#{itemBacklogMB.itemBacklog.criterioAceitacao}" />
 				<br/>
 				<h:outputText id="outValorNegocio" value="Valor de Negocio #{itemBacklogMB.itemBacklog.valorNegocio}" style="color:black" />
