@@ -26,16 +26,21 @@
 				<br />
 			</h:panelGroup>
 			<p:tabView id="tabView" widgetVar="tabView">
+			
+				<!-- ABA DO DETALHE DA SPRINT -->			
 				<p:tab id="tab1" title="Sprint Backlog" widgetVar="tab1">
-					<!-- CABEÇALHO DA LISTAGEM CONTENDO UM ITEM BACKLOG -->
+					
 					<p:dataGrid id="dtgSprintBacklog" widgetVar="dtgSprintBacklog" var="item" value="#{sprintDetalheMB.itens}" 
 						columns="1" style="width:100%" emptyMessage="#{mensagens.mensagem_sem_registros}">
 						<p:panel styleClass="col-md-12 column">
+							
+							<!-- CABEÇALHO DA LISTAGEM CONTENDO UM ITEM BACKLOG -->
 							<f:facet name="header">
 								<p:commandLink action="#{sprintDetalheMB.itembacklogDetalhePage}" immediate="true">
 									<h:outputText styleClass="label-grid-header" value="#{item.nome}" />
 									<f:setPropertyActionListener value="#{item}" target="#{sprintDetalheMB.itemSelecionado}" />
 								</p:commandLink>								
+								
 								<!-- BOTAO NOVA TAREFA -->
 								<p:commandLink action="#{itemBacklogDetalheMB.preparaParaInserir}" title="Nova tarefa"
 									oncomplete="dlgTarefaSave.show()" process="@this" update="@widgetVar(dlgTarefaSave)"
@@ -45,6 +50,7 @@
 										target="#{itemBacklogDetalheMB.itemSelecionado}" />
 								</p:commandLink>								
 								
+								<!-- BOTAO ENTREGAR ITEM -->
 								<p:commandLink immediate="true" title="#{mensagens.mensagem_entregar_item}" 
 									rendered="#{item.deliverable}"
 									action="#{sprintDetalheMB.entregarItem}" update="@form">
@@ -52,6 +58,7 @@
 									<f:setPropertyActionListener value="#{item}"
 										target="#{sprintDetalheMB.itemSelecionado}" />
 								</p:commandLink>
+								
 								<h:outputText styleClass="output-medium" value="#{item.statusItembacklog}" style="float: right;" />
 								<br />
 								<h:outputText styleClass="output-medium" value="#{item.descricao}" />
@@ -62,12 +69,13 @@
 							emptyMessage="#{mensagens.label_lista_de_tarefas_vazia}">
 							<p:panel styleClass="col-md-12 column">
 								<h:panelGroup styleClass="col-md-11 column">
+									
 									<h:outputText value="#{tarefa.nome}" />
 									<h:outputText value="#{tarefa.situacaoDescricao}" style="color: white; float: right; #{tarefa.backgroundColor};" styleClass="label-medium"/>
 									<br/>
 									<h:outputText value="#{mensagens.label_responsavel} #{tarefa.usuario.nome}" rendered="#{not empty tarefa.usuario}" styleClass="output-small"/>
 									<br/>
-									<!-- AQUI SERÁ IMPLEMENTADO POR PABLO -->
+									
 									<!-- BOTAO ATRIBUIR PARA MIM -->
 									<p:commandLink id="linkAtribuirParaMim" title="#{mensagens.label_atribuir_para_mim}"
 										action="#{sprintDetalheMB.atribuirTarefaParaMim}"										
@@ -113,7 +121,7 @@
 											target="#{sprintDetalheMB.tarefaSelecionada}" />
 									</p:commandLink>
 									
-									<!-- BOTAO FAVORITAR TAREFA -->
+									<!-- BOTAO FAVORITAR TAREFA -->									
 									<p:commandLink id="linkFavoritarTarefa" title="#{mensagens.label_favoritar_tarefa}"
 										action="#{itemBacklogDetalheMB.preparaParaAlterar}"
 										oncomplete="dlgTarefaSave.show()" 
@@ -126,7 +134,7 @@
 								</h:panelGroup>
 								<h:panelGroup styleClass="col-md-1 column">
 								
-									<!-- BOTAO ALTERAR TAREFA -->									
+									<!-- BOTAO ALTERAR TAREFA -->																
 									<p:commandLink id="alterarTarefaLink" title="#{mensagens.label_alterar_tarefa}"
 										action="#{itemBacklogDetalheMB.preparaParaAlterar}"
 										oncomplete="dlgTarefaSave.show()" 
@@ -138,7 +146,7 @@
 									</p:commandLink>
 									<br />
 									
-									<!-- BOTAO EXCLUIR TAREFA -->
+									<!-- BOTAO EXCLUIR TAREFA -->									
 									<p:commandLink id="removerTarefaLink" immediate="true"
 										title="#{mensagens.label_remover_tarefa}"
 										action="#{itemBacklogDetalheMB.removerTarefa}" 
@@ -160,35 +168,133 @@
 						</p:panel>
 					</p:dataGrid>
 					
-					<!-- DIÁLOGO DA EXCLUSÃO DA TAREFA -->
+					<!-- DIÁLOGO DA EXCLUSÃO DA TAREFA -->					
 					<p:confirmDialog global="true" showEffect="fade" hideEffect="explode"> 
 						<p:commandButton value="#{mensagens.botao_cancelar}" styleClass="ui-confirmdialog-no" 
 							icon="ui-icon-close" immediate="true" style="margin:0 auto; float:right"/>  
 		        		<p:commandButton value="#{mensagens.botao_confirmar}" styleClass="ui-confirmdialog-yes" 
 		        			icon="ui-icon-check" immediate="true" style="margin:0 auto; float:right"/>        		      
-		    		</p:confirmDialog>
-    		
+		    		</p:confirmDialog>    		
 				</p:tab>
+				
+				<!-- ABA DO SPRINT BOARD -->				
 				<p:tab id="tab2" title="Sprint Board">
 					<h:panelGrid columns="2" cellpadding="10">
-						<p:graphicImage id="tab2Img" value="/images/godfather/godfather2.jpg" />
 						<h:outputText id="tab2Text" value="Aqui sera criado o Board da Sprint" />
 					</h:panelGrid>
 				</p:tab>
-				<p:tab id="tab3" title="Charts">
+				
+				<!-- ABA DOS GRÁFICOS BURNUP E BURNDOWN -->				
+				<p:tab id="tab3" title="Gráficos">
 					<h:panelGrid columns="2" cellpadding="10">
-						<p:graphicImage id="tab3Img" value="/images/godfather/godfather3.jpg" />
 						<h:outputText id="tab3Text" value="Aqui sera criado o grafico de burndown e burnup da sprint" />
 					</h:panelGrid>
 				</p:tab>
+				
+				<!-- ABA DO DAILY SCRUM -->
+				<p:tab id="tab4" title="Daily Scrum">
+					<h:panelGroup id="dailyPanel">
+						<br />						
+						<p:dataGrid 
+						id="tabelaDaily"
+						var="dailyScrum"
+						value="#{sprintDetalheMB.dailies}" 
+						columns="5"
+						style="width:100%;" >
+								
+								<f:facet name="header">
+									<h:outputText value="#{mensagens.label_dailies_cadastrados}" />
+								</f:facet>
+								
+								<p:panel header="#{dailyScrum.dataFormatada}">
+									<p:outputLabel for="dailyHorario" value="#{mensagens.label_horario_daily}" /> <span/>
+									<h:outputText id="dailyHorario" value="#{dailyScrum.horaFormatada}" />  <br/>
+									<p:outputLabel for="dailyLocal" value="#{mensagens.label_local_daily}" /> <span/>
+									<h:outputText id="dailyLocal" value="#{dailyScrum.local}" />  <br/>
+									<p:outputLabel for="dailyDuracao" value="#{mensagens.label_duracao_daily}:"/> <span/>
+									<h:outputText id="dailyDuracao" value="#{dailyScrum.duracao}" /> <br/>
+									<f:facet name="footer">
+									  <div align="center">
+										<p:commandButton id="alterarBotao"
+											value="#{mensagens.botao_alterar}"
+											action="#{cadastroUsuarioBean.alterar}"
+											oncomplete="novoUsuarioModal.show()"
+											process="@this"
+											update="@form"
+											immediate="true">
+											
+											<f:setPropertyActionListener value="#{dailyScrum}" target="#{cadastroUsuarioBean.dailyScrum}" />
+										</p:commandButton>
+										<p:spacer />
+										<p:commandButton 
+										    id="excluirBotao"
+											value="#{mensagens.botao_desativar}" 
+											immediate="true" 
+											process="@this"
+											update="@widgetVar(confimDesativar)" 
+											oncomplete="confimDesativar.show()">
+											
+											<f:setPropertyActionListener value="#{dailyScrum}" target="#{cadastroUsuarioBean.dailyScrum}" />
+										</p:commandButton>
+										</div>
+									</f:facet>
+								</p:panel>								
+								
+								<f:facet name="footer">
+									<p:commandButton id="cadastrarBotao"
+										value="#{mensagens.botao_cadastrar}"
+										oncomplete="novoUsuarioModal.show()"
+										process="@this"
+										update="@form"
+										action="#{cadastroUsuarioBean.novoUsuario}"
+										immediate="true"/>
+								</f:facet>	
+						</p:dataGrid>
+							
+							<p:confirmDialog 
+							   id="confimDesativar" 
+							   widgetVar="confimDesativar" 
+							   message="#{mensagens.mensagem_info_usuario_sera_desativado}">
+							     
+			        			<p:commandButton 
+			        			   id="confirmButton"
+			        			   value="#{mensagens.botao_confirmar}" 
+			        			   styleClass="ui-confirmdialog-yes" 
+			        			   icon="ui-icon-check" 
+			        			   immediate="true" 
+			        			   action="#{cadastroUsuarioBean.desativar}" 
+			        			   oncomplete="confimDesativar.hide()" 
+			        			   update="@form"/>  
+			        			
+			        			<p:commandButton 
+			        			   id="cancelarButton"
+			        			   value="#{mensagens.botao_cancelar}" 
+			        			   styleClass="ui-confirmdialog-no" 
+			        			   icon="ui-icon-close" 
+			        			   immediate="true" 
+			        			   oncomplete="confimDesativar.hide()"/>			        			          
+			    			</p:confirmDialog>
+						
+						<ui:include src="/paginas/dailyscrum/dailyscrumcadastro.xhtml" />
+					</h:panelGroup>
+				</p:tab>
+				
 			</p:tabView>
 		</h:panelGroup>
+		
+		<!-- BARRA LATERAL DIREITA -->
+		
 		<h:panelGroup styleClass="col-md-3 column div-right">
-			<h:outputText value="Sprint Team" />
+			<h:outputText value="Time do projeto" />
 		</h:panelGroup>
 		
+		<!-- INCLUDE DO MODAL DO CADASTRO DE DAILY SCRUM -->		
 		<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />
+		
 	</ui:define>
+	
+	<!-- MENU LATERAL -->
+	
 	<ui:define name="menu_lateral">
 		<li><h:commandLink immediate="true" action="#{sprintDetalheMB.itemBacklogPage}">
 				<i class="fa fa-list left-sidebar-icon" />
@@ -199,4 +305,5 @@
 				<h:outputText value="#{mensagens.label_sprint}" />
 			</h:commandLink></li>
 	</ui:define>
+	
 </ui:composition>

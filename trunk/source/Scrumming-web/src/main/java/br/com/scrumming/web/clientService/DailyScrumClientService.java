@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import br.com.scrumming.domain.DailyScrum;
+import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.web.infra.AbstractClientService;
 import br.com.scrumming.web.infra.ConstantesService;
 
@@ -15,6 +16,11 @@ public class DailyScrumClientService extends AbstractClientService {
 		return getRestTemplate().postForObject(getURIService(ConstantesService.DailyScrum.URL_SALVAR), dailyScrum, String.class);
 	}
 
+	/**
+	 * Retorna a lista de DailyScrum de uma Sprint
+	 * @param sprintID
+	 * @return
+	 */
 	public List<DailyScrum> consultarDailyScrumPorSprints(Integer sprintID) {
 		return Arrays.asList(getRestTemplate().getForObject(getURIService(ConstantesService.DailyScrum.URL_CONSULTAR_POR_SPRINT), DailyScrum[].class, sprintID));
 	}

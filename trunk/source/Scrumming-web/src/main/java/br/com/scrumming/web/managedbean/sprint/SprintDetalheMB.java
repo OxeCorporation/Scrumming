@@ -7,12 +7,14 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
+import br.com.scrumming.domain.DailyScrum;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
+import br.com.scrumming.web.clientService.DailyScrumClientService;
 import br.com.scrumming.web.clientService.ItemBacklogClientService;
 import br.com.scrumming.web.clientService.SprintClientService;
 import br.com.scrumming.web.clientService.TarefaClientService;
@@ -26,6 +28,8 @@ import br.com.scrumming.web.infra.bean.AbstractBean;
 public class SprintDetalheMB extends AbstractBean {
 
 	private static final long serialVersionUID = 1L;
+	private DailyScrumClientService dailyClienteService; 
+	
 	private List<ItemBacklog> itens;
 	@FlashScoped
 	private Sprint sprintSelecionada;
@@ -42,15 +46,20 @@ public class SprintDetalheMB extends AbstractBean {
 	private ItemBacklogClientService itemClienteService;
 	@ManagedProperty(value="#{sessaoMB.usuario}")
 	private Usuario usuarioLogado;
-		
+	
+	private List<DailyScrum> dailies;
+	
 	@Override
 	public void inicializar() {
 		tarefa = new Tarefa();
 		tarefaSelecionada = new Tarefa();
 		sprintClienteService = new SprintClientService();
 		itemClienteService = new ItemBacklogClientService();
+		dailyClienteService = new DailyScrumClientService();
 		tarefaClientService = new TarefaClientService();
 		itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo());
+		dailies = dailyClienteService.consultarDailyScrumPorSprints(sprintSelecionada.getCodigo());
+		int a = 1;
 	}
 	
 	/*FUNÇÕES REFERENTES AO ITEMBACKLOG*/
@@ -181,5 +190,13 @@ public class SprintDetalheMB extends AbstractBean {
 
 	public void setUsuarioLogado(Usuario usuarioLogado) {
 		this.usuarioLogado = usuarioLogado;
+	}
+
+	public List<DailyScrum> getDailies() {
+		return dailies;
+	}
+
+	public void setDailies(List<DailyScrum> dailies) {
+		this.dailies = dailies;
 	}
 }

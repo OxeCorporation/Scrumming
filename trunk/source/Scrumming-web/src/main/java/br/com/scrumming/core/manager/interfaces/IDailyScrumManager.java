@@ -8,6 +8,6 @@ import br.com.scrumming.domain.DailyScrum;
 public interface IDailyScrumManager extends IManager<DailyScrum, Integer> {
 
 	String salvarDailyScrum(DailyScrum dailyScrum);
-	List<DailyScrum> listarDailyScrumDaSprint(int sprintID);
-	DailyScrum consultarProximoDailyScrum(int sprintID);
+	List<DailyScrum> listarDailyScrumDaSprint(Integer sprintID);
+	DailyScrum consultarProximoDailyScrum(Integer sprintID);
 }

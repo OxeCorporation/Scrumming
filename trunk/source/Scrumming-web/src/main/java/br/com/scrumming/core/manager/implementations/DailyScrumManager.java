@@ -70,12 +70,12 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 	}
 
 	@Override
-	public List<DailyScrum> listarDailyScrumDaSprint(int sprintID) {
+	public List<DailyScrum> listarDailyScrumDaSprint(Integer sprintID) {
 		return dailyScrumRepositorio.listarDailyScrumPorSprint(sprintID);
 	}
 
 	@Override
-	public DailyScrum consultarProximoDailyScrum(int sprintID) {
+	public DailyScrum consultarProximoDailyScrum(Integer sprintID) {
 		List<DailyScrum> dailyLista = dailyScrumRepositorio
 				.listarDailyScrumPorSprint(sprintID);
 

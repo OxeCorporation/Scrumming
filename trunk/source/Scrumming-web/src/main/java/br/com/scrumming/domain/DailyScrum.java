@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -17,14 +18,18 @@ import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
 import br.com.scrumming.core.infra.util.JodaDateTimeJsonDeserializer;
 import br.com.scrumming.core.infra.util.JodaDateTimeJsonSerializer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name = "DailyScrum")
 public class DailyScrum extends ObjetoPersistente<Integer> {
 
+	/**
+	 * Serial Version
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "PK_dailyScrum")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,7 +51,14 @@ public class DailyScrum extends ObjetoPersistente<Integer> {
 	@Column(name = "duracao", columnDefinition = "varchar(11)")
 	private Integer duracao;
 	
+	@Transient
+	private String dataFormatada;
+	
+	@Transient
+	private String horaFormatada;
+	
 	@Override
+	@JsonIgnore
 	public Integer getChave() {
 		return this.codigo;
 	}
@@ -89,5 +101,21 @@ public class DailyScrum extends ObjetoPersistente<Integer> {
 
 	public void setDuracao(Integer duracao) {
 		this.duracao = duracao;
+	}
+
+	public String getDataFormatada() {
+		try {
+			dataFormatada =  getDataHora().toString("dd/MM/yyyy");
+		} catch (NullPointerException e) {			
+		}
+		return dataFormatada;
+	}
+
+	public String getHoraFormatada() {
+		try {
+			horaFormatada =  getDataHora().toString("hh:mm");
+		} catch (NullPointerException e) {			
+		}
+		return horaFormatada;
 	}
 }
