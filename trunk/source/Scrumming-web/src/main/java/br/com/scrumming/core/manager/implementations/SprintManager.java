@@ -187,11 +187,15 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		Sprint sprintConsulta = findByKey(sprint.getCodigo());
 		
 		List<SprintBacklog> itens = sprintBacklogManager.listarAtivosPorSprint(sprintConsulta);
+		
 		for (SprintBacklog item : itens) {
+			
 			ItemBacklog itemBacklog = itemBacklogManager.findByKey(item.getItemBacklog().getCodigo());
 			
 			if (itemBacklog.getSituacaoBacklog() != SituacaoItemBacklogEnum.FEITO) {
+				
 				List<Tarefa> tarefas = tarefaManager.consultarPorItemBacklogIhNotSituacao(itemBacklog.getCodigo(), SituacaoTarefaEnum.FEITO);
+				
 				if (tarefas.size() == 0) {
 					itemBacklog.setSituacaoBacklog(SituacaoItemBacklogEnum.FEITO);
 					itemBacklogManager.insertOrUpdate(itemBacklog);
