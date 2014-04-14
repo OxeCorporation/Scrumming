@@ -45,21 +45,28 @@
 									<h:outputLabel styleClass="label-default"
 										value="Data de início" />
 									<br />
-									<p:calendar value="#{sprintCadastroMB.sprintDTO.dataInicio}"
-										id="popupCalInicio" required="true" />
+									<p:calendar
+									id="popupCalInicio"
+									value="#{sprintCadastroMB.sprintDTO.dataInicio}" 
+									required="true"/>
+									
 								</h:panelGroup>
 								<h:panelGroup styleClass="col-md-4 column">
 									<h:outputLabel styleClass="label-default" value="Data de Fim" />
 									<br />
-									<p:calendar value="#{sprintCadastroMB.sprintDTO.dataFim}"
-										id="popupCalFim" required="true" />
+									<p:calendar 
+									id="popupCalFim"
+									value="#{sprintCadastroMB.sprintDTO.dataFim}"
+									required="true" />
 								</h:panelGroup>
 								<h:panelGroup styleClass="col-md-4 column">
 									<h:outputLabel styleClass="label-default"
 										value="Data da revisão" />
 									<br />
-									<p:calendar value="#{sprintCadastroMB.sprintDTO.dataRevisao}"
-										id="popupCalRevisao" required="true" />
+									<p:calendar 
+									id="popupCalRevisao"
+									value="#{sprintCadastroMB.sprintDTO.dataRevisao}"
+									required="true" />
 								</h:panelGroup>
 							</h:panelGroup>
 						</p:panel>
@@ -170,21 +177,4 @@
 				<h:outputText value="#{mensagens.label_sprint}" />
 			</h:commandLink></li>
 	</ui:define>
-	<p:dialog header="Selecione a data" widgetVar="dialog"
-		showEffect="fade" hideEffect="fade">
-		<h:panelGrid id="display" columns="2" cellpadding="5">
-			<h:outputText value="Data:" />
-			<h:outputText
-				value="#{sprintCadastroMB.sprintSelecionada.dataInicio}"
-				id="popupDateInicio">
-				<f:convertDateTime pattern="dd/MM/yyyy" />
-			</h:outputText>
-			<h:outputText value="Data:" />
-			<h:outputText
-				value="#{sprintCadastroMB.sprintSelecionada.dataRevisao}"
-				id="popupDateRevisao">
-				<f:convertDateTime pattern="dd/MM/yyyy" />
-			</h:outputText>
-		</h:panelGrid>
-	</p:dialog>
 </ui:composition>

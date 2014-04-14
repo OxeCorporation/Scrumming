@@ -13,6 +13,7 @@ import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.ProjetoDTO;
 import br.com.scrumming.domain.Team;
 import br.com.scrumming.domain.Usuario;
+import br.com.scrumming.domain.enuns.PerfilUsuarioEnum;
 import br.com.scrumming.domain.enuns.SituacaoProjetoEnum;
 import br.com.scrumming.web.clientService.ProjetoClientService;
 import br.com.scrumming.web.infra.FacesMessageUtil;
@@ -34,11 +35,13 @@ public class ProjetoCadastroMB extends AbstractBean {
 	private List<Usuario> usuarioEmpresa;
 	@FlashScoped
 	private List<Team> team;
+	private PerfilUsuarioEnum perfilUsuario;
+	private List<PerfilUsuarioEnum> todosPerfis;
 	private List<Usuario> teamUsuario;
 	private SituacaoProjetoEnum situacao;
 	private List<SituacaoProjetoEnum> todasSituacoes;
 	private Usuario usuarioSelecionado;
-	private Usuario usuarioTeamSelecionado;
+	private Team usuarioTeamSelecionado;
 	
 	@Override
 	protected void inicializar() {
@@ -80,7 +83,10 @@ public class ProjetoCadastroMB extends AbstractBean {
 			}
 			listToRemove.remove(itemToRemove);
 			usuarioEmpresa = listToRemove;
-			teamUsuario.add(usuarioSelecionado);
+			Team teamNaLista = new Team();
+			teamNaLista.setUsuario(usuarioSelecionado);
+			teamNaLista.setPerfilUsuario(perfilUsuario);
+			team.add(teamNaLista);
 			usuarioSelecionado = null;
 		} else {
 			FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_SELECIONAR_ITEM_LISTA);
@@ -94,16 +100,17 @@ public class ProjetoCadastroMB extends AbstractBean {
 	 */
 	public String removeItemFromTeam() {
 		if (usuarioTeamSelecionado != null) {
-			List<Usuario> listToRemove = new LinkedList<>(teamUsuario);
-			Usuario itemToRemove = new Usuario();
-			for (Usuario item : teamUsuario) {
-				if (item.getCodigo() == usuarioTeamSelecionado.getCodigo()) {
+			List<Team> listToRemove = new LinkedList<>(team);
+			Team itemToRemove = new Team();
+			for (Team item : team) {
+				if (item.getUsuario().getCodigo() == usuarioTeamSelecionado.getUsuario().getCodigo()) {
 					itemToRemove = item;
 				}
 			}
 			listToRemove.remove(itemToRemove);
-			teamUsuario = listToRemove;
-			usuarioEmpresa.add(usuarioTeamSelecionado);
+			team = listToRemove;
+			Usuario usuario = itemToRemove.getUsuario();
+			usuarioEmpresa.add(usuario);
 			usuarioTeamSelecionado = null;
 		} else {
 			FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_SELECIONAR_ITEM_LISTA);
@@ -111,13 +118,45 @@ public class ProjetoCadastroMB extends AbstractBean {
 		return "";
 	}
 
-	
-	public List<Team> getTean() {
+
+	public Team getUsuarioTeamSelecionado() {
+		return usuarioTeamSelecionado;
+	}
+
+	public void setUsuarioTeamSelecionado(Team usuarioTeamSelecionado) {
+		this.usuarioTeamSelecionado = usuarioTeamSelecionado;
+	}
+
+	public List<Usuario> getUsuarioEmpresa() {
+		return usuarioEmpresa;
+	}
+
+	public void setUsuarioEmpresa(List<Usuario> usuarioEmpresa) {
+		this.usuarioEmpresa = usuarioEmpresa;
+	}
+
+	public List<Team> getTeam() {
 		return team;
 	}
 
-	public void setTean(List<Team> tean) {
-		this.team = tean;
+	public void setTeam(List<Team> team) {
+		this.team = team;
+	}
+
+	public PerfilUsuarioEnum getPerfilUsuario() {
+		return perfilUsuario;
+	}
+
+	public void setPerfilUsuario(PerfilUsuarioEnum perfilUsuario) {
+		this.perfilUsuario = perfilUsuario;
+	}
+
+	public List<PerfilUsuarioEnum> getTodosPerfis() {
+		return Arrays.asList(PerfilUsuarioEnum.values());
+	}
+
+	public void setTodosPerfis(List<PerfilUsuarioEnum> todosPerfis) {
+		this.todosPerfis = todosPerfis;
 	}
 
 	public List<Usuario> getTeamUsuario() {
@@ -144,22 +183,6 @@ public class ProjetoCadastroMB extends AbstractBean {
 		this.todasSituacoes = todasSituacoes;
 	}
 
-	public List<Usuario> getUsuarioEmpresa() {
-		return usuarioEmpresa;
-	}
-
-	public void setUsuarioEmpresa(List<Usuario> usuarioEmpresa) {
-		this.usuarioEmpresa = usuarioEmpresa;
-	}
-
-	public List<Team> getTeanUsuario() {
-		return team;
-	}
-
-	public void setTeanUsuario(List<Team> teanUsuario) {
-		this.team = teanUsuario;
-	}
-
 	public Usuario getUsuarioSelecionado() {
 		return usuarioSelecionado;
 	}
@@ -168,13 +191,6 @@ public class ProjetoCadastroMB extends AbstractBean {
 		this.usuarioSelecionado = usuarioSelecionado;
 	}
 
-	public Usuario getUsuarioTeamSelecionado() {
-		return usuarioTeamSelecionado;
-	}
-
-	public void setUsuarioTeamSelecionado(Usuario usuarioTeamSelecionado) {
-		this.usuarioTeamSelecionado = usuarioTeamSelecionado;
-	}
 
 	public String sprintPage() {
 		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);

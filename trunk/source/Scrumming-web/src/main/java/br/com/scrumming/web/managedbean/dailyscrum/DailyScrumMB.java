@@ -6,6 +6,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.domain.DailyScrum;
+import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.web.clientService.DailyScrumClientService;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.bean.AbstractBean;
@@ -20,6 +21,8 @@ public class DailyScrumMB extends AbstractBean {
 	private DailyScrumClientService dailyScrumClientService;
 	@FlashScoped
 	private DailyScrum proximoDailyScrum;
+	@FlashScoped
+	private Sprint sprintSelecionada;
 	
 	@Override
 	public void inicializar() {
@@ -27,6 +30,7 @@ public class DailyScrumMB extends AbstractBean {
 		dailyScrumClientService = new DailyScrumClientService();
 	}
 	
+	/*Funções da tela*/
 	public String listarDailyScrumDaSprint(Integer sprintID){
 		setDailyScrumsDaSprint(dailyScrumClientService.consultarDailyScrumPorSprints(sprintID));
 		return "";
@@ -40,7 +44,8 @@ public class DailyScrumMB extends AbstractBean {
 	public void salvarDailyScrum(){
 		dailyScrumClientService.salvarDailyScrum(dailyScrum);
 	}
-
+	
+	/*Getters and Setters*/
 	public DailyScrum getDailyScrum() {
 		return dailyScrum;
 	}
@@ -73,7 +78,12 @@ public class DailyScrumMB extends AbstractBean {
 	public void setProximoDailyScrum(DailyScrum proximoDailyScrum) {
 		this.proximoDailyScrum = proximoDailyScrum;
 	}
-	
-	
-	
+
+	public Sprint getSprintSelecionada() {
+		return sprintSelecionada;
+	}
+
+	public void setSprintSelecionada(Sprint sprintSelecionada) {
+		this.sprintSelecionada = sprintSelecionada;
+	}
 }

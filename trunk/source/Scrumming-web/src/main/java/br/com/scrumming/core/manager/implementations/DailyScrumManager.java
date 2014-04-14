@@ -48,7 +48,7 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 			} else {
 				Calendar.getInstance();
 				e = Calendar.DAY_OF_MONTH;
-				retorno = "DailyScrum Sailvo. Próxima DailyScrum "
+				retorno = "DailyScrum Salvo. Próxima DailyScrum "
 						+ Calendar.DATE + " Horário: "
 						+ dailyScrum.getDataHora().getHourOfDay() + ":"
 						+ dailyScrum.getDataHora().getMillisOfDay();
@@ -70,12 +70,12 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 	}
 
 	@Override
-	public List<DailyScrum> listarDailyScrumDaSprint(int sprintID) {
+	public List<DailyScrum> listarDailyScrumDaSprint(Integer sprintID) {
 		return dailyScrumRepositorio.listarDailyScrumPorSprint(sprintID);
 	}
 
 	@Override
-	public DailyScrum consultarProximoDailyScrum(int sprintID) {
+	public DailyScrum consultarProximoDailyScrum(Integer sprintID) {
 		List<DailyScrum> dailyLista = dailyScrumRepositorio
 				.listarDailyScrumPorSprint(sprintID);
 

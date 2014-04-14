@@ -15,6 +15,11 @@ public class DailyScrumClientService extends AbstractClientService {
 		return getRestTemplate().postForObject(getURIService(ConstantesService.DailyScrum.URL_SALVAR), dailyScrum, String.class);
 	}
 
+	/**
+	 * Retorna a lista de DailyScrum de uma Sprint
+	 * @param sprintID
+	 * @return
+	 */
 	public List<DailyScrum> consultarDailyScrumPorSprints(Integer sprintID) {
 		return Arrays.asList(getRestTemplate().getForObject(getURIService(ConstantesService.DailyScrum.URL_CONSULTAR_POR_SPRINT), DailyScrum[].class, sprintID));
 	}
@@ -25,4 +30,11 @@ public class DailyScrumClientService extends AbstractClientService {
 		return forEntity.getBody();
 	}
 	
+	/**
+	 * Remove um Daily Scrum selecionado.
+	 * @param dailyScrum
+	 */
+	public void excluirDailyScrum(DailyScrum dailyScrum) {
+		getRestTemplate().postForObject(getURIService(ConstantesService.DailyScrum.URL_EXCLUIR_DAILY_SCRUM), dailyScrum, void.class);
+	}
 }

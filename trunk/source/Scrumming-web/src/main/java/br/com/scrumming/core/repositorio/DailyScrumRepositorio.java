@@ -21,7 +21,7 @@ public class DailyScrumRepositorio  extends AbstractRepositorio<DailyScrum, Inte
         return Collections.checkedList(criteria.list(), DailyScrum.class);
 	}
 	
-	public DailyScrum consultarProximoDailyScrum(int DailyScrumID) {
+	public DailyScrum consultarProximoDailyScrum(Integer DailyScrumID) {
 		Criteria criteria = createCriteria();
         //criteria.createAlias("sprint", "sprint");
         criteria.add(Restrictions.eq("codigo", DailyScrumID));

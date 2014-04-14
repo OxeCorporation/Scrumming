@@ -45,8 +45,7 @@
 									<h:outputLabel styleClass="label-default"
 										value="Data de início" />
 									<br />
-									<p:calendar
-										value="#{projetoCadastroMB.projetoDTO.dataInicio}"
+									<p:calendar value="#{projetoCadastroMB.projetoDTO.dataInicio}"
 										id="popupCalInicio" required="true" />
 								</h:panelGroup>
 								<h:panelGroup styleClass="col-md-6 column">
@@ -70,14 +69,22 @@
 									<h:outputText value="Time do Projeto" />
 								</f:facet>
 								<p:dataGrid id="dgProjeto" var="teamProjeto"
-									value="#{projetoCadastroMB.teanUsuario}" columns="1"
+									value="#{projetoCadastroMB.team}" columns="1"
 									emptyMessage="Sem registros" selectionMode="single">
 									<h:commandLink immediate="true">
 										<p:column>
-											<p:panel header="#{teamProjeto.nome}"
-												style="text-align:center">
+											<p:panel header="#{teamProjeto.usuario.nome}"
+												style="text-align:center" toggleable="true"
+												toggleSpeed="500" collapsed="true">
 												<h:panelGrid columns="1" style="width:100%">
-													<p:outputLabel value="#{teamProjeto.email}" />
+													<p:outputLabel styleClass="output-default"
+														value="#{teamProjeto.usuario.email}" />
+														
+													<p:selectOneMenu id="func"
+														value="#{projetoCadastroMB.perfilUsuario}">
+														<f:selectItems value="#{projetoCadastroMB.todosPerfis}" />
+													</p:selectOneMenu>
+
 													<p:effect type="pulsate" event="click" />
 												</h:panelGrid>
 											</p:panel>

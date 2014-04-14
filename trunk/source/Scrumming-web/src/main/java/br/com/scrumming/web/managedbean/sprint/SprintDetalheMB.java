@@ -7,12 +7,14 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
+import br.com.scrumming.domain.DailyScrum;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
+import br.com.scrumming.web.clientService.DailyScrumClientService;
 import br.com.scrumming.web.clientService.ItemBacklogClientService;
 import br.com.scrumming.web.clientService.SprintClientService;
 import br.com.scrumming.web.clientService.TarefaClientService;
@@ -20,13 +22,13 @@ import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
 import br.com.scrumming.web.infra.bean.AbstractBean;
-import br.com.scrumming.web.managedbean.SessaoMB;
 
 @ManagedBean
 @ViewScoped
 public class SprintDetalheMB extends AbstractBean {
 
 	private static final long serialVersionUID = 1L;
+	private DailyScrumClientService dailyClienteService;	
 	private List<ItemBacklog> itens;
 	@FlashScoped
 	private Sprint sprintSelecionada;
@@ -43,15 +45,20 @@ public class SprintDetalheMB extends AbstractBean {
 	private ItemBacklogClientService itemClienteService;
 	@ManagedProperty(value="#{sessaoMB.usuario}")
 	private Usuario usuarioLogado;
-		
+	private DailyScrum dailyScrum;
+	private List<DailyScrum> dailies;
+	private boolean showCalendar;
+	
 	@Override
 	public void inicializar() {
 		tarefa = new Tarefa();
 		tarefaSelecionada = new Tarefa();
 		sprintClienteService = new SprintClientService();
 		itemClienteService = new ItemBacklogClientService();
+		dailyClienteService = new DailyScrumClientService();
 		tarefaClientService = new TarefaClientService();
 		itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo());
+		dailies = dailyClienteService.consultarDailyScrumPorSprints(sprintSelecionada.getCodigo());
 	}
 	
 	/*FUNÇÕES REFERENTES AO ITEMBACKLOG*/
@@ -59,6 +66,40 @@ public class SprintDetalheMB extends AbstractBean {
 		itemSelecionado.setSituacaoBacklog(SituacaoItemBacklogEnum.FEITO);
 		itemClienteService.salvarItemBacklog(itemSelecionado);
 		itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo());
+	}
+	
+	/*FUNÇÕES REFERENTES AO DAILY SCRUM*/
+	public void salvarDailyScrum() {
+		dailyClienteService.salvarDailyScrum(dailyScrum);
+	}
+	
+	public String novoDaily(){
+		showCalendar = true;
+    	dailyScrum = new DailyScrum();
+    	return "";
+    }
+	
+	public void alterarDailyScrum() {
+		showCalendar = false;
+	}
+	
+	/**
+	 * Exclui um DailyScrum selecionado.
+	 * @return
+	 */
+	public String excluirDaily() {
+		dailyClienteService.excluirDailyScrum(dailyScrum);
+    	atualizarLista();
+    	mensagemSucesso();
+        return "";
+    }
+	
+	private void atualizarLista() {
+		dailies = dailyClienteService.consultarDailyScrumPorSprints(sprintSelecionada.getCodigo());
+	}
+	
+	private void mensagemSucesso() {
+		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 	}
 	
 	/* FUNÇÕES REFERENTES À TAREFA*/
@@ -97,6 +138,8 @@ public class SprintDetalheMB extends AbstractBean {
 	
 	public String atribuirTarefaParaMim(){
 		tarefaClientService.atribuirTarefaPara(tarefaSelecionada, usuarioLogado.getCodigo());
+		atualizarListaDeTarefas();
+		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 		return "";
 	}
 	
@@ -180,5 +223,25 @@ public class SprintDetalheMB extends AbstractBean {
 
 	public void setUsuarioLogado(Usuario usuarioLogado) {
 		this.usuarioLogado = usuarioLogado;
+	}
+
+	public List<DailyScrum> getDailies() {
+		return dailies;
+	}
+
+	public void setDailies(List<DailyScrum> dailies) {
+		this.dailies = dailies;
+	}
+
+	public DailyScrum getDailyScrum() {
+		return dailyScrum;
+	}
+
+	public void setDailyScrum(DailyScrum dailyScrum) {
+		this.dailyScrum = dailyScrum;
+	}
+
+	public boolean isShowCalendar() {
+		return showCalendar;
 	}
 }
