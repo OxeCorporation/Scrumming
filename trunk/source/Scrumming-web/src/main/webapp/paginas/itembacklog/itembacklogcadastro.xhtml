@@ -5,7 +5,9 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:p="http://primefaces.org/ui">
     	
-	<p:dialog showEffect="fade" hideEffect="explode" id="dlgItemSave" modal="true" var="exec" resizable="false" widgetVar="dlgItemSave" closable="false">
+	<p:dialog showEffect="fade" hideEffect="explode" id="dlgItemSave" 
+	          modal="true" var="exec" resizable="false" widgetVar="dlgItemSave"
+	          visible="#{facesContext.validationFailed}">
 		<h:outputStylesheet library="css" name="scrumming.css" />
 		<f:facet name="header">
 			<h:outputText styleClass="label-page-title" value="#{itemBacklogMB.projetoSelecionado.nome}" />
