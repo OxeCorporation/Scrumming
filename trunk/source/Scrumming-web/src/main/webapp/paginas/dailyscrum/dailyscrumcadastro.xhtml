@@ -17,15 +17,13 @@
 					id="labelDataHora" 
 					value="#{mensagens.label_nome_usuario}" 
 					styleClass="col-md-4 control-label" 
-					for="txtNome" 
-					rendered="#{sprintDetalheMB.showCalendar}"/>
+					for="popupCalDataHora" />
 				<h:panelGroup display="block" styleClass="col-md-6">
 					<p:calendar
 						id="popupCalDataHora"
 						value="#{sprintDetalheMB.dailyScrum.dataHoraCalendar}" 
 						pattern="MM/dd/yyyy HH:mm" 
-						required="true"
-						rendered="#{sprintDetalheMB.showCalendar}" />
+						required="true" />
 			    </h:panelGroup>
 			</h:panelGroup>
 			<br/>

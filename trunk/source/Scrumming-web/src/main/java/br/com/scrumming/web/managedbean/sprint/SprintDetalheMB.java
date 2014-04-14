@@ -81,6 +81,7 @@ public class SprintDetalheMB extends AbstractBean {
 	
 	public void alterarDailyScrum() {
 		showCalendar = false;
+		dailies = dailyClienteService.consultarDailyScrumPorSprints(sprintSelecionada.getCodigo());
 	}
 	
 	/**

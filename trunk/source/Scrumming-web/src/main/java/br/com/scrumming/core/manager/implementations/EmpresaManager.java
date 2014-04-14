@@ -2,6 +2,7 @@ package br.com.scrumming.core.manager.implementations;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,6 +53,7 @@ public class EmpresaManager extends
     	//Salva a empresa
 		Empresa empresa = empresaDTO.getEmpresa();
 		empresa.setAtivo(true);
+		empresa.setDataCadastro(DateTime.now());
 		insertOrUpdate(empresa);
 		
 		//Salva o usuário

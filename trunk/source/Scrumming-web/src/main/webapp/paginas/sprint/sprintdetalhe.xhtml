@@ -207,12 +207,12 @@
 								</f:facet>
 								
 								<p:panel header="#{dailyScrum.dataFormatada}">
-									<p:outputLabel for="dailyHorario" value="#{mensagens.label_horario_daily}" /> <span/>
-									<h:outputText id="dailyHorario" value="#{dailyScrum.horaFormatada}" />  <br/>
-									<p:outputLabel for="dailyLocal" value="#{mensagens.label_local_daily}" /> <span/>
-									<h:outputText id="dailyLocal" value="#{dailyScrum.local}" />  <br/>
-									<p:outputLabel for="dailyDuracao" value="#{mensagens.label_duracao_daily}"/> <span/>
-									<h:outputText id="dailyDuracao" value="#{dailyScrum.duracao} min" /> <br/>
+									<p:outputLabel for="dailyHorario" value="#{mensagens.label_horario_daily}" style="font-size: 12px;"/> <span/>
+									<h:outputText id="dailyHorario" value="#{dailyScrum.horaFormatada}"  style="font-size: 12px;"/>  <br/>
+									<p:outputLabel for="dailyLocal" value="#{mensagens.label_local_daily}"  style="font-size: 12px;"/> <span/>
+									<h:outputText id="dailyLocal" value="#{dailyScrum.local}"  style="font-size: 12px;"/>  <br/>
+									<p:outputLabel for="dailyDuracao" value="#{mensagens.label_duracao_daily}" style="font-size: 12px;"/> <span/>
+									<h:outputText id="dailyDuracao" value="#{dailyScrum.duracao} min" style="font-size: 12px;"/> <br/>
 									<f:facet name="footer">
 									  <div align="center">
 										<p:commandButton id="alterarBotao"
@@ -244,7 +244,7 @@
 										value="#{mensagens.botao_cadastrar}"
 										oncomplete="dailyscrumcadastro.show()"
 										process="@this"
-										update="@form"
+										update="#{tab4}"
 										action="#{sprintDetalheMB.novoDaily}"
 										immediate="true"/>
 								</f:facet>	
