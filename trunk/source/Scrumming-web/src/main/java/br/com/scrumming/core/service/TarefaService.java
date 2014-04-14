@@ -45,6 +45,11 @@ public class TarefaService {
     public void remover(@RequestBody Tarefa tarefa) throws Exception {
     	tarefaManager.remover(tarefa);
     }
+	
+	@RequestMapping(method = RequestMethod.POST, value ="/atribuirpara/{itemBacklogID}/{usuarioID}")
+    public void atribuirPara(@RequestBody Tarefa tarefa, @PathVariable Integer itemBacklogID, @PathVariable Integer usuarioID) {
+    	tarefaManager.atribuirPara(tarefa, itemBacklogID, usuarioID);
+    }
 
 	/* getters and setters */
 	public ITarefaManager getTarefaManager() {

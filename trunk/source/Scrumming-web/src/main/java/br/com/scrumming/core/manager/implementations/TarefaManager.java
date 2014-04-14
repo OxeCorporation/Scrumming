@@ -3,6 +3,7 @@ package br.com.scrumming.core.manager.implementations;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,9 +12,11 @@ import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
 import br.com.scrumming.core.manager.interfaces.ITarefaManager;
+import br.com.scrumming.core.manager.interfaces.IUsuarioManager;
 import br.com.scrumming.core.repositorio.TarefaRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
 @Service
@@ -28,6 +31,8 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
     private TarefaRepositorio tarefaRepositorio;
     @Autowired
     private IItemBacklogManager itemBacklogManager;
+    @Autowired
+    private IUsuarioManager usuarioManager;
 
 	@Override
     public AbstractRepositorio<Tarefa, Integer> getRepositorio() {
@@ -36,12 +41,12 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void salvar(Tarefa tarefa, Integer itemBacklogManagerID) {
-    	ItemBacklog itemBacklog = itemBacklogManager.findByKey(itemBacklogManagerID);
+    public void salvar(Tarefa tarefa, Integer itemBacklogID) {
+    	ItemBacklog itemBacklog = itemBacklogManager.findByKey(itemBacklogID);
+    	tarefa.setItemBacklog(itemBacklog);
     	if (tarefa.getSituacao() == null)
     		tarefa.setSituacao(SituacaoTarefaEnum.PARA_FAZER);
-    	tarefa.setItemBacklog(itemBacklog);
-    	
+    	    	
     	insertOrUpdate(tarefa);
     }
 
@@ -102,6 +107,23 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
 		return preencherNovaListaDeTarefas(tarefaRepositorio.consultarPorItemBacklogIhNotSituacao(itemBacklogID, situacao));
 	}
     
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void atribuirPara(Tarefa tarefa, Integer itemBacklogID, Integer usuarioID) {
+		ItemBacklog itemBacklog = itemBacklogManager.findByKey(itemBacklogID);
+    	tarefa.setItemBacklog(itemBacklog);
+    	
+		Usuario usuario = usuarioManager.findByKey(usuarioID);
+		tarefa.setUsuario(usuario);
+		
+		if (usuario != null){
+			tarefa.setDataAtribuicao(new DateTime());
+		} else {
+			tarefa.setDataAtribuicao(null);
+		}
+    	
+		insertOrUpdate(tarefa);
+    }
     
     /* getters and setters */
     public TarefaRepositorio getTarefaRepositorio() {

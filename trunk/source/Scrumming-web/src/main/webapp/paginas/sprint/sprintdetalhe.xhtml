@@ -72,13 +72,14 @@
 									<h:outputText value="#{tarefa.nome}" />
 									<h:outputText value="#{tarefa.situacaoDescricao}" style="color: white; float: right; #{tarefa.backgroundColor};" styleClass="label-medium"/>
 									<br/>
+									<h:outputText value="#{mensagens.label_responsavel} #{tarefa.usuario.nome}" rendered="#{not empty tarefa.usuario}"/>
 									<br/>
 									<!-- AQUI SERÁ IMPLEMENTADO POR PABLO -->
 									<!-- BOTAO ATRIBUIR PARA MIM -->
 									<p:commandLink id="linkAtribuirParaMim" title="#{mensagens.label_atribuir_para_mim}"
-										action="#{sprintDetalheMB.atribuirTarefaPara}"
-										oncomplete="dlgTarefaSave.show()" 
-										process="@this" update="@widgetVar(dlgTarefaSave)">
+										action="#{sprintDetalheMB.atribuirTarefaParaMim}" 
+										process="@this" update="@widgetVar(dlgTarefaSave)"
+										rendered="#{empty tarefa.usuario}">
 										<i class="fa fa-smile-o inside-grid-icon-left"></i>
 										<f:setPropertyActionListener value="#{tarefa}"
 											target="#{sprintDetalheMB.tarefaSelecionada}" />
@@ -88,7 +89,8 @@
 									<p:commandLink id="linkAtribuirPara" title="#{mensagens.label_atribuir_para}"
 										action="#{itemBacklogDetalheMB.preparaParaAlterar}"
 										oncomplete="dlgTarefaSave.show()" 
-										process="@this" update="@widgetVar(dlgTarefaSave)">
+										process="@this" update="@widgetVar(dlgTarefaSave)"
+										rendered="#{false}">
 										<i class="fa fa-share-square-o inside-grid-icon-left"></i>
 										<f:setPropertyActionListener value="#{tarefa}"
 											target="#{sprintDetalheMB.tarefaSelecionada}" />
@@ -98,7 +100,8 @@
 									<p:commandLink id="linkReporteHora" title="#{mensagens.label_reportar_hora}"
 										action="#{itemBacklogDetalheMB.preparaParaAlterar}"
 										oncomplete="dlgTarefaSave.show()" 
-										process="@this" update="@widgetVar(dlgTarefaSave)">
+										process="@this" update="@widgetVar(dlgTarefaSave)"
+										rendered="#{false}">
 										<i class="fa fa-clock-o inside-grid-icon-left"></i>
 										<f:setPropertyActionListener value="#{tarefa}"
 											target="#{sprintDetalheMB.tarefaSelecionada}" />
@@ -108,7 +111,8 @@
 									<p:commandLink id="linkAlterarSituacao" title="#{mensagens.label_alterar_situacao}"
 										action="#{itemBacklogDetalheMB.preparaParaAlterar}"
 										oncomplete="dlgTarefaSave.show()" 
-										process="@this" update="@widgetVar(dlgTarefaSave)">
+										process="@this" update="@widgetVar(dlgTarefaSave)"
+										rendered="#{false}">
 										<i class="fa fa-pencil inside-grid-icon-left"></i>
 										<f:setPropertyActionListener value="#{tarefa}"
 											target="#{sprintDetalheMB.tarefaSelecionada}" />
@@ -118,7 +122,8 @@
 									<p:commandLink id="linkFavoritarTarefa" title="#{mensagens.label_favoritar_tarefa}"
 										action="#{itemBacklogDetalheMB.preparaParaAlterar}"
 										oncomplete="dlgTarefaSave.show()" 
-										process="@this" update="@widgetVar(dlgTarefaSave)">
+										process="@this" update="@widgetVar(dlgTarefaSave)"
+										rendered="#{false}">
 										<i class="fa fa-star-o inside-grid-icon-left"></i>
 										<f:setPropertyActionListener value="#{tarefa}"
 											target="#{sprintDetalheMB.tarefaSelecionada}" />

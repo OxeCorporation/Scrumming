@@ -13,10 +13,10 @@ import br.com.scrumming.web.infra.ConstantesService;
 
 public class TarefaClientService extends AbstractClientService {
 	
-	public void salvarTarefa(Tarefa tarefa, Integer itemBacklogManagerID) {		
+	public void salvarTarefa(Tarefa tarefa, Integer itemBacklogID) {		
 		getRestTemplate().postForObject(
 				getURIService(ConstantesService.Tarefa.URL_SALVAR),
-				tarefa, void.class, itemBacklogManagerID);
+				tarefa, void.class, itemBacklogID);
 	}
 	
 	public List<Tarefa> consultarTarefasPorItemBacklog(Integer itemBacklogID) {
@@ -41,5 +41,11 @@ public class TarefaClientService extends AbstractClientService {
 		getRestTemplate().postForObject(
 				getURIService(ConstantesService.Tarefa.URL_REMOVER),
 				tarefa, void.class);
+	}
+	
+	public void atribuirTarefaPara(Tarefa tarefa, Integer usuarioID) {		
+		getRestTemplate().postForObject(
+				getURIService(ConstantesService.Tarefa.URL_ATRIBUIR_PARA),
+				tarefa, void.class, tarefa.getItemBacklog().getCodigo(), usuarioID);
 	}
 }
