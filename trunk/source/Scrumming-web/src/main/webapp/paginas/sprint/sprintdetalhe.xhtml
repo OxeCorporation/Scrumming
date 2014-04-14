@@ -36,13 +36,16 @@
 								<p:commandLink action="#{sprintDetalheMB.itembacklogDetalhePage}" immediate="true">
 									<h:outputText styleClass="label-grid-header" value="#{item.nome}" />
 									<f:setPropertyActionListener value="#{item}" target="#{sprintDetalheMB.itemSelecionado}" />
-								</p:commandLink>
-								<p:commandLink immediate="true" title="Nova tarefa"
-									onclick="dlgTarefaSave.show()" rendered="#{item.deliverable}">
-									<i class="fa fa-plus inside-header-icon"/>
+								</p:commandLink>								
+								<!-- BOTAO NOVA TAREFA -->
+								<p:commandLink action="#{itemBacklogDetalheMB.preparaParaInserir}" title="Nova tarefa"
+									oncomplete="dlgTarefaSave.show()" process="@this" update="@widgetVar(dlgTarefaSave)"
+									rendered="#{item.editable}">
+									<i class="fa fa-plus inside-header-ico"/>										
 									<f:setPropertyActionListener value="#{item}"
-										target="#{tarefaBean.tarefa.itemBacklog}" />
-								</p:commandLink>
+										target="#{itemBacklogDetalheMB.itemSelecionado}" />
+								</p:commandLink>								
+								
 								<p:commandLink immediate="true" title="#{mensagens.mensagem_entregar_item}" 
 									rendered="#{item.deliverable}"
 									action="#{sprintDetalheMB.entregarItem}" update="@form">
@@ -63,13 +66,14 @@
 									<h:outputText value="#{tarefa.nome}" />
 									<h:outputText value="#{tarefa.situacaoDescricao}" style="color: white; float: right; #{tarefa.backgroundColor};" styleClass="label-medium"/>
 									<br/>
-									<h:outputText value="#{mensagens.label_responsavel} #{tarefa.usuario.nome}" rendered="#{not empty tarefa.usuario}"/>
+									<h:outputText value="#{mensagens.label_responsavel} #{tarefa.usuario.nome}" rendered="#{not empty tarefa.usuario}" styleClass="output-small"/>
 									<br/>
 									<!-- AQUI SERÁ IMPLEMENTADO POR PABLO -->
 									<!-- BOTAO ATRIBUIR PARA MIM -->
 									<p:commandLink id="linkAtribuirParaMim" title="#{mensagens.label_atribuir_para_mim}"
 										action="#{sprintDetalheMB.atribuirTarefaParaMim}" 
-										process="@this" update="@form" rendered="#{empty tarefa.usuario}">
+										process="@this" update="@form"
+										rendered="#{empty tarefa.usuario and tarefa.itemBacklog.editable}">
 										<i class="fa fa-smile-o inside-grid-icon-left"></i>
 										<f:setPropertyActionListener value="#{tarefa}"
 											target="#{sprintDetalheMB.tarefaSelecionada}" />
@@ -160,8 +164,6 @@
 		        		<p:commandButton value="#{mensagens.botao_confirmar}" styleClass="ui-confirmdialog-yes" 
 		        			icon="ui-icon-check" immediate="true" style="margin:0 auto; float:right"/>        		      
 		    		</p:confirmDialog>
-		    		
-		    		
     		
 				</p:tab>
 				<p:tab id="tab2" title="Sprint Board">

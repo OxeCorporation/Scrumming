@@ -19,6 +19,7 @@ import br.com.scrumming.domain.SprintBacklogChave;
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
+import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
 @Service
 public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintBacklogChave> implements ISprintBacklogManager {
@@ -77,16 +78,30 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 			// Para cada item
 			for (ItemBacklog itemBacklog : itemsDaSprint) {
 				itemBacklog.setDeliverable(true);
+				itemBacklog.setEditable(true);
 				itemBacklog.setStatusItembacklog("");
 				if (sprint.getSituacaoSprint() == SituacaoSprintEnum.FECHADA) {
 					itemBacklog.setDeliverable(false);
+					itemBacklog.setEditable(false);
 				}
 				if (itemBacklog.getSituacaoBacklog() == SituacaoItemBacklogEnum.FEITO) {
 					itemBacklog.setDeliverable(false);
 					itemBacklog.setStatusItembacklog("Entregue");
+					itemBacklog.setEditable(false);
 				}				
 				// Seta a lista de tarefas desse item.
 				List<Tarefa> tarefas = tarefaManager.consultarPorItemBacklog(itemBacklog.getCodigo());
+				if (tarefas.size() == 0) {
+					itemBacklog.setDeliverable(false);
+				}
+				for (Tarefa tarefa : tarefas) {
+					if (sprint.getSituacaoSprint() == SituacaoSprintEnum.FECHADA) {
+						tarefa.setSituacao(SituacaoTarefaEnum.FEITO);
+					}
+					if (tarefa.getSituacao() != SituacaoTarefaEnum.FEITO) {
+						itemBacklog.setDeliverable(false);
+					}
+				}
 				itemBacklog.setTarefas(tarefas);
 			}
 		}
