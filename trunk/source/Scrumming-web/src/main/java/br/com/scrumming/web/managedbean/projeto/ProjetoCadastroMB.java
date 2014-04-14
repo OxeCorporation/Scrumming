@@ -1,6 +1,7 @@
 package br.com.scrumming.web.managedbean.projeto;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.ProjetoDTO;
 import br.com.scrumming.domain.Usuario;
+import br.com.scrumming.domain.enuns.SituacaoProjetoEnum;
 import br.com.scrumming.web.clientService.ProjetoClientService;
 import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.FlashScoped;
@@ -31,6 +33,8 @@ public class ProjetoCadastroMB extends AbstractBean {
 	private List<Usuario> usuarioEmpresa;
 	@FlashScoped
 	private List<Usuario> teanUsuario;
+	private SituacaoProjetoEnum situacao;
+	private List<SituacaoProjetoEnum> todasSituacoes;
 	private Usuario usuarioSelecionado;
 	private Usuario usuarioTeamSelecionado;
 	
@@ -52,6 +56,7 @@ public class ProjetoCadastroMB extends AbstractBean {
 	}
 	
 	public String salvarProjeto(){
+		projetoDTO.getProjeto().setSituacaoProjeto(situacao);
 		projetoClientService.salvarProjeto(projetoDTO);
 		return "";
 	}
@@ -99,6 +104,22 @@ public class ProjetoCadastroMB extends AbstractBean {
 	}
 
 	
+	public SituacaoProjetoEnum getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(SituacaoProjetoEnum situacao) {
+		this.situacao = situacao;
+	}
+
+	public List<SituacaoProjetoEnum> getTodasSituacoes() {
+		return Arrays.asList(SituacaoProjetoEnum.values());
+	}
+
+	public void setTodasSituacoes(List<SituacaoProjetoEnum> todasSituacoes) {
+		this.todasSituacoes = todasSituacoes;
+	}
+
 	public List<Usuario> getUsuarioEmpresa() {
 		return usuarioEmpresa;
 	}
