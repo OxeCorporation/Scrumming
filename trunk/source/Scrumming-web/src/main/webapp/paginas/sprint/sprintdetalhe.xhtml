@@ -39,7 +39,7 @@
 								<!-- BOTAO NOVA TAREFA -->
 								<p:commandLink action="#{itemBacklogDetalheMB.preparaParaInserir}" title="Nova tarefa"
 									oncomplete="dlgTarefaSave.show()" process="@this" update="@widgetVar(dlgTarefaSave)"
-									rendered="#{item.editable}">
+									rendered="#{item.editable}" style="float: right">
 									<i class="fa fa-plus inside-header-ico"/>										
 									<f:setPropertyActionListener value="#{item}"
 										target="#{itemBacklogDetalheMB.itemSelecionado}" />
