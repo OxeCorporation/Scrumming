@@ -220,7 +220,7 @@
 											action="#{sprintDetalheMB.alterarDailyScrum}"
 											oncomplete="dailyscrumcadastro.show()"
 											process="@this"
-											update="#{tab4}"
+											update="@widgetVar(dailyScrumModal)"
 											immediate="true" >											
 											<f:setPropertyActionListener value="#{dailyScrum}" target="#{sprintDetalheMB.dailyScrum}" />
 										</p:commandButton>
@@ -244,7 +244,7 @@
 										value="#{mensagens.botao_cadastrar}"
 										oncomplete="dailyscrumcadastro.show()"
 										process="@this"
-										update="#{tab4}"
+										update="@widgetVar(dailyScrumModal)"
 										action="#{sprintDetalheMB.novoDaily}"
 										immediate="true"/>
 								</f:facet>	
@@ -285,7 +285,6 @@
 		<h:panelGroup styleClass="col-md-3 column div-right">
 			<h:outputText value="Time do projeto" />
 		</h:panelGroup>
-		
 		<!-- INCLUDE DO MODAL DO CADASTRO DE DAILY SCRUM -->
 		<ui:include src="/paginas/dailyscrum/dailyscrumcadastro.xhtml" />
 		<!-- INCLUDE DO MODAL DO CADASTRO DE TAREFA -->		
