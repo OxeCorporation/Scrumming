@@ -15,17 +15,17 @@
 				<h:outputText styleClass="label-grid-header" value="Detalhes do Item Backlog" />
 			</f:facet>
 			<h:panelGrid columns="1"  id="panel">
-				<h:outputLabel styleClass="label-default" value="Titulo" /> 
+				<h:outputLabel styleClass="label-default" value="#{mensagens.label_nome_item_backlog}" /> 
 				<p:inputText styleClass="output-default" id="nome" required="true" style="width: 500px" 	
 							 value="#{itemBacklogMB.itemBacklog.nome}" 
 							 requiredMessage="Preencha o Nome do Item" 
 							 disabled="#{itemBacklogCadastroMB.itemBacklog.nome} != null}" />
 				<br/>
-				<h:outputLabel styleClass="label-default" value="Descricao" /> 
+				<h:outputLabel styleClass="label-default" value="#{mensagens.label_descricao_Projeto}" /> 
 				<h:inputTextarea id="descricao" required="false" class="form-control text-area" 
 								 value="#{itemBacklogMB.itemBacklog.descricao}" />
 				<br/>
-				<h:outputLabel styleClass="label-default" value="Criterio de Aceitacao" /> 
+				<h:outputLabel styleClass="label-default" value="#{mensagens.label_criterio_aceitacao}" /> 
 				<h:inputTextarea class="form-control text-area" id="criterioAceitacao" required="false" 
 								 value="#{itemBacklogMB.itemBacklog.criterioAceitacao}" />
 				<br/>
@@ -44,8 +44,8 @@
 			</h:panelGrid> 
 		</p:panel>
 			
-		<p:commandButton update="panel" process="@this" icon="ui-icon-cancel" value="Cancelar" oncomplete="dlgItemSave.hide()" styleClass="button"/>
-		<p:commandButton update="panel" oncomplete="dlgItemSave.hide()" value="Salvar" action="#{itemBacklogMB.salvarItemBacklog}" icon="ui-icon-disk" styleClass="button" ajax="false"/>								
+		<p:commandButton update="panel" process="@this" icon="ui-icon-cancel" value="#{mensagens.botao_cancelar}" oncomplete="dlgItemSave.hide()" styleClass="button"/>
+		<p:commandButton update="panel" oncomplete="dlgItemSave.hide()" value="#{mensagens.botao_confirmar}" action="#{itemBacklogMB.salvarItemBacklog}" icon="ui-icon-disk" styleClass="button" ajax="false"/>								
 								
 	</p:dialog>	
 	
