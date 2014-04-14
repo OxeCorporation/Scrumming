@@ -82,6 +82,9 @@ public class ItemBacklog extends ObjetoPersistente<Integer> {
     
     @Transient
     private boolean deliverable;
+    
+    @Transient
+    private boolean editable;
 
 	/* getters and setters */
     @Override
@@ -204,6 +207,14 @@ public class ItemBacklog extends ObjetoPersistente<Integer> {
 
 	public void setDeliverable(boolean deliverable) {
 		this.deliverable = deliverable;
+	}
+
+	public boolean isEditable() {
+		return editable;
+	}
+
+	public void setEditable(boolean editable) {
+		this.editable = editable;
 	}
 
 	public SituacaoItemBacklogEnum getSituacaoBacklog() {
