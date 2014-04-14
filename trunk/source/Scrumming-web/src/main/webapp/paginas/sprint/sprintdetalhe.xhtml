@@ -27,7 +27,7 @@
 				<br />
 			</h:panelGroup>
 			<p:tabView id="tabView">
-				<p:tab id="tab1" title="Sprint Backlog" id="tabSprintBacklog" widgetVar="tabSprintBacklog">
+				<p:tab id="tab1" title="Sprint Backlog" widgetVar="tabSprintBacklog">
 					<!-- CABEÇALHO DA LISTAGEM CONTENDO UM ITEM BACKLOG -->
 					<p:dataGrid id="dtgSprintBacklog" var="item" value="#{sprintDetalheMB.itens}" columns="1" style="width:100%"
 					emptyMessage="#{mensagens.mensagem_sem_registros}">
@@ -76,7 +76,7 @@
 									<!-- AQUI SERÁ IMPLEMENTADO POR PABLO -->
 									<!-- BOTAO ATRIBUIR PARA MIM -->
 									<p:commandLink id="linkAtribuirParaMim" title="#{mensagens.label_atribuir_para_mim}"
-										action="#{sprintDetalheMB.preparaParaAlterarTarefa}"
+										action="#{sprintDetalheMB.atribuirTarefaPara}"
 										oncomplete="dlgTarefaSave.show()" 
 										process="@this" update="@widgetVar(dlgTarefaSave)">
 										<i class="fa fa-smile-o inside-grid-icon-left"></i>
