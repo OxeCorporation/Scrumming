@@ -158,7 +158,7 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		sprintDTO.setDataRevisao(sprint.getDataRevisao().toDate());
 
 		// Seta a lista de itens ativos que representam o SprintBacklog
-		sprintBacklog = sprintBacklogManager.consultarItensAtivosBacklogPorSprint(sprintID);
+		sprintBacklog = sprintBacklogManager.consultarItensBacklogPorSprint(sprintID);
 		sprintDTO.setSprintBacklog(sprintBacklog);
 
 		// Pesquisa todos os itens do Product Backlog

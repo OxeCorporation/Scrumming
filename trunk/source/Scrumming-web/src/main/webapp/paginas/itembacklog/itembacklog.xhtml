@@ -61,8 +61,8 @@
 		</h:panelGroup>
 		<h:panelGroup styleClass="col-md-3 column div-right">
 			<p:commandLink id="salvaButton" oncomplete="dlgItemSave.show()" 
-						   process="@this" update="dtgListaItem"
-						   action="#{itemBacklogMB.itemBacklog}">
+						   process="@this" update="@widgetVar(dlgItemSave)"
+						   action="#{itemBacklogMB.preparaParaInserir}">
 				<i class="fa fa-plus  right-sidebar-icon" />
 				<h:outputText value="Novo Item Backlog" />
 			</p:commandLink>
