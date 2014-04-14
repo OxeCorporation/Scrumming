@@ -41,6 +41,9 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 
 		String retorno = "";
 		Projeto projeto = projetoDTO.getProjeto();
+		projeto.setDataInicio(new DateTime(projetoDTO.getDataInicio()));
+		projeto.setDataCadastro(new DateTime());
+
 		List<Team> team = projetoDTO.getTimeProjeto();
 		// Persiste o objeto Projeto e retorna a chave.
 		Integer projetoID = insertOrUpdate(projeto);
