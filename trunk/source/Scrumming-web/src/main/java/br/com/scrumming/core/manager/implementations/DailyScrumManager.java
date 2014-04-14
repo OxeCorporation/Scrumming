@@ -48,7 +48,7 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 			} else {
 				Calendar.getInstance();
 				e = Calendar.DAY_OF_MONTH;
-				retorno = "DailyScrum Sailvo. Próxima DailyScrum "
+				retorno = "DailyScrum Salvo. Próxima DailyScrum "
 						+ Calendar.DATE + " Horário: "
 						+ dailyScrum.getDataHora().getHourOfDay() + ":"
 						+ dailyScrum.getDataHora().getMillisOfDay();

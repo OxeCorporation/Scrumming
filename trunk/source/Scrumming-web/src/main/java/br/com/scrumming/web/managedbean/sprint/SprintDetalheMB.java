@@ -47,6 +47,7 @@ public class SprintDetalheMB extends AbstractBean {
 	private Usuario usuarioLogado;
 	private DailyScrum dailyScrum;
 	private List<DailyScrum> dailies;
+	private boolean showCalendar;
 	
 	@Override
 	public void inicializar() {
@@ -73,11 +74,13 @@ public class SprintDetalheMB extends AbstractBean {
 	}
 	
 	public String novoDaily(){
+		showCalendar = true;
     	dailyScrum = new DailyScrum();
     	return "";
     }
 	
-	public void alterarDailyScrum() {		
+	public void alterarDailyScrum() {
+		showCalendar = false;
 	}
 	
 	/**
@@ -236,5 +239,9 @@ public class SprintDetalheMB extends AbstractBean {
 
 	public void setDailyScrum(DailyScrum dailyScrum) {
 		this.dailyScrum = dailyScrum;
+	}
+
+	public boolean isShowCalendar() {
+		return showCalendar;
 	}
 }

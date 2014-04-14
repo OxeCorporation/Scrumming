@@ -1,5 +1,7 @@
 package br.com.scrumming.domain;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -56,6 +58,9 @@ public class DailyScrum extends ObjetoPersistente<Integer> {
 	
 	@Transient
 	private String horaFormatada;
+	
+	@Transient
+	private Date dataHoraCalendar;
 	
 	@Override
 	@JsonIgnore
@@ -117,5 +122,13 @@ public class DailyScrum extends ObjetoPersistente<Integer> {
 		} catch (NullPointerException e) {			
 		}
 		return horaFormatada;
+	}
+
+	public Date getDataHoraCalendar() {
+		return dataHoraCalendar;
+	}
+
+	public void setDataHoraCalendar(Date dataHoraCalendar) {
+		this.dataHoraCalendar = dataHoraCalendar;
 	}
 }
