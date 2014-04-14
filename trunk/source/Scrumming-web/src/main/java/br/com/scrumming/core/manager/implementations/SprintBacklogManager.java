@@ -80,7 +80,8 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 				itemBacklog.setStatusItembacklog("");
 				if (sprint.getSituacaoSprint() == SituacaoSprintEnum.FECHADA) {
 					itemBacklog.setDeliverable(false);
-				} else if (itemBacklog.getSituacaoBacklog() == SituacaoItemBacklogEnum.FEITO) {
+				}
+				if (itemBacklog.getSituacaoBacklog() == SituacaoItemBacklogEnum.FEITO) {
 					itemBacklog.setDeliverable(false);
 					itemBacklog.setStatusItembacklog("Entregue");
 				}				
