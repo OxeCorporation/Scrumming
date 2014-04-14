@@ -64,7 +64,9 @@
 							</f:facet>
 							<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />						
 						
-						<p:dataGrid var="tarefa" value="#{item.tarefas}" columns="1" style="width:100%" widgetVar="dataGridTarefas">
+						<p:dataGrid var="tarefa" value="#{item.tarefas}" 
+							columns="1" style="width:100%" widgetVar="dataGridTarefas"
+							emptyMessage="#{mensagens.label_lista_de_tarefas_vazia}">
 							<p:panel styleClass="col-md-12 column">
 								<h:panelGroup styleClass="col-md-11 column">
 									<h:outputText value="#{tarefa.nome}" />
