@@ -20,7 +20,6 @@ import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
 import br.com.scrumming.web.infra.bean.AbstractBean;
-import br.com.scrumming.web.managedbean.SessaoMB;
 
 @ManagedBean
 @ViewScoped
