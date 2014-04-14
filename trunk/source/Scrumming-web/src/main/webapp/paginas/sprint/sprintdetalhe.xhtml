@@ -38,7 +38,7 @@
 									<f:setPropertyActionListener value="#{item}" target="#{sprintDetalheMB.itemSelecionado}" />
 								</p:commandLink>
 								<p:commandLink immediate="true" title="Nova tarefa"
-									onclick="dlgTarefaSave.show()">
+									onclick="dlgTarefaSave.show()" rendered="#{item.deliverable}">
 									<i class="fa fa-plus inside-header-icon"/>
 									<f:setPropertyActionListener value="#{item}"
 										target="#{tarefaBean.tarefa.itemBacklog}" />
@@ -50,17 +50,9 @@
 									<f:setPropertyActionListener value="#{item}"
 										target="#{sprintDetalheMB.itemSelecionado}" />
 								</p:commandLink>
+								<h:outputText styleClass="output-medium" value="#{item.statusItembacklog}" style="float: right;" />
 								<br />
 								<h:outputText styleClass="output-medium" value="#{item.descricao}" />
-								<!-- BOTAO CADASTRAR NOVA TAREFA -->
-								<!--
-								<p:commandLink immediate="true" title="Nova tarefa"
-									onclick="dlgTarefaSave.show()">
-									<h:outputText styleClass="fa fa-plus inside-header-icon" />
-									<f:setPropertyActionListener value="#{item}"
-										target="#{tarefaBean.tarefa.itemBacklog}" />
-								</p:commandLink>
-								-->
 							</f:facet>
 							<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />						
 						
