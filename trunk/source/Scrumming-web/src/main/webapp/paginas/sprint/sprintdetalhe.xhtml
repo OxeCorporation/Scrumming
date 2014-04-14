@@ -220,7 +220,7 @@
 											action="#{sprintDetalheMB.alterarDailyScrum}"
 											oncomplete="dailyscrumcadastro.show()"
 											process="@this"
-											update="@form"
+											update="#{tab4}"
 											immediate="true" >											
 											<f:setPropertyActionListener value="#{dailyScrum}" target="#{sprintDetalheMB.dailyScrum}" />
 										</p:commandButton>
@@ -274,7 +274,6 @@
 			        			   oncomplete="confimExcluir.hide()"/>			        			          
 			    			</p:confirmDialog>
 						
-						<ui:include src="/paginas/dailyscrum/dailyscrumcadastro.xhtml" />
 					</h:panelGroup>
 				</p:tab>
 				
@@ -287,7 +286,9 @@
 			<h:outputText value="Time do projeto" />
 		</h:panelGroup>
 		
-		<!-- INCLUDE DO MODAL DO CADASTRO DE DAILY SCRUM -->		
+		<!-- INCLUDE DO MODAL DO CADASTRO DE DAILY SCRUM -->
+		<ui:include src="/paginas/dailyscrum/dailyscrumcadastro.xhtml" />
+		<!-- INCLUDE DO MODAL DO CADASTRO DE TAREFA -->		
 		<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />
 		
 	</ui:define>
