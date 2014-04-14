@@ -36,13 +36,16 @@
 								<p:commandLink action="#{sprintDetalheMB.itembacklogDetalhePage}" immediate="true">
 									<h:outputText styleClass="label-grid-header" value="#{item.nome}" />
 									<f:setPropertyActionListener value="#{item}" target="#{sprintDetalheMB.itemSelecionado}" />
-								</p:commandLink>
-								<p:commandLink immediate="true" title="Nova tarefa"
-									onclick="dlgTarefaSave.show()" rendered="#{item.editable}">
-									<i class="fa fa-plus inside-header-icon"/>
+								</p:commandLink>								
+								<!-- BOTAO NOVA TAREFA -->
+								<p:commandLink action="#{itemBacklogDetalheMB.preparaParaInserir}" title="Nova tarefa"
+									oncomplete="dlgTarefaSave.show()" process="@this" update="@widgetVar(dlgTarefaSave)"
+									rendered="#{item.editable}">
+									<i class="fa fa-plus inside-header-ico"/>										
 									<f:setPropertyActionListener value="#{item}"
-										target="#{tarefaBean.tarefa.itemBacklog}" />
-								</p:commandLink>
+										target="#{itemBacklogDetalheMB.itemSelecionado}" />
+								</p:commandLink>								
+								
 								<p:commandLink immediate="true" title="#{mensagens.mensagem_entregar_item}" 
 									rendered="#{item.deliverable}"
 									action="#{sprintDetalheMB.entregarItem}" update="@form">
