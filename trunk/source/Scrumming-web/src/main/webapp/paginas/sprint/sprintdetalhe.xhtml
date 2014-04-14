@@ -70,12 +70,14 @@
 									<!-- AQUI SERÁ IMPLEMENTADO POR PABLO -->
 									<!-- BOTAO ATRIBUIR PARA MIM -->
 									<p:commandLink id="linkAtribuirParaMim" title="#{mensagens.label_atribuir_para_mim}"
-										action="#{sprintDetalheMB.atribuirTarefaParaMim}" 
-										process="@this" update="@form"
-										rendered="#{empty tarefa.usuario and tarefa.itemBacklog.editable}">
+										action="#{sprintDetalheMB.atribuirTarefaParaMim}"										
+										rendered="#{empty tarefa.usuario and tarefa.itemBacklog.editable}"
+										immediate="true" process="@this" update="@widgetVar(dtgSprintBacklog)">
 										<i class="fa fa-smile-o inside-grid-icon-left"></i>
 										<f:setPropertyActionListener value="#{tarefa}"
 											target="#{sprintDetalheMB.tarefaSelecionada}" />
+										<f:setPropertyActionListener value="#{tarefa.itemBacklog}"
+											target="#{sprintDetalheMB.itemSelecionado}" />
 									</p:commandLink>
 									
 									<!-- BOTAO ATRIBUIR PARA OUTRO USUARIO -->
@@ -145,6 +147,8 @@
 										<h:outputText styleClass="fa fa-trash-o inside-grid-icon" />
 										<f:setPropertyActionListener value="#{tarefa}"
 											target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
+										<f:setPropertyActionListener value="#{tarefa.itemBacklog}"
+											target="#{itemBacklogDetalheMB.itemSelecionado}" />
 										<p:confirm header="#{mensagens.label_remover_tarefa}" 
 											message="#{mensagens.mensagem_tarefa_sera_removida}" icon="ui-icon-alert"/>
 									</p:commandLink>									

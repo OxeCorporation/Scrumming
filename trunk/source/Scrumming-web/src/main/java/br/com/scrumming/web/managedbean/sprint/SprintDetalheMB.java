@@ -97,6 +97,8 @@ public class SprintDetalheMB extends AbstractBean {
 	
 	public String atribuirTarefaParaMim(){
 		tarefaClientService.atribuirTarefaPara(tarefaSelecionada, usuarioLogado.getCodigo());
+		atualizarListaDeTarefas();
+		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 		return "";
 	}
 	
