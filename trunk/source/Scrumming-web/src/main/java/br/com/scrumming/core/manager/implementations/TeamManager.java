@@ -55,8 +55,8 @@ public class TeamManager extends AbstractManager<Team, Integer> implements
 			
 			Team teamProjeto = new Team();
 			
-			teamProjeto.setEmpresa(item.getEmpresa());
-			teamProjeto.setProjeto(item.getProjeto());
+			teamProjeto.setEmpresa(projetoPersistido.getEmpresa());
+			teamProjeto.setProjeto(projetoPersistido);
 			teamProjeto.setUsuario(item.getUsuario());
 			teamProjeto.setPerfilUsuario(item.getPerfilUsuario());
 			teamProjeto.setAtivo(true);

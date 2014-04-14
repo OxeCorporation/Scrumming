@@ -18,6 +18,7 @@ public final class ConstantesService {
 		public static final String URL_CONSULTAR_POR_ITEM_BACKLOG_IH_SITUACAO = "/tarefa/list/{itemBacklogID}/{situacao}";
 		public static final String URL_CONSULTAR = "/tarefa/{tarefaID}";
 		public static final String URL_REMOVER = "/tarefa/remove/";
+		public static final String URL_ATRIBUIR_PARA = "/tarefa/atribuirpara/{itemBacklogID}/{usuarioID}";
 	}
 	
 	public final class Sprint {
@@ -37,7 +38,7 @@ public final class ConstantesService {
 	}
 	
 	public final class Projeto{
-		public static final String URL_SALVAR_PROJETO = "/projeto/{projetoDTO}";
+		public static final String URL_SALVAR_PROJETO = "/projeto/save";
 		public static final String URL_DELETE_PROJETO = "/projeto/deleteProjeto/{projetoID}";
 		public static final String URL_CANCELAR_PROJETO = "/projeto/{projetoID}";
 		public static final String URL_CONSULTAR_POR_EMPRESA = "/projeto/list/{empresaID}";

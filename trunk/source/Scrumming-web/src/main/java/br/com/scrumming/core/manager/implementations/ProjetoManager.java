@@ -15,6 +15,7 @@ import br.com.scrumming.core.repositorio.ProjetoRepositorio;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.ProjetoDTO;
 import br.com.scrumming.domain.Team;
+import br.com.scrumming.domain.Usuario;
 
 @Service
 public class ProjetoManager extends AbstractManager<Projeto, Integer> implements IProjetoManager {
@@ -41,7 +42,11 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 
 		String retorno = "";
 		Projeto projeto = projetoDTO.getProjeto();
-		List<Team> team = projetoDTO.getTimeProjeto();
+		projeto.setDataInicio(new DateTime(projetoDTO.getDataInicio()));
+		projeto.setDataCadastro(new DateTime());
+
+		List<Team> usuarioTeam = projetoDTO.getTimeProjeto();
+
 		// Persiste o objeto Projeto e retorna a chave.
 		Integer projetoID = insertOrUpdate(projeto);
 		
@@ -50,8 +55,8 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 			// Busca o objeto persistido pela chave.
 			Projeto projetoPersistido = findByKey(projetoID);
 			
-			if (CollectionUtils.isNotEmpty(team)) {
-				teamManage.associarTeamProjeto(projetoPersistido, team);
+			if (CollectionUtils.isNotEmpty(usuarioTeam)) {
+				teamManage.associarTeamProjeto(projetoPersistido, usuarioTeam);
 			}
 		}
 		

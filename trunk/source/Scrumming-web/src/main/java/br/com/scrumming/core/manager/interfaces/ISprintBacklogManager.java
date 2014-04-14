@@ -13,7 +13,7 @@ public interface ISprintBacklogManager extends IManager<SprintBacklog, SprintBac
 	SprintBacklog consultaPorChaveComposta(Sprint sprint, ItemBacklog itemBacklog);
 	void associarItemASprint(Sprint sprintPersistido, List<ItemBacklog> itensBacklogSprint);
 	void desassociarItemASprint(Sprint sprintPersistido, List<ItemBacklog> itensBacklogProduto);
-	List<ItemBacklog> consultarItensAtivosBacklogPorSprint(Integer sprintID);
+	List<ItemBacklog> consultarItensBacklogPorSprint(Integer sprintID);
 	SprintBacklog consultaAtivosPorChaveComposta(Sprint sprint, ItemBacklog itemBacklog);
 	List<ItemBacklog> consultarSprintBacklog(Integer sprintID);
 	List<SprintBacklog> consultarAtivoPorItem(ItemBacklog item);

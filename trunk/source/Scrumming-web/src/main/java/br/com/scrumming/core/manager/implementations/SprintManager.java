@@ -158,7 +158,7 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		sprintDTO.setDataRevisao(sprint.getDataRevisao().toDate());
 
 		// Seta a lista de itens ativos que representam o SprintBacklog
-		sprintBacklog = sprintBacklogManager.consultarItensAtivosBacklogPorSprint(sprintID);
+		sprintBacklog = sprintBacklogManager.consultarItensBacklogPorSprint(sprintID);
 		sprintDTO.setSprintBacklog(sprintBacklog);
 
 		// Pesquisa todos os itens do Product Backlog
@@ -187,11 +187,15 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		Sprint sprintConsulta = findByKey(sprint.getCodigo());
 		
 		List<SprintBacklog> itens = sprintBacklogManager.listarAtivosPorSprint(sprintConsulta);
+		
 		for (SprintBacklog item : itens) {
+			
 			ItemBacklog itemBacklog = itemBacklogManager.findByKey(item.getItemBacklog().getCodigo());
 			
 			if (itemBacklog.getSituacaoBacklog() != SituacaoItemBacklogEnum.FEITO) {
+				
 				List<Tarefa> tarefas = tarefaManager.consultarPorItemBacklogIhNotSituacao(itemBacklog.getCodigo(), SituacaoTarefaEnum.FEITO);
+				
 				if (tarefas.size() == 0) {
 					itemBacklog.setSituacaoBacklog(SituacaoItemBacklogEnum.FEITO);
 					itemBacklogManager.insertOrUpdate(itemBacklog);

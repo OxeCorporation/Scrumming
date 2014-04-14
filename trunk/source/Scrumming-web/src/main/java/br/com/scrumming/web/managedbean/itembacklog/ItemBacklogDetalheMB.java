@@ -77,7 +77,13 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	}
 	
 	public String salvarTarefa() {
-		tarefaClientService.salvarTarefa(tarefa, itemSelecionado.getCodigo());
+		Integer itemBacklodID;
+		if (tarefa.getItemBacklog() == null) {
+			itemBacklodID = itemSelecionado.getCodigo();
+		} else {
+			itemBacklodID = tarefa.getItemBacklog().getCodigo();
+		}
+		tarefaClientService.salvarTarefa(tarefa, itemBacklodID);
 		limparObjetoTarefa();
 		atualizarListaDeTarefas();
     	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);

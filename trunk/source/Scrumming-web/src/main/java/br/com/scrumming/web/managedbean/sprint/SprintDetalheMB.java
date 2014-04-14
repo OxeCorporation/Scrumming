@@ -3,6 +3,7 @@ package br.com.scrumming.web.managedbean.sprint;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
@@ -10,6 +11,7 @@ import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 import br.com.scrumming.web.clientService.ItemBacklogClientService;
 import br.com.scrumming.web.clientService.SprintClientService;
@@ -18,6 +20,7 @@ import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
 import br.com.scrumming.web.infra.bean.AbstractBean;
+import br.com.scrumming.web.managedbean.SessaoMB;
 
 @ManagedBean
 @ViewScoped
@@ -38,6 +41,8 @@ public class SprintDetalheMB extends AbstractBean {
 	private Tarefa tarefaSelecionada;
 	private TarefaClientService tarefaClientService;
 	private ItemBacklogClientService itemClienteService;
+	@ManagedProperty(value="#{sessaoMB.usuario}")
+	private Usuario usuarioLogado;
 		
 	@Override
 	public void inicializar() {
@@ -87,6 +92,11 @@ public class SprintDetalheMB extends AbstractBean {
 		tarefaClientService.removerTarefa(tarefaSelecionada);
 		atualizarListaDeTarefas();
 		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+		return "";
+	}
+	
+	public String atribuirTarefaParaMim(){
+		tarefaClientService.atribuirTarefaPara(tarefaSelecionada, usuarioLogado.getCodigo());
 		return "";
 	}
 	
@@ -162,5 +172,13 @@ public class SprintDetalheMB extends AbstractBean {
 
 	public void setTarefaSelecionada(Tarefa tarefaSelecionada) {
 		this.tarefaSelecionada = tarefaSelecionada;
+	}
+	
+	public Usuario getUsuarioLogado() {
+		return usuarioLogado;
+	}
+
+	public void setUsuarioLogado(Usuario usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
 	}
 }

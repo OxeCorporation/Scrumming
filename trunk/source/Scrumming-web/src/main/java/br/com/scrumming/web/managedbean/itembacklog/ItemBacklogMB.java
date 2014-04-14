@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
+import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.web.clientService.ItemBacklogClientService;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
@@ -62,6 +63,11 @@ public class ItemBacklogMB extends AbstractBean {
     public void alterar(){
     	itemBacklog= itemSelecionado;
     }
+    
+    public void preparaParaInserir() {
+		itemBacklog = new ItemBacklog();
+		setarStoryPointValorNegocio();
+	}
     
     public void setarStoryPointValorNegocio(){
     	itemBacklog.setStoryPoints(0);

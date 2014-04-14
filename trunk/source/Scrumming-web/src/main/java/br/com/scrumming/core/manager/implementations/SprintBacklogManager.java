@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.ISprintBacklogManager;
+import br.com.scrumming.core.manager.interfaces.ISprintManager;
 import br.com.scrumming.core.manager.interfaces.ITarefaManager;
 import br.com.scrumming.core.repositorio.SprintBacklogRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
@@ -17,6 +18,7 @@ import br.com.scrumming.domain.SprintBacklog;
 import br.com.scrumming.domain.SprintBacklogChave;
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
+import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
 @Service
@@ -33,6 +35,9 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 	@Autowired
 	private ITarefaManager tarefaManager;
 	
+	@Autowired
+	private ISprintManager sprintManager;
+	
 	@Override
 	public SprintBacklog consultaPorChaveComposta(Sprint sprint, ItemBacklog itemBacklog) {
 		return sprintBacklogRepositorio.consultaPorChaveComposta(sprint, itemBacklog);
@@ -44,8 +49,8 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 	}
 
 	@Override
-	public List<ItemBacklog> consultarItensAtivosBacklogPorSprint(Integer sprintID) {
-		return sprintBacklogRepositorio.consultarItensAtivosSprintBacklogPorSprint(sprintID);
+	public List<ItemBacklog> consultarItensBacklogPorSprint(Integer sprintID) {
+		return sprintBacklogRepositorio.consultarItensSprintBacklogPorSprint(sprintID);
 	}
 	
 	@Override
@@ -63,21 +68,36 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 	 * ser exibida na tela.
 	 */
 	public List<ItemBacklog> consultarSprintBacklog(Integer sprintID) {
+		Sprint sprint = sprintManager.findByKey(sprintID);
 		// Lista que será retornada à tela
 		// Busca a lista dos Itens de Backlog de uma Sprint.
 		List<ItemBacklog> itemsDaSprint = new ArrayList<>();
-		itemsDaSprint = consultarItensAtivosBacklogPorSprint(sprintID);
+		itemsDaSprint = consultarItensBacklogPorSprint(sprintID);
 
 		if (itemsDaSprint.size() > 0) {
 			// Para cada item
 			for (ItemBacklog itemBacklog : itemsDaSprint) {
 				itemBacklog.setDeliverable(true);
+				itemBacklog.setEditable(true);
+				itemBacklog.setStatusItembacklog("");
+				if (sprint.getSituacaoSprint() == SituacaoSprintEnum.FECHADA) {
+					itemBacklog.setDeliverable(false);
+					itemBacklog.setEditable(false);
+				}
 				if (itemBacklog.getSituacaoBacklog() == SituacaoItemBacklogEnum.FEITO) {
 					itemBacklog.setDeliverable(false);
-				}
+					itemBacklog.setStatusItembacklog("Entregue");
+					itemBacklog.setEditable(false);
+				}				
 				// Seta a lista de tarefas desse item.
 				List<Tarefa> tarefas = tarefaManager.consultarPorItemBacklog(itemBacklog.getCodigo());
+				if (tarefas.size() == 0) {
+					itemBacklog.setDeliverable(false);
+				}
 				for (Tarefa tarefa : tarefas) {
+					if (sprint.getSituacaoSprint() == SituacaoSprintEnum.FECHADA) {
+						tarefa.setSituacao(SituacaoTarefaEnum.FEITO);
+					}
 					if (tarefa.getSituacao() != SituacaoTarefaEnum.FEITO) {
 						itemBacklog.setDeliverable(false);
 					}

@@ -159,12 +159,18 @@ public class Projeto extends ObjetoPersistente<Integer> {
 	}
 
 	public String getDataInicioFormatada() {
-		dataInicioFormatada =  getDataInicio().toString("dd/MM/yyyy");
+		try {
+			dataInicioFormatada =  getDataInicio().toString("dd/MM/yyyy");
+		} catch (NullPointerException e) {			
+		}
 		return dataInicioFormatada;
 	}
 
 	public String getDataFimFormatada() {
-		dataFimFormatada =  getDataFim().toString("dd/MM/yyyy");
+		try {
+			dataFimFormatada =  getDataFim().toString("dd/MM/yyyy");
+		} catch (NullPointerException e) {			
+		}		
 		return dataFimFormatada;
 	}
 }
