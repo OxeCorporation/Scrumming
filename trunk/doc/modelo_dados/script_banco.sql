@@ -526,6 +526,35 @@ INSERT
 	VALUES 
 		('2', '1', 'Tarefa 05', 'Descrição da tarefa 05', '0', '1');
 
+INSERT
+	INTO `scrumming`.`dailyscrum`
+		(`FK_sprint`, `local_meeting`, `dataHoraMarcada`, `duracao`) 
+	VALUES 
+		('3', 'Sala 5', now(), '2');
+
+INSERT
+	INTO `scrumming`.`dailyscrum`
+		(`FK_sprint`, `local_meeting`, `dataHoraMarcada`, `duracao`) 
+	VALUES 
+		('3', 'Sala 5', now(), '2');
+
+INSERT
+	INTO `scrumming`.`dailyscrum`
+		(`FK_sprint`, `local_meeting`, `dataHoraMarcada`, `duracao`) 
+	VALUES 
+		('3', 'Sala 5', now(), '2');
+
+INSERT
+	INTO `scrumming`.`dailyscrum`
+		(`FK_sprint`, `local_meeting`, `dataHoraMarcada`, `duracao`) 
+	VALUES 
+		('3', 'Sala 5', now(), '2');
+
+INSERT
+	INTO `scrumming`.`dailyscrum`
+		(`FK_sprint`, `local_meeting`, `dataHoraMarcada`, `duracao`) 
+	VALUES 
+		('3', 'Sala 5', now(), '2');
 
 -- *******************************************************************************
 --                                Consultas
@@ -537,9 +566,10 @@ INSERT
 -- select * from usuarioempresa;
 -- select * from timeprojeto;
 -- select * from sprintBacklog;
--- select * from tarefa where FK_itemBacklog = 7;
+-- select * from tarefa;
 -- select * from usuario;
 -- select * from empresa;
+-- select * from dailyscrum;
 
 -- *******************************************************************************
 --                               FIM DO SCRIPT
