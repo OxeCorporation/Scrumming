@@ -45,7 +45,10 @@ public class SprintDetalheMB extends AbstractBean {
 	private ItemBacklogClientService itemClienteService;
 	@ManagedProperty(value="#{sessaoMB.usuario}")
 	private Usuario usuarioLogado;
+	@FlashScoped
 	private DailyScrum dailyScrum;
+	@FlashScoped
+	private DailyScrum dailyScrumSelecionado;
 	private List<DailyScrum> dailies;
 	private boolean showCalendar;
 	private boolean showModal;
@@ -93,7 +96,7 @@ public class SprintDetalheMB extends AbstractBean {
 	public void alterarDailyScrum() {
 		showModal = true;
 		showCalendar = false;
-		atualizarLista();
+		dailyScrum = dailyScrumSelecionado;
 	}
 	
 	/**
@@ -260,5 +263,13 @@ public class SprintDetalheMB extends AbstractBean {
 
 	public boolean isShowModal() {
 		return showModal;
+	}
+
+	public DailyScrum getDailyScrumSelecionado() {
+		return dailyScrumSelecionado;
+	}
+
+	public void setDailyScrumSelecionado(DailyScrum dailyScrumSelecionado) {
+		this.dailyScrumSelecionado = dailyScrumSelecionado;
 	}
 }

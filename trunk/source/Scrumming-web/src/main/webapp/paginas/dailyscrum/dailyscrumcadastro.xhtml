@@ -7,24 +7,23 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<p:dialog id="dailyScrumModal" widgetVar="dailyScrumModal"
-		modal="true" closable="false" draggable="false" width="450" height="350" resizable="false"
+		modal="true" closable="false" draggable="false" width="450" height="200" resizable="false"
 		header="#{mensagens.label_cadastro_dailyScrum}" styleClass="panel-heading" visible="#{sprintDetalheMB.showModal}">
 
-			<p:messages id="messagesDailyScrum" showDetail="true" autoUpdate="true" showSummary="false" closable="true" />
+			<p:messages id="messagesDailyScrum" showDetail="true" autoUpdate="false" showSummary="false" closable="true" />
 			<br/>
 			<h:panelGroup display="block" styleClass="form-group">
 				<p:outputLabel 
 					id="labelDataHora" 
-					value="#{mensagens.label_local_daily}" 
-					styleClass="col-md-4 control-label" />
+					value="#{mensagens.label_data_hora_daily}" 
+					styleClass="col-md-4 control-label" rendered="#{sprintDetalheMB.showCalendar}"/>
 				<h:panelGroup display="block" styleClass="col-md-6">
 					<p:calendar
 						id="popupCalDataHora"
 						value="#{sprintDetalheMB.dailyScrum.dataHoraCalendar}" 
-						pattern="MM/dd/yyyy HH:mm" />
+						pattern="MM/dd/yyyy HH:mm" rendered="#{sprintDetalheMB.showCalendar}" />
 			    </h:panelGroup>
 			</h:panelGroup>
-			<br/>
 			<br/>
 			<br/>
 			<h:panelGroup display="block" styleClass="form-group">
