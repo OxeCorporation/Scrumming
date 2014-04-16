@@ -77,10 +77,11 @@
 									<br/>
 									
 									<!-- BOTAO ATRIBUIR PARA MIM -->
-									<p:commandLink id="linkAtribuirParaMim" title="#{mensagens.label_atribuir_para_mim}"
+									<p:commandLink id="linkAtribuirParaMim" immediate="true"
+										title="#{mensagens.label_atribuir_para_mim}"
 										action="#{sprintDetalheMB.atribuirTarefaParaMim}"										
 										rendered="#{empty tarefa.usuario and tarefa.itemBacklog.editable}"
-										immediate="true" process="@this" update="@widgetVar(dtgSprintBacklog)">
+										process="@this" update="@widgetVar(dtgSprintBacklog)">
 										<i class="fa fa-smile-o inside-grid-icon-left"></i>
 										<f:setPropertyActionListener value="#{tarefa}"
 											target="#{sprintDetalheMB.tarefaSelecionada}" />
