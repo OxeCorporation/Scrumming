@@ -9,22 +9,39 @@
 		modal="true" var="exec" resizable="false" widgetVar="dlgTarefaSave"
 		visible="#{facesContext.validationFailed}">
 		<p:panel>
-			<h:panelGrid columns="1" id="panel">						
+			<h:panelGrid columns="1" id="panelTarefa" style="width: 500px">						
 				<h:outputText value="#{mensagens.label_resumo}" /> 
-				<p:inputText id="nome" required="#{itemBacklogDetalheMB.tarefaRequired}" size="89" value="#{itemBacklogDetalheMB.tarefa.nome}" requiredMessage="Preencha o resumo" />
+				<p:inputText id="nome" style="width: 100%;" value="#{itemBacklogDetalheMB.tarefa.nome}" />
 				
 				<h:outputText value="#{mensagens.label_descricao}" /> 
-				<p:inputTextarea id="descricao" required="#{itemBacklogDetalheMB.tarefaRequired}" rows="4" cols="70" value="#{itemBacklogDetalheMB.tarefa.descricao}" />
+				<p:inputTextarea id="descricao" rows="4" cols="70" value="#{itemBacklogDetalheMB.tarefa.descricao}" styleClass="text-area"/>
 				
 				<h:outputText value="#{mensagens.label_tempo_estimado}" /> 
-				<p:inputText id="tempoEstimado" required="#{itemBacklogDetalheMB.tarefaRequired}" value="#{itemBacklogDetalheMB.tarefa.tempoEstimado}" requiredMessage="Preencha o tempo estimado em horas" />							
+				<p:inputText id="tempoEstimado" value="#{itemBacklogDetalheMB.tarefa.tempoEstimado}" />							
 			</h:panelGrid>
 		</p:panel>
 		<br/>
-		<p:commandButton id="cancelarSalvarTarefa" process="@none" icon="ui-icon-cancel" value="#{mensagens.botao_cancelar}" onclick="dlgTarefaSave.hide()" style="margin:0 auto; float:right">
+		<p:commandButton 
+			id="cancelarSalvarTarefa"
+			immediate="true" 
+			process="@none" 
+			icon="ui-icon-cancel" 
+			value="#{mensagens.botao_cancelar}" 
+			onclick="dlgTarefaSave.hide()" 
+			style="margin:0 auto; float:right">
 			<p:resetInput target="@form" />
 		</p:commandButton>
-		<p:commandButton id="salvarTarefa" update="@form" value="#{mensagens.botao_confirmar}" action="#{itemBacklogDetalheMB.salvarTarefa}" icon="ui-icon-disk" style="margin:0 auto; float:right" ajax="false">
+		<p:commandButton 
+			id="salvarTarefa" 
+			update="@form" 
+			value="#{mensagens.botao_confirmar}" 
+			action="#{itemBacklogDetalheMB.salvarTarefa}" 
+			icon="ui-icon-disk" 
+			style="margin:0 auto; 
+			float:right" 
+			ajax="false"
+			partialSubmit="true" 
+			process="panelTarefa">
 			<p:resetInput target="@form" />
 		</p:commandButton>								
 	</p:dialog>	
