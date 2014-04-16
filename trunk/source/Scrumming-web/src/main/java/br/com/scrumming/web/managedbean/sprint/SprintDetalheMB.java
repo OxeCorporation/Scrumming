@@ -48,11 +48,20 @@ public class SprintDetalheMB extends AbstractBean {
 	private DailyScrum dailyScrum;
 	private List<DailyScrum> dailies;
 	private boolean showCalendar;
+	private boolean showModal;
 	
 	@Override
 	public void inicializar() {
-		tarefa = new Tarefa();
-		tarefaSelecionada = new Tarefa();
+		showModal = false;
+		if (dailyScrum == null) {
+			dailyScrum = new DailyScrum();
+		}
+		if (tarefa == null) {
+			tarefa = new Tarefa();
+		}
+		if (tarefaSelecionada == null) {
+			tarefaSelecionada = new Tarefa();
+		}
 		sprintClienteService = new SprintClientService();
 		itemClienteService = new ItemBacklogClientService();
 		dailyClienteService = new DailyScrumClientService();
@@ -71,17 +80,20 @@ public class SprintDetalheMB extends AbstractBean {
 	/*FUNÇÕES REFERENTES AO DAILY SCRUM*/
 	public void salvarDailyScrum() {
 		dailyClienteService.salvarDailyScrum(dailyScrum);
+		atualizarLista();
 	}
 	
 	public String novoDaily(){
+		showModal = true;
 		showCalendar = true;
     	dailyScrum = new DailyScrum();
     	return "";
     }
 	
 	public void alterarDailyScrum() {
+		showModal = true;
 		showCalendar = false;
-		dailies = dailyClienteService.consultarDailyScrumPorSprints(sprintSelecionada.getCodigo());
+		atualizarLista();
 	}
 	
 	/**
@@ -244,5 +256,9 @@ public class SprintDetalheMB extends AbstractBean {
 
 	public boolean isShowCalendar() {
 		return showCalendar;
+	}
+
+	public boolean isShowModal() {
+		return showModal;
 	}
 }

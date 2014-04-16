@@ -8,22 +8,20 @@
 
 	<p:dialog id="dailyScrumModal" widgetVar="dailyScrumModal"
 		modal="true" closable="false" draggable="false" width="450" height="350" resizable="false"
-		header="#{mensagens.label_cadastro_dailyScrum}" styleClass="panel-heading" >
+		header="#{mensagens.label_cadastro_dailyScrum}" styleClass="panel-heading" visible="#{sprintDetalheMB.showModal}">
 
-			<p:messages id="messagesDailyScrum"  showDetail="true" autoUpdate="true" showSummary="false" closable="true" />
+			<p:messages id="messagesDailyScrum" showDetail="true" autoUpdate="true" showSummary="false" closable="true" />
 			<br/>
 			<h:panelGroup display="block" styleClass="form-group">
 				<p:outputLabel 
 					id="labelDataHora" 
-					value="#{mensagens.label_nome_usuario}" 
-					styleClass="col-md-4 control-label" 
-					for="popupCalDataHora" />
+					value="#{mensagens.label_local_daily}" 
+					styleClass="col-md-4 control-label" />
 				<h:panelGroup display="block" styleClass="col-md-6">
 					<p:calendar
 						id="popupCalDataHora"
 						value="#{sprintDetalheMB.dailyScrum.dataHoraCalendar}" 
-						pattern="MM/dd/yyyy HH:mm" 
-						required="true" />
+						pattern="MM/dd/yyyy HH:mm" />
 			    </h:panelGroup>
 			</h:panelGroup>
 			<br/>
@@ -33,8 +31,7 @@
 				<p:outputLabel 
 					id="labelLocal" 
 					value="#{mensagens.label_local_daily}" 
-					styleClass="col-md-4 control-label" 
-					for="labelLocal"/>
+					styleClass="col-md-4 control-label" />
 				<h:panelGroup display="block" styleClass="col-md-6">
 					<p:inputText 
 						id="txtLocal"
@@ -48,8 +45,7 @@
 				<p:outputLabel 
 					id="labelDuracao" 
 					value="#{mensagens.label_duracao_daily}" 
-					styleClass="col-md-4 control-label" 
-					for="txtDuracao" />
+					styleClass="col-md-4 control-label" />
 				<h:panelGroup display="block" styleClass="col-md-6">
 					<p:inputMask 
 						id="txtDuracao"
@@ -66,7 +62,7 @@
 				<p:commandButton  
 				    id="salvarButton" 
 				    value="#{mensagens.label_salvar}"
-					action="#{cadastroUsuarioBean.salvar}" 
+					action="#{sprintDetalheMB.salvarDailyScrum}" 
 					update="@form"/>
 				<span />
 				<p:commandButton 

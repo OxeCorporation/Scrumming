@@ -221,7 +221,8 @@
 											oncomplete="dailyscrumcadastro.show()"
 											process="@this"
 											update="@widgetVar(dailyScrumModal)"
-											immediate="true" >											
+											immediate="true"
+											ajax="false" >											
 											<f:setPropertyActionListener value="#{dailyScrum}" target="#{sprintDetalheMB.dailyScrum}" />
 										</p:commandButton>
 										<br/>
@@ -243,10 +244,9 @@
 									<p:commandButton id="cadastrarBotao"
 										value="#{mensagens.botao_cadastrar}"
 										oncomplete="dailyscrumcadastro.show()"
-										process="@this"
-										update="@widgetVar(dailyScrumModal)"
 										action="#{sprintDetalheMB.novoDaily}"
-										immediate="true"/>
+										immediate="true"
+										ajax="false" />
 								</f:facet>	
 						</p:dataGrid>
 							

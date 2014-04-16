@@ -41,8 +41,12 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 
 	@Override
     public void inicializar() {
-		tarefa = new Tarefa();
-		tarefaSelecionada = new Tarefa();
+		if (tarefa == null) {
+			tarefa = new Tarefa();
+		}
+		if (tarefaSelecionada == null) {
+			tarefaSelecionada = new Tarefa();
+		}
 		tarefaClientService = new TarefaClientService();
 		atualizarListaDeTarefas();
 	}

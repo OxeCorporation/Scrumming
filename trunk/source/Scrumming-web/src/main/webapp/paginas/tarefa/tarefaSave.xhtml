@@ -24,7 +24,7 @@
 		<p:commandButton process="@none" icon="ui-icon-cancel" value="#{mensagens.botao_cancelar}" onclick="dlgTarefaSave.hide()" style="margin:0 auto; float:right">
 			<p:resetInput target="@form" />
 		</p:commandButton>
-		<p:commandButton update="@form" value="#{mensagens.botao_confirmar}" action="#{itemBacklogDetalheMB.salvarTarefa}" icon="ui-icon-disk" style="margin:0 auto; float:right">
+		<p:commandButton update="@form" value="#{mensagens.botao_confirmar}" action="#{itemBacklogDetalheMB.salvarTarefa}" icon="ui-icon-disk" style="margin:0 auto; float:right" ajax="false">
 			<p:resetInput target="@form" />
 		</p:commandButton>								
 	</p:dialog>	
