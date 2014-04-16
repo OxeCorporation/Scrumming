@@ -9,9 +9,6 @@
 	<p:dialog id="dailyScrumModal" widgetVar="dailyScrumModal"
 		modal="true" closable="false" draggable="false" width="450" height="200" resizable="false"
 		header="#{mensagens.label_cadastro_dailyScrum}" styleClass="panel-heading" visible="#{sprintDetalheMB.showModal}">
-
-			<p:messages id="messagesDailyScrum" showDetail="true" autoUpdate="false" showSummary="false" closable="true" />
-			<br/>
 			<h:panelGroup display="block" styleClass="form-group">
 				<p:outputLabel 
 					id="labelDataHora" 
@@ -20,6 +17,7 @@
 				<h:panelGroup display="block" styleClass="col-md-6">
 					<p:calendar
 						id="popupCalDataHora"
+						required="#{sprintDetalheMB.dailyRequired}"
 						value="#{sprintDetalheMB.dailyScrum.dataHoraCalendar}" 
 						pattern="MM/dd/yyyy HH:mm" rendered="#{sprintDetalheMB.showCalendar}" />
 			    </h:panelGroup>
@@ -34,6 +32,7 @@
 				<h:panelGroup display="block" styleClass="col-md-6">
 					<p:inputText 
 						id="txtLocal"
+						required="#{sprintDetalheMB.dailyRequired}"
 						value="#{sprintDetalheMB.dailyScrum.local}"
 						styleClass="form-control input-md" />
 				</h:panelGroup>
@@ -48,6 +47,7 @@
 				<h:panelGroup display="block" styleClass="col-md-6">
 					<p:inputMask 
 						id="txtDuracao"
+						required="#{sprintDetalheMB.dailyRequired}"
 						value="#{sprintDetalheMB.dailyScrum.duracao}"
 						styleClass="form-control input-md"
 					   	mask="9?9"
@@ -59,17 +59,20 @@
 		<f:facet name="footer">
 			<div align="center">
 				<p:commandButton  
-				    id="salvarButton" 
+				    id="salvarDaily" 
 				    value="#{mensagens.label_salvar}"
 					action="#{sprintDetalheMB.salvarDailyScrum}" 
-					update="@form"/>
+					update="@form"
+					ajax="false" />
 				<span />
 				<p:commandButton 
-				    id="salvarCancelarButton" 
+				    id="cancelarSalvarDaily" 
 				    value="#{mensagens.botao_cancelar}"
 					onclick="dailyScrumModal.hide()"
 					type="button"
-					update="@form" />
+					update="@form">
+					<f:setPropertyActionListener value="false" target="#{sprintDetalheMB.dailyRequired}" />
+				</p:commandButton>
 			</div>
 		</f:facet>
 	</p:dialog>

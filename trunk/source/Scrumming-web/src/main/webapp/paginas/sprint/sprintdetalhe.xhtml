@@ -138,7 +138,8 @@
 									<p:commandLink id="alterarTarefaLink" title="#{mensagens.label_alterar_tarefa}"
 										action="#{itemBacklogDetalheMB.preparaParaAlterar}"
 										oncomplete="dlgTarefaSave.show()" 
-										process="@this" update="@widgetVar(dlgTarefaSave)"
+										process="@this" 
+										update="@widgetVar(dlgTarefaSave)"
 										rendered="#{! tarefa.estahConcluida}">
 										<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
 										<f:setPropertyActionListener value="#{tarefa}"
@@ -215,21 +216,19 @@
 									<h:outputText id="dailyDuracao" value="#{dailyScrum.duracao} min" style="font-size: 12px;"/> <br/>
 									<f:facet name="footer">
 									  <div align="center">
-										<p:commandButton id="alterarBotao"
+										<p:commandButton 
+											id="alterarBotao"
 											value="#{mensagens.botao_alterar}"
 											action="#{sprintDetalheMB.alterarDailyScrum}"
-											oncomplete="dailyscrumcadastro.show()"
+											oncomplete="dailyScrumModal.show()"
 											process="@this"
-											update="@widgetVar(dailyScrumModal)"
-											immediate="true"
-											ajax="false" >											
+											update="@widgetVar(dailyScrumModal)" >											
 											<f:setPropertyActionListener value="#{dailyScrum}" target="#{sprintDetalheMB.dailyScrumSelecionado}" />
 										</p:commandButton>
 										<br/>
 										<p:commandButton 
 										    id="excluirBotao"
 											value="#{mensagens.botao_excluir}" 
-											immediate="true" 
 											process="@this"
 											update="@widgetVar(confimExcluir)" 
 											oncomplete="confimExcluir.show()"
@@ -241,12 +240,13 @@
 								</p:panel>								
 								
 								<f:facet name="footer">
-									<p:commandButton id="cadastrarBotao"
+									<p:commandButton 
+										id="cadastrarBotao"
 										value="#{mensagens.botao_cadastrar}"
-										oncomplete="dailyscrumcadastro.show()"
-										action="#{sprintDetalheMB.novoDaily}"
-										immediate="true"
-										ajax="false" />
+										oncomplete="dailyScrumModal.show()"
+										process="@this"
+										update="@widgetVar(dailyScrumModal)"
+										action="#{sprintDetalheMB.novoDaily}" />
 								</f:facet>	
 						</p:dataGrid>
 							
@@ -260,20 +260,21 @@
 			        			   value="#{mensagens.botao_confirmar}" 
 			        			   styleClass="ui-confirmdialog-yes" 
 			        			   icon="ui-icon-check" 
-			        			   immediate="true" 
 			        			   action="#{sprintDetalheMB.excluirDaily}" 
 			        			   oncomplete="confimExcluir.hide()" 
-			        			   update="@form"/>  
+			        			   update="@form" />  
 			        			
 			        			<p:commandButton 
 			        			   id="cancelarButton"
 			        			   value="#{mensagens.botao_cancelar}" 
 			        			   styleClass="ui-confirmdialog-no" 
-			        			   icon="ui-icon-close" 
-			        			   immediate="true" 
-			        			   oncomplete="confimExcluir.hide()"/>			        			          
+			        			   icon="ui-icon-close"
+			        			   oncomplete="confimExcluir.hide()" />			        			          
 			    			</p:confirmDialog>
-						
+		
+							<!-- INCLUDE DO MODAL DO CADASTRO DE DAILY SCRUM -->
+							<ui:include src="/paginas/dailyscrum/dailyscrumcadastro.xhtml" />
+											
 					</h:panelGroup>
 				</p:tab>
 				

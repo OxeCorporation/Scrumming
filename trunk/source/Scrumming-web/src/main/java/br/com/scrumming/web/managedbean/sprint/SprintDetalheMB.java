@@ -51,7 +51,11 @@ public class SprintDetalheMB extends AbstractBean {
 	private DailyScrum dailyScrumSelecionado;
 	private List<DailyScrum> dailies;
 	private boolean showCalendar;
-	private boolean showModal;
+	private boolean showModal;	
+	@FlashScoped
+	private boolean dailyRequired;
+	@FlashScoped
+	private boolean tarefaRequired;
 	
 	@Override
 	public void inicializar() {
@@ -83,20 +87,34 @@ public class SprintDetalheMB extends AbstractBean {
 	/*FUNÇÕES REFERENTES AO DAILY SCRUM*/
 	public void salvarDailyScrum() {
 		dailyClienteService.salvarDailyScrum(dailyScrum);
+		limparDailyScrum();
 		atualizarLista();
+		setRequidedDaily();
 	}
 	
-	public String novoDaily(){
+	public String novoDaily() {
+		dailyRequired = true;
+		tarefaRequired = false;
 		showModal = true;
 		showCalendar = true;
-    	dailyScrum = new DailyScrum();
+		limparDailyScrum();
     	return "";
     }
 	
 	public void alterarDailyScrum() {
+		dailyRequired = true;
+		tarefaRequired = false;
 		showModal = true;
 		showCalendar = false;
 		dailyScrum = dailyScrumSelecionado;
+	}
+	
+	private void limparDailyScrum() {
+		dailyScrum = new DailyScrum();
+	}
+	
+	private void setRequidedDaily() {
+		dailyRequired = false;
 	}
 	
 	/**
@@ -271,5 +289,13 @@ public class SprintDetalheMB extends AbstractBean {
 
 	public void setDailyScrumSelecionado(DailyScrum dailyScrumSelecionado) {
 		this.dailyScrumSelecionado = dailyScrumSelecionado;
+	}
+
+	public boolean isDailyRequired() {
+		return dailyRequired;
+	}
+
+	public boolean isTarefaRequired() {
+		return tarefaRequired;
 	}
 }

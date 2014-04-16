@@ -37,7 +37,10 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	private Tarefa tarefa;
 	@FlashScoped
 	private Tarefa tarefaSelecionada;
-	
+	@FlashScoped
+	private boolean dailyRequired;
+	@FlashScoped
+	private boolean tarefaRequired;
 
 	@Override
     public void inicializar() {
@@ -106,10 +109,14 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	}
 	
 	public void preparaParaInserir() {
+		dailyRequired = false;
+		tarefaRequired = true;
 		tarefa = new Tarefa();
 	}
 	
 	public void preparaParaAlterar() {
+		dailyRequired = false;
+		tarefaRequired = true;
 		tarefa = tarefaSelecionada;
 	}
 	
@@ -182,6 +189,14 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 
 	public void setTarefaSelecionada(Tarefa tarefaSelecionada) {
 		this.tarefaSelecionada = tarefaSelecionada;
+	}
+
+	public boolean isDailyRequired() {
+		return dailyRequired;
+	}
+
+	public boolean isTarefaRequired() {
+		return tarefaRequired;
 	}
 
 }
