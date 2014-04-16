@@ -11,8 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.DateTime;
 
 import br.com.scrumming.core.infra.repositorio.HibernateTypes;
@@ -39,14 +41,17 @@ public class DailyScrum extends ObjetoPersistente<Integer> {
 	
 	@ManyToOne
     @JoinColumn(name="FK_sprint", referencedColumnName="PK_sprint")
+	@NotNull
 	private Sprint sprint;
 	
 	@Column(name = "local_meeting", columnDefinition = "varchar(50)")
+	@NotBlank
 	private String local;
 	
 	@Type(type = HibernateTypes.JODA_DATE_TIME)
     @Column(name = "dataHoraMarcada")
-    @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
+	@NotNull
+	@JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
 	private DateTime dataHora;
 	

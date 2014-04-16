@@ -33,7 +33,7 @@ public class Sprint extends ObjetoPersistente<Integer> {
 
     /**
      * Serial Version
-      */
+     */
     private static final long serialVersionUID = 1L;
 
     @Id

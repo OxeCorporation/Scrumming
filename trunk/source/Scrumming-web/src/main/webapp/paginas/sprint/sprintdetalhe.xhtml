@@ -176,7 +176,11 @@
 							icon="ui-icon-close" immediate="true" style="margin:0 auto; float:right"/>  
 		        		<p:commandButton value="#{mensagens.botao_confirmar}" styleClass="ui-confirmdialog-yes" 
 		        			icon="ui-icon-check" immediate="true" style="margin:0 auto; float:right"/>        		      
-		    		</p:confirmDialog>    		
+		    		</p:confirmDialog>    	
+		    		
+		    		<!-- INCLUDE DO MODAL DO CADASTRO DE TAREFA -->		
+					<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />
+		    			
 				</p:tab>
 				
 				<!-- ABA DO SPRINT BOARD -->				
@@ -272,11 +276,12 @@
 			        			   icon="ui-icon-close"
 			        			   oncomplete="confimExcluir.hide()" />			        			          
 			    			</p:confirmDialog>
-		
-							<!-- INCLUDE DO MODAL DO CADASTRO DE DAILY SCRUM -->
-							<ui:include src="/paginas/dailyscrum/dailyscrumcadastro.xhtml" />
 											
 					</h:panelGroup>
+					
+					<!-- INCLUDE DO MODAL DO CADASTRO DE DAILY SCRUM -->
+					<ui:include src="/paginas/dailyscrum/dailyscrumcadastro.xhtml" />
+					
 				</p:tab>
 				
 			</p:tabView>
@@ -287,10 +292,6 @@
 		<h:panelGroup styleClass="col-md-3 column div-right">
 			<h:outputText value="Time do projeto" />
 		</h:panelGroup>
-		<!-- INCLUDE DO MODAL DO CADASTRO DE DAILY SCRUM -->
-		<ui:include src="/paginas/dailyscrum/dailyscrumcadastro.xhtml" />
-		<!-- INCLUDE DO MODAL DO CADASTRO DE TAREFA -->		
-		<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />
 		
 	</ui:define>
 	
