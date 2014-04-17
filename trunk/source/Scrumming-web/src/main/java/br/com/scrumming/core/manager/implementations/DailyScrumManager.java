@@ -26,8 +26,8 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 	private DailyScrumRepositorio dailyScrumRepositorio;
 
 	@Autowired
-	private TeamManager teamManage;
-
+	private TeamManager teamManager;
+	
 	@Override
 	public AbstractRepositorio<DailyScrum, Integer> getRepositorio() {
 		return this.dailyScrumRepositorio;

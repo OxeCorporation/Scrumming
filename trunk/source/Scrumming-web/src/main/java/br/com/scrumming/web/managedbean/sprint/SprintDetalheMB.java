@@ -50,6 +50,7 @@ public class SprintDetalheMB extends AbstractBean {
 	@FlashScoped
 	private DailyScrum dailyScrumSelecionado;
 	private List<DailyScrum> dailies;
+	private boolean saveDaily;
 	private boolean showCalendar;
 	private boolean showModal;
 	
@@ -82,9 +83,21 @@ public class SprintDetalheMB extends AbstractBean {
 	
 	/*FUNÇÕES REFERENTES AO DAILY SCRUM*/
 	public void salvarDailyScrum() {
+		dailyScrum.setSprint(sprintSelecionada);
 		dailyClienteService.salvarDailyScrum(dailyScrum);
 		limparDailyScrum();
 		atualizarLista();
+	}
+	
+	/**
+	 * Exibe ou oculta o calendário dependendo do tipo de salve que o usuário selecionou.
+	 */
+	public void setSaveDailyType() {
+		if (dailyScrum.isUniqueDaily()) {
+			showCalendar = false;
+		} else {
+			showCalendar = true;
+		}
 	}
 	
 	public String novoDaily() {
@@ -262,12 +275,16 @@ public class SprintDetalheMB extends AbstractBean {
 		this.dailyScrum = dailyScrum;
 	}
 
-	public boolean isShowCalendar() {
-		return showCalendar;
+	public boolean isSaveDaily() {
+		return saveDaily;
 	}
 
 	public boolean isShowModal() {
 		return showModal;
+	}
+
+	public boolean isShowCalendar() {
+		return showCalendar;
 	}
 
 	public DailyScrum getDailyScrumSelecionado() {

@@ -7,33 +7,50 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<p:dialog showEffect="fade" hideEffect="explode" id="dailyScrumModal" header="#{mensagens.label_cadastro_dailyScrum}" 
-		modal="true" width="450" height="270" resizable="false" widgetVar="dailyScrumModal"
+		modal="true" width="500" height="270" resizable="false" widgetVar="dailyScrumModal"
 		visible="#{sprintDetalheMB.showModal}">
 		<p:panel>
+			<p:fieldset>
+				<p:column style="align: center">
+					<p:outputLabel 
+						id="labelRadioButton" 
+						value="#{mensagens.label_radio_button_daily}" 
+						styleClass="control-label" />
+						<br/>
+						<p:selectOneRadio 
+							id="tipoDaily" 
+							immediate="true"
+							value="#{sprintDetalheMB.dailyScrum.uniqueDaily}" >
+				            <f:selectItem itemLabel="#{mensagens.label_cadastro_unico_daily}" itemValue="true" /> 
+				            <p:spacer/>
+				            <f:selectItem itemLabel="#{mensagens.label_cadastro_sprint_daily}" itemValue="false" />
+				        </p:selectOneRadio>
+				</p:column>
+			</p:fieldset>
 			<h:panelGrid columns="2" id="paneldaily">
 				<p:outputLabel 
 					id="labelDataHora" 
 					value="#{mensagens.label_data_hora_daily}" 
-					styleClass="col-md-4 control-label" 
-					rendered="#{sprintDetalheMB.showCalendar}" />
+					styleClass="control-label" 
+					rendered="#{sprintDetalheMB.saveDaily}" />
 					<p:calendar
 						id="popupCalDataHora"
 						value="#{sprintDetalheMB.dailyScrum.dataHoraCalendar}" 
-						pattern="MM/dd/yyyy HH:mm" rendered="#{sprintDetalheMB.showCalendar}" />
+						pattern="dd/MM/yyyy HH:mm" rendered="#{sprintDetalheMB.saveDaily}" />
 		    				    
 			    <p:outputLabel 
 					id="labelLocal" 
 					value="#{mensagens.label_local_daily}" 
-					styleClass="col-md-4 control-label" />
+					styleClass="control-label" />
 					<p:inputText 
 						id="txtLocal"
 						value="#{sprintDetalheMB.dailyScrum.local}"
 						styleClass="form-control input-md" />
-								
+							
 				<p:outputLabel 
 					id="labelDuracao" 
 					value="#{mensagens.label_duracao_daily}" 
-					styleClass="col-md-4 control-label" />
+					styleClass="control-label" />
 					<p:inputMask 
 						id="txtDuracao"
 						value="#{sprintDetalheMB.dailyScrum.duracao}"

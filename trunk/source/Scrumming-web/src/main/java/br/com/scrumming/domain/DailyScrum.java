@@ -69,6 +69,9 @@ public class DailyScrum extends ObjetoPersistente<Integer> {
 	@NotNull
 	private Date dataHoraCalendar;
 	
+	@Transient
+	private boolean uniqueDaily;
+	
 	@Override
 	@JsonIgnore
 	public Integer getChave() {
@@ -137,5 +140,13 @@ public class DailyScrum extends ObjetoPersistente<Integer> {
 
 	public void setDataHoraCalendar(Date dataHoraCalendar) {
 		this.dataHoraCalendar = dataHoraCalendar;
+	}
+
+	public boolean isUniqueDaily() {
+		return uniqueDaily;
+	}
+
+	public void setUniqueDaily(boolean uniqueDaily) {
+		this.uniqueDaily = uniqueDaily;
 	}
 }
