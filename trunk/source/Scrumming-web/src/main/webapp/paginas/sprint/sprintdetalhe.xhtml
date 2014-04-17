@@ -27,6 +27,8 @@
 			</h:panelGroup>
 			<p:tabView id="tabView" widgetVar="tabView" dynamic="true">
 			
+				<p:ajax event="tabChange" listener="#{sprintDetalheMB.onTabChange}"/>
+			
 				<!-- ABA DO DETALHE DA SPRINT -->			
 				<p:tab id="tab1" title="Sprint Backlog" widgetVar="tab1">
 					
