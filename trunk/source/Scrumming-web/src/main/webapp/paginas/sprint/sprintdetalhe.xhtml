@@ -234,6 +234,7 @@
 										<br/>
 										<p:commandButton 
 										    id="excluirBotao"
+										    immediate="true"
 											value="#{mensagens.botao_excluir}" 
 											process="@this"
 											update="@widgetVar(confimExcluir)" 
@@ -264,6 +265,7 @@
 							     
 			        			<p:commandButton 
 			        			   id="confirmButton"
+			        			   immediate="true"
 			        			   value="#{mensagens.botao_confirmar}" 
 			        			   styleClass="ui-confirmdialog-yes" 
 			        			   icon="ui-icon-check" 
@@ -273,6 +275,7 @@
 			        			
 			        			<p:commandButton 
 			        			   id="cancelarButton"
+			        			   immediate="true"
 			        			   value="#{mensagens.botao_cancelar}" 
 			        			   styleClass="ui-confirmdialog-no" 
 			        			   icon="ui-icon-close"
