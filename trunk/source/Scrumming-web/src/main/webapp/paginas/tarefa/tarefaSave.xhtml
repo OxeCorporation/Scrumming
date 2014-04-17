@@ -23,27 +23,20 @@
 		<br/>
 		<p:commandButton 
 			id="cancelarSalvarTarefa"
-			immediate="true" 
-			process="@none" 
+			immediate="true"
 			icon="ui-icon-cancel" 
-			value="#{mensagens.botao_cancelar}" 
-			onclick="dlgTarefaSave.hide()" 
-			style="margin:0 auto; float:right">
-			<p:resetInput target="@form" />
-		</p:commandButton>
+			value="#{mensagens.botao_cancelar}"
+			oncomplete="dlgTarefaSave.hide()"
+			style="margin:0 auto; float:right"/>
 		<p:commandButton 
 			id="salvarTarefa"
-			update="@form" 
 			value="#{mensagens.botao_confirmar}" 
 			action="#{itemBacklogDetalheMB.salvarTarefa}" 
 			icon="ui-icon-disk" 
 			style="margin:0 auto; 
-			float:right" 
-			ajax="false"
-			partialSubmit="true" 
-			process="panelTarefa">
-			<p:resetInput target="@form" />
-		</p:commandButton>								
+			float:right"
+			process="nome, descricao, tempoEstimado" 
+			update="@form"/>		
 	</p:dialog>	
 	
 </ui:composition>

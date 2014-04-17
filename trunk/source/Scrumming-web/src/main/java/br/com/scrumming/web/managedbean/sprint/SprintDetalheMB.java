@@ -5,9 +5,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-
-import org.primefaces.event.TabChangeEvent;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.DailyScrum;
@@ -75,11 +72,7 @@ public class SprintDetalheMB extends AbstractBean {
 		itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo());
 		dailies = dailyClienteService.consultarDailyScrumPorSprints(sprintSelecionada.getCodigo());
 	}
-	
-	public void onTabChange(TabChangeEvent event) {  
-		FacesContext.getCurrentInstance().getRenderResponse();  
-    }
-	
+		
 	/*FUNÇÕES REFERENTES AO ITEMBACKLOG*/
 	public void entregarItem() {
 		itemSelecionado.setSituacaoBacklog(SituacaoItemBacklogEnum.FEITO);

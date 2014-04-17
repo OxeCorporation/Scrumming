@@ -49,17 +49,15 @@
 		    update="dailyScrumModal"
 		    value="#{mensagens.label_salvar}"
 			action="#{sprintDetalheMB.salvarDailyScrum}" 
-			icon="ui-icon-disk"		
-			ajax="false" 
-			partialSubmit="true" 
-			process="paneldaily" />
+			icon="ui-icon-disk"
+			process="popupCalDataHora, txtLocal, txtDuracao" />
 		<span />
 		<p:commandButton 
 		    id="cancelarSalvarDaily"
-		    process="@none"
+		    immediate="true"
 			icon="ui-icon-cancel"
-		    value="#{mensagens.botao_cancelar}"
-			onclick="dailyScrumModal.hide()" />
+		    value="#{mensagens.botao_cancelar}" 
+			oncomplete="dailyScrumModal.hide()"/>
 	</p:dialog>
 	
 </ui:composition>

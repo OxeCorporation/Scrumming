@@ -55,6 +55,7 @@ public class DailyScrum extends ObjetoPersistente<Integer> {
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
 	private DateTime dataHora;
 	
+	@NotNull
 	@Column(name = "duracao", columnDefinition = "varchar(11)")
 	private Integer duracao;
 	
@@ -65,6 +66,7 @@ public class DailyScrum extends ObjetoPersistente<Integer> {
 	private String horaFormatada;
 	
 	@Transient
+	@NotNull
 	private Date dataHoraCalendar;
 	
 	@Override
