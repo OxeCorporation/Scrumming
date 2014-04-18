@@ -28,8 +28,8 @@ public class UsuarioEmpresaService {
 		return this.usuarioEmpresaManager.consultarUsuarioPorEmpresa(empresaID);
 	}
 	@RequestMapping(value="/list/{projetoID}/{empresaID}", method= RequestMethod.GET)
-	public List<Usuario> consultarUsuarioAtivosDoProjeto(@PathVariable Integer projetoID, @PathVariable Integer empresaID){
-		return this.usuarioEmpresaManager.consultarUsuarioAtivosDoProjeto(projetoID, empresaID);
+	public List<Usuario> consultarUsuariosAtivosDoProjeto(@PathVariable Integer projetoID, @PathVariable Integer empresaID){
+		return this.usuarioEmpresaManager.consultarUsuariosAtivosDoProjeto(projetoID, empresaID);
 	}
 	
 	/*gettters and setters*/

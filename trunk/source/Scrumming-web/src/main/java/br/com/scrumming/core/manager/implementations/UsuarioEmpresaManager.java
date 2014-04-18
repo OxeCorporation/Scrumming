@@ -38,7 +38,7 @@ public class UsuarioEmpresaManager extends
 	}
 	
 	@Override
-	public List<Usuario> consultarUsuarioAtivosDoProjeto(Integer projetoID,
+	public List<Usuario> consultarUsuariosAtivosDoProjeto(Integer projetoID,
 			Integer empresaID) {
 		// TODO Auto-generated method stub
 		return null;
