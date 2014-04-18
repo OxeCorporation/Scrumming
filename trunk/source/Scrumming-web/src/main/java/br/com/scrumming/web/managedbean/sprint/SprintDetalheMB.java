@@ -74,7 +74,7 @@ public class SprintDetalheMB extends AbstractBean {
 		itemClienteService = new ItemBacklogClientService();
 		dailyClienteService = new DailyScrumClientService();
 		tarefaClientService = new TarefaClientService();
-		itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo());
+		atualizarListaDeItens();
 		dailies = dailyClienteService.consultarDailyScrumPorSprints(sprintSelecionada.getCodigo());
 	}
 		
@@ -134,6 +134,12 @@ public class SprintDetalheMB extends AbstractBean {
 		tarefa = tarefaSelecionada;
 	}
 	
+	private void atualizarListaDeItens(){
+		if (sprintSelecionada != null) {
+			itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo());
+		}
+	}
+	
 	private void atualizarListaDeTarefas() {
 		if (itemSelecionado != null) {
 			itemSelecionado.setTarefas(tarefaClientService.consultarTarefasPorItemBacklog(itemSelecionado.getCodigo()));
@@ -161,6 +167,7 @@ public class SprintDetalheMB extends AbstractBean {
 	
 	public String atribuirTarefaParaMim(){
 		tarefaClientService.atribuirTarefaPara(tarefaSelecionada, usuarioLogado.getCodigo());
+		atualizarListaDeItens();
 		atualizarListaDeTarefas();
 		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 		return "";
