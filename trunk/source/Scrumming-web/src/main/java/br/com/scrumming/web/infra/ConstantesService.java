@@ -41,9 +41,10 @@ public final class ConstantesService {
 		public static final String URL_SALVAR_PROJETO = "/projeto/save";
 		public static final String URL_DELETE_PROJETO = "/projeto/deleteProjeto/{projetoID}";
 		public static final String URL_CANCELAR_PROJETO = "/projeto/{projetoID}";
+		public static final String URL_CONSULTAR_PROJETO_DTO = "/projetodto/{projetoID}";
 		public static final String URL_CONSULTAR_POR_EMPRESA = "/projeto/list/{empresaID}";
 		public static final String URL_CONSULTAR_POR_USURIO_EMPRESA = "/usuario_empresa/empresa/{empresaID}";
-		public static final String URL_CONSULTAR_POR_USURIO_EMPRESA_NOTPROJETO = "/team/listusuario/{projetoID}/{empresaID}";
+		public static final String URL_CONSULTAR_POR_USURIO_EMPRESA_NOTPROJETO = "/projeto/listusuario/{projetoID}/{empresaID}";
 
 	}
 	public final class UsuarioEmpresa{
