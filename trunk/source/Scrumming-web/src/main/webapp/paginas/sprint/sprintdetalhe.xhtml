@@ -254,7 +254,7 @@
 										value="#{mensagens.botao_cadastrar}"
 										oncomplete="dailyScrumModal.show()"
 										process="@this"
-										update="tabelaDaily"
+										update="@widgetVar(dailyScrumModal), tabelaDaily"
 										action="#{sprintDetalheMB.novoDaily}" />
 								</f:facet>	
 						</p:dataGrid>
@@ -272,7 +272,7 @@
 			        			   icon="ui-icon-check" 
 			        			   action="#{sprintDetalheMB.excluirDaily}" 
 			        			   oncomplete="confimExcluir.hide()" 
-			        			   update="@form" />  
+			        			   update="tabelaDaily" />  
 			        			
 			        			<p:commandButton 
 			        			   id="cancelarButton"

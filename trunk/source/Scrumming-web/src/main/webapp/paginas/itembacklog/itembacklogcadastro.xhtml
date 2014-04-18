@@ -33,17 +33,23 @@
 								 requiredMessage="Informe o Critério de Aceitação" 
 								 value="#{itemBacklogMB.itemBacklog.criterioAceitacao}" />
 				<br/>
-				<h:outputText id="outValorNegocio" value="Valor de Negocio #{itemBacklogMB.itemBacklog.valorNegocio}" style="color:black" />
+				<p:toolbarGroup align="left">
+					<h:outputText id="outValorNegocio" value="Valor de Negocio" style="color:black" />
+					<h:outputText id="outValueVN" value="#{itemBacklogMB.itemBacklog.valorNegocio}" style="float:right" />
+				</p:toolbarGroup>
 				<h:inputHidden id="txtValorNegocio" value="#{itemBacklogMB.itemBacklog.valorNegocio}" style="color:black; width:100%"/>
-				<p:slider for="txtValorNegocio" display="outValorNegocio" 
+				<p:slider for="txtValorNegocio" display="outValueVN" 
 						  style="width:200px; color:black; width:100%" 
-						  displayTemplate="Valor de Negocio {value}"  step="5" />
+						  displayTemplate="{value}"  step="5" />
 				<br/>
-				<h:outputText id="outStoryPoint" value="Story Points #{itemBacklogMB.itemBacklog.storyPoints}" style="float:left; color:black" />
+				<p:toolbarGroup align="left">
+					<h:outputText id="outStoryPoint" value="Story Points"/>
+					<h:outputText id="outValueSP" value="#{itemBacklogMB.itemBacklog.storyPoints}" style="float:right;" />
+				</p:toolbarGroup>
 				<h:inputHidden id="txtStoryPoint" value="#{itemBacklogMB.itemBacklog.storyPoints}" style="float:left; color:black; width:100%"/>
-				<p:slider for="txtStoryPoint" display="outStoryPoint" 
+				<p:slider for="txtStoryPoint" display="outValueSP" 
 						  style="width:200px; float:left; width:100%" 
-						  displayTemplate="Story Points {value}"  step="5" />
+						  displayTemplate="{value}"  step="5" />
 				
 			</h:panelGrid> 
 		</p:panel>

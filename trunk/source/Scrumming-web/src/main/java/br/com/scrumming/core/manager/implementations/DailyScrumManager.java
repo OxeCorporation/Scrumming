@@ -44,6 +44,7 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 			if (dataInicio.isAfterNow()) {
 				e = dataInicio.getDayOfMonth();
 				retorno = "DailyScrum Salvo com sucesso.";
+				dailyScrum.setDataHora(dataInicio);
 				salve(dailyScrum, e, dataInicio, dataFim);
 			} else { // Com código (Alteração Daily)
 				insertOrUpdate(dailyScrum);
@@ -63,7 +64,7 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 	}
 
 	private void salve(DailyScrum dailyScrum, int e, DateTime dataInicio, DateTime dataFim) {
-		if (dailyScrum.getDataHora() != null) {
+		if (dailyScrum.getDataHoraCalendar() == null) {
 			for (int i = e; i < dataFim.getDayOfMonth(); i++) {
 				insertOrUpdate(dailyScrum);
 				dailyScrum.setDataHora(dataInicio.plusDays(1));
