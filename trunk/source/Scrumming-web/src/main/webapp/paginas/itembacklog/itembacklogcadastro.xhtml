@@ -34,16 +34,16 @@
 								 value="#{itemBacklogMB.itemBacklog.criterioAceitacao}" />
 				<br/>
 				<p:toolbarGroup align="left">
-					<h:outputText id="outValorNegocio" value="Valor de Negocio" style="color:black" />
+					<h:outputText id="outValorNegocio" value="#{mensagens.label_valor_negocio}" style="color:black" />
 					<h:outputText id="outValueVN" value="#{itemBacklogMB.itemBacklog.valorNegocio}" style="float:right" />
 				</p:toolbarGroup>
 				<h:inputHidden id="txtValorNegocio" value="#{itemBacklogMB.itemBacklog.valorNegocio}" style="color:black; width:100%"/>
 				<p:slider for="txtValorNegocio" display="outValueVN" 
 						  style="width:200px; color:black; width:100%" 
-						  displayTemplate="{value}"  step="5" />
+						  displayTemplate="{value}" step="5" />
 				<br/>
 				<p:toolbarGroup align="left">
-					<h:outputText id="outStoryPoint" value="Story Points"/>
+					<h:outputText id="outStoryPoint" value="#{mensagens.label_story_points}"/>
 					<h:outputText id="outValueSP" value="#{itemBacklogMB.itemBacklog.storyPoints}" style="float:right;" />
 				</p:toolbarGroup>
 				<h:inputHidden id="txtStoryPoint" value="#{itemBacklogMB.itemBacklog.storyPoints}" style="float:left; color:black; width:100%"/>
