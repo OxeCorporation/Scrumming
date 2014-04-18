@@ -59,12 +59,13 @@
 			style="float: right"/>
 		<p:commandButton  
 		    id="salvarDaily" 
-		    update="dailyScrumModal"
+		    update="tabelaDaily"
 		    value="#{mensagens.label_salvar}"
 			action="#{sprintDetalheMB.salvarDailyScrum}" 
 			icon="ui-icon-disk"
 			process="popupCalDataHora, txtLocal, txtDuracao"
 			styleClass="button"
-			style="float: right" />					
+			style="float: right"
+			oncomplete="dailyScrumModal.hide()" />					
 	</p:dialog>	
 </ui:composition>

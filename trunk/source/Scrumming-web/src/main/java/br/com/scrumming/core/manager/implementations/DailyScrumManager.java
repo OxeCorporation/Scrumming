@@ -46,7 +46,7 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 				retorno = "DailyScrum Salvo com sucesso.";
 				salve(dailyScrum, e, dataInicio, dataFim);
 			} else { // Com código (Alteração Daily)
-				dailyScrumRepositorio.save(dailyScrum);
+				insertOrUpdate(dailyScrum);
 				Calendar.getInstance();
 				e = Calendar.DAY_OF_MONTH;
 				retorno = "DailyScrum Salvo. Próxima DailyScrum "
@@ -62,13 +62,15 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 		return retorno;
 	}
 
-	private void salve(DailyScrum dailyScrum, int e, DateTime dataInicio,
-			DateTime dataFim) {
-		if (dailyScrum.getDataHora() == null) {
+	private void salve(DailyScrum dailyScrum, int e, DateTime dataInicio, DateTime dataFim) {
+		if (dailyScrum.getDataHora() != null) {
 			for (int i = e; i < dataFim.getDayOfMonth(); i++) {
-				dailyScrumRepositorio.save(dailyScrum);
+				insertOrUpdate(dailyScrum);
 				dailyScrum.setDataHora(dataInicio.plusDays(1));
 			}
+		} else {
+			dailyScrum.setDataHora(new DateTime(dailyScrum.getDataHoraCalendar()));
+			insertOrUpdate(dailyScrum);
 		}
 	}
 
