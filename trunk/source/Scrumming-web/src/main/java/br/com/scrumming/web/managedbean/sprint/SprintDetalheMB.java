@@ -54,6 +54,7 @@ public class SprintDetalheMB extends AbstractBean {
 	private boolean showModal;
 	private boolean uniqueDaily;
 	private String modalHeight;
+	private String datePattern;
 
 	@Override
 	public void inicializar() {
@@ -288,8 +289,10 @@ public class SprintDetalheMB extends AbstractBean {
 	public boolean isUniqueDaily() {
 		if (uniqueDaily == true) {
 			modalHeight = "190";
+			datePattern = "dd/MM/yyyy HH:mm";
 		} else {
-			modalHeight = "160";
+			modalHeight = "190";
+			datePattern = "HH:mm";
 		}
 		if (saveDaily == false) {
 			modalHeight = "130";
@@ -307,5 +310,13 @@ public class SprintDetalheMB extends AbstractBean {
 
 	public void setModalHeight(String modalHeight) {
 		this.modalHeight = modalHeight;
+	}
+
+	public String getDatePattern() {
+		return datePattern;
+	}
+
+	public void setDatePattern(String datePattern) {
+		this.datePattern = datePattern;
 	}
 }
