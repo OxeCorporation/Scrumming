@@ -50,6 +50,7 @@ public final class ConstantesService {
 	public final class UsuarioEmpresa{
 		public static final String URL_CONSULTAR_EMPRESAS_POR_USUARIO = "/usuario_empresa/usuario/{usuarioID}";
 		public static final String URL_CONSULTAR_USUARIOS_POR_EMPRESA = "/usuario_empresa/empresa/{empresaID}";
+		public static final String URL_CONSULTAR_USUARIOS_ATIVOS_DO_PROJETO = "/usuario_empresa/list/{projetoID}/{empresaID}";
 	}
 	public final class Empresa{
 		public static final String SALVAR_EMPRESA = "/empresa/salvar";

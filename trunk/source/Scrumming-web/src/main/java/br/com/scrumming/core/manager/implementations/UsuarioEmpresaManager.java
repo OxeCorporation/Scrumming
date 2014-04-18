@@ -36,6 +36,13 @@ public class UsuarioEmpresaManager extends
 	public List<Empresa> consultarEmpresaPorUsuario(Integer usuarioID) {
 		return usuarioEmpresaRepositorio.consultarEmpresaPorUsuario(usuarioID);
 	}
+	
+	@Override
+	public List<Usuario> consultarUsuarioAtivosDoProjeto(Integer projetoID,
+			Integer empresaID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	/* getters and setters */
 	@Override
