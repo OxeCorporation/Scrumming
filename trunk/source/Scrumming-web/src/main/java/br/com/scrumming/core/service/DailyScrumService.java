@@ -27,8 +27,8 @@ public class DailyScrumService {
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/excluir")
-    public void excluirDailyScrum(@RequestBody DailyScrum dailyScrum) {
-    	dailyScrumManager.remove(dailyScrum);
+    public String excluirDailyScrum(@RequestBody DailyScrum dailyScrum) {
+    	return dailyScrumManager.excluirDailyScrum(dailyScrum);
     }
    
     /*GETS*/

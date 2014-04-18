@@ -2,9 +2,11 @@ package br.com.scrumming.web.managedbean.sprint;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.DailyScrum;
@@ -51,9 +53,10 @@ public class SprintDetalheMB extends AbstractBean {
 	private DailyScrum dailyScrumSelecionado;
 	private List<DailyScrum> dailies;
 	private boolean saveDaily;
-	private boolean showCalendar;
 	private boolean showModal;
-	
+	private boolean uniqueDaily;
+	private String modalHeight;
+
 	@Override
 	public void inicializar() {
 		showModal = false;
@@ -66,6 +69,7 @@ public class SprintDetalheMB extends AbstractBean {
 		if (tarefaSelecionada == null) {
 			tarefaSelecionada = new Tarefa();
 		}
+		uniqueDaily = true;
 		sprintClienteService = new SprintClientService();
 		itemClienteService = new ItemBacklogClientService();
 		dailyClienteService = new DailyScrumClientService();
@@ -89,27 +93,17 @@ public class SprintDetalheMB extends AbstractBean {
 		atualizarLista();
 	}
 	
-	/**
-	 * Exibe ou oculta o calendário dependendo do tipo de salve que o usuário selecionou.
-	 */
-	public void setSaveDailyType() {
-		if (dailyScrum.isUniqueDaily()) {
-			showCalendar = false;
-		} else {
-			showCalendar = true;
-		}
-	}
-	
 	public String novoDaily() {
+		saveDaily = true;
 		showModal = true;
-		showCalendar = true;
 		limparDailyScrum();
     	return "";
     }
 	
 	public void alterarDailyScrum() {
+		saveDaily = false;
 		showModal = true;
-		showCalendar = false;
+		uniqueDaily = false;
 		dailyScrum = dailyScrumSelecionado;
 	}
 	
@@ -124,16 +118,11 @@ public class SprintDetalheMB extends AbstractBean {
 	public String excluirDaily() {
 		dailyClienteService.excluirDailyScrum(dailyScrum);
     	atualizarLista();
-    	mensagemSucesso();
-        return "";
+    	return "";
     }
 	
 	private void atualizarLista() {
 		dailies = dailyClienteService.consultarDailyScrumPorSprints(sprintSelecionada.getCodigo());
-	}
-	
-	private void mensagemSucesso() {
-		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 	}
 	
 	/* FUNÇÕES REFERENTES À TAREFA*/
@@ -283,15 +272,35 @@ public class SprintDetalheMB extends AbstractBean {
 		return showModal;
 	}
 
-	public boolean isShowCalendar() {
-		return showCalendar;
-	}
-
 	public DailyScrum getDailyScrumSelecionado() {
 		return dailyScrumSelecionado;
 	}
 
 	public void setDailyScrumSelecionado(DailyScrum dailyScrumSelecionado) {
 		this.dailyScrumSelecionado = dailyScrumSelecionado;
+	}
+	
+	public boolean isUniqueDaily() {
+		if (uniqueDaily == true) {
+			modalHeight = "190";
+		} else {
+			modalHeight = "160";
+		}
+		if (saveDaily == false) {
+			modalHeight = "130";
+		}
+		return uniqueDaily;
+	}
+
+	public void setUniqueDaily(boolean uniqueDaily) {
+		this.uniqueDaily = uniqueDaily;
+	}
+
+	public String getModalHeight() {
+		return modalHeight;
+	}
+
+	public void setModalHeight(String modalHeight) {
+		this.modalHeight = modalHeight;
 	}
 }

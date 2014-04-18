@@ -10,4 +10,5 @@ public interface IDailyScrumManager extends IManager<DailyScrum, Integer> {
 	String salvarDailyScrum(DailyScrum dailyScrum);
 	List<DailyScrum> listarDailyScrumDaSprint(Integer sprintID);
 	DailyScrum consultarProximoDailyScrum(Integer sprintID);
+	String excluirDailyScrum(DailyScrum dailyScrum);
 }

@@ -40,12 +40,13 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 		String retorno = "";
 		DateTime dataInicio = dailyScrum.getSprint().getDataInicio();
 		DateTime dataFim = dailyScrum.getSprint().getDataFim();
-		if (dailyScrum.getCodigo() == null) {
+		if (dailyScrum.getCodigo() == null) { // Sem código (Novo daily)
 			if (dataInicio.isAfterNow()) {
 				e = dataInicio.getDayOfMonth();
 				retorno = "DailyScrum Salvo com sucesso.";
 				salve(dailyScrum, e, dataInicio, dataFim);
-			} else {
+			} else { // Com código (Alteração Daily)
+				dailyScrumRepositorio.save(dailyScrum);
 				Calendar.getInstance();
 				e = Calendar.DAY_OF_MONTH;
 				retorno = "DailyScrum Salvo. Próxima DailyScrum "
@@ -54,7 +55,7 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 						+ dailyScrum.getDataHora().getMillisOfDay();
 				salve(dailyScrum, e, dataInicio, dataFim);
 			}
-		}else{
+		} else {
 			dailyScrumRepositorio.save(dailyScrum);
 			retorno = "DailyScrum Alterado";
 		}
@@ -63,9 +64,11 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 
 	private void salve(DailyScrum dailyScrum, int e, DateTime dataInicio,
 			DateTime dataFim) {
-		for (int i = e; i < dataFim.getDayOfMonth(); i++) {
-			dailyScrumRepositorio.save(dailyScrum);
-			dailyScrum.setDataHora(dataInicio.plusDays(1));
+		if (dailyScrum.getDataHora() == null) {
+			for (int i = e; i < dataFim.getDayOfMonth(); i++) {
+				dailyScrumRepositorio.save(dailyScrum);
+				dailyScrum.setDataHora(dataInicio.plusDays(1));
+			}
 		}
 	}
 
@@ -88,5 +91,16 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 		}
 		return null;
 	}
-
+	
+	@Override
+	public String excluirDailyScrum(DailyScrum dailyScrum) {
+		String retorno = "";
+		if (dailyScrum.getDataHora().isAfterNow()) {
+			remove(dailyScrum);
+			retorno = "Registro excluído com sucesso";
+		} else {
+			retorno = "Registro não pode ser excluído";
+		}
+		return retorno;
+	}
 }

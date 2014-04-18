@@ -34,7 +34,7 @@ public class DailyScrumClientService extends AbstractClientService {
 	 * Remove um Daily Scrum selecionado.
 	 * @param dailyScrum
 	 */
-	public void excluirDailyScrum(DailyScrum dailyScrum) {
-		getRestTemplate().postForObject(getURIService(ConstantesService.DailyScrum.URL_EXCLUIR_DAILY_SCRUM), dailyScrum, void.class);
+	public String excluirDailyScrum(DailyScrum dailyScrum) {
+		return getRestTemplate().postForObject(getURIService(ConstantesService.DailyScrum.URL_EXCLUIR_DAILY_SCRUM), dailyScrum, String.class);
 	}
 }
