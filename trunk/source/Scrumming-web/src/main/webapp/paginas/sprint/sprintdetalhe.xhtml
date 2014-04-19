@@ -3,7 +3,8 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" 
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
-	template="/paginas/template/template.xhtml">
+	template="/paginas/template/template.xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<ui:define name="conteudo">
 		<p:growl for="msg"></p:growl>
@@ -186,10 +187,10 @@
 				</p:tab>
 				
 				<!-- ABA DO SPRINT BOARD -->				
-				<p:tab id="tab2" title="Sprint Board">
-					<h:panelGrid columns="2" cellpadding="10">
-						<h:outputText id="tab2Text" value="Aqui sera criado o Board da Sprint" />
-					</h:panelGrid>
+				<p:tab id="tab2" title="Sprint Board" >
+					<h:panelGroup id="dashBoard" layout="block">
+						<ui:include src="/paginas/board/boardPanel.xhtml" />
+					</h:panelGroup>
 				</p:tab>
 				
 				<!-- ABA DOS GRÁFICOS BURNUP E BURNDOWN -->				

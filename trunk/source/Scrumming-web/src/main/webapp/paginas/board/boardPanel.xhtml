@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<style>
+.painel {
+	margin: 10px;
+	box-shadow: 10px 10px 6px #888888;
+}
+
+#lista {
+	display: table;
+}
+
+.item {
+	float: right;
+	margin-right: 20px;
+}
+
+.ui-dashboard {
+	margin-left: -20px;
+}
+
+.ui-dashboard-column {
+	width: 160px;
+	margin-left: 15px;
+	border-radius: 5px;
+	border-style: solid;
+	border-color: rgb(166, 201, 226);
+}
+</style>
+	<table width="100%" style="margin-left: -5px">
+			<tr align="center">
+				<td width="25%">
+					<h3>todo</h3>
+				</td>
+				<td width="25%">
+					<h3>doing</h3>
+				</td>
+				<td width="25%">
+					<h3>impediment</h3>
+				</td>
+				<td width="25%">
+					<h3>done</h3>
+				</td>
+			</tr>
+		</table>
+	<div class="row">
+			<p:dashboard id="dashboard" model="#{boardBean.dashboardModel}">
+
+				<p:ajax event="reorder" listener="#{boardBean.handleReorder}" />
+				<c:forEach var="tarefa" items="#{boardBean.tarefas}">
+					<p:panel id="task_id_#{tarefa.codigo}" header="#{tarefa.nome}"
+						styleClass="painel">
+						<h:outputText value="#{tarefa.descricao}" />
+					</p:panel>
+				</c:forEach>
+			</p:dashboard>
+	</div>
+
+</ui:composition>
