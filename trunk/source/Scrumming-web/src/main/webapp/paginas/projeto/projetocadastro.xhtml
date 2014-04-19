@@ -49,13 +49,14 @@
 										id="popupCalInicio" required="true" />
 								</h:panelGroup>
 								<h:panelGroup styleClass="col-md-4 column">
-									<h:outputLabel styleClass="label-default" value="Situação" />
+									<!-- 									<h:outputLabel styleClass="label-default" value="Situação" />
 									<br />
 									<p:selectOneMenu value="#{projetoCadastroMB.situacao}">
 										<f:selectItems value="#{projetoCadastroMB.todasSituacoes}"
 											var="situa" itemValue="#{situa}" converter="javax.faces.Enum" />
 									</p:selectOneMenu>
 
+ -->
 								</h:panelGroup>
 								<h:panelGroup styleClass="col-md-4 column">
 									<h:outputLabel styleClass="label-default" value="Data Final" />
@@ -150,13 +151,18 @@
 					</p:fieldset>
 					<!-- *********************************************************************************************** -->
 					<br />
-					<p:panel style="height: 56px;">
-						<h:commandButton process="@none" icon="ui-icon-cancel"
-							value="Cancelar" action="#{projetoCadastroMB.projetoPage}"
-							styleClass="button" />
-						<h:commandButton value="Salvar"
+					<p:panel style="height: 65px;">
+						<p:commandButton immediate="true" process="@none"
+							icon="ui-icon-cancel" value="Cancelar"
+							action="#{projetoCadastroMB.projetoPage}" styleClass="button"
+							ajax="false">
+							<p:resetInput target="panel" />
+						</p:commandButton>
+						<p:commandButton value="Salvar"
 							action="#{projetoCadastroMB.salvarProjeto}" icon="ui-icon-disk"
-							styleClass="button" />
+							styleClass="button" ajax="false">
+							<p:resetInput target="panel" />
+						</p:commandButton>
 					</p:panel>
 				</p:panel>
 			</h:panelGroup>

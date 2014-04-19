@@ -69,7 +69,7 @@ public class ProjetoCadastroMB extends AbstractBean {
 	
 	public String salvarProjeto(){
 		projetoDTO.getProjeto().setEmpresa(empresa);
-		projetoDTO.getProjeto().setSituacaoProjeto(situacao);
+		projetoDTO.getProjeto().setSituacaoProjeto(situacao.ATIVO);
 		projetoDTO.setTimeProjeto(teamProjeto);
 		projetoDTO.setUsuarioEmpresaNotTeam(usuarioEmpresaNotProjeto);
 		projetoClientService.salvarProjeto(projetoDTO);

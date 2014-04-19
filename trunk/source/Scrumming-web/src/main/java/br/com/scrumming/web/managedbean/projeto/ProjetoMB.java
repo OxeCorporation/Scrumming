@@ -35,8 +35,8 @@ public class ProjetoMB extends AbstractBean {
     private ProjetoClientService clienteService;
     @ManagedProperty(value="#{sessaoMB.empresaSelecionada}")
     private Empresa empresa;
-    @FlashScoped
-	private List<Usuario> usuarioEmpresa;
+    //@FlashScoped
+	//private List<Usuario> usuarioEmpresa;
     @FlashScoped
 	private List<Usuario> usuarioEmpresaNotProjeto;
     @FlashScoped
@@ -60,12 +60,14 @@ public class ProjetoMB extends AbstractBean {
 
     
 	public String consultarUsuarioEmpresa() {
-		usuarioEmpresa = clienteService.consultarUsuarioPorEmpresa(empresa.getCodigo());
+		usuarioEmpresaNotProjeto=null;
+		usuarioEmpresaNotProjeto = clienteService.consultarUsuarioPorEmpresa(empresa.getCodigo());
 		return projetoCadastroPage();
 	}
 
 	public String consultarUsuarioForaDoProjeto() {
-		usuarioEmpresa = clienteService.consultarUsuarioPorEmpresaForaDoProjeto(projetoSelecionado.getCodigo(), empresa.getCodigo());
+		usuarioEmpresaNotProjeto=null;
+		usuarioEmpresaNotProjeto = clienteService.consultarUsuarioPorEmpresaForaDoProjeto(projetoSelecionado.getCodigo(), empresa.getCodigo());
 		return projetoCadastroPage();
 	}
 
@@ -145,11 +147,11 @@ public class ProjetoMB extends AbstractBean {
 		this.empresa = empresa;
 	}
 
-	public List<Usuario> getUsuarioEmpresa() {
+/*	public List<Usuario> getUsuarioEmpresa() {
 		return usuarioEmpresa;
 	}
 
 	public void setUsuarioEmpresa(List<Usuario> usuarioEmpresa) {
 		this.usuarioEmpresa = usuarioEmpresa;
 	}
-}
+*/}
