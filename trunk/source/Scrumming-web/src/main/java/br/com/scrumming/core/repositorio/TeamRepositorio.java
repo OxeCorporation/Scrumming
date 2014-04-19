@@ -12,10 +12,11 @@ import org.springframework.stereotype.Repository;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Team;
+import br.com.scrumming.domain.TeamChave;
 import br.com.scrumming.domain.Usuario;
 
 @Repository
-public class TeamRepositorio extends AbstractRepositorio<Team, Integer> {
+public class TeamRepositorio extends AbstractRepositorio<Team, TeamChave> {
 	/**
 	 * Consulta de usuários por projeto
 	 * 
@@ -56,7 +57,7 @@ public class TeamRepositorio extends AbstractRepositorio<Team, Integer> {
 		
 		criteria.add(Restrictions.eq("projetoAlias.codigo", projetoID));
 		
-		criteria.setProjection(Projections.property("usuario"));
+		//criteria.setProjection(Projections.property("usuario"));
 		
 		return Collections.checkedList(criteria.list(), Team.class);
 	}

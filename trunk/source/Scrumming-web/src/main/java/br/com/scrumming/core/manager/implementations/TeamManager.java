@@ -14,10 +14,11 @@ import br.com.scrumming.core.manager.interfaces.IUsuarioEmpresaManager;
 import br.com.scrumming.core.repositorio.TeamRepositorio;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Team;
+import br.com.scrumming.domain.TeamChave;
 import br.com.scrumming.domain.Usuario;
 
 @Service
-public class TeamManager extends AbstractManager<Team, Integer> implements
+public class TeamManager extends AbstractManager<Team, TeamChave> implements
 		ITeamManager {
 
 	/**
@@ -35,7 +36,7 @@ public class TeamManager extends AbstractManager<Team, Integer> implements
 	private List<Usuario> usuarioForaProjeto = new ArrayList<>();
 	
 	@Override
-	public AbstractRepositorio<Team, Integer> getRepositorio() {
+	public AbstractRepositorio<Team, TeamChave> getRepositorio() {
 		return this.teamRepositorio;
 	}
 

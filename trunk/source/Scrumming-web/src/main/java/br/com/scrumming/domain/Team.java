@@ -5,8 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
@@ -16,7 +15,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "TimeProjeto")
-public class Team extends ObjetoPersistente<Integer> {
+@IdClass(TeamChave.class)
+public class Team extends ObjetoPersistente<TeamChave> {
 
     /**
      * Serial Version
@@ -24,18 +24,12 @@ public class Team extends ObjetoPersistente<Integer> {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "FK_projeto", referencedColumnName = "PK_projeto")
     private Projeto projeto;
     
     @Id
-    @ManyToOne
-    @JoinColumn(name = "FK_empresa", referencedColumnName = "PK_empresa")
     private Empresa empresa;
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "FK_usuario", referencedColumnName = "PK_usuario")
     private Usuario usuario;
     
     @Enumerated(EnumType.ORDINAL)
@@ -44,16 +38,16 @@ public class Team extends ObjetoPersistente<Integer> {
     
     @Column(name = "is_ativo", columnDefinition = "bit")
     private boolean isAtivo;
+    
+    @Override
+    @JsonIgnore
+    public TeamChave getChave() {
+        return new TeamChave(getProjeto(),getUsuario(),getEmpresa());
+    }
 
     /**
      * Getters e and setters
      */
-    @Override
-    @JsonIgnore
-    public Integer getChave() {
-        return null;
-    }
-
 	public Projeto getProjeto() {
 		return projeto;
 	}
