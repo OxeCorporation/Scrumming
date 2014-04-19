@@ -29,12 +29,12 @@ public class TeamManager extends AbstractManager<Team, TeamChave> implements
 
 	@Autowired
 	private TeamRepositorio teamRepositorio;
-	
+
 	@Autowired
 	private IUsuarioEmpresaManager iUsuarioEmpresaManager;
 
 	private List<Usuario> usuarioForaProjeto = new ArrayList<>();
-	
+
 	@Override
 	public AbstractRepositorio<Team, TeamChave> getRepositorio() {
 		return this.teamRepositorio;
@@ -44,41 +44,74 @@ public class TeamManager extends AbstractManager<Team, TeamChave> implements
 	public List<Usuario> consultarUsuarioPorProjeto(Integer projetoID) {
 		return teamRepositorio.consultarUsuarioPorProjeto(projetoID);
 	}
-	
+
 	@Override
 	@Transactional(readOnly = true)
-	public List<Team> consultaTeamPorProjeto(Integer projetoID){
+	public List<Team> consultaTeamPorProjeto(Integer projetoID) {
 
-		List<Team> teamProjeto = teamRepositorio.consultaTeamPorProjeto(projetoID);
+		List<Team> teamProjeto = teamRepositorio
+				.consultaTeamPorProjeto(projetoID);
 		return teamProjeto;
 	}
-	
-	public void associarTeamProjeto(List<Team> team) {
-		
-		for (Team item : team) {
-			
-			item.setAtivo(true);
-			
-			insertOrUpdate(item);
-			
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void associarTeamProjeto(List<Team> team, Integer projetoID) {
+		List<Team> timeTodosTrueFalse = teamRepositorio
+				.consultaTeamAtivosInativosPorProjeto(projetoID);
+		if (timeTodosTrueFalse != null) {
+			for (int i = 0; i < timeTodosTrueFalse.size(); i++) {
+				timeTodosTrueFalse.get(i).setAtivo(false);
+			}
+
+			for (int i = 0; i < team.size(); i++) {
+				boolean achei = false;
+				int index=0;
+				for (int j = 0; j < timeTodosTrueFalse.size(); j++) {
+					if (team.get(i).getUsuario().getCodigo()==timeTodosTrueFalse.get(j).getUsuario().getCodigo()){
+						achei=true;
+						index=j;
+					}
+				}
+				if (achei) {
+					if (!timeTodosTrueFalse.get(index).isAtivo()) {
+						Team item = timeTodosTrueFalse.get(index);
+						item.setAtivo(true);
+						insertOrUpdate(item);
+					}
+				} else {
+					Team item = team.get(i);
+					item.setAtivo(true);
+					insertOrUpdate(item);
+				}
+			}
+		} else {
+			for (Team item : team) {
+				item.setAtivo(true);
+				insertOrUpdate(item);
+			}
 		}
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Usuario> consultarUsuarioPorEmpresaForaDoProjeto(Integer projetoID, Integer empresaID) {
-		
-		List<Usuario> usuarioEmpresa = iUsuarioEmpresaManager.consultarUsuarioPorEmpresa(empresaID);
-		List<Usuario> usuarioProjeto = teamRepositorio.consultarUsuarioPorProjeto(projetoID);
-		
+	public List<Usuario> consultarUsuarioPorEmpresaForaDoProjeto(
+			Integer projetoID, Integer empresaID) {
+
+		List<Usuario> usuarioEmpresa = iUsuarioEmpresaManager
+				.consultarUsuarioPorEmpresa(empresaID);
+		List<Usuario> usuarioProjeto = teamRepositorio
+				.consultarUsuarioPorProjeto(projetoID);
+
 		for (int i = 0; i < usuarioEmpresa.size(); i++) {
-			boolean achei=false;
+			boolean achei = false;
 			for (int j = 0; j < usuarioProjeto.size(); j++) {
-				if (usuarioEmpresa.get(i).getCodigo()== usuarioProjeto.get(j).getCodigo()){
+				if (usuarioEmpresa.get(i).getCodigo() == usuarioProjeto.get(j)
+						.getCodigo()) {
 					achei = true;
 				}
 			}
-			if (!achei){
+			if (!achei) {
 				usuarioForaProjeto.add(usuarioEmpresa.get(i));
 			}
 		}
@@ -89,9 +122,9 @@ public class TeamManager extends AbstractManager<Team, TeamChave> implements
 	public void desassociarUsuarioDoTeamProjeto(Projeto projetoPersistido,
 			List<Team> team) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	/* getters and setters */
 	public TeamRepositorio getTeamRepositorio() {
 		return teamRepositorio;
@@ -99,6 +132,12 @@ public class TeamManager extends AbstractManager<Team, TeamChave> implements
 
 	public void setTeamRepositorio(TeamRepositorio teamRepositorio) {
 		this.teamRepositorio = teamRepositorio;
+	}
+
+	@Override
+	public List<Team> consultaTeamAtivosInativosPorProjeto(Integer projetoID) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

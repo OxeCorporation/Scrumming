@@ -51,6 +51,7 @@ public class ProjetoMB extends AbstractBean {
     }
     
 	public String consultarProjetoDTO() {
+		usuarioEmpresaNotProjeto=null;
 		projetoDTO = clienteService.consultarProjtoDTO(projetoSelecionado.getCodigo());
 		usuarioEmpresaNotProjeto = projetoDTO.getUsuarioEmpresaNotTeam();
 		teamProjeto = projetoDTO.getTimeProjeto();

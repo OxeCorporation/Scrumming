@@ -10,9 +10,10 @@ import br.com.scrumming.domain.Usuario;
 
 public interface ITeamManager extends IManager<Team, TeamChave> {
 	
-	public void associarTeamProjeto(List<Team> team);
-	public void desassociarUsuarioDoTeamProjeto(Projeto projetoPersistido, List<Team> team);
+	void associarTeamProjeto(List<Team> team, Integer projetoID);
+	void desassociarUsuarioDoTeamProjeto(Projeto projetoPersistido, List<Team> team);
 	List<Usuario> consultarUsuarioPorProjeto(Integer projetoID);
-	public List<Usuario> consultarUsuarioPorEmpresaForaDoProjeto(Integer projetoID, Integer empresaID);
-	public List<Team> consultaTeamPorProjeto(Integer projetoID);
+	List<Usuario> consultarUsuarioPorEmpresaForaDoProjeto(Integer projetoID, Integer empresaID);
+	List<Team> consultaTeamPorProjeto(Integer projetoID);
+	List<Team> consultaTeamAtivosInativosPorProjeto(Integer projetoID);
 }

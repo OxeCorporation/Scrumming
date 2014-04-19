@@ -51,14 +51,18 @@ public class TeamRepositorio extends AbstractRepositorio<Team, TeamChave> {
 	
 	@SuppressWarnings("unchecked")
 	public List<Team> consultaTeamPorProjeto(Integer projetoID){
-		
 		Criteria criteria = createCriteria();
 		criteria.createAlias("projeto", "projetoAlias");
-		
 		criteria.add(Restrictions.eq("projetoAlias.codigo", projetoID));
-		
-		//criteria.setProjection(Projections.property("usuario"));
-		
+		criteria.add(Restrictions.eq("isAtivo", true));
+		return Collections.checkedList(criteria.list(), Team.class);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Team> consultaTeamAtivosInativosPorProjeto(Integer projetoID){
+		Criteria criteria = createCriteria();
+		criteria.createAlias("projeto", "projetoAlias");
+		criteria.add(Restrictions.eq("projetoAlias.codigo", projetoID));
 		return Collections.checkedList(criteria.list(), Team.class);
 	}
 

@@ -57,7 +57,7 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 			//Projeto projetoPersistido = findByKey(projetoID);
 			
 			if (CollectionUtils.isNotEmpty(usuarioTeam)) {
-				teamManage.associarTeamProjeto(usuarioTeam);
+				teamManage.associarTeamProjeto(usuarioTeam, projetoID);
 			}
 		}
 		
