@@ -40,7 +40,6 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 	@Override
 	public String salvarDailyScrum(DailyScrum dailyScrum) {
 
-		int diaSprint;
 		DateTime dataInicioSprint = dailyScrum.getSprint().getDataInicio();
 		DateTime dataFimSprint = dailyScrum.getSprint().getDataFim();
 		
@@ -53,21 +52,20 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 				if (dailyScrum.getDataHora().isAfterNow()) {
 					insertOrUpdate(dailyScrum);
 				} else {
-					FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_ERRO_DATA_DAILY);
+					// throw new NegocioException(MensagemUtil.get(ConstantesMensagem.MENSAGEM_ERRO_DATA_DAILY));
 				}			
 			// Salva um novo registro para cada dia da Sprint.
 			} else {
 				if (dataInicioSprint.isAfterNow()) {
 					Date data1 = dataInicioSprint.toDate();
 					data1.setTime(dailyScrum.getDataHoraCalendar().getTime());
-					diaSprint = dataInicioSprint.getDayOfMonth();
-					dailyScrum.setDataHora(new DateTime(data1));
-					save(dailyScrum, diaSprint, dataInicioSprint, dataFimSprint);
+					//dataInicioSprint = new DateTime(data1);
+					dailyScrum.setDataHora(dataInicioSprint);
+					save(dailyScrum, dataInicioSprint, dataFimSprint);
 				} else {
 					insertOrUpdate(dailyScrum);
 					Calendar.getInstance();
-					diaSprint = Calendar.DAY_OF_MONTH;
-					save(dailyScrum, diaSprint, dataInicioSprint, dataFimSprint);
+					save(dailyScrum, dataInicioSprint, dataFimSprint);
 				}
 			}
 		// Com código (Alteração)
@@ -78,15 +76,16 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 		return "";
 	}
 
-	private void save(DailyScrum dailyScrum, int e, DateTime dataInicioSprint, DateTime dataFimSprint) {
+	private void save(DailyScrum dailyScrum, DateTime dataInicioSprint, DateTime dataFimSprint) {
 		if (dailyScrum.isUniqueDaily()) {
 			dailyScrum.setDataHora(new DateTime(dailyScrum.getDataHoraCalendar()));
 			insertOrUpdate(dailyScrum);
 		} else {
 			int interval = Days.daysBetween(dataInicioSprint, dataFimSprint).getDays();
 			for (int i = 0; i < interval; i++) {
+				dailyScrum.setCodigo(null);
 				insertOrUpdate(dailyScrum);
-				dailyScrum.setDataHora(dataInicioSprint.plusDays(1));
+				dailyScrum.setDataHora(dailyScrum.getDataHora().plusDays(1));
 			}
 		}
 	}
