@@ -209,7 +209,8 @@
 						var="dailyScrum"
 						value="#{sprintDetalheMB.dailies}" 
 						columns="5"
-						style="width:100%;" >
+						style="width:100%;"
+						emptyMessage="#{mensagens.mensagem_sem_registros}" >
 								
 								<f:facet name="header">
 									<h:outputText value="#{mensagens.label_dailies_cadastrados}" />

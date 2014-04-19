@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
@@ -51,6 +52,7 @@ public class DailyScrum extends ObjetoPersistente<Integer> {
 	@Type(type = HibernateTypes.JODA_DATE_TIME)
     @Column(name = "dataHoraMarcada")
 	@NotNull
+	@Future(message="O dia do Daily deve ser posterior à data atual")
 	@JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
 	private DateTime dataHora;
