@@ -12,8 +12,6 @@ public class ProjetoDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	private Integer codigo;
-	
 	private Date dataInicio;
 	
 	private Date dataFim;
@@ -32,10 +30,6 @@ public class ProjetoDTO implements Serializable {
 
 	// Teste commit Ubuntu
 	
-	public Integer getCodigo() {
-		return codigo;
-	}
-
 	public Date getDataInicio() {
 		return dataInicio;
 	}
@@ -58,10 +52,6 @@ public class ProjetoDTO implements Serializable {
 
 	public void setUsuarioEmpresaNotTeam(List<Usuario> usuarioEmpresaNotTeam) {
 		this.usuarioEmpresaNotTeam = usuarioEmpresaNotTeam;
-	}
-
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
 	}
 
 	public Projeto getProjeto() {

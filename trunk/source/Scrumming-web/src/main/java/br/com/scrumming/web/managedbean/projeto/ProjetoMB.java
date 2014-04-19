@@ -8,6 +8,8 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Projeto;
+import br.com.scrumming.domain.ProjetoDTO;
+import br.com.scrumming.domain.Team;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.clientService.ProjetoClientService;
 import br.com.scrumming.web.infra.FlashScoped;
@@ -28,18 +30,33 @@ public class ProjetoMB extends AbstractBean {
     private Projeto projeto;
     @FlashScoped
     private Projeto projetoSelecionado;
+    @FlashScoped
+    private ProjetoDTO projetoDTO;
     private ProjetoClientService clienteService;
     @ManagedProperty(value="#{sessaoMB.empresaSelecionada}")
     private Empresa empresa;
     @FlashScoped
 	private List<Usuario> usuarioEmpresa;
+    @FlashScoped
+	private List<Usuario> usuarioEmpresaNotProjeto;
+    @FlashScoped
+	private List<Team> teamProjeto;
 
+    
     @Override
     public void inicializar() {
         clienteService = new ProjetoClientService();
         projeto = new Projeto();
         projetosDaEmpresa = clienteService.consultarProjetosPorEmpresa(empresa.getCodigo());
     }
+    
+	public String consultarProjetoDTO() {
+		projetoDTO = clienteService.consultarProjtoDTO(projetoSelecionado.getCodigo());
+		usuarioEmpresaNotProjeto = projetoDTO.getUsuarioEmpresaNotTeam();
+		teamProjeto = projetoDTO.getTimeProjeto();
+		return projetoCadastroPage();
+	}
+
     
 	public String consultarUsuarioEmpresa() {
 		usuarioEmpresa = clienteService.consultarUsuarioPorEmpresa(empresa.getCodigo());
@@ -61,11 +78,37 @@ public class ProjetoMB extends AbstractBean {
 	}
 
     /* getters and setters */
+	
+	
     public Projeto getProjeto() {
         return projeto;
     }
 
-    public void setProjeto(Projeto projeto) {
+    public ProjetoDTO getProjetoDTO() {
+		return projetoDTO;
+	}
+
+	public void setProjetoDTO(ProjetoDTO projetoDTO) {
+		this.projetoDTO = projetoDTO;
+	}
+
+	public List<Usuario> getUsuarioEmpresaNotProjeto() {
+		return usuarioEmpresaNotProjeto;
+	}
+
+	public void setUsuarioEmpresaNotProjeto(List<Usuario> usuarioEmpresaNotProjeto) {
+		this.usuarioEmpresaNotProjeto = usuarioEmpresaNotProjeto;
+	}
+
+	public List<Team> getTeamProjeto() {
+		return teamProjeto;
+	}
+
+	public void setTeamProjeto(List<Team> teamProjeto) {
+		this.teamProjeto = teamProjeto;
+	}
+
+	public void setProjeto(Projeto projeto) {
         this.projeto = projeto;
     }
 

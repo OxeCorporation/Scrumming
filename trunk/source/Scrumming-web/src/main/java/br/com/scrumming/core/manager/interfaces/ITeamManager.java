@@ -9,7 +9,7 @@ import br.com.scrumming.domain.Usuario;
 
 public interface ITeamManager extends IManager<Team, Integer> {
 	
-	public void associarTeamProjeto(Projeto projetoPersistido, List<Team> team);
+	public void associarTeamProjeto(List<Team> team);
 	public void desassociarUsuarioDoTeamProjeto(Projeto projetoPersistido, List<Team> team);
 	List<Usuario> consultarUsuarioPorProjeto(Integer projetoID);
 	public List<Usuario> consultarUsuarioPorEmpresaForaDoProjeto(Integer projetoID, Integer empresaID);

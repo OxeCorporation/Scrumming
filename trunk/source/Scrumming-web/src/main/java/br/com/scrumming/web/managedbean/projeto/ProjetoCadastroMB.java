@@ -6,9 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
+import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.ProjetoDTO;
 import br.com.scrumming.domain.Team;
@@ -33,15 +35,16 @@ public class ProjetoCadastroMB extends AbstractBean {
 	private ProjetoClientService projetoClientService;
 	@FlashScoped
 	private List<Usuario> usuarioEmpresa;
+	private List<Usuario> teamUsuario;
 	@FlashScoped
 	private List<Team> team;
-	private PerfilUsuarioEnum perfilUsuario;
 	private List<PerfilUsuarioEnum> todosPerfis;
-	private List<Usuario> teamUsuario;
 	private SituacaoProjetoEnum situacao;
 	private List<SituacaoProjetoEnum> todasSituacoes;
 	private Usuario usuarioSelecionado;
 	private Team usuarioTeamSelecionado;
+	@ManagedProperty(value="#{sessaoMB.empresaSelecionada}")
+	private Empresa empresa;
 	
 	@Override
 	protected void inicializar() {
@@ -65,6 +68,7 @@ public class ProjetoCadastroMB extends AbstractBean {
 	}
 	
 	public String salvarProjeto(){
+		projetoDTO.getProjeto().setEmpresa(empresa);
 		projetoDTO.getProjeto().setSituacaoProjeto(situacao);
 		projetoDTO.setTimeProjeto(team);
 		projetoDTO.setUsuarioEmpresaNotTeam(usuarioEmpresa);
@@ -85,7 +89,7 @@ public class ProjetoCadastroMB extends AbstractBean {
 			usuarioEmpresa = listToRemove;
 			Team teamNaLista = new Team();
 			teamNaLista.setUsuario(usuarioSelecionado);
-			teamNaLista.setPerfilUsuario(perfilUsuario);
+		//	teamNaLista.setPerfilUsuario(perfilUsuario);
 			team.add(teamNaLista);
 			usuarioSelecionado = null;
 		} else {
@@ -119,6 +123,14 @@ public class ProjetoCadastroMB extends AbstractBean {
 	}
 
 
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
 	public Team getUsuarioTeamSelecionado() {
 		return usuarioTeamSelecionado;
 	}
@@ -143,13 +155,6 @@ public class ProjetoCadastroMB extends AbstractBean {
 		this.team = team;
 	}
 
-	public PerfilUsuarioEnum getPerfilUsuario() {
-		return perfilUsuario;
-	}
-
-	public void setPerfilUsuario(PerfilUsuarioEnum perfilUsuario) {
-		this.perfilUsuario = perfilUsuario;
-	}
 
 	public List<PerfilUsuarioEnum> getTodosPerfis() {
 		return Arrays.asList(PerfilUsuarioEnum.values());
@@ -192,8 +197,8 @@ public class ProjetoCadastroMB extends AbstractBean {
 	}
 
 
-	public String sprintPage() {
-		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
+	public String projetoPage() {
+		return redirecionar(PaginasUtil.Projeto.PROJETO_PAGE);
 	}	
 
 	public String itemBacklogPage() {

@@ -1,5 +1,6 @@
 package br.com.scrumming.core.manager.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class TeamManager extends AbstractManager<Team, Integer> implements
 	@Autowired
 	private IUsuarioEmpresaManager iUsuarioEmpresaManager;
 
-	private List<Usuario> usuarioForaProjeto;
+	private List<Usuario> usuarioForaProjeto = new ArrayList<>();
 	
 	@Override
 	public AbstractRepositorio<Team, Integer> getRepositorio() {
@@ -44,24 +45,20 @@ public class TeamManager extends AbstractManager<Team, Integer> implements
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
 	public List<Team> consultaTeamPorProjeto(Integer projetoID){
-		
-		return teamRepositorio.consultaTeamPorProjeto(projetoID);
+
+		List<Team> teamProjeto = teamRepositorio.consultaTeamPorProjeto(projetoID);
+		return teamProjeto;
 	}
 	
-	public void associarTeamProjeto(Projeto projetoPersistido, List<Team> team) {
+	public void associarTeamProjeto(List<Team> team) {
 		
 		for (Team item : team) {
 			
-			Team teamProjeto = new Team();
+			item.setAtivo(true);
 			
-			teamProjeto.setEmpresa(projetoPersistido.getEmpresa());
-			teamProjeto.setProjeto(projetoPersistido);
-			teamProjeto.setUsuario(item.getUsuario());
-			teamProjeto.setPerfilUsuario(item.getPerfilUsuario());
-			teamProjeto.setAtivo(true);
-			
-			insertOrUpdate(teamProjeto);
+			insertOrUpdate(item);
 			
 		}
 	}
@@ -73,13 +70,15 @@ public class TeamManager extends AbstractManager<Team, Integer> implements
 		List<Usuario> usuarioEmpresa = iUsuarioEmpresaManager.consultarUsuarioPorEmpresa(empresaID);
 		List<Usuario> usuarioProjeto = teamRepositorio.consultarUsuarioPorProjeto(projetoID);
 		
-		for (int i = 0; i <= usuarioEmpresa.size(); i++) {
+		for (int i = 0; i < usuarioEmpresa.size(); i++) {
+			boolean achei=false;
 			for (int j = 0; j < usuarioProjeto.size(); j++) {
 				if (usuarioEmpresa.get(i).getCodigo()== usuarioProjeto.get(j).getCodigo()){
-					continue;
-				}else{
-					usuarioForaProjeto.add(usuarioEmpresa.get(i));
+					achei = true;
 				}
+			}
+			if (!achei){
+				usuarioForaProjeto.add(usuarioEmpresa.get(i));
 			}
 		}
 		return usuarioForaProjeto;
