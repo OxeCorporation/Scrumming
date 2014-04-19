@@ -11,4 +11,6 @@ public class ConstantesMensagem {
     public static final String MENSAGEM_OPERACAO_SUCESSO ="mensagem_operacao_sucesso";
     public static final String MENSAGEM_SELECIONAR_ITEM_LISTA ="mensagem_selecionar_item_lista";
     public static final String MENSAGEM_ERRO_DATA_SPRINT ="mensagem_erro_data_sprint";
+    public static final String MENSAGEM_REGISTRO_ALTERADO_SUCESSO ="mensagem_registro_alterado";
+    public static final String MENSAGEM_ERRO_DATA_DAILY ="mensagem_erro_data_daily";
 }

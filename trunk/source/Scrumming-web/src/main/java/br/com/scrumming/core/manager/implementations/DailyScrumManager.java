@@ -1,6 +1,5 @@
 package br.com.scrumming.core.manager.implementations;
 
-import java.util.Calendar;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -9,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
+import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.core.manager.interfaces.IDailyScrumManager;
 import br.com.scrumming.core.repositorio.DailyScrumRepositorio;
 import br.com.scrumming.domain.DailyScrum;
+import br.com.scrumming.web.infra.FacesMessageUtil;
 
 @Service
 public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
@@ -37,43 +38,55 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 	public String salvarDailyScrum(DailyScrum dailyScrum) {
 
 		int e;
-		String retorno = "";
 		DateTime dataInicio = dailyScrum.getSprint().getDataInicio();
 		DateTime dataFim = dailyScrum.getSprint().getDataFim();
 		if (dailyScrum.getCodigo() == null) { // Sem código (Novo daily)
-			if (dataInicio.isAfterNow()) {
-				e = dataInicio.getDayOfMonth();
-				retorno = "DailyScrum Salvo com sucesso.";
-				dailyScrum.setDataHora(dataInicio);
-				salve(dailyScrum, e, dataInicio, dataFim);
-			} else { // Com código (Alteração Daily)
-				insertOrUpdate(dailyScrum);
-				Calendar.getInstance();
-				e = Calendar.DAY_OF_MONTH;
-				retorno = "DailyScrum Salvo. Próxima DailyScrum "
-						+ Calendar.DATE + " Horário: "
-						+ dailyScrum.getDataHora().getHourOfDay() + ":"
-						+ dailyScrum.getDataHora().getMillisOfDay();
-				salve(dailyScrum, e, dataInicio, dataFim);
+			// Salva apenas um registro
+			if (dailyScrum.isUniqueDaily()) {
+				if (dailyScrum.getDataHora().isAfterNow()) {
+					saveUniqueDaily(dailyScrum);
+				} else {
+					FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_ERRO_DATA_DAILY);
+				}
+			} else {
+				/*if (dataInicio.isAfterNow()) {
+					e = dataInicio.getDayOfMonth();
+					dailyScrum.setDataHora(dataInicio);
+					save(dailyScrum, e, dataInicio, dataFim);
+				} else { // Com código (Alteração Daily)
+					if (dailyScrum.isUniqueDaily()) {
+						
+					} else {
+						insertOrUpdate(dailyScrum);
+						Calendar.getInstance();
+						e = Calendar.DAY_OF_MONTH;
+						save(dailyScrum, e, dataInicio, dataFim);
+					}
+				}*/
 			}
-		} else {
-			dailyScrumRepositorio.save(dailyScrum);
-			retorno = "DailyScrum Alterado";
+		} else { // Com código (Alteração)
+			insertOrUpdate(dailyScrum);
+			FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_REGISTRO_ALTERADO_SUCESSO);
 		}
-		return retorno;
+		return "";
 	}
 
-	private void salve(DailyScrum dailyScrum, int e, DateTime dataInicio, DateTime dataFim) {
-		if (dailyScrum.getDataHora() == null) {
+	private void save(DailyScrum dailyScrum, int e, DateTime dataInicio, DateTime dataFim) {
+		if (dailyScrum.isUniqueDaily()) {
+			dailyScrum.setDataHora(new DateTime(dailyScrum.getDataHoraCalendar()));
+			insertOrUpdate(dailyScrum);
+		} else {
 			int diaFim = dataFim.getDayOfMonth();
 			for (int i = e; i < diaFim; i++) {
 				insertOrUpdate(dailyScrum);
 				dailyScrum.setDataHora(dataInicio.plusDays(1));
 			}
-		} else {
-			dailyScrum.setDataHora(new DateTime(dailyScrum.getDataHoraCalendar()));
-			insertOrUpdate(dailyScrum);
 		}
+	}
+	
+	private void saveUniqueDaily(DailyScrum dailyScrum) {
+		dailyScrum.setDataHora(new DateTime(dailyScrum.getDataHoraCalendar()));
+		insertOrUpdate(dailyScrum);
 	}
 
 	@Override

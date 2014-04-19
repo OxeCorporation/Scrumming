@@ -11,7 +11,7 @@
 		<p:panel>		
 			<h:panelGrid id="paneldaily" columns="2">  
                 <h:outputText value="#{mensagens.label_radio_button_daily}" rendered="#{sprintDetalheMB.saveDaily}" />  
-                <h:selectOneRadio id="tipoCliente" value="#{sprintDetalheMB.uniqueDaily}" rendered="#{sprintDetalheMB.saveDaily}" >  
+                <h:selectOneRadio id="tipoCliente" value="#{sprintDetalheMB.dailyScrum.uniqueDaily}" rendered="#{sprintDetalheMB.saveDaily}" >  
                     <f:selectItem itemLabel="#{mensagens.label_cadastro_unico_daily}" itemValue="true" />
                     <f:selectItem itemLabel="#{mensagens.label_cadastro_sprint_daily}" itemValue="false" />
 					<f:ajax event="change" render="dailyScrumModal"/>  

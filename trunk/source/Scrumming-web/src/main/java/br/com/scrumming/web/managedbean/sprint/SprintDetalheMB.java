@@ -52,9 +52,9 @@ public class SprintDetalheMB extends AbstractBean {
 	private List<DailyScrum> dailies;
 	private boolean saveDaily;
 	private boolean showModal;
-	private boolean uniqueDaily;
 	private String modalHeight;
 	private String datePattern;
+	private boolean uniqueDaily;
 
 	@Override
 	public void inicializar() {
@@ -68,7 +68,7 @@ public class SprintDetalheMB extends AbstractBean {
 		if (tarefaSelecionada == null) {
 			tarefaSelecionada = new Tarefa();
 		}
-		uniqueDaily = true;
+		dailyScrum.setUniqueDaily(true);
 		sprintClienteService = new SprintClientService();
 		itemClienteService = new ItemBacklogClientService();
 		dailyClienteService = new DailyScrumClientService();
@@ -102,7 +102,7 @@ public class SprintDetalheMB extends AbstractBean {
 	public void alterarDailyScrum() {
 		saveDaily = false;
 		showModal = true;
-		uniqueDaily = false;
+		dailyScrum.setUniqueDaily(false);
 		dailyScrum = dailyScrumSelecionado;
 	}
 	
@@ -287,6 +287,7 @@ public class SprintDetalheMB extends AbstractBean {
 	}
 	
 	public boolean isUniqueDaily() {
+		uniqueDaily = dailyScrum.isUniqueDaily();
 		if (uniqueDaily == true) {
 			modalHeight = "190";
 			datePattern = "dd/MM/yyyy HH:mm";
@@ -298,10 +299,6 @@ public class SprintDetalheMB extends AbstractBean {
 			modalHeight = "130";
 		}
 		return uniqueDaily;
-	}
-
-	public void setUniqueDaily(boolean uniqueDaily) {
-		this.uniqueDaily = uniqueDaily;
 	}
 
 	public String getModalHeight() {
