@@ -5,7 +5,7 @@
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
 	template="/paginas/template/template.xhtml">
 
-	<!-- CORPO DA TELA DA SPRINTS -->
+	<!-- CORPO DA TELA DA PROJETO -->
 	<ui:define name="conteudo">
 		<h:outputStylesheet library="css" name="scrumming.css" />
 		<!-- Trecho será retirado posteriormente -->
@@ -41,21 +41,29 @@
 					<h:panelGroup>
 						<p:panel style="height: 100px;">
 							<h:panelGroup style="width: 150px">
-								<h:panelGroup styleClass="col-md-6 column">
+								<h:panelGroup styleClass="col-md-4 column">
 									<h:outputLabel styleClass="label-default"
 										value="Data de início" />
 									<br />
 									<p:calendar value="#{projetoCadastroMB.projetoDTO.dataInicio}"
 										id="popupCalInicio" required="true" />
 								</h:panelGroup>
-								<h:panelGroup styleClass="col-md-6 column">
+								<h:panelGroup styleClass="col-md-4 column">
 									<h:outputLabel styleClass="label-default" value="Situação" />
 									<br />
-									<p:selectOneMenu id="situac"
-										value="#{projetoCadastroMB.projetoDTO.projeto.situacaoProjeto}">
-										<f:selectItems value="#{projetoCadastroMB.todasSituacoes}" />
+									<p:selectOneMenu value="#{projetoCadastroMB.situacao}">
+										<f:selectItems value="#{projetoCadastroMB.todasSituacoes}"
+											var="situa" itemValue="#{situa}" converter="javax.faces.Enum" />
 									</p:selectOneMenu>
+
 								</h:panelGroup>
+								<h:panelGroup styleClass="col-md-4 column">
+									<h:outputLabel styleClass="label-default" value="Data Final" />
+									<br />
+									<p:calendar value="#{projetoCadastroMB.projetoDTO.dataFim}"
+										id="popupCalFim" required="true" />
+								</h:panelGroup>
+
 							</h:panelGroup>
 						</p:panel>
 					</h:panelGroup>
@@ -79,12 +87,12 @@
 												<h:panelGrid columns="1" style="width:100%">
 													<p:outputLabel styleClass="output-default"
 														value="#{teamProjeto.usuario.email}" />
-														
 													<p:selectOneMenu id="func"
-														value="#{projetoCadastroMB.perfilUsuario}">
-														<f:selectItems value="#{projetoCadastroMB.todosPerfis}" />
+														value="#{teamProjeto.perfilUsuario}">
+														<f:selectItems value="#{projetoCadastroMB.todosPerfis}"
+															var="perf" itemValue="#{perf}"
+															converter="javax.faces.Enum" />
 													</p:selectOneMenu>
-
 													<p:effect type="pulsate" event="click" />
 												</h:panelGrid>
 											</p:panel>
@@ -144,7 +152,7 @@
 					<br />
 					<p:panel style="height: 56px;">
 						<h:commandButton process="@none" icon="ui-icon-cancel"
-							value="Cancelar" action="#{sprintCadastroMB.sprintPage}"
+							value="Cancelar" action="#{projetoCadastroMB.projetoPage}"
 							styleClass="button" />
 						<h:commandButton value="Salvar"
 							action="#{projetoCadastroMB.salvarProjeto}" icon="ui-icon-disk"
@@ -154,10 +162,11 @@
 			</h:panelGroup>
 		</h:panelGroup>
 		<h:panelGroup styleClass="col-md-3 column div-right">
-			<p:commandLink title="Novo Projeto"
-				action="#{sprintCadastroMB.sprintPage}">
+			<p:commandLink title="Novo Projeto">
+				<!-- 				action="#{sprintCadastroMB.sprintPage}">
 				<i class="fa fa-plus right-sidebar-icon" />
 				<h:outputText value="Novo Projeto" />
+ -->
 			</p:commandLink>
 		</h:panelGroup>
 	</ui:define>
@@ -166,14 +175,13 @@
 		<h:panelGrid id="display" columns="2" cellpadding="5">
 			<h:outputText value="Data:" />
 			<h:outputText
-				value="#{sprintCadastroMB.sprintSelecionada.dataInicio}"
+				value="#{projetoCadastroMB.projetoSelecionado.dataInicio}"
 				id="popupDateInicio">
 				<f:convertDateTime pattern="dd/MM/yyyy" />
 			</h:outputText>
 			<h:outputText value="Data:" />
-			<h:outputText
-				value="#{sprintCadastroMB.sprintSelecionada.dataRevisao}"
-				id="popupDateRevisao">
+			<h:outputText value="#{projetoCadastroMB.projetoSelecionado.dataFim}"
+				id="popupDateFim">
 				<f:convertDateTime pattern="dd/MM/yyyy" />
 			</h:outputText>
 		</h:panelGrid>
