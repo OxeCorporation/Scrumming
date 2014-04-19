@@ -25,4 +25,10 @@ public class UsuarioEmpresaClientService extends AbstractClientService {
 						Usuario[].class, empresaID);
 		return Arrays.asList(usuarios);
 	}
+	
+	public List<Usuario> consultarUsuariosAtivosDoProjeto(Integer projetoID, Integer empresaID){
+		return Arrays.asList(getRestTemplate().getForObject(getURIService(
+				ConstantesService.UsuarioEmpresa.URL_CONSULTAR_USUARIOS_ATIVOS_DO_PROJETO), 
+				Usuario[].class, projetoID, empresaID));
+	}
 }

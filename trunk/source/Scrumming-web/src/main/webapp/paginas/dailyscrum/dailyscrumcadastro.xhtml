@@ -19,13 +19,12 @@
                 
                 <h:outputText 
 					id="labelDataHora" 
-					value="#{mensagens.label_data_hora_daily}" 
-					styleClass="control-label" 
-					rendered="#{sprintDetalheMB.uniqueDaily}" />
+					value="#{sprintDetalheMB.uniqueDaily == true ? mensagens.label_data_hora_daily : mensagens.label_hora_daily}" 
+					styleClass="control-label"  />
 					<p:calendar
 						id="popupCalDataHora"
 						value="#{sprintDetalheMB.dailyScrum.dataHoraCalendar}" 
-						pattern="dd/MM/yyyy HH:mm" rendered="#{sprintDetalheMB.uniqueDaily}" />		    				  
+						pattern="#{sprintDetalheMB.datePattern}" timeOnly="#{! sprintDetalheMB.uniqueDaily}"/>		    				  
  
 			    <h:outputText 
 					id="labelLocal" 

@@ -6,9 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
+import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.ProjetoDTO;
 import br.com.scrumming.domain.Team;
@@ -32,16 +34,17 @@ public class ProjetoCadastroMB extends AbstractBean {
 	private ProjetoDTO projetoDTO;
 	private ProjetoClientService projetoClientService;
 	@FlashScoped
-	private List<Usuario> usuarioEmpresa;
-	@FlashScoped
-	private List<Team> team;
-	private PerfilUsuarioEnum perfilUsuario;
-	private List<PerfilUsuarioEnum> todosPerfis;
+	private List<Usuario> usuarioEmpresaNotProjeto;
 	private List<Usuario> teamUsuario;
+	@FlashScoped
+	private List<Team> teamProjeto;
+	private List<PerfilUsuarioEnum> todosPerfis;
 	private SituacaoProjetoEnum situacao;
 	private List<SituacaoProjetoEnum> todasSituacoes;
 	private Usuario usuarioSelecionado;
 	private Team usuarioTeamSelecionado;
+	@ManagedProperty(value="#{sessaoMB.empresaSelecionada}")
+	private Empresa empresa;
 	
 	@Override
 	protected void inicializar() {
@@ -51,11 +54,11 @@ public class ProjetoCadastroMB extends AbstractBean {
 			teamUsuario = new ArrayList<>();
 		}
 		
-		if (usuarioEmpresa == null) {
-			usuarioEmpresa = new ArrayList<>();
+		if (usuarioEmpresaNotProjeto == null) {
+			usuarioEmpresaNotProjeto = new ArrayList<>();
 		}
-		if (team == null) {
-			team = new ArrayList<>();
+		if (teamProjeto == null) {
+			teamProjeto = new ArrayList<>();
 		}
 		if (projetoDTO == null) {
 			projetoDTO = new ProjetoDTO();
@@ -65,28 +68,29 @@ public class ProjetoCadastroMB extends AbstractBean {
 	}
 	
 	public String salvarProjeto(){
+		projetoDTO.getProjeto().setEmpresa(empresa);
 		projetoDTO.getProjeto().setSituacaoProjeto(situacao);
-		projetoDTO.setTimeProjeto(team);
-		projetoDTO.setUsuarioEmpresaNotTeam(usuarioEmpresa);
+		projetoDTO.setTimeProjeto(teamProjeto);
+		projetoDTO.setUsuarioEmpresaNotTeam(usuarioEmpresaNotProjeto);
 		projetoClientService.salvarProjeto(projetoDTO);
 		return "";
 	}
 	
 	public String moveItemToTeam() {
 		if (usuarioSelecionado != null) {
-			List<Usuario> listToRemove = new LinkedList<>(usuarioEmpresa);
+			List<Usuario> listToRemove = new LinkedList<>(usuarioEmpresaNotProjeto);
 			Usuario itemToRemove = new Usuario();
-			for (Usuario item : usuarioEmpresa) {
+			for (Usuario item : usuarioEmpresaNotProjeto) {
 				if (item.getCodigo() == usuarioSelecionado.getCodigo()) {
 					itemToRemove = item;
 				}
 			}
 			listToRemove.remove(itemToRemove);
-			usuarioEmpresa = listToRemove;
+			usuarioEmpresaNotProjeto = listToRemove;
 			Team teamNaLista = new Team();
 			teamNaLista.setUsuario(usuarioSelecionado);
-			teamNaLista.setPerfilUsuario(perfilUsuario);
-			team.add(teamNaLista);
+		//	teamNaLista.setPerfilUsuario(perfilUsuario);
+			teamProjeto.add(teamNaLista);
 			usuarioSelecionado = null;
 		} else {
 			FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_SELECIONAR_ITEM_LISTA);
@@ -100,17 +104,17 @@ public class ProjetoCadastroMB extends AbstractBean {
 	 */
 	public String removeItemFromTeam() {
 		if (usuarioTeamSelecionado != null) {
-			List<Team> listToRemove = new LinkedList<>(team);
+			List<Team> listToRemove = new LinkedList<>(teamProjeto);
 			Team itemToRemove = new Team();
-			for (Team item : team) {
+			for (Team item : teamProjeto) {
 				if (item.getUsuario().getCodigo() == usuarioTeamSelecionado.getUsuario().getCodigo()) {
 					itemToRemove = item;
 				}
 			}
 			listToRemove.remove(itemToRemove);
-			team = listToRemove;
+			teamProjeto = listToRemove;
 			Usuario usuario = itemToRemove.getUsuario();
-			usuarioEmpresa.add(usuario);
+			usuarioEmpresaNotProjeto.add(usuario);
 			usuarioTeamSelecionado = null;
 		} else {
 			FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_SELECIONAR_ITEM_LISTA);
@@ -118,6 +122,14 @@ public class ProjetoCadastroMB extends AbstractBean {
 		return "";
 	}
 
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
 
 	public Team getUsuarioTeamSelecionado() {
 		return usuarioTeamSelecionado;
@@ -128,28 +140,21 @@ public class ProjetoCadastroMB extends AbstractBean {
 	}
 
 	public List<Usuario> getUsuarioEmpresa() {
-		return usuarioEmpresa;
+		return usuarioEmpresaNotProjeto;
 	}
 
 	public void setUsuarioEmpresa(List<Usuario> usuarioEmpresa) {
-		this.usuarioEmpresa = usuarioEmpresa;
+		this.usuarioEmpresaNotProjeto = usuarioEmpresa;
 	}
 
 	public List<Team> getTeam() {
-		return team;
+		return teamProjeto;
 	}
 
 	public void setTeam(List<Team> team) {
-		this.team = team;
+		this.teamProjeto = team;
 	}
 
-	public PerfilUsuarioEnum getPerfilUsuario() {
-		return perfilUsuario;
-	}
-
-	public void setPerfilUsuario(PerfilUsuarioEnum perfilUsuario) {
-		this.perfilUsuario = perfilUsuario;
-	}
 
 	public List<PerfilUsuarioEnum> getTodosPerfis() {
 		return Arrays.asList(PerfilUsuarioEnum.values());
@@ -192,8 +197,8 @@ public class ProjetoCadastroMB extends AbstractBean {
 	}
 
 
-	public String sprintPage() {
-		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
+	public String projetoPage() {
+		return redirecionar(PaginasUtil.Projeto.PROJETO_PAGE);
 	}	
 
 	public String itemBacklogPage() {

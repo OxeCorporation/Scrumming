@@ -25,4 +25,6 @@ public interface IUsuarioEmpresaManager extends IManager<UsuarioEmpresa, Usuario
 	 */
 	List<Empresa> consultarEmpresaPorUsuario(Integer usuarioID);
 
+	List<Usuario> consultarUsuariosAtivosDoProjeto(Integer projetoID, Integer empresaID);
+
 }

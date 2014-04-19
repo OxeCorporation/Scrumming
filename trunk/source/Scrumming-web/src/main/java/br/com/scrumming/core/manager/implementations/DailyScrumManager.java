@@ -64,8 +64,9 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 	}
 
 	private void salve(DailyScrum dailyScrum, int e, DateTime dataInicio, DateTime dataFim) {
-		if (dailyScrum.getDataHoraCalendar() == null) {
-			for (int i = e; i < dataFim.getDayOfMonth(); i++) {
+		if (dailyScrum.getDataHora() == null) {
+			int diaFim = dataFim.getDayOfMonth();
+			for (int i = e; i < diaFim; i++) {
 				insertOrUpdate(dailyScrum);
 				dailyScrum.setDataHora(dataInicio.plusDays(1));
 			}

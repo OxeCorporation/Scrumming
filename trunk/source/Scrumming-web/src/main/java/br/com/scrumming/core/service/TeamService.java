@@ -27,11 +27,9 @@ public class TeamService {
 		this.teamManager.insertOrUpdate(team);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/list/{usuarioId}")
-	public List<Usuario> consultarUsuarioPorProjeto(
-			@PathVariable Integer usuarioID) {
-		return new ArrayList<Usuario>(
-				teamManager.consultarUsuarioPorProjeto(usuarioID));
+	@RequestMapping(method = RequestMethod.GET, value = "/list/{projetoID}")
+	public List<Usuario> consultarUsuarioPorProjeto(@PathVariable Integer projetoID) {
+		return new ArrayList<Usuario>(teamManager.consultarUsuarioPorProjeto(projetoID));
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/listusuario/{projetoId}{empresaID}")

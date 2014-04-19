@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.scrumming.core.manager.interfaces.IProjetoManager;
+import br.com.scrumming.core.manager.interfaces.ITeamManager;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.ProjetoDTO;
+import br.com.scrumming.domain.Usuario;
 
 @RestController
 @RequestMapping("/projeto")
@@ -23,10 +25,19 @@ public class ProjetoService {
 
     @Autowired
     private IProjetoManager projetoManager;
+    
+	@Autowired
+	private ITeamManager teamManager;
+
 
     @RequestMapping(method = RequestMethod.POST, value = "/save")
     public void salvarProjeto(@RequestBody ProjetoDTO projetoDTO) {
         this.projetoManager.salvarProjeto(projetoDTO);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/projetodto/{projetoID}")
+    public ProjetoDTO consultarProjetoDTO(@PathVariable Integer projetoID) {
+    	return projetoManager.consultarProjetoDTO(projetoID);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/list/{empresaID}")
@@ -34,6 +45,13 @@ public class ProjetoService {
     	return new ArrayList<Projeto>(projetoManager.consultarPorEmpresa(empresaID));
     }
     
+	@RequestMapping(method = RequestMethod.GET, value = "/listusuario/{projetoID}/{empresaID}")
+	public List<Usuario> consultarUsuarioForaDoProjeto(
+			@PathVariable Integer projetoID, @PathVariable Integer empresaID) {
+		return new ArrayList<Usuario>(
+				teamManager.consultarUsuarioPorEmpresaForaDoProjeto(projetoID, empresaID));
+	}
+
     @RequestMapping(method = RequestMethod.GET, value = "/{nomeProjeto}")
     public List<Projeto> consultarPorNome(@PathVariable String nome) {
 

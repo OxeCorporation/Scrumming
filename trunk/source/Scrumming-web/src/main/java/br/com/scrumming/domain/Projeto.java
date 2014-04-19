@@ -85,6 +85,14 @@ public class Projeto extends ObjetoPersistente<Integer> {
     @Transient
     private String dataFimFormatada;
     
+    @Transient
+    private String statusProjeto;
+
+    
+    @Transient
+    private boolean editable = true;
+
+    
     /**
      * Getters e and setters
      */
@@ -93,8 +101,32 @@ public class Projeto extends ObjetoPersistente<Integer> {
     public Integer getChave() {
         return this.codigo;
     }
+    
+    public String getStatusProjeto() {
+		return statusProjeto;
+	}
 
-    public Integer getCodigo() {
+	public void setStatusProjeto(String statusProjeto) {
+		this.statusProjeto = statusProjeto;
+	}
+
+	public void setDataInicioFormatada(String dataInicioFormatada) {
+		this.dataInicioFormatada = dataInicioFormatada;
+	}
+
+	public void setDataFimFormatada(String dataFimFormatada) {
+		this.dataFimFormatada = dataFimFormatada;
+	}
+
+	public boolean isEditable() {
+		return editable;
+	}
+
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
+
+	public Integer getCodigo() {
         return codigo;
     }
 

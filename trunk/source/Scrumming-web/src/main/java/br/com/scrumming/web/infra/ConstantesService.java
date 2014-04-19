@@ -41,7 +41,7 @@ public final class ConstantesService {
 		public static final String URL_SALVAR_PROJETO = "/projeto/save";
 		public static final String URL_DELETE_PROJETO = "/projeto/deleteProjeto/{projetoID}";
 		public static final String URL_CANCELAR_PROJETO = "/projeto/{projetoID}";
-		public static final String URL_CONSULTAR_PROJETO_DTO = "projeto/projetodto/{projetoID}";
+		public static final String URL_CONSULTAR_PROJETO_DTO = "/projeto/projetodto/{projetoID}";
 		public static final String URL_CONSULTAR_POR_EMPRESA = "/projeto/list/{empresaID}";
 		public static final String URL_CONSULTAR_POR_USURIO_EMPRESA = "/usuario_empresa/empresa/{empresaID}";
 		public static final String URL_CONSULTAR_POR_USURIO_EMPRESA_NOTPROJETO = "/projeto/listusuario/{projetoID}/{empresaID}";
@@ -50,6 +50,7 @@ public final class ConstantesService {
 	public final class UsuarioEmpresa{
 		public static final String URL_CONSULTAR_EMPRESAS_POR_USUARIO = "/usuario_empresa/usuario/{usuarioID}";
 		public static final String URL_CONSULTAR_USUARIOS_POR_EMPRESA = "/usuario_empresa/empresa/{empresaID}";
+		public static final String URL_CONSULTAR_USUARIOS_ATIVOS_DO_PROJETO = "/usuario_empresa/list/{projetoID}/{empresaID}";
 	}
 	public final class Empresa{
 		public static final String SALVAR_EMPRESA = "/empresa/salvar";
@@ -64,4 +65,11 @@ public final class ConstantesService {
 		public static final String URL_CONSULTAR_PROXIMO_DAILYSCRUM = "/dailyscrum/{projetoID}";
 		public static final String URL_EXCLUIR_DAILY_SCRUM = "/dailyscrum/excluir";
 	}
+	
+	public final class Team{
+		private Team(){}
+		public static final String URL_CONSULTAR_USUARIO_PROJETO = "/team/list/{projetoID}";
+
+	}
+
 }

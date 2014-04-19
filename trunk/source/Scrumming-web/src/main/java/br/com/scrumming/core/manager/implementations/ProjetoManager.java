@@ -1,5 +1,6 @@
 package br.com.scrumming.core.manager.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -15,7 +16,6 @@ import br.com.scrumming.core.repositorio.ProjetoRepositorio;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.ProjetoDTO;
 import br.com.scrumming.domain.Team;
-import br.com.scrumming.domain.Usuario;
 
 @Service
 public class ProjetoManager extends AbstractManager<Projeto, Integer> implements IProjetoManager {
@@ -43,9 +43,10 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 		String retorno = "";
 		Projeto projeto = projetoDTO.getProjeto();
 		projeto.setDataInicio(new DateTime(projetoDTO.getDataInicio()));
+		projeto.setDataFim(new DateTime(projetoDTO.getDataFim()));
 		projeto.setDataCadastro(new DateTime());
 
-		List<Team> usuarioTeam = projetoDTO.getTimeProjeto();
+		List<Team> usuarioTeam = preparaTeamParaAssossiacao(projetoDTO);
 
 		// Persiste o objeto Projeto e retorna a chave.
 		Integer projetoID = insertOrUpdate(projeto);
@@ -53,10 +54,10 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 		if (projetoID != null) {
 			retorno = "Registro foi salvo";
 			// Busca o objeto persistido pela chave.
-			Projeto projetoPersistido = findByKey(projetoID);
+			//Projeto projetoPersistido = findByKey(projetoID);
 			
 			if (CollectionUtils.isNotEmpty(usuarioTeam)) {
-				teamManage.associarTeamProjeto(projetoPersistido, usuarioTeam);
+				teamManage.associarTeamProjeto(usuarioTeam);
 			}
 		}
 		
@@ -69,12 +70,28 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 		// Cria o DTO que será enviado à tela para exibição
 		ProjetoDTO projetoDTO = new ProjetoDTO();
 		// Seta o Projeto
-		projetoDTO.setProjeto(findByKey(projetoID));
+		Projeto projeto = new Projeto();
+		projeto = (findByKey(projetoID));
+		
+		projetoDTO.setProjeto(projeto);
+		projetoDTO.setDataInicio(projeto.getDataInicio().toDate());
+		projetoDTO.setDataFim(projeto.getDataFim().toDate());
+		
 		// Seta a lista de Times do projeto
 		projetoDTO.setTimeProjeto(teamManage.consultaTeamPorProjeto(projetoID));
-		// Pesquisa todos os usuarios da empresa
-		//projetoDTO.setUsuarioEmpresa(iUsuarioEmpresaManager.consultarUsuarioPorEmpresa(projetoDTO.getProjeto().getEmpresa().getCodigo()));
+		projetoDTO.setUsuarioEmpresaNotTeam(teamManage.consultarUsuarioPorEmpresaForaDoProjeto(projetoID, projeto.getEmpresa().getCodigo()));
 		return projetoDTO;
+	}
+	
+	public List<Team> preparaTeamParaAssossiacao(ProjetoDTO projetoDTO){
+		List<Team> teamPreparado= new ArrayList<>();
+		List<Team> usuarioTeam = projetoDTO.getTimeProjeto();
+		for (Team team : usuarioTeam) {
+			team.setEmpresa(projetoDTO.getProjeto().getEmpresa());
+			team.setProjeto(projetoDTO.getProjeto());
+			teamPreparado.add(team);
+		}
+		return teamPreparado;
 	}
 
     @Override
