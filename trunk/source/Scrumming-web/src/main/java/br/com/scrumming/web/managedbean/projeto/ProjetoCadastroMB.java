@@ -34,10 +34,10 @@ public class ProjetoCadastroMB extends AbstractBean {
 	private ProjetoDTO projetoDTO;
 	private ProjetoClientService projetoClientService;
 	@FlashScoped
-	private List<Usuario> usuarioEmpresa;
+	private List<Usuario> usuarioEmpresaNotProjeto;
 	private List<Usuario> teamUsuario;
 	@FlashScoped
-	private List<Team> team;
+	private List<Team> teamProjeto;
 	private List<PerfilUsuarioEnum> todosPerfis;
 	private SituacaoProjetoEnum situacao;
 	private List<SituacaoProjetoEnum> todasSituacoes;
@@ -54,11 +54,11 @@ public class ProjetoCadastroMB extends AbstractBean {
 			teamUsuario = new ArrayList<>();
 		}
 		
-		if (usuarioEmpresa == null) {
-			usuarioEmpresa = new ArrayList<>();
+		if (usuarioEmpresaNotProjeto == null) {
+			usuarioEmpresaNotProjeto = new ArrayList<>();
 		}
-		if (team == null) {
-			team = new ArrayList<>();
+		if (teamProjeto == null) {
+			teamProjeto = new ArrayList<>();
 		}
 		if (projetoDTO == null) {
 			projetoDTO = new ProjetoDTO();
@@ -70,27 +70,27 @@ public class ProjetoCadastroMB extends AbstractBean {
 	public String salvarProjeto(){
 		projetoDTO.getProjeto().setEmpresa(empresa);
 		projetoDTO.getProjeto().setSituacaoProjeto(situacao);
-		projetoDTO.setTimeProjeto(team);
-		projetoDTO.setUsuarioEmpresaNotTeam(usuarioEmpresa);
+		projetoDTO.setTimeProjeto(teamProjeto);
+		projetoDTO.setUsuarioEmpresaNotTeam(usuarioEmpresaNotProjeto);
 		projetoClientService.salvarProjeto(projetoDTO);
 		return "";
 	}
 	
 	public String moveItemToTeam() {
 		if (usuarioSelecionado != null) {
-			List<Usuario> listToRemove = new LinkedList<>(usuarioEmpresa);
+			List<Usuario> listToRemove = new LinkedList<>(usuarioEmpresaNotProjeto);
 			Usuario itemToRemove = new Usuario();
-			for (Usuario item : usuarioEmpresa) {
+			for (Usuario item : usuarioEmpresaNotProjeto) {
 				if (item.getCodigo() == usuarioSelecionado.getCodigo()) {
 					itemToRemove = item;
 				}
 			}
 			listToRemove.remove(itemToRemove);
-			usuarioEmpresa = listToRemove;
+			usuarioEmpresaNotProjeto = listToRemove;
 			Team teamNaLista = new Team();
 			teamNaLista.setUsuario(usuarioSelecionado);
 		//	teamNaLista.setPerfilUsuario(perfilUsuario);
-			team.add(teamNaLista);
+			teamProjeto.add(teamNaLista);
 			usuarioSelecionado = null;
 		} else {
 			FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_SELECIONAR_ITEM_LISTA);
@@ -104,17 +104,17 @@ public class ProjetoCadastroMB extends AbstractBean {
 	 */
 	public String removeItemFromTeam() {
 		if (usuarioTeamSelecionado != null) {
-			List<Team> listToRemove = new LinkedList<>(team);
+			List<Team> listToRemove = new LinkedList<>(teamProjeto);
 			Team itemToRemove = new Team();
-			for (Team item : team) {
+			for (Team item : teamProjeto) {
 				if (item.getUsuario().getCodigo() == usuarioTeamSelecionado.getUsuario().getCodigo()) {
 					itemToRemove = item;
 				}
 			}
 			listToRemove.remove(itemToRemove);
-			team = listToRemove;
+			teamProjeto = listToRemove;
 			Usuario usuario = itemToRemove.getUsuario();
-			usuarioEmpresa.add(usuario);
+			usuarioEmpresaNotProjeto.add(usuario);
 			usuarioTeamSelecionado = null;
 		} else {
 			FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_SELECIONAR_ITEM_LISTA);
@@ -140,19 +140,19 @@ public class ProjetoCadastroMB extends AbstractBean {
 	}
 
 	public List<Usuario> getUsuarioEmpresa() {
-		return usuarioEmpresa;
+		return usuarioEmpresaNotProjeto;
 	}
 
 	public void setUsuarioEmpresa(List<Usuario> usuarioEmpresa) {
-		this.usuarioEmpresa = usuarioEmpresa;
+		this.usuarioEmpresaNotProjeto = usuarioEmpresa;
 	}
 
 	public List<Team> getTeam() {
-		return team;
+		return teamProjeto;
 	}
 
 	public void setTeam(List<Team> team) {
-		this.team = team;
+		this.teamProjeto = team;
 	}
 
 
