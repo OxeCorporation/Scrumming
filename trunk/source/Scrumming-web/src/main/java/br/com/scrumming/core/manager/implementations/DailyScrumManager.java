@@ -1,11 +1,13 @@
 package br.com.scrumming.core.manager.implementations;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.joda.time.Minutes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,7 +52,11 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 			if (dailyScrum.isUniqueDaily()) {
 				dailyScrum.setDataHora(new DateTime(dailyScrum.getDataHoraCalendar()));
 				if (dailyScrum.getDataHora().isAfterNow()) {
-					insertOrUpdate(dailyScrum);
+					if (isDuplicatedDateTime(dailyScrum)) {
+						// throw new NegocioException(MensagemUtil.get(ConstantesMensagem.MENSAGEM_ERRO_DUPLICIDADE_DAILY));
+					} else {
+						insertOrUpdate(dailyScrum);
+					}
 				} else {
 					// throw new NegocioException(MensagemUtil.get(ConstantesMensagem.MENSAGEM_ERRO_DATA_DAILY));
 				}			
@@ -61,11 +67,11 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 					data1.setTime(dailyScrum.getDataHoraCalendar().getTime());
 					//dataInicioSprint = new DateTime(data1);
 					dailyScrum.setDataHora(dataInicioSprint);
-					save(dailyScrum, dataInicioSprint, dataFimSprint);
+					saveSprintDailies(dailyScrum, dataInicioSprint, dataFimSprint);
 				} else {
 					insertOrUpdate(dailyScrum);
 					Calendar.getInstance();
-					save(dailyScrum, dataInicioSprint, dataFimSprint);
+					saveSprintDailies(dailyScrum, dataInicioSprint, dataFimSprint);
 				}
 			}
 		// Com código (Alteração)
@@ -76,17 +82,38 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 		return "";
 	}
 
-	private void save(DailyScrum dailyScrum, DateTime dataInicioSprint, DateTime dataFimSprint) {
-		if (dailyScrum.isUniqueDaily()) {
-			dailyScrum.setDataHora(new DateTime(dailyScrum.getDataHoraCalendar()));
-			insertOrUpdate(dailyScrum);
-		} else {
-			int interval = Days.daysBetween(dataInicioSprint, dataFimSprint).getDays();
-			for (int i = 0; i <= interval; i++) {
-				insertOrUpdate(createNewDaily(dailyScrum));
-				dailyScrum.setDataHora(dailyScrum.getDataHora().plusDays(1));
+	/**
+	 * Salva um Daily para cada dia de uma Sprint
+	 * @param dailyScrum
+	 * @param dataInicioSprint
+	 * @param dataFimSprint
+	 */
+	private void saveSprintDailies(DailyScrum dailyScrum, DateTime dataInicioSprint, DateTime dataFimSprint) {
+		int interval = Days.daysBetween(dataInicioSprint, dataFimSprint).getDays();
+		List<DailyScrum> dailies = listarDailyScrumDaSprint(dailyScrum.getSprint().getCodigo());
+		for (DailyScrum dailyScrum2 : dailies) {
+			remove(dailyScrum2);
+		}
+		for (int i = 0; i <= interval; i++) {
+			
+			insertOrUpdate(createNewDaily(dailyScrum));
+			dailyScrum.setDataHora(dailyScrum.getDataHora().plusDays(1));
+		}
+	}
+	
+	/**
+	 * Verifica se existe algum Daily cadastrado no mesmo dia/hora/minuto.
+	 */
+	private boolean isDuplicatedDateTime(DailyScrum daily) {
+		boolean duplicated = false;
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		List<DailyScrum> lista = new ArrayList(consultarPorCampo("dataHora", daily.getDataHora()));
+		for (DailyScrum dailyScrum : lista) {
+			if (Minutes.minutesBetween(dailyScrum.getDataHora(), daily.getDataHora()).getMinutes() == 0) {
+				duplicated = true;
 			}
 		}
+		return duplicated;
 	}
 	
 	private DailyScrum createNewDaily(DailyScrum dailyScrum) {

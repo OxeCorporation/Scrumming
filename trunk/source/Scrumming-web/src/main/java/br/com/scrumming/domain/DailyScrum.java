@@ -130,7 +130,7 @@ public class DailyScrum extends ObjetoPersistente<Integer> {
 
 	public String getHoraFormatada() {
 		try {
-			horaFormatada =  getDataHora().toString("hh:mm");
+			horaFormatada =  getDataHora().toString("HH:mm");
 		} catch (NullPointerException e) {			
 		}
 		return horaFormatada;

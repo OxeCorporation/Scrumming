@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +19,7 @@ public class DailyScrumRepositorio  extends AbstractRepositorio<DailyScrum, Inte
 		Criteria criteria = createCriteria();
         criteria.createAlias("sprint", "sprint");
         criteria.add(Restrictions.eq("sprint.codigo", sprintID));
+        criteria.addOrder(Order.asc("dataHora"));
         return Collections.checkedList(criteria.list(), DailyScrum.class);
 	}
 	
