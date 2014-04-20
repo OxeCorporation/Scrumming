@@ -1,6 +1,7 @@
 package br.com.scrumming.core.manager.implementations;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -39,8 +40,17 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public String salvarProjeto(ProjetoDTO projetoDTO) {
-
 		String retorno = "";
+/*		Date projetoINI = projetoDTO.getDataInicio();
+		Date projetoFIM = projetoDTO.getDataFim();
+		if (projetoFIM.equals(projetoINI)){
+			retorno = "1";
+			return retorno;
+		}else if(projetoFIM.before(projetoINI)){
+			retorno = "2";
+			return retorno;
+		}
+*/		
 		Projeto projeto = projetoDTO.getProjeto();
 		projeto.setDataInicio(new DateTime(projetoDTO.getDataInicio()));
 		projeto.setDataFim(new DateTime(projetoDTO.getDataFim()));
@@ -61,7 +71,7 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 			}
 		}
 		
-		return retorno;
+		return retorno = "3";
 	}
 
 	@Transactional(readOnly = true)

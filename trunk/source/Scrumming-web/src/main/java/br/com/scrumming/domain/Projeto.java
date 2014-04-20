@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
@@ -64,6 +65,7 @@ public class Projeto extends ObjetoPersistente<Integer> {
     @Type(type = HibernateTypes.JODA_DATE_TIME)
     @Column(name = "data_fim")
     @NotNull
+	@Future(message="O data final do Projeto deve ser posterior à data inicial")
     @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
     private DateTime dataFim;
