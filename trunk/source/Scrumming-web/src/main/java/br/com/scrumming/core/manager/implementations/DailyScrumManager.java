@@ -82,12 +82,21 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 			insertOrUpdate(dailyScrum);
 		} else {
 			int interval = Days.daysBetween(dataInicioSprint, dataFimSprint).getDays();
-			for (int i = 0; i < interval; i++) {
-				dailyScrum.setCodigo(null);
-				insertOrUpdate(dailyScrum);
+			for (int i = 0; i <= interval; i++) {
+				insertOrUpdate(createNewDaily(dailyScrum));
 				dailyScrum.setDataHora(dailyScrum.getDataHora().plusDays(1));
 			}
 		}
+	}
+	
+	private DailyScrum createNewDaily(DailyScrum dailyScrum) {
+		DailyScrum retorno = new DailyScrum();
+		retorno.setSprint(dailyScrum.getSprint());
+		retorno.setDataHora(dailyScrum.getDataHora());
+		retorno.setDataHoraCalendar(dailyScrum.getDataHoraCalendar());
+		retorno.setLocal(dailyScrum.getLocal());
+		retorno.setDuracao(dailyScrum.getDuracao());
+		return retorno;
 	}
 
 	@Override
