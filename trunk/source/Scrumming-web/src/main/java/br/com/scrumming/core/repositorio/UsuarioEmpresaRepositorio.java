@@ -47,4 +47,16 @@ public class UsuarioEmpresaRepositorio extends AbstractRepositorio<UsuarioEmpres
 		criteria.setProjection(Projections.property("empresa"));
 		return Collections.checkedList(criteria.list(), Empresa.class);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Usuario> consultarUsuarioPorProjeto(Integer projetoID) {
+		Criteria criteria = createCriteria();
+		criteria.createAlias("projeto", "projetoAlias");
+		criteria.createAlias("usuario", "usuarioAlias");
+        criteria.addOrder(Order.asc("usuarioAlias.nome"));
+        criteria.add(Restrictions.eq("projetoAlias.codigo", projetoID));
+        criteria.add(Restrictions.eq("isAtivo", true));
+        criteria.setProjection(Projections.property("usuario"));
+        return Collections.checkedList(criteria.list(), Usuario.class);
+	}
 }
