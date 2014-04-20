@@ -13,4 +13,7 @@ public class ConstantesMensagem {
     public static final String MENSAGEM_ERRO_DATA_SPRINT ="mensagem_erro_data_sprint";
     public static final String MENSAGEM_REGISTRO_ALTERADO_SUCESSO ="mensagem_registro_alterado";
     public static final String MENSAGEM_ERRO_DATA_DAILY ="mensagem_erro_data_daily";
+    public static final String MENSAGEM_ERRO_DATA_PROJETO_INICIO = "mensagem_erro_data_inicio_projeto";
+    public static final String MENSAGEM_ERRO_DATA_PROJETO_FIM_IGUAL = "mensagem_erro_data_fim_igual_projeto";
+    public static final String MENSAGEM_ERRO_DATA_PROJETO_FIM_MENOR = "mensagem_erro_data_fim_menor_incio_projeto";
 }
