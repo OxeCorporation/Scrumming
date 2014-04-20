@@ -9,8 +9,10 @@ import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.clientService.ItemBacklogClientService;
 import br.com.scrumming.web.clientService.TarefaClientService;
+import br.com.scrumming.web.clientService.TeamClientService;
 import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
@@ -37,6 +39,10 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	private Tarefa tarefa;
 	@FlashScoped
 	private Tarefa tarefaSelecionada;
+	private List<Usuario> usuarios;
+	@FlashScoped
+	private Usuario usuarioSelecionado;
+	private TeamClientService teamClientService;
 
 	@Override
     public void inicializar() {
@@ -46,8 +52,17 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 		if (tarefaSelecionada == null) {
 			tarefaSelecionada = new Tarefa();
 		}
+		if (usuarioSelecionado == null) {
+			usuarioSelecionado = new Usuario();
+		}
 		tarefaClientService = new TarefaClientService();
+		teamClientService = new TeamClientService();
 		atualizarListaDeTarefas();
+		atualizarListaDeUsuarios();
+	}
+
+	private void atualizarListaDeUsuarios() {
+		usuarios = teamClientService.consultarUsuarioPorProjeto(projetoSelecionado.getCodigo());		
 	}
 
 	/* Métodos para redirecionamento das páginas */
@@ -88,13 +103,18 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 		}
 		tarefaClientService.salvarTarefa(tarefa, itemBacklodID);
 		limparObjetoTarefa();
+		limparObjetoUsuarioSelecionado();
 		atualizarListaDeTarefas();
     	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
     	return "";
-	}
-	
+	}	
+
 	private void limparObjetoTarefa() {
 		tarefa = null;		
+	}
+	
+	private void limparObjetoUsuarioSelecionado() {
+		usuarioSelecionado = null;		
 	}
 
 	public String removerTarefa(){
@@ -181,5 +201,21 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 
 	public void setTarefaSelecionada(Tarefa tarefaSelecionada) {
 		this.tarefaSelecionada = tarefaSelecionada;
+	}
+
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public Usuario getUsuarioSelecionado() {
+		return usuarioSelecionado;
+	}
+
+	public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
+		this.usuarioSelecionado = usuarioSelecionado;
 	}
 }
