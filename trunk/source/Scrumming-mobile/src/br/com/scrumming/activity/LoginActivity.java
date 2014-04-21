@@ -1,10 +1,10 @@
-package br.com.scrumming;
+package br.com.scrumming.activity;
 
 import org.springframework.web.client.RestTemplate;
 
-import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
+import android.os.Bundle;
+import br.com.scrumming.R;
 
 public class LoginActivity extends Activity {
 
@@ -14,14 +14,6 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.login, menu);
-        return true;
-    }
-    
     private void doSomething() {
     	RestTemplate restTemplate = new RestTemplate();
 	}
