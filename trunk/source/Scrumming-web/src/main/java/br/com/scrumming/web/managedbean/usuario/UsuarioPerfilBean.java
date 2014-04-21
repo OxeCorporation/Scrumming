@@ -38,9 +38,6 @@ public class UsuarioPerfilBean extends AbstractBean {
 		return "";
 	}
 	
-	public void algo(){
-		usuarioClientService.salvarUsuario(usuarioLogado, empresa.getCodigo());
-	}
 	/*getters and setters*/
 	public Usuario getUsuarioLogado() {
 		return usuarioLogado;
