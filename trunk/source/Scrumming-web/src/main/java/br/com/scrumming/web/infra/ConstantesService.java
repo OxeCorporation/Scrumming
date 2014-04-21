@@ -39,6 +39,7 @@ public final class ConstantesService {
 	
 	public final class Projeto{
 		public static final String URL_SALVAR_PROJETO = "/projeto/save";
+		public static final String URL_CONCLUIR_PROJETO = "/projeto/concluir";
 		public static final String URL_DELETE_PROJETO = "/projeto/deleteProjeto/{projetoID}";
 		public static final String URL_CANCELAR_PROJETO = "/projeto/{projetoID}";
 		public static final String URL_CONSULTAR_PROJETO_DTO = "/projeto/projetodto/{projetoID}";
