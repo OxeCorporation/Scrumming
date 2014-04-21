@@ -232,7 +232,7 @@
 											oncomplete="dailyScrumModal.show()"
 											process="@this"
 											update="@widgetVar(dailyScrumModal), tabelaDaily" 
-											rendered="#{dailyScrum.editableDaily}" >											
+											rendered="#{dailyScrum.editableDaily and sprintDetalheMB.sprintSelecionada.editable}" >											
 											<f:setPropertyActionListener value="#{dailyScrum}" target="#{sprintDetalheMB.dailyScrumSelecionado}" />
 										</p:commandButton>
 										<br/>
@@ -244,7 +244,7 @@
 											update="@widgetVar(confimExcluir)" 
 											oncomplete="confimExcluir.show()"
 											style="top: 5px;"
-											rendered="#{dailyScrum.editableDaily}" >											
+											rendered="#{dailyScrum.editableDaily and sprintDetalheMB.sprintSelecionada.editable}" >											
 											<f:setPropertyActionListener value="#{dailyScrum}" target="#{sprintDetalheMB.dailyScrum}" />
 										</p:commandButton>
 										</div>
