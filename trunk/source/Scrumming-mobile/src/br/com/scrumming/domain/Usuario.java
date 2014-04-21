@@ -1,12 +1,14 @@
 package br.com.scrumming.domain;
 
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
 
-public class Usuario {
+public class Usuario implements Serializable {
 
     /**
      * Serial Version

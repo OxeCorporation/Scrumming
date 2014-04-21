@@ -1,5 +1,6 @@
 package br.com.scrumming.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 
-public class ItemBacklog {
+public class ItemBacklog implements Serializable {
 
     /**
      * Serial Version

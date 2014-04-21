@@ -1,10 +1,12 @@
 package br.com.scrumming.domain;
 
+import java.io.Serializable;
 
 
 
 
-public class UsuarioEmpresa {
+
+public class UsuarioEmpresa implements Serializable {
 
     /**
      * Serial Version

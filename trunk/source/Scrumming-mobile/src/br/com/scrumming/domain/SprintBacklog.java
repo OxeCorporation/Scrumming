@@ -1,8 +1,10 @@
 package br.com.scrumming.domain;
 
+import java.io.Serializable;
 
 
-public class SprintBacklog {
+
+public class SprintBacklog implements Serializable {
 
     /**
      * Serial Version

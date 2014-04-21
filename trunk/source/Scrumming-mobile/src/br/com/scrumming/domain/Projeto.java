@@ -1,5 +1,7 @@
 package br.com.scrumming.domain;
 
+import java.io.Serializable;
+
 import org.joda.time.DateTime;
 
 import br.com.scrumming.domain.enuns.SituacaoProjetoEnum;
@@ -10,7 +12,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 
-public class Projeto {
+public class Projeto implements Serializable {
 
 	// Teste
     /**

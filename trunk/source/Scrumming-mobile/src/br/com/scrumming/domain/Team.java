@@ -1,12 +1,14 @@
 package br.com.scrumming.domain;
 
 
+import java.io.Serializable;
+
 import br.com.scrumming.domain.enuns.PerfilUsuarioEnum;
 
 
 
 
-public class Team {
+public class Team implements Serializable {
 
     /**
      * Serial Version

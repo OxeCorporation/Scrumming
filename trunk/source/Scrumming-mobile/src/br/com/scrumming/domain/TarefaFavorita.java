@@ -1,8 +1,10 @@
 package br.com.scrumming.domain;
 
+import java.io.Serializable;
 
 
-public class TarefaFavorita {
+
+public class TarefaFavorita implements Serializable {
 	
 	/**
      * Serial Version

@@ -1,5 +1,7 @@
 package br.com.scrumming.domain;
 
+import java.io.Serializable;
+
 import org.joda.time.DateTime;
 
 import br.com.scrumming.infra.JodaDateTimeJsonDeserializer;
@@ -9,7 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 
-public class ReporteTarefa {
+public class ReporteTarefa implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 

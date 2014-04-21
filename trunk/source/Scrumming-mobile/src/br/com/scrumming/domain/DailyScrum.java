@@ -1,5 +1,6 @@
 package br.com.scrumming.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.joda.time.DateTime;
@@ -10,7 +11,7 @@ import br.com.scrumming.infra.JodaDateTimeJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-public class DailyScrum {
+public class DailyScrum implements Serializable {
 
 	/**
 	 * Serial Version

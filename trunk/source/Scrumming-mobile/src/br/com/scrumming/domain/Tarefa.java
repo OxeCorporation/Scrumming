@@ -1,5 +1,7 @@
 package br.com.scrumming.domain;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.joda.time.DateTime;
@@ -12,7 +14,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 
-public class Tarefa {
+public class Tarefa implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
