@@ -36,7 +36,7 @@ public class ItemBacklogRepositorioTest extends AbstractRepositorioTest {
         projeto1.setDataInicio(DateTime.now());
         projeto1.setDataFim(DateTime.now());
         projeto1.setDataCadastro(DateTime.now());
-        projeto1.setSituacaoProjeto(SituacaoProjetoEnum.INATIVO);
+        projeto1.setSituacaoProjeto(SituacaoProjetoEnum.CONCLUIDO);
 
         //Projeto2
         Projeto projeto2 = new Projeto();
