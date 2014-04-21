@@ -18,11 +18,9 @@ import br.com.scrumming.core.repositorio.ProjetoRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.ProjetoDTO;
-import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.Team;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 import br.com.scrumming.domain.enuns.SituacaoProjetoEnum;
-import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
 
 @Service
 public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
@@ -50,26 +48,46 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 	@Transactional(rollbackFor = Exception.class)
 	public String salvarProjeto(ProjetoDTO projetoDTO) {
 		String retorno = "";
-		Projeto projeto = projetoDTO.getProjeto();
-		projeto.setDataInicio(new DateTime(projetoDTO.getDataInicio()));
-		projeto.setDataFim(new DateTime(projetoDTO.getDataFim()));
-		projeto.setDataCadastro(new DateTime());
+		DateTime projetoINI = (new DateTime(projetoDTO.getDataInicio()));
+		DateTime projetoFIM = (new DateTime(projetoDTO.getDataFim()));
+		int dia = new DateTime().getDayOfMonth();
+		int mes = new DateTime().getMonthOfYear();
+		int ano = new DateTime().getYear();
+		DateTime hoje=new DateTime(ano, mes, dia,0,0,0);
+		
+		
 
-		List<Team> usuarioTeam = preparaTeamParaAssossiacao(projetoDTO);
+		if (projetoFIM.equals(projetoINI)) {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_ERRO_DATA_PROJETO_FIM_IGUAL);
+		} else if (projetoFIM.isBefore(projetoINI.getMillis())) {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_ERRO_DATA_PROJETO_FIM_MENOR);
+		} else if (projetoINI.isBefore(hoje)) {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_ERRO_DATA_PROJETO_INICIO);
+		} else {
 
-		// Persiste o objeto Projeto e retorna a chave.
-		Integer projetoID = insertOrUpdate(projeto);
+			Projeto projeto = projetoDTO.getProjeto();
+			projeto.setDataInicio(new DateTime(projetoDTO.getDataInicio()));
+			projeto.setDataFim(new DateTime(projetoDTO.getDataFim()));
+			projeto.setDataCadastro(new DateTime());
 
-		if (projetoID != null) {
-			retorno = "Registro foi salvo";
-			// Busca o objeto persistido pela chave.
-			// Projeto projetoPersistido = findByKey(projetoID);
+			List<Team> usuarioTeam = preparaTeamParaAssossiacao(projetoDTO);
 
-			if (CollectionUtils.isNotEmpty(usuarioTeam)) {
-				teamManage.associarTeamProjeto(usuarioTeam, projetoID);
+			// Persiste o objeto Projeto e retorna a chave.
+			Integer projetoID = insertOrUpdate(projeto);
+
+			if (projetoID != null) {
+				retorno = "Registro foi salvo";
+				// Busca o objeto persistido pela chave.
+				// Projeto projetoPersistido = findByKey(projetoID);
+
+				if (CollectionUtils.isNotEmpty(usuarioTeam)) {
+					teamManage.associarTeamProjeto(usuarioTeam, projetoID);
+				}
 			}
 		}
-
 		return retorno;
 	}
 
@@ -108,8 +126,8 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public String concluirProjeto(Projeto projeto) {
-		List<ItemBacklog> itemBacklogConsulta = itemBacklogManager.consultarPorProjeto(projeto
-				.getCodigo());
+		List<ItemBacklog> itemBacklogConsulta = itemBacklogManager
+				.consultarPorProjeto(projeto.getCodigo());
 		if (itemBacklogConsulta != null) {
 			boolean fechadas = true;
 			for (int i = 0; i < itemBacklogConsulta.size(); i++) {
@@ -125,8 +143,9 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 				projeto.setDataFim(DateTime.now());
 				insertOrUpdate(projeto);
 			}
-		}else{
-			throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_DUPLICIDADE_DAILY);
+		} else {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_ERRO_DUPLICIDADE_DAILY);
 		}
 		return "";
 	}

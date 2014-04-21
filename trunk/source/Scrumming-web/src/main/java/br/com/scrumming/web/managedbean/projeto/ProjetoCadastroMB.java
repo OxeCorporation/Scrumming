@@ -74,7 +74,7 @@ public class ProjetoCadastroMB extends AbstractBean {
 		String retorno = "";
 		Date projetoINI = projetoDTO.getDataInicio();
 		Date projetoFIM = projetoDTO.getDataFim();
-		if (projetoFIM.equals(projetoINI)) {
+/*		if (projetoFIM.equals(projetoINI)) {
 			FacesMessageUtil
 					.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_ERRO_DATA_PROJETO_FIM_IGUAL);
 			retorno = redirecionar(PaginasUtil.Projeto.PROJETO_CADASTRO_PAGE);
@@ -87,7 +87,7 @@ public class ProjetoCadastroMB extends AbstractBean {
 					.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_ERRO_DATA_PROJETO_INICIO);
 			retorno = redirecionar(PaginasUtil.Projeto.PROJETO_CADASTRO_PAGE);
 		} else {
-
+*/
 			projetoDTO.getProjeto().setEmpresa(empresa);
 			projetoDTO.getProjeto().setSituacaoProjeto(situacao.ATIVO);
 			projetoDTO.setTimeProjeto(teamProjeto);
@@ -96,7 +96,7 @@ public class ProjetoCadastroMB extends AbstractBean {
 			FacesMessageUtil
 					.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 			retorno = redirecionar(PaginasUtil.Projeto.PROJETO_PAGE);
-		}
+	//	}
 		return retorno;
 	}
 
