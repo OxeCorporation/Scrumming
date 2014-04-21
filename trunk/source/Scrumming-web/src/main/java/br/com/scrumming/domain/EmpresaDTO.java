@@ -2,6 +2,9 @@ package br.com.scrumming.domain;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EmpresaDTO implements Serializable{
 	
 	/**
