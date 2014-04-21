@@ -49,10 +49,13 @@
 									styleClass="btn btn-lg btn-success btn-block" update="@form" />
 
 
-								<p:commandLink id="cadastroEmpresa_link"
+								<p:commandLink 
+									id="cadastroEmpresa_link"
 									value="#{mensagens.label_registre_se_aqui}"
-									onclick="dlgCadastroEmpresa.show()"
-									style="margin:0 auto; float:right" immediate="true" />
+									update="@widgetVar(dlgCadastroEmpresa)"
+									oncomplete="dlgCadastroEmpresa.show()"
+									style="margin:0 auto; float:right" 
+									immediate="true"  />
 							</fieldset>
 						</div>
 					</div>

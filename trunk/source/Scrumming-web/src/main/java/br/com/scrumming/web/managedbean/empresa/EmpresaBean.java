@@ -3,10 +3,9 @@ package br.com.scrumming.web.managedbean.empresa;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.EmpresaDTO;
+import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.clientService.EmpresaClientService;
-import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.bean.AbstractBean;
 
@@ -41,11 +40,6 @@ public class EmpresaBean extends AbstractBean {
 	public void salvar() {
 		empresaClientService.salvar(empresaDTO);
 		empresaDTO = new EmpresaDTO();
-		mensagemSucesso();
-	}
-	
-	private void mensagemSucesso() {
-		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 	}
 	
 	/* getters and setters */
@@ -55,5 +49,9 @@ public class EmpresaBean extends AbstractBean {
 
 	public void setEmpresaDTO(EmpresaDTO empresaDTO) {
 		this.empresaDTO = empresaDTO;
+	}
+	
+	public void novaEmpresa() {
+		empresaDTO.setUsuario(new Usuario());
 	}
 }
