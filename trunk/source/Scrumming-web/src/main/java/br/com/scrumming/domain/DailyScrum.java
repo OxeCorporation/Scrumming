@@ -74,6 +74,9 @@ public class DailyScrum extends ObjetoPersistente<Integer> {
 	@Transient
 	private boolean uniqueDaily;
 	
+	@Transient
+	private boolean editableDaily;
+	
 	@Override
 	@JsonIgnore
 	public Integer getChave() {
@@ -150,5 +153,13 @@ public class DailyScrum extends ObjetoPersistente<Integer> {
 
 	public void setUniqueDaily(boolean uniqueDaily) {
 		this.uniqueDaily = uniqueDaily;
+	}
+
+	public boolean isEditableDaily() {
+		return editableDaily;
+	}
+
+	public void setEditableDaily(boolean editableDaily) {
+		this.editableDaily = editableDaily;
 	}
 }

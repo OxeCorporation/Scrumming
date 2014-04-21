@@ -80,7 +80,12 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 		// Com código (Alteração)
 		} else {
 			dailyScrum.setDataHora(preparaData(dailyScrum));
-			insertOrUpdate(dailyScrum);
+			if (dailyScrum.getDataHora().isAfterNow()) {
+				insertOrUpdate(dailyScrum);
+				throw new NegocioException(ConstantesMensagem.MENSAGEM_REGISTRO_ALTERADO_SUCESSO);
+			} else {
+				throw new NegocioException(ConstantesMensagem.ERRO_DAILY_PASSADO);
+			}
 		}
 		return "";
 	}
@@ -115,11 +120,15 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 		List<DailyScrum> dailies = listarDailyScrumDaSprint(dailyScrum.getSprint().getCodigo());
 		int intervalo = Days.daysBetween(dataInicioSprint, dataFimSprint).getDays();
 		for (DailyScrum dailyScrum2 : dailies) {
-			remove(dailyScrum2);
+			if (dailyScrum2.getDataHora().isAfterNow()) {
+				remove(dailyScrum2);
+			}
 		}
 		for (int i = 0; i <= intervalo; i++) {
 			if (dailyScrum.getDataHora().isAfterNow()) {
-				insertOrUpdate(createNewDaily(dailyScrum));
+				if (!isDuplicatedDateTime(dailyScrum)) {
+					insertOrUpdate(createNewDaily(dailyScrum));
+				}
 			}
 			dailyScrum.setDataHora(dailyScrum.getDataHora().plusDays(1));
 		}
@@ -167,7 +176,14 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 	@Override
 	@Transactional(readOnly=true)
 	public List<DailyScrum> listarDailyScrumDaSprint(Integer sprintID) {
-		return dailyScrumRepositorio.listarDailyScrumPorSprint(sprintID);
+		List<DailyScrum> daily = dailyScrumRepositorio.listarDailyScrumPorSprint(sprintID); 
+		for (DailyScrum dailyScrum : daily) {
+			dailyScrum.setEditableDaily(true);
+			if (dailyScrum.getDataHora().isBeforeNow()) {
+				dailyScrum.setEditableDaily(false);
+			}
+		}
+		return daily;
 	}
 
 	@Override
