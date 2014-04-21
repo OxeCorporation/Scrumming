@@ -177,7 +177,7 @@ public class SprintRepositorioTest extends AbstractRepositorioTest {
 		itemBacklog.setNome("item1");
 		itemBacklog.setProjeto(projeto1);
 		itemBacklog.setRoi(2.0);
-		itemBacklog.setSituacaoBacklog(SituacaoItemBacklogEnum.FEITO);
+		itemBacklog.setSituacaoBacklog(SituacaoItemBacklogEnum.ENTREGUE);
 		itemBacklog.setStoryPoints(13);
 		itemBacklog.setValorNegocio(2.5);
 
@@ -261,7 +261,7 @@ public class SprintRepositorioTest extends AbstractRepositorioTest {
 		item1.setNome("01");
 		item1.setProjeto(projeto1);
 		item1.setRoi(2.0);
-		item1.setSituacaoBacklog(SituacaoItemBacklogEnum.FAZER);
+		item1.setSituacaoBacklog(SituacaoItemBacklogEnum.PLANEJADO);
 		item1.setStoryPoints(10);
 		item1.setValorNegocio(2.0);
 		
@@ -273,7 +273,7 @@ public class SprintRepositorioTest extends AbstractRepositorioTest {
 		item2.setNome("02");
 		item2.setProjeto(projeto1);
 		item2.setRoi(2.0);
-		item2.setSituacaoBacklog(SituacaoItemBacklogEnum.FAZER);
+		item2.setSituacaoBacklog(SituacaoItemBacklogEnum.PLANEJADO);
 		item2.setStoryPoints(10);
 		item2.setValorNegocio(2.0);
 		
@@ -285,7 +285,7 @@ public class SprintRepositorioTest extends AbstractRepositorioTest {
 		item3.setNome("03");
 		item3.setProjeto(projeto1);
 		item3.setRoi(2.0);
-		item3.setSituacaoBacklog(SituacaoItemBacklogEnum.FAZER);
+		item3.setSituacaoBacklog(SituacaoItemBacklogEnum.PLANEJADO);
 		item3.setStoryPoints(10);
 		item3.setValorNegocio(2.0);
 		

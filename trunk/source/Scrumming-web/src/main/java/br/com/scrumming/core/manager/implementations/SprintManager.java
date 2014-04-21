@@ -176,12 +176,12 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 			
 			ItemBacklog itemBacklog = itemBacklogManager.findByKey(item.getItemBacklog().getCodigo());
 			
-			if (itemBacklog.getSituacaoBacklog() != SituacaoItemBacklogEnum.FEITO) {
+			if (itemBacklog.getSituacaoBacklog() != SituacaoItemBacklogEnum.ENTREGUE) {
 				
 				List<Tarefa> tarefas = tarefaManager.consultarPorItemBacklogIhNotSituacao(itemBacklog.getCodigo(), SituacaoTarefaEnum.FEITO);
 				
 				if (tarefas.size() == 0) {
-					itemBacklog.setSituacaoBacklog(SituacaoItemBacklogEnum.FEITO);
+					itemBacklog.setSituacaoBacklog(SituacaoItemBacklogEnum.ENTREGUE);
 					itemBacklogManager.insertOrUpdate(itemBacklog);
 				}
 				item.setAtivo(false);

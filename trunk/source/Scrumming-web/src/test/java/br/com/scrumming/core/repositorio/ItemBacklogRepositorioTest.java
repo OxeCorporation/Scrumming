@@ -59,7 +59,7 @@ public class ItemBacklogRepositorioTest extends AbstractRepositorioTest {
         item1.setValorNegocio(10.0);
         item1.setStoryPoints(2);
         item1.setRoi(10.0);
-        item1.setSituacaoBacklog(SituacaoItemBacklogEnum.FEITO);
+        item1.setSituacaoBacklog(SituacaoItemBacklogEnum.ENTREGUE);
 
         //itemBacklog2
         ItemBacklog item2 = new ItemBacklog();
@@ -70,7 +70,7 @@ public class ItemBacklogRepositorioTest extends AbstractRepositorioTest {
         item2.setValorNegocio(15.0);
         item2.setStoryPoints(2);
         item2.setRoi(10.0);
-        item2.setSituacaoBacklog(SituacaoItemBacklogEnum.FAZER);
+        item2.setSituacaoBacklog(SituacaoItemBacklogEnum.PLANEJADO);
 
         //ItemBacklog3
         ItemBacklog item3 = new ItemBacklog();
@@ -81,7 +81,7 @@ public class ItemBacklogRepositorioTest extends AbstractRepositorioTest {
         item3.setValorNegocio(18.0);
         item3.setStoryPoints(2);
         item3.setRoi(10.0);
-        item3.setSituacaoBacklog(SituacaoItemBacklogEnum.FAZENDO);
+        item3.setSituacaoBacklog(SituacaoItemBacklogEnum.EM_ANDAMENTO);
 
         //itemBacklog4
         ItemBacklog item4 = new ItemBacklog();
@@ -92,7 +92,7 @@ public class ItemBacklogRepositorioTest extends AbstractRepositorioTest {
         item4.setValorNegocio(09.0);
         item4.setStoryPoints(2);
         item4.setRoi(10.0);
-        item4.setSituacaoBacklog(SituacaoItemBacklogEnum.FAZENDO);
+        item4.setSituacaoBacklog(SituacaoItemBacklogEnum.EM_ANDAMENTO);
 
         save(item1, item2, item3, item4);
 

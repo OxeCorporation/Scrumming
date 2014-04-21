@@ -84,7 +84,7 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 					itemBacklog.setDeliverable(false);
 					itemBacklog.setEditable(false);
 				}
-				if (itemBacklog.getSituacaoBacklog() == SituacaoItemBacklogEnum.FEITO) {
+				if (itemBacklog.getSituacaoBacklog() == SituacaoItemBacklogEnum.ENTREGUE) {
 					itemBacklog.setDeliverable(false);
 					itemBacklog.setStatusItembacklog("Entregue");
 					itemBacklog.setEditable(false);
@@ -151,7 +151,7 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 			SprintBacklog sprintBacklogBusca;
 			sprintBacklogBusca = consultaPorChaveComposta(sprintPersistido, item);
 			
-			if (item.getSituacaoBacklog() != SituacaoItemBacklogEnum.FEITO && sprintBacklogBusca != null && sprintBacklogBusca.isAtivo() == true) {
+			if (item.getSituacaoBacklog() != SituacaoItemBacklogEnum.ENTREGUE && sprintBacklogBusca != null && sprintBacklogBusca.isAtivo() == true) {
 				sprintBacklogBusca.setAtivo(false);
 				insertOrUpdate(sprintBacklogBusca);
 			}

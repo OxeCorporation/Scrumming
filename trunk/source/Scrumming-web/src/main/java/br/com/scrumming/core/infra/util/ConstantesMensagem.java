@@ -20,4 +20,5 @@ public class ConstantesMensagem {
     public static final String MENSAGEM_ERRO_DAILY_FORA_SPRINT = "mensagem_erro_daily_fora_sprint";
     public static final String MENSAGEM_ERRO_DUPLICIDADE_DAILY = "mensagem_erro_duplicidade_daily";
 	public static final String ERRO_INESPERADO = "erro_inesperado";
+	public static final String ERRO_EXCLUIR_DAILY_PASSADO = "erro_excluir_daily_passado";
 }

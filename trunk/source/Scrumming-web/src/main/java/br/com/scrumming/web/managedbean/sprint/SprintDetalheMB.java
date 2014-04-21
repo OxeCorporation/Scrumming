@@ -79,7 +79,7 @@ public class SprintDetalheMB extends AbstractBean {
 		
 	/*FUNÇÕES REFERENTES AO ITEMBACKLOG*/
 	public void entregarItem() {
-		itemSelecionado.setSituacaoBacklog(SituacaoItemBacklogEnum.FEITO);
+		itemSelecionado.setSituacaoBacklog(SituacaoItemBacklogEnum.ENTREGUE);
 		itemClienteService.salvarItemBacklog(itemSelecionado);
 		itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo());
 	}

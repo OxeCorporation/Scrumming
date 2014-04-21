@@ -52,7 +52,7 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
     	 	 }
 	    	  itemBacklog.setRoi(roi);  
 	    	  itemBacklog.setAtivo(true);
-	    	  itemBacklog.setSituacaoBacklog(SituacaoItemBacklogEnum.FAZER);
+	    	  itemBacklog.setSituacaoBacklog(SituacaoItemBacklogEnum.PLANEJADO);
 	    	  insertOrUpdate(itemBacklog);
     	 }
 	}
@@ -63,8 +63,9 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
     	if (item.getCodigo() != null){
 			if (item.getSituacaoBacklog() != SituacaoItemBacklogEnum.CANCELADO) {
 				item.setSituacaoBacklog(SituacaoItemBacklogEnum.CANCELADO);
+				item.setAtivo(false);
 			}else{
-				item.setSituacaoBacklog(SituacaoItemBacklogEnum.FAZER);
+				item.setSituacaoBacklog(SituacaoItemBacklogEnum.PLANEJADO);
 			}
 		insertOrUpdate(item);
 	    }
@@ -75,7 +76,7 @@ public class ItemBacklogManager extends AbstractManager<ItemBacklog, Integer> im
     	List<ItemBacklog> listaDeItens= itemRepositorio.consultarPorProjeto(projetoID);
     	List<ItemBacklog> item= new ArrayList<>();
     	for (ItemBacklog itembacklog : listaDeItens){
-    		if (itembacklog.getSituacaoBacklog() == SituacaoItemBacklogEnum.FEITO) {
+    		if (itembacklog.getSituacaoBacklog() == SituacaoItemBacklogEnum.ENTREGUE) {
     			itembacklog.setStatusItembacklog("Concluido");
 			}else {
 				itembacklog.setStatusItembacklog("");

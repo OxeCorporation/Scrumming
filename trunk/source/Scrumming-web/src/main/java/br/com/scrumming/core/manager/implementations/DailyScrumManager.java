@@ -188,6 +188,8 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 		String retorno = "";
 		if (dailyScrum.getDataHora().isAfterNow()) {
 			remove(dailyScrum);
+		} else {
+			throw new NegocioException(ConstantesMensagem.ERRO_EXCLUIR_DAILY_PASSADO);
 		}
 		return retorno;
 	}
