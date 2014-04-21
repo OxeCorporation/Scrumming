@@ -36,7 +36,6 @@ public class UsuarioService {
         } else {
             retorno = new ArrayList<Usuario>(usuarioManager.findAll());
         }
-
         return retorno;
     }
 

@@ -1,5 +1,6 @@
 package br.com.scrumming.core.infra.util;
 
+
 public class ConstantesMensagem {
 
     /* GERAL */
@@ -18,4 +19,5 @@ public class ConstantesMensagem {
     public static final String MENSAGEM_ERRO_DATA_PROJETO_FIM_MENOR = "mensagem_erro_data_fim_menor_incio_projeto";
     public static final String MENSAGEM_ERRO_DAILY_MESMO_HORARIO = "mensagem_erro_daily_mesmo_horario";
     public static final String MENSAGEM_ERRO_DUPLICIDADE_DAILY = "mensagem_erro_duplicidade_daily";
+	public static final String ERRO_INESPERADO = "erro_inesperado";
 }

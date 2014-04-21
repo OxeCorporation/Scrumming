@@ -58,10 +58,10 @@
 		<param-name> org.apache.myfaces.annotation.SCAN_PACKAGES </param-name>
 		<param-value>br.com.scrumming.web.managedbean</param-value>
 	</context-param>
-   <error-page>
+   <!-- <error-page>
         <exception-type>java.lang.Exception</exception-type>
         <location>/error.xhtml</location>
-    </error-page>
+    </error-page> -->
 	<!-- Open Session in View -->
 	<filter>
 		<filter-name>openSessionInViewFilter</filter-name>

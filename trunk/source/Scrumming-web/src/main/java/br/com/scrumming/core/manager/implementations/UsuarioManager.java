@@ -59,7 +59,6 @@ public class UsuarioManager extends AbstractManager<Usuario, Integer> implements
 		usuarioEmpresa.setUsuario(usuario);
 		usuarioEmpresa.setEmpresa(empresa);
 		usuarioEmpresa.setAtivo(true);
-		
 		usuarioEmpresaManager.insertOrUpdate(usuarioEmpresa);
 	}
     

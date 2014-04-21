@@ -1,37 +1,23 @@
 package br.com.scrumming.web.managedbean.board;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.faces.application.ResourceDependencies;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.html.HtmlOutputText;
-import javax.faces.component.html.HtmlPanelGroup;
-import javax.faces.context.FacesContext;
-import javax.faces.render.RenderKit;
 
 import org.joda.time.DateTime;
-import org.primefaces.component.dashboard.Dashboard;
-import org.primefaces.component.panel.Panel;
 import org.primefaces.event.DashboardReorderEvent;
 import org.primefaces.model.DashboardColumn;
 import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
 import org.primefaces.model.DefaultDashboardModel;
-import org.primefaces.renderkit.CoreRenderer;
 
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.web.infra.bean.AbstractBean;
 @ManagedBean
 @ViewScoped
-@ResourceDependencies({
-	@javax.faces.application.ResourceDependency(library = "primefaces", name = "primefaces.css"),
-	@javax.faces.application.ResourceDependency(library = "primefaces", name = "jquery/jquery.js"),
-	@javax.faces.application.ResourceDependency(library = "primefaces", name = "jquery/jquery-plugins.js"),
-	@javax.faces.application.ResourceDependency(library = "primefaces", name = "primefaces.js") })
 public class BoardBean extends AbstractBean {
 
 	/**
@@ -39,7 +25,6 @@ public class BoardBean extends AbstractBean {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Dashboard dashboard = new Dashboard();
 	private DashboardModel dashboardModel;
 	private List<Tarefa> tarefas = criarFaceTarefa();
 	private static final String PREFIX_TASK = "task_id_";
@@ -68,7 +53,8 @@ public class BoardBean extends AbstractBean {
             column.addWidget(PREFIX_TASK+tarefa.getCodigo());
 		}
 	}
-	
+
+	//TODO remover apos criação do serviço
 	private List<Tarefa> criarFaceTarefa(){
 		Tarefa tarefa1 = new Tarefa();
 		tarefa1.setCodigo(1);
@@ -135,14 +121,6 @@ public class BoardBean extends AbstractBean {
 			}
 		} 
 		return null;
-	}
-	
-	public Dashboard getDashboard() {
-		return dashboard;
-	}
-
-	public void setDashboard(Dashboard dashboard) {
-		this.dashboard = dashboard;
 	}
 
 	public DashboardModel getDashboardModel() {

@@ -35,4 +35,6 @@
 		id="messageSource">
 		<property name="basename" value="mensagens" />
 	</bean>
+	
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"/>
 </beans>
