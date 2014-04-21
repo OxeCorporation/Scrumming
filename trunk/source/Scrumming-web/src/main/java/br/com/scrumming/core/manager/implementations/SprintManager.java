@@ -91,22 +91,8 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		sprint.setSituacaoSprint(SituacaoSprintEnum.ABERTA);
 		sprint.setDataCadastro(new DateTime());
 		
-		/*List<Sprint> sprints = consultarPorProjeto(sprint.getProjeto().getCodigo());
-		DateTime sprintINI = sprint.getDataInicio();*/
-		
 		boolean freeToPersiste = true;
-		// Verifica se a data da Sprint inserida ou alterada está em conflito com alguma cadastrada.
-		
-		/*DateTime lastSprintEndDate = sprints.get(sprints.size() -1).getDataFim();
-		
-		if (sprintINI.isBefore(lastSprintEndDate) || sprintINI.isEqual(lastSprintEndDate)) {
-			if (sprint.getCodigo() != null) {
-				freeToPersiste = false;
-			} else {
 				
-			}
-		}*/
-		
 		if (freeToPersiste) {
 			// Persiste o objeto Sprint e retorna a chave.
 			Integer sprintID = insertOrUpdate(sprint);
@@ -121,11 +107,9 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 				Sprint sprintPersistido = findByKey(sprintID);
 
 				if (CollectionUtils.isNotEmpty(itensBacklogSprint)) {
-					// TODO: Testar se funciona
 					sprintBacklogManager.associarItemASprint(sprintPersistido, itensBacklogSprint);
 				}
 				if (CollectionUtils.isNotEmpty(itensBacklogProduto)) {
-					// TODO: Testar se funciona
 					sprintBacklogManager.desassociarItemASprint(sprintPersistido, itensBacklogProduto);
 				}
 			}

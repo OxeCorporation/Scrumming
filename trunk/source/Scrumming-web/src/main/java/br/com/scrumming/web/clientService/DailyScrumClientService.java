@@ -2,9 +2,7 @@ package br.com.scrumming.web.clientService;
 
 import java.util.Arrays;
 import java.util.List;
-
 import org.springframework.http.ResponseEntity;
-
 import br.com.scrumming.domain.DailyScrum;
 import br.com.scrumming.web.infra.AbstractClientService;
 import br.com.scrumming.web.infra.ConstantesService;

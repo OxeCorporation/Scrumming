@@ -216,7 +216,7 @@
 									<h:outputText value="#{mensagens.label_dailies_cadastrados}" />
 								</f:facet>
 								
-								<p:panel header="#{dailyScrum.dataFormatada}">
+								<p:panel header="#{dailyScrum.dataFormatada}" style="width: 140px; margin: 0 auto;">
 									<p:outputLabel for="dailyHorario" value="#{mensagens.label_horario_daily}" style="font-size: 12px;"/> <span/>
 									<h:outputText id="dailyHorario" value="#{dailyScrum.horaFormatada}"  style="font-size: 12px;"/>  <br/>
 									<p:outputLabel for="dailyLocal" value="#{mensagens.label_local_daily}"  style="font-size: 12px;"/> <span/>
@@ -231,7 +231,7 @@
 											action="#{sprintDetalheMB.alterarDailyScrum}"
 											oncomplete="dailyScrumModal.show()"
 											process="@this"
-											update="@widgetVar(dailyScrumModal)" >											
+											update="@widgetVar(dailyScrumModal), tabelaDaily" >											
 											<f:setPropertyActionListener value="#{dailyScrum}" target="#{sprintDetalheMB.dailyScrumSelecionado}" />
 										</p:commandButton>
 										<br/>

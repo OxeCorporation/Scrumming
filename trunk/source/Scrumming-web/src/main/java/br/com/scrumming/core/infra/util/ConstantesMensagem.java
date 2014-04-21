@@ -16,4 +16,6 @@ public class ConstantesMensagem {
     public static final String MENSAGEM_ERRO_DATA_PROJETO_INICIO = "mensagem_erro_data_inicio_projeto";
     public static final String MENSAGEM_ERRO_DATA_PROJETO_FIM_IGUAL = "mensagem_erro_data_fim_igual_projeto";
     public static final String MENSAGEM_ERRO_DATA_PROJETO_FIM_MENOR = "mensagem_erro_data_fim_menor_incio_projeto";
+    public static final String MENSAGEM_ERRO_DAILY_MESMO_HORARIO = "mensagem_erro_daily_mesmo_horario";
+    public static final String MENSAGEM_ERRO_DUPLICIDADE_DAILY = "mensagem_erro_duplicidade_daily";
 }

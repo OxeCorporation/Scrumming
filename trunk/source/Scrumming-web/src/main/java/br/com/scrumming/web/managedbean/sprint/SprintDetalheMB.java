@@ -93,10 +93,10 @@ public class SprintDetalheMB extends AbstractBean {
 	}
 	
 	public String novoDaily() {
+		limparDailyScrum();
 		saveDaily = true;
 		showModal = true;
-		limparDailyScrum();
-    	return "";
+		return "";
     }
 	
 	public void alterarDailyScrum() {
@@ -296,7 +296,7 @@ public class SprintDetalheMB extends AbstractBean {
 			datePattern = "HH:mm";
 		}
 		if (saveDaily == false) {
-			modalHeight = "130";
+			modalHeight = "160";
 		}
 		return uniqueDaily;
 	}
