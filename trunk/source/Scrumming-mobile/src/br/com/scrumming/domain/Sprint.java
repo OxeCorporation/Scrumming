@@ -1,6 +1,5 @@
 package br.com.scrumming.domain;
 
-
 import java.io.Serializable;
 
 import org.joda.time.DateTime;
@@ -12,66 +11,39 @@ import br.com.scrumming.infra.JodaDateTimeJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-
 public class Sprint implements Serializable {
 
     /**
      * Serial Version
      */
     private static final long serialVersionUID = 1L;
-
    
     private Integer codigo;
-    
-    
     private Projeto projeto;
-
-   
     private String nome;
-
-  
     private String descricao;
-
-   
     @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
     private DateTime dataInicio;
-   
     @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
     private DateTime dataFim;
-
-   
     @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
     private DateTime dataRevisao;
-    
-    
     @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
     private DateTime dataCadastro;
-    
-   
     @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
     private DateTime dataFechamento;
-
-  
     private SituacaoSprintEnum situacaoSprint;
-    
-  
     private String dataInicioFormatada;
-
-   
     private String dataFimFormatada;
-    
     private String statusSprint;
-    
     private boolean editable;
 
     /* getters and setters */
-    
-
     public Integer getCodigo() {
         return codigo;
     }

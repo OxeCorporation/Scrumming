@@ -2,10 +2,6 @@ package br.com.scrumming.domain;
 
 import java.io.Serializable;
 
-
-
-
-
 public class UsuarioEmpresa implements Serializable {
 
     /**
@@ -13,15 +9,11 @@ public class UsuarioEmpresa implements Serializable {
      */
     private static final long serialVersionUID = 1L;
     
-    
     private Empresa empresa;
-
-	
     private Usuario usuario;
-
-    
     private boolean ativo;
-    
+
+    /* getters and setters */
     public Empresa getEmpresa() {
 		return empresa;
 	}

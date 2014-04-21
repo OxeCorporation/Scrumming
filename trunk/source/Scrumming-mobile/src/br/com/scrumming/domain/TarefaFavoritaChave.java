@@ -2,22 +2,17 @@ package br.com.scrumming.domain;
 
 import java.io.Serializable;
 
-
 public class TarefaFavoritaChave implements Serializable {
 
 	/**
      * Serial Version
      */
 	private static final long serialVersionUID = 1L;
-
 	
 	private Tarefa tarefa;
-	
-	
 	private Usuario usuario;
 
-	
-	/*Getters & Setters*/
+	/*getters and setters*/
 	public Tarefa getTarefa() {
 		return tarefa;
 	}
@@ -64,5 +59,4 @@ public class TarefaFavoritaChave implements Serializable {
 			return false;
 		return true;
 	}   
-	
 }

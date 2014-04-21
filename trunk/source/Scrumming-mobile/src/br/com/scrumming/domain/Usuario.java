@@ -1,12 +1,9 @@
 package br.com.scrumming.domain;
 
-
 import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-
-
 
 public class Usuario implements Serializable {
 
@@ -14,26 +11,13 @@ public class Usuario implements Serializable {
      * Serial Version
      */
     private static final long serialVersionUID = 1L;
-
    
     private Integer codigo;
-
-   
     private String nome;
-
-    
     private String email;
-
-   
     private String login;
-
-    
     private String senha;
-
-   
     private boolean ativo;
-
-   
     private boolean empresa;
 
     /* getters and setters */

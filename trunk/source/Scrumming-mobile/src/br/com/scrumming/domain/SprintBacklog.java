@@ -2,22 +2,15 @@ package br.com.scrumming.domain;
 
 import java.io.Serializable;
 
-
-
 public class SprintBacklog implements Serializable {
 
     /**
      * Serial Version
      */
     private static final long serialVersionUID = 1L;
-
     
     private ItemBacklog itemBacklog;
-    
-   
     private Sprint sprint;
-
-    
     private boolean isAtivo;
 
     /* getters and setters */

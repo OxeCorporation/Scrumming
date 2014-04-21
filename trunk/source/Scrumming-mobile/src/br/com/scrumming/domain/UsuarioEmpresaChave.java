@@ -2,7 +2,6 @@ package br.com.scrumming.domain;
 
 import java.io.Serializable;
 
-
 public class UsuarioEmpresaChave implements Serializable {
 
     /**
@@ -16,15 +15,12 @@ public class UsuarioEmpresaChave implements Serializable {
 		this.empresa = empresa;
 		this.usuario = usuario;
 	}
-
 	
     private Empresa empresa;
-
-    
     private Usuario usuario;
 
+    /* getters and setters */
 	public Empresa getEmpresa() {
-		/*getters and setters*/
 		return empresa;
 	}
 

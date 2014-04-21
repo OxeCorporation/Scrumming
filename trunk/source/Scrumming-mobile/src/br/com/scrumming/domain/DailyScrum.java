@@ -24,23 +24,14 @@ public class DailyScrum implements Serializable {
 	@JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
 	private DateTime dataHora;
-	
 	private Integer duracao;
-	
-	
 	private String dataFormatada;
-	
-	
 	private String horaFormatada;
-	
-	
 	private Date dataHoraCalendar;
-	
-	
 	private boolean uniqueDaily;
-	
 	private boolean editableDaily;
 
+	/*getters and setters*/
 	public Integer getCodigo() {
 		return codigo;
 	}

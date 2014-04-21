@@ -12,26 +12,18 @@ import br.com.scrumming.infra.JodaDateTimeJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-
 public class Empresa implements Serializable {
 
     /**
      * Serial Version
      */
     private static final long serialVersionUID = 1L;
-
-   
+    
     private Integer codigo;
-
-   
     private String nome;
-
-  
     @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
     private DateTime dataCadastro;
-
-    
     private boolean isAtivo;
 
     /* getters and setters */

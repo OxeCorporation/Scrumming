@@ -2,9 +2,11 @@ package br.com.scrumming.domain;
 
 import java.io.Serializable;
 
-
 public class TeamChave implements Serializable {
 
+	/**
+     * Serial Version
+     */
 	private static final long serialVersionUID = 1L;
 
 	public TeamChave(){}
@@ -15,17 +17,11 @@ public class TeamChave implements Serializable {
 		this.usuario = usuario;
 	}
 	
-	
     private Projeto projeto;
-    
-   
     private Empresa empresa;
-	
-   
     private Usuario usuario;
     
-
-    /*Getters & Setters*/
+    /*getters and setters*/
 
 	public Projeto getProjeto() {
 		return projeto;

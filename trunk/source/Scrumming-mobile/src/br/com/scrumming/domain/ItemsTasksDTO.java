@@ -9,10 +9,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class ItemsTasksDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
 	private ItemBacklog item;
 	private List<Tarefa> tarefas;	
 	
-	/*Getters and Setters*/
+	/*getters and setters*/
 	public ItemBacklog getItem() {
 		return item;
 	}

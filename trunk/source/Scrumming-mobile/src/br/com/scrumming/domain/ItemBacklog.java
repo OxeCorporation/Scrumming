@@ -16,46 +16,19 @@ public class ItemBacklog implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-   
     private Integer codigo;
-
-   
     private Projeto projeto;
-
-   
     private String nome;
-
-   
     private String descricao;
-
-   
     private String criterioAceitacao;
-
-   
     private Double valorNegocio;
-
-  
     private Integer storyPoints;
-
-  
     private Double roi;
-
-   
     private SituacaoItemBacklogEnum situacaoBacklog;
-    
-  
     private boolean isAtivo;
-    
-   
     private List<Tarefa> tarefas = new ArrayList<Tarefa>();
-    
-  
     private String statusItembacklog;
-    
-   
     private boolean deliverable;
-    
-   
     private boolean editable;
 
 	/* getters and setters */

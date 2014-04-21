@@ -10,18 +10,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SprintDTO implements Serializable {
 	
+	/**
+     * Serial Version
+     */
 	private static final long serialVersionUID = 1L;
 	
 	private Date dataInicio;
-	
 	private Date dataFim;
-	
 	private Date dataRevisao;
-	
 	private Sprint sprint;
-	
 	private List<ItemBacklog> sprintBacklog;
-	
 	private List<ItemBacklog> productBacklog;
 
 	public SprintDTO() {
@@ -29,7 +27,8 @@ public class SprintDTO implements Serializable {
 		sprintBacklog = new ArrayList<ItemBacklog>();
 		productBacklog = new ArrayList<ItemBacklog>();
 	}
-	
+
+	/*getters and setters*/
 	public Sprint getSprint() {
 		return sprint;
 	}

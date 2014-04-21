@@ -13,13 +13,9 @@ public class ProjetoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Date dataInicio;
-	
 	private Date dataFim;
-
 	private Projeto projeto;
-	
 	private List<Team> timeProjeto;
-	
 	private List<Usuario> usuarioEmpresaNotTeam;
 	
 	public ProjetoDTO(){
@@ -28,8 +24,7 @@ public class ProjetoDTO implements Serializable {
 		usuarioEmpresaNotTeam = new ArrayList<Usuario>();
 	}
 
-	// Teste commit Ubuntu
-	
+	/*getters and setters*/
 	public Date getDataInicio() {
 		return dataInicio;
 	}
@@ -77,6 +72,4 @@ public class ProjetoDTO implements Serializable {
 	public void setUsuarioEmpresa(List<Usuario> usuarioEmpresa) {
 		this.usuarioEmpresaNotTeam = usuarioEmpresa;
 	}
-	
-	
 }

@@ -1,12 +1,8 @@
 package br.com.scrumming.domain;
 
-
 import java.io.Serializable;
 
 import br.com.scrumming.domain.enuns.PerfilUsuarioEnum;
-
-
-
 
 public class Team implements Serializable {
 
@@ -14,25 +10,14 @@ public class Team implements Serializable {
      * Serial Version
      */
     private static final long serialVersionUID = 1L;
-
     
     private Projeto projeto;
-    
-    
     private Empresa empresa;
-
-    
     private Usuario usuario;
-    
-    
     private PerfilUsuarioEnum perfilUsuario;
-    
-    
     private boolean isAtivo;
 
-    /**
-     * Getters e and setters
-     */
+    /*getters and setters*/
 	public Projeto getProjeto() {
 		return projeto;
 	}
@@ -72,5 +57,4 @@ public class Team implements Serializable {
 	public void setAtivo(boolean isAtivo) {
 		this.isAtivo = isAtivo;
 	}
-
 }

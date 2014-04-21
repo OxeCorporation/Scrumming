@@ -11,62 +11,33 @@ import br.com.scrumming.infra.JodaDateTimeJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-
 public class Projeto implements Serializable {
 
-	// Teste
     /**
      * Serial Version
      */
     private static final long serialVersionUID = 1L;
-
    
     private Integer codigo;
-
-   
     private Empresa empresa;
-
-    
     private String nome;
-
-   
     private String descricao;
-
-    
     @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
     private DateTime dataInicio;
-
-   
     @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
     private DateTime dataFim;
-
-   
     @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
     private DateTime dataCadastro;
-
-   
     private SituacaoProjetoEnum situacaoProjeto;
-
-   
     private String dataInicioFormatada;
-    
-    
     private String dataFimFormatada;
-    
-   
     private String statusProjeto;
-
-    
-    
     private boolean editable = true;
 
-    
-    /**
-     * Getters e and setters
-     */
+    /*getters and setters*/
     public String getStatusProjeto() {
 		return statusProjeto;
 	}

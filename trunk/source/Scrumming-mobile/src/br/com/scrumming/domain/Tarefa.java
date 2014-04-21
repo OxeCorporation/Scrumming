@@ -13,48 +13,28 @@ import br.com.scrumming.infra.JodaDateTimeJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-
 public class Tarefa implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
 
+	/**
+     * Serial Version
+     */
+	private static final long serialVersionUID = 1L;
 	
     private Integer codigo;
-	
-	
 	private ItemBacklog itemBacklog;
-	
-	
 	private Usuario usuario;
-	
-	
     private String nome;
-	
     private String descricao;
-	
-	
     private SituacaoTarefaEnum situacao;
-	
-	
     private Integer tempoEstimado;
-	
-	
 	@JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
 	private DateTime dataAtribuicao;
-	
-	
     private String situacaoDescricao;
-	
-	
 	private String backgroundColor;
-	
-	
 	private boolean estahConcluida;
 	
-	/**
-     * Getters e and setters
-     */
+	/*getters and setters*/
 	public Integer getCodigo() {
 		return codigo;
 	}

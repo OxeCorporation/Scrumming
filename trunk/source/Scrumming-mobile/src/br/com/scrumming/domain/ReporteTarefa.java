@@ -10,34 +10,20 @@ import br.com.scrumming.infra.JodaDateTimeJsonSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-
 public class ReporteTarefa implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-
-	
    
     private Integer codigo;
-	
-	
 	private Tarefa tarefa;
-	
-	
 	private Usuario usuario;
-	
-	
     private Integer tempoReportado;
-	
     private Integer tempoRestante;
-	
-	
 	@JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
 	private DateTime dataReporte;
 
-	/**
-     * Getters e and setters
-     */
+	/*getters and setters*/
 	public Integer getCodigo() {
 		return codigo;
 	}
