@@ -7,13 +7,15 @@ import java.util.TimeZone;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.joda.time.Minutes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.scrumming.core.infra.exceptions.NegocioException;
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
+import br.com.scrumming.core.infra.util.ConstantesMensagem;
+import br.com.scrumming.core.infra.util.MensagemUtil;
 import br.com.scrumming.core.manager.interfaces.IDailyScrumManager;
 import br.com.scrumming.core.repositorio.DailyScrumRepositorio;
 import br.com.scrumming.domain.DailyScrum;
@@ -53,14 +55,15 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 				dailyScrum.setDataHora(new DateTime(dailyScrum.getDataHoraCalendar()));
 				if (dailyScrum.getDataHora().isAfterNow()) {
 					if (isDuplicatedDateTime(dailyScrum)) {
-						// throw new NegocioException(MensagemUtil.get(ConstantesMensagem.MENSAGEM_ERRO_DUPLICIDADE_DAILY));
-					} else if (isAtTheSameTime(dailyScrum)) {
-						// throw new NegocioException(MensagemUtil.get(ConstantesMensagem.MENSAGEM_ERRO_DAILY_MESMO_HORARIO));
-					} else {
+						throw new NegocioException(MensagemUtil.get(ConstantesMensagem.MENSAGEM_ERRO_DUPLICIDADE_DAILY));
+					} else if (isInTheRange(dailyScrum)) {
 						insertOrUpdate(dailyScrum);
+					} else {
+						throw new NegocioException(MensagemUtil.get(ConstantesMensagem.MENSAGEM_ERRO_DAILY_MESMO_HORARIO));
 					}
 				} else {
-					// throw new NegocioException(MensagemUtil.get(ConstantesMensagem.MENSAGEM_ERRO_DATA_DAILY));
+					// TODO: Daniel -> Alterar a mensagem: Restrição de cadastro no período da Sprint
+					throw new NegocioException(MensagemUtil.get(ConstantesMensagem.MENSAGEM_ERRO_DATA_DAILY));
 				}			
 			// Salva um novo registro para cada dia da Sprint.
 			} else {
@@ -71,13 +74,12 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 				} else {
 					dailyScrum.setDataHora(new DateTime(DateTime.now()));
 					dailyScrum.setDataHora(preparaData(dailyScrum));
-					saveSprintDailies(dailyScrum, dataInicioSprint, dataFimSprint);
+					saveSprintDailies(dailyScrum, dailyScrum.getDataHora().minusDays(1), dataFimSprint);
 				}
 			}
 		// Com código (Alteração)
 		} else {
 			dailyScrum.setDataHora(preparaData(dailyScrum));
-			//insertOrUpdate(preparaDailyParaAlterar(dailyScrum));
 			insertOrUpdate(dailyScrum);
 		}
 		return "";
@@ -93,7 +95,7 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 		int year, month, date, hourOfDay, minute;
 		Calendar cal = new GregorianCalendar();
 		year = dailyScrum.getDataHora().getYear();
-		month = dailyScrum.getDataHora().getMonthOfYear();
+		month = dailyScrum.getDataHora().getMonthOfYear() - 1;
 		date = dailyScrum.getDataHora().getDayOfMonth();
 		hourOfDay = new DateTime(dailyScrum.getDataHoraCalendar()).getHourOfDay();
 		minute = new DateTime(dailyScrum.getDataHoraCalendar()).getMinuteOfHour();
@@ -110,16 +112,16 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 	 */
 	@Transactional(rollbackFor=Exception.class)
 	private void saveSprintDailies(DailyScrum dailyScrum, DateTime dataInicioSprint, DateTime dataFimSprint) {
-		int interval = Days.daysBetween(dataInicioSprint, dataFimSprint).getDays();
 		List<DailyScrum> dailies = listarDailyScrumDaSprint(dailyScrum.getSprint().getCodigo());
+		int intervalo = Days.daysBetween(dataInicioSprint, dataFimSprint).getDays();
 		for (DailyScrum dailyScrum2 : dailies) {
 			remove(dailyScrum2);
 		}
-		for (int i = 0; i <= interval; i++) {			
+		for (int i = 0; i <= intervalo; i++) {
 			if (dailyScrum.getDataHora().isAfterNow()) {
 				insertOrUpdate(createNewDaily(dailyScrum));
-				dailyScrum.setDataHora(dailyScrum.getDataHora().plusDays(1));
 			}
+			dailyScrum.setDataHora(dailyScrum.getDataHora().plusDays(1));
 		}
 	}
 	
@@ -130,7 +132,7 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 		boolean duplicated = false;
 		List<DailyScrum> lista = listarDailyScrumDaSprint(daily.getSprint().getCodigo());
 		for (DailyScrum dailyScrum : lista) {
-			int intervalo = Minutes.minutesBetween(dailyScrum.getDataHora(), daily.getDataHora()).getMinutes(); 
+			int intervalo = Days.daysBetween(dailyScrum.getDataHora(), daily.getDataHora()).getDays(); 
 			if (intervalo == 0) {
 				duplicated = true;
 			}
@@ -138,19 +140,15 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 		return duplicated;
 	}
 	
-	private boolean isAtTheSameTime(DailyScrum daily) {
-		boolean sameTime = false;
-		List<DailyScrum> lista = listarDailyScrumDaSprint(daily.getSprint().getCodigo());
-		for (DailyScrum dailyScrum : lista) {
-			int intervalo = Minutes.minutesBetween(dailyScrum.getDataHora(), daily.getDataHora()).getMinutes();
-			if (intervalo > 0 && intervalo <= dailyScrum.getDuracao()) {
-				sameTime = true;
-			}
-			if (dailyScrum.getDataHora().isBefore(daily.getDataHora().plusMinutes(intervalo)) && dailyScrum.getDataHora().isAfter(daily.getDataHora())) {
-				sameTime = true;
-			}
+	private boolean isInTheRange(DailyScrum daily) {
+		boolean range = false;
+		DateTime dataDaily = daily.getDataHora();
+		DateTime inicioSprint = daily.getSprint().getDataInicio();
+		DateTime fimSprint = daily.getSprint().getDataFim();
+		if (dataDaily.isAfter(inicioSprint) && dataDaily.isBefore(fimSprint)) {
+			range = true;
 		}
-		return sameTime;
+		return range;
 	}
 	
 	private DailyScrum createNewDaily(DailyScrum dailyScrum) {
@@ -158,16 +156,6 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 		retorno.setSprint(dailyScrum.getSprint());
 		retorno.setDataHora(dailyScrum.getDataHora());
 		retorno.setDataHoraCalendar(dailyScrum.getDataHoraCalendar());
-		retorno.setLocal(dailyScrum.getLocal());
-		retorno.setDuracao(dailyScrum.getDuracao());
-		return retorno;
-	}
-	
-	private DailyScrum preparaDailyParaAlterar(DailyScrum dailyScrum) {
-		DailyScrum retorno = new DailyScrum();
-		retorno.setCodigo(dailyScrum.getCodigo());
-		retorno.setSprint(dailyScrum.getSprint());
-		retorno.setDataHora(dailyScrum.getDataHora());
 		retorno.setLocal(dailyScrum.getLocal());
 		retorno.setDuracao(dailyScrum.getDuracao());
 		return retorno;
