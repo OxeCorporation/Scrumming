@@ -15,6 +15,10 @@ public class ProjetoClientService extends AbstractClientService {
 		return getRestTemplate().postForObject(getURIService(ConstantesService.Projeto.URL_SALVAR_PROJETO), projetoDTO, String.class);
 	}
 
+	public String concluirProjeto(Projeto projeto) {
+		return getRestTemplate().postForObject(getURIService(ConstantesService.Projeto.URL_CONCLUIR_PROJETO), projeto, String.class);
+	}
+
 	public ProjetoDTO consultarProjtoDTO(Integer projetoID) {
 		return getRestTemplate().getForObject(getURIService(ConstantesService.Projeto.URL_CONSULTAR_PROJETO_DTO), ProjetoDTO.class, projetoID);
 	}

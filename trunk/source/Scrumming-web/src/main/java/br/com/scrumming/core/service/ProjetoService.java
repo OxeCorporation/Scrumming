@@ -71,6 +71,10 @@ public class ProjetoService {
         this.projetoManager.remove(projeto);
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/concluir")
+    public void concluirProjeto(@RequestBody Projeto projeto) {
+        this.projetoManager.concluirProjeto(projeto);;
+    }
 
     /* getters and setters */
     public IProjetoManager getProjetoManager() {

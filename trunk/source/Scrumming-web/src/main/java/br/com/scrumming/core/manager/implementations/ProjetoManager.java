@@ -9,14 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.scrumming.core.infra.exceptions.NegocioException;
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
+import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.core.manager.interfaces.IProjetoManager;
 import br.com.scrumming.core.repositorio.ProjetoRepositorio;
+import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.ProjetoDTO;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.Team;
+import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 import br.com.scrumming.domain.enuns.SituacaoProjetoEnum;
 import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
 
@@ -35,6 +39,7 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 	@Autowired
 	private TeamManager teamManage;
 	private SprintManager sprintManage;
+	private ItemBacklogManager itemBacklogManager;
 
 	@Override
 	public AbstractRepositorio<Projeto, Integer> getRepositorio() {
@@ -102,14 +107,14 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public void concluirProjeto(Projeto projeto) {
-		List<Sprint> sprintConsulta = sprintManage.consultarPorProjeto(projeto
+	public String concluirProjeto(Projeto projeto) {
+		List<ItemBacklog> itemBacklogConsulta = itemBacklogManager.consultarPorProjeto(projeto
 				.getCodigo());
-		if (sprintConsulta != null) {
+		if (itemBacklogConsulta != null) {
 			boolean fechadas = true;
-			for (int i = 0; i < sprintConsulta.size(); i++) {
-				if (sprintConsulta.get(i).getSituacaoSprint().name()
-						.equals(SituacaoSprintEnum.ABERTA)) {
+			for (int i = 0; i < itemBacklogConsulta.size(); i++) {
+				if (!itemBacklogConsulta.get(i).getSituacaoBacklog().name()
+						.equals(SituacaoItemBacklogEnum.ENTREGUE)) {
 					fechadas = false;
 					break;
 				}
@@ -120,7 +125,10 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 				projeto.setDataFim(DateTime.now());
 				insertOrUpdate(projeto);
 			}
+		}else{
+			throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_DUPLICIDADE_DAILY);
 		}
+		return "";
 	}
 
 	@Override
