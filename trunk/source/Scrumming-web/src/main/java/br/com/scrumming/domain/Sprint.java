@@ -147,7 +147,18 @@ public class Sprint extends ObjetoPersistente<Integer> {
     }
 
     public void setDataInicio(DateTime dataInicio) {
-        this.dataInicio = dataInicio;
+    	/*int year, month, date, hourOfDay, minute, second;
+		Calendar cal = new GregorianCalendar();
+		year = dataInicio.getYear();
+		month = dataInicio.getMonthOfYear() - 1;
+		date = dataInicio.getDayOfMonth();
+		hourOfDay = 0;
+		minute = 0;
+		second = 0;
+		cal.set(year, month, date, hourOfDay, minute, second);
+		cal.setTimeZone(TimeZone.getTimeZone("GMT-3:00"));
+        this.dataInicio = new DateTime(cal);*/
+    	this.dataInicio = dataInicio;
     }
 
     public DateTime getDataFim() {
@@ -155,7 +166,18 @@ public class Sprint extends ObjetoPersistente<Integer> {
     }
 
     public void setDataFim(DateTime dataFim) {
-        this.dataFim = dataFim;
+    	/*int year, month, date, hourOfDay, minute, second;
+		Calendar cal = new GregorianCalendar();
+		year = dataFim.getYear();
+		month = dataFim.getMonthOfYear() - 1;
+		date = dataFim.getDayOfMonth();
+		hourOfDay = 23;
+		minute = 59;
+		second = 59;
+		cal.set(year, month, date, hourOfDay, minute, second);
+		cal.setTimeZone(TimeZone.getTimeZone("GMT-3:00"));
+    	this.dataFim = new DateTime(cal);*/
+    	this.dataFim = dataFim;
     }
 
     public DateTime getDataRevisao() {

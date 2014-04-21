@@ -15,7 +15,6 @@ import br.com.scrumming.core.infra.exceptions.NegocioException;
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
-import br.com.scrumming.core.infra.util.MensagemUtil;
 import br.com.scrumming.core.manager.interfaces.IDailyScrumManager;
 import br.com.scrumming.core.repositorio.DailyScrumRepositorio;
 import br.com.scrumming.domain.DailyScrum;
@@ -54,16 +53,17 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 			if (dailyScrum.isUniqueDaily()) {
 				dailyScrum.setDataHora(new DateTime(dailyScrum.getDataHoraCalendar()));
 				if (dailyScrum.getDataHora().isAfterNow()) {
-					if (isDuplicatedDateTime(dailyScrum)) {
-						throw new NegocioException(MensagemUtil.get(ConstantesMensagem.MENSAGEM_ERRO_DUPLICIDADE_DAILY));
-					} else if (isInTheRange(dailyScrum)) {
-						insertOrUpdate(dailyScrum);
+					if (isInTheRange(dailyScrum)) {
+						if (isDuplicatedDateTime(dailyScrum)) {
+							throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_DUPLICIDADE_DAILY);
+						} else {
+							insertOrUpdate(dailyScrum);
+						}
 					} else {
-						throw new NegocioException(MensagemUtil.get(ConstantesMensagem.MENSAGEM_ERRO_DAILY_MESMO_HORARIO));
+						throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_DAILY_FORA_SPRINT);
 					}
 				} else {
-					// TODO: Daniel -> Alterar a mensagem: Restrição de cadastro no período da Sprint
-					throw new NegocioException(MensagemUtil.get(ConstantesMensagem.MENSAGEM_ERRO_DATA_DAILY));
+					throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_DATA_DAILY);
 				}			
 			// Salva um novo registro para cada dia da Sprint.
 			} else {
@@ -132,10 +132,13 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 		boolean duplicated = false;
 		List<DailyScrum> lista = listarDailyScrumDaSprint(daily.getSprint().getCodigo());
 		for (DailyScrum dailyScrum : lista) {
-			int intervalo = Days.daysBetween(dailyScrum.getDataHora(), daily.getDataHora()).getDays(); 
-			if (intervalo == 0) {
+			//int intervalo = Days.daysBetween(dailyScrum.getDataHora(), daily.getDataHora().plusDays(1)).getDays();
+			if(dailyScrum.getDataHora().getDayOfMonth() == daily.getDataHora().getDayOfMonth()) {
 				duplicated = true;
 			}
+			/*if (intervalo == 0) {
+				duplicated = true;
+			}*/
 		}
 		return duplicated;
 	}
@@ -145,7 +148,7 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 		DateTime dataDaily = daily.getDataHora();
 		DateTime inicioSprint = daily.getSprint().getDataInicio();
 		DateTime fimSprint = daily.getSprint().getDataFim();
-		if (dataDaily.isAfter(inicioSprint) && dataDaily.isBefore(fimSprint)) {
+		if (dataDaily.isAfter(inicioSprint) && dataDaily.isBefore(fimSprint.plusDays(1))) {
 			range = true;
 		}
 		return range;
@@ -185,9 +188,6 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 		String retorno = "";
 		if (dailyScrum.getDataHora().isAfterNow()) {
 			remove(dailyScrum);
-			retorno = "Registro excluído com sucesso";
-		} else {
-			retorno = "Registro não pode ser excluído";
 		}
 		return retorno;
 	}
