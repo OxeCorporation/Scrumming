@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Scrumming</string>
+    <string name="action_settings">Settings</string>
+    <string name="login">Login:</string>
+    <string name="senha">Senha:</string>
+    <string name="logar">Logar</string>
+
+</resources>
