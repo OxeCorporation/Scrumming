@@ -11,7 +11,9 @@ public class ConstantesMensagem {
     public static final String MENSAGEM_ERRO_EMPRESA_VINCULADA = "mensagem_erro_empresa_vinculada";
     public static final String MENSAGEM_OPERACAO_SUCESSO ="mensagem_operacao_sucesso";
     public static final String MENSAGEM_SELECIONAR_ITEM_LISTA ="mensagem_selecionar_item_lista";
-    public static final String MENSAGEM_ERRO_DATA_SPRINT ="mensagem_erro_data_sprint";
+    public static final String MENSAGEM_ERRO_DATA_SPRINT_EXISTE ="mensagem_erro_data_sprint_existe";
+    public static final String MENSAGEM_ERRO_DATA_FIM_MENOR_INICIO_SPRINT ="mensagem_erro_data_fim_menor_inicio_sprint";
+    public static final String MENSAGEM_ERRO_DATA_REVISAO_MENOR_FIM_SPRINT ="mensagem_erro_data_revisao_menor_fim_sprint";
     public static final String MENSAGEM_REGISTRO_ALTERADO_SUCESSO ="mensagem_registro_alterado";
     public static final String MENSAGEM_ERRO_DATA_DAILY ="mensagem_erro_data_daily";
     public static final String MENSAGEM_ERRO_DATA_PROJETO_INICIO = "mensagem_erro_data_inicio_projeto";

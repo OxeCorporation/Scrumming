@@ -59,19 +59,13 @@ public class SprintCadastroMB extends AbstractBean {
 		sprintDTO.getSprint().setProjeto(projetoSelecionado);
 		sprintDTO.setProductBacklog(itensDisponiveis);
 		sprintDTO.setSprintBacklog(sprintBacklog);
-		String msg = sprintClientService.salvarSprint(sprintDTO);
-		String retorno = "";
-		if (msg.equals("1")) {
-			FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
-			retorno = redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
-		} else {
-			FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_ERRO_DATA_SPRINT);
-		}
-		return retorno;
+		sprintClientService.salvarSprint(sprintDTO);
+		sprintPage();
+		return "";
 	}
 	
 	/**
-	 * 
+	 * Associa um item ao SprintBacklog.
 	 * @return
 	 */
 	public String moveItemToSprint() {
@@ -94,7 +88,7 @@ public class SprintCadastroMB extends AbstractBean {
 	}
 	
 	/**
-	 * 
+	 * Retira um item do SprintBacklog que passa a ficar disponível para outras Sprints.
 	 * @return
 	 */
 	public String removeItemFromSprint() {

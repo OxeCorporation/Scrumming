@@ -147,15 +147,20 @@
 					<!-- *********************************************************************************************** -->
 					<br />
 					<p:panel style="height: 65px;">
-						<p:commandButton immediate="true" process="@none"
-							icon="ui-icon-cancel" value="Cancelar"
-							action="#{sprintCadastroMB.sprintPage}" styleClass="button"
-							ajax="false">
+						<p:commandButton 
+							immediate="true" 
+							process="@none"
+							icon="ui-icon-cancel" 
+							value="Cancelar"
+							action="#{sprintCadastroMB.sprintPage}" 
+							styleClass="button">
 							<p:resetInput target="panel" />
 						</p:commandButton>
-						<p:commandButton value="Salvar"
-							action="#{sprintCadastroMB.salvarSprint}" icon="ui-icon-disk"
-							styleClass="button" ajax="false">
+						<p:commandButton 
+							value="Salvar"
+							action="#{sprintCadastroMB.salvarSprint}"
+							icon="ui-icon-disk"
+							styleClass="button" >
 							<p:resetInput target="panel" />
 						</p:commandButton>
 					</p:panel>

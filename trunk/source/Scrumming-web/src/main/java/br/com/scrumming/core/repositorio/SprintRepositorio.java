@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +24,7 @@ public class SprintRepositorio extends AbstractRepositorio<Sprint, Integer> {
         Criteria criteria = createCriteria();
         criteria.createAlias("projeto", "projeto");
         criteria.add(Restrictions.eq("projeto.codigo", projetoID));
+        criteria.addOrder(Order.asc("dataInicio"));
         return Collections.checkedList(criteria.list(), Sprint.class);
     }
 }

@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.scrumming.core.infra.exceptions.NegocioException;
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
+import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
 import br.com.scrumming.core.manager.interfaces.ISprintBacklogManager;
 import br.com.scrumming.core.manager.interfaces.ISprintManager;
@@ -83,7 +85,6 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 	public String salvarSprint(SprintDTO sprintDTO) {
 
 		// Prepara os dados para a persistência.
-		String retorno = "1";
 		Sprint sprint = sprintDTO.getSprint();
 		sprint.setDataInicio(new DateTime(sprintDTO.getDataInicio()));
 		sprint.setDataFim(new DateTime(sprintDTO.getDataFim()));
@@ -91,32 +92,41 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		sprint.setSituacaoSprint(SituacaoSprintEnum.ABERTA);
 		sprint.setDataCadastro(new DateTime());
 		
-		boolean freeToPersiste = true;
-				
-		if (freeToPersiste) {
-			// Persiste o objeto Sprint e retorna a chave.
-			Integer sprintID = insertOrUpdate(sprint);
-
-			List<ItemBacklog> itensBacklogSprint = sprintDTO.getSprintBacklog();
-			List<ItemBacklog> itensBacklogProduto = sprintDTO.getProductBacklog();
-			
-			// Caso sera inserido ou alterado a Sprint
-			if (sprintID != null) {
-
-				// Busca o objeto persistido pela chave.
-				Sprint sprintPersistido = findByKey(sprintID);
-
-				if (CollectionUtils.isNotEmpty(itensBacklogSprint)) {
-					sprintBacklogManager.associarItemASprint(sprintPersistido, itensBacklogSprint);
-				}
-				if (CollectionUtils.isNotEmpty(itensBacklogProduto)) {
-					sprintBacklogManager.desassociarItemASprint(sprintPersistido, itensBacklogProduto);
-				}
+		List<Sprint> sprints = consultarPorProjeto(sprint.getProjeto().getCodigo());
+		for (Sprint sprint2 : sprints) {
+			if (sprint.getDataInicio().isBefore(sprint2.getDataFim())) {
+				throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_DATA_SPRINT_EXISTE);
 			}
-		} else {
-			retorno = "0";
 		}
-		return retorno;
+		
+		if (sprint.getDataFim().isBefore(sprint.getDataInicio())) {
+			throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_DATA_FIM_MENOR_INICIO_SPRINT);
+		}
+		
+		if (sprint.getDataRevisao().isBefore(sprint.getDataFim())) {
+			throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_DATA_REVISAO_MENOR_FIM_SPRINT);
+		}
+		
+		// Persiste o objeto Sprint e retorna a chave.
+		Integer sprintID = insertOrUpdate(sprint);
+
+		List<ItemBacklog> itensBacklogSprint = sprintDTO.getSprintBacklog();
+		List<ItemBacklog> itensBacklogProduto = sprintDTO.getProductBacklog();
+		
+		// Caso sera inserido ou alterado a Sprint
+		if (sprintID != null) {
+
+			// Busca o objeto persistido pela chave.
+			Sprint sprintPersistido = findByKey(sprintID);
+
+			if (CollectionUtils.isNotEmpty(itensBacklogSprint)) {
+				sprintBacklogManager.associarItemASprint(sprintPersistido, itensBacklogSprint);
+			}
+			if (CollectionUtils.isNotEmpty(itensBacklogProduto)) {
+				sprintBacklogManager.desassociarItemASprint(sprintPersistido, itensBacklogProduto);
+			}
+		}		
+		return "";
 	}
 
 	/**
