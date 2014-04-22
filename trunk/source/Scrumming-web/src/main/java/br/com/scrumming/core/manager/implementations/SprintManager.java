@@ -94,7 +94,7 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		
 		List<Sprint> sprints = consultarPorProjeto(sprint.getProjeto().getCodigo());
 		for (Sprint sprint2 : sprints) {
-			if (sprint.getDataInicio().isBefore(sprint2.getDataFim())) {
+			if (sprint.getDataInicio().isBefore(sprint2.getDataFim()) && sprint2.getCodigo() != sprint.getCodigo()) {
 				throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_DATA_SPRINT_EXISTE);
 			}
 		}
