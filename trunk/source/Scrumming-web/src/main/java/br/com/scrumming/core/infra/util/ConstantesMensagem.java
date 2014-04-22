@@ -24,4 +24,6 @@ public class ConstantesMensagem {
 	public static final String ERRO_INESPERADO = "erro_inesperado";
 	public static final String ERRO_EXCLUIR_DAILY_PASSADO = "erro_excluir_daily_passado";
 	public static final String ERRO_DAILY_PASSADO = "erro_daily_passado";
+	public static final String ERRO_EMAIL_JA_EXISTE = "erro_email_ja_existe";
+	public static final String ERRO_LOGIN_JA_EXISTE = "erro_login_ja_existe";
 }
