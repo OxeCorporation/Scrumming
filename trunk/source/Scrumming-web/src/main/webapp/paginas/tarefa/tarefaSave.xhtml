@@ -27,12 +27,12 @@
 				
 				<div class="col-md-6">
 					<h:outputText value="#{mensagens.label_atribuir_para}" /> 
-					<p:selectOneMenu value="#{itemBacklogDetalheMB.usuarioSelecionado}">
+					<p:selectOneMenu id="usuario" value="#{itemBacklogDetalheMB.idUsuarioSelecionado}" >
 						<f:selectItem itemLabel="Selecione..." itemValue=""/>
 						<f:selectItems
 							value="#{itemBacklogDetalheMB.usuarios}" var="usuario"
-							itemValue="#{usuario}"
-							itemLabel="#{usuario.nome}" />
+							itemValue="#{usuario.codigo}"
+							itemLabel="#{usuario.nome}"/>
 					</p:selectOneMenu>
 				</div>					
 			</h:panelGrid>
@@ -55,7 +55,7 @@
 			action="#{itemBacklogDetalheMB.salvarTarefa}" 
 			icon="ui-icon-disk" 
 			style="margin:0 auto; float:right"
-			process="nome, descricao, tempoEstimado" 
+			process="nome, descricao, tempoEstimado, usuario" 
 			update="@form"/>
 	</p:dialog>	
 	

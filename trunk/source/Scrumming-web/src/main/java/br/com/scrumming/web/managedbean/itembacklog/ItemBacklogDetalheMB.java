@@ -5,6 +5,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.joda.time.DateTime;
+
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
@@ -13,6 +15,7 @@ import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.clientService.ItemBacklogClientService;
 import br.com.scrumming.web.clientService.TarefaClientService;
 import br.com.scrumming.web.clientService.TeamClientService;
+import br.com.scrumming.web.clientService.UsuarioClientService;
 import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
@@ -40,9 +43,9 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	@FlashScoped
 	private Tarefa tarefaSelecionada;
 	private List<Usuario> usuarios;
-	@FlashScoped
-	private Usuario usuarioSelecionado;
+	private long idUsuarioSelecionado;
 	private TeamClientService teamClientService;
+	private UsuarioClientService usuarioClientService;
 
 	@Override
     public void inicializar() {
@@ -52,11 +55,9 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 		if (tarefaSelecionada == null) {
 			tarefaSelecionada = new Tarefa();
 		}
-		if (usuarioSelecionado == null) {
-			usuarioSelecionado = new Usuario();
-		}
 		tarefaClientService = new TarefaClientService();
 		teamClientService = new TeamClientService();
+		usuarioClientService = new UsuarioClientService();
 		atualizarListaDeTarefas();
 		atualizarListaDeUsuarios();
 	}
@@ -101,20 +102,29 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 		} else {
 			itemBacklodID = tarefa.getItemBacklog().getCodigo();
 		}
+		setarUsuarioNaTarefa();		
 		tarefaClientService.salvarTarefa(tarefa, itemBacklodID);
 		limparObjetoTarefa();
-		limparObjetoUsuarioSelecionado();
 		atualizarListaDeTarefas();
     	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
     	return "";
 	}	
 
+	private void setarUsuarioNaTarefa() {
+		if (idUsuarioSelecionado == 0) {
+			tarefa.setUsuario(null);
+			tarefa.setDataAtribuicao(null);
+		} else {
+			if (tarefa.getUsuario() == null || tarefa.getUsuario().getCodigo() != idUsuarioSelecionado) {
+				Usuario usuarioSelecionado = usuarioClientService.obterUsuario(idUsuarioSelecionado);
+				tarefa.setUsuario(usuarioSelecionado);
+				tarefa.setDataAtribuicao(new DateTime());
+			}
+		}
+	}
+
 	private void limparObjetoTarefa() {
 		tarefa = null;		
-	}
-	
-	private void limparObjetoUsuarioSelecionado() {
-		usuarioSelecionado = null;		
 	}
 
 	public String removerTarefa(){
@@ -126,10 +136,12 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	
 	public void preparaParaInserir() {
 		tarefa = new Tarefa();
+		idUsuarioSelecionado = 0;
 	}
 	
 	public void preparaParaAlterar() {
 		tarefa = tarefaSelecionada;
+		idUsuarioSelecionado = (tarefa.getUsuario() != null) ? tarefa.getUsuario().getCodigo() : 0;
 	}
 	
 	public String salvarItemBacklog() {
@@ -211,11 +223,11 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 		this.usuarios = usuarios;
 	}
 
-	public Usuario getUsuarioSelecionado() {
-		return usuarioSelecionado;
+	public long getIdUsuarioSelecionado() {
+		return idUsuarioSelecionado;
 	}
 
-	public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
-		this.usuarioSelecionado = usuarioSelecionado;
+	public void setIdUsuarioSelecionado(long idUsuarioSelecionado) {
+		this.idUsuarioSelecionado = idUsuarioSelecionado;
 	}
 }
