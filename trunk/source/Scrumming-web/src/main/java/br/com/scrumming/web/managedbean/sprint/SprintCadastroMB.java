@@ -60,8 +60,7 @@ public class SprintCadastroMB extends AbstractBean {
 		sprintDTO.setProductBacklog(itensDisponiveis);
 		sprintDTO.setSprintBacklog(sprintBacklog);
 		sprintClientService.salvarSprint(sprintDTO);
-		sprintPage();
-		return "";
+		return sprintPage();
 	}
 	
 	/**
