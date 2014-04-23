@@ -40,6 +40,8 @@ public class ProjetoMB extends AbstractBean {
 	private List<Usuario> usuarioEmpresaNotProjeto;
     @FlashScoped
 	private List<Team> teamProjeto;
+    @FlashScoped
+    private String titulo;
 
     
     @Override
@@ -54,6 +56,7 @@ public class ProjetoMB extends AbstractBean {
 		projetoSelecionado = projetoDTO.getProjeto();
 		usuarioEmpresaNotProjeto = projetoDTO.getUsuarioEmpresaNotTeam();
 		teamProjeto = projetoDTO.getTimeProjeto();
+		setTitulo("Alteração de Projeto");
 		return projetoCadastroPage();
 	}
 
@@ -61,6 +64,7 @@ public class ProjetoMB extends AbstractBean {
 		projetoDTO = new ProjetoDTO();
 		teamProjeto = new ArrayList<>();
 		usuarioEmpresaNotProjeto = clienteService.consultarUsuarioPorEmpresa(empresa.getCodigo());
+		setTitulo("Cadastro de Projeto");
 		return projetoCadastroPage();
 	}
 
@@ -143,6 +147,14 @@ public class ProjetoMB extends AbstractBean {
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 }

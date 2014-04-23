@@ -51,6 +51,8 @@ public class ProjetoCadastroMB extends AbstractBean {
 	private Empresa empresa;
 	private Date dataInicio;
 	private Date dataFim;
+	@FlashScoped
+	private String titulo;
 
 	@Override
 	protected void inicializar() {
@@ -259,4 +261,13 @@ public class ProjetoCadastroMB extends AbstractBean {
 			ProjetoClientService projetoClientService) {
 		this.projetoClientService = projetoClientService;
 	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+	
 }

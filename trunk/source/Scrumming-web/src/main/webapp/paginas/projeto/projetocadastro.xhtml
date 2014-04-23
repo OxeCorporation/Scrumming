@@ -13,10 +13,9 @@
 			value="#{sprintCadastroMB.sprintSelecionada.nome}" />
 		<h:outputText style="color: white"
 			value="#{sprintCadastroMB.projetoSelecionado.nome}" />
-		<br />
 		<h:panelGroup styleClass="col-md-9 column div-center">
 			<h:panelGroup style="width:100%">
-				<p:panel id="panel">
+				<p:panel header="#{projetoCadastroMB.titulo}" id="panel">
 					<p:focus context="panel"/>
 					<h:panelGroup>
 						<p:panel>
