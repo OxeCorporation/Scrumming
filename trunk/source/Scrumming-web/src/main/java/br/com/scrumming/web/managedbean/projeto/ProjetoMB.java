@@ -1,5 +1,6 @@
 package br.com.scrumming.web.managedbean.projeto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -35,8 +36,6 @@ public class ProjetoMB extends AbstractBean {
     private ProjetoClientService clienteService;
     @ManagedProperty(value="#{sessaoMB.empresaSelecionada}")
     private Empresa empresa;
-    //@FlashScoped
-	//private List<Usuario> usuarioEmpresa;
     @FlashScoped
 	private List<Usuario> usuarioEmpresaNotProjeto;
     @FlashScoped
@@ -50,23 +49,22 @@ public class ProjetoMB extends AbstractBean {
         projetosDaEmpresa = clienteService.consultarProjetosPorEmpresa(empresa.getCodigo());
     }
     
-	public String consultarProjetoDTO() {
-		usuarioEmpresaNotProjeto=null;
+    public String consultarProjetoDTO() {
 		projetoDTO = clienteService.consultarProjtoDTO(projetoSelecionado.getCodigo());
+		projetoSelecionado = projetoDTO.getProjeto();
 		usuarioEmpresaNotProjeto = projetoDTO.getUsuarioEmpresaNotTeam();
 		teamProjeto = projetoDTO.getTimeProjeto();
 		return projetoCadastroPage();
 	}
 
-    
 	public String consultarUsuarioEmpresa() {
-		usuarioEmpresaNotProjeto=null;
+		projetoDTO = new ProjetoDTO();
+		teamProjeto = new ArrayList<>();
 		usuarioEmpresaNotProjeto = clienteService.consultarUsuarioPorEmpresa(empresa.getCodigo());
 		return projetoCadastroPage();
 	}
 
 	public String consultarUsuarioForaDoProjeto() {
-		usuarioEmpresaNotProjeto=null;
 		usuarioEmpresaNotProjeto = clienteService.consultarUsuarioPorEmpresaForaDoProjeto(projetoSelecionado.getCodigo(), empresa.getCodigo());
 		return projetoCadastroPage();
 	}
@@ -147,11 +145,4 @@ public class ProjetoMB extends AbstractBean {
 		this.empresa = empresa;
 	}
 
-/*	public List<Usuario> getUsuarioEmpresa() {
-		return usuarioEmpresa;
-	}
-
-	public void setUsuarioEmpresa(List<Usuario> usuarioEmpresa) {
-		this.usuarioEmpresa = usuarioEmpresa;
-	}
-*/}
+}

@@ -36,7 +36,6 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 
 	@Autowired
 	private TeamManager teamManage;
-	private SprintManager sprintManage;
 	private ItemBacklogManager itemBacklogManager;
 
 	@Override
@@ -96,8 +95,13 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 
 		// Cria o DTO que será enviado à tela para exibição
 		ProjetoDTO projetoDTO = new ProjetoDTO();
-		// Seta o Projeto
+		
 		Projeto projeto = new Projeto();
+	//	List<ItemBacklog> itensDisponiveis = new ArrayList<>();
+	//	List<ItemBacklog> sprintBacklog = new ArrayList<>();
+
+		// Seta o Projeto
+		//Projeto projeto = new Projeto();
 		projeto = (findByKey(projetoID));
 
 		projetoDTO.setProjeto(projeto);
