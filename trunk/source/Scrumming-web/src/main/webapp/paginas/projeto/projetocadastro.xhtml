@@ -21,20 +21,20 @@
 						<p:panel>
 							<!-- Text input-->
 							<h:outputLabel styleClass="label-default"
-								value="#{mensagens.label_nome}" />
+								value="Nome: *" />
 							<h:inputText id="nome" name="nome"
 								value="#{projetoCadastroMB.projetoDTO.projeto.nome}" type="text"
 								placeholder="Nome do Projeto"
-								class="form-control input-md output-default" required="true"
+								class="form-control input-md output-default" required="true" requiredMessage="Por favor, informe o nome do projeto"
 								style="width: 100%" />
 							<br />
 							<!-- Textarea -->
 							<h:outputLabel styleClass="label-default"
-								value="#{mensagens.label_objetivo}" />
+								value="Descrição: *" />
 							<h:inputTextarea
 								value="#{projetoCadastroMB.projetoDTO.projeto.descricao}"
 								class="form-control text-area" id="objetivo" name="objetivo"
-								required="true" />
+								required="true" requiredMessage="Por favor, informe a descrição do projeto" />
 						</p:panel>
 					</h:panelGroup>
 					<br />
@@ -43,26 +43,18 @@
 							<h:panelGroup style="width: 150px">
 								<h:panelGroup styleClass="col-md-4 column">
 									<h:outputLabel styleClass="label-default"
-										value="Data de início" />
+										value="Data de início *" />
 									<br />
 									<p:calendar value="#{projetoCadastroMB.projetoDTO.dataInicio}"
-										id="popupCalInicio" required="true" />
+										id="popupCalInicio" required="true" requiredMessage="Por favor, informe a data inicial do projeto"/>
 								</h:panelGroup>
 								<h:panelGroup styleClass="col-md-4 column">
-									<!-- 									<h:outputLabel styleClass="label-default" value="Situação" />
-									<br />
-									<p:selectOneMenu value="#{projetoCadastroMB.situacao}">
-										<f:selectItems value="#{projetoCadastroMB.todasSituacoes}"
-											var="situa" itemValue="#{situa}" converter="javax.faces.Enum" />
-									</p:selectOneMenu>
-
- -->
 								</h:panelGroup>
 								<h:panelGroup styleClass="col-md-4 column">
-									<h:outputLabel styleClass="label-default" value="Data final" />
+									<h:outputLabel styleClass="label-default" value="Data final *" />
 									<br />
 									<p:calendar value="#{projetoCadastroMB.projetoDTO.dataFim}"
-										id="popupCalFim" required="true" />
+										id="popupCalFim" required="true" requiredMessage="Por favor, informe a data final do projeto"/>
 								</h:panelGroup>
 
 							</h:panelGroup>
@@ -169,10 +161,6 @@
 		</h:panelGroup>
 		<h:panelGroup styleClass="col-md-3 column div-right">
 			<p:commandLink title="Novo Projeto">
-				<!-- 				action="#{sprintCadastroMB.sprintPage}">
-				<i class="fa fa-plus right-sidebar-icon" />
-				<h:outputText value="Novo Projeto" />
- -->
 			</p:commandLink>
 		</h:panelGroup>
 	</ui:define>
