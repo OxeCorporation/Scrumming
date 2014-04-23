@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
     	
 	<p:dialog showEffect="fade" hideEffect="explode" id="dlgTarefaSave" header="Tarefa" 
-		modal="true" var="exec" resizable="false" widgetVar="dlgTarefaSave"
+		modal="true" resizable="false" widgetVar="dlgTarefaSave"
 		visible="#{facesContext.validationFailed}">
 		<p:panel>
 			<h:panelGrid columns="1" id="panelTarefa" style="width: 500px">		
@@ -40,20 +40,23 @@
 		<br/>
 		<p:commandButton 
 			id="cancelarSalvarTarefa"
-			immediate="true"
+			immediate="true"			
 			icon="ui-icon-cancel" 
 			value="#{mensagens.botao_cancelar}"
 			oncomplete="dlgTarefaSave.hide()"
-			style="margin:0 auto; float:right"/>
+			style="margin:0 auto; float:right"
+			process="@this" 
+			update="panelTarefa">			
+			<p:resetInput target="panelTarefa" />
+		</p:commandButton>
 		<p:commandButton 
 			id="salvarTarefa"
 			value="#{mensagens.botao_confirmar}" 
 			action="#{itemBacklogDetalheMB.salvarTarefa}" 
 			icon="ui-icon-disk" 
-			style="margin:0 auto; 
-			float:right"
+			style="margin:0 auto; float:right"
 			process="nome, descricao, tempoEstimado" 
-			update="@form"/>		
+			update="@form"/>
 	</p:dialog>	
 	
 </ui:composition>
