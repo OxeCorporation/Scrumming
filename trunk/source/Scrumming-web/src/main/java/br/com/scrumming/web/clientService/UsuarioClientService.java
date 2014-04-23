@@ -1,7 +1,6 @@
 package br.com.scrumming.web.clientService;
 
 import org.springframework.http.HttpEntity;
-
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.infra.AbstractClientService;
 import br.com.scrumming.web.infra.ConstantesService;
@@ -13,6 +12,11 @@ public class UsuarioClientService extends AbstractClientService {
 		return getRestTemplate().postForEntity(
 				getURIService(ConstantesService.Usuario.OBTER_USUARIO_LOGIN),
 				HttpEntity.EMPTY, Usuario.class, login, senha).getBody();
+	}
+	
+	public Usuario obterUsuario(Long idUsuarioSelecionado) {
+		
+		return getRestTemplate().getForObject(getURIService(ConstantesService.Usuario.URL_CONSULTAR), Usuario.class, idUsuarioSelecionado);
 	}
 
 	public String salvarUsuario(Usuario usuario) {

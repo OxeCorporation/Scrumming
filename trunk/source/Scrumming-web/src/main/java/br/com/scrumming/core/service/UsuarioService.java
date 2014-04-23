@@ -43,6 +43,10 @@ public class UsuarioService {
     public Usuario obterUsuario(@PathVariable String login, @PathVariable String senha) {
         return this.usuarioManager.consultarPorLoginSenha(login, senha);
     }
+    @RequestMapping(method = RequestMethod.GET, value = "/id/{usuarioID}")
+    public Usuario consultarPorChave(@PathVariable Long usuarioID) {
+        return this.usuarioManager.findByKey(Integer.valueOf(usuarioID.toString()));
+    }
     @RequestMapping(method = RequestMethod.POST, value = "/usu/{empresaID}")
     public void salvarUsuario(@RequestBody Usuario usuario,@PathVariable Integer empresaID){
     	usuarioManager.salvarUsuario(usuario, empresaID);
