@@ -92,7 +92,7 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		sprint.setSituacaoSprint(SituacaoSprintEnum.ABERTA);
 		sprint.setDataCadastro(new DateTime());
 		
-		/*List<Sprint> sprints = consultarPorProjeto(sprint.getProjeto().getCodigo());
+		List<Sprint> sprints = sprintRepositorio.consultaTodasComExcessao(sprint.getProjeto().getCodigo(), sprint.getCodigo());
 		for (Sprint sprint2 : sprints) {
 			if (sprint.getDataInicio().isBefore(sprint2.getDataFim()) && sprint2.getCodigo() != sprint.getCodigo()) {
 				throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_DATA_SPRINT_EXISTE);
@@ -105,7 +105,7 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		
 		if (sprint.getDataRevisao().isBefore(sprint.getDataFim())) {
 			throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_DATA_REVISAO_MENOR_FIM_SPRINT);
-		}*/
+		}
 		
 		// Persiste o objeto Sprint e retorna a chave.
 		Integer sprintID = insertOrUpdate(sprint);
