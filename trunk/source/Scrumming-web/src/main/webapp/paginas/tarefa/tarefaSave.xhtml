@@ -28,7 +28,7 @@
 				<div class="col-md-6">
 					<h:outputText value="#{mensagens.label_atribuir_para}" /> 
 					<p:selectOneMenu id="usuario" value="#{itemBacklogDetalheMB.idUsuarioSelecionado}" >
-						<f:selectItem itemLabel="Selecione..." itemValue=""/>
+						<f:selectItem itemLabel="#{mensagens.label_sem_responsavel}" itemValue=""/>
 						<f:selectItems
 							value="#{itemBacklogDetalheMB.usuarios}" var="usuario"
 							itemValue="#{usuario.codigo}"
