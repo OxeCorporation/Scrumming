@@ -45,7 +45,17 @@ public class ProjetoService {
     	return new ArrayList<Projeto>(projetoManager.consultarPorEmpresa(empresaID));
     }
     
-	@RequestMapping(method = RequestMethod.GET, value = "/listusuario/{projetoID}/{empresaID}")
+    @RequestMapping(method = RequestMethod.GET, value = "/list/ativos/{empresaID}")
+    public List<Projeto> consultarAtivosPorEmpresa(@PathVariable Integer empresaID) {
+    	return new ArrayList<Projeto>(projetoManager.consultarAtivosPorEmpresa(empresaID));
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/list/concluidos/{empresaID}")
+    public List<Projeto> consultarConcluidosPorEmpresa(@PathVariable Integer empresaID) {
+    	return new ArrayList<Projeto>(projetoManager.consultarConcluidosPorEmpresa(empresaID));
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/listusuario/{projetoID}/{empresaID}")
 	public List<Usuario> consultarUsuarioForaDoProjeto(
 			@PathVariable Integer projetoID, @PathVariable Integer empresaID) {
 		return new ArrayList<Usuario>(

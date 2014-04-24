@@ -170,6 +170,16 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 		return projetoRepositorio.consultarPorPeriodo(dataInicio, dataFim);
 	}
 
+	@Override
+	public List<Projeto> consultarAtivosPorEmpresa(Integer empresaID) {
+		return projetoRepositorio.consultarAtivosPorEmpresa(empresaID);
+	}
+	
+	@Override
+	public List<Projeto> consultarConcluidosPorEmpresa(Integer empresaID) {
+		return projetoRepositorio.consultarConcluidosPorEmpresa(empresaID);
+	}
+
 	/* getters and setters */
 	public ProjetoRepositorio getProjetoRepositorio() {
 		return projetoRepositorio;
@@ -178,4 +188,5 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 	public void setProjetoRepositorio(ProjetoRepositorio projetoRepositorio) {
 		this.projetoRepositorio = projetoRepositorio;
 	}
+
 }

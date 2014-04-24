@@ -15,5 +15,7 @@ public interface IProjetoManager extends IManager<Projeto, Integer> {
     List<Projeto> consultarPorNome(String nome);
     List<Projeto> consultarPorPeriodo(DateTime dataInicio, DateTime dataFim);
     List<Projeto> consultarPorEmpresa(Integer empresaID);
+    List<Projeto> consultarAtivosPorEmpresa(Integer empresaID);
+    List<Projeto> consultarConcluidosPorEmpresa(Integer empresaID);
     String concluirProjeto(Projeto projeto);
 }

@@ -26,7 +26,12 @@ public class ProjetoMB extends AbstractBean {
 	 */
 	private static final long serialVersionUID = 1L;
 	@FlashScoped
-	private List<Projeto> projetosDaEmpresa;
+	private List<Projeto> projetosAtivosDaEmpresa;
+	@FlashScoped
+	private List<Projeto> projetosConcluidosDaEmpresa;
+	@FlashScoped
+	private List<Projeto> projetoTodosDaEmpresa;
+
 	@FlashScoped
     private Projeto projeto;
     @FlashScoped
@@ -48,7 +53,9 @@ public class ProjetoMB extends AbstractBean {
     public void inicializar() {
         clienteService = new ProjetoClientService();
         projeto = new Projeto();
-        projetosDaEmpresa = clienteService.consultarProjetosPorEmpresa(empresa.getCodigo());
+        projetoTodosDaEmpresa = clienteService.consultarProjetosPorEmpresa(empresa.getCodigo());
+        projetosAtivosDaEmpresa = clienteService.consultarProjetosAtivosPorEmpresa(empresa.getCodigo());
+        projetosConcluidosDaEmpresa = clienteService.consultarProjetosConcluidosPorEmpresa(empresa.getCodigo());
     }
     
     public String consultarProjetoDTO() {
@@ -133,12 +140,29 @@ public class ProjetoMB extends AbstractBean {
 		this.clienteService = clienteService;
 	}
 
-	public List<Projeto> getProjetosDaEmpresa() {
-		return projetosDaEmpresa;
+	public List<Projeto> getProjetosAtivosDaEmpresa() {
+		return projetosAtivosDaEmpresa;
 	}
 
-	public void setProjetosDaEmpresa(List<Projeto> projetosDaEmpresa) {
-		this.projetosDaEmpresa = projetosDaEmpresa;
+	public void setProjetosAtivosDaEmpresa(List<Projeto> projetosAtivosDaEmpresa) {
+		this.projetosAtivosDaEmpresa = projetosAtivosDaEmpresa;
+	}
+
+	public List<Projeto> getProjetosConcluidosDaEmpresa() {
+		return projetosConcluidosDaEmpresa;
+	}
+
+	public void setProjetosConcluidosDaEmpresa(
+			List<Projeto> projetosConcluidosDaEmpresa) {
+		this.projetosConcluidosDaEmpresa = projetosConcluidosDaEmpresa;
+	}
+
+	public List<Projeto> getProjetoTodosDaEmpresa() {
+		return projetoTodosDaEmpresa;
+	}
+
+	public void setProjetoTodosDaEmpresa(List<Projeto> projetoTodosDaEmpresa) {
+		this.projetoTodosDaEmpresa = projetoTodosDaEmpresa;
 	}
 
 	public Empresa getEmpresa() {
