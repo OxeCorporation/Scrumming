@@ -16,25 +16,25 @@
 		<h:panelGroup styleClass="col-md-9 column div-center">
 			<h:panelGroup style="width:100%">
 				<p:panel header="#{projetoCadastroMB.titulo}" id="panel">
-					<p:focus context="panel"/>
+					<p:focus context="panel" />
 					<h:panelGroup>
 						<p:panel>
 							<!-- Text input-->
-							<h:outputLabel styleClass="label-default"
-								value="Nome: *" />
+							<h:outputLabel styleClass="label-default" value="Nome: *" />
 							<h:inputText id="nome" name="nome"
 								value="#{projetoCadastroMB.projetoDTO.projeto.nome}" type="text"
 								placeholder="Nome do Projeto"
-								class="form-control input-md output-default" required="true" requiredMessage="Por favor, informe o nome do projeto"
+								class="form-control input-md output-default" required="true"
+								requiredMessage="Por favor, informe o nome do projeto"
 								style="width: 100%" />
 							<br />
 							<!-- Textarea -->
-							<h:outputLabel styleClass="label-default"
-								value="Descrição: *" />
+							<h:outputLabel styleClass="label-default" value="Descrição: *" />
 							<h:inputTextarea
 								value="#{projetoCadastroMB.projetoDTO.projeto.descricao}"
 								class="form-control text-area" id="objetivo" name="objetivo"
-								required="true" requiredMessage="Por favor, informe a descrição do projeto" />
+								required="true"
+								requiredMessage="Por favor, informe a descrição do projeto" />
 						</p:panel>
 					</h:panelGroup>
 					<br />
@@ -46,7 +46,8 @@
 										value="Data de início *" />
 									<br />
 									<p:calendar value="#{projetoCadastroMB.projetoDTO.dataInicio}"
-										id="popupCalInicio" required="true" requiredMessage="Por favor, informe a data inicial do projeto"/>
+										id="popupCalInicio" required="true"
+										requiredMessage="Por favor, informe a data inicial do projeto" />
 								</h:panelGroup>
 								<h:panelGroup styleClass="col-md-4 column">
 								</h:panelGroup>
@@ -54,7 +55,8 @@
 									<h:outputLabel styleClass="label-default" value="Data final *" />
 									<br />
 									<p:calendar value="#{projetoCadastroMB.projetoDTO.dataFim}"
-										id="popupCalFim" required="true" requiredMessage="Por favor, informe a data final do projeto"/>
+										id="popupCalFim" required="true"
+										requiredMessage="Por favor, informe a data final do projeto" />
 								</h:panelGroup>
 
 							</h:panelGroup>
@@ -86,8 +88,8 @@
 															var="perf" itemValue="#{perf}"
 															converter="javax.faces.Enum" />
 													</p:selectOneMenu>
-													<p:effect type="pulsate" event="click" />
 												</h:panelGrid>
+												<p:effect type="pulsate" event="click" />
 											</p:panel>
 										</p:column>
 										<f:setPropertyActionListener value="#{teamProjeto}"
@@ -126,11 +128,13 @@
 									emptyMessage="Sem registros">
 									<h:commandLink immediate="true">
 										<p:column>
-											<p:panel header="#{item.nome}" style="text-align:center">
+											<p:panel header="#{item.nome}" style="text-align:center"
+												toggleable="true" toggleSpeed="500" collapsed="true">
 												<h:panelGrid columns="1" style="width:100%">
-													<p:outputLabel value="#{item.email}" />
-													<p:effect type="pulsate" event="click" />
+													<p:outputLabel styleClass="output-default"
+														value="#{item.email}" />
 												</h:panelGrid>
+												<p:effect type="pulsate" event="click" />
 											</p:panel>
 										</p:column>
 										<f:setPropertyActionListener value="#{item}"

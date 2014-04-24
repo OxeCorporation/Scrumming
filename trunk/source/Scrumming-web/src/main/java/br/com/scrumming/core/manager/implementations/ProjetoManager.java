@@ -161,7 +161,7 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 
 	@Override
 	public List<Projeto> consultarPorEmpresa(Integer empresaID) {
-		return projetoRepositorio.consultarPorEmpresa(empresaID);
+		return projetoRepositorio.consultarTodosPorEmpresa(empresaID);
 	}
 
 	@Override
