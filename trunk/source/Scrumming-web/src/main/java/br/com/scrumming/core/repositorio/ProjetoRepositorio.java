@@ -12,14 +12,15 @@ import org.springframework.stereotype.Repository;
 
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.domain.Projeto;
+import br.com.scrumming.domain.enuns.SituacaoProjetoEnum;
 
 @Repository
 public class ProjetoRepositorio extends AbstractRepositorio<Projeto, Integer> {
 
 	/**
 	 * Consulta Projeto pelo nome
-	 * @param nome Nome da Sprint
-	 * @return Uma colação de Sprints
+	 * @param nome Nome do projeto
+	 * @return Uma colação de projetos
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Projeto> consultarPorNome(String nome) {
@@ -30,12 +31,12 @@ public class ProjetoRepositorio extends AbstractRepositorio<Projeto, Integer> {
     }
 	
 	/**
-	 * Lista dos projetos da empresa.
+	 * Lista todos os projetos da empresa.
 	 * @param empresaID
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Projeto> consultarPorEmpresa(Integer empresaID) {
+	public List<Projeto> consultarTodosPorEmpresa(Integer empresaID) {
 		Criteria criteria = createCriteria();
         criteria.createAlias("empresa", "empresa");
         criteria.add(Restrictions.eq("empresa.codigo", empresaID));
@@ -43,10 +44,38 @@ public class ProjetoRepositorio extends AbstractRepositorio<Projeto, Integer> {
     }
 	
 	/**
-	 * Função que efetua a consulta da Sprint filtrando por um período específico.
+	 * Lista os projetos ativos da empresa.
+	 * @param empresaID
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Projeto> consultarAtivosPorEmpresa(Integer empresaID) {
+		Criteria criteria = createCriteria();
+        criteria.createAlias("empresa", "empresa");
+        criteria.add(Restrictions.eq("empresa.codigo", empresaID));
+        criteria.add(Restrictions.eq("situacaoProjeto", SituacaoProjetoEnum.ATIVO));
+        return Collections.checkedList(criteria.list(), Projeto.class);
+    }
+
+	/**
+	 * Lista os projetos concluidos da empresa.
+	 * @param empresaID
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Projeto> consultarConcluidosPorEmpresa(Integer empresaID) {
+		Criteria criteria = createCriteria();
+        criteria.createAlias("empresa", "empresa");
+        criteria.add(Restrictions.eq("empresa.codigo", empresaID));
+        criteria.add(Restrictions.eq("situacaoProjeto", SituacaoProjetoEnum.CONCLUIDO));
+        return Collections.checkedList(criteria.list(), Projeto.class);
+    }
+
+	/**
+	 * Função que efetua a consulta de Projetos filtrando por um período específico.
 	 * @param dataInicio Data de cadastro
 	 * @param dataFim Data de cadastro
-	 * @return Uma coleção de Sprints
+	 * @return Uma coleção de Projetos
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Projeto> consultarPorPeriodo(DateTime dataInicio, DateTime dataFim) {

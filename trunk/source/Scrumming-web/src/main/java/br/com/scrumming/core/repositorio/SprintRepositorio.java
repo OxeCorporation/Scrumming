@@ -27,4 +27,14 @@ public class SprintRepositorio extends AbstractRepositorio<Sprint, Integer> {
         criteria.addOrder(Order.asc("dataInicio"));
         return Collections.checkedList(criteria.list(), Sprint.class);
     }
+	
+	@SuppressWarnings("unchecked")
+	public List<Sprint> consultaTodasComExcessao(Integer projetoID, Integer sprintID) {
+		Criteria criteria = createCriteria();
+        criteria.createAlias("projeto", "projeto");
+        criteria.add(Restrictions.eq("projeto.codigo", projetoID));
+        criteria.add(Restrictions.not(Restrictions.eq("codigo", sprintID)));
+        criteria.addOrder(Order.asc("dataInicio"));
+        return Collections.checkedList(criteria.list(), Sprint.class);
+	}
 }

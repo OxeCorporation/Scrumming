@@ -36,27 +36,26 @@ public class ProjetoCadastroMB extends AbstractBean {
 	private ProjetoClientService projetoClientService;
 	@FlashScoped
 	private List<Usuario> usuarioEmpresaNotProjeto;
-	private List<Usuario> teamUsuario;
 	@FlashScoped
 	private List<Team> teamProjeto;
+
+	@SuppressWarnings("unused")
 	private List<PerfilUsuarioEnum> todosPerfis;
 	private SituacaoProjetoEnum situacao;
+	@SuppressWarnings("unused")
 	private List<SituacaoProjetoEnum> todasSituacoes;
 	private Usuario usuarioSelecionado;
 	private Team usuarioTeamSelecionado;
+
 	@ManagedProperty(value = "#{sessaoMB.empresaSelecionada}")
 	private Empresa empresa;
 	private Date dataInicio;
 	private Date dataFim;
+	@FlashScoped
+	private String titulo;
 
 	@Override
 	protected void inicializar() {
-		@SuppressWarnings("unused")
-		int o = 1;
-		if (teamUsuario == null) {
-			teamUsuario = new ArrayList<>();
-		}
-
 		if (usuarioEmpresaNotProjeto == null) {
 			usuarioEmpresaNotProjeto = new ArrayList<>();
 		}
@@ -70,33 +69,17 @@ public class ProjetoCadastroMB extends AbstractBean {
 		projetoClientService = new ProjetoClientService();
 	}
 
+	@SuppressWarnings("static-access")
 	public String salvarProjeto() {
 		String retorno = "";
-		Date projetoINI = projetoDTO.getDataInicio();
-		Date projetoFIM = projetoDTO.getDataFim();
-/*		if (projetoFIM.equals(projetoINI)) {
-			FacesMessageUtil
-					.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_ERRO_DATA_PROJETO_FIM_IGUAL);
-			retorno = redirecionar(PaginasUtil.Projeto.PROJETO_CADASTRO_PAGE);
-		} else if (projetoFIM.before(projetoINI)) {
-			FacesMessageUtil
-					.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_ERRO_DATA_PROJETO_FIM_MENOR);
-			retorno = redirecionar(PaginasUtil.Projeto.PROJETO_CADASTRO_PAGE);
-		} else if (projetoINI.before(new Date())) {
-			FacesMessageUtil
-					.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_ERRO_DATA_PROJETO_INICIO);
-			retorno = redirecionar(PaginasUtil.Projeto.PROJETO_CADASTRO_PAGE);
-		} else {
-*/
-			projetoDTO.getProjeto().setEmpresa(empresa);
-			projetoDTO.getProjeto().setSituacaoProjeto(situacao.ATIVO);
-			projetoDTO.setTimeProjeto(teamProjeto);
-			projetoDTO.setUsuarioEmpresaNotTeam(usuarioEmpresaNotProjeto);
-			String msg = projetoClientService.salvarProjeto(projetoDTO);
-			FacesMessageUtil
-					.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
-			retorno = redirecionar(PaginasUtil.Projeto.PROJETO_PAGE);
-	//	}
+		projetoDTO.getProjeto().setEmpresa(empresa);
+		projetoDTO.getProjeto().setSituacaoProjeto(situacao.ATIVO);
+		projetoDTO.setTimeProjeto(teamProjeto);
+		projetoDTO.setUsuarioEmpresaNotTeam(usuarioEmpresaNotProjeto);
+		String msg = projetoClientService.salvarProjeto(projetoDTO);
+		FacesMessageUtil
+				.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+		retorno = redirecionar(PaginasUtil.Projeto.PROJETO_PAGE);
 		return retorno;
 	}
 
@@ -114,7 +97,6 @@ public class ProjetoCadastroMB extends AbstractBean {
 			usuarioEmpresaNotProjeto = listToRemove;
 			Team teamNaLista = new Team();
 			teamNaLista.setUsuario(usuarioSelecionado);
-			// teamNaLista.setPerfilUsuario(perfilUsuario);
 			teamProjeto.add(teamNaLista);
 			usuarioSelecionado = null;
 		} else {
@@ -223,14 +205,6 @@ public class ProjetoCadastroMB extends AbstractBean {
 		this.todosPerfis = todosPerfis;
 	}
 
-	public List<Usuario> getTeamUsuario() {
-		return teamUsuario;
-	}
-
-	public void setTeamUsuario(List<Usuario> teamUsuario) {
-		this.teamUsuario = teamUsuario;
-	}
-
 	public SituacaoProjetoEnum getSituacao() {
 		return situacao;
 	}
@@ -287,4 +261,13 @@ public class ProjetoCadastroMB extends AbstractBean {
 			ProjetoClientService projetoClientService) {
 		this.projetoClientService = projetoClientService;
 	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+	
 }

@@ -13,7 +13,7 @@
 
 				<!-- ABA DOS PROJETOS ATIVOS -->
 				<p:tab id="tab1" title="Projetos Ativos" widgetVar="tab1">
-					<p:dataGrid var="projeto" value="#{projetoMB.projetosDaEmpresa}"
+					<p:dataGrid var="projeto" value="#{projetoMB.projetosAtivosDaEmpresa}"
 						columns="1" style="width:100%;"
 						target="#{projetoMB.projetoSelecionado}">
 						<p:panel styleClass="col-md-12 column">
@@ -65,7 +65,7 @@
 
 				<!-- ABA DOS PROJETOS FECHADOS -->
 				<p:tab id="tab2" title="Projetos Fechados">
-					<p:dataGrid var="projeto" value="#{projetoMB.projetosDaEmpresa}"
+					<p:dataGrid var="projeto" value="#{projetoMB.projetosConcluidosDaEmpresa}"
 						columns="1" style="width:100%;"
 						target="#{projetoMB.projetoSelecionado}">
 						<p:panel styleClass="col-md-12 column">
@@ -116,7 +116,7 @@
 
 				<!-- ABA DOS PROJETOS CANCELADOS -->
 				<p:tab id="tab3" title="Projetos Cancelados">
-					<p:dataGrid var="projeto" value="#{projetoMB.projetosDaEmpresa}"
+					<p:dataGrid var="projeto" value="#{projetoMB.projetoTodosDaEmpresa}"
 						columns="1" style="width:100%;"
 						target="#{projetoMB.projetoSelecionado}">
 						<p:panel styleClass="col-md-12 column">

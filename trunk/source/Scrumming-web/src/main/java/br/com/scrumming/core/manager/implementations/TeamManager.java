@@ -33,7 +33,6 @@ public class TeamManager extends AbstractManager<Team, TeamChave> implements
 	@Autowired
 	private IUsuarioEmpresaManager iUsuarioEmpresaManager;
 
-	private List<Usuario> usuarioForaProjeto = new ArrayList<>();
 
 	@Override
 	public AbstractRepositorio<Team, TeamChave> getRepositorio() {
@@ -97,10 +96,14 @@ public class TeamManager extends AbstractManager<Team, TeamChave> implements
 	@Transactional(readOnly = true)
 	public List<Usuario> consultarUsuarioPorEmpresaForaDoProjeto(
 			Integer projetoID, Integer empresaID) {
+		List<Usuario> usuarioForaProjeto = new ArrayList<>();
 
-		List<Usuario> usuarioEmpresa = iUsuarioEmpresaManager
+		List<Usuario> usuarioEmpresa = new ArrayList<>(); 
+			usuarioEmpresa = iUsuarioEmpresaManager
 				.consultarUsuarioPorEmpresa(empresaID);
-		List<Usuario> usuarioProjeto = teamRepositorio
+			
+		List<Usuario> usuarioProjeto = new ArrayList<>();
+				usuarioProjeto = teamRepositorio
 				.consultarUsuarioPorProjeto(projetoID);
 
 		for (int i = 0; i < usuarioEmpresa.size(); i++) {

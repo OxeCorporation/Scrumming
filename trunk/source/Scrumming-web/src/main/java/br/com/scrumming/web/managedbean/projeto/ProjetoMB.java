@@ -1,5 +1,6 @@
 package br.com.scrumming.web.managedbean.projeto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -25,7 +26,12 @@ public class ProjetoMB extends AbstractBean {
 	 */
 	private static final long serialVersionUID = 1L;
 	@FlashScoped
-	private List<Projeto> projetosDaEmpresa;
+	private List<Projeto> projetosAtivosDaEmpresa;
+	@FlashScoped
+	private List<Projeto> projetosConcluidosDaEmpresa;
+	@FlashScoped
+	private List<Projeto> projetoTodosDaEmpresa;
+
 	@FlashScoped
     private Projeto projeto;
     @FlashScoped
@@ -35,38 +41,41 @@ public class ProjetoMB extends AbstractBean {
     private ProjetoClientService clienteService;
     @ManagedProperty(value="#{sessaoMB.empresaSelecionada}")
     private Empresa empresa;
-    //@FlashScoped
-	//private List<Usuario> usuarioEmpresa;
     @FlashScoped
 	private List<Usuario> usuarioEmpresaNotProjeto;
     @FlashScoped
 	private List<Team> teamProjeto;
+    @FlashScoped
+    private String titulo;
 
     
     @Override
     public void inicializar() {
         clienteService = new ProjetoClientService();
         projeto = new Projeto();
-        projetosDaEmpresa = clienteService.consultarProjetosPorEmpresa(empresa.getCodigo());
+        projetoTodosDaEmpresa = clienteService.consultarProjetosPorEmpresa(empresa.getCodigo());
+        projetosAtivosDaEmpresa = clienteService.consultarProjetosAtivosPorEmpresa(empresa.getCodigo());
+        projetosConcluidosDaEmpresa = clienteService.consultarProjetosConcluidosPorEmpresa(empresa.getCodigo());
     }
     
-	public String consultarProjetoDTO() {
-		usuarioEmpresaNotProjeto=null;
+    public String consultarProjetoDTO() {
 		projetoDTO = clienteService.consultarProjtoDTO(projetoSelecionado.getCodigo());
+		projetoSelecionado = projetoDTO.getProjeto();
 		usuarioEmpresaNotProjeto = projetoDTO.getUsuarioEmpresaNotTeam();
 		teamProjeto = projetoDTO.getTimeProjeto();
+		setTitulo("Alteração de Projeto");
 		return projetoCadastroPage();
 	}
 
-    
 	public String consultarUsuarioEmpresa() {
-		usuarioEmpresaNotProjeto=null;
+		projetoDTO = new ProjetoDTO();
+		teamProjeto = new ArrayList<>();
 		usuarioEmpresaNotProjeto = clienteService.consultarUsuarioPorEmpresa(empresa.getCodigo());
+		setTitulo("Cadastro de Projeto");
 		return projetoCadastroPage();
 	}
 
 	public String consultarUsuarioForaDoProjeto() {
-		usuarioEmpresaNotProjeto=null;
 		usuarioEmpresaNotProjeto = clienteService.consultarUsuarioPorEmpresaForaDoProjeto(projetoSelecionado.getCodigo(), empresa.getCodigo());
 		return projetoCadastroPage();
 	}
@@ -131,12 +140,29 @@ public class ProjetoMB extends AbstractBean {
 		this.clienteService = clienteService;
 	}
 
-	public List<Projeto> getProjetosDaEmpresa() {
-		return projetosDaEmpresa;
+	public List<Projeto> getProjetosAtivosDaEmpresa() {
+		return projetosAtivosDaEmpresa;
 	}
 
-	public void setProjetosDaEmpresa(List<Projeto> projetosDaEmpresa) {
-		this.projetosDaEmpresa = projetosDaEmpresa;
+	public void setProjetosAtivosDaEmpresa(List<Projeto> projetosAtivosDaEmpresa) {
+		this.projetosAtivosDaEmpresa = projetosAtivosDaEmpresa;
+	}
+
+	public List<Projeto> getProjetosConcluidosDaEmpresa() {
+		return projetosConcluidosDaEmpresa;
+	}
+
+	public void setProjetosConcluidosDaEmpresa(
+			List<Projeto> projetosConcluidosDaEmpresa) {
+		this.projetosConcluidosDaEmpresa = projetosConcluidosDaEmpresa;
+	}
+
+	public List<Projeto> getProjetoTodosDaEmpresa() {
+		return projetoTodosDaEmpresa;
+	}
+
+	public void setProjetoTodosDaEmpresa(List<Projeto> projetoTodosDaEmpresa) {
+		this.projetoTodosDaEmpresa = projetoTodosDaEmpresa;
 	}
 
 	public Empresa getEmpresa() {
@@ -147,11 +173,12 @@ public class ProjetoMB extends AbstractBean {
 		this.empresa = empresa;
 	}
 
-/*	public List<Usuario> getUsuarioEmpresa() {
-		return usuarioEmpresa;
+	public String getTitulo() {
+		return titulo;
 	}
 
-	public void setUsuarioEmpresa(List<Usuario> usuarioEmpresa) {
-		this.usuarioEmpresa = usuarioEmpresa;
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
-*/}
+
+}

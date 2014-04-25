@@ -36,7 +36,6 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 
 	@Autowired
 	private TeamManager teamManage;
-	private SprintManager sprintManage;
 	private ItemBacklogManager itemBacklogManager;
 
 	@Override
@@ -96,8 +95,13 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 
 		// Cria o DTO que será enviado à tela para exibição
 		ProjetoDTO projetoDTO = new ProjetoDTO();
-		// Seta o Projeto
+		
 		Projeto projeto = new Projeto();
+	//	List<ItemBacklog> itensDisponiveis = new ArrayList<>();
+	//	List<ItemBacklog> sprintBacklog = new ArrayList<>();
+
+		// Seta o Projeto
+		//Projeto projeto = new Projeto();
 		projeto = (findByKey(projetoID));
 
 		projetoDTO.setProjeto(projeto);
@@ -157,13 +161,23 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 
 	@Override
 	public List<Projeto> consultarPorEmpresa(Integer empresaID) {
-		return projetoRepositorio.consultarPorEmpresa(empresaID);
+		return projetoRepositorio.consultarTodosPorEmpresa(empresaID);
 	}
 
 	@Override
 	public List<Projeto> consultarPorPeriodo(DateTime dataInicio,
 			DateTime dataFim) {
 		return projetoRepositorio.consultarPorPeriodo(dataInicio, dataFim);
+	}
+
+	@Override
+	public List<Projeto> consultarAtivosPorEmpresa(Integer empresaID) {
+		return projetoRepositorio.consultarAtivosPorEmpresa(empresaID);
+	}
+	
+	@Override
+	public List<Projeto> consultarConcluidosPorEmpresa(Integer empresaID) {
+		return projetoRepositorio.consultarConcluidosPorEmpresa(empresaID);
 	}
 
 	/* getters and setters */
@@ -174,4 +188,5 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 	public void setProjetoRepositorio(ProjetoRepositorio projetoRepositorio) {
 		this.projetoRepositorio = projetoRepositorio;
 	}
+
 }
