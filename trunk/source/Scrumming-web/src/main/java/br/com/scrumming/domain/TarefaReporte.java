@@ -23,13 +23,13 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity
-@Table(name = "ReporteTarefa")
-public class ReporteTarefa extends ObjetoPersistente<Integer> {
+@Table(name = "TarefaReporte")
+public class TarefaReporte extends ObjetoPersistente<Integer> {
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @Column(name = "PK_reporteTarefa")
+    @Column(name = "PK_tarefaReporte")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer codigo;
 	
@@ -128,7 +128,7 @@ public class ReporteTarefa extends ObjetoPersistente<Integer> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ReporteTarefa other = (ReporteTarefa) obj;
+		TarefaReporte other = (TarefaReporte) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
