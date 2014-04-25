@@ -18,9 +18,14 @@ import br.com.scrumming.core.repositorio.ProjetoRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.ProjetoDTO;
+import br.com.scrumming.domain.Sprint;
+import br.com.scrumming.domain.SprintBacklog;
+import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.Team;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 import br.com.scrumming.domain.enuns.SituacaoProjetoEnum;
+import br.com.scrumming.domain.enuns.SituacaoSprintEnum;
+import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
 @Service
 public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
@@ -37,6 +42,9 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 	@Autowired
 	private TeamManager teamManage;
 	private ItemBacklogManager itemBacklogManager;
+	private SprintBacklogManager sprintBacklogManager;
+	private SprintManager sprintManager;
+	private TarefaManager tarefaManager;
 
 	@Override
 	public AbstractRepositorio<Projeto, Integer> getRepositorio() {
@@ -52,9 +60,7 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 		int dia = new DateTime().getDayOfMonth();
 		int mes = new DateTime().getMonthOfYear();
 		int ano = new DateTime().getYear();
-		DateTime hoje=new DateTime(ano, mes, dia,0,0,0);
-		
-		
+		DateTime hoje = new DateTime(ano, mes, dia, 0, 0, 0);
 
 		if (projetoFIM.equals(projetoINI)) {
 			throw new NegocioException(
@@ -95,15 +101,11 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 
 		// Cria o DTO que será enviado à tela para exibição
 		ProjetoDTO projetoDTO = new ProjetoDTO();
-		
-		Projeto projeto = new Projeto();
-	//	List<ItemBacklog> itensDisponiveis = new ArrayList<>();
-	//	List<ItemBacklog> sprintBacklog = new ArrayList<>();
 
-		// Seta o Projeto
-		//Projeto projeto = new Projeto();
+		Projeto projeto = new Projeto();
 		projeto = (findByKey(projetoID));
 
+		// Seta o Projeto
 		projetoDTO.setProjeto(projeto);
 		projetoDTO.setDataInicio(projeto.getDataInicio().toDate());
 		projetoDTO.setDataFim(projeto.getDataFim().toDate());
@@ -146,12 +148,47 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 				projeto.setSituacaoProjeto(SituacaoProjetoEnum.CONCLUIDO);
 				projeto.setDataFim(DateTime.now());
 				insertOrUpdate(projeto);
+			} else {
+				List<Sprint> sprintsProjeto = sprintManager
+						.consultarPorProjeto(projeto.getCodigo());
+				for (int i = 0; i < sprintsProjeto.size(); i++) {
+					if (sprintsProjeto.get(i).getSituacaoSprint() != SituacaoSprintEnum.FECHADA) {
+						cancelarSprints(sprintsProjeto.get(i));
+					}
+				}
 			}
 		} else {
+
 			throw new NegocioException(
 					ConstantesMensagem.MENSAGEM_ERRO_DUPLICIDADE_DAILY);
 		}
 		return "";
+	}
+
+	private void cancelarSprints(Sprint sprint) {
+		List<ItemBacklog> itensBacklogDaSprint = sprintBacklogManager
+				.consultarSprintBacklog(sprint.getCodigo());
+		for (int j = 0; j < itensBacklogDaSprint.size(); j++) {
+			cancelarTarefas(itensBacklogDaSprint.get(j));
+		}
+		sprint.setSituacaoSprint(SituacaoSprintEnum.FECHADA);
+		sprintManager.insertOrUpdate(sprint);
+	}
+
+	private void cancelarTarefas(ItemBacklog itensBacklogDaSprint) {
+		List<Tarefa> tarefasItemBacklog = tarefaManager
+				.consultarPorItemBacklog(itensBacklogDaSprint.getCodigo());
+		if (tarefasItemBacklog != null) {
+			for (int i = 0; i < tarefasItemBacklog.size(); i++) {
+				if (tarefasItemBacklog.get(i).getSituacao() != SituacaoTarefaEnum.FEITO) {
+					Tarefa tarefa = new Tarefa();
+					tarefa = tarefasItemBacklog.get(i);
+					tarefa.setSituacao(SituacaoTarefaEnum.CANCELADO);
+					tarefaManager.salvar(tarefa,
+							itensBacklogDaSprint.getCodigo());
+				}
+			}
+		}
 	}
 
 	@Override
@@ -174,7 +211,7 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 	public List<Projeto> consultarAtivosPorEmpresa(Integer empresaID) {
 		return projetoRepositorio.consultarAtivosPorEmpresa(empresaID);
 	}
-	
+
 	@Override
 	public List<Projeto> consultarConcluidosPorEmpresa(Integer empresaID) {
 		return projetoRepositorio.consultarConcluidosPorEmpresa(empresaID);
