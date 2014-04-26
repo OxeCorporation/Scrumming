@@ -25,6 +25,14 @@ public class EmpresaClientService extends AbstractClientService {
 	}
 	
 	/**
+	 * Atualiza o nome da empresa
+	 * @param empresa
+	 */
+	public void atualizarEmpresa(Empresa empresa) {		
+		getRestTemplate().postForObject(getURIService(ConstantesService.Empresa.ATUALIZAR_EMPRESA), empresa, void.class);
+	}
+	
+	/**
 	 * Consultar Empresas pelo nome
 	 * @param Nome da Empresa
 	 * @return Uma lista de Empresas

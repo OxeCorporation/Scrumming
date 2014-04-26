@@ -81,6 +81,15 @@ public class EmpresaManager extends
     }
 
 	/**
+	 * Atualiza a Empresa.
+	 */
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void atualizarEmpresa(Empresa empresa) {
+		insertOrUpdate(empresa);
+	}
+	
+	/**
 	 * Consultar Empresas pelo nome
 	 * @param Nome da Empresa
 	 * @return Uma lista de Empresas

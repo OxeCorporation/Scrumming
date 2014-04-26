@@ -32,6 +32,11 @@ public class EmpresaService {
 		empresaManager.salvar(empresaDTO);
     }
 	
+	@RequestMapping(method = RequestMethod.POST, value = "/atualizar")
+	public void atualizarEmpresa(@RequestBody Empresa empresa) {
+		
+	}
+	
 	/**
 	 * Consultar Empresas pelo nome
 	 * @param Nome da Empresa

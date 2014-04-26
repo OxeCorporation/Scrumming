@@ -58,6 +58,7 @@ public final class ConstantesService {
 	}
 	public final class Empresa{
 		public static final String SALVAR_EMPRESA = "/empresa/salvar";
+		public static final String ATUALIZAR_EMPRESA = "/empresa/atualizar";
 		public static final String LISTAR_TODAS_EMPRESAS = "/empresa/listar";
 		public static final String CONSULTAR_POR_NOME = "/empresa/{nome}";
 		public static final String CONSULTAR_POR_CODIGO = "/empresa/{empresaID}";

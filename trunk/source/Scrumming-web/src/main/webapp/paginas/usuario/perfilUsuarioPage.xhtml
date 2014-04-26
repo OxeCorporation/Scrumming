@@ -9,15 +9,49 @@
 	template="/paginas/template/template.xhtml">
 
 	<ui:define name="conteudo">
+		
+		<div class="panel panel-default" style="width: 70%">
+  			<div class="panel-heading">
+  				<h:outputText value="#{mensagens.label_atualize_nome_empresa}" />
+  			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<div class="col-md-4">
+						<p:outputLabel value="#{mensagens.label_nome_empresa}" styleClass="control-label" />
+					</div>
+					<div class="col-md-4">
+						<p:inputText 
+							id="txtNomeEmpresa" 
+							styleClass="form-control input-md"
+					 		value="#{usuarioPerfilBean.empresa.nome}"/>
+					</div>					
+				</div>
+				<br/>
+				<br/>
+				<div class="form-group">
+					<div class="col-md-4">
+						<p:commandButton 
+							id="atualizarEmpresaButton" 
+							value="Atualizar" 
+							styleClass="col-md-12" 
+							action="#{usuarioPerfilBean.atualizarNomeEmpresa}"
+							process="txtNomeEmpresa" 
+							update="@form"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 		<div class="panel panel-default" style="width: 70%">
   			<div class="panel-heading">
   				<h:outputText value="#{mensagens.label_atualize_informacaoes}" />
   			</div>
-  				<div class="panel-body">
+			<div class="panel-body">
 			<div class="form-group">
 				<p:outputLabel value="#{mensagens.label_nome_usuario}" styleClass="col-md-4 control-label" for="txtNome"/>
 				<div class="col-md-4">
-					<p:inputText id="txtNome" placeholder="#{mesagens.label_digite_nome_usuario}" styleClass="form-control input-md"
+					<p:inputText 
+					id="txtNome" placeholder="#{mesagens.label_digite_nome_usuario}" styleClass="form-control input-md"
 					 value="#{usuarioPerfilBean.usuarioLogado.nome}"/>
 				</div>
 			</div>
@@ -52,7 +86,13 @@
 			<br/>
 			<div class="form-group">
 				<div class="col-md-4">
-					<p:commandButton id="atualizarButton" value="Atualizar" styleClass="col-md-12" action="#{usuarioPerfilBean.atualizar}" update="@form"/>
+					<p:commandButton 
+					id="atualizarButton" 
+					value="Atualizar" 
+					styleClass="col-md-12" 
+					action="#{usuarioPerfilBean.atualizar}"
+					process="txtNome, txtEmail, txtLogin, txtSenha" 
+					update="@form"/>
 				</div>
 			</div>
 		</div>

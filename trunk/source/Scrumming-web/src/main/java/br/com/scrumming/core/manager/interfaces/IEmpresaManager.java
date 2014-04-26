@@ -9,6 +9,8 @@ import br.com.scrumming.domain.EmpresaDTO;
 public interface IEmpresaManager extends IManager<Empresa, Integer> {
 	
 	void salvar(EmpresaDTO empresaDTO);
+	
+	void atualizarEmpresa(Empresa empresa);
 
 	List<Empresa> consultarPorNome(String nome);
 	
