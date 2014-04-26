@@ -56,6 +56,10 @@ public class UsuarioService {
     public void desativar(@PathVariable Integer usuarioID, @PathVariable Integer empresaID){
     	usuarioManager.desativar(usuarioID,empresaID);
     }
+    @RequestMapping(method = RequestMethod.POST, value = "/ativar/{usuarioID}/{empresaID}")
+    public void ativar(@PathVariable Integer usuarioID, @PathVariable Integer empresaID){
+    	usuarioManager.ativar(usuarioID,empresaID);
+    }
     public IUsuarioManager getUsuarioManager() {
         return usuarioManager;
     }

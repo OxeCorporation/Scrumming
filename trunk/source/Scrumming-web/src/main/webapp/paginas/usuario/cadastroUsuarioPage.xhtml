@@ -27,27 +27,39 @@
 						<h:outputText id="usuarioEmail" value="#{usuario.email}" /> <br/>
 						<f:facet name="footer">
 						  <div align="center">
-							<p:commandButton id="alterarBotao"
-								value="#{mensagens.botao_alterar}"
-								action="#{cadastroUsuarioBean.alterar}"
-								oncomplete="novoUsuarioModal.show()"
-								process="@this"
-								update="@form"
-								immediate="true">
-								
-								<f:setPropertyActionListener value="#{usuario}" target="#{cadastroUsuarioBean.usuario}" />
-							</p:commandButton>
-							<p:spacer />
-							<p:commandButton 
-							    id="excluirBotao"
-								value="#{mensagens.botao_desativar}" 
-								immediate="true" 
-								process="@this"
-								update="@widgetVar(confimDesativar)" 
-								oncomplete="confimDesativar.show()">
-								
-								<f:setPropertyActionListener value="#{usuario}" target="#{cadastroUsuarioBean.usuario}" />
-							</p:commandButton>
+								<p:commandButton id="alterarBotao"
+									value="#{mensagens.botao_alterar}"
+									action="#{cadastroUsuarioBean.alterar}"
+									oncomplete="novoUsuarioModal.show()"
+									process="@this"
+									update="@form"
+									immediate="true">
+									
+									<f:setPropertyActionListener value="#{usuario}" target="#{cadastroUsuarioBean.usuario}" />
+								</p:commandButton>
+								<p:spacer />
+								<p:commandButton 
+								    id="excluirBotao"
+									value="#{mensagens.botao_desativar}" 
+									immediate="true" 
+									process="@this"
+									update="@widgetVar(confimDesativar)" 
+									oncomplete="confimDesativar.show()"
+									rendered="#{usuario.ativo}">
+									
+									<f:setPropertyActionListener value="#{usuario}" target="#{cadastroUsuarioBean.usuario}" />
+								</p:commandButton>
+								<p:commandButton 
+								  id="ativarBotao" 
+								  immediate="true" 
+								  rendered="#{not usuario.ativo}"
+								  process="@this"
+								  update="@form"
+								  action="#{cadastroUsuarioBean.ativar}">
+								  
+								  	<f:setPropertyActionListener value="#{usuario}" target="#{cadastroUsuarioBean.usuario}" />
+								  	
+								 </p:commandButton>
 							</div>
 						</f:facet>
 					</p:panel>	

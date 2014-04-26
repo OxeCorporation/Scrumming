@@ -1,6 +1,7 @@
 package br.com.scrumming.web.clientService;
 
 import org.springframework.http.HttpEntity;
+
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.infra.AbstractClientService;
 import br.com.scrumming.web.infra.ConstantesService;
@@ -34,6 +35,12 @@ public class UsuarioClientService extends AbstractClientService {
 	public void desativarUsuario(Integer usuarioID, Integer empresaID) {
 		getRestTemplate().postForObject(
 				getURIService(ConstantesService.Usuario.DESATIVAR_USUARIO),
+				HttpEntity.EMPTY, void.class, usuarioID, empresaID);
+	}
+
+	public void ativarUsuario(Integer usuarioID, Integer empresaID) {
+		getRestTemplate().postForObject(
+				getURIService(ConstantesService.Usuario.ATIVAR_USUARIO),
 				HttpEntity.EMPTY, void.class, usuarioID, empresaID);
 	}
 }

@@ -26,7 +26,6 @@ public class UsuarioEmpresaRepositorio extends AbstractRepositorio<UsuarioEmpres
         criteria.addOrder(Order.asc("usuarioAlias.nome"));
         criteria.add(Restrictions.eq("empresaAlias.codigo", empresaID));
         criteria.add(Restrictions.eq("usuarioAlias.empresa", false));
-        criteria.add(Restrictions.eq("ativo", true));
         criteria.setProjection(Projections.property("usuario"));
         return Collections.checkedList(criteria.list(), Usuario.class);
 	}

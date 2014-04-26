@@ -2,8 +2,6 @@ package br.com.scrumming.core.manager.implementations;
 
 import java.util.List;
 
-import javax.faces.context.FacesContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,6 +77,26 @@ public class UsuarioManager extends AbstractManager<Usuario, Integer> implements
 		}
 	}
 
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void desativar(Integer usuarioID, Integer empresaID) {
+		ativarDesativar(false, usuarioID, empresaID);
+	}
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void ativar(Integer usuarioID, Integer empresaID) {
+		ativarDesativar(true, usuarioID, empresaID);
+	}
+	
+	private void ativarDesativar(boolean ativar, Integer usuarioID,Integer empresaID){
+		Usuario usuario = findByKey(usuarioID);
+		Empresa empresa = empresaManager.findByKey(empresaID);
+		
+		UsuarioEmpresa usuarioEmpresa = usuarioEmpresaManager.findByKey(new UsuarioEmpresaChave(empresa, usuario));
+		usuarioEmpresa.setAtivo(ativar);
+		usuarioEmpresaManager.insertOrUpdate(usuarioEmpresa);
+	}
+	
 	/* getters and sertters */
     public UsuarioRepositorio getUsuarioRepositorio() {
         return usuarioRepositorio;
@@ -108,16 +126,5 @@ public class UsuarioManager extends AbstractManager<Usuario, Integer> implements
 	public void setUsuarioEmpresaManager(
 			IUsuarioEmpresaManager usuarioEmpresaManager) {
 		this.usuarioEmpresaManager = usuarioEmpresaManager;
-	}
-
-	@Override
-	public void desativar(Integer usuarioID, Integer empresaID) {
-
-		Usuario usuario = findByKey(usuarioID);
-		Empresa empresa = empresaManager.findByKey(empresaID);
-		
-		UsuarioEmpresa usuarioEmpresa = usuarioEmpresaManager.findByKey(new UsuarioEmpresaChave(empresa, usuario));
-		usuarioEmpresa.setAtivo(false);
-		usuarioEmpresaManager.insertOrUpdate(usuarioEmpresa);
 	}
 }

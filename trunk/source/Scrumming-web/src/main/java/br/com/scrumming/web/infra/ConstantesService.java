@@ -9,6 +9,7 @@ public final class ConstantesService {
 		public static final String SALVAR_USUARIO = "/usuario/usu";
 		public static final String SALVAR_USUARIO_EMP = "/usuario/usu/{empresaID}";
 		public static final String DESATIVAR_USUARIO = "/usuario/desativar/{usuarioID}/{empresaID}";
+		public static final String ATIVAR_USUARIO = "/usuario/ativar/{usuarioID}/{empresaID}";
 		public static final String URL_CONSULTAR = "/usuario/id/{usuarioID}";
 	}
 	

@@ -6,6 +6,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.commons.lang3.StringUtils;
+
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
@@ -72,9 +74,15 @@ public class CadastroUsuarioBean extends AbstractBean {
     	usuarioClientService.desativarUsuario(usuario.getCodigo(),empresa.getCodigo());
     	atualizarLista();
     	mensagemSucesso();
-        return "";
+    	return StringUtils.EMPTY;
     }
 
+    public String ativar(){
+    	usuarioClientService.ativarUsuario(usuario.getCodigo(),empresa.getCodigo());
+    	atualizarLista();
+    	mensagemSucesso();
+    	return StringUtils.EMPTY;
+    }
     /* getters and setters */
 
     public List<Usuario> getUsuarios() {

@@ -14,4 +14,6 @@ public interface IUsuarioManager extends IManager<Usuario, Integer> {
     void salvarUsuario(Usuario usuario, Integer empresaID);
 
 	void desativar(Integer usuarioID, Integer empresaID);
+
+	void ativar(Integer usuarioID, Integer empresaID);
 }
