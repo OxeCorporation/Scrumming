@@ -35,4 +35,12 @@ public class UsuarioRepositorio extends AbstractRepositorio<Usuario, Integer> {
         criteria.setProjection(Projections.property("usuario"));
         return (Usuario) criteria.uniqueResult();
     }
+    
+    public boolean existeEmail(String email){
+    	return consultarPorCampo("email", email).size() > 0;
+    }
+    
+    public boolean existeLogin(String login){
+    	return consultarPorCampo("login", login).size() > 0;
+    }
 }

@@ -8,7 +8,7 @@
 
 	<p:dialog id="novoUsuarioModal" widgetVar="novoUsuarioModal"
 		modal="true" closable="false" draggable="false" width="450" height="350" resizable="false"
-		header="#{mensagens.label_cadastro_usuarios}" styleClass="panel-heading" visible="#{facesContext.validationFailed}">
+		header="#{mensagens.label_cadastro_usuarios}" styleClass="panel-heading" visible="#{empty facesContext.messageList and facesContext.validationFailed}">
 
 			<p:messages id="messagesNovoUsuario"  showDetail="true" autoUpdate="true" showSummary="false" closable="true" />
 			<br/>

@@ -94,4 +94,51 @@ public class UsuarioRepositorioTest extends AbstractRepositorioTest {
 
         Assert.assertNull(usuario);
     }
+    
+    @Test
+    public void verificarExisteLogin(){
+    	Usuario usuario1 = UsuarioUtil.criar("esdras");
+    	Usuario usuario2 = UsuarioUtil.criar("joaquim");
+    	save(usuario1,usuario2);
+    	
+    	boolean existeLogin = usuarioRepositorio.existeLogin("daniel");
+    	
+    	Assert.assertFalse(existeLogin);
+    }
+    
+    @Test
+    public void verificarExisteLoginErro(){
+    	Usuario usuario1 = UsuarioUtil.criar("esdras");
+    	Usuario usuario2 = UsuarioUtil.criar("daniel");
+    	save(usuario1,usuario2);
+    	boolean existeLogin = usuarioRepositorio.existeLogin("daniel");
+    	
+    	Assert.assertTrue(existeLogin);
+    }
+    
+    @Test
+    public void verificarExisteEmail(){
+    	Usuario usuario1 = UsuarioUtil.criar("esdras");
+    	usuario1.setEmail("esdras@domain.com");
+    	Usuario usuario2 = UsuarioUtil.criar("joaquim");
+    	usuario2.setEmail("joaquim@domain.com");
+    	save(usuario1,usuario2);
+    	
+    	boolean existeEmail = usuarioRepositorio.existeEmail("blabla@gmail.com");
+    	
+    	Assert.assertFalse(existeEmail);
+    }
+    
+    @Test
+    public void verificarExisteEmailErro(){
+    	Usuario usuario1 = UsuarioUtil.criar("esdras");
+    	usuario1.setEmail("esdras@domain.com");
+    	Usuario usuario2 = UsuarioUtil.criar("joaquim");
+    	usuario2.setEmail("joaquim@domain.com");
+    	save(usuario1,usuario2);
+    	
+    	boolean existeEmail = usuarioRepositorio.existeEmail("joaquim@domain.com");
+    	
+    	Assert.assertTrue(existeEmail);
+    }
 }

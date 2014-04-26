@@ -2,12 +2,16 @@ package br.com.scrumming.core.manager.implementations;
 
 import java.util.List;
 
+import javax.faces.context.FacesContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.scrumming.core.infra.exceptions.NegocioException;
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
+import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.core.manager.interfaces.IEmpresaManager;
 import br.com.scrumming.core.manager.interfaces.IUsuarioEmpresaManager;
 import br.com.scrumming.core.manager.interfaces.IUsuarioManager;
@@ -49,6 +53,7 @@ public class UsuarioManager extends AbstractManager<Usuario, Integer> implements
 	@Override
 	public void salvarUsuario(Usuario usuario, Integer empresaID) {
 		
+		validarUsuario(usuario);
 		Empresa empresa = empresaManager.findByKey(empresaID);
 		
 		usuario.setAtivo(true);
@@ -62,7 +67,19 @@ public class UsuarioManager extends AbstractManager<Usuario, Integer> implements
 		usuarioEmpresaManager.insertOrUpdate(usuarioEmpresa);
 	}
     
-    /* getters and sertters */
+	private void validarUsuario(Usuario usuario) {
+		boolean existeEmail = usuarioRepositorio.existeEmail(usuario.getEmail());
+		boolean existeLogin = usuarioRepositorio.existeLogin(usuario.getLogin());
+		if(existeEmail){
+			throw new NegocioException(ConstantesMensagem.ERRO_EMAIL_JA_EXISTE);
+		}
+		
+		if(existeLogin){
+			throw new NegocioException(ConstantesMensagem.ERRO_LOGIN_JA_EXISTE);
+		}
+	}
+
+	/* getters and sertters */
     public UsuarioRepositorio getUsuarioRepositorio() {
         return usuarioRepositorio;
     }
