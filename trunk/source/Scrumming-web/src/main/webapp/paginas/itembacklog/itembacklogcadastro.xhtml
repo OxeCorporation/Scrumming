@@ -9,6 +9,7 @@
 	          modal="true" var="exec" resizable="false" widgetVar="dlgItemSave"
 	          visible="#{facesContext.validationFailed}">
 		<h:outputStylesheet library="css" name="scrumming.css" />
+		<h:outputScript library="js" name="scrumming.js" />
 		<f:facet name="header">
 			<h:outputText styleClass="label-page-title" value="#{itemBacklogMB.projetoSelecionado.nome}" />
 		</f:facet>
@@ -33,6 +34,7 @@
 								 requiredMessage="Informe o Critério de Aceitação" 
 								 value="#{itemBacklogMB.itemBacklog.criterioAceitacao}" />
 				<br/>
+				<!-- SLIDER DO VALOR DE NEGÓCIO -->
 				<p:toolbarGroup align="left">
 					<h:outputText id="outValorNegocio" value="#{mensagens.label_valor_negocio}" style="color:black" />
 					<h:outputText id="outValueVN" value="#{itemBacklogMB.itemBacklog.valorNegocio}" style="float:right" />
@@ -42,14 +44,12 @@
 						  style="width:200px; color:black; width:100%" 
 						  displayTemplate="{value}" step="5" />
 				<br/>
-				<p:toolbarGroup align="left">
-					<h:outputText id="outStoryPoint" value="#{mensagens.label_story_points}"/>
-					<h:outputText id="outValueSP" value="#{itemBacklogMB.itemBacklog.storyPoints}" style="float:right;" />
-				</p:toolbarGroup>
-				<h:inputHidden id="txtStoryPoint" value="#{itemBacklogMB.itemBacklog.storyPoints}" style="float:left; color:black; width:100%"/>
-				<p:slider for="txtStoryPoint" display="outValueSP" 
-						  style="width:200px; float:left; width:100%" 
-						  displayTemplate="{value}"  step="5" />
+				<!-- SLIDER DO STORY POINT -->
+				<h:outputText id="outStoryPoint" value="#{mensagens.label_story_points}"/>
+				
+				<h:outputText id="outValueSP" value="" style="float:right;" />
+				<div  id="slider"></div>
+				
 				
 			</h:panelGrid> 
 		</p:panel>
