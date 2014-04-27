@@ -3,6 +3,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	template="/paginas/template/template.xhtml">
 
 	<!-- CORPO DA TELA DA PROJETO -->
@@ -66,7 +67,7 @@
 					<!-- *********************************************************************************************** -->
 					<p:fieldset id="fieldsetTables" widgetVar="fieldsetTables">
 
-						<h:panelGroup styleClass="col-md-5 column">
+						<!-- 						<h:panelGroup styleClass="col-md-5 column">
 							<p:panel>
 								<f:facet name="header">
 									<h:outputText value="Time do Projeto" />
@@ -143,7 +144,56 @@
 								</p:dataGrid>
 							</p:panel>
 						</h:panelGroup>
+ -->
+						<style>
+.painel {
+	margin: 10px;
+	box-shadow: 6px 10px 6px #888888;
+}
 
+#lista {
+	display: table;
+}
+
+.item {
+	float: right;
+	margin-right: 10px;
+}
+
+.ui-dashboard {
+	margin-left: -5px;
+}
+
+.ui-dashboard-column {
+	width: 45%;
+	margin-left: 20px;
+	border-radius: 5px;
+	border-style: solid;
+	border-color: rgb(166, 201, 226);
+}
+</style>
+						<table width="100%" style="margin-left: -5px">
+							<tr align="center">
+								<td width="50%">
+									<h3>Time do projeto</h3>
+								</td>
+								<td width="50%">
+									<h3>Usuário disponível</h3>
+								</td>
+							</tr>
+						</table>
+						<div class="row">
+							<p:dashboard id="dashboard" model="#{projetoCadastroMB.dashboardModel}">
+
+								<p:ajax event="reorder" listener="#{projetoCadastroMB.handleReorder}" />
+								<c:forEach var="list" items="#{projetoCadastroMB.usuariosList}">
+									<p:panel id="task_id_#{list.usuario.codigo}" header="#{list.usuario.nome}"
+										styleClass="painel">
+										<h:outputText value="#{list.usuario.email}" />
+									</p:panel>
+								</c:forEach>
+							</p:dashboard>
+						</div>
 					</p:fieldset>
 					<!-- *********************************************************************************************** -->
 					<br />

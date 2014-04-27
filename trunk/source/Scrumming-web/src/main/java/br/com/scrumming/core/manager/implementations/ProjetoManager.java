@@ -19,7 +19,6 @@ import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.ProjetoDTO;
 import br.com.scrumming.domain.Sprint;
-import br.com.scrumming.domain.SprintBacklog;
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.Team;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
