@@ -53,8 +53,11 @@
 
 				<p:ajax event="reorder" listener="#{boardBean.handleReorder}" />
 				<c:forEach var="tarefa" items="#{boardBean.tarefas}">
-					<p:panel id="task_id_#{tarefa.codigo}" header="#{tarefa.nome}"
-						styleClass="painel">
+					<p:panel id="task_id_#{tarefa.codigo}" styleClass="painel">
+						<f:facet name="header" > 
+							<h:outputText value="#{tarefa.nome}" style="cursor: move"/>
+						</f:facet>
+						
 						<h:outputText value="#{tarefa.descricao}" />
 					</p:panel>
 				</c:forEach>

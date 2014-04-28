@@ -9,7 +9,7 @@
 		modal="true" resizable="false" widgetVar="dlgTarefaReporte"
 		visible="#{facesContext.validationFailed}">
 		<p:panel>
-			<h:panelGrid columns="1" id="panelTarefa" style="width: 500px">
+			<h:panelGrid columns="1" id="panelTarefaReporte" style="width: 500px">
 				<div class="col-md-12 column">
 					<h:outputLabel value="mensagens.label_data" />									
 					<p:calendar id="dataReporte" value="#{tarefaReporteMB.tarefaReporte.dataReporte}" />
@@ -17,12 +17,12 @@
 				
 				<div class="col-md-6 column">
 					<h:outputText value="#{mensagens.label_tempo_reportado}" /> 
-					<p:inputText id="tempoEstimado" value="#{tarefaReporteMB.tarefaReporte.tempoReportado}" />	
+					<p:inputText id="tempoReportado" value="#{tarefaReporteMB.tarefaReporte.tempoReportado}" />	
 				</div>	
 				
 				<div class="col-md-6 column">
 					<h:outputText value="#{mensagens.label_tempo_restante}" /> 
-					<p:inputText id="tempoEstimado" value="#{tarefaReporteMB.tarefaReporte.TempoRestante}" />
+					<p:inputText id="tempoRestante" value="#{tarefaReporteMB.tarefaReporte.tempoRestante}" />
 				</div>					
 			</h:panelGrid>
 		</p:panel>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
@@ -156,6 +157,13 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 				insertOrUpdate(sprintBacklogBusca);
 			}
 		}		
+	}
+
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Tarefa> consultarTarefasPorSprint(Integer sprintID) {
+		return sprintBacklogRepositorio.consultarTarefasPorSprint(sprintID);
 	}
 
 	/* getters and setters */

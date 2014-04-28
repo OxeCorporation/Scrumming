@@ -16,6 +16,7 @@ import br.com.scrumming.core.manager.interfaces.ISprintManager;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
+import br.com.scrumming.domain.Tarefa;
 
 @RestController
 @RequestMapping("/sprint")
@@ -40,7 +41,10 @@ public class SprintService {
     public void fechar(@RequestBody Sprint sprint) {
     	sprintManager.fecharSprint(sprint);
     }
-    
+    @RequestMapping(method = RequestMethod.GET, value = "/sprintBacklog/tarefas/{sprintID}")
+    public List<Tarefa> consultarTarefasPorSprint(@PathVariable Integer sprintID){
+    	return sprintBacklogManager.consultarTarefasPorSprint(sprintID);
+    }
     /*GETS*/
     @RequestMapping(method = RequestMethod.GET, value = "/list/{projetoId}")
     public List<Sprint> consultarPorProjeto(@PathVariable Integer projetoId) {
