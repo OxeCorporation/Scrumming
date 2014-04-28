@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -13,6 +14,7 @@ import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
 import br.com.scrumming.domain.SprintBacklogChave;
+import br.com.scrumming.domain.Tarefa;
 
 @Repository
 public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog, SprintBacklogChave> {
@@ -55,7 +57,7 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
 	 * @param item
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings(UNCHECKED)
 	public List<SprintBacklog> consultarAtivoPorItem(ItemBacklog item) {
 		Criteria criteria = createCriteria();
 		criteria.add(Restrictions.eq("itemBacklog", item));
@@ -68,7 +70,7 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
 	 * @param sprint
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings(UNCHECKED)
 	public List<SprintBacklog> listarAtivosPorSprint(Sprint sprint) {
 		Criteria criteria = createCriteria();
 		criteria.add(Restrictions.eq("sprint", sprint));
@@ -81,12 +83,27 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
 	 * @param sprintID
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings(UNCHECKED)
 	public List<ItemBacklog> consultarItensSprintBacklogPorSprint(Integer sprintID) {
         Criteria criteria = createCriteria();
         criteria.createAlias("sprint", "sprint");
         criteria.add(Restrictions.eq("sprint.codigo", sprintID));
         criteria.setProjection(Projections.property("itemBacklog"));
         return Collections.checkedList(criteria.list(), ItemBacklog.class);
+	}
+	
+	@SuppressWarnings(UNCHECKED)
+	public List<Tarefa> consultarTarefasPorSprint(Integer sprintID){
+		
+		Criteria criteria = createCriteria();
+		criteria.createAlias("itemBacklog", "itemBacklogAlias");
+		criteria.createAlias("sprint", "sprintAlias");
+		criteria.createAlias("itemBacklogAlias.tarefas", "tarefa");
+		criteria.add(Restrictions.eq("sprintAlias.codigo", sprintID));
+		
+		ProjectionList projectionList = Projections.projectionList();
+		projectionList.add(Projections.property("itemBacklogAlias.tarefas"));
+		criteria.setProjection(projectionList);
+		return Collections.checkedList(criteria.list(), Tarefa.class);
 	}
 }

@@ -21,7 +21,7 @@ import br.com.scrumming.core.infra.exceptions.RepositoryException;
 public abstract class AbstractRepositorio<Entidade extends ObjetoPersistente<Chave>, Chave extends Serializable>
 		implements Repositorio<Entidade, Chave> {
 
-	private static final String UNCHECKED = "unchecked";
+	protected static final String UNCHECKED = "unchecked";
 
 	@Autowired
 	private SessionFactory sessionFactory;

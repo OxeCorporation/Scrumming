@@ -7,6 +7,7 @@ import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
 import br.com.scrumming.domain.SprintBacklogChave;
+import br.com.scrumming.domain.Tarefa;
 
 public interface ISprintBacklogManager extends IManager<SprintBacklog, SprintBacklogChave> {
 
@@ -18,4 +19,5 @@ public interface ISprintBacklogManager extends IManager<SprintBacklog, SprintBac
 	List<ItemBacklog> consultarSprintBacklog(Integer sprintID);
 	List<SprintBacklog> consultarAtivoPorItem(ItemBacklog item);
 	List<SprintBacklog> listarAtivosPorSprint(Sprint sprint);
+	List<Tarefa> consultarTarefasPorSprint(Integer sprintID);
 }

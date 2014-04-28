@@ -14,6 +14,7 @@ import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.core.manager.interfaces.IProjetoManager;
+import br.com.scrumming.core.manager.interfaces.ISprintBacklogManager;
 import br.com.scrumming.core.repositorio.ProjetoRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
@@ -41,7 +42,7 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 	@Autowired
 	private TeamManager teamManage;
 	private ItemBacklogManager itemBacklogManager;
-	private SprintBacklogManager sprintBacklogManager;
+	private ISprintBacklogManager sprintBacklogManager;
 	private SprintManager sprintManager;
 	private TarefaManager tarefaManager;
 

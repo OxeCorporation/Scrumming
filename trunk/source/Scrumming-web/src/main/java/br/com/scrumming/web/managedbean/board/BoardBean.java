@@ -13,8 +13,11 @@ import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
 import org.primefaces.model.DefaultDashboardModel;
 
+import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
+import br.com.scrumming.web.clientService.SprintClientService;
+import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.bean.AbstractBean;
 @ManagedBean
 @ViewScoped
@@ -28,13 +31,16 @@ public class BoardBean extends AbstractBean {
 	private DashboardModel dashboardModel;
 	private List<Tarefa> tarefas = criarFaceTarefa();
 	private static final String PREFIX_TASK = "task_id_";
+	private SprintClientService sprintService;
 	
-	
+	@FlashScoped
+	private Sprint sprintSelecionada;
 	@Override
 	protected void inicializar() {
+		sprintService = new SprintClientService();
+//		tarefas = sprintService.consultarTarefasPorSprint(sprintSelecionada.getCodigo());
 		init();
 	}
-	
 	private void init() {
 		dashboardModel = new DefaultDashboardModel();
 		DashboardColumn toDo = new DefaultDashboardColumn();
@@ -137,5 +143,17 @@ public class BoardBean extends AbstractBean {
 
 	public void setTarefas(List<Tarefa> tarefas) {
 		this.tarefas = tarefas;
+	}
+	public SprintClientService getSprintService() {
+		return sprintService;
+	}
+	public void setSprintService(SprintClientService sprintService) {
+		this.sprintService = sprintService;
+	}
+	public Sprint getSprintSelecionada() {
+		return sprintSelecionada;
+	}
+	public void setSprintSelecionada(Sprint sprintSelecionada) {
+		this.sprintSelecionada = sprintSelecionada;
 	}
 }

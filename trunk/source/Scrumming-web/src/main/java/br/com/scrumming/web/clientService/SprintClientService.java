@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import br.com.scrumming.core.service.TarefaService;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
+import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.web.infra.AbstractClientService;
 import br.com.scrumming.web.infra.ConstantesService;
 
@@ -66,5 +68,15 @@ public class SprintClientService extends AbstractClientService {
 	 */
 	public void fecharSprint(Sprint sprint) {
 		getRestTemplate().postForObject(getURIService(ConstantesService.Sprint.URL_FECHAR_SPRINT), sprint, void.class);
+	}
+	/**
+	 * Consulta as tarefas por Sprint
+	 * 
+	 * @param sprintID
+	 * @return List<Tarefa>
+	 */
+	public List<Tarefa> consultarTarefasPorSprint(Integer sprintID){
+		Tarefa[] tarefas = getRestTemplate().getForObject(getURIService(ConstantesService.Sprint.URI_CONSULTAR_TEREFAS), Tarefa[].class, sprintID);
+		return Arrays.asList(tarefas);
 	}
 }
