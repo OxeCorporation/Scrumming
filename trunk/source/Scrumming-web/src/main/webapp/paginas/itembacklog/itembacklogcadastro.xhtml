@@ -45,10 +45,16 @@
 						  displayTemplate="{value}" step="5" />
 				<br/>
 				<!-- SLIDER DO STORY POINT -->
-				<h:outputText id="outStoryPoint" value="#{mensagens.label_story_points}"/>
 				
-				<h:outputText id="outValueSP" value="" style="float:right;" />
+				<p:toolbarGroup align="left">
+					<h:outputText id="outStoryPoint" value="#{mensagens.label_story_points}"/>
+					<div id="valor" style="float:right">
+					</div>
+										
+				</p:toolbarGroup>
+				
 				<div  id="slider"></div>
+				
 				
 				
 			</h:panelGrid> 
