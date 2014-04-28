@@ -23,7 +23,8 @@
 						<p:inputText 
 							id="txtNomeEmpresa" 
 							styleClass="form-control input-md"
-					 		value="#{usuarioPerfilBean.empresa.nome}"/>
+					 		value="#{usuarioPerfilBean.empresa.nome}"
+					 		disabled="#{!sessaoMB.usuario.empresa}" />
 					</div>					
 				</div>
 				<br/>
@@ -36,7 +37,8 @@
 							styleClass="col-md-12" 
 							action="#{usuarioPerfilBean.atualizarNomeEmpresa}"
 							process="txtNomeEmpresa" 
-							update="@form"/>
+							update="@form"
+							rendered="#{sessaoMB.usuario.empresa}"/>
 					</div>
 				</div>
 			</div>
