@@ -45,17 +45,14 @@
 						  displayTemplate="{value}" step="5" />
 				<br/>
 				<!-- SLIDER DO STORY POINT -->
-				
 				<p:toolbarGroup align="left">
-					<h:outputText id="outStoryPoint" value="#{mensagens.label_story_points}"/>
-					<div id="valor" style="float:right">
-					</div>
-										
+					<h:outputText id="outStoryPoint" value="#{mensagens.label_story_points}" style="color:black" />
+					<h:outputText id="outValueSP" value="#{itemBacklogMB.number}" style="float:right" />
 				</p:toolbarGroup>
-				
-				<div  id="slider"></div>
-				
-				
+				<h:inputHidden id="txtValorSP" value="#{itemBacklogMB.number}" style="color:black; width:100%"/>
+				<p:slider for="txtValorSP" display="outValueSP" 
+						  style="width:200px; color:black; width:100%" 
+						  displayTemplate="{value}" maxValue="9" step="1" />
 				
 			</h:panelGrid> 
 		</p:panel>

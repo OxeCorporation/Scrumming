@@ -9,12 +9,12 @@ import javax.faces.context.FacesContext;
 
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
-import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.web.clientService.ItemBacklogClientService;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
 import br.com.scrumming.web.infra.bean.AbstractBean;
 
+@SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
 public class ItemBacklogMB extends AbstractBean {
@@ -27,6 +27,7 @@ public class ItemBacklogMB extends AbstractBean {
     private ItemBacklogClientService clienteService;
     @FlashScoped
     private Projeto projetoSelecionado;
+    private Integer number;
    
     @Override
     public void inicializar() {
@@ -39,6 +40,7 @@ public class ItemBacklogMB extends AbstractBean {
     /*Funções específicas da tela*/
 	public String salvarItemBacklog() {
 		itemBacklog.setProjeto(projetoSelecionado);
+		itemBacklog.setStoryPoints(number);
 		clienteService.salvarItemBacklog(itemBacklog);
 		atualizarListaDeItens();
 		
@@ -62,6 +64,7 @@ public class ItemBacklogMB extends AbstractBean {
     
     public void alterar(){
     	itemBacklog= itemSelecionado;
+    	number = numValor(itemBacklog.getStoryPoints());
     }
     
     public void preparaParaInserir() {
@@ -78,6 +81,33 @@ public class ItemBacklogMB extends AbstractBean {
     	clienteService.consultarItemPorID(itemBacklog.getChave());
     	return "";
     }
+    
+	private Integer numValor(Integer numero) {
+		Integer num = 0;
+		if (numero == 0){
+			return num = 0;
+		}else if (numero == 1){
+			return num = 1;
+		}else if (numero == 2){
+			return num = 2;
+		}else if (numero == 3){
+			return num = 3;
+		}else if (numero == 5){
+			return num = 4;
+		}else if (numero == 8){
+			return num = 5;
+		}else if (numero == 13){
+			return num = 6;
+		}else if (numero == 21){
+			return num = 7;
+		}else if (numero == 34){
+			return num = 8;
+		}else if (numero == 55){
+			return num = 9;
+		}else{
+			return num;
+		}
+	}
     
     /*Métodos para redirecionamento das páginas*/
     public String itemBacklogCadastroPage(){
@@ -97,8 +127,48 @@ public class ItemBacklogMB extends AbstractBean {
     }
 
     /* getters and setters */
+    
     public List<ItemBacklog> getItens() {
 		return itens;
+	}
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+
+		if (number == 0) {
+    		this.number = 0;
+        	return;
+        }else if(number == 1){
+    		this.number = 1;
+        	return;
+        }else if(number == 2){
+    		this.number = 2;
+        	return;
+        }else if(number == 3){
+    		this.number = 3;
+        	return;
+        }else if(number == 4){
+    		this.number = 5;
+        	return;
+        }else if(number == 5){
+    		this.number = 8;
+        	return;
+        }else if(number == 6){
+    		this.number = 13;
+        	return;
+        }else if(number == 7){
+    		this.number = 21;
+        	return;
+        }else if(number == 8){
+        	this.number = 34;
+        	return;
+        }else if(number == 9){
+    		this.number = 55;
+        	return;
+        }
 	}
 
 	public void setItens(List<ItemBacklog> itens) {

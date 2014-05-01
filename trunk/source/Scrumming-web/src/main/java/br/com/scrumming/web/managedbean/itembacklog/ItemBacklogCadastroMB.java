@@ -45,6 +45,7 @@ public class ItemBacklogCadastroMB extends AbstractBean {
 
 	/* FunÃ§Ãµes especÃ­ficas da tela */
 	public String salvarItemBacklog() {
+		itemBacklog.setStoryPoints(number);
 		itemBacklog.setProjeto(projetoSelecionado);
 		itemBacklog.setRoi(20.0);
 		clienteService.salvarItemBacklog(itemBacklog);
@@ -110,13 +111,70 @@ public class ItemBacklogCadastroMB extends AbstractBean {
 		return number;
 	}
 
+	private int numValor() {
+		int num = itemSelecionado.getStoryPoints().intValue();
+		if (num == 0){
+			return num = 0;
+		}else if (num == 1){
+			return num = 10;
+		}else if (num == 2){
+			return num = 20;
+		}else if (num == 3){
+			return num = 30;
+		}else if (num == 5){
+			return num = 40;
+		}else if (num == 8){
+			return num = 50;
+		}else if (num == 13){
+			return num = 60;
+		}else if (num == 20){
+			return num = 70;
+		}else if (num == 40){
+			return num = 80;
+		}else if (num == 100){
+			return num = 90;
+		}else{
+			return num = 100;
+		}
+	}
+
 	public void setNumber(int number) {
-		int contador= 0;
+/*		int contador= 0;
 		while(contador <= 100){
 			number= contador + 5;
 			contador++;
 		}		
-		this.number = number;
+*/		
+        if (number == 0) {
+    		this.number = 0;
+        	return;
+        }else if(number == 10){
+    		this.number = 1;
+        	return;
+        }else if(number == 20){
+    		this.number = 2;
+        	return;
+        }else if(number == 30){
+    		this.number = 3;
+        	return;
+        }else if(number == 40){
+    		this.number = 5;
+        	return;
+        }else if(number == 50){
+    		this.number = 8;
+        	return;
+        }else if(number == 60){
+    		this.number = 13;
+        	return;
+        }else if(number == 70){
+    		this.number = 21;
+        	return;
+        }else if(number == 80){
+        	this.number = 34;
+        	return;
+        }else if(number == 90){
+    		this.number = 55;
+        	return;
+        }
 	}
-
 }

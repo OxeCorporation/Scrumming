@@ -54,23 +54,65 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public String salvarProjeto(ProjetoDTO projetoDTO) {
+		int chave = projetoDTO.getProjeto().getChave();
 		String retorno = "";
+
+		if (projetoDTO.getProjeto().getChave() == null) {
+			DateTime projetoINI = (new DateTime(projetoDTO.getDataInicio()));
+			DateTime projetoFIM = (new DateTime(projetoDTO.getDataFim()));
+			int dia = new DateTime().getDayOfMonth();
+			int mes = new DateTime().getMonthOfYear();
+			int ano = new DateTime().getYear();
+			DateTime hoje = new DateTime(ano, mes, dia, 0, 0, 0);
+			if (projetoFIM.equals(projetoINI)) {
+				throw new NegocioException(
+						ConstantesMensagem.MENSAGEM_ERRO_DATA_PROJETO_FIM_IGUAL);
+			} else if (projetoFIM.isBefore(projetoINI.getMillis())) {
+				throw new NegocioException(
+						ConstantesMensagem.MENSAGEM_ERRO_DATA_PROJETO_FIM_MENOR);
+			} else if (projetoINI.isBefore(hoje)) {
+				throw new NegocioException(
+						ConstantesMensagem.MENSAGEM_ERRO_DATA_PROJETO_INICIO);
+			} else {
+
+				Projeto projeto = projetoDTO.getProjeto();
+				projeto.setDataInicio(new DateTime(projetoDTO.getDataInicio()));
+				projeto.setDataFim(new DateTime(projetoDTO.getDataFim()));
+				projeto.setDataCadastro(new DateTime());
+
+				List<Team> usuarioTeam = preparaTeamParaAssossiacao(projetoDTO);
+
+				// Persiste o objeto Projeto e retorna a chave.
+				Integer projetoID = insertOrUpdate(projeto);
+
+				if (projetoID != null) {
+					retorno = "Registro foi salvo";
+					// Busca o objeto persistido pela chave.
+					// Projeto projetoPersistido = findByKey(projetoID);
+
+					if (CollectionUtils.isNotEmpty(usuarioTeam)) {
+						teamManage.associarTeamProjeto(usuarioTeam, projetoID);
+					}
+				}
+			}
+		} else {
+			alterarProjeto(projetoDTO);
+		}
+		return retorno;
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public String alterarProjeto(ProjetoDTO projetoDTO) {
+		String retorno = "";
+
 		DateTime projetoINI = (new DateTime(projetoDTO.getDataInicio()));
 		DateTime projetoFIM = (new DateTime(projetoDTO.getDataFim()));
-		int dia = new DateTime().getDayOfMonth();
-		int mes = new DateTime().getMonthOfYear();
-		int ano = new DateTime().getYear();
-		DateTime hoje = new DateTime(ano, mes, dia, 0, 0, 0);
-
 		if (projetoFIM.equals(projetoINI)) {
 			throw new NegocioException(
 					ConstantesMensagem.MENSAGEM_ERRO_DATA_PROJETO_FIM_IGUAL);
 		} else if (projetoFIM.isBefore(projetoINI.getMillis())) {
 			throw new NegocioException(
 					ConstantesMensagem.MENSAGEM_ERRO_DATA_PROJETO_FIM_MENOR);
-		} else if (projetoINI.isBefore(hoje)) {
-			throw new NegocioException(
-					ConstantesMensagem.MENSAGEM_ERRO_DATA_PROJETO_INICIO);
 		} else {
 
 			Projeto projeto = projetoDTO.getProjeto();
