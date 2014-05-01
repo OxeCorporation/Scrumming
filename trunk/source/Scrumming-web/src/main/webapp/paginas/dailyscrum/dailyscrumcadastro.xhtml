@@ -46,7 +46,17 @@
 					   	mask="9?9"
 					   	maxlength="2"
 					   	placeholder="#{mesagens.label_duracao_em_minutos}" />
-            </h:panelGrid>
+					   	
+			   	<h:outputText 
+			   		id="labelDescricao" 
+					value="#{mensagens.label_descricao}" 
+					styleClass="control-label" />
+				<h:inputTextarea
+					id="descricaoDaily" 
+					name="descricaoDaily"
+					value="#{sprintDetalheMB.dailyScrum.descricao}"
+					class="form-control text-area" />
+        	 </h:panelGrid>
 		</p:panel>
 		<p:commandButton 
 		    id="cancelarSalvarDaily"
@@ -62,7 +72,7 @@
 		    value="#{mensagens.label_salvar}"
 			action="#{sprintDetalheMB.salvarDailyScrum}" 
 			icon="ui-icon-disk"
-			process="popupCalDataHora, txtLocal, txtDuracao"
+			process="popupCalDataHora, txtLocal, txtDuracao, descricaoDaily"
 			styleClass="button"
 			style="float: right"
 			oncomplete="dailyScrumModal.hide()" />					

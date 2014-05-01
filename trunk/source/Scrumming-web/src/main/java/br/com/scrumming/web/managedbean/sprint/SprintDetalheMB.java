@@ -292,14 +292,14 @@ public class SprintDetalheMB extends AbstractBean {
 	public boolean isUniqueDaily() {
 		uniqueDaily = dailyScrum.isUniqueDaily();
 		if (uniqueDaily == true) {
-			modalHeight = "190";
+			modalHeight = "280";
 			datePattern = "dd/MM/yyyy HH:mm";
 		} else {
-			modalHeight = "190";
+			modalHeight = "280";
 			datePattern = "HH:mm";
 		}
 		if (saveDaily == false) {
-			modalHeight = "160";
+			modalHeight = "250";
 		}
 		return uniqueDaily;
 	}

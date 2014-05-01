@@ -45,6 +45,9 @@ public class DailyScrum extends ObjetoPersistente<Integer> {
 	@NotNull
 	private Sprint sprint;
 	
+	@Column(name = "descricao", columnDefinition = "varchar(500)")
+	private String descricao;
+	
 	@Column(name = "local_meeting", columnDefinition = "varchar(50)")
 	@NotBlank
 	private String local;
@@ -121,6 +124,14 @@ public class DailyScrum extends ObjetoPersistente<Integer> {
 
 	public void setDuracao(Integer duracao) {
 		this.duracao = duracao;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public String getDataFormatada() {

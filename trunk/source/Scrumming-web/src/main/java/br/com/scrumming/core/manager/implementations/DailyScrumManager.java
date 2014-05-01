@@ -170,6 +170,7 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 		retorno.setDataHoraCalendar(dailyScrum.getDataHoraCalendar());
 		retorno.setLocal(dailyScrum.getLocal());
 		retorno.setDuracao(dailyScrum.getDuracao());
+		retorno.setDescricao(dailyScrum.getDescricao());
 		return retorno;
 	}
 
