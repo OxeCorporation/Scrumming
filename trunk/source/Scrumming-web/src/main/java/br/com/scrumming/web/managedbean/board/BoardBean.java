@@ -50,6 +50,7 @@ public class BoardBean extends AbstractBean {
 		tarefas = criarFaceTarefa();
 		carregarBoard();
 	}
+	// TODO ESDRAS, EM FASE DE TESTES
 //	private void carregarBoard() {
 //		dashboard = new Dashboard();
 //		dashboardModel = new DefaultDashboardModel();
