@@ -10,7 +10,7 @@
 -- *******************************************************************************
 
 DROP TABLE IF EXISTS tarefafavorita;
-DROP TABLE IF EXISTS reportetarefa;
+DROP TABLE IF EXISTS tarefareporte;
 DROP TABLE IF EXISTS sprintbacklog;
 DROP TABLE IF EXISTS checkindailyscrum;
 DROP TABLE IF EXISTS dailyscrum;
@@ -158,10 +158,10 @@ ROW_FORMAT = DEFAULT;
 
 
 -- -----------------------------------------------------
--- Table `ReporteTarefa`
+-- Table `TarefaReporte`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ReporteTarefa` (
-  `PK_reporteTarefa` INT(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `TarefaReporte` (
+  `PK_tarefaReporte` INT(11) NOT NULL AUTO_INCREMENT,
   `FK_tarefa` INT(11) UNSIGNED NOT NULL,
   `FK_usuario` INT(11) UNSIGNED NOT NULL,
   `tempo_reportado` INT(11) UNSIGNED NULL DEFAULT 0,
@@ -169,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `ReporteTarefa` (
   `data_reporte` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   INDEX `Tarefa_has_Sprint_FKIndex1` (`FK_tarefa` ASC),
   INDEX `Tarefa_has_Sprint_FKIndex3` (`FK_usuario` ASC),
-  PRIMARY KEY (`PK_reporteTarefa`),
+  PRIMARY KEY (`PK_tarefaReporte`),
   CONSTRAINT `fk_{BD8787A6-B767-4730-9A62-08388ADF10C0}`
     FOREIGN KEY (`FK_tarefa`)
     REFERENCES `Tarefa` (`PK_tarefa`)
@@ -225,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `TarefaFavorita` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_{0598683E-AD9C-4199-8B9E-B71F82907AC6}`
     FOREIGN KEY (`FK_tarefa`)
-    REFERENCES `ReporteTarefa` (`FK_tarefa`)
+    REFERENCES `TarefaReporte` (`FK_tarefa`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 PACK_KEYS = 0
@@ -289,6 +289,7 @@ ROW_FORMAT = DEFAULT;
 CREATE TABLE IF NOT EXISTS `DailyScrum` (
   `PK_dailyScrum` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `FK_sprint` INT(11) UNSIGNED NOT NULL,
+  `descricao` VARCHAR(500) NULL,
   `local_meeting` VARCHAR(50) NOT NULL,
   `dataHoraMarcada` TIMESTAMP NOT NULL,
   `duracao` INT(11) UNSIGNED NOT NULL,
@@ -570,6 +571,8 @@ INSERT
 -- select * from usuario;
 -- select * from empresa;
 -- select * from dailyscrum;
+-- select * from tarefaReporte;
+-- select * from tarefaFavorita;
 
 -- *******************************************************************************
 --                               FIM DO SCRIPT
