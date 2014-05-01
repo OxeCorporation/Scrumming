@@ -1,5 +1,7 @@
 package br.com.scrumming.domain;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,19 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
-
-import br.com.scrumming.core.infra.repositorio.HibernateTypes;
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
-import br.com.scrumming.core.infra.util.JodaDateTimeJsonDeserializer;
-import br.com.scrumming.core.infra.util.JodaDateTimeJsonSerializer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity
 @Table(name = "TarefaReporte")
@@ -49,11 +45,9 @@ public class TarefaReporte extends ObjetoPersistente<Integer> {
 	@NotNull
     private Integer tempoRestante;
 	
-	@Type(type = HibernateTypes.JODA_DATE_TIME)
     @Column(name = "data_reporte")
-	@JsonSerialize(using = JodaDateTimeJsonSerializer.class)
-    @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
-	private DateTime dataReporte;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataReporte;
 	
 	@Override
 	@JsonIgnore
@@ -104,11 +98,11 @@ public class TarefaReporte extends ObjetoPersistente<Integer> {
 		this.tempoRestante = tempoRestante;
 	}
 
-	public DateTime getDataReporte() {
+	public Date getDataReporte() {
 		return dataReporte;
 	}
 
-	public void setDataReporte(DateTime dataReporte) {
+	public void setDataReporte(Date dataReporte) {
 		this.dataReporte = dataReporte;
 	}
 
