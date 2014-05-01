@@ -6,12 +6,12 @@
 	xmlns:p="http://primefaces.org/ui">
     	
 	<p:dialog showEffect="fade" hideEffect="explode" id="dlgTarefaReporte" header="Tarefa" 
-		modal="true" resizable="false" widgetVar="dlgTarefaReporte"
+		modal="true" resizable="false" widgetVar="dlgTarefaReporte" dynamic="true"
 		visible="#{facesContext.validationFailed}">
 		<p:panel>
 			<h:panelGrid columns="1" id="panelTarefaReporte" style="width: 500px">
 				<div class="col-md-12 column">
-					<h:outputLabel value="mensagens.label_data" />									
+					<h:outputText value="#{mensagens.label_data}" />									
 					<p:calendar id="dataReporte" value="#{tarefaReporteMB.tarefaReporte.dataReporte}" />
 				</div>
 				
@@ -41,10 +41,10 @@
 		<p:commandButton 
 			id="tarefaReporte"
 			value="#{mensagens.botao_confirmar}" 
-			action="#{tarefaReporteMB.reportarHoras}" 
+			action="#{tarefaReporteMB.reportarHora}" 
 			icon="ui-icon-disk" 
 			style="margin:0 auto; float:right"
-			process="panelGrid" 
+			process="dataReporte, tempoReportado, tempoRestante" 
 			update="@form"/>
 	</p:dialog>	
 	

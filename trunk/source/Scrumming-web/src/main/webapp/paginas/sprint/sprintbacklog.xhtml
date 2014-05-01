@@ -79,10 +79,10 @@
 						action="#{tarefaReporteMB.preparaParaInserir}"
 						oncomplete="dlgTarefaReporte.show()" 
 						process="@this" update="@widgetVar(dlgTarefaReporte)"
-						rendered="#{false}">
+						rendered="#{true}">
 						<i class="fa fa-clock-o inside-grid-icon-left"></i>
 						<f:setPropertyActionListener value="#{tarefa}"
-							target="#{sprintDetalheMB.tarefaSelecionada}" />
+							target="#{tarefaReporteMB.tarefaSelecionada}" />
 					</p:commandLink>
 					
 					<!-- BOTAO ALTERAR SITUACAO -->
@@ -152,9 +152,10 @@
    			icon="ui-icon-check" immediate="true" style="margin:0 auto; float:right"/>        		      
 	</p:confirmDialog>    	
 	 		
-	<!-- INCLUDE DO MODAL DO CADASTRO DE TAREFA -->		
+	<!-- INCLUDE DO MODAL DO CADASTRO DE TAREFA -->	
 	<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />
-	<!-- INCLUDE DO MODAL DO REPORTE DE HORAS DA TAREFA -->		
-	<!--<ui:include src="/paginas/tarefa/tarefaReporte.xhtml" />-->	
+
+	<!-- INCLUDE DO MODAL DO REPORTE DE HORAS DA TAREFA -->
+	<ui:include src="/paginas/tarefa/tarefaReporte.xhtml" />
 	
 </ui:composition>
