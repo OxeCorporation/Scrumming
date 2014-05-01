@@ -1,0 +1,56 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	template="/paginas/template/template.xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<ui:define name="conteudo">
+		<style>
+			.painel {
+				margin: 5px;
+				box-shadow: 5px 7px 6px #888888;
+			}
+			
+			#lista {
+				display: table;
+			}
+			
+			.item {
+				float: right;
+				margin-right: 20px;
+			}
+			
+			.ui-dashboard {
+				margin-left: -10px;
+			}
+			
+			.ui-dashboard-column {
+				width: 230px;
+				margin-left: 20px;
+				border-radius: 5px;
+				border-style: solid;
+				border-color: rgb(166, 201, 226);
+			}
+		</style>
+		<table width="95%">
+			<tr align="center">
+				<td width="25%">
+					<h3>todo</h3>
+				</td>
+				<td width="25%">
+					<h3>doing</h3>
+				</td>
+				<td width="25%">
+					<h3>impediment</h3>
+				</td>
+				<td width="25%">
+					<h3>done</h3>
+				</td>
+			</tr>
+		</table>
+			<p:dashboard id="dashboard" binding="#{boardBean.dashboard}">
+				<p:ajax event="reorder" listener="#{boardBean.handleReorder}" />
+			</p:dashboard>
+	</ui:define>
+</ui:composition>

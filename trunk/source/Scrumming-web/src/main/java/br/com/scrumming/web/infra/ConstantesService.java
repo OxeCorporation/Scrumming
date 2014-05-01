@@ -21,6 +21,7 @@ public final class ConstantesService {
 		public static final String URL_CONSULTAR = "/tarefa/{tarefaID}";
 		public static final String URL_REMOVER = "/tarefa/remove/";
 		public static final String URL_ATRIBUIR_PARA = "/tarefa/atribuirpara/{itemBacklogID}/{usuarioID}";
+		public static final String URI_INSERT_OR_UPDATE = "/tarefa/insertOrUpdate";
 	}
 	
 	public final class Sprint {

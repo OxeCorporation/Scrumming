@@ -36,4 +36,8 @@ public final class PaginasUtil {
     public final class Empresa{
     	public static final String CADASTRO_EMPRESA = "/paginas/empresa/cadastroEmpresa.xhtml";
     }
+    
+    public final class Board{
+    	public static final String BOARD_PAGE= "/paginas/board/boardPage.xhtml";
+    }
 }

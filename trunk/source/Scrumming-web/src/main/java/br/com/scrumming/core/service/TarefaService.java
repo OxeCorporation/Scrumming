@@ -21,6 +21,11 @@ public class TarefaService {
 	@Autowired
 	private ITarefaManager tarefaManager;
 	
+	@RequestMapping(method = RequestMethod.POST, value = "/insertOrUpdate")
+	public void atualizarOUinserirTarefa(@RequestBody Tarefa tarefa){
+		tarefaManager.insertOrUpdate(tarefa);
+	}
+	
 	@RequestMapping(method = RequestMethod.POST, value = "/save/{itemBacklogManagerID}")
     public void salvar(@RequestBody Tarefa tarefa,@PathVariable Integer itemBacklogManagerID){
 		tarefaManager.salvar(tarefa, itemBacklogManagerID);

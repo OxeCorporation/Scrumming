@@ -48,4 +48,8 @@ public class TarefaClientService extends AbstractClientService {
 				getURIService(ConstantesService.Tarefa.URL_ATRIBUIR_PARA),
 				tarefa, void.class, tarefa.getItemBacklog().getCodigo(), usuarioID);
 	}
+	
+	public void inserirOuAtualizar(Tarefa tarefa){
+		postForObject(getURIService(ConstantesService.Tarefa.URI_INSERT_OR_UPDATE), tarefa, void.class);
+	}
 }

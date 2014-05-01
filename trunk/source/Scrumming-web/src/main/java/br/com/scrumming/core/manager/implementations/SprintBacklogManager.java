@@ -163,7 +163,13 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 	@Override
 	@Transactional(readOnly = true)
 	public List<Tarefa> consultarTarefasPorSprint(Integer sprintID) {
-		return sprintBacklogRepositorio.consultarTarefasPorSprint(sprintID);
+		
+		List<Tarefa> listaTarefa = new ArrayList<Tarefa>();
+		List<SprintBacklog> tarefasPorSprint = sprintBacklogRepositorio.consultarTarefasPorSprint(sprintID);
+		for (SprintBacklog sprintBacklog : tarefasPorSprint) {
+			listaTarefa.addAll(sprintBacklog.getItemBacklog().getTarefas());
+		}
+		return listaTarefa;
 	}
 
 	/* getters and setters */

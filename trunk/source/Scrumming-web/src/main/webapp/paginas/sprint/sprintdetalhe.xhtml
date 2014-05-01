@@ -35,13 +35,6 @@
 					<ui:include src="/paginas/sprint/sprintbacklog.xhtml" />
 				</p:tab>
 				
-				<!-- ABA DO SPRINT BOARD -->				
-				<p:tab id="tab2" title="Sprint Board" >
-					<h:panelGroup id="dashBoard" layout="block">
-						<ui:include src="/paginas/board/boardPanel.xhtml" />
-					</h:panelGroup>
-				</p:tab>
-				
 				<!-- ABA DOS GRÁFICOS BURNUP E BURNDOWN -->				
 				<p:tab id="tab3" title="Gráficos">
 					<h:panelGrid columns="2" cellpadding="10">
@@ -60,7 +53,11 @@
 		<!-- BARRA LATERAL DIREITA -->
 		
 		<h:panelGroup styleClass="col-md-3 column div-right">
-			<h:outputText value="Time do projeto" />
+		
+			<h:commandLink id="boardPage" action="#{sprintDetalheMB.boardPage}" value="Sprint Board" immediate="true">
+					<i class="fa fa-trello fa-2"/>
+			</h:commandLink>
+				
 		</h:panelGroup>
 		
 	</ui:define>

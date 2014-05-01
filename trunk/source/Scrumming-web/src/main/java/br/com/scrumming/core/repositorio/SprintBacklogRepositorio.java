@@ -93,17 +93,13 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
 	}
 	
 	@SuppressWarnings(UNCHECKED)
-	public List<Tarefa> consultarTarefasPorSprint(Integer sprintID){
+	public List<SprintBacklog> consultarTarefasPorSprint(Integer sprintID){
 		
 		Criteria criteria = createCriteria();
 		criteria.createAlias("itemBacklog", "itemBacklogAlias");
 		criteria.createAlias("sprint", "sprintAlias");
 		criteria.createAlias("itemBacklogAlias.tarefas", "tarefa");
 		criteria.add(Restrictions.eq("sprintAlias.codigo", sprintID));
-		
-		ProjectionList projectionList = Projections.projectionList();
-		projectionList.add(Projections.property("itemBacklogAlias.tarefas"));
-		criteria.setProjection(projectionList);
 		return Collections.checkedList(criteria.list(), Tarefa.class);
 	}
 }

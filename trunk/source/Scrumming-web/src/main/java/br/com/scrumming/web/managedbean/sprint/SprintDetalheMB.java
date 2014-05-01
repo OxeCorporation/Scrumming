@@ -197,6 +197,9 @@ public class SprintDetalheMB extends AbstractBean {
 		return redirecionar(PaginasUtil.Sprint.SPRINT_DETAIL_PAGE);
 	}
 
+	public String boardPage(){
+		return redirecionar(PaginasUtil.Board.BOARD_PAGE);
+	}
 	/* Getters anda Setters */
 	public Sprint getSprintSelecionada() {
 		return sprintSelecionada;

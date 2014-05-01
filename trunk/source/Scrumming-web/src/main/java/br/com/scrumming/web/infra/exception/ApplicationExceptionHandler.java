@@ -56,8 +56,14 @@ public class ApplicationExceptionHandler extends ExceptionHandlerWrapper{
 
 					} else {
 						String chaveErro = negocioException.getResponseHeaders().get("error").get(0);
-						LOGGER.error(chaveErro);
-						FacesMessageUtil.adicionarMensagemErro(chaveErro);
+						if(null == chaveErro || !chaveErro.contains("_") ){
+							LOGGER.error(chaveErro);
+							FacesMessageUtil.adicionarMensagemErro(ConstantesMensagem.ERRO_INESPERADO);
+						}else{
+							LOGGER.error(chaveErro);
+							FacesMessageUtil.adicionarMensagemErro(chaveErro);
+							
+						}
 					}
 					
 				}

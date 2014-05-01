@@ -1,6 +1,5 @@
 package br.com.scrumming.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -73,9 +72,9 @@ public class ItemBacklog extends ObjetoPersistente<Integer> {
     @Column(name = "is_ativo", columnDefinition = "bit")
     private boolean isAtivo;
     
-    @OneToMany(mappedBy="itemBacklog")
     @JsonManagedReference
-    private List<Tarefa> tarefas = new ArrayList<>();
+    @OneToMany(mappedBy="itemBacklog")
+    private List<Tarefa> tarefas;
     
     @Transient
     private String statusItembacklog;
