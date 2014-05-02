@@ -61,17 +61,17 @@ public class TarefaReporteManager extends AbstractManager<TarefaReporte, Integer
     		(tarefaReporte.getTarefa().getSituacao() == SituacaoTarefaEnum.CANCELADO)) {
 			throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_NAO_PODE_REPORTAR_HORA_EM_TAREFA_CONCLUIDA_OU_CANCELADA);
 		}
-    	if ((tarefaReporte.getUsuario().getCodigo() != tarefaReporte.getTarefa().getUsuario().getCodigo())) {
+    	if (tarefaReporte.getUsuario().getCodigo() != tarefaReporte.getTarefa().getUsuario().getCodigo()) {
     		throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_NAO_PODE_REPORTAR_HORA_EM_TAREFA_NAO_ATRIBUIDA_A_VOCE);
+    	}
+    	if (tarefaReporte.getTempoRestante() > tarefaReporte.getTarefa().getTempoEstimado()){
+    		throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_TEMPO_RESTANTE_SUPERIOR_AO_TEMPO_ESTIMADO);
     	}
     	/*if ((dataReporte < dataInicio) || (dataReporte > dataFim)) {
 			throw new Exception("A data do reporte deve estar dentro do intervalo da Sprint.");
 		}
 		if ((dataReporte < dataInicio) || (dataReporte > dataFim)) {
 			throw new Exception("A data do reporte deve estar dentro do intervalo da Sprint.");
-		}
-		if (tempoRestante > tempoEstimado) {
-			throw new Exception("O tempo restante não pode ser superior ao tempo estimado inicialmente para a tarefa.");
 		}*/
 	}	
     

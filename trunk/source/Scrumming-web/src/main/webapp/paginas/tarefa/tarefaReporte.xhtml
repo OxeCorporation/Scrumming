@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
     	
 	<p:dialog showEffect="fade" hideEffect="explode" id="dlgTarefaReporte" header="Tarefa" 
-		modal="true" resizable="false" widgetVar="dlgTarefaReporte" dynamic="true"
+		modal="true" resizable="false" widgetVar="dlgTarefaReporte"
 		visible="#{facesContext.validationFailed}">
 		<p:panel>
 			<h:panelGrid columns="1" id="panelTarefaReporte" style="width: 500px">
@@ -35,8 +35,8 @@
 			oncomplete="dlgTarefaReporte.hide()"
 			style="margin:0 auto; float:right"
 			process="@this" 
-			update="panelTarefa">			
-			<p:resetInput target="panelTarefa" />
+			update="panelTarefaReporte">			
+			<p:resetInput target="panelTarefaReporte" />
 		</p:commandButton>
 		<p:commandButton 
 			id="tarefaReporte"
@@ -45,7 +45,7 @@
 			icon="ui-icon-disk" 
 			style="margin:0 auto; float:right"
 			process="dataReporte, tempoReportado, tempoRestante" 
-			update="@form"/>
+			update="panelTarefaReporte"/>
 	</p:dialog>	
 	
 </ui:composition>

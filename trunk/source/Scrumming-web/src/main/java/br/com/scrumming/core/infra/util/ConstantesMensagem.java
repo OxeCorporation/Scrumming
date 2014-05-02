@@ -30,4 +30,5 @@ public class ConstantesMensagem {
 	/* TAREFA */
 	public static final String MENSAGEM_ERRO_NAO_PODE_REPORTAR_HORA_EM_TAREFA_CONCLUIDA_OU_CANCELADA = "mensagem_erro_nao_pode_reportar_hora_em_tarefa_concluida_ou_cancelada";
 	public static final String MENSAGEM_ERRO_NAO_PODE_REPORTAR_HORA_EM_TAREFA_NAO_ATRIBUIDA_A_VOCE = "mensagem_erro_nao_pode_reportar_hora_em_tarefa_nao_atribuida_a_voce";
+	public static final String MENSAGEM_ERRO_TEMPO_RESTANTE_SUPERIOR_AO_TEMPO_ESTIMADO = "mensagem_erro_tempo_restante_superior_ao_tempo_estimado";
 }
