@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.scrumming.core.infra.exceptions.NegocioException;
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
+import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
 import br.com.scrumming.core.manager.interfaces.ITarefaManager;
 import br.com.scrumming.core.manager.interfaces.ITarefaReporteManager;
@@ -50,17 +52,17 @@ public class TarefaReporteManager extends AbstractManager<TarefaReporte, Integer
     	tarefaReporte.setTarefa(tarefa);
     	tarefaReporte.setUsuario(usuario);
     	    
-    	//validarDados(tarefaReporte);
+    	validarDados(tarefaReporte);
     	insertOrUpdate(tarefaReporte);
     }
     
-    private void validarDados(TarefaReporte tarefaReporte) throws Exception {
+    private void validarDados(TarefaReporte tarefaReporte) {
     	if ((tarefaReporte.getTarefa().getSituacao() == SituacaoTarefaEnum.FEITO) ||
     		(tarefaReporte.getTarefa().getSituacao() == SituacaoTarefaEnum.CANCELADO)) {
-			throw new Exception("Você não pode reportar hora em uma tarefa concluída ou cancelada.");
+			throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_NAO_PODE_REPORTAR_HORA_EM_TAREFA_CONCLUIDA_OU_CANCELADA);
 		}
     	if ((tarefaReporte.getUsuario().getCodigo() != tarefaReporte.getTarefa().getUsuario().getCodigo())) {
-    		throw new Exception("Você não pode reportar hora em uma tarefa que não está atribuida para você.");
+    		throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_NAO_PODE_REPORTAR_HORA_EM_TAREFA_NAO_ATRIBUIDA_A_VOCE);
     	}
     	/*if ((dataReporte < dataInicio) || (dataReporte > dataFim)) {
 			throw new Exception("A data do reporte deve estar dentro do intervalo da Sprint.");

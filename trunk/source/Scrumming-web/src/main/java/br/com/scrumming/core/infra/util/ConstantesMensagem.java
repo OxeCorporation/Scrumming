@@ -26,4 +26,8 @@ public class ConstantesMensagem {
 	public static final String ERRO_DAILY_PASSADO = "erro_daily_passado";
 	public static final String ERRO_EMAIL_JA_EXISTE = "erro_email_ja_existe";
 	public static final String ERRO_LOGIN_JA_EXISTE = "erro_login_ja_existe";
+	
+	/* TAREFA */
+	public static final String MENSAGEM_ERRO_NAO_PODE_REPORTAR_HORA_EM_TAREFA_CONCLUIDA_OU_CANCELADA = "mensagem_erro_nao_pode_reportar_hora_em_tarefa_concluida_ou_cancelada";
+	public static final String MENSAGEM_ERRO_NAO_PODE_REPORTAR_HORA_EM_TAREFA_NAO_ATRIBUIDA_A_VOCE = "mensagem_erro_nao_pode_reportar_hora_em_tarefa_nao_atribuida_a_voce";
 }
