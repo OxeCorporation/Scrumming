@@ -206,3 +206,10 @@
 .div-right {
 	position: fixed;
 }
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+
+  src: url('/Scrumming/resources/fonts/glyphicons-halflings-regular.eot');
+  src: url('/Scrumming/resources/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/Scrumming/resources/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/Scrumming/resources/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/Scrumming/resources/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}

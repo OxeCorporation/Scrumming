@@ -15,6 +15,7 @@
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<h:outputStylesheet library="css" name="font-awesome.css" />
 	<h:outputStylesheet library="css" name="sb-admin.css" />
+	<h:outputStylesheet library="css" name="scrumming.css" />
 
 </h:head>
 <h:body>
@@ -31,31 +32,40 @@
 						<div id="aut" class="panel-body">
 							<p:growl id="loginGrow"  showDetail="true" autoUpdate="true" showSummary="false"/>
 							<fieldset>
-								<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="glyphicon glyphicon-user" />
+									</span>
 									<p:inputText id="login" styleClass="form-control"
 										placeholder="#{mensagens.label_login}"
 										value="#{sessaoMB.login}" required="true"
 										requiredMessage="#{mensagens.mensagem_login_obrigatorio}" />
 								</div>
-								<div class="form-group">
+								<div class="input-group" style="margin-top: 5px">
+									<span class="input-group-addon">
+										<i class="glyphicon glyphicon-lock" />
+									</span>
 									<p:password id="senha" styleClass="form-control"
 										placeholder="#{mensagens.label_senha}"
 										value="#{sessaoMB.senha}" required="true"
 										requiredMessage="#{mensagens.mensagem_senha_obrigatorio}" />
 								</div>
-								<p:commandButton id="login_button"
-									action="#{sessaoMB.efetuarLogin}"
-									value="#{mensagens.botao_entrar_sistema}"
-									styleClass="btn btn-lg btn-success btn-block" update="@form" />
-
-
-								<p:commandLink 
-									id="cadastroEmpresa_link"
-									value="#{mensagens.label_registre_se_aqui}"
-									update="@widgetVar(dlgCadastroEmpresa)"
-									oncomplete="dlgCadastroEmpresa.show()"
-									style="margin:0 auto; float:right" 
-									immediate="true"  />
+								
+								<div class="form-group" style="margin-top: 10px">
+									<p:commandButton id="login_button"
+										action="#{sessaoMB.efetuarLogin}"
+										value="#{mensagens.botao_entrar_sistema}"
+										styleClass="btn btn-lg btn-success btn-block" update="@form" />
+	
+	
+									<p:commandLink 
+										id="cadastroEmpresa_link"
+										value="#{mensagens.label_registre_se_aqui}"
+										update="@widgetVar(dlgCadastroEmpresa)"
+										oncomplete="dlgCadastroEmpresa.show()"
+										style="margin:0 auto; float:right" 
+										immediate="true"  />
+								</div>
 							</fieldset>
 						</div>
 					</div>
@@ -67,8 +77,7 @@
 	<ui:include src="/paginas/empresa/cadastroEmpresa.xhtml" />
 
 	<h:outputScript library="js" name="bootstrap.min.js" />
-	<h:outputScript library="js"
-		name="plugins/metisMenu/jquery.metisMenu.js" />
+	<h:outputScript library="js" name="plugins/metisMenu/jquery.metisMenu.js" />
 	<h:outputScript library="js" name="sb-admin.js" />
 </h:body>
 </html>
