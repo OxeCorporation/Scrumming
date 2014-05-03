@@ -20,7 +20,6 @@ import br.com.scrumming.core.repositorio.TarefaReporteRepositorio;
 import br.com.scrumming.core.repositorio.TarefaRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Tarefa;
-import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 

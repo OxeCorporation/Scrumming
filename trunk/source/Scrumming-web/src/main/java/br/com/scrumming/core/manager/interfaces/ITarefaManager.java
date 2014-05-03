@@ -4,7 +4,6 @@ import java.util.List;
 
 import br.com.scrumming.core.infra.manager.IManager;
 import br.com.scrumming.domain.Tarefa;
-import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
 public interface ITarefaManager extends IManager<Tarefa, Integer>{
