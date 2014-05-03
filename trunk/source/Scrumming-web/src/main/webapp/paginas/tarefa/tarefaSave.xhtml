@@ -12,24 +12,28 @@
 			<h:panelGrid columns="1" id="panelTarefa" style="width: 500px">		
 				<div class="col-md-12">			
 					<h:outputText value="#{mensagens.label_resumo}" /> 
-					<p:inputText id="nome" style="width: 100%;" value="#{itemBacklogDetalheMB.tarefa.nome}" />
+					<p:inputText id="nome" style="width: 100%;" value="#{itemBacklogDetalheMB.tarefa.nome}"
+						label="#{mensagens.label_resumo}" />
 				</div>
 				
 				<div class="col-md-12">
 					<h:outputText value="#{mensagens.label_descricao}" /> 
-					<p:inputTextarea id="descricao" rows="4" cols="70" value="#{itemBacklogDetalheMB.tarefa.descricao}" styleClass="text-area"/>
+					<p:inputTextarea id="descricao" rows="4" cols="70" value="#{itemBacklogDetalheMB.tarefa.descricao}" 
+						styleClass="text-area" label="#{mensagens.label_descricao}" />
 				</div>
 				
 				<div class="col-md-6">
 					<h:outputText value="#{mensagens.label_tempo_estimado_em_horas}" /> 
-					<p:inputText id="tempoEstimado" value="#{itemBacklogDetalheMB.tarefa.tempoEstimado}">
+					<p:inputText id="tempoEstimado" value="#{itemBacklogDetalheMB.tarefa.tempoEstimado}" 
+						label="#{mensagens.label_tempo_estimado_em_horas}">
 						<f:convertNumber integerOnly="true" pattern="#######" maxFractionDigits="0"/>
 					</p:inputText>
 				</div>	
 				
 				<div class="col-md-6">
 					<h:outputText value="#{mensagens.label_atribuir_para}" /> 
-					<p:selectOneMenu id="usuario" value="#{itemBacklogDetalheMB.idUsuarioSelecionado}" >
+					<p:selectOneMenu id="usuario" value="#{itemBacklogDetalheMB.idUsuarioSelecionado}"
+						label="#{mensagens.label_atribuir_para}" >
 						<f:selectItem itemLabel="#{mensagens.label_sem_responsavel}" itemValue=""/>
 						<f:selectItems
 							value="#{itemBacklogDetalheMB.usuarios}" var="usuario"
