@@ -35,4 +35,5 @@ public class ConstantesMensagem {
 	public static final String MENSAGEM_ERRO_DATA_DO_REPORTE_DEVE_ESTAR_DENTRO_DO_INTERVALO_DA_SPRINT = "mensagem_erro_data_do_reporte_deve_estar_dentro_do_intervalo_da_sprint";
 	public static final String MENSAGEM_ERRO_IMPOSSIVEL_REMOVER_EXISTE_REPORTE_DE_HORAS_NA_TAREFA = "mensagem_erro_impossivel_remover_existe_reporte_de_horas_na_tarefa";
 	public static final String MENSAGEM_ERRO_IMPOSSIVEL_REMOVER_TAREFA_FOI_FAVORITADA = "mensagem_erro_impossivel_remover_tarefa_foi_favoritada";
+	public static final String MENSAGEM_ERRO_SO_PODE_REMOVER_TAREFA_COM_SITUACAO_PARAFAZER = "mensagem_erro_so_pode_remover_tarefa_com_situacao_parafazer";
 }

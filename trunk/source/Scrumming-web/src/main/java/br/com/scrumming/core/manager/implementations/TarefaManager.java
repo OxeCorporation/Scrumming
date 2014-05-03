@@ -62,7 +62,10 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
     	remove(tarefa);
     }
 
-    private void validarDados(Tarefa tarefa) {		
+    private void validarDados(Tarefa tarefa) {	
+    	if ((tarefa.getSituacao() != SituacaoTarefaEnum.PARA_FAZER)) {
+    		throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_SO_PODE_REMOVER_TAREFA_COM_SITUACAO_PARAFAZER);
+    	}
 		if (tarefaReporteRepositorio.existeReporteDeHoras(tarefa.getCodigo())) {
 			throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_IMPOSSIVEL_REMOVER_EXISTE_REPORTE_DE_HORAS_NA_TAREFA);
 		}
