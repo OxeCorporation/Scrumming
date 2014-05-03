@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.TarefaFavorita;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
 @Repository
@@ -39,22 +40,14 @@ public class TarefaRepositorio extends AbstractRepositorio<Tarefa, Integer>{
         criteria.add(Restrictions.eq("itemBacklog.codigo", itemBacklogID));
         criteria.add(Restrictions.not(Restrictions.eq("situacao", situacao)));
         return Collections.checkedList(criteria.list(), Tarefa.class);
-    }
-	
-	@SuppressWarnings("unchecked")
-	public boolean existeReporteDeHorasNaTarefa(int tarefaID) {
-		Criteria criteria = createCriteria();
-		criteria.createAlias("reporteTarefa", "reporteTarefa");
-		criteria.add(Restrictions.eq("reporteTarefa.tarefa", tarefaID));
-		return !Collections.checkedList(criteria.list(), Tarefa.class).isEmpty();
-	}
+    }	
 	
 	@SuppressWarnings("unchecked")
 	public boolean tarefaFoiFavoritada(int tarefaID) {
 		Criteria criteria = createCriteria();
 		criteria.createAlias("tarefaFavorita", "tarefaFavorita");
 		criteria.add(Restrictions.eq("tarefaFavorita.tarefa", tarefaID));
-		return !Collections.checkedList(criteria.list(), Tarefa.class).isEmpty();
+		return !Collections.checkedList(criteria.list(), TarefaFavorita.class).isEmpty();
 	}
 	
 	/*@SuppressWarnings("unchecked")

@@ -8,11 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.scrumming.core.infra.exceptions.NegocioException;
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
+import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
 import br.com.scrumming.core.manager.interfaces.ITarefaManager;
 import br.com.scrumming.core.manager.interfaces.IUsuarioManager;
+import br.com.scrumming.core.repositorio.TarefaReporteRepositorio;
 import br.com.scrumming.core.repositorio.TarefaRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Tarefa;
@@ -29,6 +32,8 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
 
     @Autowired
     private TarefaRepositorio tarefaRepositorio;
+    @Autowired
+    private TarefaReporteRepositorio tarefaReporteRepositorio;
     @Autowired
     private IItemBacklogManager itemBacklogManager;
     @Autowired
@@ -51,18 +56,19 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
     }
 
     @Override
-    public void remover(Tarefa tarefa) throws Exception {
-        //validarDados(tarefa);
+    @Transactional(rollbackFor = Exception.class)
+    public void remover(Tarefa tarefa) {
+        validarDados(tarefa);
     	remove(tarefa);
     }
 
-    private void validarDados(Tarefa tarefa) throws Exception {		
-		if (tarefaRepositorio.existeReporteDeHorasNaTarefa(tarefa.getCodigo())) {
-			throw new Exception("Impossível remover. Existe reporte de horas para esta tarefa.");
+    private void validarDados(Tarefa tarefa) {		
+		if (tarefaReporteRepositorio.existeReporteDeHoras(tarefa.getCodigo())) {
+			throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_IMPOSSIVEL_REMOVER_EXISTE_REPORTE_DE_HORAS_NA_TAREFA);
 		}
-		if (tarefaRepositorio.tarefaFoiFavoritada(tarefa.getCodigo())) {
-			throw new Exception("Impossível remover. Essa tarefa foi favoritada por um usuário.");
-		}
+		/*if (tarefaRepositorio.tarefaFoiFavoritada(tarefa.getCodigo())) {
+			throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_IMPOSSIVEL_REMOVER_TAREFA_FOI_FAVORITADA);
+		}*/
 	}
 
 	@Override
@@ -132,6 +138,14 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
 
 	public void setTarefaRepositorio(TarefaRepositorio tarefaRepositorio) {
 		this.tarefaRepositorio = tarefaRepositorio;
+	}
+
+	public TarefaReporteRepositorio getTarefaReporteRepositorio() {
+		return tarefaReporteRepositorio;
+	}
+
+	public void setTarefaReporteRepositorio(TarefaReporteRepositorio tarefaReporteRepositorio) {
+		this.tarefaReporteRepositorio = tarefaReporteRepositorio;
 	}
 
 }
