@@ -5,6 +5,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
+import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.Usuario;
@@ -24,6 +25,8 @@ public class TarefaReporteMB extends AbstractBean {
 	@FlashScoped
 	private TarefaReporte tarefaReporte;
 	private Tarefa tarefaSelecionada;
+	@FlashScoped
+	private Sprint sprintSelecionada;
 	private TarefaReporteClientService tarefaReporteClientService;
 	@ManagedProperty(value="#{sessaoMB.usuario}")
 	private Usuario usuarioLogado;
@@ -41,7 +44,7 @@ public class TarefaReporteMB extends AbstractBean {
 	public void reportarHora() {
 		tarefaReporte.setTarefa(tarefaSelecionada);
 		tarefaReporte.setUsuario(getUsuarioLogado());
-		tarefaReporteClientService.reportarHora(tarefaReporte);
+		tarefaReporteClientService.reportarHora(tarefaReporte, sprintSelecionada.getCodigo());
 		limparObjetoTarefaReporte();
 		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 	}
@@ -77,6 +80,14 @@ public class TarefaReporteMB extends AbstractBean {
 
 	public void setUsuarioLogado(Usuario usuarioLogado) {
 		this.usuarioLogado = usuarioLogado;
+	}
+
+	public Sprint getSprintSelecionada() {
+		return sprintSelecionada;
+	}
+
+	public void setSprintSelecionada(Sprint sprintSelecionada) {
+		this.sprintSelecionada = sprintSelecionada;
 	}	
 	
 }

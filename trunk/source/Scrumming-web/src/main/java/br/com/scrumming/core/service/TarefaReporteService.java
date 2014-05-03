@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.scrumming.core.manager.interfaces.ITarefaReporteManager;
+import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.TarefaReporte;
 
 @RestController
@@ -17,9 +18,9 @@ public class TarefaReporteService {
 	@Autowired
 	private ITarefaReporteManager tarefaReporteManager;
 	
-	@RequestMapping(method = RequestMethod.POST, value ="/{tarefaID}/{usuarioID}")
-    public void reportarHora(@RequestBody TarefaReporte tarefaReporte, @PathVariable Integer tarefaID, @PathVariable Integer usuarioID) {
-		tarefaReporteManager.reportarHora(tarefaReporte, tarefaID, usuarioID);
+	@RequestMapping(method = RequestMethod.POST, value ="/{sprintID}")
+    public void reportarHora(@RequestBody TarefaReporte tarefaReporte, @PathVariable Integer sprintID) {
+		tarefaReporteManager.reportarHora(tarefaReporte, sprintID);
     }
 
 	/* getters and setters */
