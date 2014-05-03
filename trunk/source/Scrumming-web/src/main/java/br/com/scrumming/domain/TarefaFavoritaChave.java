@@ -21,6 +21,13 @@ public class TarefaFavoritaChave implements Serializable {
 	@ManyToOne
     @JoinColumn(name = "FK_usuario", referencedColumnName = "PK_usuario")
 	private Usuario usuario;
+	
+	public TarefaFavoritaChave(){}
+	
+	public TarefaFavoritaChave(Tarefa tarefa, Usuario usuario){
+		this.tarefa = tarefa;
+		this.usuario = usuario;
+	}
 
 	
 	/*Getters & Setters*/

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.scrumming.core.infra.exceptions.ObjectNotFoundException;
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.manager.interfaces.ITarefaFavoritaManager;
@@ -30,6 +31,17 @@ public class TarefaFavoritaManager extends AbstractManager<TarefaFavorita, Taref
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void favoritarTarefa(TarefaFavorita tarefaFavorita) {
+    	TarefaFavoritaChave tarefaFavoritaChave = new TarefaFavoritaChave(tarefaFavorita.getTarefa(), tarefaFavorita.getUsuario());    	
+    	TarefaFavorita tarefaFavoritaCadastrada = new TarefaFavorita();
+    	
+    	try {
+			tarefaFavoritaCadastrada = tarefaFavoritaRepositorio.findByKey(tarefaFavoritaChave);
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
+		}    	
+    	
+    	tarefaFavorita.setFavorita(!tarefaFavoritaCadastrada.isFavorita()); 
+    	
     	insertOrUpdate(tarefaFavorita);
     } 
    

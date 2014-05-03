@@ -101,9 +101,8 @@
 					<!-- BOTAO FAVORITAR TAREFA -->									
 					<p:commandLink id="linkFavoritarTarefa" title="#{mensagens.label_favoritar_tarefa}"
 						action="#{tarefaFavoritaMB.favoritarTarefa}"
-						oncomplete="dlgTarefaSave.show()" 
-						process="@this" update="@widgetVar(dlgTarefaSave)"
-						rendered="#{false}">
+						process="@this" update="@widgetVar(dtgSprintBacklog)"
+						rendered="#{true}">
 						<i class="fa fa-star-o inside-grid-icon-left"></i>
 						<f:setPropertyActionListener value="#{tarefa}"
 							target="#{tarefaFavoritaMB.tarefaSelecionada}" />

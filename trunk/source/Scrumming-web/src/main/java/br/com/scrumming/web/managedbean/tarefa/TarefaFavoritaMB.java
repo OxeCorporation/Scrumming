@@ -30,8 +30,7 @@ public class TarefaFavoritaMB extends AbstractBean {
 	
 	
 	@Override
-    public void inicializar() {
-		setTarefaFavorita(new TarefaFavorita());
+    public void inicializar() {		
 		setTarefaFavoritaClientService(new TarefaFavoritaClientService());
 		if (tarefaSelecionada == null) {
 			tarefaSelecionada = new Tarefa();
@@ -39,6 +38,7 @@ public class TarefaFavoritaMB extends AbstractBean {
 	}
 	
 	public void favoritarTarefa() {		
+		setTarefaFavorita(new TarefaFavorita());
 		tarefaFavorita.setTarefa(tarefaSelecionada);
 		tarefaFavorita.setUsuario(getUsuarioLogado());
 		tarefaFavoritaClientService.favoritarTarefa(tarefaFavorita);
