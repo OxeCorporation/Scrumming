@@ -36,4 +36,5 @@ public class ConstantesMensagem {
 	public static final String MENSAGEM_ERRO_IMPOSSIVEL_REMOVER_EXISTE_REPORTE_DE_HORAS_NA_TAREFA = "mensagem_erro_impossivel_remover_existe_reporte_de_horas_na_tarefa";
 	public static final String MENSAGEM_ERRO_IMPOSSIVEL_REMOVER_TAREFA_FOI_FAVORITADA = "mensagem_erro_impossivel_remover_tarefa_foi_favoritada";
 	public static final String MENSAGEM_ERRO_SO_PODE_REMOVER_TAREFA_COM_SITUACAO_PARAFAZER = "mensagem_erro_so_pode_remover_tarefa_com_situacao_parafazer";
+	public static final String MENSAGEM_ERRO_USUARIO_NAO_FAZ_PARTE_DO_TEAM = "mensagem_erro_usuario_nao_faz_parte_do_team";
 }

@@ -14,11 +14,13 @@ import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
 import br.com.scrumming.core.manager.interfaces.ITarefaManager;
+import br.com.scrumming.core.manager.interfaces.ITeamManager;
 import br.com.scrumming.core.manager.interfaces.IUsuarioManager;
 import br.com.scrumming.core.repositorio.TarefaReporteRepositorio;
 import br.com.scrumming.core.repositorio.TarefaRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
@@ -38,6 +40,8 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
     private IItemBacklogManager itemBacklogManager;
     @Autowired
     private IUsuarioManager usuarioManager;
+    @Autowired
+    private ITeamManager teamManager;
 
 	@Override
     public AbstractRepositorio<Tarefa, Integer> getRepositorio() {
@@ -58,11 +62,11 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void remover(Tarefa tarefa) {
-        validarDados(tarefa);
+        validarDadosAntesDeRemover(tarefa);
     	remove(tarefa);
     }
 
-    private void validarDados(Tarefa tarefa) {	
+    private void validarDadosAntesDeRemover(Tarefa tarefa) {	
     	if ((tarefa.getSituacao() != SituacaoTarefaEnum.PARA_FAZER)) {
     		throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_SO_PODE_REMOVER_TAREFA_COM_SITUACAO_PARAFAZER);
     	}
@@ -131,8 +135,16 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
 			tarefa.setDataAtribuicao(null);
 		}
     	
+		validarDadosAntesDeAtribuir(tarefa);
 		insertOrUpdate(tarefa);
     }
+	
+	private void validarDadosAntesDeAtribuir(Tarefa tarefa) {
+		List<Usuario> usuarios = teamManager.consultarUsuarioPorProjeto(tarefa.getItemBacklog().getProjeto().getCodigo());
+		if (!usuarios.contains(tarefa.getUsuario())){
+			throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_USUARIO_NAO_FAZ_PARTE_DO_TEAM);
+		}
+	}
     
     /* getters and setters */
     public TarefaRepositorio getTarefaRepositorio() {

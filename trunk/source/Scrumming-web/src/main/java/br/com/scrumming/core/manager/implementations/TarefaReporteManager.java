@@ -55,6 +55,9 @@ public class TarefaReporteManager extends AbstractManager<TarefaReporte, Integer
     		(tarefaReporte.getTarefa().getSituacao() == SituacaoTarefaEnum.CANCELADO)) {
 			throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_NAO_PODE_REPORTAR_HORA_EM_TAREFA_CONCLUIDA_OU_CANCELADA);
 		}
+    	if (tarefaReporte.getTarefa().getUsuario() == null) {
+    		throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_NAO_PODE_REPORTAR_HORA_EM_TAREFA_NAO_ATRIBUIDA_A_VOCE);
+    	}
     	if (tarefaReporte.getUsuario().getCodigo() != tarefaReporte.getTarefa().getUsuario().getCodigo()) {
     		throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_NAO_PODE_REPORTAR_HORA_EM_TAREFA_NAO_ATRIBUIDA_A_VOCE);
     	}
