@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.scrumming.core.manager.interfaces.ITarefaReporteManager;
-import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.TarefaReporte;
 
 @RestController

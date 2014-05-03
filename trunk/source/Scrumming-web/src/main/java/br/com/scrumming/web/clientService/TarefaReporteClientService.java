@@ -1,6 +1,5 @@
 package br.com.scrumming.web.clientService;
 
-import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.web.infra.AbstractClientService;
 import br.com.scrumming.web.infra.ConstantesService;
