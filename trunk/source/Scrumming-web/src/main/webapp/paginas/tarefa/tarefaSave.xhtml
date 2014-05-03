@@ -22,7 +22,9 @@
 				
 				<div class="col-md-6">
 					<h:outputText value="#{mensagens.label_tempo_estimado_em_horas}" /> 
-					<p:inputText id="tempoEstimado" value="#{itemBacklogDetalheMB.tarefa.tempoEstimado}" />	
+					<p:inputText id="tempoEstimado" value="#{itemBacklogDetalheMB.tarefa.tempoEstimado}">
+						<f:convertNumber integerOnly="true" pattern="#######" maxFractionDigits="0"/>
+					</p:inputText>
 				</div>	
 				
 				<div class="col-md-6">

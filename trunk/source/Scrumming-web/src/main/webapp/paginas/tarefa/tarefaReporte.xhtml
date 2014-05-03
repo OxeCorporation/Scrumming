@@ -17,12 +17,16 @@
 				
 				<div class="col-md-6 column">
 					<h:outputText value="#{mensagens.label_tempo_reportado}" /> 
-					<p:inputText id="tempoReportado" value="#{tarefaReporteMB.tarefaReporte.tempoReportado}" />	
+					<p:inputText id="tempoReportado" value="#{tarefaReporteMB.tarefaReporte.tempoReportado}">	
+						<f:convertNumber integerOnly="true" pattern="#######" maxFractionDigits="0"/>
+					</p:inputText>
 				</div>	
 				
 				<div class="col-md-6 column">
 					<h:outputText value="#{mensagens.label_tempo_restante}" /> 
-					<p:inputText id="tempoRestante" value="#{tarefaReporteMB.tarefaReporte.tempoRestante}" />
+					<p:inputText id="tempoRestante" value="#{tarefaReporteMB.tarefaReporte.tempoRestante}">
+						<f:convertNumber integerOnly="true" pattern="#######" maxFractionDigits="0"/>
+					</p:inputText>
 				</div>					
 			</h:panelGrid>
 		</p:panel>
