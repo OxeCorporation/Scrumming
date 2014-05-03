@@ -44,7 +44,8 @@ public class TarefaReporteMB extends AbstractBean {
 	public void reportarHora() {
 		tarefaReporte.setTarefa(tarefaSelecionada);
 		tarefaReporte.setUsuario(getUsuarioLogado());
-		tarefaReporteClientService.reportarHora(tarefaReporte, sprintSelecionada.getCodigo());
+		tarefaReporteClientService.reportarHora(tarefaReporte, sprintSelecionada.getCodigo(), 
+				tarefaReporte.getTarefa().getItemBacklog().getCodigo());
 		limparObjetoTarefaReporte();
 		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 	}

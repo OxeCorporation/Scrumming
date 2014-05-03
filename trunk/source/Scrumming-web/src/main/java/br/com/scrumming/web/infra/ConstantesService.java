@@ -82,7 +82,7 @@ public final class ConstantesService {
 	
 	public final class TarefaReporte{
 		private TarefaReporte(){}
-		public static final String URL_REPORTAR_HORA = "/tarefa_reporte/{sprintID}";
+		public static final String URL_REPORTAR_HORA = "/tarefa_reporte/{sprintID}/{itemID}";
 
 	}
 

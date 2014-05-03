@@ -17,9 +17,10 @@ public class TarefaReporteService {
 	@Autowired
 	private ITarefaReporteManager tarefaReporteManager;
 	
-	@RequestMapping(method = RequestMethod.POST, value ="/{sprintID}")
-    public void reportarHora(@RequestBody TarefaReporte tarefaReporte, @PathVariable Integer sprintID) {
-		tarefaReporteManager.reportarHora(tarefaReporte, sprintID);
+	@RequestMapping(method = RequestMethod.POST, value ="/{sprintID}/{itemID}")
+    public void reportarHora(@RequestBody TarefaReporte tarefaReporte, 
+    		@PathVariable Integer sprintID, @PathVariable Integer itemID) {
+		tarefaReporteManager.reportarHora(tarefaReporte, sprintID, itemID);
     }
 
 	/* getters and setters */

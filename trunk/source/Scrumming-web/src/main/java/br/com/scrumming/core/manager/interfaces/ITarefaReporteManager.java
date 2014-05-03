@@ -5,5 +5,5 @@ import br.com.scrumming.domain.TarefaReporte;
 
 public interface ITarefaReporteManager extends IManager<TarefaReporte, Integer>{
 	
-	void reportarHora(TarefaReporte tarefaReporte, Integer sprintID);
+	void reportarHora(TarefaReporte tarefaReporte, Integer sprintID, Integer itemID);
 }
