@@ -40,7 +40,6 @@ public class ItemBacklogMB extends AbstractBean {
     /*Funções específicas da tela*/
 	public String salvarItemBacklog() {
 		itemBacklog.setProjeto(projetoSelecionado);
-		itemBacklog.setStoryPoints(number);
 		clienteService.salvarItemBacklog(itemBacklog);
 		atualizarListaDeItens();
 		
@@ -167,7 +166,6 @@ public class ItemBacklogMB extends AbstractBean {
         	return;
         }else if(number == 9){
     		this.number = 55;
-        	return;
         }
 	}
 
