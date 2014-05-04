@@ -16,7 +16,7 @@
 		<h:panelGroup styleClass="col-md-9 column div-center">
 			<h:panelGroup style="width:100%">
 				<p:panel header="#{projetoCadastroMB.titulo}" id="panel">
-					<p:focus context="panel" />
+<!-- 					<p:focus context="panel" /> -->
 					<h:panelGroup>
 						<p:panel>
 							<!-- Text input-->
@@ -65,6 +65,7 @@
 					<br />
 					<!-- *********************************************************************************************** -->
 					<p:fieldset id="fieldsetTables" widgetVar="fieldsetTables">
+
 						<h:panelGroup styleClass="col-md-5 column">
 							<p:panel>
 								<f:facet name="header">
@@ -73,7 +74,7 @@
 								<p:dataGrid id="dgProjeto" var="teamProjeto"
 									value="#{projetoCadastroMB.team}" columns="1"
 									emptyMessage="Sem registros" selectionMode="single">
-									<h:commandLink immediate="true">
+									<h:commandLink immediate="true" update="@widgetVar(fieldsetTables)">
 										<p:column>
 											<p:panel header="#{teamProjeto.usuario.nome}"
 												style="text-align:center" toggleable="true"
@@ -91,7 +92,7 @@
 												<p:effect type="pulsate" event="click" />
 											</p:panel>
 										</p:column>
-										<f:setPropertyActionListener value="#{teamProjeto}"
+										<f:setPropertyActionListener value="#{teamProjeto}" update="@widgetVar(fieldsetTables)"
 											target="#{projetoCadastroMB.usuarioTeamSelecionado}" />
 									</h:commandLink>
 								</p:dataGrid>
@@ -117,8 +118,8 @@
 							</h:commandLink>
 						</h:panelGroup>
 
-						<h:panelGroup styleClass="col-md-5 column">
-							<p:panel>
+<!-- 						<h:panelGroup styleClass="col-md-5 column"> -->
+							<p:panel styleClass="col-md-5 column">
 								<f:facet name="header">
 									<h:outputText value="Usuários disponíveis" />
 								</f:facet>
@@ -137,11 +138,11 @@
 											</p:panel>
 										</p:column>
 										<f:setPropertyActionListener value="#{item}"
-											target="#{projetoCadastroMB.usuarioSelecionado}" />
+											target="#{projetoCadastroMB.usuarioSelecionado}"/>
 									</h:commandLink>
 								</p:dataGrid>
 							</p:panel>
-						</h:panelGroup>
+<!-- 						</h:panelGroup> -->
 
 					</p:fieldset>
 					<!-- *********************************************************************************************** -->

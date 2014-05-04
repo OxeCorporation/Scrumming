@@ -65,7 +65,7 @@ public class Projeto extends ObjetoPersistente<Integer> {
     @Type(type = HibernateTypes.JODA_DATE_TIME)
     @Column(name = "data_fim")
     @NotNull
-	@Future(message="A data final do Projeto deve ser posterior à data inicial")
+	//@Future(message="A data final do Projeto deve ser posterior à data inicial")
     @JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
     private DateTime dataFim;
