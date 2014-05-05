@@ -86,60 +86,7 @@ public class BoardBean extends AbstractBean {
 			panel.getChildren().add(htmlOutputText);
 		}
 	}
-
-	// TODO remover apos criação do serviço
-	private List<Tarefa> criarFaceTarefa() {
-		Tarefa tarefa1 = new Tarefa();
-		tarefa1.setCodigo(1);
-		tarefa1.setNome("Tarefa 1");
-		tarefa1.setSituacao(SituacaoTarefaEnum.PARA_FAZER);
-		tarefa1.setDescricao("Tarefa 1 bla bla");
-		tarefa1.setDataAtribuicao(DateTime.now());
-		tarefa1.setTempoEstimado(4);
-
-		Tarefa tarefa2 = new Tarefa();
-		tarefa2.setNome("Tarefa 2");
-		tarefa2.setCodigo(2);
-		tarefa2.setSituacao(SituacaoTarefaEnum.PARA_FAZER);
-		tarefa2.setDescricao("Tarefa 2 bla bla");
-		tarefa2.setDataAtribuicao(DateTime.now());
-		tarefa2.setTempoEstimado(5);
-
-		Tarefa tarefa3 = new Tarefa();
-		tarefa3.setNome("Tarefa 3");
-		tarefa3.setCodigo(3);
-		tarefa3.setSituacao(SituacaoTarefaEnum.FAZENDO);
-		tarefa3.setDescricao("Tarefa 3 bla bla");
-		tarefa3.setDataAtribuicao(DateTime.now());
-		tarefa3.setTempoEstimado(7);
-
-		Tarefa tarefa4 = new Tarefa();
-		tarefa4.setNome("Tarefa 4");
-		tarefa4.setCodigo(4);
-		tarefa4.setSituacao(SituacaoTarefaEnum.FAZENDO);
-		tarefa4.setDescricao("Tarefa 4 bla bla");
-		tarefa4.setDataAtribuicao(DateTime.now());
-		tarefa4.setTempoEstimado(8);
-
-		Tarefa tarefa5 = new Tarefa();
-		tarefa5.setNome("Tarefa 5");
-		tarefa5.setCodigo(5);
-		tarefa5.setSituacao(SituacaoTarefaEnum.FEITO);
-		tarefa5.setDescricao("Tarefa 5 bla bla");
-		tarefa5.setDataAtribuicao(DateTime.now());
-		tarefa5.setTempoEstimado(2);
-
-		Tarefa tarefa6 = new Tarefa();
-		tarefa6.setNome("Tarefa 6");
-		tarefa6.setCodigo(6);
-		tarefa6.setSituacao(SituacaoTarefaEnum.EM_IMPEDIMENTO);
-		tarefa6.setDescricao("Tarefa 6 bla bla");
-		tarefa6.setDataAtribuicao(DateTime.now());
-		tarefa6.setTempoEstimado(6);
-		return Arrays.asList(tarefa1, tarefa2, tarefa3, tarefa4, tarefa5,
-				tarefa6);
-	}
-
+	
 	public void handleReorder(DashboardReorderEvent event) {
 		String widgetId = event.getWidgetId();
 		int columnIndex = event.getColumnIndex();
