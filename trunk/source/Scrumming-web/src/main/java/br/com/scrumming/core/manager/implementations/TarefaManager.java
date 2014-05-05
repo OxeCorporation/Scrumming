@@ -12,6 +12,7 @@ import br.com.scrumming.core.infra.exceptions.NegocioException;
 import br.com.scrumming.core.infra.manager.AbstractManager;
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
+import br.com.scrumming.core.infra.util.MensagemUtil;
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
 import br.com.scrumming.core.manager.interfaces.ITarefaManager;
 import br.com.scrumming.core.manager.interfaces.ITeamManager;
@@ -24,129 +25,157 @@ import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
 @Service
-public class TarefaManager extends AbstractManager<Tarefa, Integer> implements ITarefaManager {
+public class TarefaManager extends AbstractManager<Tarefa, Integer> implements
+		ITarefaManager {
 
-    /**
+	/**
      * 
      */
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Autowired
-    private TarefaRepositorio tarefaRepositorio;
-    @Autowired
-    private TarefaReporteRepositorio tarefaReporteRepositorio;
-    @Autowired
-    private IItemBacklogManager itemBacklogManager;
-    @Autowired
-    private IUsuarioManager usuarioManager;
-    @Autowired
-    private ITeamManager teamManager;
+	@Autowired
+	private TarefaRepositorio tarefaRepositorio;
+	@Autowired
+	private TarefaReporteRepositorio tarefaReporteRepositorio;
+	@Autowired
+	private IItemBacklogManager itemBacklogManager;
+	@Autowired
+	private IUsuarioManager usuarioManager;
+	@Autowired
+	private ITeamManager teamManager;
 
 	@Override
-    public AbstractRepositorio<Tarefa, Integer> getRepositorio() {
-        return this.tarefaRepositorio;
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void salvar(Tarefa tarefa, Integer itemBacklogID) {
-    	ItemBacklog itemBacklog = itemBacklogManager.findByKey(itemBacklogID);
-    	tarefa.setItemBacklog(itemBacklog);
-    	if (tarefa.getSituacao() == null)
-    		tarefa.setSituacao(SituacaoTarefaEnum.PARA_FAZER);
-    	    	
-    	insertOrUpdate(tarefa);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void remover(Tarefa tarefa) {
-        validarDadosAntesDeRemover(tarefa);
-    	remove(tarefa);
-    }
-
-    private void validarDadosAntesDeRemover(Tarefa tarefa) {	
-    	if ((tarefa.getSituacao() != SituacaoTarefaEnum.PARA_FAZER)) {
-    		throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_SO_PODE_REMOVER_TAREFA_COM_SITUACAO_PARAFAZER);
-    	}
-		if (tarefaReporteRepositorio.existeReporteDeHoras(tarefa.getCodigo())) {
-			throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_IMPOSSIVEL_REMOVER_EXISTE_REPORTE_DE_HORAS_NA_TAREFA);
-		}
-		/*if (tarefaRepositorio.tarefaFoiFavoritada(tarefa.getCodigo())) {
-			throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_IMPOSSIVEL_REMOVER_TAREFA_FOI_FAVORITADA);
-		}*/
+	public AbstractRepositorio<Tarefa, Integer> getRepositorio() {
+		return this.tarefaRepositorio;
 	}
 
 	@Override
-    public List<Tarefa> consultarPorItemBacklog(Integer itemBacklogID) {
-        List<Tarefa> listaDeTarefas = tarefaRepositorio.consultarPorItemBacklog(itemBacklogID);
-        return preencherNovaListaDeTarefas(listaDeTarefas);
-    }
-	
+	@Transactional(rollbackFor = Exception.class)
+	public void salvar(Tarefa tarefa, Integer itemBacklogID) {
+		ItemBacklog itemBacklog = itemBacklogManager.findByKey(itemBacklogID);
+		tarefa.setItemBacklog(itemBacklog);
+		if (tarefa.getSituacao() == null)
+			tarefa.setSituacao(SituacaoTarefaEnum.PARA_FAZER);
+
+		insertOrUpdate(tarefa);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void atualizarStatusTarefa(Integer tarefaID,
+			SituacaoTarefaEnum situacaoTarefaEnum) {
+
+		Tarefa tarefa = findByKey(tarefaID);
+		tarefa.setSituacao(situacaoTarefaEnum);
+		insertOrUpdate(tarefa);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void remover(Tarefa tarefa) {
+		validarDadosAntesDeRemover(tarefa);
+		remove(tarefa);
+	}
+
+	private void validarDadosAntesDeRemover(Tarefa tarefa) {
+		if ((tarefa.getSituacao() != SituacaoTarefaEnum.PARA_FAZER)) {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_ERRO_SO_PODE_REMOVER_TAREFA_COM_SITUACAO_PARAFAZER);
+		}
+		if (tarefaReporteRepositorio.existeReporteDeHoras(tarefa.getCodigo())) {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_ERRO_IMPOSSIVEL_REMOVER_EXISTE_REPORTE_DE_HORAS_NA_TAREFA);
+		}
+		/*
+		 * if (tarefaRepositorio.tarefaFoiFavoritada(tarefa.getCodigo())) {
+		 * throw new NegocioException(ConstantesMensagem.
+		 * MENSAGEM_ERRO_IMPOSSIVEL_REMOVER_TAREFA_FOI_FAVORITADA); }
+		 */
+	}
+
+	@Override
+	public List<Tarefa> consultarPorItemBacklog(Integer itemBacklogID) {
+		List<Tarefa> listaDeTarefas = tarefaRepositorio
+				.consultarPorItemBacklog(itemBacklogID);
+		return preencherNovaListaDeTarefas(listaDeTarefas);
+	}
+
 	private List<Tarefa> preencherNovaListaDeTarefas(List<Tarefa> listaDeTarefas) {
 		List<Tarefa> novaListaDeTarefas = new ArrayList<>();
-        for (Tarefa tarefa : listaDeTarefas) {
-        	if (tarefa.getSituacao() == SituacaoTarefaEnum.PARA_FAZER){
-        		tarefa.setSituacaoDescricao("Planejada");
-        		tarefa.setBackgroundColor("background-color: grey");
-        	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.FAZENDO) {
-        		tarefa.setSituacaoDescricao("Em progresso");
-        		tarefa.setBackgroundColor("background-color: blue");
-        	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.FEITO) {
-        		tarefa.setSituacaoDescricao("Concluída");
-        		tarefa.setBackgroundColor("background-color: green");
-        	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.CANCELADO) {
-        		tarefa.setSituacaoDescricao("Cancelada");
-        		tarefa.setBackgroundColor("background-color: red");
-        	} else if (tarefa.getSituacao() == SituacaoTarefaEnum.EM_IMPEDIMENTO) {
-        		tarefa.setSituacaoDescricao("Em impedimento");
-        		tarefa.setBackgroundColor("background-color: orange");
-        	}
-        	
-        	novaListaDeTarefas.add(tarefa);
-        }
+		for (Tarefa tarefa : listaDeTarefas) {
+			if (tarefa.getSituacao() == SituacaoTarefaEnum.PARA_FAZER) {
+				String planejada = MensagemUtil.get(ConstantesMensagem.MENSAGEM_TAREFA_PLANEJADA);
+				tarefa.setSituacaoDescricao(planejada);
+				tarefa.setBackgroundColor("background-color: grey");
+			} else if (tarefa.getSituacao() == SituacaoTarefaEnum.FAZENDO) {
+				String em_progresso = MensagemUtil.get(ConstantesMensagem.MENSAGEM_TAREFA_EM_PROGRESSO);
+				tarefa.setSituacaoDescricao(em_progresso);
+				tarefa.setBackgroundColor("background-color: blue");
+			} else if (tarefa.getSituacao() == SituacaoTarefaEnum.FEITO) {
+				String concluida = MensagemUtil.get(ConstantesMensagem.MENSAGEM_TAREFA_COMCLUIDA);
+				tarefa.setSituacaoDescricao(concluida);
+				tarefa.setBackgroundColor("background-color: green");
+			} else if (tarefa.getSituacao() == SituacaoTarefaEnum.CANCELADO) {
+				String cancelada = MensagemUtil.get(ConstantesMensagem.MENSAGEM_TAREFA_CANCELADA);
+				tarefa.setSituacaoDescricao(cancelada);
+				tarefa.setBackgroundColor("background-color: red");
+			} else if (tarefa.getSituacao() == SituacaoTarefaEnum.EM_IMPEDIMENTO) {
+				String em_impedimento = MensagemUtil.get(ConstantesMensagem.MENSAGEM_TAREFA_EM_IMPEDIMENTO);
+				tarefa.setSituacaoDescricao(em_impedimento);
+				tarefa.setBackgroundColor("background-color: orange");
+			}
+
+			novaListaDeTarefas.add(tarefa);
+		}
 		return novaListaDeTarefas;
 	}
 
 	@Override
-	public List<Tarefa> consultarPorItemBacklogIhSituacao(Integer itemBacklogID, SituacaoTarefaEnum situacao) {		
-		List<Tarefa> listaDeTarefas = tarefaRepositorio.consultarPorItemBacklogIhSituacao(itemBacklogID, situacao);
-        return preencherNovaListaDeTarefas(listaDeTarefas);
+	public List<Tarefa> consultarPorItemBacklogIhSituacao(
+			Integer itemBacklogID, SituacaoTarefaEnum situacao) {
+		List<Tarefa> listaDeTarefas = tarefaRepositorio
+				.consultarPorItemBacklogIhSituacao(itemBacklogID, situacao);
+		return preencherNovaListaDeTarefas(listaDeTarefas);
 	}
-	
+
 	@Override
-	public List<Tarefa> consultarPorItemBacklogIhNotSituacao(Integer itemBacklogID, SituacaoTarefaEnum situacao) {
-		return preencherNovaListaDeTarefas(tarefaRepositorio.consultarPorItemBacklogIhNotSituacao(itemBacklogID, situacao));
+	public List<Tarefa> consultarPorItemBacklogIhNotSituacao(
+			Integer itemBacklogID, SituacaoTarefaEnum situacao) {
+		return preencherNovaListaDeTarefas(tarefaRepositorio
+				.consultarPorItemBacklogIhNotSituacao(itemBacklogID, situacao));
 	}
-    
+
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void atribuirPara(Tarefa tarefa, Integer itemBacklogID, Integer usuarioID) {
+	public void atribuirPara(Tarefa tarefa, Integer itemBacklogID,
+			Integer usuarioID) {
 		ItemBacklog itemBacklog = itemBacklogManager.findByKey(itemBacklogID);
-    	tarefa.setItemBacklog(itemBacklog);
-    	
+		tarefa.setItemBacklog(itemBacklog);
+
 		Usuario usuario = usuarioManager.findByKey(usuarioID);
 		tarefa.setUsuario(usuario);
-		
-		if (usuario != null){
+
+		if (usuario != null) {
 			tarefa.setDataAtribuicao(new DateTime());
 		} else {
 			tarefa.setDataAtribuicao(null);
 		}
-    	
+
 		validarDadosAntesDeAtribuir(tarefa);
 		insertOrUpdate(tarefa);
-    }
-	
+	}
+
 	private void validarDadosAntesDeAtribuir(Tarefa tarefa) {
-		List<Usuario> usuarios = teamManager.consultarUsuarioPorProjeto(tarefa.getItemBacklog().getProjeto().getCodigo());
-		if (!usuarios.contains(tarefa.getUsuario())){
-			throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_USUARIO_NAO_FAZ_PARTE_DO_TEAM);
+		List<Usuario> usuarios = teamManager.consultarUsuarioPorProjeto(tarefa
+				.getItemBacklog().getProjeto().getCodigo());
+		if (!usuarios.contains(tarefa.getUsuario())) {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_ERRO_USUARIO_NAO_FAZ_PARTE_DO_TEAM);
 		}
 	}
-    
-    /* getters and setters */
-    public TarefaRepositorio getTarefaRepositorio() {
+
+	/* getters and setters */
+	public TarefaRepositorio getTarefaRepositorio() {
 		return tarefaRepositorio;
 	}
 
@@ -158,7 +187,8 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements I
 		return tarefaReporteRepositorio;
 	}
 
-	public void setTarefaReporteRepositorio(TarefaReporteRepositorio tarefaReporteRepositorio) {
+	public void setTarefaReporteRepositorio(
+			TarefaReporteRepositorio tarefaReporteRepositorio) {
 		this.tarefaReporteRepositorio = tarefaReporteRepositorio;
 	}
 

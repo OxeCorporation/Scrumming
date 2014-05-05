@@ -92,12 +92,11 @@ public class BoardBean extends AbstractBean {
 		int columnIndex = event.getColumnIndex();
 		Tarefa task = findTarefa(Integer.valueOf(widgetId.substring(TASK_PREFIX
 				.length())));
-		task.setSituacao((SituacaoTarefaEnum.values()[columnIndex]));
-		atualizarTarefa(task);
+		atualizarTarefa(task,(SituacaoTarefaEnum.values()[columnIndex]));
 	}
 
-	private void atualizarTarefa(Tarefa task) {
-		tarefaClientService.inserirOuAtualizar(task);
+	private void atualizarTarefa(Tarefa task, SituacaoTarefaEnum situacaoTarefaEnum) {
+		tarefaClientService.atualizarStatus(task.getCodigo(), situacaoTarefaEnum);
 	}
 
 	public Tarefa findTarefa(Integer id) {

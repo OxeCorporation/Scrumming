@@ -37,4 +37,9 @@ public class ConstantesMensagem {
 	public static final String MENSAGEM_ERRO_IMPOSSIVEL_REMOVER_TAREFA_FOI_FAVORITADA = "mensagem_erro_impossivel_remover_tarefa_foi_favoritada";
 	public static final String MENSAGEM_ERRO_SO_PODE_REMOVER_TAREFA_COM_SITUACAO_PARAFAZER = "mensagem_erro_so_pode_remover_tarefa_com_situacao_parafazer";
 	public static final String MENSAGEM_ERRO_USUARIO_NAO_FAZ_PARTE_DO_TEAM = "mensagem_erro_usuario_nao_faz_parte_do_team";
+	public static final String MENSAGEM_TAREFA_PLANEJADA = "mensagem_tarefa_planejada";
+	public static final String MENSAGEM_TAREFA_EM_PROGRESSO = "mensagem_tarefa_em_progresso";
+	public static final String MENSAGEM_TAREFA_COMCLUIDA = "mensagem_tarefa_concluida";
+	public static final String MENSAGEM_TAREFA_CANCELADA = "mensagem_tarefa_cancelada";
+	public static final String MENSAGEM_TAREFA_EM_IMPEDIMENTO = "mensagem_tarefa_em_impedimento";
 }

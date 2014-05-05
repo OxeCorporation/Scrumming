@@ -26,6 +26,7 @@ public class TarefaService {
 		tarefaManager.insertOrUpdate(tarefa);
 	}
 	
+	
 	@RequestMapping(method = RequestMethod.POST, value = "/save/{itemBacklogManagerID}")
     public void salvar(@RequestBody Tarefa tarefa,@PathVariable Integer itemBacklogManagerID){
 		tarefaManager.salvar(tarefa, itemBacklogManagerID);
@@ -34,6 +35,10 @@ public class TarefaService {
 	@RequestMapping(method = RequestMethod.GET, value = "/{tarefaID}")
     public Tarefa consultarPorChave(Integer tarefaID) {
 		return tarefaManager.findByKey(tarefaID);
+	}
+	@RequestMapping(method = RequestMethod.POST, value = "/update/{tarefaID}/{situacaoTarefaEnum}")
+	public void atualizarStatusTarefa(@PathVariable Integer tarefaID,@PathVariable SituacaoTarefaEnum situacaoTarefaEnum){
+		tarefaManager.atualizarStatusTarefa(tarefaID, situacaoTarefaEnum);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/list/{itemBacklogID}")
