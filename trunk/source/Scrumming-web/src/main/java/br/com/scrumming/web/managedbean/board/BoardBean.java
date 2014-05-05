@@ -3,11 +3,18 @@ package br.com.scrumming.web.managedbean.board;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.ValueExpression;
+import javax.faces.application.Application;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlOutputText;
+import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.event.SetPropertyActionListener;
 import org.joda.time.DateTime;
+import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.dashboard.Dashboard;
 import org.primefaces.component.panel.Panel;
 import org.primefaces.event.DashboardReorderEvent;
@@ -39,7 +46,7 @@ public class BoardBean extends AbstractBean {
 	private static final String TASK_PREFIX = "task_id_";
 	private SprintClientService sprintService;
 	private TarefaClientService tarefaClientService;
-
+	private Tarefa tarefaSelecionada;
 	@FlashScoped
 	private Sprint sprintSelecionada;
 
@@ -71,6 +78,11 @@ public class BoardBean extends AbstractBean {
 		dashboardModel.addColumn(done);
 		dashboard.setModel(dashboardModel);
 
+		FacesContext context = FacesContext.getCurrentInstance();
+		Application application = context.getApplication();
+		ExpressionFactory expressionFactory = application.getExpressionFactory();
+		ELContext elContext = context.getELContext();
+		
 		for (Tarefa tarefa : tarefas) {
 			Panel panel = new Panel();
 			panel.setId(TASK_PREFIX + tarefa.getCodigo().toString());
@@ -81,9 +93,20 @@ public class BoardBean extends AbstractBean {
 			DashboardColumn column = dashboardModel.getColumn(tarefa
 					.getSituacao().ordinal());
 			column.addWidget(panel.getId());
+			
 			HtmlOutputText htmlOutputText = new HtmlOutputText();
 			htmlOutputText.setValue(tarefa.getDescricao());
 			panel.getChildren().add(htmlOutputText);
+			
+			CommandButton button = new CommandButton();
+			button.setValue("Detalhe");
+			button.setImmediate(true);
+			button.setOncomplete("boardModal.show()");
+			button.setUpdate("boardModal");
+			ValueExpression target= expressionFactory.createValueExpression(elContext, "#{boardBean.tarefaSelecionada}", Object.class);
+			ValueExpression value= expressionFactory.createValueExpression(tarefa, Tarefa.class);
+			button.addActionListener(new SetPropertyActionListener(target, value));
+			panel.getChildren().add(button);
 		}
 	}
 	
@@ -154,5 +177,13 @@ public class BoardBean extends AbstractBean {
 
 	public void setTarefaClientService(TarefaClientService tarefaClientService) {
 		this.tarefaClientService = tarefaClientService;
+	}
+
+	public Tarefa getTarefaSelecionada() {
+		return tarefaSelecionada;
+	}
+
+	public void setTarefaSelecionada(Tarefa tarefaSelecionada) {
+		this.tarefaSelecionada = tarefaSelecionada;
 	}
 }

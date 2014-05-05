@@ -63,5 +63,9 @@
 			<p:dashboard id="dashboard" binding="#{boardBean.dashboard}" model="#{boardBean.dashboardModel}">
 				<p:ajax event="reorder" listener="#{boardBean.handleReorder}"/>
 			</p:dashboard>
+			
+			<p:dialog id="boardModal" widgetVar="boardModal" modal="true">
+				<h:outputText value="#{boardBean.tarefaSelecionada.descricao}" />
+			</p:dialog>
 	</ui:define>
 </ui:composition>
