@@ -15,12 +15,14 @@
 	columns="5"
 	style="width:100%;"
 	emptyMessage="#{mensagens.mensagem_sem_registros}" >
-			
+			<h:outputLink id="track" value="#">
 			<f:facet name="header">
 				<h:outputText value="#{mensagens.label_dailies_cadastrados}" />
 			</f:facet>
+			<p:tooltip/>
 			
 			<p:panel header="#{dailyScrum.dataFormatada}" style="width: 140px; height: 235px; margin: 0 auto;">
+				
 				<p:outputLabel for="dailyHorario" value="#{mensagens.label_horario_daily}" style="font-size: 12px;"/> <span/>
 				<h:outputText id="dailyHorario" value="#{dailyScrum.horaFormatada}"  style="font-size: 12px;"/>  <br/>
 				<p:outputLabel for="dailyLocal" value="#{mensagens.label_local_daily}"  style="font-size: 12px;"/> <span/>
@@ -53,6 +55,7 @@
 					</p:commandButton>
 					</div>
 				</f:facet>
+				
 			</p:panel>								
 			
 			<f:facet name="footer">
@@ -66,6 +69,8 @@
 					action="#{sprintDetalheMB.novoDaily}"
 					rendered="#{sprintDetalheMB.sprintSelecionada.editable}" />
 			</f:facet>	
+			</h:outputLink>
+			<p:tooltip id="toolTipTrack" for="track" value="#{mensagens.label_descricao} #{dailyScrum.descricao}" trackMouse="true" />
 	</p:dataGrid>
 		
 		<p:confirmDialog 
@@ -91,7 +96,7 @@
       			   icon="ui-icon-close"
       			   oncomplete="confimExcluir.hide()" />			        			          
   			</p:confirmDialog>
-						
+					
 </h:panelGroup>
 
 <!-- INCLUDE DO MODAL DO CADASTRO DE DAILY SCRUM -->
