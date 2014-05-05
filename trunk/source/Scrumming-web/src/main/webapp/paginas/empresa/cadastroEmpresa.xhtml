@@ -10,19 +10,19 @@
 			<p:panel>
 				<h:panelGrid columns="1">						
 					<h:outputText value="Nome da Empresa:*" /> 
-					<p:inputText id="txtNomeEmpresa" required="true" value="#{empresaBean.empresaDTO.empresa.nome}" requiredMessage="Por favor, informe o nome da empresa" />
+					<p:inputText id="txtNomeEmpresa" required="true" value="#{empresaBean.empresaDTO.empresa.nome}" label="Nome da Empresa" requiredMessage="Por favor, informe o nome da empresa" />
 					
 					<h:outputText value="Nome do Usuário:*" /> 
-					<p:inputText id="txtNomeUsuario" required="true" value="#{empresaBean.empresaDTO.usuario.nome}" requiredMessage="Por favor, informe o nome do usuário" />
+					<p:inputText id="txtNomeUsuario" required="true" value="#{empresaBean.empresaDTO.usuario.nome}" label="Nome do Usuário" requiredMessage="Por favor, informe o nome do usuário" />
 					
 					<h:outputText value="E-mail:*" /> 
-					<p:inputText id="txtEmail" required="true" value="#{empresaBean.empresaDTO.usuario.email}" requiredMessage="Por favor, informe um e-mail válido" />
+					<p:inputText id="txtEmail" required="true" value="#{empresaBean.empresaDTO.usuario.email}" label="E-mail" requiredMessage="Por favor, informe um e-mail válido" />
 					
 					<h:outputText value="Login:*" /> 
-					<p:inputText id="txtLogin" required="true" value="#{empresaBean.empresaDTO.usuario.login}" requiredMessage="Por favor, informe um login" />							
+					<p:inputText id="txtLogin" required="true" value="#{empresaBean.empresaDTO.usuario.login}" label="Login" requiredMessage="Por favor, informe um login" />							
 					
 					<h:outputText value="Senha:*" /> 
-					<p:password id="txtSenha" required="true" value="#{empresaBean.empresaDTO.usuario.senha}" requiredMessage="Por favor, informe uma senha" />
+					<p:password id="txtSenha" required="true" value="#{empresaBean.empresaDTO.usuario.senha}" label="Senha" requiredMessage="Por favor, informe uma senha" />
 					
 					<h:outputText value="(*) Campos Obrigatórios" />
 				</h:panelGrid>
