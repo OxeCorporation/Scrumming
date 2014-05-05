@@ -8,7 +8,7 @@
 	<h:form id="cadastroEmpresaForm">
 		<p:dialog showEffect="fade" hideEffect="explode" id="dlgCadastroEmpresa" header="Cadastro da Empresa" modal="true" var="exec" resizable="false" widgetVar="dlgCadastroEmpresa">
 			<p:panel>
-				<h:panelGrid columns="1">						
+				<h:panelGrid columns="1">
 					<h:outputText value="Nome da Empresa:*" /> 
 					<p:inputText id="txtNomeEmpresa" required="true" value="#{empresaBean.empresaDTO.empresa.nome}" label="Nome da Empresa" requiredMessage="Por favor, informe o nome da empresa" />
 					
