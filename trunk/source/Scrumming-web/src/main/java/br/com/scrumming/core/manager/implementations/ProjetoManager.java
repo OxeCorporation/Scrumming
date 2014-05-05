@@ -15,6 +15,8 @@ import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.core.manager.interfaces.IProjetoManager;
 import br.com.scrumming.core.manager.interfaces.ISprintBacklogManager;
+import br.com.scrumming.core.manager.interfaces.ISprintManager;
+import br.com.scrumming.core.manager.interfaces.ITarefaManager;
 import br.com.scrumming.core.repositorio.ProjetoRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
@@ -43,8 +45,8 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 	private TeamManager teamManage;
 	private ItemBacklogManager itemBacklogManager;
 	private ISprintBacklogManager sprintBacklogManager;
-	private SprintManager sprintManager;
-	private TarefaManager tarefaManager;
+	private ISprintManager sprintManager;
+	private ITarefaManager tarefaManager;
 
 	@Override
 	public AbstractRepositorio<Projeto, Integer> getRepositorio() {
@@ -54,8 +56,7 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public String salvarProjeto(ProjetoDTO projetoDTO) {
-		int chave = projetoDTO.getProjeto().getChave();
-		String retorno = "";
+		//int chave = projetoDTO.getProjeto().getChave();
 
 		if (projetoDTO.getProjeto().getChave() == null) {
 			DateTime projetoINI = (new DateTime(projetoDTO.getDataInicio()));
@@ -86,7 +87,6 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 				Integer projetoID = insertOrUpdate(projeto);
 
 				if (projetoID != null) {
-					retorno = "Registro foi salvo";
 					// Busca o objeto persistido pela chave.
 					// Projeto projetoPersistido = findByKey(projetoID);
 
@@ -98,7 +98,7 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 		} else {
 			alterarProjeto(projetoDTO);
 		}
-		return retorno;
+		return "";
 	}
 
 	@Transactional(rollbackFor = Exception.class)

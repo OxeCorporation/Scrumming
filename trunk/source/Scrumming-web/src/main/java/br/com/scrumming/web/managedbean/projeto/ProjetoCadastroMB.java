@@ -3,7 +3,6 @@ package br.com.scrumming.web.managedbean.projeto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,6 +39,7 @@ public class ProjetoCadastroMB extends AbstractBean {
 	private List<Usuario> usuarioEmpresaNotProjeto;
 	@FlashScoped
 	private List<Team> teamProjeto;
+	private List<Usuario> usuariosNaLista;
 
 	@SuppressWarnings("unused")
 	private List<PerfilUsuarioEnum> todosPerfis;
@@ -49,13 +49,13 @@ public class ProjetoCadastroMB extends AbstractBean {
 	private Usuario usuarioSelecionado;
 	private Team usuarioTeamSelecionado;
 
-	@ManagedProperty(value = "#{sessaoMB.empresaSelecionada}")
+	@ManagedProperty(value="#{sessaoMB.empresaSelecionada}")
 	private Empresa empresa;
-	private Date dataInicio;
-	private Date dataFim;
 	@FlashScoped
 	private String titulo;
 
+	@FlashScoped
+	private List<Usuario> usuariosList;
 
 	@Override
 	protected void inicializar() {
@@ -65,26 +65,31 @@ public class ProjetoCadastroMB extends AbstractBean {
 		if (teamProjeto == null) {
 			teamProjeto = new ArrayList<>();
 		}
-
+		if (usuariosNaLista == null) {
+			usuariosNaLista = new ArrayList<>();
+		}
 		if (projetoDTO == null) {
 			projetoDTO = new ProjetoDTO();
 		}
 		projetoClientService = new ProjetoClientService();
-		
 	}
 
 	@SuppressWarnings("static-access")
 	public String salvarProjeto() {
-		String retorno = "";
 		projetoDTO.getProjeto().setEmpresa(empresa);
 		projetoDTO.getProjeto().setSituacaoProjeto(situacao.ATIVO);
 		projetoDTO.setTimeProjeto(teamProjeto);
 		projetoDTO.setUsuarioEmpresaNotTeam(usuarioEmpresaNotProjeto);
-		String msg = projetoClientService.salvarProjeto(projetoDTO);
-		FacesMessageUtil
-				.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
-		retorno = redirecionar(PaginasUtil.Projeto.PROJETO_PAGE);
-		return retorno;
+		projetoClientService.salvarProjeto(projetoDTO);
+		return projetoPage();
+	}
+
+	public List<Usuario> getTarefas() {
+		return usuariosList;
+	}
+
+	public void setTarefas(List<Usuario> tarefas) {
+		this.usuariosList = tarefas;
 	}
 
 	public String moveItemToTeam() {
@@ -151,22 +156,6 @@ public class ProjetoCadastroMB extends AbstractBean {
 
 	public void setTeamProjeto(List<Team> teamProjeto) {
 		this.teamProjeto = teamProjeto;
-	}
-
-	public Date getDataInicio() {
-		return dataInicio;
-	}
-
-	public void setDataInicio(Date dataInicio) {
-		this.dataInicio = dataInicio;
-	}
-
-	public Date getDataFim() {
-		return dataFim;
-	}
-
-	public void setDataFim(Date dataFim) {
-		this.dataFim = dataFim;
 	}
 
 	public Empresa getEmpresa() {
@@ -272,5 +261,22 @@ public class ProjetoCadastroMB extends AbstractBean {
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+	}
+
+      
+    public List<Usuario> getUsuariosNaLista() {
+		return usuariosNaLista;
+	}
+
+	public void setUsuariosNaLista(List<Usuario> usuariosNaLista) {
+		this.usuariosNaLista = usuariosNaLista;
+	}
+
+	public List<Usuario> getUsuariosList() {
+		return usuariosList;
+	}
+
+	public void setUsuariosList(List<Usuario> usuariosList) {
+		this.usuariosList = usuariosList;
 	}
 }
