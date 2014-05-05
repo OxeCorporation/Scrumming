@@ -1,30 +1,13 @@
 package br.com.scrumming.web.infra;
 
+import java.util.Map;
+
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.context.Flash;
-import javax.faces.context.FlashFactory;
 
-import org.apache.myfaces.shared.context.flash.FlashImpl;
-
-public class FlashFactoryUtil extends FlashFactory {
-
-	private static FlashFactoryUtil INSTANCE = null;
-	private FlashFactoryUtil(){}
+public class FlashFactoryUtil{
 	
-	private static FlashFactoryUtil getInstance(){
-		if(INSTANCE == null){
-			INSTANCE = new FlashFactoryUtil();
-		}
-		return INSTANCE;
-	}
-	
-	@Override
-	public Flash getFlash(boolean create) {
-		return FlashImpl.getCurrentInstance(FacesContext.getCurrentInstance()
-				.getExternalContext(), create);
-	}
-
-	public static Flash getFlash(){
-		return getInstance().getFlash(true);
+	public static Map<String, Object> getFlash(){
+		return FacesContext.getCurrentInstance().getExternalContext().getFlash();
 	}
 }

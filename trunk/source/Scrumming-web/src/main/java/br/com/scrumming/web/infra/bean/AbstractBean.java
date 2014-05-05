@@ -2,10 +2,10 @@ package br.com.scrumming.web.infra.bean;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
-import javax.faces.context.Flash;
 
 import br.com.scrumming.web.infra.FlashFactoryUtil;
 import br.com.scrumming.web.infra.FlashScoped;
@@ -24,7 +24,7 @@ public abstract class AbstractBean implements Serializable{
 
 	@PostConstruct
 	public void construirMB() {
-		Flash flash = FlashFactoryUtil.getFlash();
+		Map<String, Object> flash = FlashFactoryUtil.getFlash();
 		for (Class<?> clazz = this.getClass(); clazz != null; clazz = clazz
 				.getSuperclass()) {
 			for (Field field : clazz.getDeclaredFields()) {
@@ -40,7 +40,7 @@ public abstract class AbstractBean implements Serializable{
 
 	private void putFlash() {
 		if (FacesContext.getCurrentInstance() != null) {
-			Flash flash = FlashFactoryUtil.getFlash();
+			Map<String, Object> flash = FlashFactoryUtil.getFlash();
 			for (Class<?> clazz = this.getClass(); clazz != null; clazz = clazz
 					.getSuperclass()) {
 				for (Field field : clazz.getDeclaredFields()) {
@@ -51,8 +51,6 @@ public abstract class AbstractBean implements Serializable{
 					}
 				}
 			}
-			 flash.setKeepMessages(true);
-	         flash.setRedirect(true);
 		}
 	}
 

@@ -2,10 +2,13 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf"
-	template="/paginas/template/template.xhtml"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/paginas/template/template.xhtml">
 
 	<ui:define name="conteudo">
+	
+		<h:outputText value="#{boardBean.sprintSelecionada.descricao}" />
+		
 		<style>
 			.painel {
 				margin: 5px;
@@ -49,8 +52,8 @@
 				</td>
 			</tr>
 		</table>
-			<p:dashboard id="dashboard" binding="#{boardBean.dashboard}">
-				<p:ajax event="reorder" listener="#{boardBean.handleReorder}" />
+			<p:dashboard id="dashboard" binding="#{boardBean.dashboard}" model="#{boardBean.dashboardModel}">
+				<p:ajax event="reorder" listener="#{boardBean.handleReorder}"/>
 			</p:dashboard>
 	</ui:define>
 </ui:composition>

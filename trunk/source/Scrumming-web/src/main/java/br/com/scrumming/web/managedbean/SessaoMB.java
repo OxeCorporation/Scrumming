@@ -16,7 +16,7 @@ import br.com.scrumming.web.clientService.UsuarioEmpresaClientService;
 import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.PaginasUtil;
 
-@ManagedBean
+@ManagedBean(name="sessaoMB")
 @SessionScoped
 public class SessaoMB {
 

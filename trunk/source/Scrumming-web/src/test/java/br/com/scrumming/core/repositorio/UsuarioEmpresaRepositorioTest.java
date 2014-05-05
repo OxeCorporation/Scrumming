@@ -41,9 +41,9 @@ public class UsuarioEmpresaRepositorioTest extends AbstractRepositorioTest {
 		
 		save(usuarioEmpresa,usuarioEmpresa2,usuarioEmpresa3,usuarioEmpresa4,usuarioEmpresa5);
 		
-		List<Usuario> usuarios = usuarioEmpresaRepositorio.consultarUsuarioPorEmpresa(0);
+		List<Usuario> usuarios = usuarioEmpresaRepositorio.consultarUsuarioPorEmpresa(empresa.getCodigo());
 		
-		Assert.assertTrue(usuarios.size() == 4);
+		Assert.assertEquals(4, usuarios.size());
 		Assert.assertEquals(OBJETOS_DEVERIAM_SER_IGUAIS, usuario5, usuarios.get(0));
 	}
 	

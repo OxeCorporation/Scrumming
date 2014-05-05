@@ -50,18 +50,19 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
+	
+	<context-param>
+        <param-name>com.sun.faces.expressionFactory</param-name>
+        <param-value>com.sun.el.ExpressionFactoryImpl</param-value>
+    </context-param>
 	<!-- Myfaces config -->
-     <listener>
-        <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
-    </listener>
+	<listener>
+		<listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
+	</listener>
     <context-param>
 		<param-name> org.apache.myfaces.annotation.SCAN_PACKAGES </param-name>
 		<param-value>br.com.scrumming.web.managedbean</param-value>
 	</context-param>
-   <!-- <error-page>
-        <exception-type>java.lang.Exception</exception-type>
-        <location>/error.xhtml</location>
-    </error-page> -->
 	<!-- Open Session in View -->
 	<filter>
 		<filter-name>openSessionInViewFilter</filter-name>
