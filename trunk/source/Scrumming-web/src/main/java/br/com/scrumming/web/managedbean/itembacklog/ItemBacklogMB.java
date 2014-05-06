@@ -20,6 +20,7 @@ import br.com.scrumming.web.infra.bean.AbstractBean;
 public class ItemBacklogMB extends AbstractBean {
 
     private List<ItemBacklog> itens;
+    private List<ItemBacklog> selecteditens;
     @FlashScoped
     private ItemBacklog itemBacklog;
     @FlashScoped
@@ -196,4 +197,9 @@ public class ItemBacklogMB extends AbstractBean {
 	public void setProjetoSelecionado(Projeto projetoSelecionado) {
 		this.projetoSelecionado = projetoSelecionado;
 	}
+
+	public List<ItemBacklog> getSelecteditens() {
+		return selecteditens;
+	}
+	
 }
