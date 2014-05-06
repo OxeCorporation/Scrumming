@@ -21,6 +21,7 @@ DROP TABLE IF EXISTS tarefa;
 DROP TABLE IF EXISTS itembacklog;
 DROP TABLE IF EXISTS usuario;
 DROP TABLE IF EXISTS projeto;
+DROP TABLE IF EXISTS config;
 DROP TABLE IF EXISTS empresa;
 
 -- -----------------------------------------------------
@@ -54,7 +55,8 @@ CREATE TABLE IF NOT EXISTS `Config` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 PACK_KEYS = 0
-ROW_FORMAT = DEFAULT;
+ROW_FORMAT = DEFAULT
+AUTO_INCREMENT = 0;
 
 -- -----------------------------------------------------
 -- Table `Projeto`
@@ -592,6 +594,7 @@ INSERT
 -- select * from dailyscrum;
 -- select * from tarefaReporte;
 -- select * from tarefaFavorita;
+-- select * from config;
 
 -- *******************************************************************************
 --                               FIM DO SCRIPT
