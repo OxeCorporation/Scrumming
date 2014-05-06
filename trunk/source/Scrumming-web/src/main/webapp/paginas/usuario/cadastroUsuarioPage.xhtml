@@ -8,98 +8,99 @@
 	xmlns:scrum="http://xmlns.jcp.org/jsf/composite/compenentes"
 	template="/paginas/template/template.xhtml">
 
-	<ui:define name="conteudo">
-		<h:panelGroup id="usuarioPanel">
-			<br />
-			
-			<p:dataGrid id="tabelaUsuarios" var="usuario"
-					value="#{cadastroUsuarioBean.usuarios}" >
-					<f:facet name="header">
-						<h:outputText value="#{mensagens.label_usuarios_cadastrados}" />
-					</f:facet>
-					
-					<p:panel header="#{usuario.nome}">
-						<p:outputLabel for="usuarioNome" value="#{mensagens.label_nome}" /> <span/>
-						<h:outputText id="usuarioNome" value="#{usuario.nome}" />  <br/>
-						<p:outputLabel for="usuarioLogin" value="#{mensagens.label_login}:"/> <span/>
-						<h:outputText id="usuarioLogin" value="#{usuario.login}" /> <br/>
-						<p:outputLabel for="usuarioEmail" value="#{mensagens.label_email}:"/> <span/>
-						<h:outputText id="usuarioEmail" value="#{usuario.email}" /> <br/>
-						<f:facet name="footer">
-						  <div align="center">
-								<p:commandButton id="alterarBotao"
-									value="#{mensagens.botao_alterar}"
-									action="#{cadastroUsuarioBean.alterar}"
+	<ui:define name="conteudo">		
+			<h:panelGroup id="usuarioPanel">
+				<br />
+				<h:form id="frmCadastroUsuario">
+					<p:dataGrid id="tabelaUsuarios" var="usuario"
+							value="#{cadastroUsuarioBean.usuarios}" >
+							<f:facet name="header">
+								<h:outputText value="#{mensagens.label_usuarios_cadastrados}" />
+							</f:facet>
+							
+							<p:panel header="#{usuario.nome}">
+								<p:outputLabel for="usuarioNome" value="#{mensagens.label_nome}" /> <span/>
+								<h:outputText id="usuarioNome" value="#{usuario.nome}" />  <br/>
+								<p:outputLabel for="usuarioLogin" value="#{mensagens.label_login}:"/> <span/>
+								<h:outputText id="usuarioLogin" value="#{usuario.login}" /> <br/>
+								<p:outputLabel for="usuarioEmail" value="#{mensagens.label_email}:"/> <span/>
+								<h:outputText id="usuarioEmail" value="#{usuario.email}" /> <br/>
+								<f:facet name="footer">
+								  <div align="center">
+										<p:commandButton id="alterarBotao"
+											value="#{mensagens.botao_alterar}"
+											action="#{cadastroUsuarioBean.alterar}"
+											oncomplete="novoUsuarioModal.show()"
+											process="@this"
+											update="@widgetVar(novoUsuarioModal)"
+											immediate="true">
+											
+											<f:setPropertyActionListener value="#{usuario}" target="#{cadastroUsuarioBean.usuario}" />
+										</p:commandButton>
+										<p:spacer />
+										<p:commandButton 
+										    id="excluirBotao"
+											value="#{mensagens.botao_desativar}" 
+											immediate="true" 
+											process="@this"
+											update="@widgetVar(confimDesativar)" 
+											oncomplete="confimDesativar.show()"
+											rendered="#{usuario.ativo}">
+											
+											<f:setPropertyActionListener value="#{usuario}" target="#{cadastroUsuarioBean.usuario}" />
+										</p:commandButton>
+										<p:commandButton 
+										  id="ativarBotao" 
+										  immediate="true" 
+										  rendered="#{not usuario.ativo}"
+										  process="@this"
+										  update="@form"
+										  action="#{cadastroUsuarioBean.ativar}">
+										  
+										  	<f:setPropertyActionListener value="#{usuario}" target="#{cadastroUsuarioBean.usuario}" />
+										  	
+										 </p:commandButton>
+									</div>
+								</f:facet>
+							</p:panel>	
+							
+							
+							<f:facet name="footer">
+								<p:commandButton id="cadastrarBotao"
+									value="#{mensagens.botao_cadastrar}"
 									oncomplete="novoUsuarioModal.show()"
 									process="@this"
 									update="@form"
-									immediate="true">
-									
-									<f:setPropertyActionListener value="#{usuario}" target="#{cadastroUsuarioBean.usuario}" />
-								</p:commandButton>
-								<p:spacer />
-								<p:commandButton 
-								    id="excluirBotao"
-									value="#{mensagens.botao_desativar}" 
-									immediate="true" 
-									process="@this"
-									update="@widgetVar(confimDesativar)" 
-									oncomplete="confimDesativar.show()"
-									rendered="#{usuario.ativo}">
-									
-									<f:setPropertyActionListener value="#{usuario}" target="#{cadastroUsuarioBean.usuario}" />
-								</p:commandButton>
-								<p:commandButton 
-								  id="ativarBotao" 
-								  immediate="true" 
-								  rendered="#{not usuario.ativo}"
-								  process="@this"
-								  update="@form"
-								  action="#{cadastroUsuarioBean.ativar}">
-								  
-								  	<f:setPropertyActionListener value="#{usuario}" target="#{cadastroUsuarioBean.usuario}" />
-								  	
-								 </p:commandButton>
-							</div>
-						</f:facet>
-					</p:panel>	
+									action="#{cadastroUsuarioBean.novoUsuario}"
+									immediate="true"/>
+							</f:facet>	
+					</p:dataGrid>
 					
+					<p:confirmDialog 
+					   id="confimDesativar" 
+					   widgetVar="confimDesativar" 
+					   message="#{mensagens.mensagem_info_usuario_sera_desativado}">
 					
-					<f:facet name="footer">
-						<p:commandButton id="cadastrarBotao"
-							value="#{mensagens.botao_cadastrar}"
-							oncomplete="novoUsuarioModal.show()"
-							process="@this"
-							update="@form"
-							action="#{cadastroUsuarioBean.novoUsuario}"
-							immediate="true"/>
-					</f:facet>	
-			</p:dataGrid>
-				
-				<p:confirmDialog 
-				   id="confimDesativar" 
-				   widgetVar="confimDesativar" 
-				   message="#{mensagens.mensagem_info_usuario_sera_desativado}">
-				
-        			<p:commandButton 
-        			   id="confirmButton"
-        			   value="#{mensagens.botao_confirmar}" 
-        			   styleClass="ui-confirmdialog-yes" 
-        			   icon="ui-icon-check" 
-        			   immediate="true" 
-        			   action="#{cadastroUsuarioBean.desativar}" 
-        			   oncomplete="confimDesativar.hide()" 
-        			   update="@form"/>  
-        			<p:commandButton 
-        			   id="cancelarButton"
-        			   value="#{mensagens.botao_cancelar}" 
-        			   styleClass="ui-confirmdialog-no" 
-        			   icon="ui-icon-close" 
-        			   immediate="true" 
-        			   oncomplete="confimDesativar.hide()"/>
-        			          
-    			</p:confirmDialog>
-			<ui:include src="/paginas/usuario/usuarioNovoPanel.xhtml" />
-		</h:panelGroup>
+	        			<p:commandButton 
+	        			   id="confirmButton"
+	        			   value="#{mensagens.botao_confirmar}" 
+	        			   styleClass="ui-confirmdialog-yes" 
+	        			   icon="ui-icon-check" 
+	        			   immediate="true" 
+	        			   action="#{cadastroUsuarioBean.desativar}" 
+	        			   oncomplete="confimDesativar.hide()" 
+	        			   update="@form"/>  
+	        			<p:commandButton 
+	        			   id="cancelarButton"
+	        			   value="#{mensagens.botao_cancelar}" 
+	        			   styleClass="ui-confirmdialog-no" 
+	        			   icon="ui-icon-close" 
+	        			   immediate="true" 
+	        			   oncomplete="confimDesativar.hide()"/>
+	        			          
+	    			</p:confirmDialog>
+	    		</h:form>
+				<ui:include src="/paginas/usuario/usuarioNovoPanel.xhtml" />
+			</h:panelGroup>		
 	</ui:define>
 </ui:composition>

@@ -6,75 +6,77 @@
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:p="http://primefaces.org/ui">
 
-	<p:dialog showEffect="fade" hideEffect="explode" id="dailyScrumModal" header="#{mensagens.label_cadastro_dailyScrum}" 
-		modal="true" width="350" height="#{sprintDetalheMB.modalHeight}" resizable="false" widgetVar="dailyScrumModal" visible="#{sprintDetalheMB.showModal}">
-		<p:panel>		
-			<h:panelGrid id="paneldaily" columns="2">  
-                <h:outputText value="#{mensagens.label_radio_button_daily}" rendered="#{sprintDetalheMB.saveDaily}" />  
-                <h:selectOneRadio id="tipoCliente" value="#{sprintDetalheMB.dailyScrum.uniqueDaily}" rendered="#{sprintDetalheMB.saveDaily}" >  
-                    <f:selectItem itemLabel="#{mensagens.label_cadastro_unico_daily}" itemValue="true" />
-                    <f:selectItem itemLabel="#{mensagens.label_cadastro_sprint_daily}" itemValue="false" />
-					<f:ajax event="change" render="dailyScrumModal"/>  
-                </h:selectOneRadio>                
-                
-                <h:outputText 
-					id="labelDataHora" 
-					value="#{sprintDetalheMB.uniqueDaily == true ? mensagens.label_data_hora_daily : mensagens.label_hora_daily}" 
-					styleClass="control-label"  />
-					<p:calendar
-						id="popupCalDataHora"
-						value="#{sprintDetalheMB.dailyScrum.dataHoraCalendar}" 
-						pattern="#{sprintDetalheMB.datePattern}" timeOnly="#{! sprintDetalheMB.uniqueDaily}"/>		    				  
- 
-			    <h:outputText 
-					id="labelLocal" 
-					value="#{mensagens.label_local_daily}" 
-					styleClass="control-label" />
-					<p:inputText 
-						id="txtLocal"
-						value="#{sprintDetalheMB.dailyScrum.local}"
-						styleClass="form-control input-md" />							
-							
-				<h:outputText 
-					id="labelDuracao" 
-					value="#{mensagens.label_duracao_daily}" 
-					styleClass="control-label" />
-					<p:inputMask 
-						id="txtDuracao"
-						value="#{sprintDetalheMB.dailyScrum.duracao}"
-						styleClass="form-control input-md"
-					   	mask="9?9"
-					   	maxlength="2"
-					   	placeholder="#{mesagens.label_duracao_em_minutos}" />
-					   	
-			   	<h:outputText 
-			   		id="labelDescricao" 
-					value="#{mensagens.label_descricao}" 
-					styleClass="control-label" />
-				<h:inputTextarea
-					id="descricaoDaily" 
-					name="descricaoDaily"
-					value="#{sprintDetalheMB.dailyScrum.descricao}"
-					class="form-control text-area" />
-        	 </h:panelGrid>
-		</p:panel>
-		<p:commandButton 
-		    id="cancelarSalvarDaily"
-		    immediate="true"
-			icon="ui-icon-cancel"
-		    value="#{mensagens.botao_cancelar}" 
-			oncomplete="dailyScrumModal.hide()"
-			styleClass="button"
-			style="float: right"/>
-		<p:commandButton  
-		    id="salvarDaily" 
-		    update="tabelaDaily"
-		    value="#{mensagens.label_salvar}"
-			action="#{sprintDetalheMB.salvarDailyScrum}" 
-			icon="ui-icon-disk"
-			process="popupCalDataHora, txtLocal, txtDuracao, descricaoDaily"
-			styleClass="button"
-			style="float: right"
-			oncomplete="dailyScrumModal.hide()" />					
-	</p:dialog>	
+	<h:form id="frmDailyScrumCadastro">
+		<p:dialog showEffect="fade" hideEffect="explode" id="dailyScrumModal" header="#{mensagens.label_cadastro_dailyScrum}" 
+			modal="true" width="350" height="#{sprintDetalheMB.modalHeight}" resizable="false" widgetVar="dailyScrumModal" visible="#{sprintDetalheMB.showModal}">
+			<p:panel>		
+				<h:panelGrid id="paneldaily" columns="2">  
+	                <h:outputText value="#{mensagens.label_radio_button_daily}" rendered="#{sprintDetalheMB.saveDaily}" />  
+	                <h:selectOneRadio id="tipoCliente" value="#{sprintDetalheMB.dailyScrum.uniqueDaily}" rendered="#{sprintDetalheMB.saveDaily}" >  
+	                    <f:selectItem itemLabel="#{mensagens.label_cadastro_unico_daily}" itemValue="true" />
+	                    <f:selectItem itemLabel="#{mensagens.label_cadastro_sprint_daily}" itemValue="false" />
+						<f:ajax event="change" render="dailyScrumModal"/>  
+	                </h:selectOneRadio>                
+	                
+	                <h:outputText 
+						id="labelDataHora" 
+						value="#{sprintDetalheMB.uniqueDaily == true ? mensagens.label_data_hora_daily : mensagens.label_hora_daily}" 
+						styleClass="control-label"  />
+						<p:calendar
+							id="popupCalDataHora"
+							value="#{sprintDetalheMB.dailyScrum.dataHoraCalendar}" 
+							pattern="#{sprintDetalheMB.datePattern}" timeOnly="#{! sprintDetalheMB.uniqueDaily}"/>		    				  
+	 
+				    <h:outputText 
+						id="labelLocal" 
+						value="#{mensagens.label_local_daily}" 
+						styleClass="control-label" />
+						<p:inputText 
+							id="txtLocal"
+							value="#{sprintDetalheMB.dailyScrum.local}"
+							styleClass="form-control input-md" />							
+								
+					<h:outputText 
+						id="labelDuracao" 
+						value="#{mensagens.label_duracao_daily}" 
+						styleClass="control-label" />
+						<p:inputMask 
+							id="txtDuracao"
+							value="#{sprintDetalheMB.dailyScrum.duracao}"
+							styleClass="form-control input-md"
+						   	mask="9?9"
+						   	maxlength="2"
+						   	placeholder="#{mesagens.label_duracao_em_minutos}" />
+						   	
+				   	<h:outputText 
+				   		id="labelDescricao" 
+						value="#{mensagens.label_descricao}" 
+						styleClass="control-label" />
+					<h:inputTextarea
+						id="descricaoDaily" 
+						name="descricaoDaily"
+						value="#{sprintDetalheMB.dailyScrum.descricao}"
+						class="form-control text-area" />
+	        	 </h:panelGrid>
+			</p:panel>
+			<p:commandButton 
+			    id="cancelarSalvarDaily"
+			    immediate="true"
+				icon="ui-icon-cancel"
+			    value="#{mensagens.botao_cancelar}" 
+				oncomplete="dailyScrumModal.hide()"
+				styleClass="button"
+				style="float: right"/>
+			<p:commandButton  
+			    id="salvarDaily" 
+			    update=":tabView:frmDailyScrumPanel:tabelaDaily"
+			    value="#{mensagens.label_salvar}"
+				action="#{sprintDetalheMB.salvarDailyScrum}" 
+				icon="ui-icon-disk"
+				process="popupCalDataHora, txtLocal, txtDuracao, descricaoDaily"
+				styleClass="button"
+				style="float: right"
+				oncomplete="dailyScrumModal.hide()" />					
+		</p:dialog>	
+	</h:form>
 </ui:composition>

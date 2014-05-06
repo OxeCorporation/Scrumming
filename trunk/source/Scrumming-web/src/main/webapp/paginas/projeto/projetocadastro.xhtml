@@ -7,166 +7,168 @@
 
 	<!-- CORPO DA TELA DA PROJETO -->
 	<ui:define name="conteudo">
-		<h:outputStylesheet library="css" name="scrumming.css" />
-		<!-- Trecho será retirado posteriormente -->
-		<h:outputText style="color: white"
-			value="#{sprintCadastroMB.sprintSelecionada.nome}" />
-		<h:outputText style="color: white"
-			value="#{sprintCadastroMB.projetoSelecionado.nome}" />
-		<h:panelGroup styleClass="col-md-9 column div-center">
-			<h:panelGroup style="width:100%">
-				<p:panel header="#{projetoCadastroMB.titulo}" id="panel">
-<!-- 					<p:focus context="panel" /> -->
-					<h:panelGroup>
-						<p:panel>
-							<!-- Text input-->
-							<h:outputLabel styleClass="label-default" value="Nome: *" />
-							<h:inputText id="nome" name="nome"
-								value="#{projetoCadastroMB.projetoDTO.projeto.nome}" type="text"
-								placeholder="Nome do Projeto"
-								class="form-control input-md output-default" required="true"
-								requiredMessage="Por favor, informe o nome do projeto"
-								style="width: 100%" />
-							<br />
-							<!-- Textarea -->
-							<h:outputLabel styleClass="label-default" value="Descrição: *" />
-							<h:inputTextarea
-								value="#{projetoCadastroMB.projetoDTO.projeto.descricao}"
-								class="form-control text-area" id="objetivo" name="objetivo"
-								required="true"
-								requiredMessage="Por favor, informe a descrição do projeto" />
-						</p:panel>
-					</h:panelGroup>
-					<br />
-					<h:panelGroup>
-						<p:panel style="height: 100px;">
-							<h:panelGroup style="width: 150px">
-								<h:panelGroup styleClass="col-md-4 column">
-									<h:outputLabel styleClass="label-default"
-										value="Data de início *" />
-									<br />
-									<p:calendar value="#{projetoCadastroMB.projetoDTO.dataInicio}"
-										id="popupCalInicio" required="true"
-										requiredMessage="Por favor, informe a data inicial do projeto" />
-								</h:panelGroup>
-								<h:panelGroup styleClass="col-md-4 column">
-								</h:panelGroup>
-								<h:panelGroup styleClass="col-md-4 column">
-									<h:outputLabel styleClass="label-default" value="Data final *" />
-									<br />
-									<p:calendar value="#{projetoCadastroMB.projetoDTO.dataFim}"
-										id="popupCalFim" required="true"
-										requiredMessage="Por favor, informe a data final do projeto" />
-								</h:panelGroup>
-
-							</h:panelGroup>
-						</p:panel>
-					</h:panelGroup>
-					<br />
-					<!-- *********************************************************************************************** -->
-					<p:fieldset id="fieldsetTables" widgetVar="fieldsetTables">
-
-						<h:panelGroup styleClass="col-md-5 column">
+		<h:form id="frmProjetoCadastro">
+			<h:outputStylesheet library="css" name="scrumming.css" />
+			<!-- Trecho será retirado posteriormente -->
+			<h:outputText style="color: white"
+				value="#{sprintCadastroMB.sprintSelecionada.nome}" />
+			<h:outputText style="color: white"
+				value="#{sprintCadastroMB.projetoSelecionado.nome}" />
+			<h:panelGroup styleClass="col-md-9 column div-center">
+				<h:panelGroup style="width:100%">
+					<p:panel header="#{projetoCadastroMB.titulo}" id="panel">
+	<!-- 					<p:focus context="panel" /> -->
+						<h:panelGroup>
 							<p:panel>
-								<f:facet name="header">
-									<h:outputText value="Time do Projeto" />
-								</f:facet>
-								<p:dataGrid id="dgProjeto" var="teamProjeto"
-									value="#{projetoCadastroMB.team}" columns="1"
-									emptyMessage="Sem registros" selectionMode="single">
-									<h:commandLink immediate="true" update="@widgetVar(fieldsetTables)">
-										<p:column>
-											<p:panel header="#{teamProjeto.usuario.nome}"
-												style="text-align:center" toggleable="true"
-												toggleSpeed="500" collapsed="true">
-												<h:panelGrid columns="1" style="width:100%">
-													<p:outputLabel styleClass="output-default"
-														value="#{teamProjeto.usuario.email}" />
-													<p:selectOneMenu id="func"
-														value="#{teamProjeto.perfilUsuario}">
-														<f:selectItems value="#{projetoCadastroMB.todosPerfis}"
-															var="perf" itemValue="#{perf}"
-															converter="javax.faces.Enum" />
-													</p:selectOneMenu>
-												</h:panelGrid>
-												<p:effect type="pulsate" event="click" />
-											</p:panel>
-										</p:column>
-										<f:setPropertyActionListener value="#{teamProjeto}" update="@widgetVar(fieldsetTables)"
-											target="#{projetoCadastroMB.usuarioTeamSelecionado}" />
-									</h:commandLink>
-								</p:dataGrid>
+								<!-- Text input-->
+								<h:outputLabel styleClass="label-default" value="Nome: *" />
+								<h:inputText id="nome" name="nome"
+									value="#{projetoCadastroMB.projetoDTO.projeto.nome}" type="text"
+									placeholder="Nome do Projeto"
+									class="form-control input-md output-default" required="true"
+									requiredMessage="Por favor, informe o nome do projeto"
+									style="width: 100%" />
+								<br />
+								<!-- Textarea -->
+								<h:outputLabel styleClass="label-default" value="Descrição: *" />
+								<h:inputTextarea
+									value="#{projetoCadastroMB.projetoDTO.projeto.descricao}"
+									class="form-control text-area" id="objetivo" name="objetivo"
+									required="true"
+									requiredMessage="Por favor, informe a descrição do projeto" />
 							</p:panel>
 						</h:panelGroup>
-
-						<h:panelGroup styleClass="col-md-2 column"
-							style="text-align:center; margin-top:100px;">
-							<h:commandLink immediate="true"
-								update="@widgetVar(fieldsetTables)"
-								action="#{projetoCadastroMB.moveItemToTeam}">
-								<p:panel>
-									<i class="fa fa-arrow-left fa-2x" style="color: #428BCA;"></i>
-								</p:panel>
-							</h:commandLink>
-							<br />
-							<h:commandLink immediate="true"
-								update="@widgetVar(fieldsetTables)"
-								action="#{projetoCadastroMB.removeItemFromTeam}">
-								<p:panel>
-									<i class="fa fa-arrow-right fa-2x" style="color: #428BCA;"></i>
-								</p:panel>
-							</h:commandLink>
-						</h:panelGroup>
-
-<!-- 						<h:panelGroup styleClass="col-md-5 column"> -->
-							<p:panel styleClass="col-md-5 column">
-								<f:facet name="header">
-									<h:outputText value="Usuários disponíveis" />
-								</f:facet>
-								<p:dataGrid id="dgItem" var="item"
-									value="#{projetoCadastroMB.usuarioEmpresa}" columns="1"
-									emptyMessage="Sem registros">
-									<h:commandLink immediate="true">
-										<p:column>
-											<p:panel header="#{item.nome}" style="text-align:center"
-												toggleable="true" toggleSpeed="500" collapsed="true">
-												<h:panelGrid columns="1" style="width:100%">
-													<p:outputLabel styleClass="output-default"
-														value="#{item.email}" />
-												</h:panelGrid>
-												<p:effect type="pulsate" event="click" />
-											</p:panel>
-										</p:column>
-										<f:setPropertyActionListener value="#{item}"
-											target="#{projetoCadastroMB.usuarioSelecionado}"/>
-									</h:commandLink>
-								</p:dataGrid>
+						<br />
+						<h:panelGroup>
+							<p:panel style="height: 100px;">
+								<h:panelGroup style="width: 150px">
+									<h:panelGroup styleClass="col-md-4 column">
+										<h:outputLabel styleClass="label-default"
+											value="Data de início *" />
+										<br />
+										<p:calendar value="#{projetoCadastroMB.projetoDTO.dataInicio}"
+											id="popupCalInicio" required="true"
+											requiredMessage="Por favor, informe a data inicial do projeto" />
+									</h:panelGroup>
+									<h:panelGroup styleClass="col-md-4 column">
+									</h:panelGroup>
+									<h:panelGroup styleClass="col-md-4 column">
+										<h:outputLabel styleClass="label-default" value="Data final *" />
+										<br />
+										<p:calendar value="#{projetoCadastroMB.projetoDTO.dataFim}"
+											id="popupCalFim" required="true"
+											requiredMessage="Por favor, informe a data final do projeto" />
+									</h:panelGroup>
+	
+								</h:panelGroup>
 							</p:panel>
-<!-- 						</h:panelGroup> -->
-
-					</p:fieldset>
-					<!-- *********************************************************************************************** -->
-					<br />
-					<p:panel style="height: 65px;">
-						<p:commandButton immediate="true" process="@none"
-							icon="ui-icon-cancel" value="Cancelar"
-							action="#{projetoCadastroMB.projetoPage}" styleClass="button"
-							ajax="false">
-							<p:resetInput target="panel" />
-						</p:commandButton>
-						<p:commandButton value="Salvar"
-							action="#{projetoCadastroMB.salvarProjeto}" icon="ui-icon-disk"
-							styleClass="button" ajax="false">
-							<p:resetInput target="panel" />
-						</p:commandButton>
+						</h:panelGroup>
+						<br />
+						<!-- *********************************************************************************************** -->
+						<p:fieldset id="fieldsetTables" widgetVar="fieldsetTables">
+	
+							<h:panelGroup styleClass="col-md-5 column">
+								<p:panel>
+									<f:facet name="header">
+										<h:outputText value="Time do Projeto" />
+									</f:facet>
+									<p:dataGrid id="dgProjeto" var="teamProjeto"
+										value="#{projetoCadastroMB.team}" columns="1"
+										emptyMessage="Sem registros" selectionMode="single">
+										<h:commandLink immediate="true" update="@widgetVar(fieldsetTables)">
+											<p:column>
+												<p:panel header="#{teamProjeto.usuario.nome}"
+													style="text-align:center" toggleable="true"
+													toggleSpeed="500" collapsed="true">
+													<h:panelGrid columns="1" style="width:100%">
+														<p:outputLabel styleClass="output-default"
+															value="#{teamProjeto.usuario.email}" />
+														<p:selectOneMenu id="func"
+															value="#{teamProjeto.perfilUsuario}">
+															<f:selectItems value="#{projetoCadastroMB.todosPerfis}"
+																var="perf" itemValue="#{perf}"
+																converter="javax.faces.Enum" />
+														</p:selectOneMenu>
+													</h:panelGrid>
+													<p:effect type="pulsate" event="click" />
+												</p:panel>
+											</p:column>
+											<f:setPropertyActionListener value="#{teamProjeto}" update="@widgetVar(fieldsetTables)"
+												target="#{projetoCadastroMB.usuarioTeamSelecionado}" />
+										</h:commandLink>
+									</p:dataGrid>
+								</p:panel>
+							</h:panelGroup>
+	
+							<h:panelGroup styleClass="col-md-2 column"
+								style="text-align:center; margin-top:100px;">
+								<h:commandLink immediate="true"
+									update="@widgetVar(fieldsetTables)"
+									action="#{projetoCadastroMB.moveItemToTeam}">
+									<p:panel>
+										<i class="fa fa-arrow-left fa-2x" style="color: #428BCA;"></i>
+									</p:panel>
+								</h:commandLink>
+								<br />
+								<h:commandLink immediate="true"
+									update="@widgetVar(fieldsetTables)"
+									action="#{projetoCadastroMB.removeItemFromTeam}">
+									<p:panel>
+										<i class="fa fa-arrow-right fa-2x" style="color: #428BCA;"></i>
+									</p:panel>
+								</h:commandLink>
+							</h:panelGroup>
+	
+	<!-- 						<h:panelGroup styleClass="col-md-5 column"> -->
+								<p:panel styleClass="col-md-5 column">
+									<f:facet name="header">
+										<h:outputText value="Usuários disponíveis" />
+									</f:facet>
+									<p:dataGrid id="dgItem" var="item"
+										value="#{projetoCadastroMB.usuarioEmpresa}" columns="1"
+										emptyMessage="Sem registros">
+										<h:commandLink immediate="true">
+											<p:column>
+												<p:panel header="#{item.nome}" style="text-align:center"
+													toggleable="true" toggleSpeed="500" collapsed="true">
+													<h:panelGrid columns="1" style="width:100%">
+														<p:outputLabel styleClass="output-default"
+															value="#{item.email}" />
+													</h:panelGrid>
+													<p:effect type="pulsate" event="click" />
+												</p:panel>
+											</p:column>
+											<f:setPropertyActionListener value="#{item}"
+												target="#{projetoCadastroMB.usuarioSelecionado}"/>
+										</h:commandLink>
+									</p:dataGrid>
+								</p:panel>
+	<!-- 						</h:panelGroup> -->
+	
+						</p:fieldset>
+						<!-- *********************************************************************************************** -->
+						<br />
+						<p:panel style="height: 65px;">
+							<p:commandButton immediate="true" process="@none"
+								icon="ui-icon-cancel" value="Cancelar"
+								action="#{projetoCadastroMB.projetoPage}" styleClass="button"
+								ajax="false">
+								<p:resetInput target="panel" />
+							</p:commandButton>
+							<p:commandButton value="Salvar"
+								action="#{projetoCadastroMB.salvarProjeto}" icon="ui-icon-disk"
+								styleClass="button" ajax="false">
+								<p:resetInput target="panel" />
+							</p:commandButton>
+						</p:panel>
 					</p:panel>
-				</p:panel>
+				</h:panelGroup>
 			</h:panelGroup>
-		</h:panelGroup>
-		<h:panelGroup styleClass="col-md-3 column div-right">
-			<p:commandLink title="Novo Projeto">
-			</p:commandLink>
-		</h:panelGroup>
+			<h:panelGroup styleClass="col-md-3 column div-right">
+				<p:commandLink title="Novo Projeto">
+				</p:commandLink>
+			</h:panelGroup>
+		</h:form>
 	</ui:define>
 	<p:dialog header="Selecione a data" widgetVar="dialog"
 		showEffect="fade" hideEffect="fade">

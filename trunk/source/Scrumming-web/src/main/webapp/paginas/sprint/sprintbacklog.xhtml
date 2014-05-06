@@ -4,154 +4,160 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough">
 
-	<p:dataGrid id="dtgSprintBacklog" widgetVar="dtgSprintBacklog" var="item" value="#{sprintDetalheMB.itens}" 
-	columns="1" style="width:100%" emptyMessage="#{mensagens.mensagem_sem_registros}">
-	<p:panel styleClass="col-md-12 column">
-		
-		<!-- CABEÇALHO DA LISTAGEM CONTENDO UM ITEM BACKLOG -->
-		<f:facet name="header">
-			<p:commandLink action="#{sprintDetalheMB.itembacklogDetalhePage}" immediate="true">
-				<h:outputText styleClass="label-grid-header" value="#{item.nome}" />
-				<f:setPropertyActionListener value="#{item}" target="#{sprintDetalheMB.itemSelecionado}" />
-			</p:commandLink>								
-			
-			<!-- BOTAO NOVA TAREFA -->
-			<p:commandLink action="#{itemBacklogDetalheMB.preparaParaInserir}" title="Nova tarefa"
-				oncomplete="dlgTarefaSave.show()" process="@this" update="@widgetVar(dlgTarefaSave)"
-				rendered="#{item.editable}" style="float: right">
-				<i class="fa fa-plus inside-header-ico"/>										
-				<f:setPropertyActionListener value="#{item}"
-					target="#{itemBacklogDetalheMB.itemSelecionado}" />
-			</p:commandLink>								
-			
-			<!-- BOTAO ENTREGAR ITEM -->
-			<p:commandLink immediate="true" title="#{mensagens.mensagem_entregar_item}" 
-				rendered="#{item.deliverable}"
-				action="#{sprintDetalheMB.entregarItem}" update="@form">
-				<i class="fa fa-check inside-header-icon"/>
-				<f:setPropertyActionListener value="#{item}"
-					target="#{sprintDetalheMB.itemSelecionado}" />
-			</p:commandLink>
-			
-			<h:outputText styleClass="output-medium" value="#{item.statusItembacklog}" style="float: right;" />
-			<br />
-			<h:outputText styleClass="output-medium" value="#{item.descricao}" />
-		</f:facet>													
-	
-		<p:dataGrid var="tarefa" value="#{item.tarefas}" columns="1" 
-			style="width:100%" id="dataGridTarefas" widgetVar="dataGridTarefas"
-			emptyMessage="#{mensagens.label_lista_de_tarefas_vazia}">
+	<h:form id="frmSprintBacklog">
+		<p:dataGrid id="dtgSprintBacklog" widgetVar="dtgSprintBacklog" var="item" value="#{sprintDetalheMB.itens}" 
+		columns="1" style="width:100%" emptyMessage="#{mensagens.mensagem_sem_registros}">
 			<p:panel styleClass="col-md-12 column">
-				<h:panelGroup styleClass="col-md-11 column">
+				
+				<!-- CABEÇALHO DA LISTAGEM CONTENDO UM ITEM BACKLOG -->
+				<f:facet name="header">
+					<p:commandLink action="#{sprintDetalheMB.itembacklogDetalhePage}" immediate="true">
+						<h:outputText styleClass="label-grid-header" value="#{item.nome}" />
+						<f:setPropertyActionListener value="#{item}" target="#{sprintDetalheMB.itemSelecionado}" />
+					</p:commandLink>								
 					
-					<h:outputText value="#{tarefa.nome}" />
-					<h:outputText value="#{tarefa.situacaoDescricao}" style="color: white; float: right; #{tarefa.backgroundColor};" styleClass="label-medium"/>
-					<br/>
-					<h:outputText value="#{mensagens.label_responsavel} #{tarefa.usuario.nome}" rendered="#{not empty tarefa.usuario}" styleClass="output-small"/>
-					<br/>
+					<!-- BOTAO NOVA TAREFA -->
+					<p:commandLink action="#{itemBacklogDetalheMB.preparaParaInserir}" title="Nova tarefa"
+						oncomplete="dlgTarefaSave.show()" process="@this" update="@widgetVar(dlgTarefaSave)"
+						rendered="#{item.editable}" style="float: right">
+						<i class="fa fa-plus inside-header-ico"/>										
+						<f:setPropertyActionListener value="#{item}"
+							target="#{itemBacklogDetalheMB.itemSelecionado}" />
+						<f:setPropertyActionListener value="tabView:frmSprintBacklog" 
+							target="#{itemBacklogDetalheMB.nomeDoFormulario}" />
+					</p:commandLink>								
 					
-					<!-- BOTAO ATRIBUIR PARA MIM -->
-					<p:commandLink id="linkAtribuirParaMim" immediate="true"
-						title="#{mensagens.label_atribuir_para_mim}"
-						action="#{sprintDetalheMB.atribuirTarefaParaMim}"										
-						rendered="#{empty tarefa.usuario and tarefa.itemBacklog.editable}"
-						process="@this" update="@widgetVar(dtgSprintBacklog)">
-						<i class="fa fa-smile-o inside-grid-icon-left"></i>
-						<f:setPropertyActionListener value="#{tarefa}"
-							target="#{sprintDetalheMB.tarefaSelecionada}" />
-						<f:setPropertyActionListener value="#{tarefa.itemBacklog}"
+					<!-- BOTAO ENTREGAR ITEM -->
+					<p:commandLink immediate="true" title="#{mensagens.mensagem_entregar_item}" 
+						rendered="#{item.deliverable}"
+						action="#{sprintDetalheMB.entregarItem}" update="@form">
+						<i class="fa fa-check inside-header-icon"/>
+						<f:setPropertyActionListener value="#{item}"
 							target="#{sprintDetalheMB.itemSelecionado}" />
 					</p:commandLink>
 					
-					<!-- BOTAO ATRIBUIR PARA OUTRO USUARIO -->
-					<p:commandLink id="linkAtribuirPara" title="#{mensagens.label_atribuir_para}"
-						action="#{itemBacklogDetalheMB.preparaParaAlterar}"
-						oncomplete="dlgTarefaSave.show()" 
-						process="@this" update="@widgetVar(dlgTarefaSave)"
-						rendered="#{false}">
-						<i class="fa fa-share-square-o inside-grid-icon-left"></i>
-						<f:setPropertyActionListener value="#{tarefa}"
-							target="#{sprintDetalheMB.tarefaSelecionada}" />
-					</p:commandLink>
-					
-					<!-- BOTAO REPORTE DE HORAS -->
-					<p:commandLink id="linkReporteHora" title="#{mensagens.label_reportar_hora}"
-						action="#{tarefaReporteMB.preparaParaInserir}"
-						oncomplete="dlgTarefaReporte.show()" 
-						process="@this" update="@widgetVar(dlgTarefaReporte)"
-						rendered="#{true}">
-						<i class="fa fa-clock-o inside-grid-icon-left"></i>
-						<f:setPropertyActionListener value="#{tarefa}"
-							target="#{tarefaReporteMB.tarefaSelecionada}" />
-						<f:setPropertyActionListener value="#{sprintDetalheMB.sprintSelecionada}"
-							target="#{tarefaReporteMB.sprintSelecionada}" />
-					</p:commandLink>
-					
-					<!-- BOTAO ALTERAR SITUACAO -->
-					<p:commandLink id="linkAlterarSituacao" title="#{mensagens.label_alterar_situacao}"
-						action="#{itemBacklogDetalheMB.preparaParaAlterar}"
-						oncomplete="dlgTarefaSave.show()" 
-						process="@this" update="@widgetVar(dlgTarefaSave)"
-						rendered="#{false}">
-						<i class="fa fa-pencil inside-grid-icon-left"></i>
-						<f:setPropertyActionListener value="#{tarefa}"
-							target="#{sprintDetalheMB.tarefaSelecionada}" />
-					</p:commandLink>
-					
-					<!-- BOTAO FAVORITAR TAREFA -->									
-					<p:commandLink id="linkFavoritarTarefa" title="#{mensagens.label_favoritar_tarefa}"
-						action="#{tarefaFavoritaMB.favoritarTarefa}"
-						process="@this" update="@widgetVar(dtgSprintBacklog)"
-						rendered="#{true}">
-						<i class="fa fa-star-o inside-grid-icon-left"></i>
-						<f:setPropertyActionListener value="#{tarefa}"
-							target="#{tarefaFavoritaMB.tarefaSelecionada}" />
-					</p:commandLink>
-				</h:panelGroup>
-				<h:panelGroup styleClass="col-md-1 column">
-				
-					<!-- BOTAO ALTERAR TAREFA -->																
-					<p:commandLink id="alterarTarefaLink" title="#{mensagens.label_alterar_tarefa}"
-						action="#{itemBacklogDetalheMB.preparaParaAlterar}"
-						oncomplete="dlgTarefaSave.show()" 
-						process="@this" 
-						update="@widgetVar(dlgTarefaSave)"
-						rendered="#{! tarefa.estahConcluida}">
-						<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
-						<f:setPropertyActionListener value="#{tarefa}"
-							target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
-					</p:commandLink>
+					<h:outputText styleClass="output-medium" value="#{item.statusItembacklog}" style="float: right;" />
 					<br />
-					
-					<!-- BOTAO EXCLUIR TAREFA -->									
-					<p:commandLink id="removerTarefaLink" immediate="true"
-						title="#{mensagens.label_remover_tarefa}"
-						action="#{itemBacklogDetalheMB.removerTarefa}" 
-						process="@this" update="@widgetVar(dtgSprintBacklog)"
-						rendered="#{! tarefa.estahConcluida}">
-						<h:outputText styleClass="fa fa-trash-o inside-grid-icon" />
-						<f:setPropertyActionListener value="#{tarefa}"
-							target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
-						<f:setPropertyActionListener value="#{tarefa.itemBacklog}"
-							target="#{itemBacklogDetalheMB.itemSelecionado}" />
-						<p:confirm header="#{mensagens.label_remover_tarefa}" 
-							message="#{mensagens.mensagem_tarefa_sera_removida}" icon="ui-icon-alert"/>
-					</p:commandLink>									
-														
-				</h:panelGroup>
+					<h:outputText styleClass="output-medium" value="#{item.descricao}" />
+				</f:facet>													
+			
+				<p:dataGrid var="tarefa" value="#{item.tarefas}" columns="1" 
+					style="width:100%" id="dataGridTarefas" widgetVar="dataGridTarefas"
+					emptyMessage="#{mensagens.label_lista_de_tarefas_vazia}">
+					<p:panel styleClass="col-md-12 column">
+						<h:panelGroup styleClass="col-md-11 column">
+							
+							<h:outputText value="#{tarefa.nome}" />
+							<h:outputText value="#{tarefa.situacaoDescricao}" style="color: white; float: right; #{tarefa.backgroundColor};" styleClass="label-medium"/>
+							<br/>
+							<h:outputText value="#{mensagens.label_responsavel} #{tarefa.usuario.nome}" rendered="#{not empty tarefa.usuario}" styleClass="output-small"/>
+							<br/>
+							
+							<!-- BOTAO ATRIBUIR PARA MIM -->
+							<p:commandLink id="linkAtribuirParaMim" immediate="true"
+								title="#{mensagens.label_atribuir_para_mim}"
+								action="#{sprintDetalheMB.atribuirTarefaParaMim}"										
+								rendered="#{empty tarefa.usuario and tarefa.itemBacklog.editable}"
+								process="@this" update="@widgetVar(dtgSprintBacklog)">
+								<i class="fa fa-smile-o inside-grid-icon-left"></i>
+								<f:setPropertyActionListener value="#{tarefa}"
+									target="#{sprintDetalheMB.tarefaSelecionada}" />
+								<f:setPropertyActionListener value="#{tarefa.itemBacklog}"
+									target="#{sprintDetalheMB.itemSelecionado}" />
+							</p:commandLink>
+							
+							<!-- BOTAO ATRIBUIR PARA OUTRO USUARIO -->
+							<p:commandLink id="linkAtribuirPara" title="#{mensagens.label_atribuir_para}"
+								action="#{itemBacklogDetalheMB.preparaParaAlterar}"
+								oncomplete="dlgTarefaSave.show()" 
+								process="@this" update="@widgetVar(dlgTarefaSave)"
+								rendered="#{false}">
+								<i class="fa fa-share-square-o inside-grid-icon-left"></i>
+								<f:setPropertyActionListener value="#{tarefa}"
+									target="#{sprintDetalheMB.tarefaSelecionada}" />
+							</p:commandLink>
+							
+							<!-- BOTAO REPORTE DE HORAS -->
+							<p:commandLink id="linkReporteHora" title="#{mensagens.label_reportar_hora}"
+								action="#{tarefaReporteMB.preparaParaInserir}"
+								oncomplete="dlgTarefaReporte.show()" 
+								process="@this" update="@widgetVar(dlgTarefaReporte)"
+								rendered="#{true}">
+								<i class="fa fa-clock-o inside-grid-icon-left"></i>
+								<f:setPropertyActionListener value="#{tarefa}"
+									target="#{tarefaReporteMB.tarefaSelecionada}" />
+								<f:setPropertyActionListener value="#{sprintDetalheMB.sprintSelecionada}"
+									target="#{tarefaReporteMB.sprintSelecionada}" />
+							</p:commandLink>
+							
+							<!-- BOTAO ALTERAR SITUACAO -->
+							<p:commandLink id="linkAlterarSituacao" title="#{mensagens.label_alterar_situacao}"
+								action="#{itemBacklogDetalheMB.preparaParaAlterar}"
+								oncomplete="dlgTarefaSave.show()" 
+								process="@this" update="@widgetVar(dlgTarefaSave)"
+								rendered="#{false}">
+								<i class="fa fa-pencil inside-grid-icon-left"></i>
+								<f:setPropertyActionListener value="#{tarefa}"
+									target="#{sprintDetalheMB.tarefaSelecionada}" />
+							</p:commandLink>
+							
+							<!-- BOTAO FAVORITAR TAREFA -->									
+							<p:commandLink id="linkFavoritarTarefa" title="#{mensagens.label_favoritar_tarefa}"
+								action="#{tarefaFavoritaMB.favoritarTarefa}"
+								process="@this" update="@widgetVar(dtgSprintBacklog)"
+								rendered="#{true}">
+								<i class="fa fa-star-o inside-grid-icon-left"></i>
+								<f:setPropertyActionListener value="#{tarefa}"
+									target="#{tarefaFavoritaMB.tarefaSelecionada}" />
+							</p:commandLink>
+						</h:panelGroup>
+						<h:panelGroup styleClass="col-md-1 column">
+						
+							<!-- BOTAO ALTERAR TAREFA -->																
+							<p:commandLink id="alterarTarefaLink" title="#{mensagens.label_alterar_tarefa}"
+								action="#{itemBacklogDetalheMB.preparaParaAlterar}"
+								oncomplete="dlgTarefaSave.show()" 
+								process="@this" 
+								update="@widgetVar(dlgTarefaSave)"
+								rendered="#{! tarefa.estahConcluida}">
+								<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
+								<f:setPropertyActionListener value="#{tarefa}"
+									target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
+								<f:setPropertyActionListener value="tabView:frmSprintBacklog" 
+									target="#{itemBacklogDetalheMB.nomeDoFormulario}" />
+							</p:commandLink>
+							<br />
+							
+							<!-- BOTAO EXCLUIR TAREFA -->									
+							<p:commandLink id="removerTarefaLink" immediate="true"
+								title="#{mensagens.label_remover_tarefa}"
+								action="#{itemBacklogDetalheMB.removerTarefa}" 
+								process="@this" update="@widgetVar(dtgSprintBacklog)"
+								rendered="#{! tarefa.estahConcluida}">
+								<h:outputText styleClass="fa fa-trash-o inside-grid-icon" />
+								<f:setPropertyActionListener value="#{tarefa}"
+									target="#{itemBacklogDetalheMB.tarefaSelecionada}" />
+								<f:setPropertyActionListener value="#{tarefa.itemBacklog}"
+									target="#{itemBacklogDetalheMB.itemSelecionado}" />
+								<p:confirm header="#{mensagens.label_remover_tarefa}" 
+									message="#{mensagens.mensagem_tarefa_sera_removida}" icon="ui-icon-alert"/>
+							</p:commandLink>									
+																
+						</h:panelGroup>
+					</p:panel>
+					<h:panelGroup class="col-md-3 column"></h:panelGroup>
+				</p:dataGrid>
 			</p:panel>
-			<h:panelGroup class="col-md-3 column"></h:panelGroup>
-		</p:dataGrid>
-		</p:panel>
-	</p:dataGrid>
+		</p:dataGrid>	
 	
-	<!-- DIÁLOGO DA EXCLUSÃO DA TAREFA -->					
-	<p:confirmDialog global="true" showEffect="fade" hideEffect="explode"> 
-		<p:commandButton value="#{mensagens.botao_cancelar}" styleClass="ui-confirmdialog-no" 
-			icon="ui-icon-close" immediate="true" style="margin:0 auto; float:right"/>  
-   		<p:commandButton value="#{mensagens.botao_confirmar}" styleClass="ui-confirmdialog-yes" 
-   			icon="ui-icon-check" immediate="true" style="margin:0 auto; float:right"/>        		      
-	</p:confirmDialog>    	
+		<!-- DIÁLOGO DA EXCLUSÃO DA TAREFA -->					
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="explode"> 
+			<p:commandButton value="#{mensagens.botao_cancelar}" styleClass="ui-confirmdialog-no" 
+				icon="ui-icon-close" immediate="true" style="margin:0 auto; float:right"/>  
+	   		<p:commandButton value="#{mensagens.botao_confirmar}" styleClass="ui-confirmdialog-yes" 
+	   			icon="ui-icon-check" immediate="true" style="margin:0 auto; float:right"/>        		      
+		</p:confirmDialog>  
+	</h:form>  	
 	 		
 	<!-- INCLUDE DO MODAL DO CADASTRO DE TAREFA -->	
 	<ui:include src="/paginas/tarefa/tarefaSave.xhtml" />

@@ -7,71 +7,72 @@
 
 	<!-- CORPO DA TELA DE LISTAGEM DOS ITENS DE BACKLOG -->
 	<ui:define name="conteudo">
-		<h:outputStylesheet library="css" name="scrumming.css" />
-		<h:panelGroup styleClass="col-md-9 column div-center">
-			<h:commandLink immediate="true" action="#{itemBacklogMB.projetoPage}">
-				<h:outputText styleClass="label-page-title" value="#{itemBacklogMB.projetoSelecionado.nome}" />
-			</h:commandLink>
-			<BR />
-			<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataINI}" />
-			<h:outputText styleClass="output-small" value="#{itemBacklogMB.projetoSelecionado.dataInicioFormatada}" />
-			<BR /> <BR />
-
-			<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA OS ITENS DE BACKLOG -->
-			<p:dataGrid id="dtgListaItem" var="item" value="#{itemBacklogMB.itens}" columns="1"
-				style="width:100%">
-				<p:panel styleClass="col-md-12 column">
-					<p:panel>
-						<f:facet name="header">
-						<p:commandLink action="#{itemBacklogMB.itembacklogDetalhePage}" immediate="true">
-							<h:outputText value="#{item.nome}"/>
-							<f:setPropertyActionListener value="#{item}" target="#{itemBacklogMB.itemSelecionado}" />
-						</p:commandLink>
-						<p:commandButton value="Story #{item.storyPoints}" style="font-size:75%; width:15%; float:right;" immediate="true"/>
-						<p:commandButton value="Valor #{item.valorNegocio}" style="font-size:75%; width:15%; float:right;" immediate="true"/>
-						</f:facet>
-						<h:panelGroup columns="1" style="width:100%">
-							<!-- FAZER O AJUSTE PARA ORGANIZAR O LAYOUT -->
-							<h:outputText styleClass="output-default" value="#{item.descricao}" />
-							
-							<!-- BOTAO ALTERAR ITEMBACKLOG -->
-							<p:commandLink id="alterarItemBacklog" 
-										   action="#{itemBacklogMB.alterar}"
-										   
-										   oncomplete="dlgItemSave.show()" process="@this" update="@widgetVar(dlgItemSave)">
-								<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
-								<f:setPropertyActionListener value="#{item}"
-															 target="#{itemBacklogMB.itemSelecionado}" />
+		<h:form id="frmItemBacklog">
+			<h:panelGroup styleClass="col-md-9 column div-center">
+				<h:commandLink immediate="true" action="#{itemBacklogMB.projetoPage}">
+					<h:outputText styleClass="label-page-title" value="#{itemBacklogMB.projetoSelecionado.nome}" />
+				</h:commandLink>
+				<BR />
+				<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataINI}" />
+				<h:outputText styleClass="output-small" value="#{itemBacklogMB.projetoSelecionado.dataInicioFormatada}" />
+				<BR /> <BR />
+	
+				<!-- TEMPLATE DA TELA PRINCIPAL QUE LISTA OS ITENS DE BACKLOG -->
+				<p:dataGrid id="dtgListaItem" var="item" value="#{itemBacklogMB.itens}" columns="1"
+					style="width:100%">
+					<p:panel styleClass="col-md-12 column">
+						<p:panel>
+							<f:facet name="header">
+							<p:commandLink action="#{itemBacklogMB.itembacklogDetalhePage}" immediate="true">
+								<h:outputText value="#{item.nome}"/>
+								<f:setPropertyActionListener value="#{item}" target="#{itemBacklogMB.itemSelecionado}" />
 							</p:commandLink>
-							<br />
-							<h:outputText styleClass="output-default" value="#{item.criterioAceitacao}" />
-							
-							<!-- BOTAO CANCELAR ITEMBACKLOG -->
-							<p:commandLink title="Cancelar Item" action="#{itemBacklogMB.cancelarItemBacklog}" immediate="true" ajax="false" update="dtgListaItem">
-								<h:outputText styleClass="fa fa-lock  inside-grid-icon" />
-								<f:setPropertyActionListener value="#{item}"
-															 target="#{itemBacklogMB.itemSelecionado}" />
-							</p:commandLink>
-						</h:panelGroup>
+							<p:commandButton value="Story #{item.storyPoints}" style="font-size:75%; width:15%; float:right;" immediate="true"/>
+							<p:commandButton value="Valor #{item.valorNegocio}" style="font-size:75%; width:15%; float:right;" immediate="true"/>
+							</f:facet>
+							<h:panelGroup columns="1" style="width:100%">
+								<!-- FAZER O AJUSTE PARA ORGANIZAR O LAYOUT -->
+								<h:outputText styleClass="output-default" value="#{item.descricao}" />
+								
+								<!-- BOTAO ALTERAR ITEMBACKLOG -->
+								<p:commandLink id="alterarItemBacklog" 
+											   action="#{itemBacklogMB.alterar}"
+											   
+											   oncomplete="dlgItemSave.show()" process="@this" update="@widgetVar(dlgItemSave)">
+									<h:outputText styleClass="fa fa-pencil-square-o inside-grid-icon" />
+									<f:setPropertyActionListener value="#{item}"
+																 target="#{itemBacklogMB.itemSelecionado}" />
+								</p:commandLink>
+								<br />
+								<h:outputText styleClass="output-default" value="#{item.criterioAceitacao}" />
+								
+								<!-- BOTAO CANCELAR ITEMBACKLOG -->
+								<p:commandLink title="Cancelar Item" action="#{itemBacklogMB.cancelarItemBacklog}" immediate="true" ajax="false" update="dtgListaItem">
+									<h:outputText styleClass="fa fa-lock  inside-grid-icon" />
+									<f:setPropertyActionListener value="#{item}"
+																 target="#{itemBacklogMB.itemSelecionado}" />
+								</p:commandLink>
+							</h:panelGroup>
+						</p:panel>
 					</p:panel>
-				</p:panel>
-				<h:panelGroup class="col-md-3 column"></h:panelGroup>
-			</p:dataGrid>
-		</h:panelGroup>
-		<h:panelGroup styleClass="col-md-3 column div-right">
-			<p:commandLink 
-				id="salvaButton" 
-				oncomplete="dlgItemSave.show()" 
-			   	process="@this" 
-			   	update="@widgetVar(dlgItemSave)"
-				action="#{itemBacklogMB.preparaParaInserir}">
-				<i class="fa fa-plus  right-sidebar-icon" />
-				<h:outputText value="Novo Item Backlog" />
-			</p:commandLink>			
-		</h:panelGroup>
+					<h:panelGroup class="col-md-3 column"></h:panelGroup>
+				</p:dataGrid>
+			</h:panelGroup>
+			<h:panelGroup styleClass="col-md-3 column div-right">
+				<p:commandLink 
+					id="salvaButton" 
+					oncomplete="dlgItemSave.show()" 
+				   	process="@this" 
+				   	update="@widgetVar(dlgItemSave)"
+					action="#{itemBacklogMB.preparaParaInserir}">
+					<i class="fa fa-plus  right-sidebar-icon" />
+					<h:outputText value="Novo Item Backlog" />
+				</p:commandLink>			
+			</h:panelGroup>
+		</h:form>		
 		<ui:include src="/paginas/itembacklog/itembacklogcadastro.xhtml" />
-
 	</ui:define>
+	
 	<ui:define name="menu_lateral">
 		<li><h:commandLink immediate="true"
 				action="#{itemBacklogMB.sprintPage}">

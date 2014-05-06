@@ -4,176 +4,178 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf"
 	template="/paginas/template/template.xhtml"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
-
 	<ui:define name="conteudo">
-		<p:growl for="msg"></p:growl>
-		<h:panelGroup styleClass="col-md-9 column div-center">
-
-			<p:tabView id="tabView" widgetVar="tabView">
-
-				<!-- ABA DOS PROJETOS ATIVOS -->
-				<p:tab id="tab1" title="Projetos Ativos" widgetVar="tab1">
-					<p:dataGrid var="projeto" value="#{projetoMB.projetosAtivosDaEmpresa}"
-						columns="1" style="width:100%;"
-						target="#{projetoMB.projetoSelecionado}">
-						<p:panel styleClass="col-md-12 column">
-							<p:panel>
-								<f:facet name="header">
-									<p:commandLink action="#{projetoMB.projetoDetailPage}">
-										<h:outputText value="#{projeto.nome}" />
-										<f:setPropertyActionListener value="#{projeto}"
-											target="#{projetoMB.projetoSelecionado}" />
-									</p:commandLink>
-									<h:outputText value="#{projeto.statusProjeto}"
-										style="float:right" />
-								</f:facet>
-								<h:panelGroup style="width:100%">
-									<h:outputLabel styleClass="label-small"
-										value="#{mensagens.label_dataINI}" />
-									<h:outputText styleClass="output-small"
-										value="#{projeto.dataInicioFormatada}" />
-
-									<ui:fragment rendered="#{projeto.editable}">
-										<p:commandLink title="Alterar projeto"
-											action="#{projetoMB.consultarProjetoDTO}" ajax="false">
-											<i Class="fa fa-pencil-square-o inside-grid-icon" />
+	
+		<h:form id="frmProjeto">
+			<p:growl for="msg"></p:growl>
+			<h:panelGroup styleClass="col-md-9 column div-center">
+	
+				<p:tabView id="tabView" widgetVar="tabView">
+	
+					<!-- ABA DOS PROJETOS ATIVOS -->
+					<p:tab id="tab1" title="Projetos Ativos" widgetVar="tab1">
+						<p:dataGrid var="projeto" value="#{projetoMB.projetosAtivosDaEmpresa}"
+							columns="1" style="width:100%;"
+							target="#{projetoMB.projetoSelecionado}">
+							<p:panel styleClass="col-md-12 column">
+								<p:panel>
+									<f:facet name="header">
+										<p:commandLink action="#{projetoMB.projetoDetailPage}">
+											<h:outputText value="#{projeto.nome}" />
 											<f:setPropertyActionListener value="#{projeto}"
 												target="#{projetoMB.projetoSelecionado}" />
 										</p:commandLink>
-									</ui:fragment>
-									<br />
-									<h:outputText styleClass="output-default"
-										value="#{projeto.descricao}" />
-									<ui:fragment rendered="#{projeto.editable}">
-										<p:commandLink title="Concluir projeto"
-											action="#{projetoMB.consultarProjetoDTO}" ajax="false"
-											update="@form">
-											<i class="fa fa-lock inside-grid-icon" />
-											<f:setPropertyActionListener value="#{projeto}"
-												target="#{projetoMB.projetoSelecionado}" />
-											<p:confirm header="#{mensagens.label_remover_tarefa}"
-												message="#{mensagens.mensagem_fechar_sprint}"
-												icon="ui-icon-alert" />
-										</p:commandLink>
-									</ui:fragment>
-								</h:panelGroup>
+										<h:outputText value="#{projeto.statusProjeto}"
+											style="float:right" />
+									</f:facet>
+									<h:panelGroup style="width:100%">
+										<h:outputLabel styleClass="label-small"
+											value="#{mensagens.label_dataINI}" />
+										<h:outputText styleClass="output-small"
+											value="#{projeto.dataInicioFormatada}" />
+	
+										<ui:fragment rendered="#{projeto.editable}">
+											<p:commandLink title="Alterar projeto"
+												action="#{projetoMB.consultarProjetoDTO}" ajax="false">
+												<i Class="fa fa-pencil-square-o inside-grid-icon" />
+												<f:setPropertyActionListener value="#{projeto}"
+													target="#{projetoMB.projetoSelecionado}" />
+											</p:commandLink>
+										</ui:fragment>
+										<br />
+										<h:outputText styleClass="output-default"
+											value="#{projeto.descricao}" />
+										<ui:fragment rendered="#{projeto.editable}">
+											<p:commandLink title="Concluir projeto"
+												action="#{projetoMB.consultarProjetoDTO}" ajax="false"
+												update="@form">
+												<i class="fa fa-lock inside-grid-icon" />
+												<f:setPropertyActionListener value="#{projeto}"
+													target="#{projetoMB.projetoSelecionado}" />
+												<p:confirm header="#{mensagens.label_remover_tarefa}"
+													message="#{mensagens.mensagem_fechar_sprint}"
+													icon="ui-icon-alert" />
+											</p:commandLink>
+										</ui:fragment>
+									</h:panelGroup>
+								</p:panel>
 							</p:panel>
-						</p:panel>
-					</p:dataGrid>
-
-				</p:tab>
-
-				<!-- ABA DOS PROJETOS FECHADOS -->
-				<p:tab id="tab2" title="Projetos Fechados">
-					<p:dataGrid var="projeto" value="#{projetoMB.projetosConcluidosDaEmpresa}"
-						columns="1" style="width:100%;"
-						target="#{projetoMB.projetoSelecionado}">
-						<p:panel styleClass="col-md-12 column">
-							<p:panel>
-								<f:facet name="header">
-									<p:commandLink action="#{projetoMB.projetoDetailPage}">
-										<h:outputText value="#{projeto.nome}" />
-										<f:setPropertyActionListener value="#{projeto}"
-											target="#{projetoMB.projetoSelecionado}" />
-									</p:commandLink>
-									<h:outputText value="#{projeto.statusProjeto}"
-										style="float:right" />
-								</f:facet>
-								<h:panelGroup style="width:100%">
-									<h:outputLabel styleClass="label-small"
-										value="#{mensagens.label_dataINI}" />
-									<h:outputText styleClass="output-small"
-										value="#{projeto.dataInicioFormatada}" />
-
-									<ui:fragment rendered="#{projeto.editable}">
-										<p:commandLink title="Alterar projeto"
-											action="#{projetoMB.consultarProjetoDTO}" ajax="false">
-											<i Class="fa fa-pencil-square-o inside-grid-icon" />
+						</p:dataGrid>
+	
+					</p:tab>
+	
+					<!-- ABA DOS PROJETOS FECHADOS -->
+					<p:tab id="tab2" title="Projetos Fechados">
+						<p:dataGrid var="projeto" value="#{projetoMB.projetosConcluidosDaEmpresa}"
+							columns="1" style="width:100%;"
+							target="#{projetoMB.projetoSelecionado}">
+							<p:panel styleClass="col-md-12 column">
+								<p:panel>
+									<f:facet name="header">
+										<p:commandLink action="#{projetoMB.projetoDetailPage}">
+											<h:outputText value="#{projeto.nome}" />
 											<f:setPropertyActionListener value="#{projeto}"
 												target="#{projetoMB.projetoSelecionado}" />
 										</p:commandLink>
-									</ui:fragment>
-									<br />
-									<h:outputText styleClass="output-default"
-										value="#{projeto.descricao}" />
-									<ui:fragment rendered="#{projeto.editable}">
-										<p:commandLink title="Concluir projeto"
-											action="#{projetoMB.consultarProjetoDTO}" ajax="false"
-											update="@form">
-											<i class="fa fa-lock inside-grid-icon" />
-											<f:setPropertyActionListener value="#{projeto}"
-												target="#{projetoMB.projetoSelecionado}" />
-											<p:confirm header="#{mensagens.label_remover_tarefa}"
-												message="#{mensagens.mensagem_fechar_sprint}"
-												icon="ui-icon-alert" />
-										</p:commandLink>
-									</ui:fragment>
-								</h:panelGroup>
+										<h:outputText value="#{projeto.statusProjeto}"
+											style="float:right" />
+									</f:facet>
+									<h:panelGroup style="width:100%">
+										<h:outputLabel styleClass="label-small"
+											value="#{mensagens.label_dataINI}" />
+										<h:outputText styleClass="output-small"
+											value="#{projeto.dataInicioFormatada}" />
+	
+										<ui:fragment rendered="#{projeto.editable}">
+											<p:commandLink title="Alterar projeto"
+												action="#{projetoMB.consultarProjetoDTO}" ajax="false">
+												<i Class="fa fa-pencil-square-o inside-grid-icon" />
+												<f:setPropertyActionListener value="#{projeto}"
+													target="#{projetoMB.projetoSelecionado}" />
+											</p:commandLink>
+										</ui:fragment>
+										<br />
+										<h:outputText styleClass="output-default"
+											value="#{projeto.descricao}" />
+										<ui:fragment rendered="#{projeto.editable}">
+											<p:commandLink title="Concluir projeto"
+												action="#{projetoMB.consultarProjetoDTO}" ajax="false"
+												update="@form">
+												<i class="fa fa-lock inside-grid-icon" />
+												<f:setPropertyActionListener value="#{projeto}"
+													target="#{projetoMB.projetoSelecionado}" />
+												<p:confirm header="#{mensagens.label_remover_tarefa}"
+													message="#{mensagens.mensagem_fechar_sprint}"
+													icon="ui-icon-alert" />
+											</p:commandLink>
+										</ui:fragment>
+									</h:panelGroup>
+								</p:panel>
 							</p:panel>
-						</p:panel>
-					</p:dataGrid>
-				</p:tab>
-
-				<!-- ABA DOS PROJETOS CANCELADOS -->
-				<p:tab id="tab3" title="Projetos Cancelados">
-					<p:dataGrid var="projeto" value="#{projetoMB.projetoTodosDaEmpresa}"
-						columns="1" style="width:100%;"
-						target="#{projetoMB.projetoSelecionado}">
-						<p:panel styleClass="col-md-12 column">
-							<p:panel>
-								<f:facet name="header">
-									<p:commandLink action="#{projetoMB.projetoDetailPage}">
-										<h:outputText value="#{projeto.nome}" />
-										<f:setPropertyActionListener value="#{projeto}"
-											target="#{projetoMB.projetoSelecionado}" />
-									</p:commandLink>
-									<h:outputText value="#{projeto.statusProjeto}"
-										style="float:right" />
-								</f:facet>
-								<h:panelGroup style="width:100%">
-									<h:outputLabel styleClass="label-small"
-										value="#{mensagens.label_dataINI}" />
-									<h:outputText styleClass="output-small"
-										value="#{projeto.dataInicioFormatada}" />
-
-									<ui:fragment rendered="#{projeto.editable}">
-										<p:commandLink title="Alterar projeto"
-											action="#{projetoMB.consultarProjetoDTO}" ajax="false">
-											<i Class="fa fa-pencil-square-o inside-grid-icon" />
+						</p:dataGrid>
+					</p:tab>
+	
+					<!-- ABA DOS PROJETOS CANCELADOS -->
+					<p:tab id="tab3" title="Projetos Cancelados">
+						<p:dataGrid var="projeto" value="#{projetoMB.projetoTodosDaEmpresa}"
+							columns="1" style="width:100%;"
+							target="#{projetoMB.projetoSelecionado}">
+							<p:panel styleClass="col-md-12 column">
+								<p:panel>
+									<f:facet name="header">
+										<p:commandLink action="#{projetoMB.projetoDetailPage}">
+											<h:outputText value="#{projeto.nome}" />
 											<f:setPropertyActionListener value="#{projeto}"
 												target="#{projetoMB.projetoSelecionado}" />
 										</p:commandLink>
-									</ui:fragment>
-									<br />
-									<h:outputText styleClass="output-default"
-										value="#{projeto.descricao}" />
-									<ui:fragment rendered="#{projeto.editable}">
-										<p:commandLink title="Concluir projeto"
-											action="#{projetoMB.consultarProjetoDTO}" ajax="false"
-											update="@form">
-											<i class="fa fa-lock inside-grid-icon" />
-											<f:setPropertyActionListener value="#{projeto}"
-												target="#{projetoMB.projetoSelecionado}" />
-											<p:confirm header="#{mensagens.label_remover_tarefa}"
-												message="#{mensagens.mensagem_fechar_sprint}"
-												icon="ui-icon-alert" />
-										</p:commandLink>
-									</ui:fragment>
-								</h:panelGroup>
+										<h:outputText value="#{projeto.statusProjeto}"
+											style="float:right" />
+									</f:facet>
+									<h:panelGroup style="width:100%">
+										<h:outputLabel styleClass="label-small"
+											value="#{mensagens.label_dataINI}" />
+										<h:outputText styleClass="output-small"
+											value="#{projeto.dataInicioFormatada}" />
+	
+										<ui:fragment rendered="#{projeto.editable}">
+											<p:commandLink title="Alterar projeto"
+												action="#{projetoMB.consultarProjetoDTO}" ajax="false">
+												<i Class="fa fa-pencil-square-o inside-grid-icon" />
+												<f:setPropertyActionListener value="#{projeto}"
+													target="#{projetoMB.projetoSelecionado}" />
+											</p:commandLink>
+										</ui:fragment>
+										<br />
+										<h:outputText styleClass="output-default"
+											value="#{projeto.descricao}" />
+										<ui:fragment rendered="#{projeto.editable}">
+											<p:commandLink title="Concluir projeto"
+												action="#{projetoMB.consultarProjetoDTO}" ajax="false"
+												update="@form">
+												<i class="fa fa-lock inside-grid-icon" />
+												<f:setPropertyActionListener value="#{projeto}"
+													target="#{projetoMB.projetoSelecionado}" />
+												<p:confirm header="#{mensagens.label_remover_tarefa}"
+													message="#{mensagens.mensagem_fechar_sprint}"
+													icon="ui-icon-alert" />
+											</p:commandLink>
+										</ui:fragment>
+									</h:panelGroup>
+								</p:panel>
 							</p:panel>
-						</p:panel>
-					</p:dataGrid>
-				</p:tab>
-
-			</p:tabView>
-		</h:panelGroup>
-
-		<h:panelGroup styleClass="col-md-3 column div-right">
-			<p:commandLink title="Novo Projeto"
-				action="#{projetoMB.consultarUsuarioEmpresa}">
-				<i class="fa fa-plus right-sidebar-icon" />
-				<h:outputText value="Novo Projeto" />
-			</p:commandLink>
-		</h:panelGroup>
+						</p:dataGrid>
+					</p:tab>
+	
+				</p:tabView>
+			</h:panelGroup>
+	
+			<h:panelGroup styleClass="col-md-3 column div-right">
+				<p:commandLink title="Novo Projeto"
+					action="#{projetoMB.consultarUsuarioEmpresa}">
+					<i class="fa fa-plus right-sidebar-icon" />
+					<h:outputText value="Novo Projeto" />
+				</p:commandLink>
+			</h:panelGroup>
+		</h:form>
 	</ui:define>
 </ui:composition>

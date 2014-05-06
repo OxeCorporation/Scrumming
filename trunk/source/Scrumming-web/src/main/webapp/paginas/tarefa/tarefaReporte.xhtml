@@ -4,55 +4,56 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:p="http://primefaces.org/ui">
-    	
-	<p:dialog showEffect="fade" hideEffect="explode" id="dlgTarefaReporte" header="Tarefa" 
-		modal="true" resizable="false" widgetVar="dlgTarefaReporte"
-		visible="#{facesContext.validationFailed}">
-		<p:panel>
-			<h:panelGrid columns="1" id="panelTarefaReporte" style="width: 500px">
-				<div class="col-md-12 column">
-					<h:outputText value="#{mensagens.label_data}" />									
-					<p:calendar id="dataReporte" value="#{tarefaReporteMB.tarefaReporte.dataReporte}" 
-						required="true" label="#{mensagens.label_data}" />
-				</div>
-				
-				<div class="col-md-6 column">
-					<h:outputText value="#{mensagens.label_tempo_reportado}" /> 
-					<p:inputText id="tempoReportado" value="#{tarefaReporteMB.tarefaReporte.tempoReportado}"
-						label="#{mensagens.label_tempo_reportado}">	
-						<f:convertNumber integerOnly="true" pattern="#######" maxFractionDigits="0"/>
-					</p:inputText>
-				</div>	
-				
-				<div class="col-md-6 column">
-					<h:outputText value="#{mensagens.label_tempo_restante}" /> 
-					<p:inputText id="tempoRestante" value="#{tarefaReporteMB.tarefaReporte.tempoRestante}"
-						label="#{mensagens.label_tempo_restante}">
-						<f:convertNumber integerOnly="true" pattern="#######" maxFractionDigits="0"/>
-					</p:inputText>
-				</div>					
-			</h:panelGrid>
-		</p:panel>
-		<br/>
-		<p:commandButton 
-			id="cancelarTarefaReporte"
-			immediate="true"			
-			icon="ui-icon-cancel" 
-			value="#{mensagens.botao_cancelar}"
-			oncomplete="dlgTarefaReporte.hide()"
-			style="margin:0 auto; float:right"
-			process="@this" 
-			update="panelTarefaReporte">			
-			<p:resetInput target="panelTarefaReporte" />
-		</p:commandButton>
-		<p:commandButton 
-			id="tarefaReporte"
-			value="#{mensagens.botao_confirmar}" 
-			action="#{tarefaReporteMB.reportarHora}" 
-			icon="ui-icon-disk" 
-			style="margin:0 auto; float:right"
-			process="dataReporte, tempoReportado, tempoRestante" 
-			update="panelTarefaReporte"/>
-	</p:dialog>	
-	
+    
+    <h:form id="frmTarefaReporte">	
+		<p:dialog showEffect="fade" hideEffect="explode" id="dlgTarefaReporte" header="Tarefa" 
+			modal="true" resizable="false" widgetVar="dlgTarefaReporte"
+			visible="#{facesContext.validationFailed}">
+			<p:panel>
+				<h:panelGrid columns="1" id="panelTarefaReporte" style="width: 500px">
+					<div class="col-md-12 column">
+						<h:outputText value="#{mensagens.label_data}" />									
+						<p:calendar id="dataReporte" value="#{tarefaReporteMB.tarefaReporte.dataReporte}" 
+							required="true" label="#{mensagens.label_data}" />
+					</div>
+					
+					<div class="col-md-6 column">
+						<h:outputText value="#{mensagens.label_tempo_reportado}" /> 
+						<p:inputText id="tempoReportado" value="#{tarefaReporteMB.tarefaReporte.tempoReportado}"
+							label="#{mensagens.label_tempo_reportado}">	
+							<f:convertNumber integerOnly="true" pattern="#######" maxFractionDigits="0"/>
+						</p:inputText>
+					</div>	
+					
+					<div class="col-md-6 column">
+						<h:outputText value="#{mensagens.label_tempo_restante}" /> 
+						<p:inputText id="tempoRestante" value="#{tarefaReporteMB.tarefaReporte.tempoRestante}"
+							label="#{mensagens.label_tempo_restante}">
+							<f:convertNumber integerOnly="true" pattern="#######" maxFractionDigits="0"/>
+						</p:inputText>
+					</div>					
+				</h:panelGrid>
+			</p:panel>
+			<br/>
+			<p:commandButton 
+				id="cancelarTarefaReporte"
+				immediate="true"			
+				icon="ui-icon-cancel" 
+				value="#{mensagens.botao_cancelar}"
+				oncomplete="dlgTarefaReporte.hide()"
+				style="margin:0 auto; float:right"
+				process="@this" 
+				update="panelTarefaReporte">			
+				<p:resetInput target="panelTarefaReporte" />
+			</p:commandButton>
+			<p:commandButton 
+				id="tarefaReporte"
+				value="#{mensagens.botao_confirmar}" 
+				action="#{tarefaReporteMB.reportarHora}" 
+				icon="ui-icon-disk" 
+				style="margin:0 auto; float:right"
+				process="dataReporte, tempoReportado, tempoRestante" 
+				update="@form"/>
+		</p:dialog>	
+	</h:form>
 </ui:composition>

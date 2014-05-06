@@ -9,95 +9,96 @@
 	template="/paginas/template/template.xhtml">
 
 	<ui:define name="conteudo">
-		
-		<div class="panel panel-default" style="width: 70%">
-  			<div class="panel-heading">
-  				<h:outputText value="#{mensagens.label_atualize_nome_empresa}" />
-  			</div>
-			<div class="panel-body">
-				<div class="form-group">
-					<div class="col-md-4">
-						<p:outputLabel value="#{mensagens.label_nome_empresa}" styleClass="control-label" />
+		<h:form id="frmPerfilUsuario">
+			<div class="panel panel-default" style="width: 70%">
+	  			<div class="panel-heading">
+	  				<h:outputText value="#{mensagens.label_atualize_nome_empresa}" />
+	  			</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<div class="col-md-4">
+							<p:outputLabel value="#{mensagens.label_nome_empresa}" styleClass="control-label" />
+						</div>
+						<div class="col-md-4">
+							<p:inputText 
+								id="txtNomeEmpresa" 
+								styleClass="form-control input-md"
+						 		value="#{usuarioPerfilBean.empresa.nome}"
+						 		disabled="#{!sessaoMB.usuario.empresa}" />
+						</div>					
 					</div>
-					<div class="col-md-4">
-						<p:inputText 
-							id="txtNomeEmpresa" 
-							styleClass="form-control input-md"
-					 		value="#{usuarioPerfilBean.empresa.nome}"
-					 		disabled="#{!sessaoMB.usuario.empresa}" />
-					</div>					
+					<br/>
+					<br/>
+					<div class="form-group">
+						<div class="col-md-4">
+							<p:commandButton 
+								id="atualizarEmpresaButton" 
+								value="Atualizar" 
+								styleClass="col-md-12" 
+								action="#{usuarioPerfilBean.atualizarNomeEmpresa}"
+								process="txtNomeEmpresa" 
+								update="@form"
+								rendered="#{sessaoMB.usuario.empresa}"/>
+						</div>
+					</div>
 				</div>
-				<br/>
-				<br/>
-				<div class="form-group">
-					<div class="col-md-4">
-						<p:commandButton 
-							id="atualizarEmpresaButton" 
+			</div>
+			
+			<div class="panel panel-default" style="width: 70%">
+	  			<div class="panel-heading">
+	  				<h:outputText value="#{mensagens.label_atualize_informacaoes}" />
+	  			</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<p:outputLabel value="#{mensagens.label_nome_usuario}" styleClass="col-md-4 control-label" for="txtNome"/>
+						<div class="col-md-4">
+							<p:inputText 
+							id="txtNome" placeholder="#{mesagens.label_digite_nome_usuario}" styleClass="form-control input-md"
+							 value="#{usuarioPerfilBean.usuarioLogado.nome}"/>
+						</div>
+					</div>
+					<br/>
+					<br/>
+					<div class="form-group">
+						<p:outputLabel value="#{mensagens.label_email}" styleClass="col-md-4 control-label" for="txtEmail"/>
+						<div class="col-md-4">
+							<p:inputText id="txtEmail" placeholder="#{mesagens.label_digite_email_usuario}" styleClass="form-control input-md" 
+							value="#{usuarioPerfilBean.usuarioLogado.email}"/>
+						</div>
+					</div>
+					<br/>
+					<br/>
+					<div class="form-group">
+						<p:outputLabel value="#{mensagens.label_login}" styleClass="col-md-4 control-label" for="txtLogin"/>
+						<div class="col-md-4">
+							<p:inputText id="txtLogin" placeholder="#{mesagens.label_digite_login_usuario}" styleClass="form-control input-md" 
+							value="#{usuarioPerfilBean.usuarioLogado.login}"/>
+						</div>
+					</div>
+					<br/>
+					<br/>
+					<div class="form-group">
+						<p:outputLabel value="#{mensagens.label_senha}" styleClass="col-md-4 control-label" for="txtSenha"/>
+						<div class="col-md-4">
+							<p:password id="txtSenha" placeholder="#{mesagens.label_digite_senha_usuario}" styleClass="form-control input-md"  redisplay="true" 
+							 value="#{usuarioPerfilBean.usuarioLogado.senha}"/>
+						</div>
+					</div>
+					<br/>
+					<br/>
+					<div class="form-group">
+						<div class="col-md-4">
+							<p:commandButton 
+							id="atualizarButton" 
 							value="Atualizar" 
 							styleClass="col-md-12" 
-							action="#{usuarioPerfilBean.atualizarNomeEmpresa}"
-							process="txtNomeEmpresa" 
-							update="@form"
-							rendered="#{sessaoMB.usuario.empresa}"/>
+							action="#{usuarioPerfilBean.atualizar}"
+							process="txtNome, txtEmail, txtLogin, txtSenha" 
+							update="@form"/>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		
-		<div class="panel panel-default" style="width: 70%">
-  			<div class="panel-heading">
-  				<h:outputText value="#{mensagens.label_atualize_informacaoes}" />
-  			</div>
-			<div class="panel-body">
-			<div class="form-group">
-				<p:outputLabel value="#{mensagens.label_nome_usuario}" styleClass="col-md-4 control-label" for="txtNome"/>
-				<div class="col-md-4">
-					<p:inputText 
-					id="txtNome" placeholder="#{mesagens.label_digite_nome_usuario}" styleClass="form-control input-md"
-					 value="#{usuarioPerfilBean.usuarioLogado.nome}"/>
-				</div>
-			</div>
-			<br/>
-			<br/>
-			<div class="form-group">
-				<p:outputLabel value="#{mensagens.label_email}" styleClass="col-md-4 control-label" for="txtEmail"/>
-				<div class="col-md-4">
-					<p:inputText id="txtEmail" placeholder="#{mesagens.label_digite_email_usuario}" styleClass="form-control input-md" 
-					value="#{usuarioPerfilBean.usuarioLogado.email}"/>
-				</div>
-			</div>
-			<br/>
-			<br/>
-			<div class="form-group">
-				<p:outputLabel value="#{mensagens.label_login}" styleClass="col-md-4 control-label" for="txtLogin"/>
-				<div class="col-md-4">
-					<p:inputText id="txtLogin" placeholder="#{mesagens.label_digite_login_usuario}" styleClass="form-control input-md" 
-					value="#{usuarioPerfilBean.usuarioLogado.login}"/>
-				</div>
-			</div>
-			<br/>
-			<br/>
-			<div class="form-group">
-				<p:outputLabel value="#{mensagens.label_senha}" styleClass="col-md-4 control-label" for="txtSenha"/>
-				<div class="col-md-4">
-					<p:password id="txtSenha" placeholder="#{mesagens.label_digite_senha_usuario}" styleClass="form-control input-md"  redisplay="true" 
-					 value="#{usuarioPerfilBean.usuarioLogado.senha}"/>
-				</div>
-			</div>
-			<br/>
-			<br/>
-			<div class="form-group">
-				<div class="col-md-4">
-					<p:commandButton 
-					id="atualizarButton" 
-					value="Atualizar" 
-					styleClass="col-md-12" 
-					action="#{usuarioPerfilBean.atualizar}"
-					process="txtNome, txtEmail, txtLogin, txtSenha" 
-					update="@form"/>
-				</div>
-			</div>
-		</div>
-	</div>
+		</h:form>
 	</ui:define>
 </ui:composition>

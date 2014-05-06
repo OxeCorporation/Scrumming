@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.joda.time.DateTime;
+import org.primefaces.context.RequestContext;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.ItemBacklog;
@@ -46,6 +48,7 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 	private long idUsuarioSelecionado;
 	private TeamClientService teamClientService;
 	private UsuarioClientService usuarioClientService;
+	private String nomeDoFormulario;
 
 	@Override
     public void inicializar() {
@@ -89,7 +92,7 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 
 	
 	/* Funções específicas da tela */
-	private void atualizarListaDeTarefas() {
+	public void atualizarListaDeTarefas() {
 		if (itemSelecionado != null) {
 			itemSelecionado.setTarefas(tarefaClientService.consultarTarefasPorItemBacklog(itemSelecionado.getCodigo()));			
 		}
@@ -107,8 +110,15 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 		limparObjetoTarefa();
 		atualizarListaDeTarefas();
     	FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+    	atualizarFormulario();
     	return "";
 	}	
+	
+	private void atualizarFormulario(){
+		RequestContext context = RequestContext.getCurrentInstance();
+		//context.update("tabView:frmSprintItem");
+		context.update(nomeDoFormulario);
+	}
 
 	private void setarUsuarioNaTarefa() {
 		if (idUsuarioSelecionado == 0) {
@@ -229,5 +239,13 @@ public class ItemBacklogDetalheMB extends AbstractBean {
 
 	public void setIdUsuarioSelecionado(long idUsuarioSelecionado) {
 		this.idUsuarioSelecionado = idUsuarioSelecionado;
+	}
+
+	public String getNomeDoFormulario() {
+		return nomeDoFormulario;
+	}
+
+	public void setNomeDoFormulario(String nomeDoFormulario) {
+		this.nomeDoFormulario = nomeDoFormulario;
 	}
 }

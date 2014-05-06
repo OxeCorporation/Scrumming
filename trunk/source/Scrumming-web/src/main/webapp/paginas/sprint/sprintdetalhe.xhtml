@@ -6,27 +6,29 @@
 	template="/paginas/template/template.xhtml"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-	<ui:define name="conteudo">
+	<ui:define name="conteudo">		
 		<p:growl for="msg"></p:growl>
 		<h:panelGroup styleClass="col-md-9 column div-center">
-			<h:panelGroup var="sprint" value="#{sprintDetalheMB.sprintSelecionada}">
-				<h:commandLink immediate="true" action="#{sprintDetalheMB.sprintDetalhePage}">
-					<h:outputText styleClass="label-page-title" value="#{sprintDetalheMB.sprintSelecionada.nome}" />
-				</h:commandLink>
-				<BR />
-				<h:outputLabel styleClass="label-small" value="#{sprintDetalheMB.projetoSelecionado.nome}" />
-				<BR />
-				<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataINI}" />
-				<h:outputText styleClass="output-small" value="#{sprintDetalheMB.sprintSelecionada.dataInicioFormatada}" />
-				<h:outputLabel value="|" styleClass="pipe-separator" />
-				<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataFIM}" />
-				<h:outputText styleClass="output-small" value="#{sprintDetalheMB.sprintSelecionada.dataFimFormatada}" />
-				<br />
-				<br />
-				<h:outputText styleClass="output-default" value="#{sprintDetalheMB.sprintSelecionada.descricao}" />
-				<br />
-				<br />
-			</h:panelGroup>
+			<h:form id="frmSprintDetalhe">
+				<h:panelGroup var="sprint" value="#{sprintDetalheMB.sprintSelecionada}">
+					<h:commandLink immediate="true" action="#{sprintDetalheMB.sprintDetalhePage}">
+						<h:outputText styleClass="label-page-title" value="#{sprintDetalheMB.sprintSelecionada.nome}" />
+					</h:commandLink>
+					<BR />
+					<h:outputLabel styleClass="label-small" value="#{sprintDetalheMB.projetoSelecionado.nome}" />
+					<BR />
+					<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataINI}" />
+					<h:outputText styleClass="output-small" value="#{sprintDetalheMB.sprintSelecionada.dataInicioFormatada}" />
+					<h:outputLabel value="|" styleClass="pipe-separator" />
+					<h:outputLabel styleClass="label-small" value="#{mensagens.label_dataFIM}" />
+					<h:outputText styleClass="output-small" value="#{sprintDetalheMB.sprintSelecionada.dataFimFormatada}" />
+					<br />
+					<br />
+					<h:outputText styleClass="output-default" value="#{sprintDetalheMB.sprintSelecionada.descricao}" />
+					<br />
+					<br />
+				</h:panelGroup>
+			</h:form>			
 			
 			<p:tabView id="tabView" widgetVar="tabView">
 			
@@ -53,10 +55,11 @@
 		<!-- BARRA LATERAL DIREITA -->
 		
 		<h:panelGroup styleClass="col-md-3 column div-right">
-		
-			<p:commandLink id="boardPage" action="#{sprintDetalheMB.boardPage}" value="Sprint Board" immediate="true" ajax="false">
-					<i class="fa fa-trello fa-2"/>
-			</p:commandLink>
+			<h:form id="frmSprintBoard">
+				<p:commandLink id="boardPage" action="#{sprintDetalheMB.boardPage}" value="Sprint Board" immediate="true" ajax="false">
+						<i class="fa fa-trello fa-2"/>
+				</p:commandLink>
+			</h:form>
 		</h:panelGroup>
 		
 	</ui:define>

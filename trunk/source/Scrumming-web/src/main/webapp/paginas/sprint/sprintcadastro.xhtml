@@ -7,7 +7,7 @@
 
 	<!-- CORPO DA TELA DA SPRINTS -->
 	<ui:define name="conteudo">
-		<h:outputStylesheet library="css" name="scrumming.css" />
+		<h:form id="frmSprintCadastro">
 		<!-- Trecho será retirado posteriormente -->
 		<h:outputText style="color: white"
 			value="#{sprintCadastroMB.sprintSelecionada.nome}" />
@@ -170,6 +170,7 @@
 		</h:panelGroup>
 		<h:panelGroup styleClass="col-md-3 column div-right">
 		</h:panelGroup>
+		</h:form>
 	</ui:define>
 	<ui:define name="menu_lateral">
 		<li><h:commandLink immediate="true"
