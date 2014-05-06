@@ -36,6 +36,25 @@ CREATE TABLE IF NOT EXISTS `Empresa` (
 PACK_KEYS = 0
 ROW_FORMAT = DEFAULT;
 
+-- -----------------------------------------------------
+-- Table `Config`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Config` (
+  `PK_config` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `FK_empresa` INT(11) UNSIGNED NOT NULL,
+  `nome_config` VARCHAR(45) NULL,
+  `perfil_owner` BOOLEAN NOT NULL DEFAULT false,
+  `perfil_master` BOOLEAN NOT NULL DEFAULT false,
+  `perfil_team` BOOLEAN NOT NULL DEFAULT false,
+  PRIMARY KEY (`PK_config`, `FK_empresa`),
+  INDEX `fk_Config_Empresa1_idx` (`FK_empresa` ASC),
+  CONSTRAINT `fk_Config_Empresa1`
+    FOREIGN KEY (`FK_empresa`)
+    REFERENCES `Empresa` (`PK_empresa`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+PACK_KEYS = 0
+ROW_FORMAT = DEFAULT;
 
 -- -----------------------------------------------------
 -- Table `Projeto`
