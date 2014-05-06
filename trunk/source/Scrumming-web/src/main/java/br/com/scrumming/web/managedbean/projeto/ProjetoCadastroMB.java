@@ -1,6 +1,5 @@
 package br.com.scrumming.web.managedbean.projeto;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -29,7 +28,7 @@ import br.com.scrumming.web.infra.bean.AbstractBean;
 public class ProjetoCadastroMB extends AbstractBean {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@FlashScoped
 	private Projeto projetoSelecionado;
 	@FlashScoped
@@ -49,7 +48,7 @@ public class ProjetoCadastroMB extends AbstractBean {
 	private Usuario usuarioSelecionado;
 	private Team usuarioTeamSelecionado;
 
-	@ManagedProperty(value="#{sessaoMB.empresaSelecionada}")
+	@ManagedProperty(value = "#{sessaoMB.empresaSelecionada}")
 	private Empresa empresa;
 	@FlashScoped
 	private String titulo;
@@ -76,11 +75,12 @@ public class ProjetoCadastroMB extends AbstractBean {
 
 	@SuppressWarnings("static-access")
 	public String salvarProjeto() {
-		projetoDTO.getProjeto().setEmpresa(empresa);
-		projetoDTO.getProjeto().setSituacaoProjeto(situacao.ATIVO);
-		projetoDTO.setTimeProjeto(teamProjeto);
-		projetoDTO.setUsuarioEmpresaNotTeam(usuarioEmpresaNotProjeto);
-		projetoClientService.salvarProjeto(projetoDTO);
+			projetoDTO.getProjeto().setEmpresa(empresa);
+			projetoDTO.getProjeto().setSituacaoProjeto(situacao.ATIVO);
+			projetoDTO.setTimeProjeto(teamProjeto);
+			projetoDTO.setUsuarioEmpresaNotTeam(usuarioEmpresaNotProjeto);
+			projetoClientService.salvarProjeto(projetoDTO);
+			FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 		return projetoPage();
 	}
 
@@ -263,8 +263,7 @@ public class ProjetoCadastroMB extends AbstractBean {
 		this.titulo = titulo;
 	}
 
-      
-    public List<Usuario> getUsuariosNaLista() {
+	public List<Usuario> getUsuariosNaLista() {
 		return usuariosNaLista;
 	}
 

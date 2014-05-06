@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.joda.time.DateTime;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -15,6 +17,10 @@ public class ProjetoDTO implements Serializable {
 	private Date dataInicio;
 	
 	private Date dataFim;
+	
+	private Date dataInicialcadastrada;
+	
+	private String dataInicialCadastradaFormatada;
 
 	private Projeto projeto;
 	
@@ -77,6 +83,26 @@ public class ProjetoDTO implements Serializable {
 	public void setUsuarioEmpresa(List<Usuario> usuarioEmpresa) {
 		this.usuarioEmpresaNotTeam = usuarioEmpresa;
 	}
-	
-	
+
+	public String getDataInicialCadastradaFormatada() {
+		try {
+			//dataInicialCadastradaFormatada =  getDataInicialcadastrada().toString("dd/MM/yyyy");
+		} catch (NullPointerException e) {			
+		}
+		return dataInicialCadastradaFormatada;
+	}
+
+	public Date getDataInicialcadastrada() {
+		return dataInicialcadastrada;
+	}
+
+	public void setDataInicialcadastrada(Date dataInicialcadastrada) {
+		this.dataInicialcadastrada = dataInicialcadastrada;
+	}
+
+	public void setDataInicialCadastradaFormatada(
+			String dataInicialCadastradaFormatada) {
+		this.dataInicialCadastradaFormatada = dataInicialCadastradaFormatada;
+	}
+
 }
