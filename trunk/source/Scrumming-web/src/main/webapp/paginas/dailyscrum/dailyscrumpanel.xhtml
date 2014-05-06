@@ -58,6 +58,8 @@
 					</f:facet>
 					
 				</p:panel>								
+				</h:outputLink>
+				<p:tooltip id="toolTipTrack" for="track" value="#{mensagens.label_descricao} #{dailyScrum.descricao}" trackMouse="true" />
 				
 				<f:facet name="footer">
 					<p:commandButton 
@@ -69,9 +71,7 @@
 						update="@widgetVar(dailyScrumModal), tabelaDaily"
 						action="#{sprintDetalheMB.novoDaily}"
 						rendered="#{sprintDetalheMB.sprintSelecionada.editable}" />
-				</f:facet>	
-				</h:outputLink>
-				<p:tooltip id="toolTipTrack" for="track" value="#{mensagens.label_descricao} #{dailyScrum.descricao}" trackMouse="true" />
+				</f:facet>
 		</p:dataGrid>
 			
 			<p:confirmDialog 
