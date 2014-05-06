@@ -9,7 +9,7 @@
     tools:context=".LoginActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/txtLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -19,41 +19,41 @@
         android:text="@string/login" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txtSenha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/txtLogin"
+        android:layout_below="@+id/txtLogin"
         android:layout_marginTop="15dp"
         android:text="@string/senha" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/editTxtLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView1"
-        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignBaseline="@+id/txtLogin"
+        android:layout_alignBottom="@+id/txtLogin"
         android:layout_marginLeft="26dp"
-        android:layout_toRightOf="@+id/textView2"
+        android:layout_toRightOf="@+id/txtSenha"
         android:ems="10" android:inputType="text">
 
         <requestFocus />
     </EditText>
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editTxtSenha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/editTxtLogin"
+        android:layout_below="@+id/txtLogin"
         android:ems="10"
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btnLogar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/editTxtSenha"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
         android:text="@string/logar" />
