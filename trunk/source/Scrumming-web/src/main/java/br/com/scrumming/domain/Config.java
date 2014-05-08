@@ -30,6 +30,9 @@ public class Config extends ObjetoPersistente<Integer> {
     @JoinColumn(name="FK_empresa", referencedColumnName="PK_empresa")
     private Empresa empresa;
 
+    @Column(name = "codigo_config")
+    private Integer codigoConfig;
+    
     @Column(name = "nome_config", columnDefinition = "varchar(50)")
     @NotBlank
     private String nomeConfig;
@@ -64,6 +67,14 @@ public class Config extends ObjetoPersistente<Integer> {
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
+	}
+
+	public Integer getCodigoConfig() {
+		return codigoConfig;
+	}
+
+	public void setCodigoConfig(Integer codigoConfig) {
+		this.codigoConfig = codigoConfig;
 	}
 
 	public String getNomeConfig() {
