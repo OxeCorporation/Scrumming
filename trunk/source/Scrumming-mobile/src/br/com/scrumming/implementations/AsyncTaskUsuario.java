@@ -22,7 +22,9 @@ public class AsyncTaskUsuario extends AsyncTask<String, Void, Usuario> {
 	
 	@Override
 	protected Usuario doInBackground(String... params) {
-		return RestUsuario.retorneUsuario(params.toString(), params.toString());
+		String log = params[0];
+		String senha = params[1];
+		return RestUsuario.retorneUsuario(log,senha);
 	}
 	
 	@Override
