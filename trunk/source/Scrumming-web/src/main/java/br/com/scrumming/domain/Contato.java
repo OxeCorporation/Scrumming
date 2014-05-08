@@ -1,11 +1,8 @@
 package br.com.scrumming.domain;
 
-import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -14,9 +11,9 @@ import br.com.scrumming.core.infra.repositorio.ObjetoPersistenteVersionado;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
-@Table(name = "CONTATO")
-@AttributeOverride(name = "ultimaAtualizacao", column = @Column(name = "CL_ULTIMA_ATUALIZACAO"))
+//@Entity
+//@Table(name = "CONTATO")
+//@AttributeOverride(name = "ultimaAtualizacao", column = @Column(name = "CL_ULTIMA_ATUALIZACAO"))
 public class Contato extends ObjetoPersistenteVersionado<Integer> {
 
     /**

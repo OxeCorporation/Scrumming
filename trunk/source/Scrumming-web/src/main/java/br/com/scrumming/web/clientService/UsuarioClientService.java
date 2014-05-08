@@ -1,5 +1,6 @@
 package br.com.scrumming.web.clientService;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpEntity;
 
 import br.com.scrumming.domain.Usuario;
@@ -7,9 +8,11 @@ import br.com.scrumming.web.infra.AbstractClientService;
 import br.com.scrumming.web.infra.ConstantesService;
 
 public class UsuarioClientService extends AbstractClientService {
-
+	
+	private static final Logger LOGGER = Logger.getLogger(UsuarioClientService.class);
+	
 	public Usuario obterUsuario(String login, String senha) {
-
+		LOGGER.error("obtendo o usuario "+login+" via "+getURIService(ConstantesService.Usuario.OBTER_USUARIO_LOGIN));
 		return getRestTemplate().postForEntity(
 				getURIService(ConstantesService.Usuario.OBTER_USUARIO_LOGIN),
 				HttpEntity.EMPTY, Usuario.class, login, senha).getBody();
