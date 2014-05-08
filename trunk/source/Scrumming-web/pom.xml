@@ -307,6 +307,9 @@
 		</profile>
 		<profile>
 			<id>producao</id>
+			<properties>
+				<database.jndiName>java:comp/env/jdbc/scrum-dbproducao</database.jndiName>
+			</properties>
 		</profile>
 	</profiles>
 	<build>

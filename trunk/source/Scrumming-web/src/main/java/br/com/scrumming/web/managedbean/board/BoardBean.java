@@ -16,6 +16,8 @@ import org.apache.myfaces.event.SetPropertyActionListener;
 import org.joda.time.DateTime;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.dashboard.Dashboard;
+import org.primefaces.component.dnd.Draggable;
+import org.primefaces.component.dnd.Droppable;
 import org.primefaces.component.panel.Panel;
 import org.primefaces.event.DashboardReorderEvent;
 import org.primefaces.model.DashboardColumn;
@@ -89,7 +91,7 @@ public class BoardBean extends AbstractBean {
 			panel.setHeader(tarefa.getNome());
 			panel.setStyleClass("painel");
 			dashboard.getChildren().add(panel);
-
+			
 			DashboardColumn column = dashboardModel.getColumn(tarefa
 					.getSituacao().ordinal());
 			column.addWidget(panel.getId());

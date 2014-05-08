@@ -6,9 +6,14 @@
 
 
 	<!-- Desenvolvimento -->
-	 <Resource name="jdbc/scrum-dbdesen" auth="Container"
+	<Resource name="jdbc/scrum-dbdesen" auth="Container"
 		type="javax.sql.DataSource" maxActive="50" maxIdle="30" maxWait="10000"
 		username="scrumming" password="scrumming" driverClassName="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://ec2-50-19-213-178.compute-1.amazonaws.com:3306/scrumming" />
+		
+	<Resource name="jdbc/scrum-dbproducao" auth="Container"
+		type="javax.sql.DataSource" maxActive="50" maxIdle="30" maxWait="10000"
+		username="admin88Zmpia" password="admin88Zmpia" driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://${OPENSHIFT_MYSQL_DB_HOST}:${OPENSHIFT_MYSQL_DB_PORT}/scrumming" />
 		
 </Context>
