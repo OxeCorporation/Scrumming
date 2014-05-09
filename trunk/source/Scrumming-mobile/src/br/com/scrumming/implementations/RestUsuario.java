@@ -3,7 +3,7 @@ package br.com.scrumming.implementations;
 import org.springframework.http.HttpEntity;
 
 import br.com.scrumming.domain.Usuario;
-import br.com.scrumming.infra.RestUtil;
+import br.com.scrumming.infra.RestFactory;
 
 public class RestUsuario {
 
@@ -18,7 +18,7 @@ public class RestUsuario {
 		String domain = "scrumming-agilscrum.rhcloud.com";
 //		String domain = "192.168.1.101:8080";
 		final String url = "http://"+domain+"/Scrumming/service/usuario/login/{login}/{senha}";
-		Usuario usuario = RestUtil.getRestTemplate().postForObject(url, HttpEntity.EMPTY, Usuario.class,login,senha);
+		Usuario usuario = RestFactory.getRestTemplate().postForObject(url, HttpEntity.EMPTY, Usuario.class,login,senha);
 		return usuario;
 	}
 }
