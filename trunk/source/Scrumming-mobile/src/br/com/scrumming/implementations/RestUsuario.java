@@ -1,22 +1,24 @@
 package br.com.scrumming.implementations;
 
-import java.util.Collections;
-import java.util.Map;
-
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpEntity;
 
 import br.com.scrumming.domain.Usuario;
+import br.com.scrumming.infra.RestFactory;
 
 public class RestUsuario {
 
+	/**
+	 * Para testes localmente utilizar o ip da maquina local, veja no ipconfing (no windows), ou ifconfig (no linux)
+	 * 
+	 * Caso contrário utilizar o domineo da aplicacao em produção
+	 */
+	
 	public static Usuario retorneUsuario(String login, String senha){
 		
-		final String url = "http://localhost:8080/Scrumming/service/usuario/login/{login}/{senha}";
-		RestTemplate restTemplate = new RestTemplate();
-		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-		Map<String, String> vars = Collections.singletonMap(login, senha);
-		Usuario usuario = restTemplate.getForObject(url, Usuario.class, vars);
+		String domain = "scrumming-agilscrum.rhcloud.com";
+//		String domain = "192.168.1.101:8080";
+		final String url = "http://"+domain+"/Scrumming/service/usuario/login/{login}/{senha}";
+		Usuario usuario = RestFactory.getRestTemplate().postForObject(url, HttpEntity.EMPTY, Usuario.class,login,senha);
 		return usuario;
 	}
 }
