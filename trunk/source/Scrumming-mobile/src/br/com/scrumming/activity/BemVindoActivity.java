@@ -1,14 +1,22 @@
 package br.com.scrumming.activity;
 
-import br.com.scrumming.R;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import br.com.scrumming.domain.Usuario;
 
 public class BemVindoActivity extends FragmentActivity {
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bemvindo);
+        
+        Usuario usuario = (Usuario)getIntent().getSerializableExtra("usuario");
+		
+		BemVindoFragment bvf = BemVindoFragment.novaInstancia(usuario);
+		
+		getSupportFragmentManager()
+			.beginTransaction()
+			.add(android.R.id.content, bvf)
+			.commit();
     }
 }

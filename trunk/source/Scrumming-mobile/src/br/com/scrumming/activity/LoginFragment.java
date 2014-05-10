@@ -1,6 +1,7 @@
 package br.com.scrumming.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,7 +19,8 @@ import br.com.scrumming.implementations.InterfaceUsuario;
 public class LoginFragment extends Fragment implements InterfaceUsuario {
 
 	EditText textLogin, textSenha;
-
+	InterfaceUsuario IUsuario;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -36,7 +38,8 @@ public class LoginFragment extends Fragment implements InterfaceUsuario {
 		public void onClick(View v) {
 			String login = textLogin.getText().toString();
 			String senha = textSenha.getText().toString();
-			new AsyncTaskUsuario().execute(login, senha);
+			new AsyncTaskUsuario(LoginFragment.this).execute(login, senha);
+			
 		}
 	};
 
@@ -44,5 +47,14 @@ public class LoginFragment extends Fragment implements InterfaceUsuario {
 	@Override
 	public void logarComUsuario(Usuario usuario) {
 		Toast.makeText(getActivity(), usuario.getEmail(), Toast.LENGTH_LONG);
+		Toast toast;
+		if (usuario.getCodigo() == null) {
+			toast = Toast.makeText(getActivity(), "Usuário não Existe", Toast.LENGTH_LONG);
+			toast.show();
+		}else{
+			Intent it = new Intent(getActivity(), BemVindoActivity.class);
+			it.putExtra("usuario", usuario);
+			startActivity(it);
+		}
 	}
 }

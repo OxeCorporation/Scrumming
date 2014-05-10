@@ -7,7 +7,7 @@ public class AsyncTaskUsuario extends AsyncTask<String, Void, Usuario> {
 
 	private InterfaceUsuario interfaceUsuario;
 	
-	public AsyncTaskUsuario(){}
+	//public AsyncTaskUsuario(){}
 	
 	public AsyncTaskUsuario(InterfaceUsuario interfaceUsuario) {
 		this.interfaceUsuario = interfaceUsuario;
