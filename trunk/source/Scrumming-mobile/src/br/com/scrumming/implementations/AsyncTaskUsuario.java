@@ -13,13 +13,6 @@ public class AsyncTaskUsuario extends AsyncTask<String, Void, Usuario> {
 		this.interfaceUsuario = interfaceUsuario;
 	}
 	
-//	public Usuario dadosUsuario(String login, String senha){
-//		Usuario usuario = new Usuario();
-//		usuario.setLogin(login);
-//		usuario.setSenha(senha);
-//		return usuario;
-//	}
-	
 	@Override
 	protected Usuario doInBackground(String... params) {
 		String log = params[0];
