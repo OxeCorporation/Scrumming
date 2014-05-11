@@ -29,7 +29,7 @@ public class BemVindoFragment extends Fragment {
 		
 		View layout = inflater.inflate(R.layout.fragment_bemvindo, container);
 		
-		txtNome = (TextView)layout.findViewById(R.id.txtNomeUsuario);
+		txtNome = (TextView)layout.findViewById(R.id.txtNome);
 		
 		usuario = (Usuario)getArguments().getSerializable("usuario");
 		txtNome.setText(usuario.getNome());
