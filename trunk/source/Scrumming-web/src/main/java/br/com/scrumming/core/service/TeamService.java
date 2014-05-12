@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.scrumming.core.manager.interfaces.ITeamManager;
+import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Team;
 import br.com.scrumming.domain.Usuario;
 
@@ -30,6 +31,11 @@ public class TeamService {
 	@RequestMapping(method = RequestMethod.GET, value = "/list/{projetoID}")
 	public List<Usuario> consultarUsuarioPorProjeto(@PathVariable Integer projetoID) {
 		return new ArrayList<Usuario>(teamManager.consultarUsuarioPorProjeto(projetoID));
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/listProjetos/{usuarioID}/{empresaID}")
+	public List<Projeto> consultarProjetoPorUsuarioDaEmpresa(@PathVariable Integer usuarioID, @PathVariable Integer empresaID) {
+		return new ArrayList<Projeto>(teamManager.consultarProjetoPorUsuarioDaEmpresa(usuarioID, empresaID));
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/listusuario/{projetoId}{empresaID}")

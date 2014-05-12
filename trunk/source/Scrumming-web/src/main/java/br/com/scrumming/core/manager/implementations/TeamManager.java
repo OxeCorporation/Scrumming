@@ -143,4 +143,10 @@ public class TeamManager extends AbstractManager<Team, TeamChave> implements
 		return null;
 	}
 
+	@Override
+	public List<Projeto> consultarProjetoPorUsuarioDaEmpresa(Integer usuarioID, Integer empresaID) {
+		// TODO Auto-generated method stub
+		return teamRepositorio.consultarProjetosPorUsuarioDaEmpresa(usuarioID, empresaID);
+	}
+
 }
