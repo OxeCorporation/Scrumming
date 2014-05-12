@@ -15,8 +15,8 @@ public class RestUsuario {
 	
 	public static Usuario retorneUsuario(String login, String senha){
 		
-		String domain = "scrumming-agilscrum.rhcloud.com";
-//		String domain = "192.168.1.101:8080";
+//		String domain = "scrumming-agilscrum.rhcloud.com";
+		String domain = "192.168.0.101:8080";
 		final String url = "http://"+domain+"/Scrumming/service/usuario/login/{login}/{senha}";
 		Usuario usuario = RestFactory.getRestTemplate().postForObject(url, HttpEntity.EMPTY, Usuario.class,login,senha);
 		return usuario;

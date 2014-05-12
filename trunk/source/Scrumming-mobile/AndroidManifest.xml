@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity 
-            android:name="br.com.scrumming.activity.BemVindoActivity">
+            android:name="br.com.scrumming.activity.PrincipalActivity">
             
         </activity>
     </application>

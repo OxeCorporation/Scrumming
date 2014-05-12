@@ -47,7 +47,7 @@ public class LoginActivity extends Activity implements InterfaceUsuario {
 			toast = Toast.makeText(this, "Usuário não Existe", Toast.LENGTH_LONG);
 			toast.show();
 		}else{
-			Intent it = new Intent(this, BemVindoActivity.class);
+			Intent it = new Intent(this, PrincipalActivity.class);
 			it.putExtra("usuario", usuario);
 			startActivity(it);
 		}

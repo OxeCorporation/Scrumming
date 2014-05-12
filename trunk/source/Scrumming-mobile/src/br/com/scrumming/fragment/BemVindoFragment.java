@@ -3,18 +3,20 @@ package br.com.scrumming.fragment;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.app.ListFragment;
+import android.support.v4.app.ListFragment;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 import br.com.scrumming.R;
-import br.com.scrumming.adapter.EmpresaAdapter;
-import br.com.scrumming.domain.Empresa;
+import br.com.scrumming.adapter.UsuarioEmpresaAdapter;
 import br.com.scrumming.domain.Usuario;
+import br.com.scrumming.domain.UsuarioEmpresa;
+import br.com.scrumming.interfaces.ClickedOnEmpresa;
 import br.com.scrumming.rest.RestEmpresa;
 
 @SuppressLint("NewApi")
@@ -22,7 +24,7 @@ public class BemVindoFragment extends ListFragment {
 
 	Usuario usuario;
 	TextView txtNome;
-	List<Empresa> listaEmpresas;
+	List<UsuarioEmpresa> listaEmpresas;
 	AsyncTaskEmpresa task;
 	
 	public static BemVindoFragment novaInstancia(Usuario usuario){
@@ -67,27 +69,36 @@ public class BemVindoFragment extends ListFragment {
 		return layout;
 	}
 	
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		if (getActivity() instanceof ClickedOnEmpresa) {
+			((ClickedOnEmpresa)getActivity()).empresaFoiClicada(listaEmpresas.get(position));
+		}
+	}
+	
 	private void AtualizarLista() {
-		EmpresaAdapter adapter = new EmpresaAdapter(getActivity(), listaEmpresas);
+		UsuarioEmpresaAdapter adapter = new UsuarioEmpresaAdapter(getActivity(), listaEmpresas);
 		setListAdapter(adapter);
 		
 	}
 	
-	class AsyncTaskEmpresa extends AsyncTask<Usuario, Void, List<Empresa>> {
+	class AsyncTaskEmpresa extends AsyncTask<Usuario, Void, List<UsuarioEmpresa>> {
 		
 
 		@Override
-		protected List<Empresa> doInBackground(Usuario... params) {
+		protected List<UsuarioEmpresa> doInBackground(Usuario... params) {
 			return RestEmpresa.retorneEmpresas(params[0]);
 		}
 		
 		@Override
-		protected void onPostExecute(List<Empresa> empresas) {
-			super.onPostExecute(empresas);
-			if(empresas != null) {
-				listaEmpresas = empresas;
+		protected void onPostExecute(List<UsuarioEmpresa> usuarioEmpresa) {
+			super.onPostExecute(usuarioEmpresa);
+			if(usuarioEmpresa != null) {
+				listaEmpresas = usuarioEmpresa;
 				AtualizarLista();
 			}
 		}
 	}
+	
 }

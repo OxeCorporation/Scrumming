@@ -10,10 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import br.com.scrumming.R;
 import br.com.scrumming.domain.Empresa;
+import br.com.scrumming.domain.UsuarioEmpresa;
 
-public class EmpresaAdapter extends ArrayAdapter<Empresa> {
+public class UsuarioEmpresaAdapter extends ArrayAdapter<UsuarioEmpresa> {
 
-	public EmpresaAdapter(Context context, List<Empresa> objects) {
+	public UsuarioEmpresaAdapter(Context context, List<UsuarioEmpresa> objects) {
 		super(context, 0, 0, objects);
 	}
 
@@ -21,7 +22,7 @@ public class EmpresaAdapter extends ArrayAdapter<Empresa> {
 
 		ViewHolder holder;
 
-		Empresa empresa = getItem(position);
+		UsuarioEmpresa usuarioEmpresa = getItem(position);
 
 		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(
@@ -29,14 +30,14 @@ public class EmpresaAdapter extends ArrayAdapter<Empresa> {
 
 			holder = new ViewHolder();
 			holder.txtTexto = (TextView) convertView
-					.findViewById(R.id.textView1);
+					.findViewById(R.id.txtNomeProjeto);
 			convertView.setTag(holder);
 
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.txtTexto.setText(empresa.getNome());
+		holder.txtTexto.setText(usuarioEmpresa.getEmpresa().getNome());
 
 		return convertView;
 	}
