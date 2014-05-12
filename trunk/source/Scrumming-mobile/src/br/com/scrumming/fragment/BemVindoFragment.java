@@ -49,7 +49,7 @@ public class BemVindoFragment extends Fragment {
 		//setListAdapter(adapter);
 	}
 	
-	class ReadEmpresaAsyncTask extends AsyncTask<Usuario, Void, List<Empresa>> {
+	class AsyncTaskEmpresa extends AsyncTask<Usuario, Void, List<Empresa>> {
 
 		@Override
 		protected List<Empresa> doInBackground(Usuario... params) {
