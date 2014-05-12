@@ -52,4 +52,9 @@ public class UsuarioEmpresaManager extends
 		this.usuarioEmpresaRepositorio = usuarioEmpresaRepositorio;
 	}
 
+	@Override
+	public List<UsuarioEmpresa> consultarEmpresasDoUsuario(Integer usuarioID) {
+		return usuarioEmpresaRepositorio.consultarEmpresasDoUsuario(usuarioID);
+	}
+
 }
