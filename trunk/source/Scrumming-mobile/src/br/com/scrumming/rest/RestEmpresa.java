@@ -3,8 +3,6 @@ package br.com.scrumming.rest;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.http.HttpEntity;
-
 import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.infra.RestFactory;
@@ -19,10 +17,10 @@ public class RestEmpresa {
 	
 	public static List<Empresa> retorneEmpresas(Usuario usuario){
 		
-		//String domain = "scrumming-agilscrum.rhcloud.com";
-		String domain = "192.168.1.5:8080";
+		String domain = "scrumming-agilscrum.rhcloud.com";
+//		String domain = "192.168.1.101:8080";
 		final String url = "http://"+domain+"/Scrumming/service/usuario_empresa/usuario/{usuarioID}";
-		Empresa[] empresas = RestFactory.getRestTemplate().postForObject(url, HttpEntity.EMPTY, Empresa[].class, usuario.getCodigo());
+		Empresa[] empresas = RestFactory.getRestTemplate().getForObject(url, Empresa[].class, usuario.getCodigo());
 		return Arrays.asList(empresas);
 	}
 }

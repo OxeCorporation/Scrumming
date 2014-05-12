@@ -2,9 +2,11 @@ package br.com.scrumming.fragment;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
+import android.app.ListFragment;
 import android.os.AsyncTask;
+import android.os.AsyncTask.Status;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +17,13 @@ import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.rest.RestEmpresa;
 
-public class BemVindoFragment extends Fragment {
+@SuppressLint("NewApi")
+public class BemVindoFragment extends ListFragment {
 
 	Usuario usuario;
 	TextView txtNome;
 	List<Empresa> listaEmpresas;
+	AsyncTaskEmpresa task;
 	
 	public static BemVindoFragment novaInstancia(Usuario usuario){
 		Bundle args = new Bundle();
@@ -31,25 +35,46 @@ public class BemVindoFragment extends Fragment {
 	}
 	
 	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		setRetainInstance(true);
+		
+		if (listaEmpresas != null){
+			AtualizarLista();
+			
+		} else {
+			if (task != null && task.getStatus() == Status.RUNNING){
+				//mostrarProgress();
+				
+			} else {
+				task = new AsyncTaskEmpresa();
+				task.execute(usuario);
+			}
+		}
+
+	}
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		View layout = inflater.inflate(R.layout.fragment_bemvindo, container);
+		View layout = inflater.inflate(R.layout.fragment_bemvindo, container,false);
 		
-		txtNome = (TextView)layout.findViewById(R.id.txtNome);
-		
-		usuario = (Usuario)getArguments().getSerializable("usuario");
-		txtNome.setText(usuario.getNome());
+//		txtNome = (TextView)layout.findViewById(R.id.txtNome);
+//		
+		usuario = (Usuario) getArguments().getSerializable("usuario");
+//		txtNome.setText(usuario.getNome());
 		
 		return layout;
 	}
 	
 	private void AtualizarLista() {
 		EmpresaAdapter adapter = new EmpresaAdapter(getActivity(), listaEmpresas);
-		//setListAdapter(adapter);
+		setListAdapter(adapter);
+		
 	}
 	
 	class AsyncTaskEmpresa extends AsyncTask<Usuario, Void, List<Empresa>> {
+		
 
 		@Override
 		protected List<Empresa> doInBackground(Usuario... params) {
