@@ -3,7 +3,6 @@ package br.com.scrumming.rest;
 import java.util.Arrays;
 import java.util.List;
 
-import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.infra.RestFactory;
@@ -18,8 +17,8 @@ public class RestEmpresa {
 	
 	public static List<UsuarioEmpresa> retorneEmpresas(Usuario usuario){
 		
-//		String domain = "scrumming-agilscrum.rhcloud.com";
-		String domain = "192.168.0.101:8080";
+		//String domain = "scrumming-agilscrum.rhcloud.com";
+		String domain = "192.168.1.2:8080";
 		final String url = "http://"+domain+"/Scrumming/service/usuario_empresa/empresadousuario/{usuarioID}";
 		UsuarioEmpresa[] usuariosEmpresa = RestFactory.getRestTemplate().getForObject(url, UsuarioEmpresa[].class, usuario.getCodigo());
 		return Arrays.asList(usuariosEmpresa);

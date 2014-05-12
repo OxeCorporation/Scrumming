@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import br.com.scrumming.R;
-import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.UsuarioEmpresa;
 
 public class UsuarioEmpresaAdapter extends ArrayAdapter<UsuarioEmpresa> {

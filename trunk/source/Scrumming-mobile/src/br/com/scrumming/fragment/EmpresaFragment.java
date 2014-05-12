@@ -20,18 +20,18 @@ import br.com.scrumming.interfaces.ClickedOnEmpresa;
 import br.com.scrumming.rest.RestEmpresa;
 
 @SuppressLint("NewApi")
-public class BemVindoFragment extends ListFragment {
+public class EmpresaFragment extends ListFragment {
 
 	Usuario usuario;
 	TextView txtNome;
 	List<UsuarioEmpresa> listaEmpresas;
 	AsyncTaskEmpresa task;
 	
-	public static BemVindoFragment novaInstancia(Usuario usuario){
+	public static EmpresaFragment novaInstancia(Usuario usuario){
 		Bundle args = new Bundle();
 		args.putSerializable("usuario", usuario);
 		
-		BemVindoFragment bvf = new BemVindoFragment();
+		EmpresaFragment bvf = new EmpresaFragment();
 		bvf.setArguments(args);
 		return bvf;
 	}
@@ -59,7 +59,7 @@ public class BemVindoFragment extends ListFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		View layout = inflater.inflate(R.layout.fragment_bemvindo, container,false);
+		View layout = inflater.inflate(R.layout.fragment_empresas, container,false);
 		
 //		txtNome = (TextView)layout.findViewById(R.id.txtNome);
 //		
@@ -100,5 +100,4 @@ public class BemVindoFragment extends ListFragment {
 			}
 		}
 	}
-	
 }
