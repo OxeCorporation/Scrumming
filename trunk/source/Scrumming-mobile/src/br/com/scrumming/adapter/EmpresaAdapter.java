@@ -1,4 +1,4 @@
-package br.com.scrumming.activity;
+package br.com.scrumming.adapter;
 
 import java.util.List;
 
