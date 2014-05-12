@@ -1,5 +1,8 @@
-package br.com.scrumming.activity;
+package br.com.scrumming.fragment;
 
+import java.util.List;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,12 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import br.com.scrumming.R;
+import br.com.scrumming.adapter.EmpresaAdapter;
+import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Usuario;
+import br.com.scrumming.rest.RestEmpresa;
 
 public class BemVindoFragment extends Fragment {
 
 	Usuario usuario;
 	TextView txtNome;
+	List<Empresa> listaEmpresas;
 	
 	public static BemVindoFragment novaInstancia(Usuario usuario){
 		Bundle args = new Bundle();
@@ -35,5 +42,27 @@ public class BemVindoFragment extends Fragment {
 		txtNome.setText(usuario.getNome());
 		
 		return layout;
+	}
+	
+	private void AtualizarLista() {
+		EmpresaAdapter adapter = new EmpresaAdapter(getActivity(), listaEmpresas);
+		//setListAdapter(adapter);
+	}
+	
+	class ReadEmpresaAsyncTask extends AsyncTask<Usuario, Void, List<Empresa>> {
+
+		@Override
+		protected List<Empresa> doInBackground(Usuario... params) {
+			return RestEmpresa.retorneEmpresas(params[0]);
+		}
+		
+		@Override
+		protected void onPostExecute(List<Empresa> empresas) {
+			super.onPostExecute(empresas);
+			if(empresas != null) {
+				listaEmpresas = empresas;
+				AtualizarLista();
+			}
+		}
 	}
 }

@@ -10,9 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import br.com.scrumming.R;
+import br.com.scrumming.asynctask.AsyncTaskUsuario;
 import br.com.scrumming.domain.Usuario;
-import br.com.scrumming.implementations.AsyncTaskUsuario;
-import br.com.scrumming.implementations.InterfaceUsuario;
+import br.com.scrumming.interfaces.InterfaceUsuario;
 
 public class LoginActivity extends Activity implements InterfaceUsuario {
 	
