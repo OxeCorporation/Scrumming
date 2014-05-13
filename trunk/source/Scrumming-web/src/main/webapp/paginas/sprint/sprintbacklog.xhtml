@@ -12,7 +12,7 @@
 				<!-- CABEÇALHO DA LISTAGEM CONTENDO UM ITEM BACKLOG -->
 				<f:facet name="header">
 					<p:commandLink action="#{sprintDetalheMB.itembacklogDetalhePage}" immediate="true">
-						<h:outputText styleClass="label-grid-header" value="#{item.nome}" />
+						<h:outputText styleClass="label-grid-header" value="#{item.nome}" />						
 						<f:setPropertyActionListener value="#{item}" target="#{sprintDetalheMB.itemSelecionado}" />
 					</p:commandLink>								
 					
@@ -47,7 +47,8 @@
 					<p:panel styleClass="col-md-12 column">
 						<h:panelGroup styleClass="col-md-11 column">
 							
-							<h:outputText value="#{tarefa.nome}" />
+							<h:outputText value="#{tarefa.nome}" />&#160;
+							<h:panelGroup rendered="tarefa.foiFavoritada" ><i class="fa fa-star-o fa-spin" /> </h:panelGroup>
 							<h:outputText value="#{tarefa.situacaoDescricao}" style="color: white; float: right; #{tarefa.backgroundColor};" styleClass="label-medium"/>
 							<br/>
 							<h:outputText value="#{mensagens.label_responsavel} #{tarefa.usuario.nome}" rendered="#{not empty tarefa.usuario}" styleClass="output-small"/>

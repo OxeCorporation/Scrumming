@@ -81,6 +81,9 @@ public class Tarefa extends ObjetoPersistente<Integer> {
 	@Transient
 	private boolean estahConcluida;
 	
+	@Transient
+	private boolean foiFavoritada;
+	
 	@Override
 	@JsonIgnore
 	public Integer getChave() {
@@ -193,5 +196,13 @@ public class Tarefa extends ObjetoPersistente<Integer> {
 	public boolean isEstahConcluida() {
 		estahConcluida = situacao == SituacaoTarefaEnum.FEITO;		
 		return estahConcluida;
+	}
+
+	public boolean isFoiFavoritada() {
+		return foiFavoritada;
+	}
+
+	public void setFoiFavoritada(boolean foiFavoritada) {
+		this.foiFavoritada = foiFavoritada;
 	}
 }

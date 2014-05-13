@@ -14,6 +14,7 @@ import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.core.infra.util.MensagemUtil;
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
+import br.com.scrumming.core.manager.interfaces.ITarefaFavoritaManager;
 import br.com.scrumming.core.manager.interfaces.ITarefaManager;
 import br.com.scrumming.core.manager.interfaces.ITeamManager;
 import br.com.scrumming.core.manager.interfaces.IUsuarioManager;
@@ -43,6 +44,8 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements
 	private IUsuarioManager usuarioManager;
 	@Autowired
 	private ITeamManager teamManager;
+	@Autowired
+	private ITarefaFavoritaManager tarefaFavoritaManager;
 
 	@Override
 	public AbstractRepositorio<Tarefa, Integer> getRepositorio() {
@@ -97,10 +100,17 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements
 	public List<Tarefa> consultarPorItemBacklog(Integer itemBacklogID) {
 		List<Tarefa> listaDeTarefas = tarefaRepositorio
 				.consultarPorItemBacklog(itemBacklogID);
-		return preencherNovaListaDeTarefas(listaDeTarefas);
+		return preencherNovaListaDeTarefas(listaDeTarefas, 0);
+	}
+	
+	@Override
+	public List<Tarefa> consultarPorItemBacklog(Integer itemBacklogID, Integer usuarioLogadoID) {
+		List<Tarefa> listaDeTarefas = tarefaRepositorio
+				.consultarPorItemBacklog(itemBacklogID);
+		return preencherNovaListaDeTarefas(listaDeTarefas, usuarioLogadoID);
 	}
 
-	private List<Tarefa> preencherNovaListaDeTarefas(List<Tarefa> listaDeTarefas) {
+	private List<Tarefa> preencherNovaListaDeTarefas(List<Tarefa> listaDeTarefas, Integer usuarioLogadoID) {
 		List<Tarefa> novaListaDeTarefas = new ArrayList<>();
 		for (Tarefa tarefa : listaDeTarefas) {
 			if (tarefa.getSituacao() == SituacaoTarefaEnum.PARA_FAZER) {
@@ -124,6 +134,8 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements
 				tarefa.setSituacaoDescricao(em_impedimento);
 				tarefa.setBackgroundColor("background-color: orange");
 			}
+			Usuario usuario = usuarioManager.findByKey(usuarioLogadoID);
+			tarefa.setFoiFavoritada(tarefaFavoritaManager.tarefaFoiFavoritada(tarefa, usuario));
 
 			novaListaDeTarefas.add(tarefa);
 		}
@@ -135,14 +147,14 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements
 			Integer itemBacklogID, SituacaoTarefaEnum situacao) {
 		List<Tarefa> listaDeTarefas = tarefaRepositorio
 				.consultarPorItemBacklogIhSituacao(itemBacklogID, situacao);
-		return preencherNovaListaDeTarefas(listaDeTarefas);
+		return preencherNovaListaDeTarefas(listaDeTarefas, 0);
 	}
 
 	@Override
 	public List<Tarefa> consultarPorItemBacklogIhNotSituacao(
 			Integer itemBacklogID, SituacaoTarefaEnum situacao) {
 		return preencherNovaListaDeTarefas(tarefaRepositorio
-				.consultarPorItemBacklogIhNotSituacao(itemBacklogID, situacao));
+				.consultarPorItemBacklogIhNotSituacao(itemBacklogID, situacao), 0);
 	}
 
 	@Override

@@ -12,7 +12,7 @@ public class RestProjeto {
 public static List<Projeto> retorneProjetosPorUsuario(UsuarioEmpresa usuarioEmpresa){
 		
 //		String domain = "scrumming-agilscrum.rhcloud.com";
-		String domain = "192.168.1.101:8080";
+		String domain = "192.168.0.101:8080";
 		Integer usuarioID = usuarioEmpresa.getUsuario().getCodigo();
 		Integer empresaID = usuarioEmpresa.getEmpresa().getCodigo();
 		
