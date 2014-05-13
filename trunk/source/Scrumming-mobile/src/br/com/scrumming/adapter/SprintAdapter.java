@@ -39,8 +39,8 @@ public class SprintAdapter extends ArrayAdapter<Sprint> {
 		}
 		
 		holder.txtNomeSprint.setText(sprint.getNome());
-		holder.txtDataInico.setText(sprint.getDataInicio().toString());
-		holder.txtDataFim.setText(sprint.getDataFim().toString());
+		holder.txtDataInico.setText(sprint.getDataInicioFormatada().toString());
+		holder.txtDataFim.setText(sprint.getDataFimFormatada().toString());
 		holder.txtDescricaoSprint.setText(sprint.getDescricao());
 		
 		return convertView;
