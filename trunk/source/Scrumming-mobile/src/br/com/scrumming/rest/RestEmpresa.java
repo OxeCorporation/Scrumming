@@ -18,7 +18,7 @@ public class RestEmpresa {
 	public static List<UsuarioEmpresa> retorneEmpresas(Usuario usuario){
 		
 		//String domain = "scrumming-agilscrum.rhcloud.com";
-		String domain = "192.168.1.2:8080";
+		String domain = "192.168.0.101:8080";
 		final String url = "http://"+domain+"/Scrumming/service/usuario_empresa/empresadousuario/{usuarioID}";
 		UsuarioEmpresa[] usuariosEmpresa = RestFactory.getRestTemplate().getForObject(url, UsuarioEmpresa[].class, usuario.getCodigo());
 		return Arrays.asList(usuariosEmpresa);
