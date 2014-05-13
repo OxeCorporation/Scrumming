@@ -53,7 +53,7 @@ public class SprintFragment extends ListFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		View layout = inflater.inflate(R.layout.fragment_sprint, container,false);
+		View layout = inflater.inflate(R.layout.fragment_sprint, container, false);
 		
 		//pega o projeto clicado no projetoFragment para listar as sprints correspondentes a esse projeto
 		projeto = (Projeto) getArguments().getSerializable("projeto");

@@ -32,6 +32,8 @@ public class SprintAdapter extends ArrayAdapter<Sprint> {
 			holder.txtDataInico = (TextView) convertView.findViewById(R.id.txtDataInicioSprint);
 			holder.txtDataFim = (TextView) convertView.findViewById(R.id.txtDataFimSprint);
 			holder.txtDescricaoSprint = (TextView) convertView.findViewById(R.id.txtDescricaoSprint);
+			convertView.setTag(holder);
+
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}

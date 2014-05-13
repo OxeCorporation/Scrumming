@@ -21,7 +21,7 @@ public class PrincipalActivity extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_principal);
-		new EmpresaFragment();
+		//new EmpresaFragment();
 
 		Usuario usuario = (Usuario) getIntent().getSerializableExtra("usuario");
 		FragmentManager fm = getSupportFragmentManager();

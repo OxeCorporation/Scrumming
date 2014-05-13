@@ -16,7 +16,6 @@ import br.com.scrumming.adapter.ProjetoAdapter;
 import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.UsuarioEmpresa;
-import br.com.scrumming.interfaces.ClickedOnEmpresa;
 import br.com.scrumming.interfaces.ClickedOnProjeto;
 import br.com.scrumming.rest.RestProjeto;
 
