@@ -54,6 +54,7 @@ public class ProjetoFragment extends ListFragment {
 		}
 		
 	}
+	
 	//EDITAR
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
