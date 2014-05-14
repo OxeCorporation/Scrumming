@@ -129,6 +129,7 @@ public class ProjetoMB extends AbstractBean {
     }
 
     public void setProjetoSelecionado(Projeto projetoSelecionado) {
+    	
         this.projetoSelecionado = projetoSelecionado;
     }
 

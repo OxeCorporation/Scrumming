@@ -10,6 +10,7 @@ import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
+import br.com.scrumming.web.clientService.ConfigClientService;
 import br.com.scrumming.web.clientService.SprintClientService;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
@@ -22,6 +23,7 @@ public class SprintMB extends AbstractBean {
 	private static final long serialVersionUID = 1L;
 	private List<Sprint> sprintsDoProjeto;
 	private SprintClientService sprintClientService;
+	private ConfigClientService configClienteService;
 	@FlashScoped
 	private Projeto projetoSelecionado;
 	@FlashScoped
@@ -33,9 +35,12 @@ public class SprintMB extends AbstractBean {
 	@FlashScoped
 	private List<ItemBacklog> sprintBacklog;
 	
+	private boolean CADASTRO_SPRINT;
+	
 	@Override
 	public void inicializar() {
 		sprintClientService = new SprintClientService();
+		configClienteService = new ConfigClientService();
 		sprintsDoProjeto = sprintClientService.consultarSprintsPorProjeto(projetoSelecionado.getCodigo());
 	}
 		
@@ -145,5 +150,9 @@ public class SprintMB extends AbstractBean {
 
 	public void setItensDisponiveis(List<ItemBacklog> itensDisponiveis) {
 		this.itensDisponiveis = itensDisponiveis;
+	}
+	
+	public boolean isCADASTRO_SPRINT() {
+		return CADASTRO_SPRINT;
 	}
 }
