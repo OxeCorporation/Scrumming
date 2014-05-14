@@ -19,6 +19,7 @@ public final class ConstantesService {
 		public static final String URL_SALVAR = "/tarefa/save/{itemBacklogManagerID}";
 		public static final String URL_CONSULTAR_POR_ITEM_BACKLOG = "/tarefa/list/{itemBacklogID}";
 		public static final String URL_CONSULTAR_POR_ITEM_BACKLOG_IH_SITUACAO = "/tarefa/list/{itemBacklogID}/{situacao}";
+		public static final String URL_CONSULTAR_POR_ITEM_BACKLOG_IH_USUARIO_LOGADO = "/tarefa/lista/{itemBacklogID}/{usuarioLogadoID}";
 		public static final String URL_CONSULTAR = "/tarefa/{tarefaID}";
 		public static final String URL_REMOVER = "/tarefa/remove/";
 		public static final String URL_ATRIBUIR_PARA = "/tarefa/atribuirpara/{itemBacklogID}/{usuarioID}";
@@ -31,7 +32,7 @@ public final class ConstantesService {
 		public static final String URL_CONSULTAR_SPRINT_DTO = "/sprint/{sprintID}";
 		public static final String URL_CONSULTAR_POR_PROJETO = "/sprint/list/{projetoID}";
 		public static final String URL_CONSULTAR_ITENS_DISPONIVEIS = "/sprint/list/disponiveis/{projetoID}";
-		public static final String URL_CONSULTAR_SPRINT_BACKLOG = "/sprint/sprintBacklog/list/{sprintID}";
+		public static final String URL_CONSULTAR_SPRINT_BACKLOG = "/sprint/sprintBacklog/list/{sprintID}/{usuarioLogadoID}";
 		public static final String URL_FECHAR_SPRINT = "/sprint/close";
 		public static final String URI_CONSULTAR_TEREFAS = "/sprint/sprintBacklog/tarefas/{sprintID}";
 	}
@@ -92,4 +93,8 @@ public final class ConstantesService {
 		public static final String URL_FAVORITAR_TAREFA = "/tarefa_favorita/atualizar";
 	}
 
+	public final class Config {
+		private Config(){}
+		public static final String URL_VERIFICAR_PERMISSAO = "config/verificar_permissao/{time}/{configEnum}";
+	}
 }

@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import br.com.scrumming.core.service.TarefaService;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
@@ -48,8 +47,10 @@ public class SprintClientService extends AbstractClientService {
 	 * @param sprintID
 	 * @return
 	 */
-	public List<ItemBacklog> consultarSprintBacklog(Integer sprintID) {
-		ResponseEntity<ItemBacklog[]> forEntity = getRestTemplate().getForEntity(getURIService(ConstantesService.Sprint.URL_CONSULTAR_SPRINT_BACKLOG), ItemBacklog[].class, sprintID);
+	public List<ItemBacklog> consultarSprintBacklog(Integer sprintID, Integer usuarioLogadoID) {
+		ResponseEntity<ItemBacklog[]> forEntity = getRestTemplate().getForEntity(
+				getURIService(ConstantesService.Sprint.URL_CONSULTAR_SPRINT_BACKLOG), 
+				ItemBacklog[].class, sprintID, usuarioLogadoID);
 		return Arrays.asList(forEntity.getBody());
 	}
 	
