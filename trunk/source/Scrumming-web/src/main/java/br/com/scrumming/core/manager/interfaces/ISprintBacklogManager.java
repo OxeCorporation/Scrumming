@@ -16,7 +16,7 @@ public interface ISprintBacklogManager extends IManager<SprintBacklog, SprintBac
 	void desassociarItemASprint(Sprint sprintPersistido, List<ItemBacklog> itensBacklogProduto);
 	List<ItemBacklog> consultarItensBacklogPorSprint(Integer sprintID);
 	SprintBacklog consultaAtivosPorChaveComposta(Sprint sprint, ItemBacklog itemBacklog);
-	List<ItemBacklog> consultarSprintBacklog(Integer sprintID);
+	List<ItemBacklog> consultarSprintBacklog(Integer sprintID, Integer usuarioLogadoID);
 	List<SprintBacklog> consultarAtivoPorItem(ItemBacklog item);
 	List<SprintBacklog> listarAtivosPorSprint(Sprint sprint);
 	List<Tarefa> consultarTarefasPorSprint(Integer sprintID);

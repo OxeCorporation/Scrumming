@@ -61,9 +61,9 @@ public class SprintService {
     	return sprintManager.consultarSprintDTO(sprintID);
     }
     
-    @RequestMapping(method = RequestMethod.GET, value = "/sprintBacklog/list/{sprintID}")
-    public List<ItemBacklog> consultarSprintBacklog(@PathVariable Integer sprintID) {
-    	return sprintBacklogManager.consultarSprintBacklog(sprintID);
+    @RequestMapping(method = RequestMethod.GET, value = "/sprintBacklog/list/{sprintID}/{usuarioLogadoID}")
+    public List<ItemBacklog> consultarSprintBacklog(@PathVariable Integer sprintID, @PathVariable Integer usuarioLogadoID) {
+    	return sprintBacklogManager.consultarSprintBacklog(sprintID, usuarioLogadoID);
     }
 
     /* getters and setters */

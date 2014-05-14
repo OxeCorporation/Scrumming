@@ -41,6 +41,7 @@ public class TarefaFavoritaMB extends AbstractBean {
 		setTarefaFavorita(new TarefaFavorita());
 		tarefaFavorita.setTarefa(tarefaSelecionada);
 		tarefaFavorita.setUsuario(getUsuarioLogado());
+		setTarefaFavoritaClientService(new TarefaFavoritaClientService());
 		tarefaFavoritaClientService.favoritarTarefa(tarefaFavorita);
 		limparObjetoTarefaFavorita();
 		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);

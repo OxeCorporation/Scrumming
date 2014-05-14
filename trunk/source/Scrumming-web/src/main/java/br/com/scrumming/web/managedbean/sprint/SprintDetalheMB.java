@@ -22,6 +22,7 @@ import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
 import br.com.scrumming.web.infra.bean.AbstractBean;
+import br.com.scrumming.web.managedbean.tarefa.TarefaFavoritaMB;
 
 @ManagedBean
 @ViewScoped
@@ -81,7 +82,7 @@ public class SprintDetalheMB extends AbstractBean {
 	public void entregarItem() {
 		itemSelecionado.setSituacaoBacklog(SituacaoItemBacklogEnum.ENTREGUE);
 		itemClienteService.salvarItemBacklog(itemSelecionado);
-		itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo());
+		itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo(), usuarioLogado.getCodigo());
 	}
 	
 	/*FUNÇÕES REFERENTES AO DAILY SCRUM*/
@@ -135,13 +136,13 @@ public class SprintDetalheMB extends AbstractBean {
 	
 	private void atualizarListaDeItens(){
 		if (sprintSelecionada != null) {
-			itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo());
+			itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo(), usuarioLogado.getCodigo());
 		}
 	}
 	
 	private void atualizarListaDeTarefas() {
 		if (itemSelecionado != null) {
-			itemSelecionado.setTarefas(tarefaClientService.consultarTarefasPorItemBacklog(itemSelecionado.getCodigo()));
+			itemSelecionado.setTarefas(tarefaClientService.consultarPorItemBacklogIhUsuarioLogado(itemSelecionado.getCodigo(), getUsuarioLogado().getCodigo()));
 		}
 	}
 		
@@ -170,6 +171,14 @@ public class SprintDetalheMB extends AbstractBean {
 		atualizarListaDeTarefas();
 		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 		return "";
+	}
+	
+	public void favoritarTarefa() {
+		TarefaFavoritaMB tarefaFavoritaMB = new TarefaFavoritaMB();
+		tarefaFavoritaMB.setTarefaSelecionada(tarefaSelecionada);
+		tarefaFavoritaMB.setUsuarioLogado(usuarioLogado);
+		tarefaFavoritaMB.favoritarTarefa();
+		atualizarListaDeItens();
 	}
 	
 	/* Métodos para redirecionamento das páginas */

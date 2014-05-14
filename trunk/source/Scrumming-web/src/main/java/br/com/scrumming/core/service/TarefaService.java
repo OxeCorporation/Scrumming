@@ -46,6 +46,11 @@ public class TarefaService {
     	return new ArrayList<Tarefa>(tarefaManager.consultarPorItemBacklog(itemBacklogID));
     }
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/lista/{itemBacklogID}/{usuarioLogadoID}")
+	public List<Tarefa> consultarPorItemBacklogIhUsuarioLogado(@PathVariable Integer itemBacklogID, @PathVariable Integer usuarioLogadoID) {
+    	return new ArrayList<Tarefa>(tarefaManager.consultarPorItemBacklog(itemBacklogID, usuarioLogadoID));
+    }
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/list/{itemBacklogID}/{situacao}")
 	public List<Tarefa> consultarTarefasPorItemBacklogIhSituacao(@PathVariable Integer itemBacklogID, @PathVariable SituacaoTarefaEnum situacao) {
     	return new ArrayList<Tarefa>(tarefaManager.consultarPorItemBacklogIhSituacao(itemBacklogID, situacao));
