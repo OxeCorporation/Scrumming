@@ -9,10 +9,13 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import br.com.scrumming.R;
 import br.com.scrumming.adapter.SprintAdapter;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
+import br.com.scrumming.interfaces.ClickedOnProjeto;
+import br.com.scrumming.interfaces.ClickedOnSprint;
 import br.com.scrumming.rest.RestSprint;
 
 public class SprintFragment extends ListFragment {
@@ -59,6 +62,14 @@ public class SprintFragment extends ListFragment {
 		projeto = (Projeto) getArguments().getSerializable("projeto");
 		
 		return layout;
+	}
+	
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		if (getActivity() instanceof ClickedOnSprint) {
+			((ClickedOnSprint)getActivity()).sprintFoiClicada(listaSprints.get(position));
+		}
 	}
 	
 	private void AtualizarListaDeSprints() {

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import br.com.scrumming.R;
+import br.com.scrumming.adapter.SprintBacklogAdapter;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.rest.RestSprintBacklog;
@@ -52,17 +53,17 @@ public class SprintBacklogFragment extends ListFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		View layout = inflater.inflate(R.layout.fragment_sprint, container, false);
+		View layout = inflater.inflate(R.layout.fragment_sprintbacklog, container, false);
 		
-		//pega o projeto clicado no projetoFragment para listar as sprints correspondentes a esse projeto
+		//pega a sprint clicada no sprintFragment para listar os itensbacklog da sprint
 		sprint = (Sprint) getArguments().getSerializable("sprint");
 		
 		return layout;
 	}
 	
 	private void AtualizarListaDeItemBacklog() {
-	//	SprintAdapter adapter = new SprintAdapter(getActivity(), listaSprintsBacklog);
-	//	setListAdapter(adapter);
+		SprintBacklogAdapter adapter = new SprintBacklogAdapter(getActivity(), listaItemBacklog);
+		setListAdapter(adapter);
 	}
 	
 	class AsyncTaskSprintBacklog extends AsyncTask<Sprint, Void, List<ItemBacklog>>{
