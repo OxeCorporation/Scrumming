@@ -155,4 +155,5 @@ public class SprintMB extends AbstractBean {
 	public boolean isCADASTRO_SPRINT() {
 		return CADASTRO_SPRINT;
 	}
+
 }
