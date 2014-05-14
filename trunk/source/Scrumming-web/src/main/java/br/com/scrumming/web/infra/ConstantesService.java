@@ -92,4 +92,8 @@ public final class ConstantesService {
 		public static final String URL_FAVORITAR_TAREFA = "/tarefa_favorita/atualizar";
 	}
 
+	public final class Config {
+		private Config(){}
+		public static final String URL_VERIFICAR_PERMISSAO = "config/verificar_permissao/{time}/{configEnum}";
+	}
 }

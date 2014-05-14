@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import br.com.scrumming.core.service.TarefaService;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
