@@ -9,6 +9,7 @@ import org.apache.commons.collections.CollectionUtils;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.Empresa;
+import br.com.scrumming.domain.Team;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.web.clientService.UsuarioClientService;
 import br.com.scrumming.web.clientService.UsuarioEmpresaClientService;
@@ -26,6 +27,7 @@ public class SessaoMB {
 	private Empresa empresaSelecionada;
 	private String senha;
 	private String login;
+	private Team time;
 
 	public String efetuarLogin() {
 		usuario = usuarioClientService.obterUsuario(login, senha);
@@ -122,5 +124,13 @@ public class SessaoMB {
 
 	public void setEmpresaSelecionada(Empresa empresaSelecionada) {
 		this.empresaSelecionada = empresaSelecionada;
+	}
+
+	public Team getTime() {
+		return time;
+	}
+
+	public void setTime(Team time) {
+		this.time = time;
 	}
 }
