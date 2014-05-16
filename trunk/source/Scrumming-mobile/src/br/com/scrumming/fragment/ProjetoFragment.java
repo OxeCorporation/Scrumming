@@ -10,11 +10,13 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import br.com.scrumming.R;
 import br.com.scrumming.adapter.ProjetoAdapter;
 import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.UsuarioEmpresa;
+import br.com.scrumming.interfaces.ClickedOnProjeto;
 import br.com.scrumming.rest.RestProjeto;
 
 @SuppressLint("NewApi")
@@ -65,6 +67,14 @@ public class ProjetoFragment extends ListFragment {
 		usuarioEmpresa = (UsuarioEmpresa) getArguments().getSerializable("usuarioEmpresa");
 		
 		return layout;
+	}
+	
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		if (getActivity() instanceof ClickedOnProjeto) {
+			((ClickedOnProjeto)getActivity()).projetoFoiClicado(listaProjetos.get(position), usuarioEmpresa);
+		}
 	}
 	
 	private void AtualizarListaDeProjetos() {
