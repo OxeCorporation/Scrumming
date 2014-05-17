@@ -80,6 +80,11 @@ public class ProjetoFragment extends ListFragment {
 	private void AtualizarListaDeProjetos() {
 		ProjetoAdapter adapter = new ProjetoAdapter(getActivity(), listaProjetos);
 		setListAdapter(adapter);
+		if (listaProjetos.size()==1){
+			if (getActivity() instanceof ClickedOnProjeto) {
+				((ClickedOnProjeto)getActivity()).projetoFoiClicado(listaProjetos.get(0), usuarioEmpresa);
+			}
+		}
 	}
 	
 	
