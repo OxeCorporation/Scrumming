@@ -31,11 +31,18 @@
 								<br />
 								<!-- Textarea -->
 								<h:outputLabel styleClass="label-default" value="Descrição: *" />
-								<h:inputTextarea
-									value="#{projetoCadastroMB.projetoDTO.projeto.descricao}"
-									class="form-control text-area" id="objetivo" name="objetivo"
+								<p:inputTextarea 
+									rows="6"
+									cols="72"
+								    id="descricaoProjeto" 
+								    counter="display" 
+								    maxlength="500" 
+								    counterTemplate="{0} caracteres restantes." 
+								    value="#{projetoCadastroMB.projetoDTO.projeto.descricao}"
 									required="true"
-									requiredMessage="Por favor, informe a descrição do projeto" />
+									autoResize="false"
+									requiredMessage="Por favor, informe a descrição do projeto"  />
+    							<h:outputText id="display" />
 							</p:panel>
 						</h:panelGroup>
 						<br />

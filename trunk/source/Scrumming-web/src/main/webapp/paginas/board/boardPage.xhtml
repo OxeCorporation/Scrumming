@@ -6,36 +6,44 @@
 	template="/paginas/template/template.xhtml">
 
 	<ui:define name="conteudo">
-	
-		<h:outputText value="#{boardBean.sprintSelecionada.descricao}" />
-		
+		<h3>
+			<p:outputLabel for="sprintSelecionada"
+				value="#{mensagens.label_sprint}:" style="font-weight:bold;" />
+			<p:spacer width="5" />
+			<h:outputText id="sprintSelecionada"
+				value="#{boardBean.sprintSelecionada.nome}" styleClass="ui-widget" />
+		</h3>
 		<style>
-			.painel {
-				margin: 5px;
-				box-shadow: 5px 7px 6px #888888;
-			}
-			
-			#lista {
-				display: table;
-			}
-			
-			.item {
-				float: right;
-				margin-right: 20px;
-			}
-			
-			.ui-dashboard {
-				margin-left: -10px;
-			}
-			
-			.ui-dashboard-column {
-				width: 230px;
-				margin-left: 20px;
-				border-radius: 5px;
-				border-style: solid;
-				border-color: rgb(166, 201, 226);
-			}
-		</style>
+.linha {
+	size: 100%
+}
+
+.painel {
+	margin: 5px;
+	box-shadow: 5px 7px 6px #888888;
+}
+
+#lista {
+	display: table;
+}
+
+.item {
+	float: right;
+	margin-right: 20px;
+}
+
+.ui-dashboard {
+	margin-left: -10px;
+}
+
+.ui-dashboard-column {
+	width: 230px;
+	margin-left: 20px;
+	border-radius: 5px;
+	border-style: solid;
+	border-color: rgb(166, 201, 226);
+}
+</style>
 		<table width="95%">
 			<tr align="center">
 				<td width="25%">
@@ -60,12 +68,29 @@
 				</td>
 			</tr>
 		</table>
-			<p:dashboard id="dashboard" binding="#{boardBean.dashboard}" model="#{boardBean.dashboardModel}">
-				<p:ajax event="reorder" listener="#{boardBean.handleReorder}"/>
-			</p:dashboard>
-			
-			<p:dialog id="boardModal" widgetVar="boardModal" modal="true">
-				<h:outputText value="#{boardBean.tarefaSelecionada.descricao}" />
-			</p:dialog>
+		<p:dashboard id="dashboard" binding="#{boardBean.dashboard}"
+			model="#{boardBean.dashboardModel}">
+			<p:ajax event="reorder" listener="#{boardBean.handleReorder}" />
+		</p:dashboard>
+
+		<p:dialog id="boardModal" widgetVar="boardModal" modal="true"
+			resizable="false" header="#{mensagens.label_detalhe_tarefa}"
+			width="500">
+			<p:panel id="modalPanel">
+				<p:outputLabel for="tituloTarefaModal" value="#{mensagens.label_titulo}:" />
+				<p:spacer width="5" />
+				<p>
+					<h:outputText id="tituloTarefaModal" value="#{boardBean.tarefaSelecionada.nome}" />
+				</p>
+				<p:outputLabel for="descricaoTarefaModal" value="#{mensagens.label_descricao}" />
+				<p:spacer width="5" />
+				<p>
+					<h:outputText id="descricaoTarefaModal" value="#{boardBean.tarefaSelecionada.descricao}" />
+				</p>
+				<p:outputLabel for="horasTarefaModal" value="#{mensagens.label_tempo_estimado_em_horas}:" />
+				<p:spacer width="5" />
+					<h:outputText id="horasTarefaModal" value="#{boardBean.tarefaSelecionada.tempoEstimado}" />
+			</p:panel>
+		</p:dialog>
 	</ui:define>
 </ui:composition>
