@@ -33,6 +33,7 @@ public class Tarefa implements Serializable {
     private String situacaoDescricao;
 	private String backgroundColor;
 	private boolean estahConcluida;
+	private boolean foiFavoritada;
 	
 	/*getters and setters*/
 	public Integer getCodigo() {
@@ -138,5 +139,17 @@ public class Tarefa implements Serializable {
 	public boolean isEstahConcluida() {
 		estahConcluida = situacao == SituacaoTarefaEnum.FEITO;		
 		return estahConcluida;
+	}
+
+	public boolean isFoiFavoritada() {
+		return foiFavoritada;
+	}
+
+	public void setFoiFavoritada(boolean foiFavoritada) {
+		this.foiFavoritada = foiFavoritada;
+	}
+
+	public void setEstahConcluida(boolean estahConcluida) {
+		this.estahConcluida = estahConcluida;
 	}
 }
