@@ -1,16 +1,13 @@
 package br.com.scrumming.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import br.com.scrumming.R;
-import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.fragment.SprintBacklogFragment;
-import br.com.scrumming.interfaces.ClickedOnItemBacklog;
 
-public class SprintBacklogActivity extends FragmentActivity implements ClickedOnItemBacklog{
+public class SprintBacklogActivity extends FragmentActivity{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +24,4 @@ public class SprintBacklogActivity extends FragmentActivity implements ClickedOn
 			.commit();			
 	}
 
-	@Override
-	public void itemBacklogFoiClicada(ItemBacklog itemBacklog) {
-		Intent it4 = new Intent(this, SprintBacklogActivity.class);
-		it4.putExtra("itemBacklog", itemBacklog);
-		startActivity(it4);
-	}
 }
