@@ -4,6 +4,7 @@ import org.springframework.http.HttpEntity;
 
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.infra.RestFactory;
+import br.com.scrumming.rest.constantes.ConstantesService;
 
 public class RestUsuario {
 
@@ -15,9 +16,7 @@ public class RestUsuario {
 	
 	public static Usuario retorneUsuario(String login, String senha){
 		
-		//String domain = "scrumming-agilscrum.rhcloud.com";
-		String domain = "192.168.0.101:8080";
-		final String url = "http://"+domain+"/Scrumming/service/usuario/login/{login}/{senha}";
+		final String url = "http://"+ConstantesService.DOMAIN_LOCAL+"/Scrumming/service/usuario/login/{login}/{senha}";
 		Usuario usuario = RestFactory.getRestTemplate().postForObject(url, HttpEntity.EMPTY, Usuario.class,login,senha);
 		return usuario;
 	}
