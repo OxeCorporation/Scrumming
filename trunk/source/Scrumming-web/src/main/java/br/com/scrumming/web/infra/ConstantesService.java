@@ -35,6 +35,7 @@ public final class ConstantesService {
 		public static final String URL_CONSULTAR_SPRINT_BACKLOG = "/sprint/sprintBacklog/list/{sprintID}/{usuarioLogadoID}";
 		public static final String URL_FECHAR_SPRINT = "/sprint/close";
 		public static final String URI_CONSULTAR_TEREFAS = "/sprint/sprintBacklog/tarefas/{sprintID}";
+		public static final String URL_TOTAL_DE_HORAS_ESTIMADAS = "/sprint/totalDeHorasEstimadas/{sprintID}";
 	}
 	
 	public final class ItemBacklog{

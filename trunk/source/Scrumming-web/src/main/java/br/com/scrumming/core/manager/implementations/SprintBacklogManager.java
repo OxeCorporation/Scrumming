@@ -176,6 +176,12 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 		
 		return listaTarefa;
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Long totalDeHorasEstimadasDaSprint(Integer sprintID) {
+		return sprintBacklogRepositorio.totalDeHorasEstimadasDaSprint(sprintID);
+	}
 
 	/* getters and setters */
 	@Override

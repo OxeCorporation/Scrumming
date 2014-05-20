@@ -80,4 +80,8 @@ public class SprintClientService extends AbstractClientService {
 		Tarefa[] tarefas = getRestTemplate().getForObject(getURIService(ConstantesService.Sprint.URI_CONSULTAR_TEREFAS), Tarefa[].class, sprintID);
 		return Arrays.asList(tarefas);
 	}
+	
+	public Long totalDeHorasEstimadasDaSprint(Integer sprintID) {
+		return getRestTemplate().getForObject(getURIService(ConstantesService.Sprint.URL_TOTAL_DE_HORAS_ESTIMADAS), Long.class, sprintID);
+	}
 }

@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -101,5 +100,16 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
 		criteria.createAlias("itemBacklogAlias.tarefas", "tarefa");
 		criteria.add(Restrictions.eq("sprintAlias.codigo", sprintID));
 		return Collections.checkedList(criteria.list(), Tarefa.class);
+	}
+	
+	public Long totalDeHorasEstimadasDaSprint(Integer sprintID){		
+		Criteria criteria = createCriteria();
+		criteria.createAlias("itemBacklog", "itemBacklogAlias");
+		criteria.createAlias("sprint", "sprintAlias");
+		criteria.createAlias("itemBacklogAlias.tarefas", "tarefa");
+		criteria.setProjection(Projections.sum("tarefa.tempoEstimado"));
+		criteria.add(Restrictions.eq("sprintAlias.codigo", sprintID));		
+		
+		return (Long) criteria.uniqueResult();
 	}
 }

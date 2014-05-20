@@ -65,6 +65,11 @@ public class SprintService {
     public List<ItemBacklog> consultarSprintBacklog(@PathVariable Integer sprintID, @PathVariable Integer usuarioLogadoID) {
     	return sprintBacklogManager.consultarSprintBacklog(sprintID, usuarioLogadoID);
     }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/totalDeHorasEstimadas/{sprintID}")
+    public Long totalDeHorasEstimadasDaSprint(@PathVariable Integer sprintID) {
+    	return sprintBacklogManager.totalDeHorasEstimadasDaSprint(sprintID);
+    }
 
     /* getters and setters */
 	public ISprintManager getSprintManager() {
