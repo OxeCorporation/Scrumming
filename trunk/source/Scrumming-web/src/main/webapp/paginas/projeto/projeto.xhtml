@@ -16,7 +16,7 @@
 					<p:tab id="tab1" title="Projetos Ativos" widgetVar="tab1">
 						<p:dataGrid var="projeto" value="#{projetoMB.projetosAtivosDaEmpresa}"
 							columns="1" style="width:100%;"
-							target="#{projetoMB.projetoSelecionado}">
+							target="#{projetoMB.projetoSelecionado}" >
 							<p:panel styleClass="col-md-12 column">
 								<p:panel>
 									<f:facet name="header">
@@ -24,6 +24,8 @@
 											<h:outputText value="#{projeto.nome}" />
 											<f:setPropertyActionListener value="#{projeto}"
 												target="#{projetoMB.projetoSelecionado}" />
+											<f:setPropertyActionListener value="#{projeto}"
+												target="#{sessaoMB.projetoSelecionado}" />												
 										</p:commandLink>
 										<h:outputText value="#{projeto.statusProjeto}"
 											style="float:right" />

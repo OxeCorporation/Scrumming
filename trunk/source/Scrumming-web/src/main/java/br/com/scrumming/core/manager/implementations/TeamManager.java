@@ -52,6 +52,10 @@ public class TeamManager extends AbstractManager<Team, TeamChave> implements
 				.consultaTeamPorProjeto(projetoID);
 		return teamProjeto;
 	}
+	
+	public Team consultarTimeDoProjeto(int codigoProjeto, int codigoEmpresa, int codigoUsuario) {
+		return teamRepositorio.consultarTimeDoProjeto(codigoProjeto, codigoEmpresa, codigoUsuario);
+	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
