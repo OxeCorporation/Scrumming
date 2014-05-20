@@ -9,11 +9,13 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import br.com.scrumming.R;
 import br.com.scrumming.adapter.SprintBacklogAdapter;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.UsuarioEmpresa;
+import br.com.scrumming.interfaces.ClickedOnItemBacklog;
 import br.com.scrumming.rest.RestSprintBacklog;
 
 public class SprintBacklogFragment extends ListFragment {
@@ -66,6 +68,14 @@ public class SprintBacklogFragment extends ListFragment {
 		return layout;
 	}
 	
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		if (getActivity() instanceof ClickedOnItemBacklog) {
+			((ClickedOnItemBacklog)getActivity()).itemBacklogFoiClicada(listaItemBacklog.get(position), usuarioEmpresa);
+		}
+	}
+
 	private void AtualizarListaDeItemBacklog() {
 		SprintBacklogAdapter adapter = new SprintBacklogAdapter(getActivity(), listaItemBacklog);
 		setListAdapter(adapter);
