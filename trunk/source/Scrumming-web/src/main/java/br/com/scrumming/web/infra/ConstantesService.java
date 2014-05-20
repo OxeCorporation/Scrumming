@@ -81,6 +81,7 @@ public final class ConstantesService {
 		private Team(){}
 		public static final String URL_CONSULTAR_USUARIO_PROJETO = "/team/list/{projetoID}";
 		public static final String CONSULTAR_PROJETO_POR_USUARIO_DA_EMPRESA = "/team/listProjetos/{usuarioID}/{empresaID}";
+		public static final String CONSULTAR_TIME_PROJETO = "/team/timeProjeto/{codigoProjeto}/{codigoEmpresa}/{codigoUsuario}";
 	}
 	
 	public final class TarefaReporte{

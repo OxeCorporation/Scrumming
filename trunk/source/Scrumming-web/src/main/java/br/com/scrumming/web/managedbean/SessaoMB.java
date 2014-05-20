@@ -9,8 +9,10 @@ import org.apache.commons.collections.CollectionUtils;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.Empresa;
+import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Team;
 import br.com.scrumming.domain.Usuario;
+import br.com.scrumming.web.clientService.TeamClientService;
 import br.com.scrumming.web.clientService.UsuarioClientService;
 import br.com.scrumming.web.clientService.UsuarioEmpresaClientService;
 import br.com.scrumming.web.infra.FacesMessageUtil;
@@ -20,6 +22,7 @@ import br.com.scrumming.web.infra.PaginasUtil;
 @SessionScoped
 public class SessaoMB {
 
+	private TeamClientService teamClienteService = new TeamClientService();
 	private UsuarioClientService usuarioClientService = new UsuarioClientService();
 	private UsuarioEmpresaClientService usuarioEmpresaClientService = new UsuarioEmpresaClientService();
 	private Usuario usuario;
@@ -27,6 +30,7 @@ public class SessaoMB {
 	private Empresa empresaSelecionada;
 	private String senha;
 	private String login;
+	private Projeto projetoSelecionado;
 	private Team time;
 
 	public String efetuarLogin() {
@@ -61,6 +65,15 @@ public class SessaoMB {
 		senha = null;
 		login = null;
 		return redirecionar(PaginasUtil.Geral.LOGIN_PAGE);
+	}
+	
+	public String configurarTeam() {
+		time = new Team();
+		time.setEmpresa(empresaSelecionada);
+		time.setProjeto(projetoSelecionado);
+		time.setUsuario(usuario);
+		setTime(teamClienteService.consultarTimeProjeto(time));
+		return "";
 	}
 
 	public String bemvindoPage() {
@@ -132,5 +145,14 @@ public class SessaoMB {
 
 	public void setTime(Team time) {
 		this.time = time;
+	}
+
+	public Projeto getProjetoSelecionado() {
+		return projetoSelecionado;
+	}
+
+	public void setProjetoSelecionado(Projeto projetoSelecionado) {
+		this.projetoSelecionado = projetoSelecionado;
+		configurarTeam();
 	}
 }

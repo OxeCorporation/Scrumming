@@ -44,6 +44,11 @@ public class TeamService {
 		return new ArrayList<Usuario>(
 				teamManager.consultarUsuarioPorEmpresaForaDoProjeto(projetoID, empresaID));
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/timeProjeto/{codigoProjeto}/{codigoEmpresa}/{codigoUsuario}")
+	public Team consultarTimeDoProjeto(@PathVariable Integer codigoProjeto, @PathVariable Integer codigoEmpresa, @PathVariable Integer codigoUsuario) {
+		return teamManager.consultarTimeDoProjeto(codigoProjeto, codigoEmpresa, codigoUsuario);
+	}
 
 	/* getters and setters */
 	public ITeamManager getTeamManager() {
