@@ -12,7 +12,7 @@
 			<h:form id="frmSprintDetalhe">
 				<h:panelGroup var="sprint" value="#{sprintDetalheMB.sprintSelecionada}">
 					<h:commandLink immediate="true" action="#{sprintDetalheMB.sprintDetalhePage}">
-						<h:outputText styleClass="label-page-title" value="#{sprintDetalheMB.sprintSelecionada.nome}" />
+						<h:outputText styleClass="label-page-title" value="#{sprintDetalheMB.sprintSelecionada.nome}" />						
 					</h:commandLink>
 					<BR />
 					<h:outputLabel styleClass="label-small" value="#{sprintDetalheMB.projetoSelecionado.nome}" />
@@ -26,7 +26,7 @@
 					<br />
 					<h:outputText styleClass="output-default" value="#{sprintDetalheMB.sprintSelecionada.descricao}" />
 					<br />
-					<br />
+					<br />					
 				</h:panelGroup>
 			</h:form>			
 			
@@ -38,7 +38,7 @@
 				</p:tab>
 				
 				<!-- ABA DOS GRÁFICOS BURNUP E BURNDOWN -->				
-				<p:tab id="tab3" title="Gráficos">
+				<p:tab id="tab3" title="Gráficos" >
 					<ui:include src="/paginas/grafico/burndownSprint.xhtml" />
 				</p:tab>
 				

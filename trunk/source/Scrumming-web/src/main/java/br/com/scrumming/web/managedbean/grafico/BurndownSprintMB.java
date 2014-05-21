@@ -8,17 +8,15 @@ import br.com.scrumming.web.infra.bean.AbstractBean;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.primefaces.model.chart.Axis;
-import org.primefaces.model.chart.AxisType;
-import org.primefaces.model.chart.CategoryAxis;
-import org.primefaces.model.chart.LineChartModel;
-import org.primefaces.model.chart.LineChartSeries;
+import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.ChartSeries;
+
 
 @ManagedBean
 public class BurndownSprintMB extends AbstractBean {
 
 	private static final long serialVersionUID = 1L;
-	private LineChartModel graficoDeLinha;
+	private CartesianChartModel graficoDeLinha;
 	private SprintClientService sprintClientService;
 	private Long totalDeHorasEstimadasDaSprint;
 	private Sprint sprintSelecionada;
@@ -31,39 +29,31 @@ public class BurndownSprintMB extends AbstractBean {
 	}
 	
 	private void criarGrafico() {
-		totalDeHorasEstimadasDaSprint = sprintClientService.totalDeHorasEstimadasDaSprint(10);
+		setTotalDeHorasEstimadasDaSprint(sprintClientService.totalDeHorasEstimadasDaSprint(10));
 		sprintSelecionada = sprintClientService.consultarSprint(10);
 		
-		graficoDeLinha = initLinearModel();
-		graficoDeLinha.setTitle("Burndown da Sprint");
-		graficoDeLinha.setLegendPosition("e");
-		graficoDeLinha.setShowPointLabels(true);
-		graficoDeLinha.getAxes().put(AxisType.X, new CategoryAxis("Dias"));
-        Axis yAxis = graficoDeLinha.getAxis(AxisType.Y);
-        yAxis.setLabel("Horas");
-        yAxis.setMin(0);
-        yAxis.setMax(totalDeHorasEstimadasDaSprint);		
+		graficoDeLinha = initLinearModel();	
 	}
 	
-	private LineChartModel initLinearModel() {
-		LineChartModel model = new LineChartModel();
+	private CartesianChartModel initLinearModel() {
+		CartesianChartModel model = new CartesianChartModel();
  
-        LineChartSeries estimado = new LineChartSeries();
+        ChartSeries estimado = new ChartSeries();
         estimado.setLabel("Estimado");
         
-        LineChartSeries atual = new LineChartSeries();
+        ChartSeries atual = new ChartSeries();
         atual.setLabel("Atual");
         
         int dias = Days.daysBetween(sprintSelecionada.getDataInicio(), sprintSelecionada.getDataFim()).getDays();
-        float horasEstimadas = totalDeHorasEstimadasDaSprint;
+        float horasEstimadas = getTotalDeHorasEstimadasDaSprint();
         DateTime data = sprintSelecionada.getDataInicio();
         
         for (int i = 0; i < dias; i++) {
         	if (i == 0) {
-        		estimado.set(data.toString("dd ") + data.monthOfYear().getAsShortText(), totalDeHorasEstimadasDaSprint);
+        		estimado.set(data.toString("dd ") + data.monthOfYear().getAsShortText(), getTotalDeHorasEstimadasDaSprint());
         		atual.set(data.toString("dd ") + data.monthOfYear().getAsShortText(), 80);
         	} else {
-        		horasEstimadas = horasEstimadas - (totalDeHorasEstimadasDaSprint / (dias-1));
+        		horasEstimadas = horasEstimadas - (getTotalDeHorasEstimadasDaSprint() / (dias-1));
         		estimado.set(data.plusDays(i).toString("dd ") + data.monthOfYear().getAsShortText(), horasEstimadas);
         		atual.set(data.plusDays(i).toString("dd ") + data.monthOfYear().getAsShortText(), 80);
         	}
@@ -75,11 +65,11 @@ public class BurndownSprintMB extends AbstractBean {
         return model;
     }
 
-	public LineChartModel getGraficoDeLinha() {
+	public CartesianChartModel getGraficoDeLinha() {
 		return graficoDeLinha;
 	}
 	
-	public void setGraficoDeLinha(LineChartModel graficoDeLinha) {
+	public void setGraficoDeLinha(CartesianChartModel graficoDeLinha) {
 		this.graficoDeLinha = graficoDeLinha;
 	}
 
@@ -97,6 +87,15 @@ public class BurndownSprintMB extends AbstractBean {
 
 	public void setSprintSelecionada(Sprint sprintSelecionada) {
 		this.sprintSelecionada = sprintSelecionada;
+	}
+
+	public Long getTotalDeHorasEstimadasDaSprint() {
+		return totalDeHorasEstimadasDaSprint;
+	}
+
+	public void setTotalDeHorasEstimadasDaSprint(
+			Long totalDeHorasEstimadasDaSprint) {
+		this.totalDeHorasEstimadasDaSprint = totalDeHorasEstimadasDaSprint;
 	}
 
 }

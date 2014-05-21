@@ -5,6 +5,8 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:p="http://primefaces.org/ui">
     
-    <p:chart type="line" model="#{burndownSprintMB.graficoDeLinha}" style="height:500px;"/>	
+    <p:lineChart value="#{burndownSprintMB.graficoDeLinha}" style="height:450px;"
+    	legendPosition="e" title="Burndown da Sprint" xaxisLabel="Dias" yaxisLabel="Horas"
+    	minY="0" maxY="#{burndownSprintMB.totalDeHorasEstimadasDaSprint}"/>	
 		
 </ui:composition>
