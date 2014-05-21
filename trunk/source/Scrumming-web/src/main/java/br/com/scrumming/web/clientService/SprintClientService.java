@@ -90,7 +90,7 @@ public class SprintClientService extends AbstractClientService {
 		return getRestTemplate().getForObject(getURIService(ConstantesService.Sprint.URL_CONSULTAR_SPRINT), Sprint.class, sprintID);
 	}
 	
-	public Long totalDeHorasRestantesDaSprintPorData(Integer sprintID, DateTime data) {
+	public Long totalDeHorasRestantesDaSprintPorData(Integer sprintID, String data) {
 		return getRestTemplate().getForObject(getURIService(ConstantesService.Sprint.URL_TOTAL_DE_HORAS_RESTANTES_POR_DATA), Long.class, sprintID, data);
 	}
 }

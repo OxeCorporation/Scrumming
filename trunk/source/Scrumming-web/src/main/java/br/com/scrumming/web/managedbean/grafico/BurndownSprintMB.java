@@ -1,6 +1,7 @@
 package br.com.scrumming.web.managedbean.grafico;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.web.clientService.SprintClientService;
@@ -13,6 +14,7 @@ import org.primefaces.model.chart.ChartSeries;
 
 
 @ManagedBean
+@ViewScoped
 public class BurndownSprintMB extends AbstractBean {
 
 	private static final long serialVersionUID = 1L;
@@ -44,18 +46,20 @@ public class BurndownSprintMB extends AbstractBean {
         ChartSeries atual = new ChartSeries();
         atual.setLabel("Atual");
         
+        DateTime data = sprintSelecionada.getDataInicio();
         int dias = Days.daysBetween(sprintSelecionada.getDataInicio(), sprintSelecionada.getDataFim()).getDays();
         float horasEstimadas = getTotalDeHorasEstimadasDaSprint();
-        DateTime data = sprintSelecionada.getDataInicio();
+        float horasRestantes = getTotalDeHorasEstimadasDaSprint();
         
         for (int i = 0; i < dias; i++) {
         	if (i == 0) {
-        		estimado.set(data.toString("dd ") + data.monthOfYear().getAsShortText(), getTotalDeHorasEstimadasDaSprint());
-        		atual.set(data.toString("dd ") + data.monthOfYear().getAsShortText(), 80);
+        		estimado.set(data.toString("dd ") + data.monthOfYear().getAsShortText(), horasEstimadas);
+        		atual.set(data.toString("dd ") + data.monthOfYear().getAsShortText(), horasEstimadas);
         	} else {
         		horasEstimadas = horasEstimadas - (getTotalDeHorasEstimadasDaSprint() / (dias-1));
+        		horasRestantes = sprintClientService.totalDeHorasRestantesDaSprintPorData(10, data.plusDays(i).toString("yyyy-MM-dd"));
         		estimado.set(data.plusDays(i).toString("dd ") + data.monthOfYear().getAsShortText(), horasEstimadas);
-        		atual.set(data.plusDays(i).toString("dd ") + data.monthOfYear().getAsShortText(), 80);
+        		atual.set(data.plusDays(i).toString("dd ") + data.monthOfYear().getAsShortText(), horasRestantes);
         	}
 		}        
  
