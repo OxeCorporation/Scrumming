@@ -2,9 +2,12 @@ package br.com.scrumming.web.managedbean.grafico;
 
 import javax.faces.bean.ManagedBean;
 
+import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.web.clientService.SprintClientService;
 import br.com.scrumming.web.infra.bean.AbstractBean;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.CategoryAxis;
@@ -17,15 +20,20 @@ public class BurndownSprintMB extends AbstractBean {
 	private static final long serialVersionUID = 1L;
 	private LineChartModel graficoDeLinha;
 	private SprintClientService sprintClientService;
+	private Long totalDeHorasEstimadasDaSprint;
+	private Sprint sprintSelecionada;
 	
 	@Override
     public void inicializar() {		
 		setSprintClientService(new SprintClientService());
-		criarGrafico();
+		sprintSelecionada = new Sprint();
+		criarGrafico();		
 	}
 	
 	private void criarGrafico() {
-		Long totalDeHorasEstimadasDaSprint = sprintClientService.totalDeHorasEstimadasDaSprint(10);
+		totalDeHorasEstimadasDaSprint = sprintClientService.totalDeHorasEstimadasDaSprint(10);
+		sprintSelecionada = sprintClientService.consultarSprint(10);
+		
 		graficoDeLinha = initLinearModel();
 		graficoDeLinha.setTitle("Burndown da Sprint");
 		graficoDeLinha.setLegendPosition("e");
@@ -42,21 +50,24 @@ public class BurndownSprintMB extends AbstractBean {
  
         LineChartSeries estimado = new LineChartSeries();
         estimado.setLabel("Estimado");
- 
-        estimado.set(1, 80);
-        estimado.set(2, 60);
-        estimado.set(3, 40);
-        estimado.set(4, 20);
-        estimado.set(5, 0);
- 
+        
         LineChartSeries atual = new LineChartSeries();
         atual.setLabel("Atual");
- 
-        atual.set(1, 80);
-        atual.set(2, 70);
-        atual.set(3, 75);
-        atual.set(4, 50);
-        atual.set(5, 30);
+        
+        int dias = Days.daysBetween(sprintSelecionada.getDataInicio(), sprintSelecionada.getDataFim()).getDays();
+        float horasEstimadas = totalDeHorasEstimadasDaSprint;
+        DateTime data = sprintSelecionada.getDataInicio();
+        
+        for (int i = 0; i < dias; i++) {
+        	if (i == 0) {
+        		estimado.set(data.toString("dd ") + data.monthOfYear().getAsShortText(), totalDeHorasEstimadasDaSprint);
+        		atual.set(data.toString("dd ") + data.monthOfYear().getAsShortText(), 80);
+        	} else {
+        		horasEstimadas = horasEstimadas - (totalDeHorasEstimadasDaSprint / (dias-1));
+        		estimado.set(data.plusDays(i).toString("dd ") + data.monthOfYear().getAsShortText(), horasEstimadas);
+        		atual.set(data.plusDays(i).toString("dd ") + data.monthOfYear().getAsShortText(), 80);
+        	}
+		}        
  
         model.addSeries(estimado);
         model.addSeries(atual);
@@ -67,6 +78,7 @@ public class BurndownSprintMB extends AbstractBean {
 	public LineChartModel getGraficoDeLinha() {
 		return graficoDeLinha;
 	}
+	
 	public void setGraficoDeLinha(LineChartModel graficoDeLinha) {
 		this.graficoDeLinha = graficoDeLinha;
 	}
@@ -77,6 +89,14 @@ public class BurndownSprintMB extends AbstractBean {
 
 	public void setSprintClientService(SprintClientService sprintClientService) {
 		this.sprintClientService = sprintClientService;
+	}
+
+	public Sprint getSprintSelecionada() {
+		return sprintSelecionada;
+	}
+
+	public void setSprintSelecionada(Sprint sprintSelecionada) {
+		this.sprintSelecionada = sprintSelecionada;
 	}
 
 }

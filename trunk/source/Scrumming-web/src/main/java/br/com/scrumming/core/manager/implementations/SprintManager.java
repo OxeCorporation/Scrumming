@@ -170,6 +170,12 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		sprintDTO.setProductBacklog(itensDisponiveis);
 		return sprintDTO;
 	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public Sprint consultarSprint(Integer sprintID) {
+		return findByKey(sprintID);
+	}
 
 	/**
 	 * Função para gerenciar o fechamento da Sprint

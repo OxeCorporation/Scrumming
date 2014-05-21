@@ -84,4 +84,8 @@ public class SprintClientService extends AbstractClientService {
 	public Long totalDeHorasEstimadasDaSprint(Integer sprintID) {
 		return getRestTemplate().getForObject(getURIService(ConstantesService.Sprint.URL_TOTAL_DE_HORAS_ESTIMADAS), Long.class, sprintID);
 	}
+	
+	public Sprint consultarSprint(Integer sprintID) {
+		return getRestTemplate().getForObject(getURIService(ConstantesService.Sprint.URL_CONSULTAR_SPRINT), Sprint.class, sprintID);
+	}
 }
