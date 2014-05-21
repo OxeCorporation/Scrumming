@@ -9,7 +9,7 @@
 		columns="1" style="width:100%" emptyMessage="#{mensagens.mensagem_sem_registros}">
 			<p:panel styleClass="col-md-12 column">
 				
-				<!-- CABEÇALHO DA LISTAGEM CONTENDO UM ITEM BACKLOG -->
+				<!-- CABEÃ‡ALHO DA LISTAGEM CONTENDO UM ITEM BACKLOG -->
 				<f:facet name="header">
 					<p:commandLink action="#{sprintDetalheMB.itembacklogDetalhePage}" immediate="true">
 						<h:outputText styleClass="label-grid-header" value="#{item.nome}" />						
@@ -46,6 +46,10 @@
 					emptyMessage="#{mensagens.label_lista_de_tarefas_vazia}">
 					<p:panel styleClass="col-md-12 column">
 						<h:panelGroup styleClass="col-md-11 column">
+							<h:outputText value="#{mensagens.label_tarefa}:"/>
+							<h:outputText value="#{tarefa.codigo}"/>
+							<br/>
+							<br/>
 							
 							<h:outputText value="#{tarefa.nome}" />&#160;
 							<h:panelGroup rendered="#{tarefa.foiFavoritada}" ><i class="fa fa-star-o fa-spin" /> </h:panelGroup>
@@ -152,7 +156,7 @@
 			</p:panel>
 		</p:dataGrid>	
 	
-		<!-- DIÁLOGO DA EXCLUSÃO DA TAREFA -->					
+		<!-- DIÃ�LOGO DA EXCLUSÃƒO DA TAREFA -->					
 		<p:confirmDialog global="true" showEffect="fade" hideEffect="explode"> 
 			<p:commandButton value="#{mensagens.botao_cancelar}" styleClass="ui-confirmdialog-no" 
 				icon="ui-icon-close" immediate="true" style="margin:0 auto; float:right"/>  
