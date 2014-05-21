@@ -3,6 +3,7 @@ package br.com.scrumming.web.clientService;
 import java.util.Arrays;
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.http.ResponseEntity;
 
 import br.com.scrumming.domain.ItemBacklog;
@@ -87,5 +88,9 @@ public class SprintClientService extends AbstractClientService {
 	
 	public Sprint consultarSprint(Integer sprintID) {
 		return getRestTemplate().getForObject(getURIService(ConstantesService.Sprint.URL_CONSULTAR_SPRINT), Sprint.class, sprintID);
+	}
+	
+	public Long totalDeHorasRestantesDaSprintPorData(Integer sprintID, DateTime data) {
+		return getRestTemplate().getForObject(getURIService(ConstantesService.Sprint.URL_TOTAL_DE_HORAS_RESTANTES_POR_DATA), Long.class, sprintID, data);
 	}
 }

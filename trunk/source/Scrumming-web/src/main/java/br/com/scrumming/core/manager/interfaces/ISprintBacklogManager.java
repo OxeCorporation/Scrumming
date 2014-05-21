@@ -2,6 +2,8 @@ package br.com.scrumming.core.manager.interfaces;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
+
 import br.com.scrumming.core.infra.manager.IManager;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
@@ -21,4 +23,5 @@ public interface ISprintBacklogManager extends IManager<SprintBacklog, SprintBac
 	List<SprintBacklog> listarAtivosPorSprint(Sprint sprint);
 	List<Tarefa> consultarTarefasPorSprint(Integer sprintID);
 	Long totalDeHorasEstimadasDaSprint(Integer sprintID);
+	Long totalDeHorasRestantesDaSprintPorData(Integer sprintID, DateTime data);
 }
