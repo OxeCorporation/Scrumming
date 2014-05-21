@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.http.HttpClientConnection;
+import org.apache.http.client.params.HttpClientParams;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -34,6 +37,10 @@ public class RestFactory {
 	
 	public static RestTemplate getRestTemplate(){
 		RestTemplate restTemplate = new RestTemplate();
+		SimpleClientHttpRequestFactory requesrFactory = (SimpleClientHttpRequestFactory) restTemplate
+				.getRequestFactory();
+		requesrFactory.setReadTimeout(10 * 1000);
+		requesrFactory.setConnectTimeout(10 * 1000);
 		restTemplate.setMessageConverters(getMenssageConverter());
 		return restTemplate;
 	}
