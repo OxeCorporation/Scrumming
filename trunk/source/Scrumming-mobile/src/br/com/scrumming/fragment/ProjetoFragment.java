@@ -3,11 +3,17 @@ package br.com.scrumming.fragment;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+//import android.app.ActionBar;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -16,15 +22,18 @@ import br.com.scrumming.adapter.ProjetoAdapter;
 import br.com.scrumming.domain.Empresa;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.UsuarioEmpresa;
+import br.com.scrumming.interfaces.ClickedOnHome;
+import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.interfaces.ClickedOnProjeto;
 import br.com.scrumming.rest.RestProjeto;
 
 @SuppressLint("NewApi")
-public class ProjetoFragment extends ListFragment {
+public class ProjetoFragment extends ListFragment{
 
 	AsyncTaskProjeto taskProjeto;
 	List<Projeto> listaProjetos;
 	UsuarioEmpresa usuarioEmpresa;
+	
 	
 	Empresa empresa;
 	
@@ -41,7 +50,12 @@ public class ProjetoFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		setRetainInstance(true);
-
+		setHasOptionsMenu(true);
+		
+		ActionBar ab = ((ActionBarActivity)getActivity()).getSupportActionBar();
+		ab.setDisplayHomeAsUpEnabled(true);
+		ab.setTitle("Projetos");
+		
 		if (listaProjetos != null){
 			AtualizarListaDeProjetos();
 
@@ -57,16 +71,38 @@ public class ProjetoFragment extends ListFragment {
 		
 	}
 	
-	//EDITAR
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
 		View layout = inflater.inflate(R.layout.fragment_projetos, container,false);
 		
-		
 		usuarioEmpresa = (UsuarioEmpresa) getArguments().getSerializable("usuarioEmpresa");
 		
 		return layout;
+	}
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.menu_fragment_telas, menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.logout:
+			if (getActivity() instanceof ClickedOnLogout) {
+				((ClickedOnLogout)getActivity()).clicouNoLogout(usuarioEmpresa);;
+			}
+			break;
+
+		case android.R.id.home:
+			if (getActivity() instanceof ClickedOnHome) {
+				((ClickedOnHome)getActivity()).clicouNoHome(usuarioEmpresa);
+			}
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 	@Override
@@ -86,8 +122,6 @@ public class ProjetoFragment extends ListFragment {
 			}
 		}
 	}
-	
-	
 	
 	class AsyncTaskProjeto extends AsyncTask<UsuarioEmpresa, Void, List<Projeto>>{
 		

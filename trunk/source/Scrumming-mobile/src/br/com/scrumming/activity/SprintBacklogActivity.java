@@ -2,15 +2,18 @@ package br.com.scrumming.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import br.com.scrumming.R;
 import br.com.scrumming.domain.ItemBacklog;
+import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.fragment.SprintBacklogFragment;
+import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnItemBacklog;
+import br.com.scrumming.interfaces.ClickedOnLogout;
 
-public class SprintBacklogActivity extends FragmentActivity implements ClickedOnItemBacklog{
+public class SprintBacklogActivity extends ActionBarActivity implements ClickedOnItemBacklog, ClickedOnLogout, ClickedOnHome{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,5 +39,29 @@ public class SprintBacklogActivity extends FragmentActivity implements ClickedOn
 		
 	}
 
+	@Override
+	public void clicouNoLogout(UsuarioEmpresa usuarioEmpresa) {
+		Intent intencao = new Intent(this, LoginActivity.class);
+		intencao.putExtra("usuarioEmpresa", usuarioEmpresa);
+		intencao.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intencao);
+	}
+
+	@Override
+	public void clicouNoHome(UsuarioEmpresa usuarioEmpresa) {
+		Intent intencao = new Intent(this, SprintActivity.class);
+		intencao.putExtra("usuarioEmpresa", usuarioEmpresa);
+		intencao.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intencao);
+	}
+	
+	@Override
+	public void clicouNoHome(UsuarioEmpresa usuarioEmpresa, Projeto projeto) {
+		Intent intencao = new Intent(this, SprintActivity.class);
+		intencao.putExtra("usuarioEmpresa", usuarioEmpresa);
+		intencao.putExtra("projeto", projeto);
+		intencao.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intencao);
+	}
 
 }

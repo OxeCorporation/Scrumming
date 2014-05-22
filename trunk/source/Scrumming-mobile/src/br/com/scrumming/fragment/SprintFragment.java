@@ -6,7 +6,12 @@ import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -15,6 +20,8 @@ import br.com.scrumming.adapter.SprintAdapter;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.UsuarioEmpresa;
+import br.com.scrumming.interfaces.ClickedOnHome;
+import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.interfaces.ClickedOnSprint;
 import br.com.scrumming.rest.RestSprint;
 
@@ -38,7 +45,13 @@ public class SprintFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		setRetainInstance(true);
-
+		setHasOptionsMenu(true);
+		
+		//Transforma o Home "Scrumming" em um botão
+		ActionBar ab = ((ActionBarActivity)getActivity()).getSupportActionBar();
+		ab.setDisplayHomeAsUpEnabled(true);
+		ab.setTitle("Sprints");
+		
 		if (listaSprints != null){
 			AtualizarListaDeSprints();
 
@@ -64,6 +77,37 @@ public class SprintFragment extends ListFragment {
 		usuarioEmpresa = (UsuarioEmpresa) getArguments().getSerializable("usuarioEmpresa");
 		
 		return layout;
+	}
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.menu_fragment_telas, menu);
+	}
+	
+	/**
+	 * @author Naftali
+	 * Método que manipula os componentes do ActionBar
+	 * @param item do tipo MenuItem
+	 * @return boolean (true)
+	 * 
+	 * */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.logout:
+			if (getActivity() instanceof ClickedOnLogout) {
+				((ClickedOnLogout)getActivity()).clicouNoLogout(usuarioEmpresa);;
+			}
+			break;
+
+		case android.R.id.home:
+			if (getActivity() instanceof ClickedOnHome) {
+				((ClickedOnHome)getActivity()).clicouNoHome(usuarioEmpresa);
+			}
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 	@Override

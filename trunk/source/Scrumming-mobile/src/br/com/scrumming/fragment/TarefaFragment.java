@@ -6,7 +6,12 @@ import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import br.com.scrumming.R;
@@ -14,6 +19,8 @@ import br.com.scrumming.adapter.TarefaAdapter;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.UsuarioEmpresa;
+import br.com.scrumming.interfaces.ClickedOnHome;
+import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.rest.RestTarefa;
 
 public class TarefaFragment extends ListFragment {
@@ -38,7 +45,12 @@ public class TarefaFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		setRetainInstance(true);
-
+		setHasOptionsMenu(true);
+		
+		ActionBar ab = ((ActionBarActivity)getActivity()).getSupportActionBar();
+		ab.setDisplayHomeAsUpEnabled(true);
+		ab.setTitle("Tarefas");
+		
 		if (listaTarefa != null){
 			AtualizarListaDeTarefa();;
 
@@ -64,6 +76,30 @@ public class TarefaFragment extends ListFragment {
 		usuarioEmpresa = (UsuarioEmpresa)getArguments().getSerializable("usuarioEmpresa");
 		
 		return layout;
+	}
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.menu_fragment_telas, menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.logout:
+			if (getActivity() instanceof ClickedOnLogout) {
+				((ClickedOnLogout)getActivity()).clicouNoLogout(usuarioEmpresa);;
+			}
+			break;
+
+		case android.R.id.home:
+			if (getActivity() instanceof ClickedOnHome) {
+				((ClickedOnHome)getActivity()).clicouNoHome(usuarioEmpresa);
+			}
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 	private void AtualizarListaDeTarefa() {

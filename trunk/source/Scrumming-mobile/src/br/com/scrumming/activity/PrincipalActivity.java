@@ -22,14 +22,21 @@ public class PrincipalActivity extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_principal);
 		new EmpresaFragment();
-
-		Usuario usuario = (Usuario) getIntent().getSerializableExtra("usuario");
-		FragmentManager fm = getSupportFragmentManager();
-		fragment1 = (EmpresaFragment) fm.findFragmentByTag("f1");
-		fragment1 = EmpresaFragment.novaInstancia(usuario);
-
-		fm.beginTransaction().add(R.id.master, fragment1, "f1").commit();
-
+		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa) getIntent().getSerializableExtra("usuarioEmpresa");
+		if (usuarioEmpresa != null) {
+			Usuario usuario = (Usuario) usuarioEmpresa.getUsuario();
+			FragmentManager fm = getSupportFragmentManager();
+			fragment1 = (EmpresaFragment) fm.findFragmentByTag("f1");
+			fragment1 = EmpresaFragment.novaInstancia(usuario);
+			fm.beginTransaction().add(R.id.master, fragment1, "f1").commit();
+		}else{
+		
+			Usuario usuario = (Usuario) getIntent().getSerializableExtra("usuario");
+			FragmentManager fm = getSupportFragmentManager();
+			fragment1 = (EmpresaFragment) fm.findFragmentByTag("f1");
+			fragment1 = EmpresaFragment.novaInstancia(usuario);
+			fm.beginTransaction().add(R.id.master, fragment1, "f1").commit();
+		}
 	}
 
 	@Override
