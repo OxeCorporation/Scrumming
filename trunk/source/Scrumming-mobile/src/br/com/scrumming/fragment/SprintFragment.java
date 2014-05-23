@@ -97,7 +97,7 @@ public class SprintFragment extends ListFragment {
 		switch (item.getItemId()) {
 		case R.id.logout:
 			if (getActivity() instanceof ClickedOnLogout) {
-				((ClickedOnLogout)getActivity()).clicouNoLogout(usuarioEmpresa);;
+				((ClickedOnLogout)getActivity()).clicouNoLogout(null);;
 			}
 			break;
 

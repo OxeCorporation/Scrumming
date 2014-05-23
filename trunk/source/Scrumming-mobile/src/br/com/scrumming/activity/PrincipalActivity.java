@@ -2,17 +2,18 @@ package br.com.scrumming.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBarActivity;
 import android.widget.TextView;
 import br.com.scrumming.R;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.fragment.EmpresaFragment;
 import br.com.scrumming.interfaces.ClickedOnEmpresa;
+import br.com.scrumming.interfaces.ClickedOnLogout;
 
-public class PrincipalActivity extends FragmentActivity implements
-		ClickedOnEmpresa {
+public class PrincipalActivity extends ActionBarActivity implements
+		ClickedOnEmpresa, ClickedOnLogout {
 
 	TextView txtNomeUsuario;
 	EmpresaFragment fragment1;
@@ -45,5 +46,14 @@ public class PrincipalActivity extends FragmentActivity implements
 		it.putExtra("usuarioEmpresa", usuarioEmpresa);
 		startActivity(it);
 
+	}
+
+	@Override
+	public void clicouNoLogout(UsuarioEmpresa usuarioEmpresa) {
+		Intent intencao = new Intent(this, LoginActivity.class);
+		//intencao.putExtra("usuarioEmpresa", usuarioEmpresa);
+		intencao.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intencao);
+		
 	}
 }

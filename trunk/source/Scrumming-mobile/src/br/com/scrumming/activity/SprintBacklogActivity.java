@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import br.com.scrumming.R;
 import br.com.scrumming.domain.ItemBacklog;
-import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.fragment.SprintBacklogFragment;
@@ -22,6 +21,7 @@ public class SprintBacklogActivity extends ActionBarActivity implements ClickedO
 		
 		Sprint sprint = (Sprint)getIntent().getSerializableExtra("sprint");
 		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa)getIntent().getSerializableExtra("usuarioEmpresa");
+		
 		SprintBacklogFragment sbf = SprintBacklogFragment.novaInstancia(sprint, usuarioEmpresa);
 		
 		getSupportFragmentManager()
@@ -31,10 +31,11 @@ public class SprintBacklogActivity extends ActionBarActivity implements ClickedO
 	}
 	
 	@Override
-	public void itemBacklogFoiClicada(ItemBacklog itemBacklog, UsuarioEmpresa usuarioEmpresa) {
+	public void itemBacklogFoiClicada(ItemBacklog itemBacklog, UsuarioEmpresa usuarioEmpresa, Sprint sprint) {
 		Intent it4 = new Intent(this, TarefaActivity.class);
 		it4.putExtra("itemBacklog", itemBacklog);
 		it4.putExtra("usuarioEmpresa", usuarioEmpresa);
+		it4.putExtra("sprint", sprint);
 		startActivity(it4);
 		
 	}
@@ -42,26 +43,13 @@ public class SprintBacklogActivity extends ActionBarActivity implements ClickedO
 	@Override
 	public void clicouNoLogout(UsuarioEmpresa usuarioEmpresa) {
 		Intent intencao = new Intent(this, LoginActivity.class);
-		intencao.putExtra("usuarioEmpresa", usuarioEmpresa);
 		intencao.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intencao);
 	}
 
 	@Override
 	public void clicouNoHome(UsuarioEmpresa usuarioEmpresa) {
-		Intent intencao = new Intent(this, SprintActivity.class);
-		intencao.putExtra("usuarioEmpresa", usuarioEmpresa);
-		intencao.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(intencao);
-	}
-	
-	@Override
-	public void clicouNoHome(UsuarioEmpresa usuarioEmpresa, Projeto projeto) {
-		Intent intencao = new Intent(this, SprintActivity.class);
-		intencao.putExtra("usuarioEmpresa", usuarioEmpresa);
-		intencao.putExtra("projeto", projeto);
-		intencao.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(intencao);
+		finish();
 	}
 
 }

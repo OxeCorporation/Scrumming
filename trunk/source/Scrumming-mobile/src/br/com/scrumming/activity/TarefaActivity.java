@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import br.com.scrumming.R;
 import br.com.scrumming.domain.ItemBacklog;
-import br.com.scrumming.domain.Projeto;
+import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.fragment.TarefaFragment;
 import br.com.scrumming.interfaces.ClickedOnHome;
@@ -20,7 +20,8 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 		
 		ItemBacklog itemBacklog = (ItemBacklog)getIntent().getSerializableExtra("itemBacklog");
 		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa)getIntent().getSerializableExtra("usuarioEmpresa");
-		TarefaFragment tf = TarefaFragment.novaInstancia(itemBacklog, usuarioEmpresa);
+		Sprint sprint = (Sprint)getIntent().getSerializableExtra("sprint");
+		TarefaFragment tf = TarefaFragment.novaInstancia(itemBacklog, usuarioEmpresa, sprint);
 		
 		getSupportFragmentManager()
 			.beginTransaction()
@@ -31,7 +32,6 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 	@Override
 	public void clicouNoLogout(UsuarioEmpresa usuarioEmpresa) {
 		Intent intencao = new Intent(this, LoginActivity.class);
-		intencao.putExtra("usuarioEmpresa", usuarioEmpresa);
 		intencao.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intencao);
 		
@@ -39,15 +39,8 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 
 	@Override
 	public void clicouNoHome(UsuarioEmpresa usuarioEmpresa) {
-		Intent intencao = new Intent(this, SprintBacklogActivity.class);
-		intencao.putExtra("usuarioEmpresa", usuarioEmpresa);
-		intencao.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(intencao);
+		finish();
 	}
 
-	@Override
-	public void clicouNoHome(UsuarioEmpresa usuarioEmpresa, Projeto projeto) {
-		// TODO Auto-generated method stub
 		
-	}
 }

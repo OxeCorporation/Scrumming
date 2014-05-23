@@ -102,13 +102,13 @@ public class SprintBacklogFragment extends ListFragment {
 		switch (item.getItemId()) {
 		case R.id.logout:
 			if (getActivity() instanceof ClickedOnLogout) {
-				((ClickedOnLogout)getActivity()).clicouNoLogout(usuarioEmpresa);;
+				((ClickedOnLogout)getActivity()).clicouNoLogout(null);;
 			}
 			break;
 
 		case android.R.id.home:
 			if (getActivity() instanceof ClickedOnHome) {
-				((ClickedOnHome)getActivity()).clicouNoHome(usuarioEmpresa, projeto);
+				((ClickedOnHome)getActivity()).clicouNoHome(usuarioEmpresa);
 			}
 			break;
 		}
@@ -119,7 +119,7 @@ public class SprintBacklogFragment extends ListFragment {
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		if (getActivity() instanceof ClickedOnItemBacklog) {
-			((ClickedOnItemBacklog)getActivity()).itemBacklogFoiClicada(listaItemBacklog.get(position), usuarioEmpresa);
+			((ClickedOnItemBacklog)getActivity()).itemBacklogFoiClicada(listaItemBacklog.get(position), usuarioEmpresa, sprint);
 		}
 	}
 

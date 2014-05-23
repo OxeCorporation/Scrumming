@@ -3,11 +3,14 @@ package br.com.scrumming.fragment;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.support.v4.app.ListFragment;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -17,6 +20,7 @@ import br.com.scrumming.adapter.UsuarioEmpresaAdapter;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.interfaces.ClickedOnEmpresa;
+import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.rest.RestEmpresa;
 
 @SuppressLint("NewApi")
@@ -40,7 +44,8 @@ public class EmpresaFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		setRetainInstance(true);
-
+		setHasOptionsMenu(true);
+		
 		if (listaEmpresas != null) {
 			AtualizarLista();
 
@@ -66,7 +71,25 @@ public class EmpresaFragment extends ListFragment {
 
 		return layout;
 	}
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.menu_fragment_telas, menu);
+	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.logout:
+			if (getActivity() instanceof ClickedOnLogout) {
+				((ClickedOnLogout)getActivity()).clicouNoLogout(null);
+			}
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);

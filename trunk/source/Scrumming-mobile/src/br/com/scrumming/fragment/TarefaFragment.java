@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import br.com.scrumming.R;
 import br.com.scrumming.adapter.TarefaAdapter;
 import br.com.scrumming.domain.ItemBacklog;
+import br.com.scrumming.domain.Sprint;
+import br.com.scrumming.domain.SprintBacklog;
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.interfaces.ClickedOnHome;
@@ -30,15 +32,17 @@ public class TarefaFragment extends ListFragment {
 	ItemBacklog itemBacklog;
 	UsuarioEmpresa usuarioEmpresa;
 	Integer sprintID, usuarioID;
+	Sprint sprint;
+	SprintBacklog sprintBacklog;
 	
-	public static TarefaFragment novaInstancia(ItemBacklog itemBacklog, UsuarioEmpresa usuarioEmpresa){
+	public static TarefaFragment novaInstancia(ItemBacklog itemBacklog, UsuarioEmpresa usuarioEmpresa, Sprint sprint){
 		Bundle args = new Bundle();
 		args.putSerializable("itemBacklog", itemBacklog);
 		args.putSerializable("usuarioEmpresa", usuarioEmpresa);
-		
-		TarefaFragment bvf = new TarefaFragment();
-		bvf.setArguments(args);
-		return bvf;
+		args.putSerializable("sprint", sprint);
+		TarefaFragment tf = new TarefaFragment();
+		tf.setArguments(args);
+		return tf;
 	}
 	
 	@Override
@@ -47,10 +51,11 @@ public class TarefaFragment extends ListFragment {
 		setRetainInstance(true);
 		setHasOptionsMenu(true);
 		
+		//Transforma o Home "Scrumming" em um botão
 		ActionBar ab = ((ActionBarActivity)getActivity()).getSupportActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
-		ab.setTitle("Tarefas");
-		
+		ab.setTitle("SprintBacklog");
+
 		if (listaTarefa != null){
 			AtualizarListaDeTarefa();;
 
@@ -72,8 +77,9 @@ public class TarefaFragment extends ListFragment {
 		View layout = inflater.inflate(R.layout.fragment_tarefa, container, false);
 		
 		//pega a sprint clicada no sprintFragment para listar os itensbacklog da sprint
-		itemBacklog = (ItemBacklog) getArguments().getSerializable("itemBacklog");
+		itemBacklog    = (ItemBacklog) getArguments().getSerializable("itemBacklog");
 		usuarioEmpresa = (UsuarioEmpresa)getArguments().getSerializable("usuarioEmpresa");
+		sprint		   = (Sprint)getArguments().getSerializable("sprint");
 		
 		return layout;
 	}
@@ -89,7 +95,7 @@ public class TarefaFragment extends ListFragment {
 		switch (item.getItemId()) {
 		case R.id.logout:
 			if (getActivity() instanceof ClickedOnLogout) {
-				((ClickedOnLogout)getActivity()).clicouNoLogout(usuarioEmpresa);;
+				((ClickedOnLogout)getActivity()).clicouNoLogout(null);;
 			}
 			break;
 

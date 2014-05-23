@@ -40,22 +40,13 @@ public class ProjetoActivity extends ActionBarActivity implements ClickedOnProje
 	@Override
 	public void clicouNoLogout(UsuarioEmpresa usuarioEmpresa) {
 		Intent intencao = new Intent(this, LoginActivity.class);
-		intencao.putExtra("usuarioEmpresa", usuarioEmpresa);
 		intencao.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intencao);			
 	}
 
 	@Override
 	public void clicouNoHome(UsuarioEmpresa usuarioEmpresa) {
-		Intent intencao = new Intent(this, PrincipalActivity.class);
-		intencao.putExtra("usuarioEmpresa", usuarioEmpresa);
-		intencao.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(intencao);
+		finish();
 	}
-
-	@Override
-	public void clicouNoHome(UsuarioEmpresa usuarioEmpresa, Projeto projeto) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }
