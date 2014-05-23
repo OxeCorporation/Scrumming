@@ -14,6 +14,8 @@ import br.com.scrumming.interfaces.ClickedOnSprint;
 
 public class SprintActivity extends ActionBarActivity implements ClickedOnSprint, ClickedOnLogout, ClickedOnHome{
 	
+	SprintFragment sprintFragment;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,12 +23,13 @@ public class SprintActivity extends ActionBarActivity implements ClickedOnSprint
 		
 		Projeto projeto = (Projeto)getIntent().getSerializableExtra("projeto");
 		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa)getIntent().getSerializableExtra("usuarioEmpresa");
-		SprintFragment sprintfragment = SprintFragment.novaInstancia(projeto, usuarioEmpresa);
 		
-		getSupportFragmentManager()
-			.beginTransaction()
-			.add(R.id.master, sprintfragment)
-			.commit();			
+		sprintFragment = (SprintFragment)getSupportFragmentManager().findFragmentByTag("sf");
+		if (sprintFragment == null) {
+			sprintFragment = SprintFragment.novaInstancia(projeto, usuarioEmpresa);
+			getSupportFragmentManager().beginTransaction().add(R.id.master, sprintFragment, "sf").commit();	
+		}
+				
 	}
 	
 	@Override

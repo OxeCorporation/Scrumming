@@ -13,6 +13,8 @@ import br.com.scrumming.interfaces.ClickedOnProjeto;
 
 public class ProjetoActivity extends ActionBarActivity implements ClickedOnProjeto, ClickedOnLogout, ClickedOnHome{
 
+	ProjetoFragment projetoFragment;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -20,12 +22,11 @@ public class ProjetoActivity extends ActionBarActivity implements ClickedOnProje
 				
 		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa)getIntent().getSerializableExtra("usuarioEmpresa");
 		
-		ProjetoFragment pf = ProjetoFragment.novaInstancia(usuarioEmpresa);
-		
-		getSupportFragmentManager()
-			.beginTransaction()
-			.add(R.id.master, pf)
-			.commit();			
+		projetoFragment = (ProjetoFragment)getSupportFragmentManager().findFragmentByTag("pf");
+		if (projetoFragment == null) {
+			projetoFragment = ProjetoFragment.novaInstancia(usuarioEmpresa);
+			getSupportFragmentManager().beginTransaction().add(R.id.master, projetoFragment, "pf").commit();
+		}
 	}
 
 	@Override

@@ -14,4 +14,19 @@
         android:layout_height="wrap_content" >
     </ListView>
 
+    <TextView
+        android:id="@+id/txtMensagemEmpresa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progressBarEmpresa"
+        android:layout_centerHorizontal="true"
+        android:text="TextView" />
+
+    <ProgressBar
+        android:id="@+id/progressBarEmpresa"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+    
 </RelativeLayout>

@@ -16,28 +16,22 @@ public class PrincipalActivity extends ActionBarActivity implements
 		ClickedOnEmpresa, ClickedOnLogout {
 
 	TextView txtNomeUsuario;
-	EmpresaFragment fragment1;
+	EmpresaFragment empresaFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_principal);
-		new EmpresaFragment();
-		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa) getIntent().getSerializableExtra("usuarioEmpresa");
-		if (usuarioEmpresa != null) {
-			Usuario usuario = (Usuario) usuarioEmpresa.getUsuario();
-			FragmentManager fm = getSupportFragmentManager();
-			fragment1 = (EmpresaFragment) fm.findFragmentByTag("f1");
-			fragment1 = EmpresaFragment.novaInstancia(usuario);
-			fm.beginTransaction().add(R.id.master, fragment1, "f1").commit();
-		}else{
+		//new EmpresaFragment();
 		
-			Usuario usuario = (Usuario) getIntent().getSerializableExtra("usuario");
-			FragmentManager fm = getSupportFragmentManager();
-			fragment1 = (EmpresaFragment) fm.findFragmentByTag("f1");
-			fragment1 = EmpresaFragment.novaInstancia(usuario);
-			fm.beginTransaction().add(R.id.master, fragment1, "f1").commit();
+		Usuario usuario = (Usuario) getIntent().getSerializableExtra("usuario");
+		
+		empresaFragment = (EmpresaFragment) getSupportFragmentManager().findFragmentByTag("f1");
+		if (empresaFragment == null) {
+			empresaFragment = EmpresaFragment.novaInstancia(usuario);
+			getSupportFragmentManager().beginTransaction().add(R.id.master, empresaFragment, "f1").commit();
 		}
+
 	}
 
 	@Override

@@ -2,6 +2,8 @@ package br.com.scrumming.fragment;
 
 import java.util.List;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
@@ -15,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import br.com.scrumming.R;
 import br.com.scrumming.adapter.SprintBacklogAdapter;
 import br.com.scrumming.domain.ItemBacklog;
@@ -34,6 +38,9 @@ public class SprintBacklogFragment extends ListFragment {
 	UsuarioEmpresa usuarioEmpresa;
 	Integer sprintID, usuarioID;
 	Projeto projeto;
+	ProgressBar progressSprintBacklog;
+	TextView txtMensagemSprintBacklog;
+	
 	
 	public static SprintBacklogFragment novaInstancia(Sprint sprint, UsuarioEmpresa usuarioEmpresa){
 		Bundle args = new Bundle();
@@ -57,24 +64,50 @@ public class SprintBacklogFragment extends ListFragment {
 		ab.setTitle("SprintBacklog");
 		
 		if (listaItemBacklog != null){
+			progressSprintBacklog.setVisibility(View.GONE);
+			txtMensagemSprintBacklog.setVisibility(View.GONE);
 			AtualizarListaDeItemBacklog();;
 
 		} else {
 			if (taskSprintBacklog != null && taskSprintBacklog.getStatus() == Status.RUNNING){
-				//mostrarProgress();
+				mostrarProgress();
 
 			} else {
-				taskSprintBacklog = new AsyncTaskSprintBacklog();
-				taskSprintBacklog.execute(sprint.getCodigo(), usuarioEmpresa.getUsuario().getCodigo());
+				iniciarDownload();
 			}
 		}
 		
+	}
+	
+	private void mostrarProgress() {
+		progressSprintBacklog.setVisibility(View.VISIBLE);
+		txtMensagemSprintBacklog.setVisibility(View.VISIBLE);
+		txtMensagemSprintBacklog.setText("Carregando...");
+	}
+
+	private void iniciarDownload(){
+		
+		ConnectivityManager cm = (ConnectivityManager) getActivity()
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+		if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected()) {
+			taskSprintBacklog = new AsyncTaskSprintBacklog();
+			taskSprintBacklog.execute(sprint.getCodigo(), usuarioEmpresa.getUsuario().getCodigo());
+
+		} else {
+			progressSprintBacklog.setVisibility(View.GONE);
+			txtMensagemSprintBacklog.setVisibility(View.VISIBLE);
+			txtMensagemSprintBacklog.setText("Sem conexao com a Internet");
+		}
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
 		View layout = inflater.inflate(R.layout.fragment_sprintbacklog, container, false);
+		
+		progressSprintBacklog    = (ProgressBar)layout.findViewById(R.id.progressBarSprintBacklog);
+		txtMensagemSprintBacklog = (TextView)layout.findViewById(R.id.txtMensagemSprintBacklog);
 		
 		//pega a sprint clicada no sprintFragment para listar os itensbacklog da sprint
 		sprint         = (Sprint) getArguments().getSerializable("sprint");
@@ -129,7 +162,12 @@ public class SprintBacklogFragment extends ListFragment {
 	}
 	
 	class AsyncTaskSprintBacklog extends AsyncTask<Integer, Void, List<ItemBacklog>>{
-
+		
+		@Override
+		protected void onPreExecute() {
+			mostrarProgress();
+		}
+		
 		@Override
 		protected List<ItemBacklog> doInBackground(Integer... params) {
 			return RestSprintBacklog.retornarSprintBacklog(params[0], params[1]);
@@ -140,8 +178,12 @@ public class SprintBacklogFragment extends ListFragment {
 			super.onPostExecute(itemBacklog);
 			if(itemBacklog != null) {
 				listaItemBacklog = itemBacklog;
-				AtualizarListaDeItemBacklog();;
+				AtualizarListaDeItemBacklog();
+				txtMensagemSprintBacklog.setVisibility(View.GONE);
+			}else {
+				txtMensagemSprintBacklog.setText("Não Existe Projetos Cadastrados");
 			}
+			progressSprintBacklog.setVisibility(View.GONE);
 		}
 
 	}

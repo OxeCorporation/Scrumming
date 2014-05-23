@@ -14,6 +14,8 @@ import br.com.scrumming.interfaces.ClickedOnLogout;
 
 public class SprintBacklogActivity extends ActionBarActivity implements ClickedOnItemBacklog, ClickedOnLogout, ClickedOnHome{
 
+	SprintBacklogFragment sprinBacklogFragment;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -22,12 +24,16 @@ public class SprintBacklogActivity extends ActionBarActivity implements ClickedO
 		Sprint sprint = (Sprint)getIntent().getSerializableExtra("sprint");
 		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa)getIntent().getSerializableExtra("usuarioEmpresa");
 		
-		SprintBacklogFragment sbf = SprintBacklogFragment.novaInstancia(sprint, usuarioEmpresa);
-		
-		getSupportFragmentManager()
-			.beginTransaction()
-			.add(R.id.master, sbf)
-			.commit();			
+		sprinBacklogFragment = (SprintBacklogFragment)getSupportFragmentManager().findFragmentByTag("sbf");
+		if (sprinBacklogFragment == null) {
+			sprinBacklogFragment = SprintBacklogFragment.novaInstancia(sprint, usuarioEmpresa);
+			
+			getSupportFragmentManager()
+				.beginTransaction()
+				.add(R.id.master, sprinBacklogFragment, "sbf")
+				.commit();
+		}
+					
 	}
 	
 	@Override

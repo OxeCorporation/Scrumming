@@ -15,5 +15,22 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" >
     </ListView>
+
+    
+
+    <TextView
+        android:id="@+id/txtMensagemProjeto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progressBarProjeto"
+        android:layout_centerHorizontal="true"
+        android:text="TextView" />
+
+    <ProgressBar
+        android:id="@+id/progressBarProjeto"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
     
 </RelativeLayout>

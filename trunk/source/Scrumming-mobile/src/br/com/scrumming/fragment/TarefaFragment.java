@@ -2,6 +2,8 @@ package br.com.scrumming.fragment;
 
 import java.util.List;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
@@ -14,6 +16,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import br.com.scrumming.R;
 import br.com.scrumming.adapter.TarefaAdapter;
 import br.com.scrumming.domain.ItemBacklog;
@@ -34,6 +38,8 @@ public class TarefaFragment extends ListFragment {
 	Integer sprintID, usuarioID;
 	Sprint sprint;
 	SprintBacklog sprintBacklog;
+	ProgressBar progressTarefa;
+	TextView txtMensagemTarefa;
 	
 	public static TarefaFragment novaInstancia(ItemBacklog itemBacklog, UsuarioEmpresa usuarioEmpresa, Sprint sprint){
 		Bundle args = new Bundle();
@@ -57,24 +63,51 @@ public class TarefaFragment extends ListFragment {
 		ab.setTitle("SprintBacklog");
 
 		if (listaTarefa != null){
+			progressTarefa.setVisibility(View.GONE);
+			txtMensagemTarefa.setVisibility(View.GONE);
 			AtualizarListaDeTarefa();;
 
 		} else {
 			if (taskTarefa != null && taskTarefa.getStatus() == Status.RUNNING){
-				//mostrarProgress();
+				mostrarProgress();
 
 			} else {
-				taskTarefa = new AsyncTaskTarefa();
-				taskTarefa.execute(itemBacklog.getCodigo());
+				iniciarDownload();
+				
 			}
 		}
 		
+	}
+	
+	private void mostrarProgress() {
+		progressTarefa.setVisibility(View.VISIBLE);
+		txtMensagemTarefa.setVisibility(View.VISIBLE);
+		txtMensagemTarefa.setText("Carregando...");
+	}
+
+	private void iniciarDownload(){
+		
+		ConnectivityManager cm = (ConnectivityManager) getActivity()
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+		if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected()) {
+			taskTarefa = new AsyncTaskTarefa();
+			taskTarefa.execute(itemBacklog.getCodigo());
+
+		} else {
+			progressTarefa.setVisibility(View.GONE);
+			txtMensagemTarefa.setVisibility(View.VISIBLE);
+			txtMensagemTarefa.setText("Sem conexao com a Internet");
+		}
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
 		View layout = inflater.inflate(R.layout.fragment_tarefa, container, false);
+		
+		progressTarefa    = (ProgressBar)layout.findViewById(R.id.progressBarTarefa);
+		txtMensagemTarefa = (TextView)layout.findViewById(R.id.txtMensagemTarefa);
 		
 		//pega a sprint clicada no sprintFragment para listar os itensbacklog da sprint
 		itemBacklog    = (ItemBacklog) getArguments().getSerializable("itemBacklog");
@@ -116,6 +149,11 @@ public class TarefaFragment extends ListFragment {
 	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<Tarefa>>{
 
 		@Override
+		protected void onPreExecute() {
+			mostrarProgress();
+		}
+		
+		@Override
 		protected List<Tarefa> doInBackground(Integer... params) {
 			return RestTarefa.retornarTarefa(params[0]);
 		}
@@ -125,8 +163,12 @@ public class TarefaFragment extends ListFragment {
 			super.onPostExecute(tarefas);
 			if(tarefas != null) {
 				listaTarefa = tarefas;
-				AtualizarListaDeTarefa();;
+				AtualizarListaDeTarefa();
+				txtMensagemTarefa.setVisibility(View.GONE);
+			}else {
+				txtMensagemTarefa.setText("Não Existe Projetos Cadastrados");
 			}
+			progressTarefa.setVisibility(View.GONE);
 		}
 
 	}

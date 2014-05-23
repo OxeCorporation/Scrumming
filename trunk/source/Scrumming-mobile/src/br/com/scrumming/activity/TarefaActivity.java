@@ -12,7 +12,9 @@ import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
 
 public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout, ClickedOnHome{
-
+	
+	TarefaFragment tarefaFragment;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,12 +23,17 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 		ItemBacklog itemBacklog = (ItemBacklog)getIntent().getSerializableExtra("itemBacklog");
 		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa)getIntent().getSerializableExtra("usuarioEmpresa");
 		Sprint sprint = (Sprint)getIntent().getSerializableExtra("sprint");
-		TarefaFragment tf = TarefaFragment.novaInstancia(itemBacklog, usuarioEmpresa, sprint);
 		
-		getSupportFragmentManager()
-			.beginTransaction()
-			.add(R.id.master, tf)
-			.commit();			
+		tarefaFragment = (TarefaFragment)getSupportFragmentManager().findFragmentByTag("tf");
+		if (tarefaFragment == null) {
+			tarefaFragment = TarefaFragment.novaInstancia(itemBacklog, usuarioEmpresa, sprint);
+			
+			getSupportFragmentManager()
+				.beginTransaction()
+				.add(R.id.master, tarefaFragment, "tf")
+				.commit();
+		}
+					
 	}
 
 	@Override

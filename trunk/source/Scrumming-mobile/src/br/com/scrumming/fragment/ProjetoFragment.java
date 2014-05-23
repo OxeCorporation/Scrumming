@@ -3,6 +3,8 @@ package br.com.scrumming.fragment;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.net.ConnectivityManager;
 //import android.app.ActionBar;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
@@ -17,6 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import br.com.scrumming.R;
 import br.com.scrumming.adapter.ProjetoAdapter;
 import br.com.scrumming.domain.Empresa;
@@ -33,7 +37,8 @@ public class ProjetoFragment extends ListFragment{
 	AsyncTaskProjeto taskProjeto;
 	List<Projeto> listaProjetos;
 	UsuarioEmpresa usuarioEmpresa;
-	
+	ProgressBar progressProjeto;
+	TextView txtMensagemProjeto;
 	
 	Empresa empresa;
 	
@@ -57,26 +62,51 @@ public class ProjetoFragment extends ListFragment{
 		ab.setTitle("Projetos");
 		
 		if (listaProjetos != null){
+			progressProjeto.setVisibility(View.GONE);
+			txtMensagemProjeto.setVisibility(View.GONE);
 			AtualizarListaDeProjetos();
 
 		} else {
 			if (taskProjeto != null && taskProjeto.getStatus() == Status.RUNNING){
-				//mostrarProgress();
-
+				mostrarProgress();
+				
 			} else {
-				taskProjeto = new AsyncTaskProjeto();
-				taskProjeto.execute(usuarioEmpresa);
+				iniciarDownload();
 			}
 		}
+	}
+	
+	private void mostrarProgress() {
+		progressProjeto.setVisibility(View.VISIBLE);
+		txtMensagemProjeto.setVisibility(View.VISIBLE);
+		txtMensagemProjeto.setText("Carregando...");
+	}
+
+	private void iniciarDownload(){
 		
+		ConnectivityManager cm = (ConnectivityManager) getActivity()
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+		if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected()) {
+			taskProjeto = new AsyncTaskProjeto();
+			taskProjeto.execute(usuarioEmpresa);
+
+		} else {
+			progressProjeto.setVisibility(View.GONE);
+			txtMensagemProjeto.setVisibility(View.VISIBLE);
+			txtMensagemProjeto.setText("Sem conexao com a Internet");
+		}
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		View layout = inflater.inflate(R.layout.fragment_projetos, container,false);
+		View layout 	   = inflater.inflate(R.layout.fragment_projetos, container,false);
 		
-		usuarioEmpresa = (UsuarioEmpresa) getArguments().getSerializable("usuarioEmpresa");
+		progressProjeto    = (ProgressBar)layout.findViewById(R.id.progressBarProjeto);
+		txtMensagemProjeto = (TextView)layout.findViewById(R.id.txtMensagemProjeto);
+		
+		usuarioEmpresa 	   = (UsuarioEmpresa) getArguments().getSerializable("usuarioEmpresa");
 		
 		return layout;
 	}
@@ -126,6 +156,11 @@ public class ProjetoFragment extends ListFragment{
 	class AsyncTaskProjeto extends AsyncTask<UsuarioEmpresa, Void, List<Projeto>>{
 		
 		@Override
+		protected void onPreExecute() {
+			mostrarProgress();
+		}
+		
+		@Override
 		protected List<Projeto> doInBackground(UsuarioEmpresa... params) {
 			return RestProjeto.retorneProjetosPorUsuario(params[0]);
 		}
@@ -136,7 +171,11 @@ public class ProjetoFragment extends ListFragment{
 			if(projetos != null) {
 				listaProjetos = projetos;
 				AtualizarListaDeProjetos();
+				txtMensagemProjeto.setVisibility(View.GONE);
+			}else{
+				txtMensagemProjeto.setText("Não Existe Projetos Cadastrados");
 			}
+			progressProjeto.setVisibility(View.GONE);
 		}
 		
 	}
