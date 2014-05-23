@@ -31,8 +31,8 @@ public class BurndownSprintMB extends AbstractBean {
 	}
 	
 	private void criarGrafico() {
-		setTotalDeHorasEstimadasDaSprint(sprintClientService.totalDeHorasEstimadasDaSprint(10));
-		sprintSelecionada = sprintClientService.consultarSprint(10);
+		setTotalDeHorasEstimadasDaSprint(sprintClientService.totalDeHorasEstimadasDaSprint(11));
+		sprintSelecionada = sprintClientService.consultarSprint(11);
 		
 		graficoDeLinha = initLinearModel();	
 	}
@@ -50,6 +50,7 @@ public class BurndownSprintMB extends AbstractBean {
         int dias = Days.daysBetween(sprintSelecionada.getDataInicio(), sprintSelecionada.getDataFim()).getDays();
         float horasEstimadas = getTotalDeHorasEstimadasDaSprint();
         float horasRestantes = getTotalDeHorasEstimadasDaSprint();
+        Long totalDeHorasRestantesDaSprintPorData;
         
         for (int i = 0; i < dias; i++) {
         	if (i == 0) {
@@ -57,7 +58,10 @@ public class BurndownSprintMB extends AbstractBean {
         		atual.set(data.toString("dd ") + data.monthOfYear().getAsShortText(), horasEstimadas);
         	} else {
         		horasEstimadas = horasEstimadas - (getTotalDeHorasEstimadasDaSprint() / (dias-1));
-        		horasRestantes = sprintClientService.totalDeHorasRestantesDaSprintPorData(10, data.plusDays(i).toString("yyyy-MM-dd"));
+        		totalDeHorasRestantesDaSprintPorData = sprintClientService.totalDeHorasRestantesDaSprintPorData(11, data.plusDays(i).toString("yyyy-MM-dd"));
+        		if (totalDeHorasRestantesDaSprintPorData != null) {
+        			horasRestantes = totalDeHorasRestantesDaSprintPorData;
+        		}
         		estimado.set(data.plusDays(i).toString("dd ") + data.monthOfYear().getAsShortText(), horasEstimadas);
         		atual.set(data.plusDays(i).toString("dd ") + data.monthOfYear().getAsShortText(), horasRestantes);
         	}

@@ -1,5 +1,7 @@
 package br.com.scrumming.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -27,6 +30,7 @@ import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -71,6 +75,10 @@ public class Tarefa extends ObjetoPersistente<Integer> {
 	@JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
 	private DateTime dataAtribuicao;
+	
+	@JsonManagedReference
+	@OneToMany(mappedBy="tarefa")
+	private List<TarefaReporte> reportes;
 	
 	@Transient
     private String situacaoDescricao;
@@ -205,4 +213,13 @@ public class Tarefa extends ObjetoPersistente<Integer> {
 	public void setFoiFavoritada(boolean foiFavoritada) {
 		this.foiFavoritada = foiFavoritada;
 	}
+
+	public List<TarefaReporte> getReportes() {
+		return reportes;
+	}
+
+	public void setReportes(List<TarefaReporte> reportes) {
+		this.reportes = reportes;
+	}
+
 }

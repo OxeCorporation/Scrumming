@@ -4,8 +4,11 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Subqueries;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Repository;
 
@@ -114,15 +117,25 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
 		return (Long) criteria.uniqueResult();
 	}
 	
-	public Long totalDeHorasRestantesDaSprintPorData(Integer sprintID, DateTime data){		
-		/*Criteria criteria = createCriteria();
+	public Long totalDeHorasRestantesDaSprintPorData(Integer sprintID, DateTime data){
+		/*DetachedCriteria soma = DetachedCriteria.forClass(Cat.class)
+			    .setProjection(Property.forName("weight") );
+		
+		Criteria criteria = createCriteria();
 		criteria.createAlias("itemBacklog", "itemBacklogAlias");
 		criteria.createAlias("sprint", "sprintAlias");
-		criteria.createAlias("itemBacklogAlias.tarefas", "tarefaReporteAlias");
-		criteria.setProjection(Projections.sum("tarefaReporteAlias.tempoRestante"));
-		criteria.add(Restrictions.eq("sprintAlias.codigo", sprintID));		
+		criteria.createAlias("itemBacklogAlias.tarefas", "tarefaAlias");
+		criteria.createAlias("tarefaAlias.reportes", "reportesAlias");
+		criteria.setProjection(Projections.projectionList()
+				.add(Projections.sum("reportesAlias.tempoRestante"))
+				.add(Projections.groupProperty("reportesAlias.tarefa")));
+		criteria.add(Restrictions.eq("sprintAlias.codigo", sprintID));
+		criteria.add(Restrictions.le("reportesAlias.dataReporte", data.toDate()));
+		criteria.add(Subqueries.geAll(value, dc))
 		
-		return (Long) criteria.uniqueResult();*/
-		return (long) 100;
+	    Long tempoRestante = (Long) criteria.uniqueResult();
+		
+		return tempoRestante;*/
+		return (long) 60;
 	}
 }

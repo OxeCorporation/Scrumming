@@ -3,7 +3,6 @@ package br.com.scrumming.web.clientService;
 import java.util.Arrays;
 import java.util.List;
 
-import org.joda.time.DateTime;
 import org.springframework.http.ResponseEntity;
 
 import br.com.scrumming.domain.ItemBacklog;
