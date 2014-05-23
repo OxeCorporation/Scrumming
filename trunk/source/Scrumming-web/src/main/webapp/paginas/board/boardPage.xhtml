@@ -44,35 +44,39 @@
 	border-color: rgb(166, 201, 226);
 }
 </style>
-		<table width="95%">
-			<tr align="center">
-				<td width="25%">
-					<h3>
-						<h:outputText value="#{mensagens.mensagem_tarefa_planejada}" />
-					</h3>
-				</td>
-				<td width="25%">
-					<h3>
-						<h:outputText value="#{mensagens.mensagem_tarefa_em_progresso}" />
-					</h3>
-				</td>
-				<td width="25%">
-					<h3>
-						<h:outputText value="#{mensagens.mensagem_tarefa_em_impedimento}" />
-					</h3>
-				</td>
-				<td width="25%">
-					<h3>
-						<h:outputText value="#{mensagens.mensagem_tarefa_concluida}" />
-					</h3>
-				</td>
-			</tr>
-		</table>
-		<p:dashboard id="dashboard" binding="#{boardBean.dashboard}"
-			model="#{boardBean.dashboardModel}">
-			<p:ajax event="reorder" listener="#{boardBean.handleReorder}" />
-		</p:dashboard>
 
+	<h:panelGrid columns="1">
+		 <h:panelGroup id="titulos">
+				<table width="100%">
+					<tr align="center">
+						<td width="25%">
+							<h3>
+								<h:outputText value="#{mensagens.mensagem_tarefa_planejada}" />
+							</h3>
+						</td>
+						<td width="25%">
+							<h3>
+								<h:outputText value="#{mensagens.mensagem_tarefa_em_progresso}" />
+							</h3>
+						</td>
+						<td width="25%">
+							<h3>
+								<h:outputText value="#{mensagens.mensagem_tarefa_em_impedimento}" />
+							</h3>
+						</td>
+						<td width="25%">
+							<h3>
+								<h:outputText value="#{mensagens.mensagem_tarefa_concluida}" />
+							</h3>
+						</td>
+					</tr>
+				</table>
+			</h:panelGroup>
+			<p:dashboard id="dashboard" binding="#{boardBean.dashboard}"
+				model="#{boardBean.dashboardModel}">
+				<p:ajax event="reorder" listener="#{boardBean.handleReorder}" />
+			</p:dashboard>
+		</h:panelGrid>
 		<p:dialog id="boardModal" widgetVar="boardModal" modal="true"
 			resizable="false" header="#{mensagens.label_detalhe_tarefa}"
 			width="500">
