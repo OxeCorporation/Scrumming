@@ -1,0 +1,99 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".TarefaReportActivity" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:text="Reportagem de horas"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textDataReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="25dp"
+        android:text="Data do reporte" />
+
+    <EditText
+        android:id="@+id/editDataReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textDataReport"
+        android:layout_below="@+id/textDataReport"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:inputType="date" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/textTempoReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editDataReport"
+        android:layout_below="@+id/editDataReport"
+        android:layout_marginTop="18dp"
+        android:text="Tempo reportado" />
+
+    <EditText
+        android:id="@+id/editTempoReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textTempoReport"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:inputType="time" />
+
+    <TextView
+        android:id="@+id/textTempoRestante"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editTempoReport"
+        android:layout_below="@+id/editTempoReport"
+        android:layout_marginTop="24dp"
+        android:text=" Tempo restante" />
+
+    <EditText
+        android:id="@+id/editTempoRestante"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textTempoRestante"
+        android:layout_below="@+id/textTempoRestante"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="time" />
+
+    <Button
+        android:id="@+id/btmReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editTempoRestante"
+        android:layout_below="@+id/editTempoRestante"
+        android:layout_marginTop="22dp"
+        android:text="Reportar" />
+
+    <Button
+        android:id="@+id/btmCancelar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btmReport"
+        android:layout_alignBottom="@+id/btmReport"
+        android:layout_alignRight="@+id/editTempoRestante"
+        android:text="Cancelar" />
+    
+</RelativeLayout>
