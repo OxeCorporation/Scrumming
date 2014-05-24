@@ -4,12 +4,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Subqueries;
-import org.joda.time.DateTime;
 import org.springframework.stereotype.Repository;
 
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
@@ -117,25 +114,28 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
 		return (Long) criteria.uniqueResult();
 	}
 	
-	public Long totalDeHorasRestantesDaSprintPorData(Integer sprintID, DateTime data){
-		/*DetachedCriteria soma = DetachedCriteria.forClass(Cat.class)
-			    .setProjection(Property.forName("weight") );
+	public Long totalDeHorasRestantesDaSprintPorData(Integer sprintID, String data){
 		
-		Criteria criteria = createCriteria();
-		criteria.createAlias("itemBacklog", "itemBacklogAlias");
-		criteria.createAlias("sprint", "sprintAlias");
-		criteria.createAlias("itemBacklogAlias.tarefas", "tarefaAlias");
-		criteria.createAlias("tarefaAlias.reportes", "reportesAlias");
-		criteria.setProjection(Projections.projectionList()
-				.add(Projections.sum("reportesAlias.tempoRestante"))
-				.add(Projections.groupProperty("reportesAlias.tarefa")));
-		criteria.add(Restrictions.eq("sprintAlias.codigo", sprintID));
-		criteria.add(Restrictions.le("reportesAlias.dataReporte", data.toDate()));
-		criteria.add(Subqueries.geAll(value, dc))
+ 		String sql = "SELECT min(tr.tempo_reportado) as tempoReportado " +
+				     "FROM SprintBacklog sb " +
+				     "	INNER JOIN ItemBacklog i ON sb.FK_backlog = i.PK_backlog " +
+				     "	INNER JOIN Tarefa t ON i.PK_backlog = t.FK_itemBacklog " +
+				     "	INNER JOIN TarefaReporte tr ON t.PK_tarefa = tr.FK_tarefa " +
+				     "	INNER JOIN Sprint s ON sb.FK_sprint = s.PK_sprint " +
+				     "WHERE s.PK_sprint = :sprint " +
+					 "	AND tr.data_reporte <= :data " +
+					 "GROUP BY tr.FK_tarefa";
 		
-	    Long tempoRestante = (Long) criteria.uniqueResult();
+		Query query = getSession().createSQLQuery(sql);
+		query.setParameter("sprint", sprintID);
+		query.setParameter("data", data);
 		
-		return tempoRestante;*/
-		return (long) 60;
+		List<Integer> valores = query.list();
+		int tempoRestante = 0;
+		for (int i = 0; i < valores.size(); i++) {
+			tempoRestante = tempoRestante + valores.get(i);
+		}
+		
+		return (long) tempoRestante;		
 	}
 }

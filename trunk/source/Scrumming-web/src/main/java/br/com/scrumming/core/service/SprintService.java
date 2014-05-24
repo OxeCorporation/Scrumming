@@ -3,8 +3,6 @@ package br.com.scrumming.core.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -80,8 +78,7 @@ public class SprintService {
     
     @RequestMapping(method = RequestMethod.GET, value = "/totalDeHorasRestantesPorData/{sprintID}/{data}")
     public Long totalDeHorasRestantesDaSprintPorData(@PathVariable Integer sprintID, @PathVariable String data) {
-    	DateTimeFormatter formato = DateTimeFormat.forPattern("yyyy-MM-dd");
-    	return sprintBacklogManager.totalDeHorasRestantesDaSprintPorData(sprintID, formato.parseDateTime(data));
+    	return sprintBacklogManager.totalDeHorasRestantesDaSprintPorData(sprintID, data);
     }
 
     /* getters and setters */

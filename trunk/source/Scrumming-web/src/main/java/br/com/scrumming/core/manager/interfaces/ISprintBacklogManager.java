@@ -23,5 +23,5 @@ public interface ISprintBacklogManager extends IManager<SprintBacklog, SprintBac
 	List<SprintBacklog> listarAtivosPorSprint(Sprint sprint);
 	List<Tarefa> consultarTarefasPorSprint(Integer sprintID);
 	Long totalDeHorasEstimadasDaSprint(Integer sprintID);
-	Long totalDeHorasRestantesDaSprintPorData(Integer sprintID, DateTime data);
+	Long totalDeHorasRestantesDaSprintPorData(Integer sprintID, String data);
 }

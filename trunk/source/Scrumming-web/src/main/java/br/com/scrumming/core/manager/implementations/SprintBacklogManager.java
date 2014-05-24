@@ -186,7 +186,7 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Long totalDeHorasRestantesDaSprintPorData(Integer sprintID, DateTime data) {
+	public Long totalDeHorasRestantesDaSprintPorData(Integer sprintID, String data) {
 		return sprintBacklogRepositorio.totalDeHorasRestantesDaSprintPorData(sprintID, data);
 	}
 
