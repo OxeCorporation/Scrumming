@@ -102,17 +102,24 @@ public class SprintDetalheMB extends AbstractBean {
         
         DateTime data = sprintSelecionada.getDataInicio();
         int dias = Days.daysBetween(sprintSelecionada.getDataInicio(), sprintSelecionada.getDataFim()).getDays();
-        double horasEstimadas = getTotalDeHorasEstimadasDaSprint();
-        double horasRestantes = getTotalDeHorasEstimadasDaSprint();
-        double horasParaSubtrair = 0.01;
+        double horasEstimadas = 0;
+        double horasRestantes = 0;
+        double horasParaSubtrair = 0;
         Long totalDeHorasRestantesDaSprintPorData;
+        
+        if (getTotalDeHorasEstimadasDaSprint() != null) {
+        	horasEstimadas = getTotalDeHorasEstimadasDaSprint();
+            horasRestantes = getTotalDeHorasEstimadasDaSprint();
+        }
         
         for (int i = 0; i < dias; i++) {
         	if (i == 0) {
         		estimado.set(data.toString("dd ") + data.monthOfYear().getAsShortText(), horasEstimadas);
         		atual.set(data.toString("dd ") + data.monthOfYear().getAsShortText(), horasEstimadas);
         	} else {
-        		horasParaSubtrair = ((double) getTotalDeHorasEstimadasDaSprint() / (dias-1));
+        		if (getTotalDeHorasEstimadasDaSprint() != null) {
+        			horasParaSubtrair = ((double) getTotalDeHorasEstimadasDaSprint() / (dias-1));
+        		}
         		horasEstimadas = horasEstimadas - horasParaSubtrair;
         		totalDeHorasRestantesDaSprintPorData = sprintClienteService.totalDeHorasRestantesDaSprintPorData(sprintSelecionada.getCodigo(), data.plusDays(i).toString("yyyy-MM-dd"));
         		if (totalDeHorasRestantesDaSprintPorData != null) {
