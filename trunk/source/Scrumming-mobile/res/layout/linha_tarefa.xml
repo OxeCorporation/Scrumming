@@ -21,4 +21,13 @@
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <TextView
+        android:id="@+id/txtTempoEstimado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtNomeTarefa"
+        android:layout_alignBottom="@+id/txtNomeTarefa"
+        android:layout_alignParentRight="true"
+        android:text="TextView" />
+
 </RelativeLayout>

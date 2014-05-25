@@ -24,7 +24,6 @@ import br.com.scrumming.adapter.SprintAdapter;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.UsuarioEmpresa;
-import br.com.scrumming.fragment.ProjetoFragment.AsyncTaskProjeto;
 import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.interfaces.ClickedOnSprint;

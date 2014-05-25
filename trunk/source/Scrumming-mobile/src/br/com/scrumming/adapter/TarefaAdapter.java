@@ -29,6 +29,7 @@ public class TarefaAdapter extends ArrayAdapter<Tarefa> {
 			holder = new ViewHolder();
 			holder.txtNomeTarefa = (TextView) convertView.findViewById(R.id.txtNomeTarefa);
 			holder.txtDescricaoTarefa = (TextView) convertView.findViewById(R.id.txtDescricaoTarefa);
+			holder.txtTempoEstimado = (TextView) convertView.findViewById(R.id.txtTempoEstimado);
 			convertView.setTag(holder);
 
 		} else {
@@ -37,6 +38,7 @@ public class TarefaAdapter extends ArrayAdapter<Tarefa> {
 		
 		holder.txtNomeTarefa.setText(tarefa.getNome());
 		holder.txtDescricaoTarefa.setText(tarefa.getDescricao());
+		holder.txtTempoEstimado.setText(tarefa.getTempoEstimado().toString());
 		
 		return convertView;
 	}
@@ -44,5 +46,6 @@ public class TarefaAdapter extends ArrayAdapter<Tarefa> {
 	static class ViewHolder {
 		TextView txtNomeTarefa;
 		TextView txtDescricaoTarefa;
+		TextView txtTempoEstimado;
 	}
 }

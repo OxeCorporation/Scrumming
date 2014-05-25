@@ -22,7 +22,6 @@ import br.com.scrumming.R;
 import br.com.scrumming.adapter.UsuarioEmpresaAdapter;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.UsuarioEmpresa;
-import br.com.scrumming.fragment.ProjetoFragment.AsyncTaskProjeto;
 import br.com.scrumming.interfaces.ClickedOnEmpresa;
 import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.rest.RestEmpresa;

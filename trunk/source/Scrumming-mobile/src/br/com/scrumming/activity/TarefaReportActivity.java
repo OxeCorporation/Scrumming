@@ -2,16 +2,15 @@ package br.com.scrumming.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import br.com.scrumming.R;
 import br.com.scrumming.domain.ItemBacklog;
+import br.com.scrumming.domain.Sprint;
+import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.UsuarioEmpresa;
-import br.com.scrumming.fragment.TarefaPlanejadaFragment;
 import br.com.scrumming.fragment.TarefaReportFragment;
 import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
-import br.com.scrumming.interfaces.ClickedOnTarefa;
 
 public class TarefaReportActivity extends ActionBarActivity implements ClickedOnLogout, ClickedOnHome{
 
@@ -24,10 +23,12 @@ public class TarefaReportActivity extends ActionBarActivity implements ClickedOn
 
 		ItemBacklog itemBacklog = (ItemBacklog) getIntent().getSerializableExtra("itemBacklog");
 		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa) getIntent().getSerializableExtra("usuarioEmpresa");
+		Tarefa tarefa = (Tarefa) getIntent().getSerializableExtra("tarefa");
+		Sprint sprint = (Sprint) getIntent().getSerializableExtra("sprint");
 
 		tarefaReportFragment = (TarefaReportFragment)getSupportFragmentManager().findFragmentByTag("trf");
 		if (tarefaReportFragment == null) {
-			tarefaReportFragment = TarefaReportFragment.novaInstancia(itemBacklog, usuarioEmpresa);
+			tarefaReportFragment = TarefaReportFragment.novaInstancia(itemBacklog, tarefa, sprint,  usuarioEmpresa);
 
 			getSupportFragmentManager().beginTransaction().add(R.id.master, tarefaReportFragment, "trf").commit();
 		}
