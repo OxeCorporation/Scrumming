@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarActivity;
 import br.com.scrumming.R;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
+import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.fragment.TarefaConcluidaFragment;
 import br.com.scrumming.fragment.TarefaImpedimentoFragment;
@@ -18,8 +19,10 @@ import br.com.scrumming.fragment.TarefaProcessFragment;
 import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.interfaces.ClickedOnTarefa;
+import br.com.scrumming.interfaces.ClickedOnTarefaReporteItem;
 
-public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout, ClickedOnHome, TabListener, ClickedOnTarefa{
+public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout, ClickedOnHome, TabListener, 
+												ClickedOnTarefa, ClickedOnTarefaReporteItem{
 	
 	TarefaPlanejadaFragment tarefaPlanejadaFragment;
 	TarefaProcessFragment tarefaProcessFragment;
@@ -148,6 +151,18 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 	@Override
 	public void clicouNoHome(UsuarioEmpresa usuarioEmpresa) {
 		finish();
+	}
+
+	@Override
+	public void clicouNaTarefaReportItem(ItemBacklog itemBacklog, UsuarioEmpresa usuarioEmpresa, 
+							Sprint sprint, Tarefa tarefa) {
+		Intent intentTarefa = new Intent(this, TarefaReportActivity.class);
+		intentTarefa.putExtra("itemBacklog", itemBacklog);
+		intentTarefa.putExtra("usuarioEmpresa", usuarioEmpresa);
+		intentTarefa.putExtra("sprint", sprint);
+		intentTarefa.putExtra("tarefa", tarefa);
+		startActivity(intentTarefa);
+		
 	}
 
 		

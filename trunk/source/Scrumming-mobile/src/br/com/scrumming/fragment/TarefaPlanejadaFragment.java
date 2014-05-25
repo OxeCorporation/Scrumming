@@ -2,6 +2,7 @@ package br.com.scrumming.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -11,15 +12,19 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import br.com.scrumming.R;
 import br.com.scrumming.adapter.TarefaAdapter;
 import br.com.scrumming.domain.ItemBacklog;
@@ -31,6 +36,7 @@ import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.interfaces.ClickedOnTarefa;
+import br.com.scrumming.interfaces.ClickedOnTarefaReporteItem;
 import br.com.scrumming.rest.RestTarefa;
 
 public class TarefaPlanejadaFragment extends ListFragment {
@@ -61,6 +67,9 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		super.onActivityCreated(savedInstanceState);
 		setRetainInstance(true);
 		setHasOptionsMenu(true);
+		//Cria a Lista do Menu Contexto
+		registerForContextMenu(getListView());
+		
 		
 		//Transforma o Home "Scrumming" em um botão
 		ActionBar ab = ((ActionBarActivity)getActivity()).getSupportActionBar();
@@ -113,6 +122,8 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		
 		View layout = inflater.inflate(R.layout.fragment_tarefa, container, false);
 		
+		
+		
 		progressTarefa    = (ProgressBar)layout.findViewById(R.id.progressBarTarefa);
 		txtMensagemTarefa = (TextView)layout.findViewById(R.id.txtMensagemTarefa);
 		txtMensagemTarefaStatus = (TextView)layout.findViewById(R.id.txtMensagemTarefaStatus);
@@ -153,14 +164,36 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		TarefaAdapter adapter = new TarefaAdapter(getActivity(), listaTarefa);
 		setListAdapter(adapter);
 		
+		
 	}
 	
 	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
-		if (getActivity() instanceof ClickedOnTarefa) {
-			((ClickedOnTarefa)getActivity()).clicouNaTarefa(itemBacklog, usuarioEmpresa, sprint);
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getActivity().getMenuInflater();
+		inflater.inflate(R.menu.menu_contexto, menu);
+	}
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
+		
+		Tarefa tarefaSelecionada = (Tarefa)getListView().getItemAtPosition(info.position);
+		
+		switch (item.getItemId()) {
+		case R.id.opcao1:
+			if (getActivity() instanceof ClickedOnTarefaReporteItem) {
+				((ClickedOnTarefaReporteItem)getActivity())
+							.clicouNaTarefaReportItem(itemBacklog, usuarioEmpresa, 
+													  sprint, tarefaSelecionada);
+			}
+
+		default:
+			break;
 		}
+		
+		return super.onContextItemSelected(item);
 	}
 	
 	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<Tarefa>>{

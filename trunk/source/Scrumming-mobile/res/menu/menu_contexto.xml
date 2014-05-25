@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/opcao1"
+        android:title="Opção 1"
+    />
+    
+    <item
+        android:id="@+id/opcao2"
+        android:title="Opção 2"
+    />
+    
+    <item
+        android:id="@+id/opcao3"
+        android:title="Opção 3"
+    />
+</menu>
