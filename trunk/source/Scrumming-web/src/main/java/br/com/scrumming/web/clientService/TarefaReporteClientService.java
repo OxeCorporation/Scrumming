@@ -9,7 +9,7 @@ public class TarefaReporteClientService extends AbstractClientService {
 	public void reportarHora(TarefaReporte tarefaReporte, Integer sprintID, Integer itemID) {		
 		getRestTemplate().postForObject(
 				getURIService(ConstantesService.TarefaReporte.URL_REPORTAR_HORA),
-				tarefaReporte, void.class, sprintID, itemID);
+				tarefaReporte, void.class, sprintID, itemID, tarefaReporte.getTarefa().getCodigo());
 	}	
 	
 }
