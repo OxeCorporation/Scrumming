@@ -5,9 +5,11 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.Empresa;
@@ -81,6 +83,7 @@ public class ProjetoCadastroMB extends AbstractBean {
 			projetoDTO.setUsuarioEmpresaNotTeam(usuarioEmpresaNotProjeto);
 			projetoClientService.salvarProjeto(projetoDTO);
 			FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 		return projetoPage();
 	}
 

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.ItemBacklog;
@@ -60,6 +61,8 @@ public class SprintCadastroMB extends AbstractBean {
 		sprintDTO.setProductBacklog(itensDisponiveis);
 		sprintDTO.setSprintBacklog(sprintBacklog);
 		sprintClientService.salvarSprint(sprintDTO);
+		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 		return sprintPage();
 	}
 	
