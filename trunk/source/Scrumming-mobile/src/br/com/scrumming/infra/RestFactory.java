@@ -37,8 +37,8 @@ public class RestFactory {
 		RestTemplate restTemplate = new RestTemplate();
 		SimpleClientHttpRequestFactory requesrFactory = (SimpleClientHttpRequestFactory) restTemplate
 				.getRequestFactory();
-		requesrFactory.setReadTimeout(10 * 1000);
-		requesrFactory.setConnectTimeout(10 * 1000);
+		requesrFactory.setReadTimeout(40 * 1000);
+		requesrFactory.setConnectTimeout(40 * 1000);
 		restTemplate.setMessageConverters(getMenssageConverter());
 		return restTemplate;
 	}

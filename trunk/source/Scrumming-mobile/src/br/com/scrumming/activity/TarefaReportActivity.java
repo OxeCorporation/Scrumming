@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import br.com.scrumming.R;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.UsuarioEmpresa;
-import br.com.scrumming.fragment.TarefaFragment;
+import br.com.scrumming.fragment.TarefaPlanejadaFragment;
 import br.com.scrumming.fragment.TarefaReportFragment;
 import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;

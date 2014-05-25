@@ -1,7 +1,9 @@
 package br.com.scrumming.fragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
@@ -10,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Xml.Encoding;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,13 +28,15 @@ import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.UsuarioEmpresa;
+import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.rest.RestTarefa;
 
-public class TarefaFragment extends ListFragment {
+public class TarefaPlanejadaFragment extends ListFragment {
 	
 	List<Tarefa> listaTarefa;
+	List<Tarefa> listaTarefasPlanejadas;
 	AsyncTaskTarefa taskTarefa;
 	ItemBacklog itemBacklog;
 	UsuarioEmpresa usuarioEmpresa;
@@ -39,14 +44,14 @@ public class TarefaFragment extends ListFragment {
 	Sprint sprint;
 	SprintBacklog sprintBacklog;
 	ProgressBar progressTarefa;
-	TextView txtMensagemTarefa;
+	TextView txtMensagemTarefa, txtMensagemTarefaStatus;
 	
-	public static TarefaFragment novaInstancia(ItemBacklog itemBacklog, UsuarioEmpresa usuarioEmpresa, Sprint sprint){
+	public static TarefaPlanejadaFragment novaInstancia(ItemBacklog itemBacklog, UsuarioEmpresa usuarioEmpresa, Sprint sprint){
 		Bundle args = new Bundle();
 		args.putSerializable("itemBacklog", itemBacklog);
 		args.putSerializable("usuarioEmpresa", usuarioEmpresa);
 		args.putSerializable("sprint", sprint);
-		TarefaFragment tf = new TarefaFragment();
+		TarefaPlanejadaFragment tf = new TarefaPlanejadaFragment();
 		tf.setArguments(args);
 		return tf;
 	}
@@ -61,7 +66,7 @@ public class TarefaFragment extends ListFragment {
 		ActionBar ab = ((ActionBarActivity)getActivity()).getSupportActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
 		ab.setTitle("SprintBacklog");
-
+		txtMensagemTarefaStatus.setVisibility(View.GONE);
 		if (listaTarefa != null){
 			progressTarefa.setVisibility(View.GONE);
 			txtMensagemTarefa.setVisibility(View.GONE);
@@ -72,6 +77,7 @@ public class TarefaFragment extends ListFragment {
 				mostrarProgress();
 
 			} else {
+				listaTarefa =   new ArrayList<Tarefa>();
 				iniciarDownload();
 				
 			}
@@ -108,6 +114,7 @@ public class TarefaFragment extends ListFragment {
 		
 		progressTarefa    = (ProgressBar)layout.findViewById(R.id.progressBarTarefa);
 		txtMensagemTarefa = (TextView)layout.findViewById(R.id.txtMensagemTarefa);
+		txtMensagemTarefaStatus = (TextView)layout.findViewById(R.id.txtMensagemTarefaStatus);
 		
 		//pega a sprint clicada no sprintFragment para listar os itensbacklog da sprint
 		itemBacklog    = (ItemBacklog) getArguments().getSerializable("itemBacklog");
@@ -144,6 +151,7 @@ public class TarefaFragment extends ListFragment {
 	private void AtualizarListaDeTarefa() {
 		TarefaAdapter adapter = new TarefaAdapter(getActivity(), listaTarefa);
 		setListAdapter(adapter);
+		
 	}
 	
 	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<Tarefa>>{
@@ -162,7 +170,16 @@ public class TarefaFragment extends ListFragment {
 		protected void onPostExecute(List<Tarefa> tarefas) {
 			super.onPostExecute(tarefas);
 			if(tarefas != null) {
-				listaTarefa = tarefas;
+				for (int i = 0; i < tarefas.size(); i++) {
+					if (tarefas.get(i).getSituacao() == SituacaoTarefaEnum.PARA_FAZER) {
+						listaTarefa.add(tarefas.get(i));
+						
+					}/*else{
+						txtMensagemTarefaStatus.setVisibility(View.VISIBLE);
+						txtMensagemTarefaStatus.setText("Não há tarefa planejada para esse item");
+					}*/
+				}
+				
 				AtualizarListaDeTarefa();
 				txtMensagemTarefa.setVisibility(View.GONE);
 			}else {
