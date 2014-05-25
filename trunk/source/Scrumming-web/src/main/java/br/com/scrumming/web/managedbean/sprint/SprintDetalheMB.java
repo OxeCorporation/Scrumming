@@ -149,6 +149,7 @@ public class SprintDetalheMB extends AbstractBean {
 		dailyClienteService.salvarDailyScrum(dailyScrum);
 		limparDailyScrum();
 		atualizarLista();
+		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 	}
 	
 	public String novoDaily() {
