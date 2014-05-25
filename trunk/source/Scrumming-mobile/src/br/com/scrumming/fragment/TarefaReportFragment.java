@@ -1,13 +1,17 @@
 package br.com.scrumming.fragment;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import br.com.scrumming.R;
 import br.com.scrumming.domain.ItemBacklog;
@@ -32,13 +37,14 @@ public class TarefaReportFragment extends Fragment {
 	AsyncTaskTarefaReport taskTarefa;
 	ItemBacklog itemBacklog;
 	UsuarioEmpresa usuarioEmpresa;
-	EditText textDataReport, textTempoReport, textTempoRestante;
+	EditText textTempoReport, textTempoRestante;
+	DatePicker textDataReport;
 	TarefaReporte tarefaReport;
 	Tarefa tarefa;
 	Sprint sprint;
 
-	public static TarefaReportFragment novaInstancia(ItemBacklog itemBacklog, Tarefa tarefa, Sprint sprint,
-			UsuarioEmpresa usuarioEmpresa) {
+	public static TarefaReportFragment novaInstancia(ItemBacklog itemBacklog,
+			Tarefa tarefa, Sprint sprint, UsuarioEmpresa usuarioEmpresa) {
 		Bundle args = new Bundle();
 		args.putSerializable("itemBacklog", itemBacklog);
 		args.putSerializable("usuarioEmpresa", usuarioEmpresa);
@@ -76,14 +82,14 @@ public class TarefaReportFragment extends Fragment {
 		View layout = inflater.inflate(R.layout.fragment_tarefa_report,
 				container, false);
 
-		textDataReport = (EditText) layout.findViewById(R.id.editDataReport);
-		textTempoReport = (EditText) layout.findViewById(R.id.editTempoReport);
-		textTempoRestante = (EditText) layout
-				.findViewById(R.id.editTempoRestante);
-		Button btnReportar = (Button) layout.findViewById(R.id.btmReport);
-		btnReportar.setOnClickListener(btnReportOnClickListener);
-		Button btnCancelar = (Button) layout.findViewById(R.id.btmCancelar);
-		btnCancelar.setOnClickListener(btnCancelarOnClickListener);
+		 textTempoReport = (EditText)
+		 layout.findViewById(R.id.editTempoReport);
+		 textTempoRestante = (EditText) layout
+		 .findViewById(R.id.editTempoRestante);
+		 Button btnReportar = (Button) layout.findViewById(R.id.btmReport);
+		 btnReportar.setOnClickListener(btnReportOnClickListener);
+		 Button btnCancelar = (Button) layout.findViewById(R.id.btmCancelar);
+		 btnCancelar.setOnClickListener(btnCancelarOnClickListener);
 
 		itemBacklog = (ItemBacklog) getArguments().getSerializable(
 				"itemBacklog");
@@ -91,6 +97,59 @@ public class TarefaReportFragment extends Fragment {
 				"usuarioEmpresa");
 		tarefa = (Tarefa) getArguments().getSerializable("tarefa");
 		sprint = (Sprint) getArguments().getSerializable("sprint");
+
+		final EditText edt = (EditText) layout
+				.findViewById(R.id.editDataReport);
+
+		edt.addTextChangedListener(new TextWatcher() {
+
+			boolean isUpdating;
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int after) {
+				if (isUpdating) {
+					isUpdating = false;
+					return;
+				}
+				boolean hasMask = s.toString().indexOf('.') > -1
+						|| s.toString().indexOf('-') > -1;
+
+				String str = s.toString().replaceAll("[/]", "")
+						.replaceAll("[/]", "");
+
+				if (after > before) {
+					if (str.length() > 5) {
+						str = str.substring(0, 2) + '/' + str.substring(2, 4)
+								+ '/' + str.substring(4);
+					} else if (str.length() > 2) {
+						str = str.substring(0, 2) + '/' + str.substring(2);
+					}
+					isUpdating = true;
+					edt.setText(str);
+					edt.setSelection(edt.getText().length());
+				} else {
+					isUpdating = true;
+					edt.setText(str);
+					edt.setSelection(Math.max(
+							0,
+							Math.min(hasMask ? start - before : start,
+									str.length())));
+				}
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
 
 		return layout;
 	}
@@ -124,7 +183,8 @@ public class TarefaReportFragment extends Fragment {
 
 		protected void doInBackgroundReport(TarefaReporte tarefaReport,
 				Integer... params) {
-			RestTarefaReport.retornarTarefaReport(tarefaReport, params[1], params[2]);
+			RestTarefaReport.retornarTarefaReport(tarefaReport, params[1],
+					params[2]);
 		}
 
 		@Override
@@ -136,18 +196,38 @@ public class TarefaReportFragment extends Fragment {
 	}
 
 	private OnClickListener btnReportOnClickListener = new OnClickListener() {
-		@SuppressWarnings("deprecation")
 		@Override
 		public void onClick(View v) {
+			setarTarefaReporte();
+
+			taskTarefa.doInBackgroundReport(tarefaReport, sprint.getCodigo(),
+					usuarioEmpresa.getUsuario().getCodigo());
+		}
+
+		private void setarTarefaReporte() {
 			tarefaReport = new TarefaReporte();
 			tarefaReport.setTarefa(tarefa);
 			tarefaReport.setUsuario(usuarioEmpresa.getUsuario());
-			tarefaReport.setDataReporte(new Date(textDataReport.toString()));
-			tarefaReport.setTempoReportado(Integer.parseInt(textTempoReport.toString()));
-			tarefaReport.setTempoRestante(Integer.parseInt(textTempoRestante.toString()));
-			
-			taskTarefa.doInBackgroundReport(tarefaReport, sprint.getCodigo(), usuarioEmpresa.getUsuario().getCodigo());
+			tarefaReport.setDataReporte(ConvertToDateBR(textDataReport.toString()));
+			tarefaReport.setTempoReportado(Integer.parseInt(textTempoReport
+					.toString()));
+			tarefaReport.setTempoRestante(Integer.parseInt(textTempoRestante
+					.toString()));
 		}
+		@SuppressLint("SimpleDateFormat")
+		private Date ConvertToDateBR(String dateString){  
+            if (dateString!=null) {  
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
+              Date convertedDate;  
+              try {  
+                convertedDate = dateFormat.parse(dateString);  
+              } catch (ParseException e) {  
+                e.printStackTrace();  
+                return null;  
+              }  
+              return convertedDate;  
+            } return null;  
+  }  
 	};
 	private OnClickListener btnCancelarOnClickListener = new OnClickListener() {
 		@Override
