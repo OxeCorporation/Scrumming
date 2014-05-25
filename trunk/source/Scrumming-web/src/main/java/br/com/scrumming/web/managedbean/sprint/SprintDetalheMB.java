@@ -154,7 +154,7 @@ public class SprintDetalheMB extends AbstractBean {
 	public void alterarDailyScrum() {
 		saveDaily = false;
 		showModal = true;
-		dailyScrum.setUniqueDaily(false);
+		dailyScrum.setUniqueDaily(false);		
 		dailyScrum = dailyScrumSelecionado;
 	}
 	

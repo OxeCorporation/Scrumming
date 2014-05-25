@@ -151,7 +151,15 @@ public class DailyScrum extends ObjetoPersistente<Integer> {
 	}
 
 	public Date getDataHoraCalendar() {
-		return dataHoraCalendar;
+		if (dataHoraCalendar != null) {
+			return dataHoraCalendar;
+		} else {
+			if (dataHora != null) {
+				return dataHora.toDate();
+			} else {
+				return null;
+			}
+		}
 	}
 
 	public void setDataHoraCalendar(Date dataHoraCalendar) {
