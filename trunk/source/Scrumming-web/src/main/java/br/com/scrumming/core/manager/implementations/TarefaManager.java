@@ -74,11 +74,25 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void atualizarStatusTarefa(Integer tarefaID,
-			SituacaoTarefaEnum situacaoTarefaEnum) {
+			SituacaoTarefaEnum situacaoTarefaEnum, Integer usuarioLogadoID) {
 
-		Tarefa tarefa = findByKey(tarefaID);
+		Tarefa tarefa = findByKey(tarefaID);		
 		tarefa.setSituacao(situacaoTarefaEnum);
+		
+		validarDadosAntesDeAtualizarStatus(tarefa, usuarioLogadoID);
 		insertOrUpdate(tarefa);
+	}
+	
+	private void validarDadosAntesDeAtualizarStatus(Tarefa tarefa, Integer usuarioLogadoID) {
+		if (tarefa.getUsuario() == null) {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_TAREFA_SEM_USUARIO_ATRIBUIDO);
+		}		
+		
+		if (tarefa.getUsuario().getCodigo() != usuarioLogadoID) {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_TAREFA_APENAS_RESPONSAVEL_PODE_ALTERAR_STATUS);
+		}
 	}
 
 	@Override

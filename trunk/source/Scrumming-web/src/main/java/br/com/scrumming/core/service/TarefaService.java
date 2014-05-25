@@ -36,9 +36,10 @@ public class TarefaService {
     public Tarefa consultarPorChave(Integer tarefaID) {
 		return tarefaManager.findByKey(tarefaID);
 	}
-	@RequestMapping(method = RequestMethod.POST, value = "/update/{tarefaID}/{situacaoTarefaEnum}")
-	public void atualizarStatusTarefa(@PathVariable Integer tarefaID,@PathVariable SituacaoTarefaEnum situacaoTarefaEnum){
-		tarefaManager.atualizarStatusTarefa(tarefaID, situacaoTarefaEnum);
+	@RequestMapping(method = RequestMethod.POST, value = "/update/{tarefaID}/{situacaoTarefaEnum}/{usuarioLogadoID}")
+	public void atualizarStatusTarefa(@PathVariable Integer tarefaID,
+			@PathVariable SituacaoTarefaEnum situacaoTarefaEnum, @PathVariable Integer usuarioLogadoID){
+		tarefaManager.atualizarStatusTarefa(tarefaID, situacaoTarefaEnum, usuarioLogadoID);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/list/{itemBacklogID}")

@@ -74,9 +74,9 @@ public class TarefaClientService extends AbstractClientService {
 	}
 
 	public void atualizarStatus(Integer tarefaID,
-			SituacaoTarefaEnum situacaoTarefaEnum) {
+			SituacaoTarefaEnum situacaoTarefaEnum, Integer usuarioLogadoID) {
 		postForObject(
 				getURIService(ConstantesService.Tarefa.URI_ATUALIZAR_TAREFA),
-				HttpEntity.EMPTY, void.class, tarefaID, situacaoTarefaEnum);
+				HttpEntity.EMPTY, void.class, tarefaID, situacaoTarefaEnum, usuarioLogadoID);
 	}
 }

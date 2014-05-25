@@ -1,6 +1,5 @@
 package br.com.scrumming.web.managedbean.board;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.el.ELContext;
@@ -8,19 +7,16 @@ import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.event.SetPropertyActionListener;
-import org.joda.time.DateTime;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.dashboard.Dashboard;
-import org.primefaces.component.dnd.Draggable;
-import org.primefaces.component.dnd.Droppable;
 import org.primefaces.component.panel.Panel;
-import org.primefaces.component.panelgrid.PanelGrid;
 import org.primefaces.event.DashboardReorderEvent;
 import org.primefaces.model.DashboardColumn;
 import org.primefaces.model.DashboardModel;
@@ -29,6 +25,7 @@ import org.primefaces.model.DefaultDashboardModel;
 
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.web.clientService.SprintClientService;
 import br.com.scrumming.web.clientService.TarefaClientService;
@@ -53,6 +50,8 @@ public class BoardBean extends AbstractBean {
 	private Tarefa tarefaSelecionada;
 	@FlashScoped
 	private Sprint sprintSelecionada;
+	@ManagedProperty(value="#{sessaoMB.usuario}")
+	private Usuario usuarioLogado;
 
 	@Override
 	protected void inicializar() {
@@ -132,7 +131,7 @@ public class BoardBean extends AbstractBean {
 	}
 
 	private void atualizarTarefa(Tarefa task, SituacaoTarefaEnum situacaoTarefaEnum) {
-		tarefaClientService.atualizarStatus(task.getCodigo(), situacaoTarefaEnum);
+		tarefaClientService.atualizarStatus(task.getCodigo(), situacaoTarefaEnum, usuarioLogado.getCodigo());
 	}
 
 	public Tarefa findTarefa(Integer id) {
@@ -198,5 +197,13 @@ public class BoardBean extends AbstractBean {
 
 	public void setTarefaSelecionada(Tarefa tarefaSelecionada) {
 		this.tarefaSelecionada = tarefaSelecionada;
+	}
+
+	public Usuario getUsuarioLogado() {
+		return usuarioLogado;
+	}
+
+	public void setUsuarioLogado(Usuario usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
 	}
 }
