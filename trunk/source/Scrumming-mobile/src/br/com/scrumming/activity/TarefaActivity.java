@@ -17,8 +17,9 @@ import br.com.scrumming.fragment.TarefaPlanejadaFragment;
 import br.com.scrumming.fragment.TarefaProcessFragment;
 import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
+import br.com.scrumming.interfaces.ClickedOnTarefa;
 
-public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout, ClickedOnHome, TabListener{
+public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout, ClickedOnHome, TabListener, ClickedOnTarefa{
 	
 	TarefaPlanejadaFragment tarefaPlanejadaFragment;
 	TarefaProcessFragment tarefaProcessFragment;
@@ -123,6 +124,16 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putInt("tab", getSupportActionBar().getSelectedNavigationIndex());
+		
+	}
+	
+	@Override
+	public void clicouNaTarefa(ItemBacklog itemBacklog, UsuarioEmpresa usuarioEmpresa, Sprint sprint) {
+		Intent intentTarefa = new Intent(this, TarefaReportActivity.class);
+		intentTarefa.putExtra("itemBacklog", itemBacklog);
+		intentTarefa.putExtra("usuarioEmpresa", usuarioEmpresa);
+		intentTarefa.putExtra("sprint", sprint);
+		startActivity(intentTarefa);
 		
 	}
 	

@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import br.com.scrumming.R;
@@ -29,6 +30,7 @@ import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
+import br.com.scrumming.interfaces.ClickedOnTarefa;
 import br.com.scrumming.rest.RestTarefa;
 
 public class TarefaConcluidaFragment extends ListFragment {
@@ -150,6 +152,14 @@ public class TarefaConcluidaFragment extends ListFragment {
 	private void AtualizarListaDeTarefa() {
 		TarefaAdapter adapter = new TarefaAdapter(getActivity(), listaTarefa);
 		setListAdapter(adapter);
+	}
+	
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		if (getActivity() instanceof ClickedOnTarefa) {
+			((ClickedOnTarefa)getActivity()).clicouNaTarefa(itemBacklog, usuarioEmpresa, sprint);
+		}
 	}
 	
 	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<Tarefa>>{

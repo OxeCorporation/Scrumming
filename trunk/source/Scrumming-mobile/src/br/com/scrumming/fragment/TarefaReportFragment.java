@@ -1,14 +1,15 @@
 package br.com.scrumming.fragment;
 
-import java.util.Date;
-
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -18,9 +19,11 @@ import br.com.scrumming.R;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.UsuarioEmpresa;
+import br.com.scrumming.interfaces.ClickedOnHome;
+import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.rest.RestTarefaReport;
 
-public class TarefaReportFragment extends ListFragment {
+public class TarefaReportFragment extends Fragment {
 
 	AsyncTaskTarefaReport taskTarefa;
 	ItemBacklog itemBacklog;
@@ -82,6 +85,30 @@ public class TarefaReportFragment extends ListFragment {
 		return layout;
 	}
 
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.menu_fragment_telas, menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.logout:
+			if (getActivity() instanceof ClickedOnLogout) {
+				((ClickedOnLogout)getActivity()).clicouNoLogout(null);;
+			}
+			break;
+
+		case android.R.id.home:
+			if (getActivity() instanceof ClickedOnHome) {
+				((ClickedOnHome)getActivity()).clicouNoHome(usuarioEmpresa);
+			}
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
 	class AsyncTaskTarefaReport extends AsyncTask<Integer, Void, Void> {
 
 		protected void doInBackgroundReport(TarefaReporte item,
