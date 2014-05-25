@@ -60,7 +60,15 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements
 		if (tarefa.getSituacao() == null)
 			tarefa.setSituacao(SituacaoTarefaEnum.PARA_FAZER);
 
+		validarDadosAntesDeSalvar(tarefa);
 		insertOrUpdate(tarefa);
+	}
+	
+	private void validarDadosAntesDeSalvar(Tarefa tarefa) {
+		if (tarefa.getSituacao() == SituacaoTarefaEnum.FEITO) {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_TAREFA_ENCONTRA_SE_CONCLUIDA);
+		}		
 	}
 
 	@Override
@@ -178,12 +186,27 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements
 	}
 
 	private void validarDadosAntesDeAtribuir(Tarefa tarefa) {
+		if (tarefa.getSituacao() == SituacaoTarefaEnum.FEITO) {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_TAREFA_ENCONTRA_SE_CONCLUIDA);
+		}
+		
+		if (tarefa.getSituacao() == SituacaoTarefaEnum.CANCELADO) {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_TAREFA_ENCONTRA_SE_CANCELADA);
+		}
+		
+		if (tarefa.getSituacao() == SituacaoTarefaEnum.EM_IMPEDIMENTO) {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_TAREFA_ENCONTRA_SE_IMPEDIDA);
+		}
+		
 		List<Usuario> usuarios = teamManager.consultarUsuarioPorProjeto(tarefa
 				.getItemBacklog().getProjeto().getCodigo());
 		if (!usuarios.contains(tarefa.getUsuario())) {
 			throw new NegocioException(
 					ConstantesMensagem.MENSAGEM_ERRO_USUARIO_NAO_FAZ_PARTE_DO_TEAM);
-		}
+		}		
 	}
 
 	/* getters and setters */
