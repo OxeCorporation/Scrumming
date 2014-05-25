@@ -67,6 +67,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		ab.setDisplayHomeAsUpEnabled(true);
 		ab.setTitle("SprintBacklog");
 		txtMensagemTarefaStatus.setVisibility(View.GONE);
+		
 		if (listaTarefa != null){
 			progressTarefa.setVisibility(View.GONE);
 			txtMensagemTarefa.setVisibility(View.GONE);

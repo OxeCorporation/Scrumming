@@ -49,13 +49,13 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 			
 			getSupportFragmentManager()
 				.beginTransaction()
-				.add(R.id.master, tarefaPlanejadaFragment, "tf")
+				.add(R.id.master, tarefaPlanejadaFragment, "tpf")
 				.add(R.id.master, tarefaProcessFragment, "tpcf")
 				.add(R.id.master, tarefaImpedimentoFragment, "tif")
 				.add(R.id.master, tarefaConcluidaFragment, "tcf")
 				.commit();
 		}
-		
+		 
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		
