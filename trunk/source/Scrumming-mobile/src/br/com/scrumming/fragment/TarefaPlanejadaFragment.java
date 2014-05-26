@@ -196,7 +196,17 @@ public class TarefaPlanejadaFragment extends ListFragment {
 				AtualizarListaDeTarefa();
 			}
 			 
-		default:
+		case R.id.opcaoAtribuir:
+
+			tarefaSelecionada.setUsuario(usuarioEmpresa.getUsuario());
+			new Thread(new Runnable() {
+				public void run() {
+					RestTarefa.atribuirOuDesatribuirTarefa(tarefaSelecionada, 
+							itemBacklog.getCodigo(), 
+							usuarioEmpresa.getUsuario().getCodigo());
+				}
+			}).start();
+			AtualizarListaDeTarefa();
 			break;
 		}
 		

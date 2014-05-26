@@ -28,4 +28,12 @@ public static void salvarOuAtualizarTarefa(Integer tarefaID, SituacaoTarefaEnum 
 	return;
 	}
 
+public static void atribuirOuDesatribuirTarefa(Tarefa tarefa, Integer itembacklogID, Integer usuarioEmpresaID){
+	
+	final String url = "http://"+ConstantesService.DOMAIN_LOCAL+"/Scrumming/service/"
+												+ "tarefa/atribuirpara/{itemBacklogID}/{usuarioID}";
+	RestFactory.getRestTemplate().postForObject(url, tarefa, void.class, itembacklogID, usuarioEmpresaID);
+	return;
+	}
+
 }
