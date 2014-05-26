@@ -28,12 +28,14 @@ import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.TarefaFavorita;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.interfaces.ClickedOnTarefaReporteItem;
 import br.com.scrumming.rest.RestTarefa;
+import br.com.scrumming.rest.RestTarefaFavorita;
 import br.com.scrumming.rest.RestTarefaReport;
 
 public class TarefaPlanejadaFragment extends ListFragment {
@@ -49,6 +51,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 	ProgressBar progressTarefa;
 	TextView txtMensagemTarefa, txtMensagemTarefaStatus;
 	Tarefa tarefaSelecionada;
+	TarefaFavorita tarefaFavorita;
 	
 	public static TarefaPlanejadaFragment novaInstancia(ItemBacklog itemBacklog, UsuarioEmpresa usuarioEmpresa, Sprint sprint){
 		Bundle args = new Bundle();
@@ -181,7 +184,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		
 		switch (item.getItemId()) {
 		case R.id.opcaoAlterarProcessando:
-			 //tarefaSelecionada.setSituacao(SituacaoTarefaEnum.FAZENDO);
+			 
 			 new Thread(new Runnable() {
 			        public void run() {
 			        	RestTarefa.salvarOuAtualizarTarefa(tarefaSelecionada.getCodigo(), 
@@ -204,6 +207,18 @@ public class TarefaPlanejadaFragment extends ListFragment {
 					RestTarefa.atribuirOuDesatribuirTarefa(tarefaSelecionada, 
 							itemBacklog.getCodigo(), 
 							usuarioEmpresa.getUsuario().getCodigo());
+				}
+			}).start();
+			AtualizarListaDeTarefa();
+			break;
+			
+		case R.id.opcaoFavoritar:
+			tarefaFavorita = new TarefaFavorita();
+			tarefaFavorita.setTarefa(tarefaSelecionada);
+			tarefaFavorita.setUsuario(usuarioEmpresa.getUsuario());
+			new Thread(new Runnable() {
+				public void run() {
+					RestTarefaFavorita.favoritarTarefa(tarefaFavorita);
 				}
 			}).start();
 			AtualizarListaDeTarefa();
