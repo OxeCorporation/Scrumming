@@ -12,24 +12,23 @@ import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import br.com.scrumming.R;
 import br.com.scrumming.adapter.TarefaAdapter;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
 import br.com.scrumming.domain.Tarefa;
-import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.interfaces.ClickedOnHome;
@@ -242,11 +241,9 @@ public class TarefaProcessFragment extends ListFragment {
 				AtualizarListaDeTarefa();
 				txtMensagemTarefa.setVisibility(View.GONE);
 			}else {
-				txtMensagemTarefa.setText("Não Existe Projetos Cadastrados");
+				txtMensagemTarefa.setText("Não Existem Tarefas em Processo Cadastradas");
 			}
 			progressTarefa.setVisibility(View.GONE);
 		}
-
 	}
-
 }

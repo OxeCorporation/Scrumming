@@ -191,11 +191,9 @@ public class TarefaConcluidaFragment extends ListFragment {
 				AtualizarListaDeTarefa();
 				txtMensagemTarefa.setVisibility(View.GONE);
 			}else {
-				txtMensagemTarefa.setText("Não Existe Projetos Cadastrados");
+				txtMensagemTarefa.setText("Não Existem Tarefas Concluidas Cadastradas");
 			}
 			progressTarefa.setVisibility(View.GONE);
 		}
-
 	}
-
 }

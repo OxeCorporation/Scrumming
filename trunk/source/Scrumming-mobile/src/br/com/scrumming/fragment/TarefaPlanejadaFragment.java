@@ -33,10 +33,8 @@ import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
-import br.com.scrumming.interfaces.ClickedOnTarefaReporteItem;
 import br.com.scrumming.rest.RestTarefa;
 import br.com.scrumming.rest.RestTarefaFavorita;
-import br.com.scrumming.rest.RestTarefaReport;
 
 public class TarefaPlanejadaFragment extends ListFragment {
 	
@@ -257,11 +255,9 @@ public class TarefaPlanejadaFragment extends ListFragment {
 				AtualizarListaDeTarefa();
 				txtMensagemTarefa.setVisibility(View.GONE);
 			}else {
-				txtMensagemTarefa.setText("Não Existe Projetos Cadastrados");
+				txtMensagemTarefa.setText("Não Existem Tarefas Planejadas Cadastradas");
 			}
 			progressTarefa.setVisibility(View.GONE);
 		}
-
 	}
-
 }

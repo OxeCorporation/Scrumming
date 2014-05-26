@@ -191,11 +191,9 @@ public class TarefaImpedimentoFragment extends ListFragment {
 				AtualizarListaDeTarefa();
 				txtMensagemTarefa.setVisibility(View.GONE);
 			}else {
-				txtMensagemTarefa.setText("Não Existe Projetos Cadastrados");
+				txtMensagemTarefa.setText("Não Existem Tarefas Impedidas Cadastradas");
 			}
 			progressTarefa.setVisibility(View.GONE);
 		}
-
 	}
-
 }
