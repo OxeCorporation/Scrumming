@@ -37,8 +37,7 @@ public class TarefaReportFragment extends Fragment {
 	AsyncTaskTarefaReport taskTarefa;
 	ItemBacklog itemBacklog;
 	UsuarioEmpresa usuarioEmpresa;
-	EditText textTempoReport, textTempoRestante;
-	DatePicker textDataReport;
+	EditText textTempoReport, textTempoRestante, textDataReport;
 	TarefaReporte tarefaReport;
 	Tarefa tarefa;
 	Sprint sprint;
@@ -48,11 +47,13 @@ public class TarefaReportFragment extends Fragment {
 		Bundle args = new Bundle();
 		args.putSerializable("itemBacklog", itemBacklog);
 		args.putSerializable("usuarioEmpresa", usuarioEmpresa);
-
+		args.putSerializable("sprint", sprint);
+		args.putSerializable("tarefa", tarefa);
+		
 		TarefaReportFragment bvf = new TarefaReportFragment();
 		bvf.setArguments(args);
 		return bvf;
-	}
+	} 
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -98,10 +99,10 @@ public class TarefaReportFragment extends Fragment {
 		tarefa = (Tarefa) getArguments().getSerializable("tarefa");
 		sprint = (Sprint) getArguments().getSerializable("sprint");
 
-		final EditText edt = (EditText) layout
+		textDataReport = (EditText) layout
 				.findViewById(R.id.editDataReport);
 
-		edt.addTextChangedListener(new TextWatcher() {
+		textDataReport.addTextChangedListener(new TextWatcher() {
 
 			boolean isUpdating;
 
@@ -131,12 +132,12 @@ public class TarefaReportFragment extends Fragment {
 						str = str.substring(0, 2) + '/' + str.substring(2);
 					}
 					isUpdating = true;
-					edt.setText(str);
-					edt.setSelection(edt.getText().length());
+					textDataReport.setText(str);
+					textDataReport.setSelection(textDataReport.getText().length());
 				} else {
 					isUpdating = true;
-					edt.setText(str);
-					edt.setSelection(Math.max(
+					textDataReport.setText(str);
+					textDataReport.setSelection(Math.max(
 							0,
 							Math.min(hasMask ? start - before : start,
 									str.length())));
@@ -208,11 +209,9 @@ public class TarefaReportFragment extends Fragment {
 			tarefaReport = new TarefaReporte();
 			tarefaReport.setTarefa(tarefa);
 			tarefaReport.setUsuario(usuarioEmpresa.getUsuario());
-			tarefaReport.setDataReporte(ConvertToDateBR(textDataReport.toString()));
-			tarefaReport.setTempoReportado(Integer.parseInt(textTempoReport
-					.toString()));
-			tarefaReport.setTempoRestante(Integer.parseInt(textTempoRestante
-					.toString()));
+			tarefaReport.setDataReporte(ConvertToDateBR(textDataReport.getText().toString()));
+			tarefaReport.setTempoReportado(Integer.parseInt(textTempoReport.getText().toString()));
+			tarefaReport.setTempoRestante(Integer.parseInt(textTempoRestante.getText().toString()));
 		}
 		@SuppressLint("SimpleDateFormat")
 		private Date ConvertToDateBR(String dateString){  

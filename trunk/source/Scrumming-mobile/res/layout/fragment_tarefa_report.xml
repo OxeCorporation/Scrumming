@@ -57,7 +57,7 @@
         android:layout_alignLeft="@+id/textTempoReport"
         android:layout_centerVertical="true"
         android:ems="10"
-        android:inputType="time" />
+        android:inputType="number|time" />
 
     <TextView
         android:id="@+id/textTempoRestante"
@@ -76,7 +76,7 @@
         android:layout_below="@+id/textTempoRestante"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:inputType="time" />
+        android:inputType="number|time" />
 
     <Button
         android:id="@+id/btmReport"

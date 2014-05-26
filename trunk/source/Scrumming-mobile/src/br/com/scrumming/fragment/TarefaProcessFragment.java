@@ -31,6 +31,7 @@ import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.interfaces.ClickedOnTarefa;
+import br.com.scrumming.interfaces.ClickedOnTarefaReporteItem;
 import br.com.scrumming.rest.RestTarefa;
 
 public class TarefaProcessFragment extends ListFragment {
@@ -156,8 +157,9 @@ public class TarefaProcessFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		if (getActivity() instanceof ClickedOnTarefa) {
-			((ClickedOnTarefa)getActivity()).clicouNaTarefa(itemBacklog, usuarioEmpresa, sprint);
+		if (getActivity() instanceof ClickedOnTarefaReporteItem) {
+			((ClickedOnTarefaReporteItem)getActivity()).clicouNaTarefaReportItem(itemBacklog, usuarioEmpresa, 
+														sprint, listaTarefa.get(position));
 		}
 	}
 	

@@ -38,8 +38,8 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa)getIntent().getSerializableExtra("usuarioEmpresa");
 		Sprint sprint = (Sprint)getIntent().getSerializableExtra("sprint");
 		
-		tarefaPlanejadaFragment = (TarefaPlanejadaFragment)getSupportFragmentManager().findFragmentByTag("tpf");
-		tarefaProcessFragment   = (TarefaProcessFragment)getSupportFragmentManager().findFragmentByTag("tpcf");
+		tarefaPlanejadaFragment	    = (TarefaPlanejadaFragment)getSupportFragmentManager().findFragmentByTag("tpf");
+		tarefaProcessFragment  	    = (TarefaProcessFragment)getSupportFragmentManager().findFragmentByTag("tpcf");
 		tarefaImpedimentoFragment   = (TarefaImpedimentoFragment)getSupportFragmentManager().findFragmentByTag("tif");
 		tarefaConcluidaFragment 	= (TarefaConcluidaFragment)getSupportFragmentManager().findFragmentByTag("tcf");
 		
