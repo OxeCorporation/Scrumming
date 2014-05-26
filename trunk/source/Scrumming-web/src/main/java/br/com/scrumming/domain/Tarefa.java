@@ -67,7 +67,7 @@ public class Tarefa extends ObjetoPersistente<Integer> {
     private SituacaoTarefaEnum situacao;
 	
 	@Column(name = "tempo_estimado", columnDefinition = "Integer", length = 11)
-	@NotNull
+	@NotNull(message = "O campo é obrigatório e deve ser preenchido.") 
     private Integer tempoEstimado;
 	
 	@Type(type = HibernateTypes.JODA_DATE_TIME)
