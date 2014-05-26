@@ -14,8 +14,14 @@ import br.com.scrumming.interfaces.ClickedOnLogout;
 
 public class TarefaReportActivity extends ActionBarActivity implements ClickedOnLogout, ClickedOnHome{
 
+	//Instanciação dos Objetos e variáveis
 	TarefaReportFragment tarefaReportFragment;
 
+	/**
+	* Método de criação da Activity
+	* @param Bundle savedInstanceState
+	* @return void
+	*/
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,9 +38,13 @@ public class TarefaReportActivity extends ActionBarActivity implements ClickedOn
 
 			getSupportFragmentManager().beginTransaction().add(R.id.master, tarefaReportFragment, "trf").commit();
 		}
-
 	}
 	
+	/**
+	* Método para aplicar logout e voltar para a tela de login
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @return void
+	*/
 	@Override
 	public void clicouNoLogout(UsuarioEmpresa usuarioEmpresa) {
 		Intent intencao = new Intent(this, LoginActivity.class);
@@ -43,9 +53,13 @@ public class TarefaReportActivity extends ActionBarActivity implements ClickedOn
 		
 	}
 
+	/**
+	* Método para encerrar a activity de TarefaReport
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @return void
+	*/
 	@Override
 	public void clicouNoHome(UsuarioEmpresa usuarioEmpresa) {
 		finish();
 	}
-	
 }

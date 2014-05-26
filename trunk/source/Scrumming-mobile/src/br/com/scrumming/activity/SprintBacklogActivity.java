@@ -14,8 +14,14 @@ import br.com.scrumming.interfaces.ClickedOnLogout;
 
 public class SprintBacklogActivity extends ActionBarActivity implements ClickedOnItemBacklog, ClickedOnLogout, ClickedOnHome{
 
+	//Instanciação dos Objetos e variáveis
 	SprintBacklogFragment sprinBacklogFragment;
 	
+	/**
+	* Método de criação da Activity
+	* @param Bundle savedInstanceState
+	* @return void
+	*/
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,6 +42,12 @@ public class SprintBacklogActivity extends ActionBarActivity implements ClickedO
 					
 	}
 	
+	/**
+	* Método proviniente da interface para exibir a activity com a lista de Tarefas
+	* @param ItemBacklog itemBacklog
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @return void 
+	*/
 	@Override
 	public void itemBacklogFoiClicada(ItemBacklog itemBacklog, UsuarioEmpresa usuarioEmpresa, Sprint sprint) {
 		Intent it4 = new Intent(this, TarefaActivity.class);
@@ -46,6 +58,11 @@ public class SprintBacklogActivity extends ActionBarActivity implements ClickedO
 		
 	}
 
+	/**
+	* Método para aplicar logout e voltar para a tela de login
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @return void
+	*/
 	@Override
 	public void clicouNoLogout(UsuarioEmpresa usuarioEmpresa) {
 		Intent intencao = new Intent(this, LoginActivity.class);
@@ -53,9 +70,13 @@ public class SprintBacklogActivity extends ActionBarActivity implements ClickedO
 		startActivity(intencao);
 	}
 
+	/**
+	* Método para encerrar a activity de SprintBacklog
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @return void
+	*/
 	@Override
 	public void clicouNoHome(UsuarioEmpresa usuarioEmpresa) {
 		finish();
 	}
-
 }

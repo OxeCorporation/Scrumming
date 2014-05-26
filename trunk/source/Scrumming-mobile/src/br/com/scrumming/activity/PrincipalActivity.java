@@ -14,9 +14,15 @@ import br.com.scrumming.interfaces.ClickedOnLogout;
 public class PrincipalActivity extends ActionBarActivity implements
 		ClickedOnEmpresa, ClickedOnLogout {
 
+	//Instanciação dos Objetos e variáveis
 	TextView txtNomeUsuario;
 	EmpresaFragment empresaFragment;
 
+	/**
+	* Método de criação da Activity
+	* @param Bundle savedInstanceState
+	* @return void
+	*/
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,20 +39,28 @@ public class PrincipalActivity extends ActionBarActivity implements
 
 	}
 
+	/**
+    * Método proviniente da interface para exibir a activity com a lista de projetos
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @return void 
+    */
 	@Override
 	public void empresaFoiClicada(UsuarioEmpresa usuarioEmpresa) {
 		Intent it = new Intent(this, ProjetoActivity.class);
 		it.putExtra("usuarioEmpresa", usuarioEmpresa);
 		startActivity(it);
-
 	}
 
+	/**
+	* Método para aplicar logout e voltar para a tela de login
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @return void
+	*/
 	@Override
 	public void clicouNoLogout(UsuarioEmpresa usuarioEmpresa) {
 		Intent intencao = new Intent(this, LoginActivity.class);
 		//intencao.putExtra("usuarioEmpresa", usuarioEmpresa);
 		intencao.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intencao);
-		
 	}
 }

@@ -17,15 +17,19 @@ import br.com.scrumming.interfaces.InterfaceUsuario;
 
 public class LoginActivity extends Activity implements InterfaceUsuario {
 	
+	//Instanciação dos Objetos e variáveis 
 	EditText textLogin, textSenha;
 	String titulo, mensagem, login, senha;
 	
+	/**
+	* Método de criação da Activity
+	* @param Bundle savedInstanceState
+	* @return void
+	*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        
-
         
         textLogin = (EditText) findViewById(R.id.editTxtLogin);
 		textSenha = (EditText) findViewById(R.id.editTxtSenha);
@@ -33,6 +37,11 @@ public class LoginActivity extends Activity implements InterfaceUsuario {
 		btnLogar.setOnClickListener(btnLogarOnClickListener);
     }
     
+    /**
+    * Método de clicar no botão logar
+	* @param View v
+	* @return void 
+    */
     private OnClickListener btnLogarOnClickListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -57,6 +66,12 @@ public class LoginActivity extends Activity implements InterfaceUsuario {
 		}
 	};
 	
+	/**
+    * Método para exibir um alerta na tela
+	* @param String titulo
+	* @param String mensagem
+	* @return void 
+    */
 	@SuppressWarnings("deprecation")
 	public void alert(String titulo, String mensagem){
         AlertDialog alerta = new AlertDialog.Builder(this).create();
@@ -71,6 +86,11 @@ public class LoginActivity extends Activity implements InterfaceUsuario {
         alerta.show();
 	}
 	
+	/**
+    * Método proviniente da interface para logar com o usuário retornado do service
+	* @param Usuario usuario
+	* @return void 
+    */
 	@SuppressLint("ShowToast")
 	@Override
 	public void logarComUsuario(Usuario usuario) {

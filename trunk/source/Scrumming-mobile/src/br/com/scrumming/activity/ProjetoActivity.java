@@ -13,8 +13,14 @@ import br.com.scrumming.interfaces.ClickedOnProjeto;
 
 public class ProjetoActivity extends ActionBarActivity implements ClickedOnProjeto, ClickedOnLogout, ClickedOnHome{
 
+	//Instanciação dos Objetos e variáveis
 	ProjetoFragment projetoFragment;
 	
+	/**
+	* Método de criação da Activity
+	* @param Bundle savedInstanceState
+	* @return void
+	*/
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,6 +35,12 @@ public class ProjetoActivity extends ActionBarActivity implements ClickedOnProje
 		}
 	}
 
+	/**
+	* Método proviniente da interface para exibir a activity com a lista de Sprints
+	* @param Projeto projeto
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @return void 
+	*/
 	@Override
 	public void projetoFoiClicado(Projeto projeto, UsuarioEmpresa usuarioEmpresa) {
 		Intent it2 = new Intent(this, SprintActivity.class);
@@ -38,6 +50,11 @@ public class ProjetoActivity extends ActionBarActivity implements ClickedOnProje
 		
 	}
 	
+	/**
+	* Método para aplicar logout e voltar para a tela de login
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @return void
+	*/
 	@Override
 	public void clicouNoLogout(UsuarioEmpresa usuarioEmpresa) {
 		Intent intencao = new Intent(this, LoginActivity.class);
@@ -45,9 +62,13 @@ public class ProjetoActivity extends ActionBarActivity implements ClickedOnProje
 		startActivity(intencao);			
 	}
 
+	/**
+	* Método para encerrar a activity de Projeto
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @return void
+	*/
 	@Override
 	public void clicouNoHome(UsuarioEmpresa usuarioEmpresa) {
 		finish();
 	}
-	
 }

@@ -24,11 +24,17 @@ import br.com.scrumming.interfaces.ClickedOnTarefaReporteItem;
 public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout, ClickedOnHome, TabListener, 
 												ClickedOnTarefa, ClickedOnTarefaReporteItem{
 	
+	//Instanciação dos Objetos e variáveis
 	TarefaPlanejadaFragment tarefaPlanejadaFragment;
 	TarefaProcessFragment tarefaProcessFragment;
 	TarefaImpedimentoFragment tarefaImpedimentoFragment;
 	TarefaConcluidaFragment tarefaConcluidaFragment;
 	
+	/**
+	* Método de criação da Activity
+	* @param Bundle savedInstanceState
+	* @return void
+	*/
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -89,12 +95,23 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 		}
 	}
 
+	/**
+	* Método herdado da interface TabListener usado ao reselecionar uma aba
+	* @param Tab arg0
+	* @param FragmentTransaction arg1
+	* @return void
+	*/
 	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
+	/**
+	* Método herdado da interface TabListener usado ao selecionar uma aba
+	* @param Tab tab
+	* @param FragmentTransaction ft
+	* @return void
+	*/
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		if (tab.getPosition() == 0){
@@ -114,22 +131,37 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 											.hide(tarefaImpedimentoFragment)
 											.hide(tarefaPlanejadaFragment);
 		}
-		
 	}
 
+	/**
+	* Método herdado da interface TabListener usado ao deselecionar uma aba
+	* @param Tab arg0
+	* @param FragmentTransaction arg1
+	* @return void
+	*/
 	@Override
 	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
-		
 	}
 	
+	/**
+	* Método usado para salvar o estado da instancia da activity
+	* @param Bundle outState
+	* @return void
+	*/
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putInt("tab", getSupportActionBar().getSelectedNavigationIndex());
-		
 	}
 	
+	/**
+	* Método proviniente da interface para exibir a activity responsável pelo reporte de horas da tarefa
+	* @param ItemBacklog itemBacklog
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @param Sprint sprint
+	* @return void 
+	*/
 	@Override
 	public void clicouNaTarefa(ItemBacklog itemBacklog, UsuarioEmpresa usuarioEmpresa, Sprint sprint) {
 		Intent intentTarefa = new Intent(this, TarefaReportActivity.class);
@@ -137,22 +169,38 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 		intentTarefa.putExtra("usuarioEmpresa", usuarioEmpresa);
 		intentTarefa.putExtra("sprint", sprint);
 		startActivity(intentTarefa);
-		
 	}
 	
+	/**
+	* Método para aplicar logout e voltar para a tela de login
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @return void
+	*/
 	@Override
 	public void clicouNoLogout(UsuarioEmpresa usuarioEmpresa) {
 		Intent intencao = new Intent(this, LoginActivity.class);
 		intencao.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intencao);
-		
 	}
 
+	/**
+	* Método para encerrar a activity de Tarefa
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @return void
+	*/
 	@Override
 	public void clicouNoHome(UsuarioEmpresa usuarioEmpresa) {
 		finish();
 	}
 
+	/**
+	* Método proviniente da interface para exibir a activity responsável pelo reporte de horas da tarefa
+	* @param ItemBacklog itemBacklog
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @param Sprint sprint
+	* @param Tarefa tarefa
+	* @return void 
+	*/
 	@Override
 	public void clicouNaTarefaReportItem(ItemBacklog itemBacklog, UsuarioEmpresa usuarioEmpresa, 
 							Sprint sprint, Tarefa tarefa) {
@@ -162,8 +210,5 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 		intentTarefa.putExtra("sprint", sprint);
 		intentTarefa.putExtra("tarefa", tarefa);
 		startActivity(intentTarefa);
-		
 	}
-
-		
 }

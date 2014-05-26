@@ -14,8 +14,14 @@ import br.com.scrumming.interfaces.ClickedOnSprint;
 
 public class SprintActivity extends ActionBarActivity implements ClickedOnSprint, ClickedOnLogout, ClickedOnHome{
 	
+	//Instanciação dos Objetos e variáveis
 	SprintFragment sprintFragment;
 	
+	/**
+	* Método de criação da Activity
+	* @param Bundle savedInstanceState
+	* @return void
+	*/
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,9 +35,14 @@ public class SprintActivity extends ActionBarActivity implements ClickedOnSprint
 			sprintFragment = SprintFragment.novaInstancia(projeto, usuarioEmpresa);
 			getSupportFragmentManager().beginTransaction().add(R.id.master, sprintFragment, "sf").commit();	
 		}
-				
 	}
 	
+	/**
+	* Método proviniente da interface para exibir a activity com a lista de Itens de Backlog
+	* @param Sprint sprint
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @return void 
+	*/
 	@Override
 	public void sprintFoiClicada(Sprint sprint, UsuarioEmpresa usuarioEmpresa) {
 		Intent it3 = new Intent(this, SprintBacklogActivity.class);
@@ -40,6 +51,11 @@ public class SprintActivity extends ActionBarActivity implements ClickedOnSprint
 		startActivity(it3);
 	}
 
+	/**
+	* Método para aplicar logout e voltar para a tela de login
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @return void
+	*/
 	@Override
 	public void clicouNoLogout(UsuarioEmpresa usuarioEmpresa) {
 		Intent intencao = new Intent(this, LoginActivity.class);
@@ -48,9 +64,13 @@ public class SprintActivity extends ActionBarActivity implements ClickedOnSprint
 		
 	}
 
+	/**
+	* Método para encerrar a activity de Sprint
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @return void
+	*/
 	@Override
 	public void clicouNoHome(UsuarioEmpresa usuarioEmpresa) {
 		finish();
 	}
-	
 }
