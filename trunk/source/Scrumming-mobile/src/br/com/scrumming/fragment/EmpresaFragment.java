@@ -40,9 +40,9 @@ public class EmpresaFragment extends ListFragment {
 		Bundle args = new Bundle();
 		args.putSerializable("usuario", usuario);
 
-		EmpresaFragment bvf = new EmpresaFragment();
-		bvf.setArguments(args);
-		return bvf;
+		EmpresaFragment ef = new EmpresaFragment();
+		ef.setArguments(args);
+		return ef;
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class EmpresaFragment extends ListFragment {
 
 		View layout = inflater.inflate(R.layout.fragment_empresas, container, false);
 		
-		progressEmpresa    = (ProgressBar)layout.findViewById(R.id.progressBarEmpresa);
+		progressEmpresa = (ProgressBar)layout.findViewById(R.id.progressBarEmpresa);
 		txtMensagemEmpresa = (TextView)layout.findViewById(R.id.txtMensagemEmpresa);
 		
 		usuario = (Usuario) getArguments().getSerializable("usuario");
@@ -162,7 +162,7 @@ public class EmpresaFragment extends ListFragment {
 				AtualizarLista();
 				txtMensagemEmpresa.setVisibility(View.GONE);
 			}else{
-				txtMensagemEmpresa.setText("Não Existe Empresas Cadastrados");
+				txtMensagemEmpresa.setText("Não Existem Empresas Cadastradas");
 			}
 			progressEmpresa.setVisibility(View.GONE);
 		}
