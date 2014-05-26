@@ -34,6 +34,7 @@ import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.interfaces.ClickedOnTarefaReporteItem;
 import br.com.scrumming.rest.RestTarefa;
+import br.com.scrumming.rest.RestTarefaReport;
 
 public class TarefaPlanejadaFragment extends ListFragment {
 	
@@ -47,6 +48,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 	SprintBacklog sprintBacklog;
 	ProgressBar progressTarefa;
 	TextView txtMensagemTarefa, txtMensagemTarefaStatus;
+	Tarefa tarefaSelecionada;
 	
 	public static TarefaPlanejadaFragment novaInstancia(ItemBacklog itemBacklog, UsuarioEmpresa usuarioEmpresa, Sprint sprint){
 		Bundle args = new Bundle();
@@ -175,16 +177,25 @@ public class TarefaPlanejadaFragment extends ListFragment {
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
 		
-		Tarefa tarefaSelecionada = (Tarefa)getListView().getItemAtPosition(info.position);
+		tarefaSelecionada = (Tarefa)getListView().getItemAtPosition(info.position);
 		
 		switch (item.getItemId()) {
-		case R.id.opcao1:
-			if (getActivity() instanceof ClickedOnTarefaReporteItem) {
-				((ClickedOnTarefaReporteItem)getActivity())
-							.clicouNaTarefaReportItem(itemBacklog, usuarioEmpresa, 
-													  sprint, tarefaSelecionada);
+		case R.id.opcaoAlterarProcessando:
+			 //tarefaSelecionada.setSituacao(SituacaoTarefaEnum.FAZENDO);
+			 new Thread(new Runnable() {
+			        public void run() {
+			        	RestTarefa.salvarOuAtualizarTarefa(tarefaSelecionada.getCodigo(), 
+										        			SituacaoTarefaEnum.FAZENDO, 
+										        			usuarioEmpresa.getUsuario().getCodigo());
+			        }
+			    }).start();
+			 for (int i = 0; i < listaTarefa.size(); i++) {
+				if (listaTarefa.get(i).getCodigo() == tarefaSelecionada.getCodigo()) {
+					listaTarefa.remove(i);
+				}
+				AtualizarListaDeTarefa();
 			}
-
+			 
 		default:
 			break;
 		}
