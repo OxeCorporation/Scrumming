@@ -30,7 +30,6 @@ import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
-import br.com.scrumming.interfaces.ClickedOnTarefa;
 import br.com.scrumming.interfaces.ClickedOnTarefaReporteItem;
 import br.com.scrumming.rest.RestTarefa;
 
@@ -182,13 +181,8 @@ public class TarefaProcessFragment extends ListFragment {
 				for (int i = 0; i < tarefas.size(); i++) {
 					if (tarefas.get(i).getSituacao() == SituacaoTarefaEnum.FAZENDO) {
 						listaTarefa.add(tarefas.get(i));
-						
-					}/*else{
-						txtMensagemTarefaStatus.setVisibility(View.VISIBLE);
-						txtMensagemTarefaStatus.setText("Não há tarefa planejada para esse item");
-					}*/
+					}
 				}
-				
 				AtualizarListaDeTarefa();
 				txtMensagemTarefa.setVisibility(View.GONE);
 			}else {

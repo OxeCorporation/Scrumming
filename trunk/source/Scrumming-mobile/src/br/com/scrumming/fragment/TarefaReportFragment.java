@@ -3,9 +3,8 @@ package br.com.scrumming.fragment;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import android.annotation.SuppressLint;
-import android.os.AsyncTask;
-import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -20,7 +19,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import br.com.scrumming.R;
 import br.com.scrumming.domain.ItemBacklog;
@@ -34,7 +32,6 @@ import br.com.scrumming.rest.RestTarefaReport;
 
 public class TarefaReportFragment extends Fragment {
 
-	AsyncTaskTarefaReport taskTarefa;
 	ItemBacklog itemBacklog;
 	UsuarioEmpresa usuarioEmpresa;
 	EditText textTempoReport, textTempoRestante, textDataReport;
@@ -66,14 +63,6 @@ public class TarefaReportFragment extends Fragment {
 				.getSupportActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
 		ab.setTitle("Reporte");
-
-		if (taskTarefa != null && taskTarefa.getStatus() == Status.RUNNING) {
-			// mostrarProgress();
-
-		} else {
-			taskTarefa = new AsyncTaskTarefaReport();
-			taskTarefa.execute(itemBacklog.getCodigo());
-		}
 
 	}
 
@@ -145,10 +134,7 @@ public class TarefaReportFragment extends Fragment {
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
-
 			}
-
 		});
 
 		return layout;
@@ -166,7 +152,6 @@ public class TarefaReportFragment extends Fragment {
 		case R.id.logout:
 			if (getActivity() instanceof ClickedOnLogout) {
 				((ClickedOnLogout) getActivity()).clicouNoLogout(null);
-				;
 			}
 			break;
 
@@ -179,19 +164,6 @@ public class TarefaReportFragment extends Fragment {
 		return super.onOptionsItemSelected(item);
 	}
 
-	class AsyncTaskTarefaReport extends AsyncTask<Integer, Void, Void> {
-
-		protected void doInBackgroundReport(TarefaReporte tarefaReport,
-				Integer... params) {
-		}
-
-		@Override
-		protected Void doInBackground(Integer... params) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-	}
 
 	private OnClickListener btnReportOnClickListener = new OnClickListener() {
 		@Override
@@ -203,9 +175,6 @@ public class TarefaReportFragment extends Fragment {
 			        			itemBacklog.getCodigo(), tarefa.getCodigo());
 			        }
 			    }).start();			 
-//			 
-//			taskTarefa.doInBackgroundReport(tarefaReport, sprint.getCodigo(),
-//					usuarioEmpresa.getUsuario().getCodigo());
 		}
 
 		private void setarTarefaReporte() {
