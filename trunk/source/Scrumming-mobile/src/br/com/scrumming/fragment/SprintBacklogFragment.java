@@ -32,6 +32,7 @@ import br.com.scrumming.rest.RestSprintBacklog;
 
 public class SprintBacklogFragment extends ListFragment {
 	
+	//Instanciação dos Objetos e variáveis
 	List<ItemBacklog> listaItemBacklog;
 	AsyncTaskSprintBacklog taskSprintBacklog;
 	Sprint sprint;
@@ -41,7 +42,12 @@ public class SprintBacklogFragment extends ListFragment {
 	ProgressBar progressSprintBacklog;
 	TextView txtMensagemSprintBacklog;
 	
-	
+	/**
+	* Método que gera uma nova instancia do fragment de ItemBacklog
+	* @param Sprint sprint
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @return SpringBacklogFragment
+	*/
 	public static SprintBacklogFragment novaInstancia(Sprint sprint, UsuarioEmpresa usuarioEmpresa){
 		Bundle args = new Bundle();
 		args.putSerializable("sprint", sprint);
@@ -52,6 +58,11 @@ public class SprintBacklogFragment extends ListFragment {
 		return sbf;
 	}
 	
+	/**
+	* Método utilizado no momento que a Activity do fragment é criada
+	* @param Bundle savedInstanceState
+	* @return void
+	*/
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -79,12 +90,20 @@ public class SprintBacklogFragment extends ListFragment {
 		
 	}
 	
+	/**
+	* Método utilizado para exibir uma imagem de Carregando enquanto os dados estiverem sendo baixados
+	* @return void
+	*/
 	private void mostrarProgress() {
 		progressSprintBacklog.setVisibility(View.VISIBLE);
 		txtMensagemSprintBacklog.setVisibility(View.VISIBLE);
 		txtMensagemSprintBacklog.setText("Carregando...");
 	}
 
+	/**
+	* Método utlilizado para realizar o download dos dados através de uma AsyncTask especifica
+	* @return void
+	*/
 	private void iniciarDownload(){
 		
 		ConnectivityManager cm = (ConnectivityManager) getActivity()
@@ -101,6 +120,13 @@ public class SprintBacklogFragment extends ListFragment {
 		}
 	}
 	
+	/**
+	* Método utilizado no momento que a View é criada
+	* @param LayoutInflater inflater
+	* @param ViewGroup container
+	* @param Bundle savedInstanceState
+	* @return View
+	*/
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
@@ -117,6 +143,12 @@ public class SprintBacklogFragment extends ListFragment {
 		return layout;
 	}
 	
+	/**
+	* Método utilizado para exibir as opçoes de menu
+	* @param Menu menu
+	* @param MenuInflater inflater
+	* @return Void
+	*/
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
@@ -130,6 +162,12 @@ public class SprintBacklogFragment extends ListFragment {
 	 * @return boolean (true)
 	 * 
 	 * */
+	
+	/**
+	* Método utilizado ao clicar em uma opção no menu
+	* @param MenuItem item
+	* @return boolean
+	*/
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -148,6 +186,14 @@ public class SprintBacklogFragment extends ListFragment {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	/**
+	* Método utilizado ao clicar em um item da lista do fragment
+	* @param ListView l
+	* @param View v
+	* @param int position
+	* @param long id
+	* @return void
+	*/
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
@@ -156,23 +202,42 @@ public class SprintBacklogFragment extends ListFragment {
 		}
 	}
 
+	/**
+	* Método utilizado para atualizar a lista do fragment de ItemBacklog
+	* @return void
+	*/
 	private void AtualizarListaDeItemBacklog() {
 		SprintBacklogAdapter adapter = new SprintBacklogAdapter(getActivity(), listaItemBacklog);
 		setListAdapter(adapter);
 	}
 	
+	//InnerClass do AsyncTask da Empresa
 	class AsyncTaskSprintBacklog extends AsyncTask<Integer, Void, List<ItemBacklog>>{
 		
+		/**
+		* Método proviniente da herança do AsyncTask para executar algo antes do DoInBackground 
+		* @return void
+		*/
 		@Override
 		protected void onPreExecute() {
 			mostrarProgress();
 		}
 		
+		/**
+		* Método proviniente da herança do AsyncTask para executar algo em uma thread paralela a Activity atual
+		* @param Integer... params
+		* @return Lista de ItemBacklogs
+		*/
 		@Override
 		protected List<ItemBacklog> doInBackground(Integer... params) {
 			return RestSprintBacklog.retornarSprintBacklog(params[0], params[1]);
 		}
 		
+		/**
+		* Método proviniente da herança do AsyncTask para executar algo depois do DoInBackground 
+		* @param Lista de ItemBacklogs
+		* @return void
+		*/
 		@Override
 		protected void onPostExecute(List<ItemBacklog> itemBacklog) {
 			super.onPostExecute(itemBacklog);

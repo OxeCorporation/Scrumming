@@ -32,6 +32,7 @@ import br.com.scrumming.rest.RestTarefaReport;
 
 public class TarefaReportFragment extends Fragment {
 
+	//Instanciação dos Objetos e variáveis
 	ItemBacklog itemBacklog;
 	UsuarioEmpresa usuarioEmpresa;
 	EditText textTempoReport, textTempoRestante, textDataReport;
@@ -39,6 +40,13 @@ public class TarefaReportFragment extends Fragment {
 	Tarefa tarefa;
 	Sprint sprint;
 
+	/**
+	* Método que gera uma nova instancia do fragment de TarefaReport
+	* @param ItemBacklog itemBacklog
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @param Sprint sprint
+	* @return TarefaReportFragment
+	*/
 	public static TarefaReportFragment novaInstancia(ItemBacklog itemBacklog,
 			Tarefa tarefa, Sprint sprint, UsuarioEmpresa usuarioEmpresa) {
 		Bundle args = new Bundle();
@@ -52,6 +60,11 @@ public class TarefaReportFragment extends Fragment {
 		return bvf;
 	}
 
+	/**
+	* Método utilizado no momento que a Activity do fragment é criada
+	* @param Bundle savedInstanceState
+	* @return void
+	*/
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -66,6 +79,13 @@ public class TarefaReportFragment extends Fragment {
 
 	}
 
+	/**
+	* Método utilizado no momento que a View é criada
+	* @param LayoutInflater inflater
+	* @param ViewGroup container
+	* @param Bundle savedInstanceState
+	* @return View
+	*/
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
@@ -140,12 +160,23 @@ public class TarefaReportFragment extends Fragment {
 		return layout;
 	}
 
+	/**
+	* Método utilizado para exibir as opçoes de menu
+	* @param Menu menu
+	* @param MenuInflater inflater
+	* @return Void
+	*/
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.menu_fragment_telas, menu);
 	}
 
+	/**
+	* Método utilizado ao clicar em uma opção no menu
+	* @param MenuItem item
+	* @return boolean
+	*/
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -164,7 +195,11 @@ public class TarefaReportFragment extends Fragment {
 		return super.onOptionsItemSelected(item);
 	}
 
-
+	/**
+	* Método de clicar no botão de reportagem de horas
+	* @param View v
+	* @return void 
+	*/
 	private OnClickListener btnReportOnClickListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -211,5 +246,4 @@ public class TarefaReportFragment extends Fragment {
 			getActivity().finish();
 		}
 	};
-
 }

@@ -31,6 +31,7 @@ import br.com.scrumming.rest.RestTarefa;
 
 public class TarefaFavoritaFragment extends ListFragment {
 	
+	//Instanciação dos Objetos e variáveis
 	List<Tarefa> listaTarefa;
 	AsyncTaskTarefa taskTarefa;
 	ItemBacklog itemBacklog;
@@ -41,6 +42,13 @@ public class TarefaFavoritaFragment extends ListFragment {
 	ProgressBar progressTarefa;
 	TextView txtMensagemTarefa;
 	
+	/**
+	* Método que gera uma nova instancia do fragment de TarefaFavorita
+	* @param ItemBacklog itemBacklog
+	* @param UsuarioEmpresa usuarioEmpresa
+	* @param Sprint sprint
+	* @return TarefaFavoritaFragment
+	*/
 	public static TarefaFavoritaFragment novaInstancia(ItemBacklog itemBacklog, UsuarioEmpresa usuarioEmpresa, Sprint sprint){
 		Bundle args = new Bundle();
 		args.putSerializable("itemBacklog", itemBacklog);
@@ -51,6 +59,11 @@ public class TarefaFavoritaFragment extends ListFragment {
 		return tf;
 	}
 	
+	/**
+	* Método utilizado no momento que a Activity do fragment é criada
+	* @param Bundle savedInstanceState
+	* @return void
+	*/
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -76,15 +89,22 @@ public class TarefaFavoritaFragment extends ListFragment {
 				
 			}
 		}
-		
 	}
 	
+	/**
+	* Método utilizado para exibir uma imagem de Carregando enquanto os dados estiverem sendo baixados
+	* @return void
+	*/
 	private void mostrarProgress() {
 		progressTarefa.setVisibility(View.VISIBLE);
 		txtMensagemTarefa.setVisibility(View.VISIBLE);
 		txtMensagemTarefa.setText("Carregando...");
 	}
 
+	/**
+	* Método utlilizado para realizar o download dos dados através de uma AsyncTask especifica
+	* @return void
+	*/
 	private void iniciarDownload(){
 		
 		ConnectivityManager cm = (ConnectivityManager) getActivity()
@@ -101,6 +121,13 @@ public class TarefaFavoritaFragment extends ListFragment {
 		}
 	}
 	
+	/**
+	* Método utilizado no momento que a View é criada
+	* @param LayoutInflater inflater
+	* @param ViewGroup container
+	* @param Bundle savedInstanceState
+	* @return View
+	*/
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
@@ -117,12 +144,23 @@ public class TarefaFavoritaFragment extends ListFragment {
 		return layout;
 	}
 	
+	/**
+	* Método utilizado para exibir as opçoes de menu
+	* @param Menu menu
+	* @param MenuInflater inflater
+	* @return Void
+	*/
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.menu_fragment_telas, menu);
 	}
 	
+	/**
+	* Método utilizado ao clicar em uma opção no menu
+	* @param MenuItem item
+	* @return boolean
+	*/
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -141,23 +179,42 @@ public class TarefaFavoritaFragment extends ListFragment {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	/**
+	* Método utilizado para atualizar a lista do fragment de Tarefas
+	* @return void
+	*/
 	private void AtualizarListaDeTarefa() {
 		TarefaAdapter adapter = new TarefaAdapter(getActivity(), listaTarefa);
 		setListAdapter(adapter);
 	}
 	
+	//InnerClass do AsyncTask da Empresa
 	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<Tarefa>>{
 
+		/**
+		* Método proviniente da herança do AsyncTask para executar algo antes do DoInBackground 
+		* @return void
+		*/
 		@Override
 		protected void onPreExecute() {
 			mostrarProgress();
 		}
 		
+		/**
+		* Método proviniente da herança do AsyncTask para executar algo em uma thread paralela a Activity atual
+		* @param Integer... params
+		* @return Lista de Tarefas
+		*/
 		@Override
 		protected List<Tarefa> doInBackground(Integer... params) {
 			return RestTarefa.retornarTarefa(params[0]);
 		}
 		
+		/**
+		* Método proviniente da herança do AsyncTask para executar algo depois do DoInBackground 
+		* @param Lista de Tarefas
+		* @return void
+		*/
 		@Override
 		protected void onPostExecute(List<Tarefa> tarefas) {
 			super.onPostExecute(tarefas);
@@ -170,7 +227,5 @@ public class TarefaFavoritaFragment extends ListFragment {
 			}
 			progressTarefa.setVisibility(View.GONE);
 		}
-
 	}
-
 }
