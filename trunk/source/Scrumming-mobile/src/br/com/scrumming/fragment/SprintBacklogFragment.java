@@ -47,9 +47,9 @@ public class SprintBacklogFragment extends ListFragment {
 		args.putSerializable("sprint", sprint);
 		args.putSerializable("usuarioEmpresa", usuarioEmpresa);
 		
-		SprintBacklogFragment bvf = new SprintBacklogFragment();
-		bvf.setArguments(args);
-		return bvf;
+		SprintBacklogFragment sbf = new SprintBacklogFragment();
+		sbf.setArguments(args);
+		return sbf;
 	}
 	
 	@Override
@@ -110,9 +110,9 @@ public class SprintBacklogFragment extends ListFragment {
 		txtMensagemSprintBacklog = (TextView)layout.findViewById(R.id.txtMensagemSprintBacklog);
 		
 		//pega a sprint clicada no sprintFragment para listar os itensbacklog da sprint
-		sprint         = (Sprint) getArguments().getSerializable("sprint");
-		usuarioEmpresa = (UsuarioEmpresa)getArguments().getSerializable("usuarioEmpresa");
-		projeto 	   = (Projeto)sprint.getProjeto();
+		sprint = (Sprint) getArguments().getSerializable("sprint");
+		usuarioEmpresa = (UsuarioEmpresa) getArguments().getSerializable("usuarioEmpresa");
+		projeto = (Projeto)sprint.getProjeto();
 		
 		return layout;
 	}
@@ -181,11 +181,9 @@ public class SprintBacklogFragment extends ListFragment {
 				AtualizarListaDeItemBacklog();
 				txtMensagemSprintBacklog.setVisibility(View.GONE);
 			}else {
-				txtMensagemSprintBacklog.setText("Não Existe Projetos Cadastrados");
+				txtMensagemSprintBacklog.setText("Não Existem Itens de Backlog Cadastrados");
 			}
 			progressSprintBacklog.setVisibility(View.GONE);
 		}
-
 	}
-
 }
