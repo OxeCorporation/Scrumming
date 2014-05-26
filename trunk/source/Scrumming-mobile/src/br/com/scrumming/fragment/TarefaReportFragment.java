@@ -49,11 +49,11 @@ public class TarefaReportFragment extends Fragment {
 		args.putSerializable("usuarioEmpresa", usuarioEmpresa);
 		args.putSerializable("sprint", sprint);
 		args.putSerializable("tarefa", tarefa);
-		
+
 		TarefaReportFragment bvf = new TarefaReportFragment();
 		bvf.setArguments(args);
 		return bvf;
-	} 
+	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -83,14 +83,13 @@ public class TarefaReportFragment extends Fragment {
 		View layout = inflater.inflate(R.layout.fragment_tarefa_report,
 				container, false);
 
-		 textTempoReport = (EditText)
-		 layout.findViewById(R.id.editTempoReport);
-		 textTempoRestante = (EditText) layout
-		 .findViewById(R.id.editTempoRestante);
-		 Button btnReportar = (Button) layout.findViewById(R.id.btmReport);
-		 btnReportar.setOnClickListener(btnReportOnClickListener);
-		 Button btnCancelar = (Button) layout.findViewById(R.id.btmCancelar);
-		 btnCancelar.setOnClickListener(btnCancelarOnClickListener);
+		textTempoReport = (EditText) layout.findViewById(R.id.editTempoReport);
+		textTempoRestante = (EditText) layout
+				.findViewById(R.id.editTempoRestante);
+		Button btnReportar = (Button) layout.findViewById(R.id.btmReport);
+		btnReportar.setOnClickListener(btnReportOnClickListener);
+		Button btnCancelar = (Button) layout.findViewById(R.id.btmCancelar);
+		btnCancelar.setOnClickListener(btnCancelarOnClickListener);
 
 		itemBacklog = (ItemBacklog) getArguments().getSerializable(
 				"itemBacklog");
@@ -99,8 +98,7 @@ public class TarefaReportFragment extends Fragment {
 		tarefa = (Tarefa) getArguments().getSerializable("tarefa");
 		sprint = (Sprint) getArguments().getSerializable("sprint");
 
-		textDataReport = (EditText) layout
-				.findViewById(R.id.editDataReport);
+		textDataReport = (EditText) layout.findViewById(R.id.editDataReport);
 
 		textDataReport.addTextChangedListener(new TextWatcher() {
 
@@ -133,7 +131,8 @@ public class TarefaReportFragment extends Fragment {
 					}
 					isUpdating = true;
 					textDataReport.setText(str);
-					textDataReport.setSelection(textDataReport.getText().length());
+					textDataReport.setSelection(textDataReport.getText()
+							.length());
 				} else {
 					isUpdating = true;
 					textDataReport.setText(str);
@@ -184,8 +183,6 @@ public class TarefaReportFragment extends Fragment {
 
 		protected void doInBackgroundReport(TarefaReporte tarefaReport,
 				Integer... params) {
-			RestTarefaReport.retornarTarefaReport(tarefaReport, params[1],
-					params[2]);
 		}
 
 		@Override
@@ -200,33 +197,44 @@ public class TarefaReportFragment extends Fragment {
 		@Override
 		public void onClick(View v) {
 			setarTarefaReporte();
-
-			taskTarefa.doInBackgroundReport(tarefaReport, sprint.getCodigo(),
-					usuarioEmpresa.getUsuario().getCodigo());
+			 new Thread(new Runnable() {
+			        public void run() {
+			        	RestTarefaReport.retornarTarefaReport(tarefaReport, sprint.getCodigo(),
+			        			itemBacklog.getCodigo());
+			        }
+			    }).start();			 
+//			 
+//			taskTarefa.doInBackgroundReport(tarefaReport, sprint.getCodigo(),
+//					usuarioEmpresa.getUsuario().getCodigo());
 		}
 
 		private void setarTarefaReporte() {
 			tarefaReport = new TarefaReporte();
 			tarefaReport.setTarefa(tarefa);
 			tarefaReport.setUsuario(usuarioEmpresa.getUsuario());
-			tarefaReport.setDataReporte(ConvertToDateBR(textDataReport.getText().toString()));
-			tarefaReport.setTempoReportado(Integer.parseInt(textTempoReport.getText().toString()));
-			tarefaReport.setTempoRestante(Integer.parseInt(textTempoRestante.getText().toString()));
+			tarefaReport.setDataReporte(ConvertToDateBR(textDataReport
+					.getText().toString()));
+			tarefaReport.setTempoReportado(Integer.parseInt(textTempoReport
+					.getText().toString()));
+			tarefaReport.setTempoRestante(Integer.parseInt(textTempoRestante
+					.getText().toString()));
 		}
+
 		@SuppressLint("SimpleDateFormat")
-		private Date ConvertToDateBR(String dateString){  
-            if (dateString!=null) {  
-				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
-              Date convertedDate;  
-              try {  
-                convertedDate = dateFormat.parse(dateString);  
-              } catch (ParseException e) {  
-                e.printStackTrace();  
-                return null;  
-              }  
-              return convertedDate;  
-            } return null;  
-  }  
+		private Date ConvertToDateBR(String dateString) {
+			if (dateString != null) {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				Date convertedDate;
+				try {
+					convertedDate = dateFormat.parse(dateString);
+				} catch (ParseException e) {
+					e.printStackTrace();
+					return null;
+				}
+				return convertedDate;
+			}
+			return null;
+		}
 	};
 	private OnClickListener btnCancelarOnClickListener = new OnClickListener() {
 		@Override
