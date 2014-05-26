@@ -92,10 +92,19 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		sprint.setSituacaoSprint(SituacaoSprintEnum.ABERTA);
 		sprint.setDataCadastro(new DateTime());
 		
-		List<Sprint> sprints = sprintRepositorio.consultaTodasComExcessao(sprint.getProjeto().getCodigo(), sprint.getCodigo());
-		for (Sprint sprint2 : sprints) {
-			if (sprint.getDataInicio().isBefore(sprint2.getDataFim()) && sprint2.getCodigo() != sprint.getCodigo()) {
-				throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_DATA_SPRINT_EXISTE);
+		if (sprint.getCodigo() != null) {
+			List<Sprint> sprints = sprintRepositorio.consultaTodasComExcessao(sprint.getProjeto().getCodigo(), sprint.getCodigo());
+			for (Sprint sprint2 : sprints) {
+				if (sprint.getDataInicio().isBefore(sprint2.getDataFim()) && sprint2.getCodigo() != sprint.getCodigo()) {
+					throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_DATA_SPRINT_EXISTE);
+				}
+			}
+		} else {
+			List<Sprint> sprints = sprintRepositorio.consultarPorProjeto(sprint.getProjeto().getCodigo());
+			for (Sprint sprint2 : sprints) {
+				if (sprint.getDataInicio().isBefore(sprint2.getDataFim())) {
+					throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_DATA_SPRINT_EXISTE);
+				}
 			}
 		}
 		
