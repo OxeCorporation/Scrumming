@@ -46,9 +46,9 @@ public class ProjetoFragment extends ListFragment{
 		Bundle args = new Bundle();
 		args.putSerializable("usuarioEmpresa", usuarioEmpresa);
 		
-		ProjetoFragment bvf = new ProjetoFragment();
-		bvf.setArguments(args);
-		return bvf;
+		ProjetoFragment pf = new ProjetoFragment();
+		pf.setArguments(args);
+		return pf;
 	}
 	
 	@Override
@@ -101,12 +101,12 @@ public class ProjetoFragment extends ListFragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		View layout 	   = inflater.inflate(R.layout.fragment_projetos, container,false);
+		View layout = inflater.inflate(R.layout.fragment_projetos, container,false);
 		
-		progressProjeto    = (ProgressBar)layout.findViewById(R.id.progressBarProjeto);
+		progressProjeto = (ProgressBar)layout.findViewById(R.id.progressBarProjeto);
 		txtMensagemProjeto = (TextView)layout.findViewById(R.id.txtMensagemProjeto);
 		
-		usuarioEmpresa 	   = (UsuarioEmpresa) getArguments().getSerializable("usuarioEmpresa");
+		usuarioEmpresa = (UsuarioEmpresa) getArguments().getSerializable("usuarioEmpresa");
 		
 		return layout;
 	}
@@ -173,10 +173,9 @@ public class ProjetoFragment extends ListFragment{
 				AtualizarListaDeProjetos();
 				txtMensagemProjeto.setVisibility(View.GONE);
 			}else{
-				txtMensagemProjeto.setText("Não Existe Projetos Cadastrados");
+				txtMensagemProjeto.setText("Não Existem Projetos Cadastrados");
 			}
 			progressProjeto.setVisibility(View.GONE);
 		}
-		
 	}
 }
