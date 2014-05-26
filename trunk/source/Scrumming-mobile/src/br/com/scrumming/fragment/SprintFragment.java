@@ -42,9 +42,9 @@ public class SprintFragment extends ListFragment {
 		Bundle args = new Bundle();
 		args.putSerializable("projeto", projeto);
 		args.putSerializable("usuarioEmpresa", usuarioEmpresa);
-		SprintFragment bvf = new SprintFragment();
-		bvf.setArguments(args);
-		return bvf;
+		SprintFragment sf = new SprintFragment();
+		sf.setArguments(args);
+		return sf;
 	}
 	
 	@Override
@@ -101,7 +101,7 @@ public class SprintFragment extends ListFragment {
 		
 		View layout = inflater.inflate(R.layout.fragment_sprint, container, false);
 		
-		progressSprint    = (ProgressBar)layout.findViewById(R.id.progressBarSprint);
+		progressSprint = (ProgressBar)layout.findViewById(R.id.progressBarSprint);
 		txtMensagemSprint = (TextView)layout.findViewById(R.id.txtMensagemSprint);
 		
 		//pega o projeto clicado no projetoFragment para listar as sprints correspondentes a esse projeto
@@ -175,7 +175,7 @@ public class SprintFragment extends ListFragment {
 				AtualizarListaDeSprints();
 				txtMensagemSprint.setVisibility(View.GONE);
 			}else{
-				txtMensagemSprint.setText("Não Existe Projetos Cadastrados");
+				txtMensagemSprint.setText("Não Existem Sprints Cadastradas");
 			}
 			progressSprint.setVisibility(View.GONE);
 		}
