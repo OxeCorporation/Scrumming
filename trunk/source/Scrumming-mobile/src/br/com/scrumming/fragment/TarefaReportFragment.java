@@ -200,7 +200,7 @@ public class TarefaReportFragment extends Fragment {
 			 new Thread(new Runnable() {
 			        public void run() {
 			        	RestTarefaReport.retornarTarefaReport(tarefaReport, sprint.getCodigo(),
-			        			itemBacklog.getCodigo());
+			        			itemBacklog.getCodigo(), tarefa.getCodigo());
 			        }
 			    }).start();			 
 //			 
