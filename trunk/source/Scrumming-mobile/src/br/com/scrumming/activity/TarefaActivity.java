@@ -43,6 +43,7 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 		ItemBacklog itemBacklog = (ItemBacklog)getIntent().getSerializableExtra("itemBacklog");
 		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa)getIntent().getSerializableExtra("usuarioEmpresa");
 		Sprint sprint = (Sprint)getIntent().getSerializableExtra("sprint");
+		//Tarefa tarefa = (Tarefa)getIntent().getSerializableExtra("tarefaSelecionada");
 		
 		tarefaPlanejadaFragment	    = (TarefaPlanejadaFragment)getSupportFragmentManager().findFragmentByTag("tpf");
 		tarefaProcessFragment  	    = (TarefaProcessFragment)getSupportFragmentManager().findFragmentByTag("tpcf");
@@ -65,6 +66,10 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 				.add(R.id.master, tarefaConcluidaFragment, "tcf")
 				.commit();
 		}
+//		} else if (tarefaProcessFragment != null && tarefa != null) {
+//			tarefaProcessFragment.modificarLista(tarefa);
+//			
+//		}
 		 
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);

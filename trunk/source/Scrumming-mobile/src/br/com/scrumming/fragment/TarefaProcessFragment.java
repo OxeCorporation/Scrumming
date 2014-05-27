@@ -195,7 +195,7 @@ public class TarefaProcessFragment extends ListFragment {
 	* Método utilizado para atualizar a lista do fragment de Tarefas
 	* @return void
 	*/
-	private void AtualizarListaDeTarefa() {
+	public void AtualizarListaDeTarefa() {
 		TarefaAdapter adapter = new TarefaAdapter(getActivity(), listaTarefa);
 		setListAdapter(adapter);
 	}
@@ -256,6 +256,7 @@ public class TarefaProcessFragment extends ListFragment {
 			 for (int i = 0; i < listaTarefa.size(); i++) {
 				if (listaTarefa.get(i).getCodigo() == tarefaSelecionada.getCodigo()) {
 					listaTarefa.remove(i);
+					
 				}
 				AtualizarListaDeTarefa();
 			}

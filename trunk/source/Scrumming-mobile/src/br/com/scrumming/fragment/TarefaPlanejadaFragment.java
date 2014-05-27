@@ -3,7 +3,10 @@ package br.com.scrumming.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
@@ -22,7 +25,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import br.com.scrumming.R;
+import br.com.scrumming.activity.TarefaActivity;
 import br.com.scrumming.adapter.TarefaAdapter;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
@@ -51,6 +56,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 	TextView txtMensagemTarefa, txtMensagemTarefaStatus;
 	Tarefa tarefaSelecionada;
 	TarefaFavorita tarefaFavorita;
+	TarefaProcessFragment tarefaProcessFragment;
 	
 	/**
 	* Método que gera uma nova instancia do fragment de TarefaPlanejada
@@ -243,37 +249,127 @@ public class TarefaPlanejadaFragment extends ListFragment {
 			 for (int i = 0; i < listaTarefa.size(); i++) {
 				if (listaTarefa.get(i).getCodigo() == tarefaSelecionada.getCodigo()) {
 					listaTarefa.remove(i);
+					
+					/*Intent itencao = new Intent(getActivity(), TarefaActivity.class);
+					itencao.putExtra("tarefaSelecionada", tarefaSelecionada);
+					startActivity(itencao);*/
 				}
 				AtualizarListaDeTarefa();
+				mensagemTarefaAlterada();
 			}
+			break;
 			 
 		case R.id.opcaoAtribuir:
-
-			tarefaSelecionada.setUsuario(usuarioEmpresa.getUsuario());
-			new Thread(new Runnable() {
-				public void run() {
-					RestTarefa.atribuirOuDesatribuirTarefa(tarefaSelecionada, 
-							itemBacklog.getCodigo(), 
-							usuarioEmpresa.getUsuario().getCodigo());
-				}
-			}).start();
-			AtualizarListaDeTarefa();
+			if (tarefaSelecionada != null) {
+				tarefaSelecionada.setUsuario(usuarioEmpresa.getUsuario());
+				new Thread(new Runnable() {
+					public void run() {
+						RestTarefa.atribuirOuDesatribuirTarefa(tarefaSelecionada, 
+								itemBacklog.getCodigo(), 
+								usuarioEmpresa.getUsuario().getCodigo());
+					}
+				}).start();
+				AtualizarListaDeTarefa();
+				mensagemTarefaAtribuida();
+			}
+			
 			break;
 			
 		case R.id.opcaoFavoritar:
+			
 			tarefaFavorita = new TarefaFavorita();
 			tarefaFavorita.setTarefa(tarefaSelecionada);
 			tarefaFavorita.setUsuario(usuarioEmpresa.getUsuario());
-			new Thread(new Runnable() {
-				public void run() {
-					RestTarefaFavorita.favoritarTarefa(tarefaFavorita);
-				}
-			}).start();
-			AtualizarListaDeTarefa();
+			if (tarefaFavorita != null) {
+				new Thread(new Runnable() {
+					public void run() {
+						RestTarefaFavorita.favoritarTarefa(tarefaFavorita);
+					}
+				}).start();
+				AtualizarListaDeTarefa();
+				mensagemTarefaFavoritada();
+			}
+
 			break;
 		}
 		
 		return super.onContextItemSelected(item);
+	}
+	
+	private void mensagemTarefaAlterada() {
+		
+			AlertDialog alertDialog = new AlertDialog.Builder(
+					getActivity()).create();
+
+			// Setting Dialog Title
+			alertDialog.setTitle("Alert Dialog");
+
+			// Setting Dialog Message
+			alertDialog.setMessage("Tarefa Alterada para em Processo");
+
+			// Setting Icon to Dialog
+			alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+
+			// Setting OK Button
+			alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					// Write your code here to execute after dialog closed
+					Toast.makeText(getActivity(), "Operação Realizada com Sucesso", Toast.LENGTH_SHORT).show();
+				}
+			});
+
+			// Showing Alert Message
+			alertDialog.show();
+	}
+
+	private void mensagemTarefaFavoritada(){
+		AlertDialog alertDialog = new AlertDialog.Builder(
+				getActivity()).create();
+
+		// Setting Dialog Title
+		alertDialog.setTitle("Alert Dialog");
+
+		// Setting Dialog Message
+		alertDialog.setMessage("Tarefa Favoritada");
+
+		// Setting Icon to Dialog
+		alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+
+		// Setting OK Button
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				// Write your code here to execute after dialog closed
+				Toast.makeText(getActivity(), "Operação Realizada com Sucesso", Toast.LENGTH_SHORT).show();
+			}
+		});
+
+		// Showing Alert Message
+		alertDialog.show();
+	}
+	
+	private void mensagemTarefaAtribuida(){
+		AlertDialog alertDialog = new AlertDialog.Builder(
+				getActivity()).create();
+
+		// Setting Dialog Title
+		alertDialog.setTitle("Alert Dialog");
+
+		// Setting Dialog Message
+		alertDialog.setMessage("Tarefa Atribuida a " + usuarioEmpresa.getUsuario().getNome());
+
+		// Setting Icon to Dialog
+		alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+
+		// Setting OK Button
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				// Write your code here to execute after dialog closed
+				Toast.makeText(getActivity(), "Operação Realizada com Sucesso", Toast.LENGTH_SHORT).show();
+			}
+		});
+
+		// Showing Alert Message
+		alertDialog.show();
 	}
 	
 	//InnerClass do AsyncTask da Empresa
