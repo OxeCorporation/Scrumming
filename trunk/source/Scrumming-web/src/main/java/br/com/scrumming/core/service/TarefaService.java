@@ -66,6 +66,11 @@ public class TarefaService {
     public void atribuirPara(@RequestBody Tarefa tarefa, @PathVariable Integer itemBacklogID, @PathVariable Integer usuarioID) {
     	tarefaManager.atribuirPara(tarefa, itemBacklogID, usuarioID);
     }
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/validarDadosAntesDeAtualizarStatus/{usuarioLogadoID}")
+	public void validarDadosAntesDeAtualizarStatus(@RequestBody Tarefa tarefa, @PathVariable Integer usuarioLogadoID) {
+    	tarefaManager.validarDadosAntesDeAtualizarStatus(tarefa, usuarioLogadoID);
+    }
 
 	/* getters and setters */
 	public ITarefaManager getTarefaManager() {

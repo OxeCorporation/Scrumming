@@ -83,7 +83,8 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements
 		insertOrUpdate(tarefa);
 	}
 	
-	private void validarDadosAntesDeAtualizarStatus(Tarefa tarefa, Integer usuarioLogadoID) {
+	@Override
+	public void validarDadosAntesDeAtualizarStatus(Tarefa tarefa, Integer usuarioLogadoID) {				
 		if (tarefa.getUsuario() == null) {
 			throw new NegocioException(
 					ConstantesMensagem.MENSAGEM_TAREFA_SEM_USUARIO_ATRIBUIDO);

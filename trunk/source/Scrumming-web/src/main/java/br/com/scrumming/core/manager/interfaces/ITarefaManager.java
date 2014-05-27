@@ -17,4 +17,5 @@ public interface ITarefaManager extends IManager<Tarefa, Integer>{
 	void atribuirPara(Tarefa tarefa, Integer itemBacklogID, Integer usuarioID);
 	void atualizarStatusTarefa(Integer tarefaID, SituacaoTarefaEnum situacaoTarefaEnum, Integer usuarioLogadoID);
 	List<Tarefa> consultarPorItemBacklog(Integer itemBacklogID, Integer usuarioLogadoID);
+	void validarDadosAntesDeAtualizarStatus(Tarefa tarefa, Integer usuarioLogadoID);
 }

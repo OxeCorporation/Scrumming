@@ -125,16 +125,22 @@ public class BoardBean extends AbstractBean {
 	public void handleReorder(DashboardReorderEvent event) {
 		String widgetId = event.getWidgetId();
 		int columnIndex = event.getColumnIndex();
-		Tarefa task = findTarefa(Integer.valueOf(widgetId.substring(TASK_PREFIX
-				.length())));
+		Tarefa task = findTarefa(Integer.valueOf(widgetId.substring(TASK_PREFIX.length())));
 		
-		DashboardColumn fromColumn = dashboardModel.getColumn(task.getSituacao().ordinal());
-		DashboardColumn toColumn = dashboardModel.getColumn(columnIndex);
-		int index = 0;
-		dashboardModel.transferWidget(toColumn, fromColumn , widgetId, index);
-		
-		
-		//atualizarTarefa(task,(SituacaoTarefaEnum.values()[columnIndex]));
+		try {
+			tarefaClientService.validarDadosAntesDeAtualizarStatus(task, usuarioLogado.getCodigo());
+			atualizarTarefa(task,(SituacaoTarefaEnum.values()[columnIndex]));
+			
+		} catch (Exception e) {
+			
+			DashboardColumn fromColumn = dashboardModel.getColumn(task.getSituacao().ordinal());
+			DashboardColumn toColumn = dashboardModel.getColumn(columnIndex);
+			int index = 0;
+			//int index = event.getItemIndex();
+			dashboardModel.transferWidget(toColumn, fromColumn , widgetId, index);
+			
+			throw e;
+		}
 		
 		
 	}

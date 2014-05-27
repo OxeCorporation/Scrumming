@@ -79,4 +79,11 @@ public class TarefaClientService extends AbstractClientService {
 				getURIService(ConstantesService.Tarefa.URI_ATUALIZAR_TAREFA),
 				HttpEntity.EMPTY, void.class, tarefaID, situacaoTarefaEnum, usuarioLogadoID);
 	}
+	
+	public void validarDadosAntesDeAtualizarStatus(Tarefa tarefa, Integer usuarioLogadoID) {
+		
+		getRestTemplate().postForObject(getURIService(
+										ConstantesService.Tarefa.URL_VALIDAR_DADOS_ANTES_DE_ATUALIZAR_STATUS),
+										tarefa, void.class, usuarioLogadoID);
+	}
 }
