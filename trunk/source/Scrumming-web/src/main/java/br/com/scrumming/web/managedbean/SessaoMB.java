@@ -72,7 +72,7 @@ public class SessaoMB {
 		time.setEmpresa(empresaSelecionada);
 		time.setProjeto(projetoSelecionado);
 		time.setUsuario(usuario);
-		//setTime(teamClienteService.consultarTimeProjeto(time));
+		teamClienteService.consultarTimeProjeto(time);
 		return "";
 	}
 

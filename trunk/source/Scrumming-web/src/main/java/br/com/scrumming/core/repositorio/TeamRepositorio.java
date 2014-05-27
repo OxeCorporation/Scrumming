@@ -103,13 +103,12 @@ public class TeamRepositorio extends AbstractRepositorio<Team, TeamChave> {
 
 	public Team consultarTimeDoProjeto(int codigoProjeto, int codigoEmpresa, int codigoUsuario) {
 		Criteria criteria = createCriteria();
-		criteria.createAlias("team", "team");
-		criteria.createAlias("team.projeto", "projeto");
-		criteria.createAlias("team.usuario", "usuario");
-		criteria.createAlias("team.empresa", "empresa");
-		criteria.add(Restrictions.eq("projeto.codigo", codigoProjeto));
-		criteria.add(Restrictions.eq("empresa.codigo", codigoEmpresa));
-		criteria.add(Restrictions.eq("usuario.codigo", codigoUsuario));
+		criteria.createAlias("projeto", "projetoAlias");
+		criteria.createAlias("usuario", "usuarioAlias");
+		criteria.createAlias("empresa", "empresaAlias");
+		criteria.add(Restrictions.eq("projetoAlias.codigo", codigoProjeto));
+		criteria.add(Restrictions.eq("empresaAlias.codigo", codigoEmpresa));
+		criteria.add(Restrictions.eq("usuarioAlias.codigo", codigoUsuario));
 		return (Team) criteria.uniqueResult();
 	}
 }
