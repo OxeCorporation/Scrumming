@@ -127,7 +127,18 @@ public class BoardBean extends AbstractBean {
 		int columnIndex = event.getColumnIndex();
 		Tarefa task = findTarefa(Integer.valueOf(widgetId.substring(TASK_PREFIX
 				.length())));
-		atualizarTarefa(task,(SituacaoTarefaEnum.values()[columnIndex]));
+		
+		DashboardColumn fromColumn = dashboardModel.getColumn(task.getSituacao().ordinal());
+		DashboardColumn toColumn = dashboardModel.getColumn(columnIndex);
+		int index = 0;
+		dashboardModel.transferWidget(toColumn, fromColumn , widgetId, index);
+		
+		
+		
+		//atualizarTarefa(task,(SituacaoTarefaEnum.values()[columnIndex]));
+		
+		
+		
 	}
 
 	private void atualizarTarefa(Tarefa task, SituacaoTarefaEnum situacaoTarefaEnum) {

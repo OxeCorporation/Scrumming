@@ -75,7 +75,7 @@
 			</h:panelGroup>
 			<p:dashboard id="dashboard" binding="#{boardBean.dashboard}"
 				model="#{boardBean.dashboardModel}">
-				<p:ajax event="reorder" listener="#{boardBean.handleReorder}" />
+				<p:ajax event="reorder" listener="#{boardBean.handleReorder}" update="dashboard"/>
 			</p:dashboard>
 		</h:panelGrid>
 		<p:dialog id="boardModal" widgetVar="boardModal" modal="true"
