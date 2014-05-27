@@ -134,9 +134,7 @@ public class BoardBean extends AbstractBean {
 		dashboardModel.transferWidget(toColumn, fromColumn , widgetId, index);
 		
 		
-		
 		//atualizarTarefa(task,(SituacaoTarefaEnum.values()[columnIndex]));
-		
 		
 		
 	}
