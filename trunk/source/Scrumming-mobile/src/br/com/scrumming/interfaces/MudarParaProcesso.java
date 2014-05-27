@@ -5,4 +5,5 @@ import br.com.scrumming.domain.Tarefa;
 public interface MudarParaProcesso {
 
 	void clicouTarefaProcesso(Tarefa tarefa);
+	void clicouTarefaPlanejada(Tarefa tarefa);
 }

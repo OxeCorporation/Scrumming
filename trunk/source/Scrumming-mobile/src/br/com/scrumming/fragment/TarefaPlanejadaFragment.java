@@ -43,7 +43,6 @@ import br.com.scrumming.rest.RestTarefaFavorita;
 public class TarefaPlanejadaFragment extends ListFragment {
 	
 	//Instanciação dos Objetos e variáveis
-	List<Tarefa> listaTarefa;
 	List<Tarefa> listaTarefasPlanejadas;
 	AsyncTaskTarefa taskTarefa;
 	ItemBacklog itemBacklog;
@@ -55,6 +54,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 	TextView txtMensagemTarefa, txtMensagemTarefaStatus;
 	Tarefa tarefaSelecionada;
 	TarefaFavorita tarefaFavorita;
+	TarefaPlanejadaFragment tarefaPlanejadaFragment;
 	TarefaProcessFragment tarefaProcessFragment;
 	
 	/**
@@ -72,6 +72,11 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		TarefaPlanejadaFragment tf = new TarefaPlanejadaFragment();
 		tf.setArguments(args);
 		return tf;
+	}
+	
+	public void alterarLista(Tarefa tarefa){
+		listaTarefasPlanejadas.add(tarefa);
+		AtualizarListaDeTarefa();
 	}
 	
 	/**
@@ -94,17 +99,17 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		ab.setTitle("SprintBacklog");
 		txtMensagemTarefaStatus.setVisibility(View.GONE);
 		
-		if (listaTarefa != null){
+		if (listaTarefasPlanejadas != null){
 			progressTarefa.setVisibility(View.GONE);
 			txtMensagemTarefa.setVisibility(View.GONE);
-			AtualizarListaDeTarefa();;
+			//AtualizarListaDeTarefa();
 
 		} else {
 			if (taskTarefa != null && taskTarefa.getStatus() == Status.RUNNING){
 				mostrarProgress();
 
 			} else {
-				listaTarefa =   new ArrayList<Tarefa>();
+				listaTarefasPlanejadas =   new ArrayList<Tarefa>();
 				iniciarDownload();
 				
 			}
@@ -205,7 +210,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 	* @return void
 	*/
 	private void AtualizarListaDeTarefa() {
-		TarefaAdapter adapter = new TarefaAdapter(getActivity(), listaTarefa);
+		TarefaAdapter adapter = new TarefaAdapter(getActivity(), listaTarefasPlanejadas);
 		setListAdapter(adapter);
 	}
 	
@@ -245,9 +250,9 @@ public class TarefaPlanejadaFragment extends ListFragment {
 										        			usuarioEmpresa.getUsuario().getCodigo());
 			        }
 			    }).start();
-			 for (int i = 0; i < listaTarefa.size(); i++) {
-				if (listaTarefa.get(i).getCodigo() == tarefaSelecionada.getCodigo()) {
-					listaTarefa.remove(i);
+			 for (int i = 0; i < listaTarefasPlanejadas.size(); i++) {
+				if (listaTarefasPlanejadas.get(i).getCodigo() == tarefaSelecionada.getCodigo()) {
+					listaTarefasPlanejadas.remove(i);
 				}
 				((MudarParaProcesso)getActivity()).clicouTarefaProcesso(tarefaSelecionada);
 				AtualizarListaDeTarefa();
@@ -401,7 +406,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 			if(tarefas != null) {
 				for (int i = 0; i < tarefas.size(); i++) {
 					if (tarefas.get(i).getSituacao() == SituacaoTarefaEnum.PARA_FAZER) {
-						listaTarefa.add(tarefas.get(i));
+						listaTarefasPlanejadas.add(tarefas.get(i));
 						
 					}/*else{
 						txtMensagemTarefaStatus.setVisibility(View.VISIBLE);

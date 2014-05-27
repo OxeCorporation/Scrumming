@@ -226,4 +226,12 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 		}
 		
 	}
+
+	@Override
+	public void clicouTarefaPlanejada(Tarefa tarefa) {
+		// TODO Auto-generated method stub
+		if (tarefaPlanejadaFragment != null){
+			tarefaPlanejadaFragment.alterarLista(tarefa);
+		}
+	}
 }
