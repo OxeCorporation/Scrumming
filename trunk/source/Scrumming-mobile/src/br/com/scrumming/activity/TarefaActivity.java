@@ -17,12 +17,13 @@ import br.com.scrumming.fragment.TarefaImpedimentoFragment;
 import br.com.scrumming.fragment.TarefaPlanejadaFragment;
 import br.com.scrumming.fragment.TarefaProcessFragment;
 import br.com.scrumming.interfaces.ClickedOnHome;
+import br.com.scrumming.interfaces.ClickedOnHomeBoard;
 import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.interfaces.ClickedOnTarefa;
 import br.com.scrumming.interfaces.ClickedOnTarefaReporteItem;
 import br.com.scrumming.interfaces.MudarParaProcesso;
 
-public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout, ClickedOnHome, TabListener, 
+public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout, ClickedOnHomeBoard, TabListener, 
 												ClickedOnTarefa, ClickedOnTarefaReporteItem, MudarParaProcesso{
 	
 	//Instanciação dos Objetos e variáveis
@@ -195,10 +196,14 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 	* @return void
 	*/
 	@Override
-	public void clicouNoHome(UsuarioEmpresa usuarioEmpresa) {
-		finish();
+	public void clicouNoHomeBoard(Sprint sprint, UsuarioEmpresa usuarioEmpresa) {
+		Intent intencaoSprintBacklog = new Intent(this, SprintBacklogActivity.class);
+		intencaoSprintBacklog.putExtra("usuarioEmpresa", usuarioEmpresa);
+		intencaoSprintBacklog.putExtra("sprint", sprint);
+		startActivity(intencaoSprintBacklog);
 	}
-
+	
+	
 	/**
 	* Método proviniente da interface para exibir a activity responsável pelo reporte de horas da tarefa
 	* @param ItemBacklog itemBacklog
@@ -234,4 +239,6 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 			tarefaPlanejadaFragment.alterarLista(tarefa);
 		}
 	}
+
+	
 }

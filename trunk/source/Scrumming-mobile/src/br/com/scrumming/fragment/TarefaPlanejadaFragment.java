@@ -37,6 +37,7 @@ import br.com.scrumming.domain.TarefaFavorita;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.interfaces.ClickedOnHome;
+import br.com.scrumming.interfaces.ClickedOnHomeBoard;
 import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.interfaces.MudarParaProcesso;
 import br.com.scrumming.rest.RestTarefa;
@@ -203,9 +204,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 			break;
 
 		case android.R.id.home:
-			if (getActivity() instanceof ClickedOnHome) {
-				((ClickedOnHome)getActivity()).clicouNoHome(usuarioEmpresa);
-			}
+			getActivity().finish();
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -296,7 +295,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 					public void run() {
 						RestTarefaFavorita.favoritarTarefa(tarefaFavorita);
 					}
-				}).start(); 
+				}).start();
 				AtualizarListaDeTarefa();
 				mensagemTarefaFavoritada();
 			}

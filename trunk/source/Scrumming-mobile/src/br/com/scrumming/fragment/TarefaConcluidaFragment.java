@@ -179,10 +179,7 @@ public class TarefaConcluidaFragment extends ListFragment {
 			break;
 
 		case android.R.id.home:
-			if (getActivity() instanceof ClickedOnHome) {
-				((ClickedOnHome)getActivity()).clicouNoHome(usuarioEmpresa);
-			}
-			break;
+			getActivity().finish();
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -194,22 +191,6 @@ public class TarefaConcluidaFragment extends ListFragment {
 	private void AtualizarListaDeTarefa() {
 		TarefaAdapter adapter = new TarefaAdapter(getActivity(), listaTarefa);
 		setListAdapter(adapter);
-	}
-	
-	/**
-	* Método utilizado ao clicar em um item da lista do fragment
-	* @param ListView l
-	* @param View v
-	* @param int position
-	* @param long id
-	* @return void
-	*/
-	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
-		if (getActivity() instanceof ClickedOnTarefa) {
-			((ClickedOnTarefa)getActivity()).clicouNaTarefa(itemBacklog, usuarioEmpresa, sprint);
-		}
 	}
 	
 	//InnerClass do AsyncTask da Empresa

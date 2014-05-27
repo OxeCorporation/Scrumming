@@ -3,7 +3,9 @@ package br.com.scrumming.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
@@ -11,32 +13,40 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import br.com.scrumming.R;
 import br.com.scrumming.adapter.TarefaAdapter;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.TarefaFavorita;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.interfaces.ClickedOnHome;
+import br.com.scrumming.interfaces.ClickedOnHomeBoard;
 import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.interfaces.ClickedOnTarefa;
+import br.com.scrumming.interfaces.ClickedOnTarefaReporteItem;
+import br.com.scrumming.interfaces.MudarParaProcesso;
 import br.com.scrumming.rest.RestTarefa;
+import br.com.scrumming.rest.RestTarefaFavorita;
 
 public class TarefaImpedimentoFragment extends ListFragment {
 	
 	//Instanciação dos Objetos e variáveis
-	List<Tarefa> listaTarefa;
+	List<Tarefa> listaTarefaImpedida;
 	AsyncTaskTarefa taskTarefa;
 	ItemBacklog itemBacklog;
 	UsuarioEmpresa usuarioEmpresa;
@@ -45,6 +55,9 @@ public class TarefaImpedimentoFragment extends ListFragment {
 	SprintBacklog sprintBacklog;
 	ProgressBar progressTarefa;
 	TextView txtMensagemTarefa, txtMensagemTarefaStatus;
+	Tarefa tarefaSelecionada;
+	TarefaFavorita tarefaFavorita;
+	
 	
 	/**
 	* Método que gera uma nova instancia do fragment de TarefaImpedida
@@ -63,6 +76,10 @@ public class TarefaImpedimentoFragment extends ListFragment {
 		return tf;
 	}
 	
+	public void atualizarLista(Tarefa tarefa){
+		listaTarefaImpedida.add(tarefa);
+	}
+	
 	/**
 	* Método utilizado no momento que a Activity do fragment é criada
 	* @param Bundle savedInstanceState
@@ -73,15 +90,16 @@ public class TarefaImpedimentoFragment extends ListFragment {
 		super.onActivityCreated(savedInstanceState);
 		setRetainInstance(true);
 		setHasOptionsMenu(true);
+		//Cria a Lista do Menu Contexto
+		registerForContextMenu(getListView());
 		
 		//Transforma o Home "Scrumming" em um botão
 		ActionBar ab = ((ActionBarActivity)getActivity()).getSupportActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
-		ab.setTitle("SprintBacklog");
-		
+		ab.setTitle("Board");
 		txtMensagemTarefaStatus.setVisibility(View.GONE);
 		
-		if (listaTarefa != null){
+		if (listaTarefaImpedida != null){
 			progressTarefa.setVisibility(View.GONE);
 			txtMensagemTarefa.setVisibility(View.GONE);
 			AtualizarListaDeTarefa();;
@@ -91,7 +109,7 @@ public class TarefaImpedimentoFragment extends ListFragment {
 				mostrarProgress();
 
 			} else {
-				listaTarefa = new ArrayList<Tarefa>();
+				listaTarefaImpedida = new ArrayList<Tarefa>();
 				iniciarDownload();
 				
 			}
@@ -179,10 +197,7 @@ public class TarefaImpedimentoFragment extends ListFragment {
 			break;
 
 		case android.R.id.home:
-			if (getActivity() instanceof ClickedOnHome) {
-				((ClickedOnHome)getActivity()).clicouNoHome(usuarioEmpresa);
-			}
-			break;
+			getActivity().finish();
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -192,7 +207,7 @@ public class TarefaImpedimentoFragment extends ListFragment {
 	* @return void
 	*/
 	private void AtualizarListaDeTarefa() {
-		TarefaAdapter adapter = new TarefaAdapter(getActivity(), listaTarefa);
+		TarefaAdapter adapter = new TarefaAdapter(getActivity(), listaTarefaImpedida);
 		setListAdapter(adapter);
 	}
 	
@@ -204,13 +219,111 @@ public class TarefaImpedimentoFragment extends ListFragment {
 	* @param long id
 	* @return void
 	*/
-	@Override
+	/*@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		if (getActivity() instanceof ClickedOnTarefa) {
 			((ClickedOnTarefa)getActivity()).clicouNaTarefa(itemBacklog, usuarioEmpresa, sprint);
 		}
+	}*/
+	
+	/**
+	* Método utilizado para usar um menu de contexto
+	* @param ContextMenu menu
+	* @param View v
+	* @param ContextMenuInfo menuInfo
+	* @return void
+	*/
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getActivity().getMenuInflater();
+		inflater.inflate(R.menu.menu_contexto_fragment_impedida, menu);
 	}
+	
+	/**
+	* Método utilizado ao selecionar uma item no menu de contexto 
+	* @param MenuItem item
+	* @return boolean
+	*/
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
+		
+		tarefaSelecionada = (Tarefa)getListView().getItemAtPosition(info.position);
+		
+		switch (item.getItemId()) {
+		case R.id.opcaoAlterarDeImpedidaParaProcesso:
+			 
+			 new Thread(new Runnable() {
+			        public void run() {
+			        	RestTarefa.salvarOuAtualizarTarefa(tarefaSelecionada.getCodigo(), 
+										        			SituacaoTarefaEnum.FAZENDO, 
+										        			usuarioEmpresa.getUsuario().getCodigo());
+			        }
+			    }).start();
+			 for (int i = 0; i < listaTarefaImpedida.size(); i++) {
+				if (listaTarefaImpedida.get(i).getCodigo() == tarefaSelecionada.getCodigo()) {
+					listaTarefaImpedida.remove(i);
+				}
+			}
+			 ((MudarParaProcesso)getActivity()).clicouTarefaPlanejada(tarefaSelecionada);
+			 AtualizarListaDeTarefa();
+			break;
+			
+		case R.id.opcaoFavoritarImpedida:
+			
+			tarefaFavorita = new TarefaFavorita();
+			tarefaFavorita.setTarefa(tarefaSelecionada);
+			tarefaFavorita.setUsuario(usuarioEmpresa.getUsuario());
+			if (tarefaFavorita != null) {
+				new Thread(new Runnable() {
+					public void run() {
+						RestTarefaFavorita.favoritarTarefa(tarefaFavorita);
+					}
+				}).start();
+				AtualizarListaDeTarefa();
+				mensagemTarefaFavoritada();
+			}
+
+			break;
+			
+		case R.id.opcaoReportarHorasImpedida:
+			
+			if (getActivity() instanceof ClickedOnTarefaReporteItem) {
+				((ClickedOnTarefaReporteItem)getActivity()).clicouNaTarefaReportItem(itemBacklog, usuarioEmpresa, 
+															sprint, tarefaSelecionada);
+			}
+			break;
+			
+		}
+		return super.onContextItemSelected(item);
+	}
+	
+	private void mensagemTarefaFavoritada(){
+		AlertDialog alertDialog = new AlertDialog.Builder(
+				getActivity()).create();
+
+		// Setting Dialog Title
+		alertDialog.setTitle("Info");
+
+		// Setting Dialog Message
+		alertDialog.setMessage("Tarefa Favoritada");
+
+		// Setting Icon to Dialog
+		alertDialog.setIcon(android.R.drawable.ic_dialog_info);
+
+		// Setting OK Button
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				// Write your code here to execute after dialog closed
+			}
+		});
+
+	// Showing Alert Message
+	alertDialog.show();
+}
 	
 	//InnerClass do AsyncTask da Empresa
 	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<Tarefa>>{
@@ -245,7 +358,7 @@ public class TarefaImpedimentoFragment extends ListFragment {
 			if(tarefas != null) {
 				for (int i = 0; i < tarefas.size(); i++) {
 					if (tarefas.get(i).getSituacao() == SituacaoTarefaEnum.EM_IMPEDIMENTO) {
-						listaTarefa.add(tarefas.get(i));
+						listaTarefaImpedida.add(tarefas.get(i));
 						
 					}/*else{
 						txtMensagemTarefaStatus.setVisibility(View.VISIBLE);

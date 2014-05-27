@@ -45,7 +45,7 @@ import br.com.scrumming.rest.RestTarefaFavorita;
 public class TarefaProcessFragment extends ListFragment {
 	
 	//Instanciação dos Objetos e variáveis
-	List<Tarefa> listaTarefa;
+	List<Tarefa> listaTarefaProcesso;
 	AsyncTaskTarefa taskTarefa;
 	ItemBacklog itemBacklog;
 	UsuarioEmpresa usuarioEmpresa;
@@ -75,7 +75,7 @@ public class TarefaProcessFragment extends ListFragment {
 	}
 	
 	public void atualizarLista(Tarefa tarefa){
-		listaTarefa.add(tarefa);
+		listaTarefaProcesso.add(tarefa);
 		//AtualizarListaDeTarefa();
 	}
 
@@ -95,10 +95,10 @@ public class TarefaProcessFragment extends ListFragment {
 		//Transforma o Home "Scrumming" em um botão
 		ActionBar ab = ((ActionBarActivity)getActivity()).getSupportActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
-		ab.setTitle("SprintBacklog");
+		ab.setTitle("Board");
 		txtMensagemTarefaStatus.setVisibility(View.GONE);
 		
-		if (listaTarefa != null){
+		if (listaTarefaProcesso != null){
 			progressTarefa.setVisibility(View.GONE);
 			txtMensagemTarefa.setVisibility(View.GONE);
 			AtualizarListaDeTarefa();
@@ -108,7 +108,7 @@ public class TarefaProcessFragment extends ListFragment {
 				mostrarProgress();
 
 			} else {
-				listaTarefa = new ArrayList<Tarefa>();
+				listaTarefaProcesso = new ArrayList<Tarefa>();
 				iniciarDownload();
 			}
 		}
@@ -208,7 +208,7 @@ public class TarefaProcessFragment extends ListFragment {
 	* @return void
 	*/
 	public void AtualizarListaDeTarefa() {
-		TarefaAdapter adapter = new TarefaAdapter(getActivity(), listaTarefa);
+		TarefaAdapter adapter = new TarefaAdapter(getActivity(), listaTarefaProcesso);
 		setListAdapter(adapter);
 	}
 	
@@ -225,7 +225,7 @@ public class TarefaProcessFragment extends ListFragment {
 		super.onListItemClick(l, v, position, id);
 		if (getActivity() instanceof ClickedOnTarefaReporteItem) {
 			((ClickedOnTarefaReporteItem)getActivity()).clicouNaTarefaReportItem(itemBacklog, usuarioEmpresa, 
-														sprint, listaTarefa.get(position));
+														sprint, listaTarefaProcesso.get(position));
 		}
 	}
 	
@@ -265,9 +265,9 @@ public class TarefaProcessFragment extends ListFragment {
 										        			usuarioEmpresa.getUsuario().getCodigo());
 			        }
 			    }).start();
-			 for (int i = 0; i < listaTarefa.size(); i++) {
-				if (listaTarefa.get(i).getCodigo() == tarefaSelecionada.getCodigo()) {
-					listaTarefa.remove(i);
+			 for (int i = 0; i < listaTarefaProcesso.size(); i++) {
+				if (listaTarefaProcesso.get(i).getCodigo() == tarefaSelecionada.getCodigo()) {
+					listaTarefaProcesso.remove(i);
 				}
 			}
 			 ((MudarParaProcesso)getActivity()).clicouTarefaPlanejada(tarefaSelecionada);
@@ -306,6 +306,15 @@ public class TarefaProcessFragment extends ListFragment {
 			}
 
 			break;
+			
+		case R.id.opcaoReportarHoras:
+			
+			if (getActivity() instanceof ClickedOnTarefaReporteItem) {
+				((ClickedOnTarefaReporteItem)getActivity()).clicouNaTarefaReportItem(itemBacklog, usuarioEmpresa, 
+															sprint, tarefaSelecionada);
+			}
+			break;
+			
 		}
 		return super.onContextItemSelected(item);
 	}
@@ -316,19 +325,19 @@ public class TarefaProcessFragment extends ListFragment {
 					getActivity()).create();
 
 			// Setting Dialog Title
-			alertDialog.setTitle("Alert Dialog");
+			alertDialog.setTitle("Info");
 
 			// Setting Dialog Message
-			alertDialog.setMessage("Tarefa Alterada para em Processo");
+			alertDialog.setMessage("Tarefa Alterada para Planejada");
 
 			// Setting Icon to Dialog
-			alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+			alertDialog.setIcon(android.R.drawable.ic_dialog_info);
 
 			// Setting OK Button
 			alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					// Write your code here to execute after dialog closed
-					Toast.makeText(getActivity(), "Operação Realizada com Sucesso", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(getActivity(), "Operação Realizada com Sucesso", Toast.LENGTH_SHORT).show();
 				}
 			});
 
@@ -341,19 +350,18 @@ public class TarefaProcessFragment extends ListFragment {
 					getActivity()).create();
 	
 			// Setting Dialog Title
-			alertDialog.setTitle("Alert Dialog");
+			alertDialog.setTitle("Info");
 	
 			// Setting Dialog Message
 			alertDialog.setMessage("Tarefa Favoritada");
 	
 			// Setting Icon to Dialog
-			alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+			alertDialog.setIcon(android.R.drawable.ic_dialog_info);
 	
 			// Setting OK Button
 			alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					// Write your code here to execute after dialog closed
-					Toast.makeText(getActivity(), "Operação Realizada com Sucesso", Toast.LENGTH_SHORT).show();
 				}
 			});
 
@@ -378,7 +386,6 @@ public class TarefaProcessFragment extends ListFragment {
 			alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					// Write your code here to execute after dialog closed
-					Toast.makeText(getActivity(), "Operação Realizada com Sucesso", Toast.LENGTH_SHORT).show();
 				}
 			});
 
@@ -420,7 +427,7 @@ public class TarefaProcessFragment extends ListFragment {
 			if(tarefas != null) {
 				for (int i = 0; i < tarefas.size(); i++) {
 					if (tarefas.get(i).getSituacao() == SituacaoTarefaEnum.FAZENDO) {
-						listaTarefa.add(tarefas.get(i));
+						listaTarefaProcesso.add(tarefas.get(i));
 					}
 				}
 				AtualizarListaDeTarefa();

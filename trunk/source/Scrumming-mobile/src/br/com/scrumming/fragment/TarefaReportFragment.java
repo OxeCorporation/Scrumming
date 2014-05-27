@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -209,7 +211,9 @@ public class TarefaReportFragment extends Fragment {
 			        	RestTarefaReport.retornarTarefaReport(tarefaReport, sprint.getCodigo(),
 			        			itemBacklog.getCodigo(), tarefa.getCodigo());
 			        }
-			    }).start();			 
+			    }).start();
+			 //EXIBI A MENSAGEM DE HORAS REPORTADAS COM SUCESSO
+			 mensagemHorasReportadas();
 		}
 
 		private void setarTarefaReporte() {
@@ -240,6 +244,37 @@ public class TarefaReportFragment extends Fragment {
 			return null;
 		}
 	};
+	
+	/**
+	 * @author Naftali
+	 * método responsável por exibir o dialog de "Horas Reportadas com Sucesso"
+	 * */
+	private void mensagemHorasReportadas() {
+		AlertDialog alertDialog = new AlertDialog.Builder(
+				getActivity()).create();
+
+		// Setting Dialog Title
+		alertDialog.setTitle("Info");
+
+		// Setting Dialog Message
+		alertDialog.setMessage("Horas Reportadas com Sucesso");
+
+		// Setting Icon to Dialog
+		alertDialog.setIcon(android.R.drawable.ic_dialog_info);
+
+		// Setting OK Button
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				// Write your code here to execute after dialog closed
+				//Toast.makeText(getActivity(), "Operação Realizada com Sucesso", Toast.LENGTH_SHORT).show();
+			}
+		});
+
+		// Showing Alert Message
+		alertDialog.show();
+		
+	}
+	
 	private OnClickListener btnCancelarOnClickListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
