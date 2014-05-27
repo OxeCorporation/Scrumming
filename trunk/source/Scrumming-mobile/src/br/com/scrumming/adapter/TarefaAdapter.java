@@ -23,7 +23,7 @@ public class TarefaAdapter extends ArrayAdapter<Tarefa> {
 		
 		Tarefa tarefa = getItem(position);
 		
-//		if (convertView == null) {
+		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.linha_tarefa, null);
 			
 			holder = new ViewHolder();
@@ -32,9 +32,9 @@ public class TarefaAdapter extends ArrayAdapter<Tarefa> {
 			holder.txtTempoEstimado = (TextView) convertView.findViewById(R.id.txtTempoEstimado);
 			convertView.setTag(holder);
 
-//		} else {
-//			holder = (ViewHolder) convertView.getTag();
-//		}
+		} else {
+			holder = (ViewHolder) convertView.getTag();
+		}
 		
 		holder.txtNomeTarefa.setText(tarefa.getNome());
 		holder.txtDescricaoTarefa.setText(tarefa.getDescricao());

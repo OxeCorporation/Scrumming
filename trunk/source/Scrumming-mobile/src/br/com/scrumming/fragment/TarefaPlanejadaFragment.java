@@ -254,10 +254,10 @@ public class TarefaPlanejadaFragment extends ListFragment {
 				if (listaTarefasPlanejadas.get(i).getCodigo() == tarefaSelecionada.getCodigo()) {
 					listaTarefasPlanejadas.remove(i);
 				}
-				((MudarParaProcesso)getActivity()).clicouTarefaProcesso(tarefaSelecionada);
-				AtualizarListaDeTarefa();
-				mensagemTarefaAlterada();
 			}
+			 ((MudarParaProcesso)getActivity()).clicouTarefaProcesso(tarefaSelecionada);
+			 AtualizarListaDeTarefa();
+			 mensagemTarefaAlterada();
 			break;
 			 
 		case R.id.opcaoAtribuir:

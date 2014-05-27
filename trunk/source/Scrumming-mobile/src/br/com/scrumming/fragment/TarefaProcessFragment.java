@@ -268,12 +268,10 @@ public class TarefaProcessFragment extends ListFragment {
 			 for (int i = 0; i < listaTarefa.size(); i++) {
 				if (listaTarefa.get(i).getCodigo() == tarefaSelecionada.getCodigo()) {
 					listaTarefa.remove(i);
-					
 				}
-				((MudarParaProcesso)getActivity()).clicouTarefaPlanejada(tarefaSelecionada);
-				AtualizarListaDeTarefa();
-				
 			}
+			 ((MudarParaProcesso)getActivity()).clicouTarefaPlanejada(tarefaSelecionada);
+			 AtualizarListaDeTarefa();
 			break;
 			
 		case R.id.opcaoAtribuir:
