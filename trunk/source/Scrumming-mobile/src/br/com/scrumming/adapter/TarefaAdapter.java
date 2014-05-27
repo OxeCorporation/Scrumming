@@ -27,19 +27,26 @@ public class TarefaAdapter extends ArrayAdapter<Tarefa> {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.linha_tarefa, null);
 			
 			holder = new ViewHolder();
-			holder.txtNomeTarefa = (TextView) convertView.findViewById(R.id.txtNomeTarefa);
-			holder.txtDescricaoTarefa = (TextView) convertView.findViewById(R.id.txtDescricaoTarefa);
-			holder.txtTempoEstimado = (TextView) convertView.findViewById(R.id.txtTempoEstimado);
+			holder.txtNomeTarefa		   = (TextView) convertView.findViewById(R.id.txtNomeTarefa);
+			holder.txtDescricaoTarefa 	   = (TextView) convertView.findViewById(R.id.txtDescricaoTarefa);
+			holder.txtTempoEstimado		   = (TextView) convertView.findViewById(R.id.txtTempoEstimado);
+			holder.txtNomeUsuarioAtribuido = (TextView)convertView.findViewById(R.id.txtNomeUsuarioAtribuido);
 			convertView.setTag(holder);
 
 		} else {
 			holder = (ViewHolder) convertView.getTag();
+		} 
+		if (tarefa.getUsuario() == null) {
+			holder.txtNomeUsuarioAtribuido.setVisibility(View.GONE);
+			holder.txtNomeTarefa.setText(tarefa.getNome());
+			holder.txtDescricaoTarefa.setText(tarefa.getDescricao());
+			holder.txtTempoEstimado.setText(tarefa.getTempoEstimado().toString());
+		}else{
+			holder.txtNomeTarefa.setText(tarefa.getNome());
+			holder.txtDescricaoTarefa.setText(tarefa.getDescricao());
+			holder.txtTempoEstimado.setText(tarefa.getTempoEstimado().toString());
+			holder.txtNomeUsuarioAtribuido.setText(tarefa.getUsuario().getNome());
 		}
-		
-		holder.txtNomeTarefa.setText(tarefa.getNome());
-		holder.txtDescricaoTarefa.setText(tarefa.getDescricao());
-		holder.txtTempoEstimado.setText(tarefa.getTempoEstimado().toString());
-		
 		return convertView;
 	}
 	
@@ -47,5 +54,6 @@ public class TarefaAdapter extends ArrayAdapter<Tarefa> {
 		TextView txtNomeTarefa;
 		TextView txtDescricaoTarefa;
 		TextView txtTempoEstimado;
+		TextView txtNomeUsuarioAtribuido;
 	}
 }

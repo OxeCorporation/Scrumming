@@ -3,6 +3,8 @@ package br.com.scrumming.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.DateTime;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -51,7 +53,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 	Sprint sprint;
 	SprintBacklog sprintBacklog;
 	ProgressBar progressTarefa;
-	TextView txtMensagemTarefa, txtMensagemTarefaStatus;
+	TextView txtMensagemTarefa, txtMensagemTarefaStatus, txtNomeUsuarioAtribuido;
 	Tarefa tarefaSelecionada;
 	TarefaFavorita tarefaFavorita;
 	TarefaPlanejadaFragment tarefaPlanejadaFragment;
@@ -79,6 +81,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		AtualizarListaDeTarefa();
 	}
 	
+	
 	/**
 	* Método utilizado no momento que a Activity do fragment é criada
 	* @param Bundle savedInstanceState
@@ -102,8 +105,10 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		if (listaTarefasPlanejadas != null){
 			progressTarefa.setVisibility(View.GONE);
 			txtMensagemTarefa.setVisibility(View.GONE);
-			//AtualizarListaDeTarefa();
-
+			AtualizarListaDeTarefa();
+			
+			
+			
 		} else {
 			if (taskTarefa != null && taskTarefa.getStatus() == Status.RUNNING){
 				mostrarProgress();
@@ -161,6 +166,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		progressTarefa    = (ProgressBar)layout.findViewById(R.id.progressBarTarefa);
 		txtMensagemTarefa = (TextView)layout.findViewById(R.id.txtMensagemTarefa);
 		txtMensagemTarefaStatus = (TextView)layout.findViewById(R.id.txtMensagemTarefaStatus);
+		txtNomeUsuarioAtribuido = (TextView)layout.findViewById(R.id.txtNomeUsuarioAtribuido);
 		
 		//pega a sprint clicada no sprintFragment para listar os itensbacklog da sprint
 		itemBacklog    = (ItemBacklog) getArguments().getSerializable("itemBacklog");
@@ -261,20 +267,24 @@ public class TarefaPlanejadaFragment extends ListFragment {
 			break;
 			 
 		case R.id.opcaoAtribuir:
-			if (tarefaSelecionada != null) {
+			if (tarefaSelecionada.getUsuario() == null) {
 				tarefaSelecionada.setUsuario(usuarioEmpresa.getUsuario());
-				new Thread(new Runnable() {
-					public void run() {
-						RestTarefa.atribuirOuDesatribuirTarefa(tarefaSelecionada, 
-								itemBacklog.getCodigo(), 
-								usuarioEmpresa.getUsuario().getCodigo());
-					}
-				}).start();
+				tarefaSelecionada.setDataAtribuicao(new DateTime());
+				atribuirOuDesatribuir();
 				AtualizarListaDeTarefa();
 				mensagemTarefaAtribuida();
+				break;
+				
+			}else {
+				
+				tarefaSelecionada.setUsuario(null);
+				tarefaSelecionada.setDataAtribuicao(null);
+				atribuirOuDesatribuir();
+				AtualizarListaDeTarefa();
+				mensagemTarefaDesatribuida();
+				break;
 			}
 			
-			break;
 			
 		case R.id.opcaoFavoritar:
 			
@@ -286,7 +296,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 					public void run() {
 						RestTarefaFavorita.favoritarTarefa(tarefaFavorita);
 					}
-				}).start();
+				}).start(); 
 				AtualizarListaDeTarefa();
 				mensagemTarefaFavoritada();
 			}
@@ -297,13 +307,26 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		return super.onContextItemSelected(item);
 	}
 	
+	private void atribuirOuDesatribuir(){
+		new Thread(new Runnable() {
+			public void run() {
+				RestTarefa.atribuirOuDesatribuirTarefa(tarefaSelecionada, 
+						itemBacklog.getCodigo(), 
+						usuarioEmpresa.getUsuario().getCodigo());
+			}
+		}).start();
+	}
+	
+	
+	
+	
 	private void mensagemTarefaAlterada() {
 		
 			AlertDialog alertDialog = new AlertDialog.Builder(
 					getActivity()).create();
 
 			// Setting Dialog Title
-			alertDialog.setTitle("Alert Dialog");
+			alertDialog.setTitle("Info");
 
 			// Setting Dialog Message
 			alertDialog.setMessage("Tarefa Alterada para em Processo");
@@ -315,7 +338,6 @@ public class TarefaPlanejadaFragment extends ListFragment {
 			alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					// Write your code here to execute after dialog closed
-					Toast.makeText(getActivity(), "Operação Realizada com Sucesso", Toast.LENGTH_SHORT).show();
 				}
 			});
 
@@ -328,7 +350,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 				getActivity()).create();
 
 		// Setting Dialog Title
-		alertDialog.setTitle("Alert Dialog");
+		alertDialog.setTitle("Info");
 
 		// Setting Dialog Message
 		alertDialog.setMessage("Tarefa Favoritada");
@@ -340,7 +362,6 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				// Write your code here to execute after dialog closed
-				Toast.makeText(getActivity(), "Operação Realizada com Sucesso", Toast.LENGTH_SHORT).show();
 			}
 		});
 
@@ -353,7 +374,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 				getActivity()).create();
 
 		// Setting Dialog Title
-		alertDialog.setTitle("Alert Dialog");
+		alertDialog.setTitle("Info");
 
 		// Setting Dialog Message
 		alertDialog.setMessage("Tarefa Atribuida a " + usuarioEmpresa.getUsuario().getNome());
@@ -365,13 +386,39 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				// Write your code here to execute after dialog closed
-				Toast.makeText(getActivity(), "Operação Realizada com Sucesso", Toast.LENGTH_SHORT).show();
 			}
 		});
 
 		// Showing Alert Message
 		alertDialog.show();
 	}
+	
+	private void mensagemTarefaDesatribuida() {
+		AlertDialog alertDialog = new AlertDialog.Builder(
+				getActivity()).create();
+
+		// Setting Dialog Title
+		alertDialog.setTitle("Info");
+
+		// Setting Dialog Message
+		alertDialog.setMessage("Tarefa Desatribuida de " + usuarioEmpresa.getUsuario().getNome());
+
+		// Setting Icon to Dialog
+		alertDialog.setIcon(android.R.drawable.ic_dialog_info);
+
+		// Setting OK Button
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				// Write your code here to execute after dialog closed
+				//Toast.makeText(getActivity(), "Operação Realizada com Sucesso", Toast.LENGTH_SHORT).show();
+			}
+		});
+
+		// Showing Alert Message
+		alertDialog.show();
+		
+	}
+
 	
 	//InnerClass do AsyncTask da Empresa
 	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<Tarefa>>{
