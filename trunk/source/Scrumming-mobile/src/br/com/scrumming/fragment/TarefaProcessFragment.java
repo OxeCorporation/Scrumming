@@ -67,6 +67,11 @@ public class TarefaProcessFragment extends ListFragment {
 		return tf;
 	}
 	
+	public void atualizarLista(Tarefa tarefa){
+		listaTarefa.add(tarefa);
+		AtualizarListaDeTarefa();
+	}
+
 	/**
 	* Método utilizado no momento que a Activity do fragment é criada
 	* @param Bundle savedInstanceState

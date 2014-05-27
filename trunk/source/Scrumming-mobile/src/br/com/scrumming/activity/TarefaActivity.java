@@ -20,9 +20,10 @@ import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.interfaces.ClickedOnTarefa;
 import br.com.scrumming.interfaces.ClickedOnTarefaReporteItem;
+import br.com.scrumming.interfaces.MudarParaProcesso;
 
 public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout, ClickedOnHome, TabListener, 
-												ClickedOnTarefa, ClickedOnTarefaReporteItem{
+												ClickedOnTarefa, ClickedOnTarefaReporteItem, MudarParaProcesso{
 	
 	//Instanciação dos Objetos e variáveis
 	TarefaPlanejadaFragment tarefaPlanejadaFragment;
@@ -215,5 +216,14 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 		intentTarefa.putExtra("sprint", sprint);
 		intentTarefa.putExtra("tarefa", tarefa);
 		startActivity(intentTarefa);
+	}
+
+	@Override
+	public void clicouTarefaProcesso(Tarefa tarefa) {
+		// TODO Auto-generated method stub
+		if (tarefaProcessFragment != null){
+			tarefaProcessFragment.atualizarLista(tarefa);
+		}
+		
 	}
 }

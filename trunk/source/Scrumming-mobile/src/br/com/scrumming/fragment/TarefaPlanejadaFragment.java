@@ -6,7 +6,6 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
@@ -27,7 +26,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.com.scrumming.R;
-import br.com.scrumming.activity.TarefaActivity;
 import br.com.scrumming.adapter.TarefaAdapter;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
@@ -38,6 +36,7 @@ import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
+import br.com.scrumming.interfaces.MudarParaProcesso;
 import br.com.scrumming.rest.RestTarefa;
 import br.com.scrumming.rest.RestTarefaFavorita;
 
@@ -249,11 +248,8 @@ public class TarefaPlanejadaFragment extends ListFragment {
 			 for (int i = 0; i < listaTarefa.size(); i++) {
 				if (listaTarefa.get(i).getCodigo() == tarefaSelecionada.getCodigo()) {
 					listaTarefa.remove(i);
-					
-					/*Intent itencao = new Intent(getActivity(), TarefaActivity.class);
-					itencao.putExtra("tarefaSelecionada", tarefaSelecionada);
-					startActivity(itencao);*/
 				}
+				((MudarParaProcesso)getActivity()).clicouTarefaProcesso(tarefaSelecionada);
 				AtualizarListaDeTarefa();
 				mensagemTarefaAlterada();
 			}
