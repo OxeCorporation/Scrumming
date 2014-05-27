@@ -214,6 +214,7 @@ public class TarefaReportFragment extends Fragment {
 			    }).start();
 			 //EXIBI A MENSAGEM DE HORAS REPORTADAS COM SUCESSO
 			 mensagemHorasReportadas();
+			 getActivity().finish();
 		}
 
 		private void setarTarefaReporte() {

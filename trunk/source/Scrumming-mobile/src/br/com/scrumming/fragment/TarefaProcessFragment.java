@@ -272,6 +272,7 @@ public class TarefaProcessFragment extends ListFragment {
 			}
 			 ((MudarParaProcesso)getActivity()).clicouTarefaPlanejada(tarefaSelecionada);
 			 AtualizarListaDeTarefa();
+			 mensagemTarefaAlterada();
 			break;
 			
 		case R.id.opcaoAtribuir:

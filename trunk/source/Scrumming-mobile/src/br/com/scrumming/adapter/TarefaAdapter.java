@@ -40,11 +40,11 @@ public class TarefaAdapter extends ArrayAdapter<Tarefa> {
 			holder.txtNomeUsuarioAtribuido.setVisibility(View.GONE);
 			holder.txtNomeTarefa.setText(tarefa.getNome());
 			holder.txtDescricaoTarefa.setText(tarefa.getDescricao());
-			holder.txtTempoEstimado.setText(tarefa.getTempoEstimado().toString());
+			holder.txtTempoEstimado.setText("Estimativa: " + tarefa.getTempoEstimado().toString() + "hr(s)");
 		}else{
 			holder.txtNomeTarefa.setText(tarefa.getNome());
 			holder.txtDescricaoTarefa.setText(tarefa.getDescricao());
-			holder.txtTempoEstimado.setText(tarefa.getTempoEstimado().toString());
+			holder.txtTempoEstimado.setText("Estimativa: " + tarefa.getTempoEstimado().toString() + "hr(s)");
 			holder.txtNomeUsuarioAtribuido.setText(tarefa.getUsuario().getNome());
 		}
 		return convertView;
