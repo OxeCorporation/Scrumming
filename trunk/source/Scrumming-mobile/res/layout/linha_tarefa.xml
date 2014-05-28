@@ -3,48 +3,60 @@
     android:layout_height="match_parent"
     android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/txtNomeTarefa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="90dp" >
 
-    <TextView
-        android:id="@+id/txtDescricaoTarefa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/txtNomeTarefa"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/txtTempoEstimado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtNomeTarefa"
-        android:layout_alignBottom="@+id/txtNomeTarefa"
-        android:layout_alignParentRight="true"
-        android:text="TextView" />
+            <TextView
+                android:id="@+id/txtNomeTarefa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/txtNomeUsuarioAtribuido"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/txtDescricaoTarefa"
-        android:text="TextView" />
+            <TextView
+                android:id="@+id/txtDescricaoTarefa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/txtNomeTarefa"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/textTempoReportado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtNomeUsuarioAtribuido"
-        android:layout_alignBottom="@+id/txtNomeUsuarioAtribuido"
-        android:layout_alignParentRight="true"
-        android:text="TextView" />
+            <TextView
+                android:id="@+id/txtTempoEstimado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:text="TextView"
+                android:textColor="#FF0000" />
+
+            <TextView
+                android:id="@+id/txtNomeUsuarioAtribuido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/textTempoReportado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:text="TextView"
+                android:textColor="#228B22" />
+
+        </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>
