@@ -27,6 +27,7 @@ import br.com.scrumming.adapter.TarefaAdapter;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
+import br.com.scrumming.domain.TarefaDTO;
 import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
@@ -37,8 +38,8 @@ import br.com.scrumming.rest.RestTarefa;
 public class TarefaConcluidaFragment extends ListFragment {
 	
 	//Instanciação dos Objetos e variáveis
-	List<TarefaReporte> listaTarefaConcluida;
-	TarefaReporte tarefaSelecionada;
+	List<TarefaDTO> listaTarefaConcluida;
+	TarefaDTO tarefaSelecionada;
 	AsyncTaskTarefa taskTarefa;
 	ItemBacklog itemBacklog;
 	UsuarioEmpresa usuarioEmpresa;
@@ -65,7 +66,7 @@ public class TarefaConcluidaFragment extends ListFragment {
 		return tf;
 	}
 	
-	public void atualizarLista(TarefaReporte tarefa){
+	public void atualizarLista(TarefaDTO tarefa){
 		tarefa.getTarefa().setTempoEstimado(0);
 		listaTarefaConcluida.add(tarefa);
 	}
@@ -98,7 +99,7 @@ public class TarefaConcluidaFragment extends ListFragment {
 				mostrarProgress();
 
 			} else {
-				listaTarefaConcluida = new ArrayList<TarefaReporte>();
+				listaTarefaConcluida = new ArrayList<TarefaDTO>();
 				iniciarDownload();
 				
 			}
@@ -220,20 +221,20 @@ public class TarefaConcluidaFragment extends ListFragment {
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
 		
-		tarefaSelecionada = (TarefaReporte)getListView().getItemAtPosition(info.position);
+		tarefaSelecionada = (TarefaDTO)getListView().getItemAtPosition(info.position);
 		
 		switch (item.getItemId()) {
 		case R.id.deConcluidaParaProcesso:
 			 
 			 new Thread(new Runnable() {
 			        public void run() {
-			        	RestTarefa.salvarOuAtualizarTarefa(tarefaSelecionada.getCodigo(), 
+			        	RestTarefa.salvarOuAtualizarTarefa(tarefaSelecionada.getTarefa().getCodigo(), 
 										        			SituacaoTarefaEnum.FAZENDO, 
 										        			usuarioEmpresa.getUsuario().getCodigo());
 			        }
 			    }).start();
 			 for (int i = 0; i < listaTarefaConcluida.size(); i++) {
-				if (listaTarefaConcluida.get(i).getCodigo() == tarefaSelecionada.getCodigo()) {
+				if (listaTarefaConcluida.get(i).getTarefa().getCodigo() == tarefaSelecionada.getTarefa().getCodigo()) {
 					listaTarefaConcluida.remove(i);
 				}
 			}
@@ -247,7 +248,7 @@ public class TarefaConcluidaFragment extends ListFragment {
 
 	
 	//InnerClass do AsyncTask da Empresa
-	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<TarefaReporte>>{
+	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<TarefaDTO>>{
 
 		/**
 		* Método proviniente da herança do AsyncTask para executar algo antes do DoInBackground 
@@ -264,7 +265,7 @@ public class TarefaConcluidaFragment extends ListFragment {
 		* @return Lista de Tarefas
 		*/
 		@Override
-		protected List<TarefaReporte> doInBackground(Integer... params) {
+		protected List<TarefaDTO> doInBackground(Integer... params) {
 			return RestTarefa.retornarTarefa(params[0]);
 		}
 		
@@ -274,7 +275,7 @@ public class TarefaConcluidaFragment extends ListFragment {
 		* @return void
 		*/
 		@Override
-		protected void onPostExecute(List<TarefaReporte> tarefas) {
+		protected void onPostExecute(List<TarefaDTO> tarefas) {
 			super.onPostExecute(tarefas);
 			if(tarefas != null) {
 				for (int i = 0; i < tarefas.size(); i++) {

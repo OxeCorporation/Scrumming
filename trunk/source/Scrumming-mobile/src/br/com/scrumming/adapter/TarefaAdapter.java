@@ -9,11 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import br.com.scrumming.R;
+import br.com.scrumming.domain.TarefaDTO;
 import br.com.scrumming.domain.TarefaReporte;
 
-public class TarefaAdapter extends ArrayAdapter<TarefaReporte> {
+public class TarefaAdapter extends ArrayAdapter<TarefaDTO> {
 
-	public TarefaAdapter(Context context, List<TarefaReporte> objects) {
+	public TarefaAdapter(Context context, List<TarefaDTO> objects) {
 		super(context, 0, 0, objects);
 	}
 
@@ -21,7 +22,7 @@ public class TarefaAdapter extends ArrayAdapter<TarefaReporte> {
 
 		ViewHolder holder;
 		
-		TarefaReporte tarefaReport = getItem(position);
+		TarefaDTO tarefaDTO = getItem(position);
 		
 		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.linha_tarefa, null);
@@ -37,18 +38,18 @@ public class TarefaAdapter extends ArrayAdapter<TarefaReporte> {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		} 
-		if (tarefaReport.getUsuario() == null) {
+		if (tarefaDTO.getTarefa().getUsuario() == null) {
 			holder.txtNomeUsuarioAtribuido.setVisibility(View.GONE);
-			holder.txtNomeTarefa.setText(tarefaReport.getTarefa().getNome());
-			holder.txtDescricaoTarefa.setText(tarefaReport.getTarefa().getDescricao());
-			holder.txtTempoEstimado.setText("Estimativa: " + tarefaReport.getTarefa().getTempoEstimado().toString() + "hr(s)");
-			holder.txtTempoReportado.setText("Reportado: " + tarefaReport.getTempoReportado() + "hs(s)");
+			holder.txtNomeTarefa.setText(tarefaDTO.getTarefa().getNome());
+			holder.txtDescricaoTarefa.setText(tarefaDTO.getTarefa().getDescricao());
+			holder.txtTempoEstimado.setText("Estimativa: " + tarefaDTO.getTarefa().getTempoEstimado().toString() + "hr(s)");
+			holder.txtTempoReportado.setText("Reportado: " + tarefaDTO.getTotalDeHorasReportadas() + "hs(s)");
 		}else{
-			holder.txtNomeTarefa.setText(tarefaReport.getTarefa().getNome());
-			holder.txtDescricaoTarefa.setText(tarefaReport.getTarefa().getDescricao());
-			holder.txtTempoEstimado.setText("Estimativa: " + tarefaReport.getTarefa().getTempoEstimado().toString() + "hr(s)");
-			holder.txtNomeUsuarioAtribuido.setText(tarefaReport.getTarefa().getUsuario().getNome());
-			holder.txtTempoReportado.setText("Reportado: " + tarefaReport.getTempoReportado() + "hs(s)");
+			holder.txtNomeTarefa.setText(tarefaDTO.getTarefa().getNome());
+			holder.txtDescricaoTarefa.setText(tarefaDTO.getTarefa().getDescricao());
+			holder.txtTempoEstimado.setText("Estimativa: " + tarefaDTO.getTarefa().getTempoEstimado().toString() + "hr(s)");
+			holder.txtNomeUsuarioAtribuido.setText(tarefaDTO.getTarefa().getUsuario().getNome());
+			holder.txtTempoReportado.setText("Reportado: " + tarefaDTO.getTotalDeHorasReportadas() + "hs(s)");
 		}
 		return convertView;
 	}

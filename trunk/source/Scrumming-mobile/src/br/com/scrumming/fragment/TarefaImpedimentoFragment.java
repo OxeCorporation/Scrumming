@@ -29,6 +29,7 @@ import br.com.scrumming.adapter.TarefaAdapter;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
+import br.com.scrumming.domain.TarefaDTO;
 import br.com.scrumming.domain.TarefaFavorita;
 import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.UsuarioEmpresa;
@@ -42,7 +43,7 @@ import br.com.scrumming.rest.RestTarefaFavorita;
 public class TarefaImpedimentoFragment extends ListFragment {
 	
 	//Instanciação dos Objetos e variáveis
-	List<TarefaReporte> listaTarefaImpedida;
+	List<TarefaDTO> listaTarefaImpedida;
 	AsyncTaskTarefa taskTarefa;
 	ItemBacklog itemBacklog;
 	UsuarioEmpresa usuarioEmpresa;
@@ -51,7 +52,7 @@ public class TarefaImpedimentoFragment extends ListFragment {
 	SprintBacklog sprintBacklog;
 	ProgressBar progressTarefa;
 	TextView txtMensagemTarefa, txtMensagemTarefaStatus;
-	TarefaReporte tarefaSelecionada;
+	TarefaDTO tarefaSelecionada;
 	TarefaFavorita tarefaFavorita;
 	
 	
@@ -72,7 +73,7 @@ public class TarefaImpedimentoFragment extends ListFragment {
 		return tf;
 	}
 	
-	public void atualizarLista(TarefaReporte tarefa){
+	public void atualizarLista(TarefaDTO tarefa){
 		listaTarefaImpedida.add(tarefa);
 	}
 	
@@ -105,7 +106,7 @@ public class TarefaImpedimentoFragment extends ListFragment {
 				mostrarProgress();
 
 			} else {
-				listaTarefaImpedida = new ArrayList<TarefaReporte>();
+				listaTarefaImpedida = new ArrayList<TarefaDTO>();
 				iniciarDownload();
 				
 			}
@@ -247,20 +248,20 @@ public class TarefaImpedimentoFragment extends ListFragment {
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
 		
-		tarefaSelecionada = (TarefaReporte)getListView().getItemAtPosition(info.position);
+		tarefaSelecionada = (TarefaDTO)getListView().getItemAtPosition(info.position);
 		
 		switch (item.getItemId()) {
 		case R.id.opcaoAlterarDeImpedidaParaProcesso:
 			 
 			 new Thread(new Runnable() {
 			        public void run() {
-			        	RestTarefa.salvarOuAtualizarTarefa(tarefaSelecionada.getCodigo(), 
+			        	RestTarefa.salvarOuAtualizarTarefa(tarefaSelecionada.getTarefa().getCodigo(), 
 										        			SituacaoTarefaEnum.FAZENDO, 
 										        			usuarioEmpresa.getUsuario().getCodigo());
 			        }
 			    }).start();
 			 for (int i = 0; i < listaTarefaImpedida.size(); i++) {
-				if (listaTarefaImpedida.get(i).getCodigo() == tarefaSelecionada.getCodigo()) {
+				if (listaTarefaImpedida.get(i).getTarefa().getCodigo() == tarefaSelecionada.getTarefa().getCodigo()) {
 					listaTarefaImpedida.remove(i);
 				}
 			}
@@ -322,7 +323,7 @@ public class TarefaImpedimentoFragment extends ListFragment {
 }
 	
 	//InnerClass do AsyncTask da Empresa
-	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<TarefaReporte>>{
+	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<TarefaDTO>>{
 
 		/**
 		* Método proviniente da herança do AsyncTask para executar algo antes do DoInBackground 
@@ -339,7 +340,7 @@ public class TarefaImpedimentoFragment extends ListFragment {
 		* @return Lista de Tarefas
 		*/
 		@Override
-		protected List<TarefaReporte> doInBackground(Integer... params) {
+		protected List<TarefaDTO> doInBackground(Integer... params) {
 			return RestTarefa.retornarTarefa(params[0]);
 		}
 		
@@ -349,7 +350,7 @@ public class TarefaImpedimentoFragment extends ListFragment {
 		* @return void
 		*/
 		@Override
-		protected void onPostExecute(List<TarefaReporte> tarefas) {
+		protected void onPostExecute(List<TarefaDTO> tarefas) {
 			super.onPostExecute(tarefas);
 			if(tarefas != null) {
 				for (int i = 0; i < tarefas.size(); i++) {

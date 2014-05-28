@@ -23,6 +23,7 @@ import br.com.scrumming.adapter.TarefaAdapter;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
+import br.com.scrumming.domain.TarefaDTO;
 import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.interfaces.ClickedOnHome;
@@ -32,7 +33,7 @@ import br.com.scrumming.rest.RestTarefa;
 public class TarefaFavoritaFragment extends ListFragment {
 	
 	//Instanciação dos Objetos e variáveis
-	List<TarefaReporte> listaTarefa;
+	List<TarefaDTO> listaTarefa;
 	AsyncTaskTarefa taskTarefa;
 	ItemBacklog itemBacklog;
 	UsuarioEmpresa usuarioEmpresa;
@@ -189,7 +190,7 @@ public class TarefaFavoritaFragment extends ListFragment {
 	}
 	
 	//InnerClass do AsyncTask da Empresa
-	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<TarefaReporte>>{
+	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<TarefaDTO>>{
 
 		/**
 		* Método proviniente da herança do AsyncTask para executar algo antes do DoInBackground 
@@ -206,7 +207,7 @@ public class TarefaFavoritaFragment extends ListFragment {
 		* @return Lista de Tarefas
 		*/
 		@Override
-		protected List<TarefaReporte> doInBackground(Integer... params) {
+		protected List<TarefaDTO> doInBackground(Integer... params) {
 			return RestTarefa.retornarTarefa(params[0]);
 		}
 		
@@ -216,7 +217,7 @@ public class TarefaFavoritaFragment extends ListFragment {
 		* @return void
 		*/
 		@Override
-		protected void onPostExecute(List<TarefaReporte> tarefas) {
+		protected void onPostExecute(List<TarefaDTO> tarefas) {
 			super.onPostExecute(tarefas);
 			if(tarefas != null) {
 				listaTarefa = tarefas;
