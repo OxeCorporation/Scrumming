@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.scrumming.core.manager.interfaces.ITarefaManager;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.TarefaDTO;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
 @RestController
@@ -71,6 +72,12 @@ public class TarefaService {
 	public void validarDadosAntesDeAtualizarStatus(@RequestBody Tarefa tarefa, @PathVariable Integer usuarioLogadoID) {
     	tarefaManager.validarDadosAntesDeAtualizarStatus(tarefa, usuarioLogadoID);
     }
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/listDTO/{itemID}")
+	public List<TarefaDTO> tarefasComTempoReportado(@PathVariable Integer itemID) {
+    	return tarefaManager.consultarTarefaDTOPorItemBacklog(itemID);
+    }
+
 
 	/* getters and setters */
 	public ITarefaManager getTarefaManager() {

@@ -34,4 +34,16 @@ public class TarefaReporteRepositorio extends AbstractRepositorio<TarefaReporte,
         
         return Collections.checkedList(criteria.list(), TarefaDTO.class);
     }
+	
+	@SuppressWarnings("unchecked")
+	public List<TarefaReporte> consultarTarefaReportePorTarefa(Integer tarefaID) {
+        Criteria criteria = createCriteria();
+        criteria.createAlias("tarefa", "tarefaAlias");
+        criteria.add(Restrictions.eq("tarefaAlias.codigo", tarefaID));		
+//		criteria.setProjection(Projections.projectionList()
+//				.add(Projections.sum("tempoReportado"))
+//				.add(Projections.groupProperty("tarefa")));
+        
+        return Collections.checkedList(criteria.list(), TarefaReporte.class);
+    }
 }
