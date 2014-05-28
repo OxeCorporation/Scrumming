@@ -38,4 +38,13 @@
         android:layout_below="@+id/txtDescricaoTarefa"
         android:text="TextView" />
 
+    <TextView
+        android:id="@+id/textTempoReportado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtNomeUsuarioAtribuido"
+        android:layout_alignBottom="@+id/txtNomeUsuarioAtribuido"
+        android:layout_alignParentRight="true"
+        android:text="TextView" />
+
 </RelativeLayout>
