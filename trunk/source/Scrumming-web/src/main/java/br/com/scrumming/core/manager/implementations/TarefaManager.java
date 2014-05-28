@@ -16,12 +16,15 @@ import br.com.scrumming.core.infra.util.MensagemUtil;
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
 import br.com.scrumming.core.manager.interfaces.ITarefaFavoritaManager;
 import br.com.scrumming.core.manager.interfaces.ITarefaManager;
+import br.com.scrumming.core.manager.interfaces.ITarefaReporteManager;
 import br.com.scrumming.core.manager.interfaces.ITeamManager;
 import br.com.scrumming.core.manager.interfaces.IUsuarioManager;
 import br.com.scrumming.core.repositorio.TarefaReporteRepositorio;
 import br.com.scrumming.core.repositorio.TarefaRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.TarefaDTO;
+import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
@@ -44,6 +47,8 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements
 	private IUsuarioManager usuarioManager;
 	@Autowired
 	private ITeamManager teamManager;
+	@Autowired
+	private ITarefaReporteManager tarefaReporteManager;
 	@Autowired
 	private ITarefaFavoritaManager tarefaFavoritaManager;
 
@@ -126,6 +131,25 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements
 		return preencherNovaListaDeTarefas(listaDeTarefas, 0);
 	}
 	
+	@Override
+	public List<TarefaDTO> consultarTarefaDTOPorItemBacklog(Integer itemBacklogID) {
+		List<Tarefa> listaDeTarefas = preencherNovaListaDeTarefas(tarefaRepositorio
+				.consultarPorItemBacklog(itemBacklogID), 0);
+		List<TarefaDTO> listaTarefaDTO = new ArrayList<>();
+		for (int i = 0; i < listaDeTarefas.size(); i++) {
+			List<TarefaReporte> dto = tarefaReporteRepositorio.consultarTarefaReportePorTarefa(listaDeTarefas.get(i).getCodigo());
+			long total = 0;
+			for (int j = 0; j < dto.size(); j++) {
+				total = total+dto.get(j).getTempoReportado();
+			}
+			TarefaDTO tarefaDTO = new TarefaDTO();
+			tarefaDTO.setTarefa(listaDeTarefas.get(i));
+			tarefaDTO.setTotalDeHorasReportadas(total);
+			listaTarefaDTO.add(tarefaDTO);
+		}
+		return listaTarefaDTO;
+	}
+
 	@Override
 	public List<Tarefa> consultarPorItemBacklog(Integer itemBacklogID, Integer usuarioLogadoID) {
 		List<Tarefa> listaDeTarefas = tarefaRepositorio
