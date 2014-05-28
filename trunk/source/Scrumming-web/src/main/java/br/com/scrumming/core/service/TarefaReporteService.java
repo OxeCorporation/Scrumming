@@ -1,5 +1,7 @@
 package br.com.scrumming.core.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +24,11 @@ public class TarefaReporteService {
     		@PathVariable Integer sprintID, @PathVariable Integer itemID, 
     		@PathVariable Integer tarefaID) {
 		tarefaReporteManager.reportarHora(tarefaReporte, sprintID, itemID, tarefaID);
+    }
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/{itemID}")
+	public List<TarefaReporte> totalDeHorasReportadasNasTarefasDoItem(@PathVariable Integer itemID) {
+    	return tarefaReporteManager.totalDeHorasReportadasNasTarefasDoItem(itemID);
     }
 
 	/* getters and setters */

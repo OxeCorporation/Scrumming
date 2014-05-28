@@ -1,5 +1,7 @@
 package br.com.scrumming.core.manager.implementations;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,6 +81,12 @@ public class TarefaReporteManager extends AbstractManager<TarefaReporte, Integer
     		throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_NAO_PODE_REPORTAR_HORA_EM_TAREFA_DE_ITEM_ENTREGUE_OU_CANCELADO);
 		}
 	}	
+    
+    @Override
+	@Transactional(readOnly = true)
+	public List<TarefaReporte> totalDeHorasReportadasNasTarefasDoItem(Integer itemBacklogID) {
+		return tarefaReporteRepositorio.totalDeHorasReportadasNasTarefasDoItem(itemBacklogID);
+	}
     
     /* getters and setters */
     public TarefaReporteRepositorio getTarefaReporteRepositorio() {

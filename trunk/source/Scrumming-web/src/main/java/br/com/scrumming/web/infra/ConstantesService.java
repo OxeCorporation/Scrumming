@@ -92,6 +92,7 @@ public final class ConstantesService {
 	public final class TarefaReporte{
 		private TarefaReporte(){}
 		public static final String URL_REPORTAR_HORA = "/tarefa_reporte/{sprintID}/{itemID}/{tarefaID}";
+		public static final String URL_TOTAL_DE_HORAS_REPORTADAS_NAS_TAREFAS_DO_ITEM = "/tarefa_reporte/{itemID}";
 	}
 	
 	public final class TarefaFavorita{
