@@ -27,19 +27,18 @@ import br.com.scrumming.adapter.TarefaAdapter;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
-import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.interfaces.ClickedOnLogout;
-import br.com.scrumming.interfaces.ClickedOnTarefaReporteItem;
 import br.com.scrumming.interfaces.MudarParaProcesso;
 import br.com.scrumming.rest.RestTarefa;
 
 public class TarefaConcluidaFragment extends ListFragment {
 	
 	//Instanciação dos Objetos e variáveis
-	List<Tarefa> listaTarefaConcluida;
-	Tarefa tarefaSelecionada;
+	List<TarefaReporte> listaTarefaConcluida;
+	TarefaReporte tarefaSelecionada;
 	AsyncTaskTarefa taskTarefa;
 	ItemBacklog itemBacklog;
 	UsuarioEmpresa usuarioEmpresa;
@@ -66,8 +65,8 @@ public class TarefaConcluidaFragment extends ListFragment {
 		return tf;
 	}
 	
-	public void atualizarLista(Tarefa tarefa){
-		tarefa.setTempoEstimado(0);
+	public void atualizarLista(TarefaReporte tarefa){
+		tarefa.getTarefa().setTempoEstimado(0);
 		listaTarefaConcluida.add(tarefa);
 	}
 
@@ -99,7 +98,7 @@ public class TarefaConcluidaFragment extends ListFragment {
 				mostrarProgress();
 
 			} else {
-				listaTarefaConcluida = new ArrayList<Tarefa>();
+				listaTarefaConcluida = new ArrayList<TarefaReporte>();
 				iniciarDownload();
 				
 			}
@@ -198,7 +197,7 @@ public class TarefaConcluidaFragment extends ListFragment {
 	*/
 	private void AtualizarListaDeTarefa() {
 		for (int i = 0; i < listaTarefaConcluida.size(); i++) {
-			listaTarefaConcluida.get(i).setTempoEstimado(0);
+			listaTarefaConcluida.get(i).getTarefa().setTempoEstimado(0);
 		}
 		TarefaAdapter adapter = new TarefaAdapter(getActivity(), listaTarefaConcluida);
 		setListAdapter(adapter);
@@ -221,7 +220,7 @@ public class TarefaConcluidaFragment extends ListFragment {
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
 		
-		tarefaSelecionada = (Tarefa)getListView().getItemAtPosition(info.position);
+		tarefaSelecionada = (TarefaReporte)getListView().getItemAtPosition(info.position);
 		
 		switch (item.getItemId()) {
 		case R.id.deConcluidaParaProcesso:
@@ -248,7 +247,7 @@ public class TarefaConcluidaFragment extends ListFragment {
 
 	
 	//InnerClass do AsyncTask da Empresa
-	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<Tarefa>>{
+	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<TarefaReporte>>{
 
 		/**
 		* Método proviniente da herança do AsyncTask para executar algo antes do DoInBackground 
@@ -265,7 +264,7 @@ public class TarefaConcluidaFragment extends ListFragment {
 		* @return Lista de Tarefas
 		*/
 		@Override
-		protected List<Tarefa> doInBackground(Integer... params) {
+		protected List<TarefaReporte> doInBackground(Integer... params) {
 			return RestTarefa.retornarTarefa(params[0]);
 		}
 		
@@ -275,11 +274,11 @@ public class TarefaConcluidaFragment extends ListFragment {
 		* @return void
 		*/
 		@Override
-		protected void onPostExecute(List<Tarefa> tarefas) {
+		protected void onPostExecute(List<TarefaReporte> tarefas) {
 			super.onPostExecute(tarefas);
 			if(tarefas != null) {
 				for (int i = 0; i < tarefas.size(); i++) {
-					if (tarefas.get(i).getSituacao() == SituacaoTarefaEnum.FEITO) {
+					if (tarefas.get(i).getTarefa().getSituacao() == SituacaoTarefaEnum.FEITO) {
 						listaTarefaConcluida.add(tarefas.get(i));
 						
 					}/*else{
