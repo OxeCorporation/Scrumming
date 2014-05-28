@@ -26,8 +26,10 @@ public class TarefaReporteRepositorio extends AbstractRepositorio<TarefaReporte,
 	public List<TarefaReporte> totalDeHorasReportadasNasTarefasDoItem(Integer itemBacklogID) {
         Criteria criteria = createCriteria();
         criteria.createAlias("tarefa", "tarefaAlias");
-        criteria.add(Restrictions.eq("tarefaAlias.itemBacklog.codigo", itemBacklogID));
-		criteria.setProjection(Projections.sum("tempoReportado"));		
+        criteria.add(Restrictions.eq("tarefaAlias.itemBacklog.codigo", itemBacklogID));		
+		criteria.setProjection(Projections.projectionList()
+				.add(Projections.sum("tempoReportado"))
+				.add(Projections.groupProperty("tarefa")));
         
         return Collections.checkedList(criteria.list(), TarefaReporte.class);
     }

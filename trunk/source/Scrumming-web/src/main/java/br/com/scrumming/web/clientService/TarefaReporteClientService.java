@@ -16,9 +16,11 @@ public class TarefaReporteClientService extends AbstractClientService {
 	}
 	
 	public List<TarefaReporte> totalDeHorasReportadasNasTarefasDoItem(Integer itemID) {
-		return Arrays.asList(getRestTemplate().getForObject(getURIService(
-					ConstantesService.TarefaReporte.URL_TOTAL_DE_HORAS_REPORTADAS_NAS_TAREFAS_DO_ITEM), 
-					TarefaReporte.class, itemID));
+		TarefaReporte[] reportes = getRestTemplate().getForObject(getURIService(ConstantesService.
+										TarefaReporte.URL_TOTAL_DE_HORAS_REPORTADAS_NAS_TAREFAS_DO_ITEM), 
+										TarefaReporte[].class, itemID);
+		
+		return Arrays.asList(reportes);
 	}
 	
 }
