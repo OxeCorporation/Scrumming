@@ -14,6 +14,6 @@ public class ConfigService {
  
     @RequestMapping(method = RequestMethod.GET, value = "/verificar_permissao/{time}/{configEnum}")
     public boolean consultarSprintDTO(@PathVariable Team time, @PathVariable ConfigEnum configEnum) {
-    	return PermissionConfig.verifyPermission(time, configEnum);
+    	return PermissionConfig.getInstance().verifyPermission(time, configEnum);
     }
 }

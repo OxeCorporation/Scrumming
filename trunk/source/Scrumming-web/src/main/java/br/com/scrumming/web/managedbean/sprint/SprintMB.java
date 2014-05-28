@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import br.com.scrumming.core.infra.util.PermissionConfig;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
+import br.com.scrumming.domain.Team;
+import br.com.scrumming.domain.enuns.ConfigEnum;
 import br.com.scrumming.web.clientService.SprintClientService;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
@@ -31,10 +35,10 @@ public class SprintMB extends AbstractBean {
 	@FlashScoped
 	private List<ItemBacklog> itensDisponiveis;
 	@FlashScoped
-	private List<ItemBacklog> sprintBacklog;
-	
-	private boolean CADASTRO_SPRINT;
-	
+	private List<ItemBacklog> sprintBacklog;	
+	@ManagedProperty(value="#{sessaoMB.time}")
+	private Team time;
+	private boolean cadastroSprint;
 	@Override
 	public void inicializar() {
 		sprintClientService = new SprintClientService();
@@ -148,8 +152,23 @@ public class SprintMB extends AbstractBean {
 	public void setItensDisponiveis(List<ItemBacklog> itensDisponiveis) {
 		this.itensDisponiveis = itensDisponiveis;
 	}
+
 	
-	public boolean isCADASTRO_SPRINT() {
-		return CADASTRO_SPRINT;
+	public boolean isCadastroSprint() {
+//		boolean permissao = PermissionConfig.getInstance().verifyPermission(time, ConfigEnum.CADASTRO_SPRINT);
+		
+		return true;
+	}
+
+	public void setCadastroSprint(boolean cadastroSprint) {
+		this.cadastroSprint = cadastroSprint;
+	}
+
+	public Team getTime() {
+		return time;
+	}
+
+	public void setTime(Team time) {
+		this.time = time;
 	}
 }

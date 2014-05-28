@@ -1,5 +1,9 @@
 package br.com.scrumming.core.infra.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import br.com.scrumming.core.repositorio.ConfigRepositorio;
 import br.com.scrumming.domain.Config;
 import br.com.scrumming.domain.Empresa;
@@ -7,9 +11,11 @@ import br.com.scrumming.domain.Team;
 import br.com.scrumming.domain.enuns.ConfigEnum;
 import br.com.scrumming.domain.enuns.PerfilUsuarioEnum;
 
+@Service
 public class PermissionConfig {
 	
-	private static ConfigRepositorio repositorio;
+	@Autowired
+	private ConfigRepositorio repositorio;
 
 	/**
 	 * Verifica se o usuário tem permissão em uma determinada configuração do sistema.
@@ -17,10 +23,11 @@ public class PermissionConfig {
 	 * @param configEnum
 	 * @return
 	 */
-	public static boolean verifyPermission(Team time, ConfigEnum configEnum) {
+	private static PermissionConfig permissionConfig = null;
+	
+	@Transactional(readOnly = true)
+	public boolean verifyPermission(Team time, ConfigEnum configEnum) {
 		boolean allowed = false;
-		try {
-			time.getUsuario();
 			
 			Config config = getConfig(configEnum, time.getEmpresa());
 			PerfilUsuarioEnum perfil = time.getPerfilUsuario();
@@ -37,20 +44,32 @@ public class PermissionConfig {
 					allowed = config.isPerfilTeam();
 					break;
 			}
-		} catch (NullPointerException e) {
-			allowed = false;
-		}
 		return allowed;
 	}
 	
+	public static PermissionConfig getInstance(){
+		if(permissionConfig == null){
+			permissionConfig = new PermissionConfig();
+		}
+		return permissionConfig;
+	}
 	/**
 	 * Busca a configuração filtrando pela empresa.
 	 * @param configEnum
 	 * @param empresa
 	 * @return
 	 */
-	private static Config getConfig(ConfigEnum configEnum, Empresa empresa) {		
-		repositorio = new ConfigRepositorio();
+	
+	private Config getConfig(ConfigEnum configEnum, Empresa empresa) {		
 		return repositorio.consultarNomeConfig(configEnum, empresa);
 	}
+
+	public ConfigRepositorio getRepositorio() {
+		return repositorio;
+	}
+
+	public void setRepositorio(ConfigRepositorio repositorio) {
+		this.repositorio = repositorio;
+	}
+	
 }

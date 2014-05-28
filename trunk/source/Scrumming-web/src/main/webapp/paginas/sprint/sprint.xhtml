@@ -69,7 +69,7 @@
 				</p:confirmDialog>
 			</h:panelGroup>
 			<h:panelGroup styleClass="col-md-3 column div-right">
-				<p:commandLink title="Nova sprint"
+				<p:commandLink title="Nova sprint" rendered="#{sprintMB.cadastroSprint}"
 					action="#{sprintMB.consultarItensDisponiveis}">
 					<i class="fa fa-plus right-sidebar-icon" />
 					<h:outputText value="Nova sprint" />
