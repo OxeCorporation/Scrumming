@@ -23,166 +23,201 @@ import br.com.scrumming.interfaces.ClickedOnTarefa;
 import br.com.scrumming.interfaces.ClickedOnTarefaReporteItem;
 import br.com.scrumming.interfaces.MudarParaProcesso;
 
-public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout, ClickedOnHomeBoard, TabListener, 
-												ClickedOnTarefa, ClickedOnTarefaReporteItem, MudarParaProcesso{
-	
-	//Instanciação dos Objetos e variáveis
+public class TarefaActivity extends ActionBarActivity implements
+		ClickedOnLogout, ClickedOnHomeBoard, TabListener, ClickedOnTarefa,
+		ClickedOnTarefaReporteItem, MudarParaProcesso {
+
+	// Instanciação dos Objetos e variáveis
 	TarefaPlanejadaFragment tarefaPlanejadaFragment;
 	TarefaProcessFragment tarefaProcessFragment;
 	TarefaImpedimentoFragment tarefaImpedimentoFragment;
 	TarefaConcluidaFragment tarefaConcluidaFragment;
-	
+
 	/**
-	* Método de criação da Activity
-	* @param Bundle savedInstanceState
-	* @return void
-	*/
+	 * Método de criação da Activity
+	 * 
+	 * @param Bundle
+	 *            savedInstanceState
+	 * @return void
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_principal);
-		
-		ItemBacklog itemBacklog = (ItemBacklog)getIntent().getSerializableExtra("itemBacklog");
-		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa)getIntent().getSerializableExtra("usuarioEmpresa");
-		Sprint sprint = (Sprint)getIntent().getSerializableExtra("sprint");
-		//Tarefa tarefa = (Tarefa)getIntent().getSerializableExtra("tarefaSelecionada");
-		
-		tarefaPlanejadaFragment	    = (TarefaPlanejadaFragment)getSupportFragmentManager().findFragmentByTag("tpf");
-		tarefaProcessFragment  	    = (TarefaProcessFragment)getSupportFragmentManager().findFragmentByTag("tpcf");
-		tarefaImpedimentoFragment   = (TarefaImpedimentoFragment)getSupportFragmentManager().findFragmentByTag("tif");
-		tarefaConcluidaFragment 	= (TarefaConcluidaFragment)getSupportFragmentManager().findFragmentByTag("tcf");
-		
-		if ((tarefaPlanejadaFragment == null) || (tarefaProcessFragment  == null) ||
-						(tarefaImpedimentoFragment  == null) || (tarefaConcluidaFragment  == null)){
-			
-			tarefaPlanejadaFragment = TarefaPlanejadaFragment.novaInstancia(itemBacklog, usuarioEmpresa, sprint);
-			tarefaProcessFragment = TarefaProcessFragment.novaInstancia(itemBacklog, usuarioEmpresa, sprint);
-			tarefaImpedimentoFragment = TarefaImpedimentoFragment.novaInstancia(itemBacklog, usuarioEmpresa, sprint);
-			tarefaConcluidaFragment = TarefaConcluidaFragment.novaInstancia(itemBacklog, usuarioEmpresa, sprint);
-			
-			getSupportFragmentManager()
-				.beginTransaction()
-				.add(R.id.master, tarefaPlanejadaFragment, "tpf")
-				.add(R.id.master, tarefaProcessFragment, "tpcf")
-				.add(R.id.master, tarefaImpedimentoFragment, "tif")
-				.add(R.id.master, tarefaConcluidaFragment, "tcf")
-				.commit();
+
+		ItemBacklog itemBacklog = (ItemBacklog) getIntent()
+				.getSerializableExtra("itemBacklog");
+		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa) getIntent()
+				.getSerializableExtra("usuarioEmpresa");
+		Sprint sprint = (Sprint) getIntent().getSerializableExtra("sprint");
+		// Tarefa tarefa =
+		// (Tarefa)getIntent().getSerializableExtra("tarefaSelecionada");
+
+		tarefaPlanejadaFragment = (TarefaPlanejadaFragment) getSupportFragmentManager()
+				.findFragmentByTag("tpf");
+		tarefaProcessFragment = (TarefaProcessFragment) getSupportFragmentManager()
+				.findFragmentByTag("tpcf");
+		tarefaImpedimentoFragment = (TarefaImpedimentoFragment) getSupportFragmentManager()
+				.findFragmentByTag("tif");
+		tarefaConcluidaFragment = (TarefaConcluidaFragment) getSupportFragmentManager()
+				.findFragmentByTag("tcf");
+
+		if ((tarefaPlanejadaFragment == null)
+				|| (tarefaProcessFragment == null)
+				|| (tarefaImpedimentoFragment == null)
+				|| (tarefaConcluidaFragment == null)) {
+
+			tarefaPlanejadaFragment = TarefaPlanejadaFragment.novaInstancia(
+					itemBacklog, usuarioEmpresa, sprint);
+			tarefaProcessFragment = TarefaProcessFragment.novaInstancia(
+					itemBacklog, usuarioEmpresa, sprint);
+			tarefaImpedimentoFragment = TarefaImpedimentoFragment
+					.novaInstancia(itemBacklog, usuarioEmpresa, sprint);
+			tarefaConcluidaFragment = TarefaConcluidaFragment.novaInstancia(
+					itemBacklog, usuarioEmpresa, sprint);
+
+			getSupportFragmentManager().beginTransaction()
+					.add(R.id.master, tarefaPlanejadaFragment, "tpf")
+					.add(R.id.master, tarefaProcessFragment, "tpcf")
+					.add(R.id.master, tarefaImpedimentoFragment, "tif")
+					.add(R.id.master, tarefaConcluidaFragment, "tcf").commit();
 		}
-//		} else if (tarefaProcessFragment != null && tarefa != null) {
-//			tarefaProcessFragment.modificarLista(tarefa);
-//			
-//		}
-		 
+		// } else if (tarefaProcessFragment != null && tarefa != null) {
+		// tarefaProcessFragment.modificarLista(tarefa);
+		//
+		// }
+
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		
+
 		Tab tab1 = actionBar.newTab();
 		tab1.setText("Planejada");
 		tab1.setTabListener((TabListener) this);
-		
+
 		Tab tab2 = actionBar.newTab();
 		tab2.setText("Processo");
 		tab2.setTabListener((TabListener) this);
-		
+
 		Tab tab3 = actionBar.newTab();
 		tab3.setText("Impedida");
 		tab3.setTabListener((TabListener) this);
-		
+
 		Tab tab4 = actionBar.newTab();
 		tab4.setText("Concluida");
 		tab4.setTabListener((TabListener) this);
-		
+
 		actionBar.addTab(tab1);
 		actionBar.addTab(tab2);
 		actionBar.addTab(tab3);
 		actionBar.addTab(tab4);
-		
+
 		if (savedInstanceState != null) {
-			actionBar.setSelectedNavigationItem(savedInstanceState.getInt("tab"));
+			actionBar.setSelectedNavigationItem(savedInstanceState
+					.getInt("tab"));
 		}
 	}
 
 	/**
-	* Método herdado da interface TabListener usado ao reselecionar uma aba
-	* @param Tab arg0
-	* @param FragmentTransaction arg1
-	* @return void
-	*/
+	 * Método herdado da interface TabListener usado ao reselecionar uma aba
+	 * 
+	 * @param Tab
+	 *            arg0
+	 * @param FragmentTransaction
+	 *            arg1
+	 * @return void
+	 */
 	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub
 	}
 
 	/**
-	* Método herdado da interface TabListener usado ao selecionar uma aba
-	* @param Tab tab
-	* @param FragmentTransaction ft
-	* @return void
-	*/
+	 * Método herdado da interface TabListener usado ao selecionar uma aba
+	 * 
+	 * @param Tab
+	 *            tab
+	 * @param FragmentTransaction
+	 *            ft
+	 * @return void
+	 */
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		if (tab.getPosition() == 0){
+		if (tab.getPosition() == 0) {
 			ft.show(tarefaPlanejadaFragment).hide(tarefaProcessFragment)
-											.hide(tarefaImpedimentoFragment)
-											.hide(tarefaConcluidaFragment);
+					.hide(tarefaImpedimentoFragment)
+					.hide(tarefaConcluidaFragment);
 		} else if (tab.getPosition() == 1) {
 			ft.show(tarefaProcessFragment).hide(tarefaPlanejadaFragment)
-										  .hide(tarefaImpedimentoFragment)
-										  .hide(tarefaConcluidaFragment);
+					.hide(tarefaImpedimentoFragment)
+					.hide(tarefaConcluidaFragment);
 		} else if (tab.getPosition() == 2) {
 			ft.show(tarefaImpedimentoFragment).hide(tarefaProcessFragment)
-											.hide(tarefaPlanejadaFragment)
-											.hide(tarefaConcluidaFragment);
-		}else if (tab.getPosition() == 3) {
+					.hide(tarefaPlanejadaFragment)
+					.hide(tarefaConcluidaFragment);
+		} else if (tab.getPosition() == 3) {
 			ft.show(tarefaConcluidaFragment).hide(tarefaProcessFragment)
-											.hide(tarefaImpedimentoFragment)
-											.hide(tarefaPlanejadaFragment);
+					.hide(tarefaImpedimentoFragment)
+					.hide(tarefaPlanejadaFragment);
 		}
 	}
 
 	/**
-	* Método herdado da interface TabListener usado ao deselecionar uma aba
-	* @param Tab arg0
-	* @param FragmentTransaction arg1
-	* @return void
-	*/
+	 * Método herdado da interface TabListener usado ao deselecionar uma aba
+	 * 
+	 * @param Tab
+	 *            arg0
+	 * @param FragmentTransaction
+	 *            arg1
+	 * @return void
+	 */
 	@Override
 	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 	}
-	
+
 	/**
-	* Método usado para salvar o estado da instancia da activity
-	* @param Bundle outState
-	* @return void
-	*/
+	 * Método usado para salvar o estado da instancia da activity
+	 * 
+	 * @param Bundle
+	 *            outState
+	 * @return void
+	 */
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		outState.putInt("tab", getSupportActionBar().getSelectedNavigationIndex());
+		outState.putInt("tab", getSupportActionBar()
+				.getSelectedNavigationIndex());
 	}
-	
+
 	/**
-	* Método proviniente da interface para exibir a activity responsável pelo reporte de horas da tarefa
-	* @param ItemBacklog itemBacklog
-	* @param UsuarioEmpresa usuarioEmpresa
-	* @param Sprint sprint
-	* @return void 
-	*/
+	 * Método proviniente da interface para exibir a activity responsável pelo
+	 * reporte de horas da tarefa
+	 * 
+	 * @param ItemBacklog
+	 *            itemBacklog
+	 * @param UsuarioEmpresa
+	 *            usuarioEmpresa
+	 * @param Sprint
+	 *            sprint
+	 * @return void
+	 */
 	@Override
-	public void clicouNaTarefa(ItemBacklog itemBacklog, UsuarioEmpresa usuarioEmpresa, Sprint sprint) {
+	public void clicouNaTarefa(ItemBacklog itemBacklog,
+			UsuarioEmpresa usuarioEmpresa, Sprint sprint) {
 		Intent intentTarefa = new Intent(this, TarefaReportActivity.class);
 		intentTarefa.putExtra("itemBacklog", itemBacklog);
 		intentTarefa.putExtra("usuarioEmpresa", usuarioEmpresa);
 		intentTarefa.putExtra("sprint", sprint);
 		startActivity(intentTarefa);
 	}
-	
+
 	/**
-	* Método para aplicar logout e voltar para a tela de login
-	* @param UsuarioEmpresa usuarioEmpresa
-	* @return void
-	*/
+	 * Método para aplicar logout e voltar para a tela de login
+	 * 
+	 * @param UsuarioEmpresa
+	 *            usuarioEmpresa
+	 * @return void
+	 */
 	@Override
 	public void clicouNoLogout(UsuarioEmpresa usuarioEmpresa) {
 		Intent intencao = new Intent(this, LoginActivity.class);
@@ -191,30 +226,38 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 	}
 
 	/**
-	* Método para encerrar a activity de Tarefa
-	* @param UsuarioEmpresa usuarioEmpresa
-	* @return void
-	*/
+	 * Método para encerrar a activity de Tarefa
+	 * 
+	 * @param UsuarioEmpresa
+	 *            usuarioEmpresa
+	 * @return void
+	 */
 	@Override
 	public void clicouNoHomeBoard(Sprint sprint, UsuarioEmpresa usuarioEmpresa) {
-		Intent intencaoSprintBacklog = new Intent(this, SprintBacklogActivity.class);
+		Intent intencaoSprintBacklog = new Intent(this,
+				SprintBacklogActivity.class);
 		intencaoSprintBacklog.putExtra("usuarioEmpresa", usuarioEmpresa);
 		intencaoSprintBacklog.putExtra("sprint", sprint);
 		startActivity(intencaoSprintBacklog);
 	}
-	
-	
+
 	/**
-	* Método proviniente da interface para exibir a activity responsável pelo reporte de horas da tarefa
-	* @param ItemBacklog itemBacklog
-	* @param UsuarioEmpresa usuarioEmpresa
-	* @param Sprint sprint
-	* @param Tarefa tarefa
-	* @return void 
-	*/
+	 * Método proviniente da interface para exibir a activity responsável pelo
+	 * reporte de horas da tarefa
+	 * 
+	 * @param ItemBacklog
+	 *            itemBacklog
+	 * @param UsuarioEmpresa
+	 *            usuarioEmpresa
+	 * @param Sprint
+	 *            sprint
+	 * @param Tarefa
+	 *            tarefa
+	 * @return void
+	 */
 	@Override
-	public void clicouNaTarefaReportItem(ItemBacklog itemBacklog, UsuarioEmpresa usuarioEmpresa, 
-							Sprint sprint, Tarefa tarefa) {
+	public void clicouNaTarefaReportItem(ItemBacklog itemBacklog,
+			UsuarioEmpresa usuarioEmpresa, Sprint sprint, Tarefa tarefa) {
 		Intent intentTarefa = new Intent(this, TarefaReportActivity.class);
 		intentTarefa.putExtra("itemBacklog", itemBacklog);
 		intentTarefa.putExtra("usuarioEmpresa", usuarioEmpresa);
@@ -224,21 +267,42 @@ public class TarefaActivity extends ActionBarActivity implements ClickedOnLogout
 	}
 
 	@Override
-	public void clicouTarefaProcesso(Tarefa tarefa) {
+	public void clicouTarefaIrProcesso(Tarefa tarefa) {
 		// TODO Auto-generated method stub
-		if (tarefaProcessFragment != null){
+		if (tarefaProcessFragment != null) {
 			tarefaProcessFragment.atualizarLista(tarefa);
 		}
-		
+
 	}
 
 	@Override
-	public void clicouTarefaPlanejada(Tarefa tarefa) {
+	public void clicouTarefaVoltarPlanejada(Tarefa tarefa) {
 		// TODO Auto-generated method stub
-		if (tarefaPlanejadaFragment != null){
+		if (tarefaPlanejadaFragment != null) {
 			tarefaPlanejadaFragment.alterarLista(tarefa);
 		}
 	}
 
-	
+	@Override
+	public void clicouTarefaVoltarProcesso(Tarefa tarefa) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void clicouTarefaIrImpedida(Tarefa tarefa) {
+		if (tarefaImpedimentoFragment != null) {
+			tarefaImpedimentoFragment.atualizarLista(tarefa);
+		}
+
+	}
+
+	@Override
+	public void clicouTarefaIrConcluida(Tarefa tarefa) {
+		if (tarefaConcluidaFragment != null) {
+			tarefaConcluidaFragment.atualizarLista(tarefa);
+		}
+
+	}
+
 }

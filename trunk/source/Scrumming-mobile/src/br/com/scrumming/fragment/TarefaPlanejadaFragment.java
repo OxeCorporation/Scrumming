@@ -260,7 +260,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 					listaTarefasPlanejadas.remove(i);
 				}
 			}
-			 ((MudarParaProcesso)getActivity()).clicouTarefaProcesso(tarefaSelecionada);
+			 ((MudarParaProcesso)getActivity()).clicouTarefaIrProcesso(tarefaSelecionada);
 			 AtualizarListaDeTarefa();
 			 mensagemTarefaAlterada();
 			break;
