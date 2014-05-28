@@ -76,7 +76,6 @@ public class TarefaProcessFragment extends ListFragment {
 	
 	public void atualizarLista(Tarefa tarefa){
 		listaTarefaProcesso.add(tarefa);
-		//AtualizarListaDeTarefa();
 	}
 
 	/**
@@ -256,7 +255,7 @@ public class TarefaProcessFragment extends ListFragment {
 		tarefaSelecionada = (Tarefa)getListView().getItemAtPosition(info.position);
 		
 		switch (item.getItemId()) {
-		case R.id.opcaoAlterarPlanejada:
+		case R.id.deProcessoParaPlanejada:
 			 
 			 new Thread(new Runnable() {
 			        public void run() {
@@ -270,11 +269,49 @@ public class TarefaProcessFragment extends ListFragment {
 					listaTarefaProcesso.remove(i);
 				}
 			}
-			 ((MudarParaProcesso)getActivity()).clicouTarefaPlanejada(tarefaSelecionada);
+			 ((MudarParaProcesso)getActivity()).clicouTarefaVoltarPlanejada(tarefaSelecionada);
 			 AtualizarListaDeTarefa();
 			 mensagemTarefaAlterada();
 			break;
 			
+		case R.id.deProcessoParaConcluida:
+			 
+			 new Thread(new Runnable() {
+			        public void run() {
+			        	RestTarefa.salvarOuAtualizarTarefa(tarefaSelecionada.getCodigo(), 
+										        			SituacaoTarefaEnum.FEITO, 
+										        			usuarioEmpresa.getUsuario().getCodigo());
+			        }
+			    }).start();
+			 for (int i = 0; i < listaTarefaProcesso.size(); i++) {
+				if (listaTarefaProcesso.get(i).getCodigo() == tarefaSelecionada.getCodigo()) {
+					listaTarefaProcesso.remove(i);
+				}
+			}
+			 ((MudarParaProcesso)getActivity()).clicouTarefaIrConcluida(tarefaSelecionada);
+			 AtualizarListaDeTarefa();
+			 mensagemTarefaAlterada();
+			break;
+
+		case R.id.deProcessoParaImpedida:
+			 
+			 new Thread(new Runnable() {
+			        public void run() {
+			        	RestTarefa.salvarOuAtualizarTarefa(tarefaSelecionada.getCodigo(), 
+										        			SituacaoTarefaEnum.EM_IMPEDIMENTO, 
+										        			usuarioEmpresa.getUsuario().getCodigo());
+			        }
+			    }).start();
+			 for (int i = 0; i < listaTarefaProcesso.size(); i++) {
+				if (listaTarefaProcesso.get(i).getCodigo() == tarefaSelecionada.getCodigo()) {
+					listaTarefaProcesso.remove(i);
+				}
+			}
+			 ((MudarParaProcesso)getActivity()).clicouTarefaIrImpedida(tarefaSelecionada);
+			 AtualizarListaDeTarefa();
+			 mensagemTarefaAlterada();
+			break;
+
 		case R.id.opcaoAtribuir:
 			if (tarefaSelecionada != null) {
 				tarefaSelecionada.setUsuario(usuarioEmpresa.getUsuario());

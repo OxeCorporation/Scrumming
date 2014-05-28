@@ -11,13 +11,15 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import br.com.scrumming.R;
@@ -28,15 +30,16 @@ import br.com.scrumming.domain.SprintBacklog;
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
-import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
-import br.com.scrumming.interfaces.ClickedOnTarefa;
+import br.com.scrumming.interfaces.ClickedOnTarefaReporteItem;
+import br.com.scrumming.interfaces.MudarParaProcesso;
 import br.com.scrumming.rest.RestTarefa;
 
 public class TarefaConcluidaFragment extends ListFragment {
 	
 	//Instanciação dos Objetos e variáveis
-	List<Tarefa> listaTarefa;
+	List<Tarefa> listaTarefaConcluida;
+	Tarefa tarefaSelecionada;
 	AsyncTaskTarefa taskTarefa;
 	ItemBacklog itemBacklog;
 	UsuarioEmpresa usuarioEmpresa;
@@ -63,6 +66,11 @@ public class TarefaConcluidaFragment extends ListFragment {
 		return tf;
 	}
 	
+	public void atualizarLista(Tarefa tarefa){
+		tarefa.setTempoEstimado(0);
+		listaTarefaConcluida.add(tarefa);
+	}
+
 	/**
 	* Método utilizado no momento que a Activity do fragment é criada
 	* @param Bundle savedInstanceState
@@ -81,7 +89,7 @@ public class TarefaConcluidaFragment extends ListFragment {
 		
 		txtMensagemTarefaStatus.setVisibility(View.GONE);
 		
-		if (listaTarefa != null){
+		if (listaTarefaConcluida != null){
 			progressTarefa.setVisibility(View.GONE);
 			txtMensagemTarefa.setVisibility(View.GONE);
 			AtualizarListaDeTarefa();;
@@ -91,7 +99,7 @@ public class TarefaConcluidaFragment extends ListFragment {
 				mostrarProgress();
 
 			} else {
-				listaTarefa = new ArrayList<Tarefa>();
+				listaTarefaConcluida = new ArrayList<Tarefa>();
 				iniciarDownload();
 				
 			}
@@ -189,9 +197,55 @@ public class TarefaConcluidaFragment extends ListFragment {
 	* @return void
 	*/
 	private void AtualizarListaDeTarefa() {
-		TarefaAdapter adapter = new TarefaAdapter(getActivity(), listaTarefa);
+		for (int i = 0; i < listaTarefaConcluida.size(); i++) {
+			listaTarefaConcluida.get(i).setTempoEstimado(0);
+		}
+		TarefaAdapter adapter = new TarefaAdapter(getActivity(), listaTarefaConcluida);
 		setListAdapter(adapter);
 	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getActivity().getMenuInflater();
+		inflater.inflate(R.menu.menu_contexto_fragment_processo, menu);
+	}
+	
+	/**
+	* Método utilizado ao selecionar uma item no menu de contexto 
+	* @param MenuItem item
+	* @return boolean
+	*/
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
+		
+		tarefaSelecionada = (Tarefa)getListView().getItemAtPosition(info.position);
+		
+		switch (item.getItemId()) {
+		case R.id.deConcluidaParaProcesso:
+			 
+			 new Thread(new Runnable() {
+			        public void run() {
+			        	RestTarefa.salvarOuAtualizarTarefa(tarefaSelecionada.getCodigo(), 
+										        			SituacaoTarefaEnum.FAZENDO, 
+										        			usuarioEmpresa.getUsuario().getCodigo());
+			        }
+			    }).start();
+			 for (int i = 0; i < listaTarefaConcluida.size(); i++) {
+				if (listaTarefaConcluida.get(i).getCodigo() == tarefaSelecionada.getCodigo()) {
+					listaTarefaConcluida.remove(i);
+				}
+			}
+			 ((MudarParaProcesso)getActivity()).clicouTarefaVoltarProcesso(tarefaSelecionada);
+			 AtualizarListaDeTarefa();
+			// mensagemTarefaAlterada();
+			break;
+		}
+		return super.onContextItemSelected(item);
+	}
+
 	
 	//InnerClass do AsyncTask da Empresa
 	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<Tarefa>>{
@@ -226,7 +280,7 @@ public class TarefaConcluidaFragment extends ListFragment {
 			if(tarefas != null) {
 				for (int i = 0; i < tarefas.size(); i++) {
 					if (tarefas.get(i).getSituacao() == SituacaoTarefaEnum.FEITO) {
-						listaTarefa.add(tarefas.get(i));
+						listaTarefaConcluida.add(tarefas.get(i));
 						
 					}/*else{
 						txtMensagemTarefaStatus.setVisibility(View.VISIBLE);

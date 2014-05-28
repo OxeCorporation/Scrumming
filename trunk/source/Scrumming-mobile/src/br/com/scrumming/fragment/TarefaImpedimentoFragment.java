@@ -268,7 +268,7 @@ public class TarefaImpedimentoFragment extends ListFragment {
 					listaTarefaImpedida.remove(i);
 				}
 			}
-			 ((MudarParaProcesso)getActivity()).clicouTarefaPlanejada(tarefaSelecionada);
+			 ((MudarParaProcesso)getActivity()).clicouTarefaVoltarPlanejada(tarefaSelecionada);
 			 AtualizarListaDeTarefa();
 			break;
 			
