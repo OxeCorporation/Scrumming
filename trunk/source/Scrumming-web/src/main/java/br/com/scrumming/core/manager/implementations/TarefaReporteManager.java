@@ -18,6 +18,7 @@ import br.com.scrumming.core.repositorio.TarefaReporteRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.TarefaDTO;
 import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
@@ -84,7 +85,7 @@ public class TarefaReporteManager extends AbstractManager<TarefaReporte, Integer
     
     @Override
 	@Transactional(readOnly = true)
-	public List<TarefaReporte> totalDeHorasReportadasNasTarefasDoItem(Integer itemBacklogID) {
+	public List<TarefaDTO> totalDeHorasReportadasNasTarefasDoItem(Integer itemBacklogID) {
 		return tarefaReporteRepositorio.totalDeHorasReportadasNasTarefasDoItem(itemBacklogID);
 	}
     

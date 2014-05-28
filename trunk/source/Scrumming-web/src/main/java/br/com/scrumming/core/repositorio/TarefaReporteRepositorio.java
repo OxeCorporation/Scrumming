@@ -9,6 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
+import br.com.scrumming.domain.TarefaDTO;
 import br.com.scrumming.domain.TarefaReporte;
 
 @Repository
@@ -23,7 +24,7 @@ public class TarefaReporteRepositorio extends AbstractRepositorio<TarefaReporte,
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<TarefaReporte> totalDeHorasReportadasNasTarefasDoItem(Integer itemBacklogID) {
+	public List<TarefaDTO> totalDeHorasReportadasNasTarefasDoItem(Integer itemBacklogID) {
         Criteria criteria = createCriteria();
         criteria.createAlias("tarefa", "tarefaAlias");
         criteria.add(Restrictions.eq("tarefaAlias.itemBacklog.codigo", itemBacklogID));		
@@ -31,6 +32,6 @@ public class TarefaReporteRepositorio extends AbstractRepositorio<TarefaReporte,
 				.add(Projections.sum("tempoReportado"))
 				.add(Projections.groupProperty("tarefa")));
         
-        return Collections.checkedList(criteria.list(), TarefaReporte.class);
+        return Collections.checkedList(criteria.list(), TarefaDTO.class);
     }
 }

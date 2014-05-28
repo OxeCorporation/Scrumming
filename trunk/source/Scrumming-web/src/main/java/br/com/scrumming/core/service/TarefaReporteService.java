@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.scrumming.core.manager.interfaces.ITarefaReporteManager;
+import br.com.scrumming.domain.TarefaDTO;
 import br.com.scrumming.domain.TarefaReporte;
 
 @RestController
@@ -27,7 +28,7 @@ public class TarefaReporteService {
     }
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/{itemID}")
-	public List<TarefaReporte> totalDeHorasReportadasNasTarefasDoItem(@PathVariable Integer itemID) {
+	public List<TarefaDTO> totalDeHorasReportadasNasTarefasDoItem(@PathVariable Integer itemID) {
     	return tarefaReporteManager.totalDeHorasReportadasNasTarefasDoItem(itemID);
     }
 
