@@ -26,18 +26,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import br.com.scrumming.R;
 import br.com.scrumming.adapter.TarefaAdapter;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
-import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.TarefaFavorita;
+import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
-import br.com.scrumming.interfaces.ClickedOnHome;
-import br.com.scrumming.interfaces.ClickedOnHomeBoard;
 import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.interfaces.MudarParaProcesso;
 import br.com.scrumming.rest.RestTarefa;
@@ -46,7 +43,7 @@ import br.com.scrumming.rest.RestTarefaFavorita;
 public class TarefaPlanejadaFragment extends ListFragment {
 	
 	//Instanciação dos Objetos e variáveis
-	List<Tarefa> listaTarefasPlanejadas;
+	List<TarefaReporte> listaTarefasPlanejadas;
 	AsyncTaskTarefa taskTarefa;
 	ItemBacklog itemBacklog;
 	UsuarioEmpresa usuarioEmpresa;
@@ -55,7 +52,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 	SprintBacklog sprintBacklog;
 	ProgressBar progressTarefa;
 	TextView txtMensagemTarefa, txtMensagemTarefaStatus, txtNomeUsuarioAtribuido;
-	Tarefa tarefaSelecionada;
+	TarefaReporte tarefaSelecionada;
 	TarefaFavorita tarefaFavorita;
 	TarefaPlanejadaFragment tarefaPlanejadaFragment;
 	TarefaProcessFragment tarefaProcessFragment;
@@ -77,7 +74,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		return tf;
 	}
 	
-	public void alterarLista(Tarefa tarefa){
+	public void alterarLista(TarefaReporte tarefa){
 		listaTarefasPlanejadas.add(tarefa);
 		AtualizarListaDeTarefa();
 	}
@@ -115,7 +112,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 				mostrarProgress();
 
 			} else {
-				listaTarefasPlanejadas =   new ArrayList<Tarefa>();
+				listaTarefasPlanejadas =   new ArrayList<TarefaReporte>();
 				iniciarDownload();
 				
 			}
@@ -243,7 +240,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
 		
-		tarefaSelecionada = (Tarefa)getListView().getItemAtPosition(info.position);
+		tarefaSelecionada = (TarefaReporte)getListView().getItemAtPosition(info.position);
 		
 		switch (item.getItemId()) {
 		case R.id.opcaoAlterarProcessando:
@@ -266,9 +263,9 @@ public class TarefaPlanejadaFragment extends ListFragment {
 			break;
 			 
 		case R.id.opcaoAtribuir:
-			if (tarefaSelecionada.getUsuario() == null) {
-				tarefaSelecionada.setUsuario(usuarioEmpresa.getUsuario());
-				tarefaSelecionada.setDataAtribuicao(new DateTime());
+			if (tarefaSelecionada.getTarefa().getUsuario() == null) {
+				tarefaSelecionada.getTarefa().setUsuario(usuarioEmpresa.getUsuario());
+				tarefaSelecionada.getTarefa().setDataAtribuicao(new DateTime());
 				atribuirOuDesatribuir();
 				AtualizarListaDeTarefa();
 				mensagemTarefaAtribuida();
@@ -276,8 +273,8 @@ public class TarefaPlanejadaFragment extends ListFragment {
 				
 			}else {
 				
-				tarefaSelecionada.setUsuario(null);
-				tarefaSelecionada.setDataAtribuicao(null);
+				tarefaSelecionada.getTarefa().setUsuario(null);
+				tarefaSelecionada.getTarefa().setDataAtribuicao(null);
 				atribuirOuDesatribuir();
 				AtualizarListaDeTarefa();
 				mensagemTarefaDesatribuida();
@@ -288,7 +285,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		case R.id.opcaoFavoritar:
 			
 			tarefaFavorita = new TarefaFavorita();
-			tarefaFavorita.setTarefa(tarefaSelecionada);
+			tarefaFavorita.setTarefa(tarefaSelecionada.getTarefa());
 			tarefaFavorita.setUsuario(usuarioEmpresa.getUsuario());
 			if (tarefaFavorita != null) {
 				new Thread(new Runnable() {
@@ -309,7 +306,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 	private void atribuirOuDesatribuir(){
 		new Thread(new Runnable() {
 			public void run() {
-				RestTarefa.atribuirOuDesatribuirTarefa(tarefaSelecionada, 
+				RestTarefa.atribuirOuDesatribuirTarefa(tarefaSelecionada.getTarefa(), 
 						itemBacklog.getCodigo(), 
 						usuarioEmpresa.getUsuario().getCodigo());
 			}
@@ -420,7 +417,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 
 	
 	//InnerClass do AsyncTask da Empresa
-	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<Tarefa>>{
+	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<TarefaReporte>>{
 
 		/**
 		* Método proviniente da herança do AsyncTask para executar algo antes do DoInBackground 
@@ -437,7 +434,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		* @return Lista de Tarefas
 		*/
 		@Override
-		protected List<Tarefa> doInBackground(Integer... params) {
+		protected List<TarefaReporte> doInBackground(Integer... params) {
 			return RestTarefa.retornarTarefa(params[0]);
 		}
 		
@@ -447,12 +444,12 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		* @return void
 		*/
 		@Override
-		protected void onPostExecute(List<Tarefa> tarefas) {
-			super.onPostExecute(tarefas);
-			if(tarefas != null) {
-				for (int i = 0; i < tarefas.size(); i++) {
-					if (tarefas.get(i).getSituacao() == SituacaoTarefaEnum.PARA_FAZER) {
-						listaTarefasPlanejadas.add(tarefas.get(i));
+		protected void onPostExecute(List<TarefaReporte> tarefasReport) {
+			super.onPostExecute(tarefasReport);
+			if(tarefasReport != null) {
+				for (int i = 0; i < tarefasReport.size(); i++) {
+					if (tarefasReport.get(i).getTarefa().getSituacao() == SituacaoTarefaEnum.PARA_FAZER) {
+						listaTarefasPlanejadas.add(tarefasReport.get(i));
 						
 					}/*else{
 						txtMensagemTarefaStatus.setVisibility(View.VISIBLE);

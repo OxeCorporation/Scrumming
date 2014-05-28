@@ -1,12 +1,12 @@
 package br.com.scrumming.interfaces;
 
-import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.TarefaReporte;
 
 public interface MudarParaProcesso {
 
-	void clicouTarefaIrProcesso(Tarefa tarefa);
-	void clicouTarefaVoltarPlanejada(Tarefa tarefa);
-	void clicouTarefaVoltarProcesso(Tarefa tarefa);
-	void clicouTarefaIrImpedida(Tarefa tarefa);
-	void clicouTarefaIrConcluida(Tarefa tarefa);
+	void clicouTarefaIrProcesso(TarefaReporte tarefa);
+	void clicouTarefaVoltarPlanejada(TarefaReporte tarefa);
+	void clicouTarefaVoltarProcesso(TarefaReporte tarefa);
+	void clicouTarefaIrImpedida(TarefaReporte tarefa);
+	void clicouTarefaIrConcluida(TarefaReporte tarefa);
 }

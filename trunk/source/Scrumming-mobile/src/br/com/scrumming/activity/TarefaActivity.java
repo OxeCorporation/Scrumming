@@ -11,6 +11,7 @@ import br.com.scrumming.R;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.fragment.TarefaConcluidaFragment;
 import br.com.scrumming.fragment.TarefaImpedimentoFragment;
@@ -267,7 +268,7 @@ public class TarefaActivity extends ActionBarActivity implements
 	}
 
 	@Override
-	public void clicouTarefaIrProcesso(Tarefa tarefa) {
+	public void clicouTarefaIrProcesso(TarefaReporte tarefa) {
 		// TODO Auto-generated method stub
 		if (tarefaProcessFragment != null) {
 			tarefaProcessFragment.atualizarLista(tarefa);
@@ -276,7 +277,7 @@ public class TarefaActivity extends ActionBarActivity implements
 	}
 
 	@Override
-	public void clicouTarefaVoltarPlanejada(Tarefa tarefa) {
+	public void clicouTarefaVoltarPlanejada(TarefaReporte tarefa) {
 		// TODO Auto-generated method stub
 		if (tarefaPlanejadaFragment != null) {
 			tarefaPlanejadaFragment.alterarLista(tarefa);
@@ -284,13 +285,13 @@ public class TarefaActivity extends ActionBarActivity implements
 	}
 
 	@Override
-	public void clicouTarefaVoltarProcesso(Tarefa tarefa) {
+	public void clicouTarefaVoltarProcesso(TarefaReporte tarefa) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void clicouTarefaIrImpedida(Tarefa tarefa) {
+	public void clicouTarefaIrImpedida(TarefaReporte tarefa) {
 		if (tarefaImpedimentoFragment != null) {
 			tarefaImpedimentoFragment.atualizarLista(tarefa);
 		}
@@ -298,7 +299,7 @@ public class TarefaActivity extends ActionBarActivity implements
 	}
 
 	@Override
-	public void clicouTarefaIrConcluida(Tarefa tarefa) {
+	public void clicouTarefaIrConcluida(TarefaReporte tarefa) {
 		if (tarefaConcluidaFragment != null) {
 			tarefaConcluidaFragment.atualizarLista(tarefa);
 		}

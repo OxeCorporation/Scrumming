@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import br.com.scrumming.R;
-import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.TarefaReporte;
 
-public class TarefaAdapter extends ArrayAdapter<Tarefa> {
+public class TarefaAdapter extends ArrayAdapter<TarefaReporte> {
 
-	public TarefaAdapter(Context context, List<Tarefa> objects) {
+	public TarefaAdapter(Context context, List<TarefaReporte> objects) {
 		super(context, 0, 0, objects);
 	}
 
@@ -21,7 +21,7 @@ public class TarefaAdapter extends ArrayAdapter<Tarefa> {
 
 		ViewHolder holder;
 		
-		Tarefa tarefa = getItem(position);
+		TarefaReporte tarefaReport = getItem(position);
 		
 		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.linha_tarefa, null);
@@ -30,22 +30,25 @@ public class TarefaAdapter extends ArrayAdapter<Tarefa> {
 			holder.txtNomeTarefa		   = (TextView) convertView.findViewById(R.id.txtNomeTarefa);
 			holder.txtDescricaoTarefa 	   = (TextView) convertView.findViewById(R.id.txtDescricaoTarefa);
 			holder.txtTempoEstimado		   = (TextView) convertView.findViewById(R.id.txtTempoEstimado);
-			holder.txtNomeUsuarioAtribuido = (TextView)convertView.findViewById(R.id.txtNomeUsuarioAtribuido);
+			holder.txtNomeUsuarioAtribuido = (TextView) convertView.findViewById(R.id.txtNomeUsuarioAtribuido);
+			holder.txtTempoReportado       = (TextView) convertView.findViewById(R.id.textTempoReportado);
 			convertView.setTag(holder);
 
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		} 
-		if (tarefa.getUsuario() == null) {
+		if (tarefaReport.getUsuario() == null) {
 			holder.txtNomeUsuarioAtribuido.setVisibility(View.GONE);
-			holder.txtNomeTarefa.setText(tarefa.getNome());
-			holder.txtDescricaoTarefa.setText(tarefa.getDescricao());
-			holder.txtTempoEstimado.setText("Estimativa: " + tarefa.getTempoEstimado().toString() + "hr(s)");
+			holder.txtNomeTarefa.setText(tarefaReport.getTarefa().getNome());
+			holder.txtDescricaoTarefa.setText(tarefaReport.getTarefa().getDescricao());
+			holder.txtTempoEstimado.setText("Estimativa: " + tarefaReport.getTarefa().getTempoEstimado().toString() + "hr(s)");
+			holder.txtTempoReportado.setText("Reportado: " + tarefaReport.getTempoReportado() + "hs(s)");
 		}else{
-			holder.txtNomeTarefa.setText(tarefa.getNome());
-			holder.txtDescricaoTarefa.setText(tarefa.getDescricao());
-			holder.txtTempoEstimado.setText("Estimativa: " + tarefa.getTempoEstimado().toString() + "hr(s)");
-			holder.txtNomeUsuarioAtribuido.setText(tarefa.getUsuario().getNome());
+			holder.txtNomeTarefa.setText(tarefaReport.getTarefa().getNome());
+			holder.txtDescricaoTarefa.setText(tarefaReport.getTarefa().getDescricao());
+			holder.txtTempoEstimado.setText("Estimativa: " + tarefaReport.getTarefa().getTempoEstimado().toString() + "hr(s)");
+			holder.txtNomeUsuarioAtribuido.setText(tarefaReport.getTarefa().getUsuario().getNome());
+			holder.txtTempoReportado.setText("Reportado: " + tarefaReport.getTempoReportado() + "hs(s)");
 		}
 		return convertView;
 	}
@@ -55,5 +58,6 @@ public class TarefaAdapter extends ArrayAdapter<Tarefa> {
 		TextView txtDescricaoTarefa;
 		TextView txtTempoEstimado;
 		TextView txtNomeUsuarioAtribuido;
+		TextView txtTempoReportado;
 	}
 }
