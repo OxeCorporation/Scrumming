@@ -61,14 +61,10 @@ public class TarefaFavoritaManager extends AbstractManager<TarefaFavorita, Taref
     
     @Transactional(readOnly = true)
     public boolean tarefaFoiFavoritada(Tarefa tarefa, Usuario usuario){
-    	TarefaFavoritaChave chave = new TarefaFavoritaChave(tarefa, usuario);
-    	try {
-    		TarefaFavorita tarefaFavorita = tarefaFavoritaRepositorio.findByKey(chave);
-    		return tarefaFavorita.isFavorita();
-    	} catch (ObjectNotFoundException e) {
-			e.printStackTrace();
-			return false;
-		}  
+    	TarefaFavoritaChave chave = new TarefaFavoritaChave(tarefa, usuario);    	
+    	TarefaFavorita tarefaFavorita = findByKey(chave);
+    	
+    	return tarefaFavorita == null ? false : tarefaFavorita.isFavorita();    	
     }
    
     
