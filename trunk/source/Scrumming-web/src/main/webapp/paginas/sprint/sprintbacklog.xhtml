@@ -63,12 +63,12 @@
 							<p:commandLink id="linkAtribuirParaMim" immediate="true"
 								title="#{mensagens.label_atribuir_para_mim}"
 								action="#{sprintDetalheMB.atribuirTarefaParaMim}"										
-								rendered="#{empty tarefa.usuario and tarefa.itemBacklog.editable}"
-								process="@this" update="@widgetVar(dtgSprintBacklog)">
+								rendered="#{empty tarefa.usuario}"
+								process="@this" update="@widgetVar(dataGridTarefas)">
 								<i class="fa fa-smile-o inside-grid-icon-left"></i>
 								<f:setPropertyActionListener value="#{tarefa}"
 									target="#{sprintDetalheMB.tarefaSelecionada}" />
-								<f:setPropertyActionListener value="#{tarefa.itemBacklog}"
+								<f:setPropertyActionListener value="#{item}"
 									target="#{sprintDetalheMB.itemSelecionado}" />
 							</p:commandLink>
 							
@@ -76,7 +76,7 @@
 							<p:commandLink id="linkAtribuirPara" title="#{mensagens.label_atribuir_para}"
 								action="#{itemBacklogDetalheMB.preparaParaAlterar}"
 								oncomplete="dlgTarefaSave.show()" 
-								process="@this" update="@widgetVar(dlgTarefaSave)"
+								process="@this" update="@widgetVar(dataGridTarefas)"
 								rendered="#{false}">
 								<i class="fa fa-share-square-o inside-grid-icon-left"></i>
 								<f:setPropertyActionListener value="#{tarefa}"
@@ -111,11 +111,13 @@
 							<p:commandLink id="linkFavoritarTarefa" immediate="true"
 								title="#{mensagens.label_favoritar_tarefa}"
 								action="#{sprintDetalheMB.favoritarTarefa}"
-								process="@form" update="@form"
+								process="@this" update="@widgetVar(dataGridTarefas)"
 								rendered="#{true}">
 								<i class="fa fa-star-o inside-grid-icon-left"></i>
 								<f:setPropertyActionListener value="#{tarefa}"
 									target="#{sprintDetalheMB.tarefaSelecionada}" />
+								<f:setPropertyActionListener value="#{item}"
+									target="#{sprintDetalheMB.itemSelecionado}" />
 							</p:commandLink>
 						</h:panelGroup>
 						<h:panelGroup styleClass="col-md-1 column">

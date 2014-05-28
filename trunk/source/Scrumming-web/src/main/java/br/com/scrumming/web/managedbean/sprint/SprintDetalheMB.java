@@ -225,8 +225,10 @@ public class SprintDetalheMB extends AbstractBean {
 	}
 	
 	public String atribuirTarefaParaMim(){
-		tarefaClientService.atribuirTarefaPara(tarefaSelecionada, usuarioLogado.getCodigo());
-		atualizarListaDeItens();
+		if (tarefaSelecionada.getItemBacklog() == null) {
+			tarefaSelecionada.setItemBacklog(itemSelecionado);
+		}
+		tarefaClientService.atribuirTarefaPara(tarefaSelecionada, usuarioLogado.getCodigo());		
 		atualizarListaDeTarefas();
 		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 		return "";
@@ -237,7 +239,7 @@ public class SprintDetalheMB extends AbstractBean {
 		tarefaFavoritaMB.setTarefaSelecionada(tarefaSelecionada);
 		tarefaFavoritaMB.setUsuarioLogado(usuarioLogado);
 		tarefaFavoritaMB.favoritarTarefa();
-		atualizarListaDeItens();
+		atualizarListaDeTarefas();
 	}
 	
 	/* Métodos para redirecionamento das páginas */
