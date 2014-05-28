@@ -30,6 +30,9 @@ public class Usuario extends ObjetoPersistente<Integer> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
+    @Column(name = "foto", columnDefinition = "LONGBLOB")
+    private byte[] foto;
+    
     @Column(name = "nome", columnDefinition = "varchar(50)")
     @NotBlank
     private String nome;
@@ -112,8 +115,16 @@ public class Usuario extends ObjetoPersistente<Integer> {
     public void setEmpresa(boolean empresa) {
         this.empresa = empresa;
     }
+    
+    public byte[] getFoto() {
+		return foto;
+	}
 
-    @Override
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
+
+	@Override
     public int hashCode() {
         return new HashCodeBuilder().append(this.codigo).toHashCode();
     }
