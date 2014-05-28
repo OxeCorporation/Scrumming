@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-         xmlns="http://java.sun.com/xml/ns/javaee" 
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-         http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
-         version="3.0">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+         http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
 	<display-name>Scrumming</display-name>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
@@ -36,9 +36,21 @@
 		<param-name>primefaces.THEME</param-name>
 		<param-value>redmond</param-value>
 	</context-param>
+	<filter>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
 	<context-param>
-    	<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
-    	<param-value>true</param-value>
+  		<param-name>primefaces.UPLOADER</param-name>
+  		<param-value>commons</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+		<param-value>true</param-value>
 	</context-param>
 	<!-- JSF -->
 	<servlet>
@@ -50,17 +62,17 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
-	
+
 	<context-param>
-        <param-name>com.sun.faces.expressionFactory</param-name>
-        <param-value>com.sun.el.ExpressionFactoryImpl</param-value>
-    </context-param>
+		<param-name>com.sun.faces.expressionFactory</param-name>
+		<param-value>com.sun.el.ExpressionFactoryImpl</param-value>
+	</context-param>
 	<!-- Myfaces config -->
 	<listener>
 		<listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
 	</listener>
-    <context-param>
-		<param-name> org.apache.myfaces.annotation.SCAN_PACKAGES </param-name>
+	<context-param>
+		<param-name>org.apache.myfaces.annotation.SCAN_PACKAGES</param-name>
 		<param-value>br.com.scrumming.web.managedbean</param-value>
 	</context-param>
 	<!-- Open Session in View -->
@@ -72,7 +84,7 @@
 		<filter-name>openSessionInViewFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-   
+
 	<!-- Listeners de configuracao do Spring -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -81,16 +93,16 @@
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
 	<servlet>
-  		<servlet-name>springServlet</servlet-name>
-  		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-  		<init-param>
-  			<param-name>contextConfigLocation</param-name>
-  			<param-value></param-value>
-  		</init-param>
-  		<load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>springServlet</servlet-name>
-  	<url-pattern>/service/*</url-pattern>
-  </servlet-mapping>
+		<servlet-name>springServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value></param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springServlet</servlet-name>
+		<url-pattern>/service/*</url-pattern>
+	</servlet-mapping>
 </web-app>

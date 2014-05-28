@@ -12,6 +12,7 @@ public final class ConstantesService {
 		public static final String DESATIVAR_USUARIO = "/usuario/desativar/{usuarioID}/{empresaID}";
 		public static final String ATIVAR_USUARIO = "/usuario/ativar/{usuarioID}/{empresaID}";
 		public static final String URL_CONSULTAR = "/usuario/id/{usuarioID}";
+		public static final String URI_ATUALIZAR = "/usuario/atualizar";
 	}
 	
 	public final class Tarefa{
