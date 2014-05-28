@@ -22,9 +22,7 @@ public class PermissionConfig {
 	 * @param time
 	 * @param configEnum
 	 * @return
-	 */
-	private static PermissionConfig permissionConfig = null;
-	
+	 */	
 	@Transactional(readOnly = true)
 	public boolean verifyPermission(Team time, ConfigEnum configEnum) {
 		boolean allowed = false;
@@ -47,19 +45,12 @@ public class PermissionConfig {
 		return allowed;
 	}
 	
-	public static PermissionConfig getInstance(){
-		if(permissionConfig == null){
-			permissionConfig = new PermissionConfig();
-		}
-		return permissionConfig;
-	}
 	/**
 	 * Busca a configuração filtrando pela empresa.
 	 * @param configEnum
 	 * @param empresa
 	 * @return
-	 */
-	
+	 */	
 	private Config getConfig(ConfigEnum configEnum, Empresa empresa) {		
 		return repositorio.consultarNomeConfig(configEnum, empresa);
 	}

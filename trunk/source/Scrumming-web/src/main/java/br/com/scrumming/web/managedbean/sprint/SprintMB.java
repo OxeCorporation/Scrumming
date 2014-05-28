@@ -7,13 +7,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
-import br.com.scrumming.core.infra.util.PermissionConfig;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
 import br.com.scrumming.domain.Team;
 import br.com.scrumming.domain.enuns.ConfigEnum;
+import br.com.scrumming.web.clientService.ConfigClientService;
 import br.com.scrumming.web.clientService.SprintClientService;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
@@ -26,6 +26,7 @@ public class SprintMB extends AbstractBean {
 	private static final long serialVersionUID = 1L;
 	private List<Sprint> sprintsDoProjeto;
 	private SprintClientService sprintClientService;
+	private ConfigClientService configClienteService;
 	@FlashScoped
 	private Projeto projetoSelecionado;
 	@FlashScoped
@@ -39,8 +40,10 @@ public class SprintMB extends AbstractBean {
 	@ManagedProperty(value="#{sessaoMB.time}")
 	private Team time;
 	private boolean cadastroSprint;
+	
 	@Override
 	public void inicializar() {
+		configClienteService = new ConfigClientService();
 		sprintClientService = new SprintClientService();
 		sprintsDoProjeto = sprintClientService.consultarSprintsPorProjeto(projetoSelecionado.getCodigo());
 	}
@@ -155,9 +158,8 @@ public class SprintMB extends AbstractBean {
 
 	
 	public boolean isCadastroSprint() {
-//		boolean permissao = PermissionConfig.getInstance().verifyPermission(time, ConfigEnum.CADASTRO_SPRINT);
-		
-		return true;
+		this.cadastroSprint = configClienteService.verificarPermissao(time, ConfigEnum.CADASTRO_SPRINT);		
+		return cadastroSprint;
 	}
 
 	public void setCadastroSprint(boolean cadastroSprint) {
@@ -170,5 +172,13 @@ public class SprintMB extends AbstractBean {
 
 	public void setTime(Team time) {
 		this.time = time;
+	}
+
+	public ConfigClientService getConfigClienteService() {
+		return configClienteService;
+	}
+
+	public void setConfigClienteService(ConfigClientService configClienteService) {
+		this.configClienteService = configClienteService;
 	}
 }

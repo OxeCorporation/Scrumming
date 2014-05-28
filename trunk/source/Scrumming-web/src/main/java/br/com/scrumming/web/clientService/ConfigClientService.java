@@ -1,5 +1,6 @@
 package br.com.scrumming.web.clientService;
 
+import br.com.scrumming.domain.ConfigDTO;
 import br.com.scrumming.domain.Team;
 import br.com.scrumming.domain.enuns.ConfigEnum;
 import br.com.scrumming.web.infra.AbstractClientService;
@@ -13,6 +14,10 @@ public class ConfigClientService extends AbstractClientService {
 	 * @return Objeto DTO que representa os dados da tela da Sprint.
 	 */
 	public boolean verificarPermissao(Team time, ConfigEnum configEnum) {
-		return getRestTemplate().getForObject(getURIService(ConstantesService.Config.URL_VERIFICAR_PERMISSAO), Boolean.class, time, configEnum);
+		
+		ConfigDTO configDTO = new ConfigDTO();
+		configDTO.team = time;
+		configDTO.configEnum = configEnum;
+		return getRestTemplate().postForObject(getURIService(ConstantesService.Config.URL_VERIFICAR_PERMISSAO), configDTO, Boolean.class);
 	}
 }

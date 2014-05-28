@@ -2,64 +2,71 @@ package br.com.scrumming.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 import org.hibernate.validator.constraints.NotBlank;
+
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
+import br.com.scrumming.domain.enuns.ConfigEnum;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Config")
 public class Config extends ObjetoPersistente<Integer> {
 
-    /**
-     * Serial Version
-     */
-    private static final long serialVersionUID = 1L;
+	/**
+	 * Serial Version
+	 */
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(name = "PK_config")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer codigo;
-    
-    @ManyToOne
-    @JoinColumn(name="FK_empresa", referencedColumnName="PK_empresa")
-    private Empresa empresa;
+	@Id
+	@Column(name = "PK_config")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer codigo;
 
-    @Column(name = "codigo_config")
-    private Integer codigoConfig;
-    
-    @Column(name = "nome_config", columnDefinition = "varchar(50)")
-    @NotBlank
-    private String nomeConfig;
-    
-    @Column(name = "perfil_owner", columnDefinition = "bit")
-    private boolean perfilOwner;
-    
-    @Column(name = "perfil_master", columnDefinition = "bit")
-    private boolean perfilMaster;
-    
-    @Column(name = "perfil_team", columnDefinition = "bit")
-    private boolean perfilTeam;
-    
-    /* getters and setters */
-    @Override
-    @JsonIgnore
-    public Integer getChave() {
-        return this.codigo;
-    }
+	@ManyToOne
+	@JoinColumn(name = "FK_empresa", referencedColumnName = "PK_empresa")
+	private Empresa empresa;
 
-    public Integer getCodigo() {
-        return codigo;
-    }
+	@Column(name = "codigo_config")
+	@Enumerated(EnumType.ORDINAL)
+	private ConfigEnum codigoConfig;
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
-    }
+	@Column(name = "nome_config", columnDefinition = "varchar(50)")
+	@NotBlank
+	private String nomeConfig;
+
+	@Column(name = "perfil_owner", columnDefinition = "bit")
+	private boolean perfilOwner;
+
+	@Column(name = "perfil_master", columnDefinition = "bit")
+	private boolean perfilMaster;
+
+	@Column(name = "perfil_team", columnDefinition = "bit")
+	private boolean perfilTeam;
+
+	/* getters and setters */
+	@Override
+	@JsonIgnore
+	public Integer getChave() {
+		return this.codigo;
+	}
+
+	public Integer getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
 
 	public Empresa getEmpresa() {
 		return empresa;
@@ -69,11 +76,11 @@ public class Config extends ObjetoPersistente<Integer> {
 		this.empresa = empresa;
 	}
 
-	public Integer getCodigoConfig() {
+	public ConfigEnum getCodigoConfig() {
 		return codigoConfig;
 	}
 
-	public void setCodigoConfig(Integer codigoConfig) {
+	public void setCodigoConfig(ConfigEnum codigoConfig) {
 		this.codigoConfig = codigoConfig;
 	}
 

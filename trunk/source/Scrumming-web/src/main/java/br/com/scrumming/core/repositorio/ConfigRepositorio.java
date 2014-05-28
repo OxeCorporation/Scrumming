@@ -19,9 +19,9 @@ public class ConfigRepositorio extends AbstractRepositorio<Config, Integer> {
 	 */
 	public Config consultarNomeConfig(ConfigEnum configEnum, Empresa empresa) {
 		Criteria criteria = createCriteria();
-        criteria.createAlias("config", "config");
-        criteria.add(Restrictions.eq("config.codigoConfig", configEnum.ordinal()));
-        criteria.add(Restrictions.eq("config.empresa.codigo", empresa.getCodigo()));
+		criteria.createAlias("empresa", "empresa");
+        criteria.add(Restrictions.eq("codigoConfig", configEnum));
+        criteria.add(Restrictions.eq("empresa.codigo", empresa.getCodigo()));
         return (Config) criteria.uniqueResult();
 	}
 }

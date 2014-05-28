@@ -103,6 +103,6 @@ public final class ConstantesService {
 
 	public final class Config {
 		private Config(){}
-		public static final String URL_VERIFICAR_PERMISSAO = "config/verificar_permissao/{time}/{configEnum}";
+		public static final String URL_VERIFICAR_PERMISSAO = "/config/verificar_permissao";
 	}
 }
