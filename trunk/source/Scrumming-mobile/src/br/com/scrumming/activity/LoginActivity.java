@@ -1,13 +1,19 @@
 package br.com.scrumming.activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import br.com.scrumming.R;
@@ -15,7 +21,7 @@ import br.com.scrumming.asynctask.AsyncTaskUsuario;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.interfaces.InterfaceUsuario;
 
-public class LoginActivity extends Activity implements InterfaceUsuario {
+public class LoginActivity extends ActionBarActivity implements InterfaceUsuario {
 	
 	//Instanciação dos Objetos e variáveis 
 	EditText textLogin, textSenha;
@@ -35,6 +41,17 @@ public class LoginActivity extends Activity implements InterfaceUsuario {
 		textSenha = (EditText) findViewById(R.id.editTxtSenha);
 		Button btnLogar = (Button) findViewById(R.id.btnLogar);
 		btnLogar.setOnClickListener(btnLogarOnClickListener);
+		
+		getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_principal));
+		
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+    	MenuInflater inflater = this.getMenuInflater();
+    	inflater.inflate(R.menu.menu_login, menu);
+    	
+    	return true;
     }
     
     /**

@@ -98,7 +98,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		//Transforma o Home "Scrumming" em um botão
 		ActionBar ab = ((ActionBarActivity)getActivity()).getSupportActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
-		ab.setTitle("SprintBacklog");
+		ab.setTitle("Board");
 		txtMensagemTarefaStatus.setVisibility(View.GONE);
 		
 		if (listaTarefasPlanejadas != null){
