@@ -39,7 +39,7 @@ public class TarefaAdapter extends ArrayAdapter<TarefaDTO> {
 			holder = (ViewHolder) convertView.getTag();
 		} 
 		if (tarefaDTO.getTarefa().getUsuario() == null) {
-			holder.txtNomeUsuarioAtribuido.setVisibility(View.GONE);
+			holder.txtNomeUsuarioAtribuido.setText("Não Atribuído");
 			holder.txtNomeTarefa.setText(tarefaDTO.getTarefa().getNome());
 			holder.txtDescricaoTarefa.setText(tarefaDTO.getTarefa().getDescricao());
 			holder.txtTempoEstimado.setText("Estimativa: " + tarefaDTO.getTarefa().getTempoEstimado().toString() + "hr(s)");
