@@ -27,7 +27,7 @@ import br.com.scrumming.interfaces.MudarParaProcesso;
 
 public class TarefaActivity extends ActionBarActivity implements
 		ClickedOnLogout, ClickedOnHomeBoard, TabListener, ClickedOnTarefa,
-		ClickedOnTarefaReporteItem, MudarParaProcesso {
+		ClickedOnTarefaReporteItem, MudarParaProcesso, ClickedOnHome {
 
 	// Instanciação dos Objetos e variáveis
 	TarefaPlanejadaFragment tarefaPlanejadaFragment;
@@ -91,7 +91,7 @@ public class TarefaActivity extends ActionBarActivity implements
 
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
+		
 		Tab tab1 = actionBar.newTab();
 		tab1.setText("Planejada");
 		tab1.setTabListener((TabListener) this);
@@ -305,6 +305,12 @@ public class TarefaActivity extends ActionBarActivity implements
 			tarefaConcluidaFragment.atualizarLista(tarefa);
 		}
 
+	}
+
+	@Override
+	public void clicouNoHome(UsuarioEmpresa usuarioEmpresa) {
+		// TODO Auto-generated method stub
+		finish();
 	}
 
 }

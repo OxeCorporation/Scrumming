@@ -95,6 +95,8 @@ public class TarefaProcessFragment extends ListFragment {
 		ActionBar ab = ((ActionBarActivity)getActivity()).getSupportActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
 		ab.setTitle("Board");
+		ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_principal));
+		
 		txtMensagemTarefaStatus.setVisibility(View.GONE);
 		
 		if (listaTarefaProcesso != null){
@@ -200,6 +202,12 @@ public class TarefaProcessFragment extends ListFragment {
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public void onPause() {
+		AtualizarListaDeTarefa();
+		super.onPause();
 	}
 	
 	/**

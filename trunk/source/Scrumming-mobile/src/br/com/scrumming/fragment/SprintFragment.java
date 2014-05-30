@@ -69,6 +69,7 @@ public class SprintFragment extends ListFragment {
 		ActionBar ab = ((ActionBarActivity)getActivity()).getSupportActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
 		ab.setTitle("Sprints");
+		ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_principal));
 		
 		if (listaSprints != null){
 			progressSprint.setVisibility(View.GONE);

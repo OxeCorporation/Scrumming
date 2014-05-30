@@ -78,7 +78,7 @@ public class TarefaReportFragment extends Fragment {
 				.getSupportActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
 		ab.setTitle("Reporte");
-
+		ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_principal));
 	}
 
 	/**

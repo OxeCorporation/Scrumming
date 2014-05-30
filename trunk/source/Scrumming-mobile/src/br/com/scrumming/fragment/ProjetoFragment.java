@@ -70,6 +70,9 @@ public class ProjetoFragment extends ListFragment{
 		ActionBar ab = ((ActionBarActivity)getActivity()).getSupportActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
 		ab.setTitle("Projetos");
+		ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_principal));
+		
+		
 		
 		if (listaProjetos != null){
 			progressProjeto.setVisibility(View.GONE);

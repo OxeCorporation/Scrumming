@@ -9,6 +9,8 @@ import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -61,6 +63,11 @@ public class EmpresaFragment extends ListFragment {
 		super.onActivityCreated(savedInstanceState);
 		setRetainInstance(true);
 		setHasOptionsMenu(true);
+		
+		ActionBar ab = ((ActionBarActivity)getActivity()).getSupportActionBar();
+		ab.setDisplayHomeAsUpEnabled(true);
+		ab.setTitle("Empresas");
+		ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_principal));
 		
 		if (listaEmpresas != null) {
 			progressEmpresa.setVisibility(View.GONE);

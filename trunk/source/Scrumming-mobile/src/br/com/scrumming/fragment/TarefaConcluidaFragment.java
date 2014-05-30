@@ -31,6 +31,7 @@ import br.com.scrumming.domain.TarefaDTO;
 import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
+import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.interfaces.MudarParaProcesso;
 import br.com.scrumming.rest.RestTarefa;
@@ -86,6 +87,7 @@ public class TarefaConcluidaFragment extends ListFragment {
 		ActionBar ab = ((ActionBarActivity)getActivity()).getSupportActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
 		ab.setTitle("SprintBacklog");
+		ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_principal));
 		
 		txtMensagemTarefaStatus.setVisibility(View.GONE);
 		
@@ -185,9 +187,12 @@ public class TarefaConcluidaFragment extends ListFragment {
 				((ClickedOnLogout)getActivity()).clicouNoLogout(null);;
 			}
 			break;
-
+ 
 		case android.R.id.home:
-			getActivity().finish();
+			if (getActivity() instanceof ClickedOnHome) {
+				((ClickedOnHome)getActivity()).clicouNoHome(usuarioEmpresa);
+			}
+			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -203,7 +208,7 @@ public class TarefaConcluidaFragment extends ListFragment {
 		TarefaAdapter adapter = new TarefaAdapter(getActivity(), listaTarefaConcluida);
 		setListAdapter(adapter);
 	}
-	
+	 
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {

@@ -34,6 +34,7 @@ import br.com.scrumming.domain.TarefaFavorita;
 import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
+import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.interfaces.ClickedOnTarefaReporteItem;
 import br.com.scrumming.interfaces.MudarParaProcesso;
@@ -94,6 +95,8 @@ public class TarefaImpedimentoFragment extends ListFragment {
 		ActionBar ab = ((ActionBarActivity)getActivity()).getSupportActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
 		ab.setTitle("Board");
+		ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_principal));
+		
 		txtMensagemTarefaStatus.setVisibility(View.GONE);
 		
 		if (listaTarefaImpedida != null){
@@ -194,7 +197,10 @@ public class TarefaImpedimentoFragment extends ListFragment {
 			break;
 
 		case android.R.id.home:
-			getActivity().finish();
+			if (getActivity() instanceof ClickedOnHome) {
+				((ClickedOnHome)getActivity()).clicouNoHome(usuarioEmpresa);
+			}
+			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}

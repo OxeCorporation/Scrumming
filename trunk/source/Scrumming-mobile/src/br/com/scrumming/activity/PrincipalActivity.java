@@ -3,6 +3,8 @@ package br.com.scrumming.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.TextView;
 import br.com.scrumming.R;
 import br.com.scrumming.domain.Usuario;
@@ -36,9 +38,19 @@ public class PrincipalActivity extends ActionBarActivity implements
 			empresaFragment = EmpresaFragment.novaInstancia(usuario);
 			getSupportFragmentManager().beginTransaction().add(R.id.master, empresaFragment, "f1").commit();
 		}
+		
+		
 
 	}
-
+	
+	 /*@Override
+	    public boolean onCreateOptionsMenu(Menu menu) {
+	    	MenuInflater inflater = this.getMenuInflater();
+	    	inflater.inflate(R.menu.menu_login, menu);
+	    	
+	    	return true;
+	    }*/
+	
 	/**
     * Método proviniente da interface para exibir a activity com a lista de projetos
 	* @param UsuarioEmpresa usuarioEmpresa

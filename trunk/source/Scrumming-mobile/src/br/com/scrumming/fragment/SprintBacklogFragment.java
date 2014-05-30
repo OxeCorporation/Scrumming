@@ -73,6 +73,7 @@ public class SprintBacklogFragment extends ListFragment {
 		ActionBar ab = ((ActionBarActivity)getActivity()).getSupportActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
 		ab.setTitle("SprintBacklog");
+		ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_principal));
 		
 		if (listaItemBacklog != null){
 			progressSprintBacklog.setVisibility(View.GONE);
