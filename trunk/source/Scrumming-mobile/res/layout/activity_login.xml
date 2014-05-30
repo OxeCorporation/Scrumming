@@ -5,54 +5,58 @@
     android:background="@drawable/background1"
     tools:context=".LoginActivity" >
 
-    <TextView
-        android:id="@+id/txtLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="38dp"
-        android:layout_marginTop="52dp"
-        android:text="@string/login" />
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:background="#FFFFFF" >
 
-    <TextView
-        android:id="@+id/txtSenha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtLogin"
-        android:layout_below="@+id/txtLogin"
-        android:layout_marginTop="15dp"
-        android:text="@string/senha" />
-
-    <EditText
-        android:id="@+id/editTxtLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtLogin"
-        android:layout_alignBottom="@+id/txtLogin"
-        android:layout_marginLeft="26dp"
-        android:layout_toRightOf="@+id/txtSenha"
-        android:ems="10" android:inputType="text">
+       <EditText
+           android:id="@+id/editTxtLogin"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_centerInParent="true"
+           android:layout_marginLeft="26dp"
+           android:ems="10"
+           android:hint="Login"
+           android:inputType="text" >
 
         <requestFocus />
     </EditText>
 
-    <EditText
-        android:id="@+id/editTxtSenha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editTxtLogin"
-        android:layout_below="@+id/txtLogin"
-        android:ems="10"
-        android:inputType="textPassword" />
+        <Button
+            android:id="@+id/btnLogar"
+            android:background="#4682B4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/editTxtSenha"
+            android:layout_alignRight="@+id/editTxtSenha"
+            android:layout_below="@+id/editTxtSenha"
+            android:text="@string/logar" />
 
-    <Button
-        android:id="@+id/btnLogar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editTxtSenha"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp"
-        android:text="@string/logar" />
+        <EditText
+            android:id="@+id/editTxtSenha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/editTxtLogin"
+            android:layout_alignRight="@+id/editTxtLogin"
+            android:layout_below="@+id/editTxtLogin"
+            android:ems="10"
+            android:hint="Senha"
+            android:inputType="textPassword" />
+ 
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/oxebranco" />
+
+    </RelativeLayout>
+
 
 </RelativeLayout>
