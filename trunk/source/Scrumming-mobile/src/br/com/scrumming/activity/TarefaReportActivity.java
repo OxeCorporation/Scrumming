@@ -1,8 +1,11 @@
 package br.com.scrumming.activity;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.widget.TextView;
 import br.com.scrumming.R;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
@@ -26,7 +29,8 @@ public class TarefaReportActivity extends ActionBarActivity implements ClickedOn
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_principal);
-
+		setarCorDoTitle();
+		
 		ItemBacklog itemBacklog = (ItemBacklog) getIntent().getSerializableExtra("itemBacklog");
 		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa) getIntent().getSerializableExtra("usuarioEmpresa");
 		Tarefa tarefa = (Tarefa) getIntent().getSerializableExtra("tarefa");
@@ -39,6 +43,16 @@ public class TarefaReportActivity extends ActionBarActivity implements ClickedOn
 			getSupportFragmentManager().beginTransaction().add(R.id.master, tarefaReportFragment, "trf").commit();
 		}
 	}
+	
+	private void setarCorDoTitle(){
+    	int actionBarTitleId = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
+		if (actionBarTitleId > 0) {
+		    TextView title = (TextView) findViewById(actionBarTitleId);
+		    if (title != null) {
+		        title.setTextColor(Color.BLACK);
+		    }
+		}
+    }
 	
 	/**
 	* Método para aplicar logout e voltar para a tela de login

@@ -1,6 +1,7 @@
 package br.com.scrumming.activity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ public class PrincipalActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_principal);
+		setarCorDoTitle();
 		//new EmpresaFragment();
 		Usuario usuario = (Usuario) getIntent().getSerializableExtra("usuario");
 		
@@ -43,6 +45,16 @@ public class PrincipalActivity extends ActionBarActivity implements
 		
 
 	}
+	
+	private void setarCorDoTitle(){
+    	int actionBarTitleId = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
+		if (actionBarTitleId > 0) {
+		    TextView title = (TextView) findViewById(actionBarTitleId);
+		    if (title != null) {
+		        title.setTextColor(Color.BLACK);
+		    }
+		}
+    }
 	
 	/**
     * Método proviniente da interface para exibir a activity com a lista de projetos

@@ -72,10 +72,7 @@ public class TarefaConcluidaFragment extends ListFragment {
 			if (listaTarafaDTO.get(i).getTarefa().getSituacao() == SituacaoTarefaEnum.FEITO) {
 				listaTarefaConcluida.add(listaTarafaDTO.get(i));
 				
-			}/*else{
-				txtMensagemTarefaStatus.setVisibility(View.VISIBLE);
-				txtMensagemTarefaStatus.setText("Não há tarefa planejada para esse item");
-			}*/
+			}
 		}
 
 		AtualizarListaDeTarefa();
@@ -95,9 +92,10 @@ public class TarefaConcluidaFragment extends ListFragment {
 		//Transforma o Home "Scrumming" em um botão
 		ActionBar ab = ((ActionBarActivity)getActivity()).getSupportActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
-		ab.setTitle("SprintBacklog");
+		ab.setTitle("Board");
 		ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_principal));
-		
+		progressTarefa.setVisibility(View.GONE);
+		txtMensagemTarefa.setVisibility(View.GONE);
 		txtMensagemTarefaStatus.setVisibility(View.GONE);
 		
 		if (listaTarefaConcluida != null){
@@ -105,16 +103,7 @@ public class TarefaConcluidaFragment extends ListFragment {
 			txtMensagemTarefa.setVisibility(View.GONE);
 			AtualizarListaDeTarefa();;
 
-		}// else {
-//			if (taskTarefa != null && taskTarefa.getStatus() == Status.RUNNING){
-//				mostrarProgress();
-//
-//			}// else {
-//				listaTarefaConcluida = new ArrayList<TarefaDTO>();
-//				iniciarDownload();
-//				
-//			}
-//		}
+		}
 	}
 	
 	/**
@@ -224,7 +213,6 @@ public class TarefaConcluidaFragment extends ListFragment {
 			}
 			 ((MudarParaProcesso)getActivity()).clicouTarefaVoltarProcesso(tarefaSelecionada);
 			 AtualizarListaDeTarefa();
-			// mensagemTarefaAlterada();
 			break;
 		}
 		return super.onContextItemSelected(item);

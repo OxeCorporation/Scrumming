@@ -1,6 +1,7 @@
 package br.com.scrumming.activity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,7 +30,8 @@ public class SprintActivity extends ActionBarActivity implements ClickedOnSprint
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_principal);
-
+		setarCorDoTitle();
+		
 		Projeto projeto = (Projeto)getIntent().getSerializableExtra("projeto");
 		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa)getIntent().getSerializableExtra("usuarioEmpresa");
 		
@@ -39,7 +41,17 @@ public class SprintActivity extends ActionBarActivity implements ClickedOnSprint
 			getSupportFragmentManager().beginTransaction().add(R.id.master, sprintFragment, "sf").commit();	
 		}
 	}
-
+	
+	private void setarCorDoTitle(){
+    	int actionBarTitleId = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
+		if (actionBarTitleId > 0) {
+		    TextView title = (TextView) findViewById(actionBarTitleId);
+		    if (title != null) {
+		        title.setTextColor(Color.BLACK);
+		    }
+		}
+    }
+	
 	/**
 	* Método proviniente da interface para exibir a activity com a lista de Itens de Backlog
 	* @param Sprint sprint

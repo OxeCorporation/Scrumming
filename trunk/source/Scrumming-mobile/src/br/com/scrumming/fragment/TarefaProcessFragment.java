@@ -104,21 +104,15 @@ public class TarefaProcessFragment extends ListFragment {
 		ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_principal));
 		
 		txtMensagemTarefaStatus.setVisibility(View.GONE);
+		progressTarefa.setVisibility(View.GONE);
+		txtMensagemTarefa.setVisibility(View.GONE);
 		
 		if (listaTarefaProcesso != null){
 			progressTarefa.setVisibility(View.GONE);
 			txtMensagemTarefa.setVisibility(View.GONE);
 			AtualizarListaDeTarefa();
 
-		}// else {
-//			if (taskTarefa != null && taskTarefa.getStatus() == Status.RUNNING){
-//				mostrarProgress();
-//
-//			} else {
-//				listaTarefaProcesso = new ArrayList<TarefaDTO>();
-//				iniciarDownload();
-//			}
-//		}
+		}
 	}
 	
 	/**

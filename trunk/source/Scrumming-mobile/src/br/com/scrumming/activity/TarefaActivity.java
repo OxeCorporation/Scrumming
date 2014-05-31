@@ -3,12 +3,15 @@ package br.com.scrumming.activity;
 import java.util.List;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
+import android.widget.TextView;
 import br.com.scrumming.R;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
@@ -49,7 +52,8 @@ public class TarefaActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_principal);
-
+		setarCorDoTitle();
+		
 		ItemBacklog itemBacklog = (ItemBacklog) getIntent()
 				.getSerializableExtra("itemBacklog");
 		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa) getIntent()
@@ -70,31 +74,30 @@ public class TarefaActivity extends ActionBarActivity implements
 		if (tarefaPlanejadaFragment == null) {
 			tarefaPlanejadaFragment = TarefaPlanejadaFragment.novaInstancia(
 					itemBacklog, usuarioEmpresa, sprint);
-		} else if (tarefaProcessFragment == null) {
+		} if (tarefaProcessFragment == null) {
 			tarefaProcessFragment = TarefaProcessFragment.novaInstancia(
 					itemBacklog, usuarioEmpresa, sprint);
-		} else if (tarefaImpedimentoFragment == null) {
+		} if (tarefaImpedimentoFragment == null) {
 			tarefaImpedimentoFragment = TarefaImpedimentoFragment
 					.novaInstancia(itemBacklog, usuarioEmpresa, sprint);
-		} else if (tarefaConcluidaFragment == null) {
+		} if (tarefaConcluidaFragment == null) {
 			tarefaConcluidaFragment = TarefaConcluidaFragment.novaInstancia(
 					itemBacklog, usuarioEmpresa, sprint);
-
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.master, tarefaPlanejadaFragment, "tpf")
-					.add(R.id.master, tarefaProcessFragment, "tpcf")
-					.add(R.id.master, tarefaImpedimentoFragment, "tif")
-					.add(R.id.master, tarefaConcluidaFragment, "tcf").commit();
+			
 		}
-
-		// } else if (tarefaProcessFragment != null && tarefa != null) {
-		// tarefaProcessFragment.modificarLista(tarefa);
-		//
-		// }
+		
+		getSupportFragmentManager().beginTransaction()
+		.add(R.id.master, tarefaPlanejadaFragment, "tpf")
+		.add(R.id.master, tarefaProcessFragment, "tpcf")
+		.add(R.id.master, tarefaImpedimentoFragment, "tif")
+		.add(R.id.master, tarefaConcluidaFragment, "tcf").commit();
+		
+		
 
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
+		actionBar.setTitle("Board");
+		
 		Tab tab1 = actionBar.newTab();
 		tab1.setText("Planejada");
 		tab1.setTabListener((TabListener) this);
@@ -121,7 +124,17 @@ public class TarefaActivity extends ActionBarActivity implements
 					.getInt("tab"));
 		}
 	}
-
+	
+	private void setarCorDoTitle(){
+    	int actionBarTitleId = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
+		if (actionBarTitleId > 0) {
+		    TextView title = (TextView) findViewById(actionBarTitleId);
+		    if (title != null) {
+		        title.setTextColor(Color.BLACK);
+		    }
+		}
+    }
+	
 	/**
 	 * Método herdado da interface TabListener usado ao reselecionar uma aba
 	 * 

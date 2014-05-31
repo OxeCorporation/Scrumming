@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -40,7 +41,8 @@ public class LoginActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-
+		setarCorDoTitle();
+		
 		textLogin = (EditText) findViewById(R.id.editTxtLogin);
 		textSenha = (EditText) findViewById(R.id.editTxtSenha);
 		Button btnLogar = (Button) findViewById(R.id.btnLogar);
@@ -50,7 +52,17 @@ public class LoginActivity extends ActionBarActivity implements
 				getResources().getDrawable(R.drawable.bg_principal));
 
 	}
-
+	
+	private void setarCorDoTitle(){
+    	int actionBarTitleId = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
+		if (actionBarTitleId > 0) {
+		    TextView title = (TextView) findViewById(actionBarTitleId);
+		    if (title != null) {
+		        title.setTextColor(Color.BLACK);
+		    }
+		}
+    }
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = this.getMenuInflater();

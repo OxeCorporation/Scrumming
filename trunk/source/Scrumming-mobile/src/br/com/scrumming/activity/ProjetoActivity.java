@@ -1,6 +1,7 @@
 package br.com.scrumming.activity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,7 +29,8 @@ public class ProjetoActivity extends ActionBarActivity implements ClickedOnProje
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_principal);
-
+		setarCorDoTitle();
+		
 		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa)getIntent().getSerializableExtra("usuarioEmpresa");
 		
 		projetoFragment = (ProjetoFragment)getSupportFragmentManager().findFragmentByTag("pf");
@@ -37,7 +39,17 @@ public class ProjetoActivity extends ActionBarActivity implements ClickedOnProje
 			getSupportFragmentManager().beginTransaction().add(R.id.master, projetoFragment, "pf").commit();
 		}
 	}
-
+	
+	private void setarCorDoTitle(){
+    	int actionBarTitleId = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
+		if (actionBarTitleId > 0) {
+		    TextView title = (TextView) findViewById(actionBarTitleId);
+		    if (title != null) {
+		        title.setTextColor(Color.BLACK);
+		    }
+		}
+    }
+	
 	/**
 	* Método proviniente da interface para exibir a activity com a lista de Sprints
 	* @param Projeto projeto
