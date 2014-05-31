@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.net.ConnectivityManager;
-import android.os.AsyncTask;
-import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBar;
@@ -32,7 +28,6 @@ import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
 import br.com.scrumming.domain.TarefaDTO;
 import br.com.scrumming.domain.TarefaFavorita;
-import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.interfaces.ClickedOnHome;
@@ -46,7 +41,7 @@ public class TarefaProcessFragment extends ListFragment {
 	
 	//Instanciação dos Objetos e variáveis
 	List<TarefaDTO> listaTarefaProcesso;
-	AsyncTaskTarefa taskTarefa;
+	//AsyncTaskTarefa taskTarefa;
 	ItemBacklog itemBacklog;
 	UsuarioEmpresa usuarioEmpresa;
 	Integer sprintID, usuarioID;
@@ -77,6 +72,17 @@ public class TarefaProcessFragment extends ListFragment {
 	public void atualizarLista(TarefaDTO tarefa){
 		listaTarefaProcesso.add(tarefa);
 	}
+	
+	public void receberListaTarafaDTO(List<TarefaDTO> listaTarafaDTO){
+		listaTarefaProcesso = new ArrayList<TarefaDTO>();
+		for (int i = 0; i < listaTarafaDTO.size(); i++) {
+			if (listaTarafaDTO.get(i).getTarefa().getSituacao() == SituacaoTarefaEnum.FAZENDO) {
+				listaTarefaProcesso.add(listaTarafaDTO.get(i));
+			}
+		}
+		AtualizarListaDeTarefa();
+	}
+
 
 	/**
 	* Método utilizado no momento que a Activity do fragment é criada
@@ -104,45 +110,15 @@ public class TarefaProcessFragment extends ListFragment {
 			txtMensagemTarefa.setVisibility(View.GONE);
 			AtualizarListaDeTarefa();
 
-		} else {
-			if (taskTarefa != null && taskTarefa.getStatus() == Status.RUNNING){
-				mostrarProgress();
-
-			} else {
-				listaTarefaProcesso = new ArrayList<TarefaDTO>();
-				iniciarDownload();
-			}
-		}
-	}
-	
-	/**
-	* Método utilizado para exibir uma imagem de Carregando enquanto os dados estiverem sendo baixados
-	* @return void
-	*/
-	private void mostrarProgress() {
-		progressTarefa.setVisibility(View.VISIBLE);
-		txtMensagemTarefa.setVisibility(View.VISIBLE);
-		txtMensagemTarefa.setText("Carregando...");
-	}
-
-	/**
-	* Método utlilizado para realizar o download dos dados através de uma AsyncTask especifica
-	* @return void
-	*/
-	private void iniciarDownload(){
-		
-		ConnectivityManager cm = (ConnectivityManager) getActivity()
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-		if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected()) {
-			taskTarefa = new AsyncTaskTarefa();
-			taskTarefa.execute(itemBacklog.getCodigo());
-
-		} else {
-			progressTarefa.setVisibility(View.GONE);
-			txtMensagemTarefa.setVisibility(View.VISIBLE);
-			txtMensagemTarefa.setText("Sem conexao com a Internet");
-		}
+		}// else {
+//			if (taskTarefa != null && taskTarefa.getStatus() == Status.RUNNING){
+//				mostrarProgress();
+//
+//			} else {
+//				listaTarefaProcesso = new ArrayList<TarefaDTO>();
+//				iniciarDownload();
+//			}
+//		}
 	}
 	
 	/**
@@ -437,51 +413,5 @@ public class TarefaProcessFragment extends ListFragment {
 
 		// Showing Alert Message
 		alertDialog.show();
-	}
-	
-		
-	//InnerClass do AsyncTask da Empresa
-	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<TarefaDTO>>{
-
-		/**
-		* Método proviniente da herança do AsyncTask para executar algo antes do DoInBackground 
-		* @return void
-		*/
-		@Override
-		protected void onPreExecute() {
-			mostrarProgress();
-		}
-		
-		/**
-		* Método proviniente da herança do AsyncTask para executar algo em uma thread paralela a Activity atual
-		* @param Integer... params
-		* @return Lista de Tarefas
-		*/
-		@Override
-		protected List<TarefaDTO> doInBackground(Integer... params) {
-			return RestTarefa.retornarTarefa(params[0]);
-		}
-		
-		/**
-		* Método proviniente da herança do AsyncTask para executar algo depois do DoInBackground 
-		* @param Lista de Tarefas
-		* @return void
-		*/
-		@Override
-		protected void onPostExecute(List<TarefaDTO> tarefas) {
-			super.onPostExecute(tarefas);
-			if(tarefas != null) {
-				for (int i = 0; i < tarefas.size(); i++) {
-					if (tarefas.get(i).getTarefa().getSituacao() == SituacaoTarefaEnum.FAZENDO) {
-						listaTarefaProcesso.add(tarefas.get(i));
-					}
-				}
-				AtualizarListaDeTarefa();
-				txtMensagemTarefa.setVisibility(View.GONE);
-			}else {
-				txtMensagemTarefa.setText("Não Existem Tarefas em Processo Cadastradas");
-			}
-			progressTarefa.setVisibility(View.GONE);
-		}
 	}
 }

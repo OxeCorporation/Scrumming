@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.net.ConnectivityManager;
-import android.os.AsyncTask;
-import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBar;
@@ -31,7 +27,6 @@ import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
 import br.com.scrumming.domain.TarefaDTO;
 import br.com.scrumming.domain.TarefaFavorita;
-import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.interfaces.ClickedOnHome;
@@ -45,7 +40,7 @@ public class TarefaImpedimentoFragment extends ListFragment {
 	
 	//Instanciação dos Objetos e variáveis
 	List<TarefaDTO> listaTarefaImpedida;
-	AsyncTaskTarefa taskTarefa;
+	//AsyncTaskTarefa taskTarefa;
 	ItemBacklog itemBacklog;
 	UsuarioEmpresa usuarioEmpresa;
 	Integer sprintID, usuarioID;
@@ -78,6 +73,21 @@ public class TarefaImpedimentoFragment extends ListFragment {
 		listaTarefaImpedida.add(tarefa);
 	}
 	
+	public void receberListaTarafaDTO(List<TarefaDTO> listaTarafaDTO){
+		listaTarefaImpedida = new ArrayList<TarefaDTO>();
+		for (int i = 0; i < listaTarafaDTO.size(); i++) {
+			if (listaTarafaDTO.get(i).getTarefa().getSituacao() == SituacaoTarefaEnum.EM_IMPEDIMENTO) {
+				listaTarefaImpedida.add(listaTarafaDTO.get(i));
+				
+			}/*else{
+				txtMensagemTarefaStatus.setVisibility(View.VISIBLE);
+				txtMensagemTarefaStatus.setText("Não há tarefa planejada para esse item");
+			}*/
+		}
+		AtualizarListaDeTarefa();
+	}
+
+	
 	/**
 	* Método utilizado no momento que a Activity do fragment é criada
 	* @param Bundle savedInstanceState
@@ -100,20 +110,20 @@ public class TarefaImpedimentoFragment extends ListFragment {
 		txtMensagemTarefaStatus.setVisibility(View.GONE);
 		
 		if (listaTarefaImpedida != null){
-			progressTarefa.setVisibility(View.GONE);
+			//progressTarefa.setVisibility(View.GONE);
 			txtMensagemTarefa.setVisibility(View.GONE);
 			AtualizarListaDeTarefa();;
 
-		} else {
-			if (taskTarefa != null && taskTarefa.getStatus() == Status.RUNNING){
-				mostrarProgress();
-
-			} else {
-				listaTarefaImpedida = new ArrayList<TarefaDTO>();
-				iniciarDownload();
-				
-			}
-		}
+		} //else {
+//			if (taskTarefa != null && taskTarefa.getStatus() == Status.RUNNING){
+//				mostrarProgress();
+//
+//			} else {
+//				listaTarefaImpedida = new ArrayList<TarefaDTO>();
+//				iniciarDownload();
+//				
+//			}
+//		}
 	}
 	
 	/**
@@ -130,21 +140,21 @@ public class TarefaImpedimentoFragment extends ListFragment {
 	* Método utlilizado para realizar o download dos dados através de uma AsyncTask especifica
 	* @return void
 	*/
-	private void iniciarDownload(){
-		
-		ConnectivityManager cm = (ConnectivityManager) getActivity()
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-		if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected()) {
-			taskTarefa = new AsyncTaskTarefa();
-			taskTarefa.execute(itemBacklog.getCodigo());
-
-		} else {
-			progressTarefa.setVisibility(View.GONE);
-			txtMensagemTarefa.setVisibility(View.VISIBLE);
-			txtMensagemTarefa.setText("Sem conexao com a Internet");
-		}
-	}
+//	private void iniciarDownload(){
+//		
+//		ConnectivityManager cm = (ConnectivityManager) getActivity()
+//				.getSystemService(Context.CONNECTIVITY_SERVICE);
+//
+//		if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected()) {
+//			taskTarefa = new AsyncTaskTarefa();
+//			taskTarefa.execute(itemBacklog.getCodigo());
+//
+//		} else {
+//			progressTarefa.setVisibility(View.GONE);
+//			txtMensagemTarefa.setVisibility(View.VISIBLE);
+//			txtMensagemTarefa.setText("Sem conexao com a Internet");
+//		}
+//	}
 	
 	/**
 	* Método utilizado no momento que a View é criada
@@ -329,52 +339,52 @@ public class TarefaImpedimentoFragment extends ListFragment {
 }
 	
 	//InnerClass do AsyncTask da Empresa
-	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<TarefaDTO>>{
-
-		/**
-		* Método proviniente da herança do AsyncTask para executar algo antes do DoInBackground 
-		* @return void
-		*/
-		@Override
-		protected void onPreExecute() {
-			mostrarProgress();
-		}
-		
-		/**
-		* Método proviniente da herança do AsyncTask para executar algo em uma thread paralela a Activity atual
-		* @param Integer... params
-		* @return Lista de Tarefas
-		*/
-		@Override
-		protected List<TarefaDTO> doInBackground(Integer... params) {
-			return RestTarefa.retornarTarefa(params[0]);
-		}
-		
-		/**
-		* Método proviniente da herança do AsyncTask para executar algo depois do DoInBackground 
-		* @param Lista de Tarefas
-		* @return void
-		*/
-		@Override
-		protected void onPostExecute(List<TarefaDTO> tarefas) {
-			super.onPostExecute(tarefas);
-			if(tarefas != null) {
-				for (int i = 0; i < tarefas.size(); i++) {
-					if (tarefas.get(i).getTarefa().getSituacao() == SituacaoTarefaEnum.EM_IMPEDIMENTO) {
-						listaTarefaImpedida.add(tarefas.get(i));
-						
-					}/*else{
-						txtMensagemTarefaStatus.setVisibility(View.VISIBLE);
-						txtMensagemTarefaStatus.setText("Não há tarefa planejada para esse item");
-					}*/
-				}
-				
-				AtualizarListaDeTarefa();
-				txtMensagemTarefa.setVisibility(View.GONE);
-			}else {
-				txtMensagemTarefa.setText("Não Existem Tarefas Impedidas Cadastradas");
-			}
-			progressTarefa.setVisibility(View.GONE);
-		}
-	}
+//	class AsyncTaskTarefa extends AsyncTask<Integer, Void, List<TarefaDTO>>{
+//
+//		/**
+//		* Método proviniente da herança do AsyncTask para executar algo antes do DoInBackground 
+//		* @return void
+//		*/
+//		@Override
+//		protected void onPreExecute() {
+//			//mostrarProgress();
+//		}
+//		
+//		/**
+//		* Método proviniente da herança do AsyncTask para executar algo em uma thread paralela a Activity atual
+//		* @param Integer... params
+//		* @return Lista de Tarefas
+//		*/
+//		@Override
+//		protected List<TarefaDTO> doInBackground(Integer... params) {
+//			return RestTarefa.retornarTarefa(params[0]);
+//		}
+//		
+//		/**
+//		* Método proviniente da herança do AsyncTask para executar algo depois do DoInBackground 
+//		* @param Lista de Tarefas
+//		* @return void
+//		*/
+//		@Override
+//		protected void onPostExecute(List<TarefaDTO> tarefas) {
+//			super.onPostExecute(tarefas);
+//			if(tarefas != null) {
+//				for (int i = 0; i < tarefas.size(); i++) {
+//					if (tarefas.get(i).getTarefa().getSituacao() == SituacaoTarefaEnum.EM_IMPEDIMENTO) {
+//						listaTarefaImpedida.add(tarefas.get(i));
+//						
+//					}/*else{
+//						txtMensagemTarefaStatus.setVisibility(View.VISIBLE);
+//						txtMensagemTarefaStatus.setText("Não há tarefa planejada para esse item");
+//					}*/
+//				}
+//				
+//				AtualizarListaDeTarefa();
+//				txtMensagemTarefa.setVisibility(View.GONE);
+//			}else {
+//				txtMensagemTarefa.setText("Não Existem Tarefas Impedidas Cadastradas");
+//			}
+//			progressTarefa.setVisibility(View.GONE);
+//		}
+//	}
 }

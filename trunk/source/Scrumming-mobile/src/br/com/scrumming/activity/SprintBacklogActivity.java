@@ -1,8 +1,11 @@
 package br.com.scrumming.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.widget.TextView;
 import br.com.scrumming.R;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
@@ -26,7 +29,7 @@ public class SprintBacklogActivity extends ActionBarActivity implements ClickedO
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_principal);
-		
+
 		Sprint sprint = (Sprint)getIntent().getSerializableExtra("sprint");
 		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa)getIntent().getSerializableExtra("usuarioEmpresa");
 		
@@ -41,6 +44,7 @@ public class SprintBacklogActivity extends ActionBarActivity implements ClickedO
 		}
 					
 	}
+	
 	
 	/**
 	* Método proviniente da interface para exibir a activity com a lista de Tarefas

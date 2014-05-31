@@ -1,8 +1,11 @@
 package br.com.scrumming.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.widget.TextView;
 import br.com.scrumming.R;
 import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.UsuarioEmpresa;
@@ -25,7 +28,7 @@ public class ProjetoActivity extends ActionBarActivity implements ClickedOnProje
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_principal);
-				
+
 		UsuarioEmpresa usuarioEmpresa = (UsuarioEmpresa)getIntent().getSerializableExtra("usuarioEmpresa");
 		
 		projetoFragment = (ProjetoFragment)getSupportFragmentManager().findFragmentByTag("pf");

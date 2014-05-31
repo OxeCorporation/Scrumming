@@ -33,11 +33,11 @@ import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
 import br.com.scrumming.domain.TarefaDTO;
 import br.com.scrumming.domain.TarefaFavorita;
-import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
+import br.com.scrumming.interfaces.DownloadConcluido;
 import br.com.scrumming.interfaces.MudarParaProcesso;
 import br.com.scrumming.rest.RestTarefa;
 import br.com.scrumming.rest.RestTarefaFavorita;
@@ -66,6 +66,8 @@ public class TarefaPlanejadaFragment extends ListFragment {
 	* @param Sprint sprint
 	* @return TarefaPlanejadaFragment
 	*/
+//	public static TarefaPlanejadaFragment novaInstancia(){
+
 	public static TarefaPlanejadaFragment novaInstancia(ItemBacklog itemBacklog, UsuarioEmpresa usuarioEmpresa, Sprint sprint){
 		Bundle args = new Bundle();
 		args.putSerializable("itemBacklog", itemBacklog);
@@ -108,17 +110,11 @@ public class TarefaPlanejadaFragment extends ListFragment {
 			progressTarefa.setVisibility(View.GONE);
 			txtMensagemTarefa.setVisibility(View.GONE);
 			AtualizarListaDeTarefa();
-			
-			
-			
 		} else {
 			if (taskTarefa != null && taskTarefa.getStatus() == Status.RUNNING){
 				mostrarProgress();
-
 			} else {
-				listaTarefasPlanejadas =   new ArrayList<TarefaDTO>();
 				iniciarDownload();
-				
 			}
 		}
 	}
@@ -459,6 +455,7 @@ public class TarefaPlanejadaFragment extends ListFragment {
 		protected void onPostExecute(List<TarefaDTO> tarefasReport) {
 			super.onPostExecute(tarefasReport);
 			if(tarefasReport != null) {
+				listaTarefasPlanejadas =   new ArrayList<TarefaDTO>();
 				for (int i = 0; i < tarefasReport.size(); i++) {
 					if (tarefasReport.get(i).getTarefa().getSituacao() == SituacaoTarefaEnum.PARA_FAZER) {
 						listaTarefasPlanejadas.add(tarefasReport.get(i));
@@ -471,6 +468,9 @@ public class TarefaPlanejadaFragment extends ListFragment {
 				
 				AtualizarListaDeTarefa();
 				txtMensagemTarefa.setVisibility(View.GONE);
+				//listaDTO.setListaDeTarefa(tarefasReport);
+				 ((DownloadConcluido)getActivity()).concluiuDownload(tarefasReport);
+
 			}else {
 				txtMensagemTarefa.setText("Não Existem Tarefas Planejadas Cadastradas");
 			}

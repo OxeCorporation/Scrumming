@@ -1,5 +1,7 @@
 package br.com.scrumming.activity;
 
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -12,7 +14,6 @@ import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.TarefaDTO;
-import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.fragment.TarefaConcluidaFragment;
 import br.com.scrumming.fragment.TarefaImpedimentoFragment;
@@ -23,11 +24,13 @@ import br.com.scrumming.interfaces.ClickedOnHomeBoard;
 import br.com.scrumming.interfaces.ClickedOnLogout;
 import br.com.scrumming.interfaces.ClickedOnTarefa;
 import br.com.scrumming.interfaces.ClickedOnTarefaReporteItem;
+import br.com.scrumming.interfaces.DownloadConcluido;
 import br.com.scrumming.interfaces.MudarParaProcesso;
 
 public class TarefaActivity extends ActionBarActivity implements
 		ClickedOnLogout, ClickedOnHomeBoard, TabListener, ClickedOnTarefa,
-		ClickedOnTarefaReporteItem, MudarParaProcesso, ClickedOnHome {
+		ClickedOnTarefaReporteItem, MudarParaProcesso, ClickedOnHome,
+		DownloadConcluido {
 
 	// Instanciação dos Objetos e variáveis
 	TarefaPlanejadaFragment tarefaPlanejadaFragment;
@@ -64,17 +67,16 @@ public class TarefaActivity extends ActionBarActivity implements
 		tarefaConcluidaFragment = (TarefaConcluidaFragment) getSupportFragmentManager()
 				.findFragmentByTag("tcf");
 
-		if ((tarefaPlanejadaFragment == null)
-				|| (tarefaProcessFragment == null)
-				|| (tarefaImpedimentoFragment == null)
-				|| (tarefaConcluidaFragment == null)) {
-
+		if (tarefaPlanejadaFragment == null) {
 			tarefaPlanejadaFragment = TarefaPlanejadaFragment.novaInstancia(
 					itemBacklog, usuarioEmpresa, sprint);
+		} else if (tarefaProcessFragment == null) {
 			tarefaProcessFragment = TarefaProcessFragment.novaInstancia(
 					itemBacklog, usuarioEmpresa, sprint);
+		} else if (tarefaImpedimentoFragment == null) {
 			tarefaImpedimentoFragment = TarefaImpedimentoFragment
 					.novaInstancia(itemBacklog, usuarioEmpresa, sprint);
+		} else if (tarefaConcluidaFragment == null) {
 			tarefaConcluidaFragment = TarefaConcluidaFragment.novaInstancia(
 					itemBacklog, usuarioEmpresa, sprint);
 
@@ -84,6 +86,7 @@ public class TarefaActivity extends ActionBarActivity implements
 					.add(R.id.master, tarefaImpedimentoFragment, "tif")
 					.add(R.id.master, tarefaConcluidaFragment, "tcf").commit();
 		}
+
 		// } else if (tarefaProcessFragment != null && tarefa != null) {
 		// tarefaProcessFragment.modificarLista(tarefa);
 		//
@@ -91,7 +94,7 @@ public class TarefaActivity extends ActionBarActivity implements
 
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		
+
 		Tab tab1 = actionBar.newTab();
 		tab1.setText("Planejada");
 		tab1.setTabListener((TabListener) this);
@@ -311,6 +314,14 @@ public class TarefaActivity extends ActionBarActivity implements
 	public void clicouNoHome(UsuarioEmpresa usuarioEmpresa) {
 		// TODO Auto-generated method stub
 		finish();
+	}
+
+	@Override
+	public void concluiuDownload(List<TarefaDTO> listaDeTarefaDTO) {
+		tarefaProcessFragment.receberListaTarafaDTO(listaDeTarefaDTO);
+		tarefaImpedimentoFragment.receberListaTarafaDTO(listaDeTarefaDTO);
+		tarefaConcluidaFragment.receberListaTarafaDTO(listaDeTarefaDTO);
+
 	}
 
 }
