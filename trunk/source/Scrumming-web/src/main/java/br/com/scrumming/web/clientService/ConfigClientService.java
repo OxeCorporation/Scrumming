@@ -16,8 +16,8 @@ public class ConfigClientService extends AbstractClientService {
 	public boolean verificarPermissao(Team time, ConfigEnum configEnum) {
 		
 		ConfigDTO configDTO = new ConfigDTO();
-		configDTO.team = time;
-		configDTO.configEnum = configEnum;
+		configDTO.setTeam(time);
+		configDTO.setConfigEnum(configEnum);
 		return getRestTemplate().postForObject(getURIService(ConstantesService.Config.URL_VERIFICAR_PERMISSAO), configDTO, Boolean.class);
 	}
 }

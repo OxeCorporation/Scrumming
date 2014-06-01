@@ -22,10 +22,8 @@
 									<f:facet name="header">
 										<p:commandLink action="#{projetoMB.projetoDetailPage}">
 											<h:outputText value="#{projeto.nome}" />
-											<f:setPropertyActionListener value="#{projeto}"
-												target="#{projetoMB.projetoSelecionado}" />
-											<f:setPropertyActionListener value="#{projeto}"
-												target="#{sessaoMB.projetoSelecionado}" />												
+											<f:setPropertyActionListener value="#{projeto}" target="#{projetoMB.projetoSelecionado}" />
+											<f:setPropertyActionListener value="#{projeto}" target="#{sessaoMB.projetoSelecionado}" />												
 										</p:commandLink>
 										<h:outputText value="#{projeto.statusProjeto}"
 											style="float:right" />

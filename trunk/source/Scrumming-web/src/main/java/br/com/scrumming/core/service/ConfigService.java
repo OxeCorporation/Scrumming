@@ -16,9 +16,9 @@ public class ConfigService {
 	@Autowired
 	private PermissionConfig permissonConfig;
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/verificar_permissao")
+	@RequestMapping(method = RequestMethod.POST, value = "/verificarPermissao")
     public boolean consultarSprintDTO(@RequestBody ConfigDTO configDTO) {
-    	return permissonConfig.verifyPermission(configDTO.team, configDTO.configEnum);
+    	return permissonConfig.verifyPermission(configDTO.getTeam(), configDTO.getConfigEnum());
     }
 
 	/*Getters & Setters*/
