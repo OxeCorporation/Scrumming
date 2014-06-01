@@ -7,9 +7,10 @@ import br.com.scrumming.web.infra.AbstractClientService;
 import br.com.scrumming.web.infra.ConstantesService;
 
 public class UsuarioClientService extends AbstractClientService {
-
+	
+	
 	public Usuario obterUsuario(String login, String senha) {
-
+		
 		return getRestTemplate().postForEntity(
 				getURIService(ConstantesService.Usuario.OBTER_USUARIO_LOGIN),
 				HttpEntity.EMPTY, Usuario.class, login, senha).getBody();
@@ -42,5 +43,9 @@ public class UsuarioClientService extends AbstractClientService {
 		getRestTemplate().postForObject(
 				getURIService(ConstantesService.Usuario.ATIVAR_USUARIO),
 				HttpEntity.EMPTY, void.class, usuarioID, empresaID);
+	}
+	
+	public void atualizarUsuario(Usuario usuario){
+		getRestTemplate().postForObject(getURIService(ConstantesService.Usuario.URI_ATUALIZAR), usuario, void.class);
 	}
 }

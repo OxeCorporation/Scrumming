@@ -12,4 +12,5 @@ public interface ISprintManager extends IManager<Sprint, Integer> {
 	List<Sprint> consultarPorProjeto(Integer projetoID);
     void fecharSprint(Sprint sprint);
     SprintDTO consultarSprintDTO(Integer sprintID);
+	Sprint consultarSprint(Integer sprintID);
 }

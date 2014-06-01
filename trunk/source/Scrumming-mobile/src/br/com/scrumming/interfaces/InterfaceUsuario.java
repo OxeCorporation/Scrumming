@@ -1,4 +1,4 @@
-package br.com.scrumming.implementations;
+package br.com.scrumming.interfaces;
 
 import br.com.scrumming.domain.Usuario;
 

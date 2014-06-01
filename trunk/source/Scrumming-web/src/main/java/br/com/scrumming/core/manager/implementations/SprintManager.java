@@ -92,10 +92,23 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		sprint.setSituacaoSprint(SituacaoSprintEnum.ABERTA);
 		sprint.setDataCadastro(new DateTime());
 		
-		List<Sprint> sprints = sprintRepositorio.consultaTodasComExcessao(sprint.getProjeto().getCodigo(), sprint.getCodigo());
-		for (Sprint sprint2 : sprints) {
-			if (sprint.getDataInicio().isBefore(sprint2.getDataFim()) && sprint2.getCodigo() != sprint.getCodigo()) {
-				throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_DATA_SPRINT_EXISTE);
+		if (sprint.getCodigo() != null) {
+			/*Sprint sprintCadastrada = findByKey(sprint.getCodigo());
+			if ((!sprintCadastrada.getDataInicio().isEqual(sprint.getDataInicio())) || (!sprintCadastrada.getDataFim().isEqual(sprint.getDataFim()))) {
+				List<Sprint> sprints = sprintRepositorio.consultaTodasComExcessao(sprint.getProjeto().getCodigo(), sprint.getCodigo());
+				for (Sprint sprint2 : sprints) {
+					if (sprint.getDataInicio().isBefore(sprint2.getDataFim()) && sprint2.getCodigo() != sprint.getCodigo()) {
+						throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_DATA_SPRINT_EXISTE);
+					}
+				}			
+			}
+			sprintCadastrada = null;*/
+		} else {
+			List<Sprint> sprints = sprintRepositorio.consultarPorProjeto(sprint.getProjeto().getCodigo());
+			for (Sprint sprint2 : sprints) {
+				if (sprint.getDataInicio().isBefore(sprint2.getDataFim())) {
+					throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_DATA_SPRINT_EXISTE);
+				}
 			}
 		}
 		
@@ -169,6 +182,12 @@ public class SprintManager extends AbstractManager<Sprint, Integer> implements
 		}
 		sprintDTO.setProductBacklog(itensDisponiveis);
 		return sprintDTO;
+	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public Sprint consultarSprint(Integer sprintID) {
+		return findByKey(sprintID);
 	}
 
 	/**

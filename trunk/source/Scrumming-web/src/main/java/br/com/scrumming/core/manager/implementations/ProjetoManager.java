@@ -185,7 +185,7 @@ public class ProjetoManager extends AbstractManager<Projeto, Integer> implements
 
 	private void cancelarSprints(Sprint sprint) {
 		List<ItemBacklog> itensBacklogDaSprint = sprintBacklogManager
-				.consultarSprintBacklog(sprint.getCodigo());
+				.consultarSprintBacklog(sprint.getCodigo(), 0);
 		for (int j = 0; j < itensBacklogDaSprint.size(); j++) {
 			cancelarTarefas(itensBacklogDaSprint.get(j));
 		}

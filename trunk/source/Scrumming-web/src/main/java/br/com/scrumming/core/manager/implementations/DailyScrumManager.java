@@ -82,7 +82,6 @@ public class DailyScrumManager extends AbstractManager<DailyScrum, Integer>
 			dailyScrum.setDataHora(preparaData(dailyScrum));
 			if (dailyScrum.getDataHora().isAfterNow()) {
 				insertOrUpdate(dailyScrum);
-				throw new NegocioException(ConstantesMensagem.MENSAGEM_REGISTRO_ALTERADO_SUCESSO);
 			} else {
 				throw new NegocioException(ConstantesMensagem.ERRO_DAILY_PASSADO);
 			}

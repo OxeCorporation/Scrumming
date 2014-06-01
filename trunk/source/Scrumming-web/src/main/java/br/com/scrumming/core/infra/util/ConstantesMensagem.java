@@ -42,4 +42,9 @@ public class ConstantesMensagem {
 	public static final String MENSAGEM_TAREFA_COMCLUIDA = "mensagem_tarefa_concluida";
 	public static final String MENSAGEM_TAREFA_CANCELADA = "mensagem_tarefa_cancelada";
 	public static final String MENSAGEM_TAREFA_EM_IMPEDIMENTO = "mensagem_tarefa_em_impedimento";
+	public static final String MENSAGEM_TAREFA_ENCONTRA_SE_CONCLUIDA = "mensagem_tarefa_encontra_se_concluida";
+	public static final String MENSAGEM_TAREFA_ENCONTRA_SE_CANCELADA = "mensagem_tarefa_encontra_se_cancelada";
+	public static final String MENSAGEM_TAREFA_ENCONTRA_SE_IMPEDIDA = "mensagem_tarefa_encontra_se_impedida";
+	public static final String MENSAGEM_TAREFA_SEM_USUARIO_ATRIBUIDO = "mensagem_tarefa_sem_usuario_atribuido";
+	public static final String MENSAGEM_TAREFA_APENAS_RESPONSAVEL_PODE_ALTERAR_STATUS = "mensagem_tarefa_apenas_responsavel_pode_alterar_status";
 }

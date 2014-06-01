@@ -16,4 +16,6 @@ public interface ITeamManager extends IManager<Team, TeamChave> {
 	List<Usuario> consultarUsuarioPorEmpresaForaDoProjeto(Integer projetoID, Integer empresaID);
 	List<Team> consultaTeamPorProjeto(Integer projetoID);
 	List<Team> consultaTeamAtivosInativosPorProjeto(Integer projetoID);
+	List<Projeto> consultarProjetoPorUsuarioDaEmpresa(Integer usuarioID, Integer empresaID);
+	Team consultarTimeDoProjeto(int codigoProjeto, int codigoEmpresa, int codigoUsuario);
 }

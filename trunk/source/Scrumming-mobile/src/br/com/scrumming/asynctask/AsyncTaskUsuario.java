@@ -1,28 +1,23 @@
-package br.com.scrumming.implementations;
+package br.com.scrumming.asynctask;
 
 import android.os.AsyncTask;
 import br.com.scrumming.domain.Usuario;
+import br.com.scrumming.interfaces.InterfaceUsuario;
+import br.com.scrumming.rest.RestUsuario;
 
 public class AsyncTaskUsuario extends AsyncTask<String, Void, Usuario> {
 
 	private InterfaceUsuario interfaceUsuario;
 	
-	public AsyncTaskUsuario(){}
-	
 	public AsyncTaskUsuario(InterfaceUsuario interfaceUsuario) {
 		this.interfaceUsuario = interfaceUsuario;
 	}
 	
-//	public Usuario dadosUsuario(String login, String senha){
-//		Usuario usuario = new Usuario();
-//		usuario.setLogin(login);
-//		usuario.setSenha(senha);
-//		return usuario;
-//	}
-	
 	@Override
 	protected Usuario doInBackground(String... params) {
-		return RestUsuario.retorneUsuario(params.toString(), params.toString());
+		String log = params[0];
+		String senha = params[1];
+		return RestUsuario.retorneUsuario(log,senha);
 	}
 	
 	@Override

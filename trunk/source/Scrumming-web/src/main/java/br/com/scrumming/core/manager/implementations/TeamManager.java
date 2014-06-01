@@ -52,6 +52,10 @@ public class TeamManager extends AbstractManager<Team, TeamChave> implements
 				.consultaTeamPorProjeto(projetoID);
 		return teamProjeto;
 	}
+	
+	public Team consultarTimeDoProjeto(int codigoProjeto, int codigoEmpresa, int codigoUsuario) {
+		return teamRepositorio.consultarTimeDoProjeto(codigoProjeto, codigoEmpresa, codigoUsuario);
+	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
@@ -141,6 +145,12 @@ public class TeamManager extends AbstractManager<Team, TeamChave> implements
 	public List<Team> consultaTeamAtivosInativosPorProjeto(Integer projetoID) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Projeto> consultarProjetoPorUsuarioDaEmpresa(Integer usuarioID, Integer empresaID) {
+		// TODO Auto-generated method stub
+		return teamRepositorio.consultarProjetosPorUsuarioDaEmpresa(usuarioID, empresaID);
 	}
 
 }

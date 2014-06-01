@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.scrumming.core.manager.interfaces.ITarefaManager;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.TarefaDTO;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
 @RestController
@@ -36,14 +37,20 @@ public class TarefaService {
     public Tarefa consultarPorChave(Integer tarefaID) {
 		return tarefaManager.findByKey(tarefaID);
 	}
-	@RequestMapping(method = RequestMethod.POST, value = "/update/{tarefaID}/{situacaoTarefaEnum}")
-	public void atualizarStatusTarefa(@PathVariable Integer tarefaID,@PathVariable SituacaoTarefaEnum situacaoTarefaEnum){
-		tarefaManager.atualizarStatusTarefa(tarefaID, situacaoTarefaEnum);
+	@RequestMapping(method = RequestMethod.POST, value = "/update/{tarefaID}/{situacaoTarefaEnum}/{usuarioLogadoID}")
+	public void atualizarStatusTarefa(@PathVariable Integer tarefaID,
+			@PathVariable SituacaoTarefaEnum situacaoTarefaEnum, @PathVariable Integer usuarioLogadoID){
+		tarefaManager.atualizarStatusTarefa(tarefaID, situacaoTarefaEnum, usuarioLogadoID);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/list/{itemBacklogID}")
 	public List<Tarefa> consultarPorItemBacklog(@PathVariable Integer itemBacklogID) {
     	return new ArrayList<Tarefa>(tarefaManager.consultarPorItemBacklog(itemBacklogID));
+    }
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/lista/{itemBacklogID}/{usuarioLogadoID}")
+	public List<Tarefa> consultarPorItemBacklogIhUsuarioLogado(@PathVariable Integer itemBacklogID, @PathVariable Integer usuarioLogadoID) {
+    	return new ArrayList<Tarefa>(tarefaManager.consultarPorItemBacklog(itemBacklogID, usuarioLogadoID));
     }
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/list/{itemBacklogID}/{situacao}")
@@ -60,6 +67,17 @@ public class TarefaService {
     public void atribuirPara(@RequestBody Tarefa tarefa, @PathVariable Integer itemBacklogID, @PathVariable Integer usuarioID) {
     	tarefaManager.atribuirPara(tarefa, itemBacklogID, usuarioID);
     }
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/validarDadosAntesDeAtualizarStatus/{usuarioLogadoID}")
+	public void validarDadosAntesDeAtualizarStatus(@RequestBody Tarefa tarefa, @PathVariable Integer usuarioLogadoID) {
+    	tarefaManager.validarDadosAntesDeAtualizarStatus(tarefa, usuarioLogadoID);
+    }
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/listDTO/{itemID}")
+	public List<TarefaDTO> tarefasComTempoReportado(@PathVariable Integer itemID) {
+    	return tarefaManager.consultarTarefaDTOPorItemBacklog(itemID);
+    }
+
 
 	/* getters and setters */
 	public ITarefaManager getTarefaManager() {

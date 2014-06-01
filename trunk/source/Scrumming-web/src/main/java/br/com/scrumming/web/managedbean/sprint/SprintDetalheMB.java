@@ -6,6 +6,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.ChartSeries;
+
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.domain.DailyScrum;
 import br.com.scrumming.domain.ItemBacklog;
@@ -22,6 +27,7 @@ import br.com.scrumming.web.infra.FacesMessageUtil;
 import br.com.scrumming.web.infra.FlashScoped;
 import br.com.scrumming.web.infra.PaginasUtil;
 import br.com.scrumming.web.infra.bean.AbstractBean;
+import br.com.scrumming.web.managedbean.tarefa.TarefaFavoritaMB;
 
 @ManagedBean
 @ViewScoped
@@ -55,6 +61,8 @@ public class SprintDetalheMB extends AbstractBean {
 	private String modalHeight;
 	private String datePattern;
 	private boolean uniqueDaily;
+	private Long totalDeHorasEstimadasDaSprint;
+	private CartesianChartModel graficoDeLinha;
 
 	@Override
 	public void inicializar() {
@@ -75,13 +83,64 @@ public class SprintDetalheMB extends AbstractBean {
 		tarefaClientService = new TarefaClientService();
 		atualizarListaDeItens();
 		dailies = dailyClienteService.consultarDailyScrumPorSprints(sprintSelecionada.getCodigo());
+		inicializarGrafico();
 	}
+	
+	private void inicializarGrafico() {
+		setTotalDeHorasEstimadasDaSprint(sprintClienteService.totalDeHorasEstimadasDaSprint(sprintSelecionada.getCodigo()));		
+		graficoDeLinha = criarGraficoBurnDownDaSprint();	
+	}
+	
+	private CartesianChartModel criarGraficoBurnDownDaSprint() {
+		CartesianChartModel model = new CartesianChartModel();
+ 
+        ChartSeries estimado = new ChartSeries();
+        estimado.setLabel("Estimado");
+        
+        ChartSeries atual = new ChartSeries();
+        atual.setLabel("Atual");
+        
+        DateTime data = sprintSelecionada.getDataInicio();
+        int dias = Days.daysBetween(sprintSelecionada.getDataInicio(), sprintSelecionada.getDataFim()).getDays();
+        double horasEstimadas = 0;
+        double horasRestantes = 0;
+        double horasParaSubtrair = 0;
+        Long totalDeHorasRestantesDaSprintPorData;
+        
+        if (getTotalDeHorasEstimadasDaSprint() != null) {
+        	horasEstimadas = getTotalDeHorasEstimadasDaSprint();
+            horasRestantes = getTotalDeHorasEstimadasDaSprint();
+        }
+        
+        for (int i = 0; i < dias; i++) {
+        	if (i == 0) {
+        		estimado.set(data.toString("dd ") + data.monthOfYear().getAsShortText(), horasEstimadas);
+        		atual.set(data.toString("dd ") + data.monthOfYear().getAsShortText(), horasEstimadas);
+        	} else {
+        		if (getTotalDeHorasEstimadasDaSprint() != null) {
+        			horasParaSubtrair = ((double) getTotalDeHorasEstimadasDaSprint() / (dias-1));
+        		}
+        		horasEstimadas = horasEstimadas - horasParaSubtrair;
+        		totalDeHorasRestantesDaSprintPorData = sprintClienteService.totalDeHorasRestantesDaSprintPorData(sprintSelecionada.getCodigo(), data.plusDays(i).toString("yyyy-MM-dd"));
+        		if (totalDeHorasRestantesDaSprintPorData != null) {
+        			horasRestantes = totalDeHorasRestantesDaSprintPorData;
+        		}
+        		estimado.set(data.plusDays(i).toString("dd ") + data.monthOfYear().getAsShortText(), horasEstimadas);
+        		atual.set(data.plusDays(i).toString("dd ") + data.monthOfYear().getAsShortText(), horasRestantes);
+        	}
+		}        
+ 
+        model.addSeries(estimado);
+        model.addSeries(atual);
+         
+        return model;
+    }
 		
 	/*FUNÇÕES REFERENTES AO ITEMBACKLOG*/
 	public void entregarItem() {
 		itemSelecionado.setSituacaoBacklog(SituacaoItemBacklogEnum.ENTREGUE);
 		itemClienteService.salvarItemBacklog(itemSelecionado);
-		itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo());
+		itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo(), usuarioLogado.getCodigo());
 	}
 	
 	/*FUNÇÕES REFERENTES AO DAILY SCRUM*/
@@ -90,6 +149,7 @@ public class SprintDetalheMB extends AbstractBean {
 		dailyClienteService.salvarDailyScrum(dailyScrum);
 		limparDailyScrum();
 		atualizarLista();
+		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 	}
 	
 	public String novoDaily() {
@@ -102,7 +162,7 @@ public class SprintDetalheMB extends AbstractBean {
 	public void alterarDailyScrum() {
 		saveDaily = false;
 		showModal = true;
-		dailyScrum.setUniqueDaily(false);
+		dailyScrum.setUniqueDaily(false);		
 		dailyScrum = dailyScrumSelecionado;
 	}
 	
@@ -135,13 +195,13 @@ public class SprintDetalheMB extends AbstractBean {
 	
 	private void atualizarListaDeItens(){
 		if (sprintSelecionada != null) {
-			itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo());
+			itens = sprintClienteService.consultarSprintBacklog(sprintSelecionada.getCodigo(), usuarioLogado.getCodigo());
 		}
 	}
 	
 	private void atualizarListaDeTarefas() {
 		if (itemSelecionado != null) {
-			itemSelecionado.setTarefas(tarefaClientService.consultarTarefasPorItemBacklog(itemSelecionado.getCodigo()));
+			itemSelecionado.setTarefas(tarefaClientService.consultarPorItemBacklogIhUsuarioLogado(itemSelecionado.getCodigo(), getUsuarioLogado().getCodigo()));
 		}
 	}
 		
@@ -165,11 +225,21 @@ public class SprintDetalheMB extends AbstractBean {
 	}
 	
 	public String atribuirTarefaParaMim(){
-		tarefaClientService.atribuirTarefaPara(tarefaSelecionada, usuarioLogado.getCodigo());
-		atualizarListaDeItens();
+		if (tarefaSelecionada.getItemBacklog() == null) {
+			tarefaSelecionada.setItemBacklog(itemSelecionado);
+		}
+		tarefaClientService.atribuirTarefaPara(tarefaSelecionada, usuarioLogado.getCodigo());		
 		atualizarListaDeTarefas();
 		FacesMessageUtil.adicionarMensagemInfo(ConstantesMensagem.MENSAGEM_OPERACAO_SUCESSO);
 		return "";
+	}
+	
+	public void favoritarTarefa() {
+		TarefaFavoritaMB tarefaFavoritaMB = new TarefaFavoritaMB();
+		tarefaFavoritaMB.setTarefaSelecionada(tarefaSelecionada);
+		tarefaFavoritaMB.setUsuarioLogado(usuarioLogado);
+		tarefaFavoritaMB.favoritarTarefa();
+		atualizarListaDeTarefas();
 	}
 	
 	/* Métodos para redirecionamento das páginas */
@@ -318,5 +388,22 @@ public class SprintDetalheMB extends AbstractBean {
 
 	public void setDatePattern(String datePattern) {
 		this.datePattern = datePattern;
+	}
+
+	public Long getTotalDeHorasEstimadasDaSprint() {
+		return totalDeHorasEstimadasDaSprint;
+	}
+
+	public void setTotalDeHorasEstimadasDaSprint(
+			Long totalDeHorasEstimadasDaSprint) {
+		this.totalDeHorasEstimadasDaSprint = totalDeHorasEstimadasDaSprint;
+	}
+
+	public CartesianChartModel getGraficoDeLinha() {
+		return graficoDeLinha;
+	}
+
+	public void setGraficoDeLinha(CartesianChartModel graficoDeLinha) {
+		this.graficoDeLinha = graficoDeLinha;
 	}
 }

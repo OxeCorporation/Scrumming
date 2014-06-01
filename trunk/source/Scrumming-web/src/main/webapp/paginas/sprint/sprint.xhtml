@@ -52,7 +52,7 @@
 									<p:commandLink title="Fechar sprint" action="#{sprintMB.fecharSprint}" ajax="false" update="@form">
 										<i class="fa fa-lock inside-grid-icon"/>
 										<f:setPropertyActionListener value="#{sprint}" target="#{sprintMB.sprintSelecionada}" />
-										<p:confirm header="#{mensagens.label_remover_tarefa}" message="#{mensagens.mensagem_fechar_sprint}" icon="ui-icon-alert" />
+										<p:confirm header="#{mensagens.label_fechar_sprint}" message="#{mensagens.mensagem_fechar_sprint}" icon="ui-icon-alert" />
 									</p:commandLink>
 								</ui:fragment>
 							</h:panelGroup>

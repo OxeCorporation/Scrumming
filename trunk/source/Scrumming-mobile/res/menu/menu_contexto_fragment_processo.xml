@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/deProcessoParaPlanejada"
+        android:title="Alterar Para Planejada"/>
+    <item
+        android:id="@+id/deProcessoParaConcluida"
+        android:title="Alterar Para Concluida"/>
+    <item
+        android:id="@+id/deProcessoParaImpedida"
+        android:title="Alterar Para Impedida"/>
+    <item
+        android:id="@+id/opcaoAtribuir"
+        android:title="Atribuir/Desatribuir"/>
+    <item
+        android:id="@+id/opcaoFavoritar"
+        android:title="Favoritar/Desfavoritar"/>
+    <item
+        android:id="@+id/opcaoReportarHoras"
+        android:title="Reportagem de Horas"/>
+
+</menu>

@@ -1,6 +1,5 @@
 package br.com.scrumming.web.managedbean.board;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.el.ELContext;
@@ -8,12 +7,13 @@ import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlOutputText;
+import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.event.SetPropertyActionListener;
-import org.joda.time.DateTime;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.dashboard.Dashboard;
 import org.primefaces.component.panel.Panel;
@@ -25,6 +25,7 @@ import org.primefaces.model.DefaultDashboardModel;
 
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.web.clientService.SprintClientService;
 import br.com.scrumming.web.clientService.TarefaClientService;
@@ -49,6 +50,8 @@ public class BoardBean extends AbstractBean {
 	private Tarefa tarefaSelecionada;
 	@FlashScoped
 	private Sprint sprintSelecionada;
+	@ManagedProperty(value="#{sessaoMB.usuario}")
+	private Usuario usuarioLogado;
 
 	@Override
 	protected void inicializar() {
@@ -86,40 +89,64 @@ public class BoardBean extends AbstractBean {
 		for (Tarefa tarefa : tarefas) {
 			Panel panel = new Panel();
 			panel.setId(TASK_PREFIX + tarefa.getCodigo().toString());
-			panel.setHeader(tarefa.getNome());
+			panel.setHeader("Tarefa "+tarefa.getCodigo());
 			panel.setStyleClass("painel");
 			dashboard.getChildren().add(panel);
-
+			
 			DashboardColumn column = dashboardModel.getColumn(tarefa
 					.getSituacao().ordinal());
 			column.addWidget(panel.getId());
 			
+			HtmlPanelGrid panelGrid = new HtmlPanelGrid();
+			panelGrid.setId("grid_"+tarefa.getCodigo());
+			panelGrid.setColumns(1);
+			panelGrid.setWidth("100%");
+			panel.getChildren().add(panelGrid);
+			
+			
 			HtmlOutputText htmlOutputText = new HtmlOutputText();
-			htmlOutputText.setValue(tarefa.getDescricao());
-			panel.getChildren().add(htmlOutputText);
+			htmlOutputText.setValue(tarefa.getNome());
+			panelGrid.getChildren().add(htmlOutputText);
 			
 			CommandButton button = new CommandButton();
-			button.setValue("Detalhe");
+			button.setIcon("ui-icon-info");
 			button.setImmediate(true);
 			button.setOncomplete("boardModal.show()");
 			button.setUpdate("boardModal");
+			button.setTitle("Detalhe da Tarefa");
+			button.setStyle("float: right;");
 			ValueExpression target= expressionFactory.createValueExpression(elContext, "#{boardBean.tarefaSelecionada}", Object.class);
 			ValueExpression value= expressionFactory.createValueExpression(tarefa, Tarefa.class);
 			button.addActionListener(new SetPropertyActionListener(target, value));
-			panel.getChildren().add(button);
+			panelGrid.getChildren().add(button);
 		}
 	}
 	
 	public void handleReorder(DashboardReorderEvent event) {
 		String widgetId = event.getWidgetId();
 		int columnIndex = event.getColumnIndex();
-		Tarefa task = findTarefa(Integer.valueOf(widgetId.substring(TASK_PREFIX
-				.length())));
-		atualizarTarefa(task,(SituacaoTarefaEnum.values()[columnIndex]));
+		Tarefa task = findTarefa(Integer.valueOf(widgetId.substring(TASK_PREFIX.length())));
+		
+		try {
+			tarefaClientService.validarDadosAntesDeAtualizarStatus(task, usuarioLogado.getCodigo());
+			atualizarTarefa(task,(SituacaoTarefaEnum.values()[columnIndex]));
+			
+		} catch (Exception e) {
+			
+			DashboardColumn fromColumn = dashboardModel.getColumn(task.getSituacao().ordinal());
+			DashboardColumn toColumn = dashboardModel.getColumn(columnIndex);
+			int index = 0;
+			//int index = event.getItemIndex();
+			dashboardModel.transferWidget(toColumn, fromColumn , widgetId, index);
+			
+			throw e;
+		}
+		
+		
 	}
 
 	private void atualizarTarefa(Tarefa task, SituacaoTarefaEnum situacaoTarefaEnum) {
-		tarefaClientService.atualizarStatus(task.getCodigo(), situacaoTarefaEnum);
+		tarefaClientService.atualizarStatus(task.getCodigo(), situacaoTarefaEnum, usuarioLogado.getCodigo());
 	}
 
 	public Tarefa findTarefa(Integer id) {
@@ -185,5 +212,13 @@ public class BoardBean extends AbstractBean {
 
 	public void setTarefaSelecionada(Tarefa tarefaSelecionada) {
 		this.tarefaSelecionada = tarefaSelecionada;
+	}
+
+	public Usuario getUsuarioLogado() {
+		return usuarioLogado;
+	}
+
+	public void setUsuarioLogado(Usuario usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
 	}
 }

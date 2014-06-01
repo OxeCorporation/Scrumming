@@ -1,5 +1,7 @@
 package br.com.scrumming.core.manager.implementations;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,10 +12,13 @@ import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
 import br.com.scrumming.core.manager.interfaces.ISprintManager;
+import br.com.scrumming.core.manager.interfaces.ITarefaManager;
 import br.com.scrumming.core.manager.interfaces.ITarefaReporteManager;
 import br.com.scrumming.core.repositorio.TarefaReporteRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
+import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.TarefaDTO;
 import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.enuns.SituacaoItemBacklogEnum;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
@@ -32,6 +37,8 @@ public class TarefaReporteManager extends AbstractManager<TarefaReporte, Integer
     private ISprintManager sprintManager;
     @Autowired
     private IItemBacklogManager itemManager;
+    @Autowired
+    private ITarefaManager tarefaManager;
 
 	@Override
     public AbstractRepositorio<TarefaReporte, Integer> getRepositorio() {
@@ -40,10 +47,12 @@ public class TarefaReporteManager extends AbstractManager<TarefaReporte, Integer
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void reportarHora(TarefaReporte tarefaReporte, Integer sprintID, Integer itemID) {
+    public void reportarHora(TarefaReporte tarefaReporte, Integer sprintID, Integer itemID, Integer tarefaID) {
     	Sprint sprint = sprintManager.findByKey(sprintID);
     	ItemBacklog item = itemManager.findByKey(itemID);
+    	Tarefa tarefa = tarefaManager.findByKey(tarefaID);
     	
+    	tarefaReporte.setTarefa(tarefa);
     	tarefaReporte.getTarefa().setItemBacklog(item);
     	    
     	validarDados(tarefaReporte, sprint);
@@ -73,6 +82,12 @@ public class TarefaReporteManager extends AbstractManager<TarefaReporte, Integer
     		throw new NegocioException(ConstantesMensagem.MENSAGEM_ERRO_NAO_PODE_REPORTAR_HORA_EM_TAREFA_DE_ITEM_ENTREGUE_OU_CANCELADO);
 		}
 	}	
+    
+    @Override
+	@Transactional(readOnly = true)
+	public List<TarefaDTO> totalDeHorasReportadasNasTarefasDoItem(Integer itemBacklogID) {
+		return tarefaReporteRepositorio.totalDeHorasReportadasNasTarefasDoItem(itemBacklogID);
+	}
     
     /* getters and setters */
     public TarefaReporteRepositorio getTarefaReporteRepositorio() {

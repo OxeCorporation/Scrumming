@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/opcaoAlterarDeImpedidaParaProcesso"
+        android:title="Alterar Para em Processo"
+    />
+    
+    <item
+        android:id="@+id/opcaoFavoritarImpedida"
+        android:title="Favoritar/Desfavoritar"
+    />
+    
+    <item
+        android:id="@+id/opcaoReportarHorasImpedida"
+        android:title="Reportagem de Horas"
+    />
+</menu>

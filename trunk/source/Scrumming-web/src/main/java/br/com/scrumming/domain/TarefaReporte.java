@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 
 import br.com.scrumming.core.infra.repositorio.ObjetoPersistente;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -31,6 +32,7 @@ public class TarefaReporte extends ObjetoPersistente<Integer> {
 	
 	@ManyToOne
     @JoinColumn(name = "FK_tarefa", referencedColumnName = "PK_tarefa")
+	@JsonBackReference
 	private Tarefa tarefa;
 	
 	@ManyToOne

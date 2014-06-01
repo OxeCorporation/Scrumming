@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import br.com.scrumming.core.service.TarefaService;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintDTO;
@@ -48,8 +47,10 @@ public class SprintClientService extends AbstractClientService {
 	 * @param sprintID
 	 * @return
 	 */
-	public List<ItemBacklog> consultarSprintBacklog(Integer sprintID) {
-		ResponseEntity<ItemBacklog[]> forEntity = getRestTemplate().getForEntity(getURIService(ConstantesService.Sprint.URL_CONSULTAR_SPRINT_BACKLOG), ItemBacklog[].class, sprintID);
+	public List<ItemBacklog> consultarSprintBacklog(Integer sprintID, Integer usuarioLogadoID) {
+		ResponseEntity<ItemBacklog[]> forEntity = getRestTemplate().getForEntity(
+				getURIService(ConstantesService.Sprint.URL_CONSULTAR_SPRINT_BACKLOG), 
+				ItemBacklog[].class, sprintID, usuarioLogadoID);
 		return Arrays.asList(forEntity.getBody());
 	}
 	
@@ -78,5 +79,17 @@ public class SprintClientService extends AbstractClientService {
 	public List<Tarefa> consultarTarefasPorSprint(Integer sprintID){
 		Tarefa[] tarefas = getRestTemplate().getForObject(getURIService(ConstantesService.Sprint.URI_CONSULTAR_TEREFAS), Tarefa[].class, sprintID);
 		return Arrays.asList(tarefas);
+	}
+	
+	public Long totalDeHorasEstimadasDaSprint(Integer sprintID) {
+		return getRestTemplate().getForObject(getURIService(ConstantesService.Sprint.URL_TOTAL_DE_HORAS_ESTIMADAS), Long.class, sprintID);
+	}
+	
+	public Sprint consultarSprint(Integer sprintID) {
+		return getRestTemplate().getForObject(getURIService(ConstantesService.Sprint.URL_CONSULTAR_SPRINT), Sprint.class, sprintID);
+	}
+	
+	public Long totalDeHorasRestantesDaSprintPorData(Integer sprintID, String data) {
+		return getRestTemplate().getForObject(getURIService(ConstantesService.Sprint.URL_TOTAL_DE_HORAS_RESTANTES_POR_DATA), Long.class, sprintID, data);
 	}
 }

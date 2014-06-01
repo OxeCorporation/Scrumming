@@ -1,6 +1,7 @@
 package br.com.scrumming.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -30,9 +31,11 @@ public class Tarefa implements Serializable {
 	@JsonSerialize(using = JodaDateTimeJsonSerializer.class)
     @JsonDeserialize(using = JodaDateTimeJsonDeserializer.class)
 	private DateTime dataAtribuicao;
+	private List<TarefaReporte> reportes;
     private String situacaoDescricao;
 	private String backgroundColor;
 	private boolean estahConcluida;
+	private boolean foiFavoritada;
 	
 	/*getters and setters*/
 	public Integer getCodigo() {
@@ -50,6 +53,14 @@ public class Tarefa implements Serializable {
 
 	public void setItemBacklog(ItemBacklog itemBacklog) {
 		this.itemBacklog = itemBacklog;
+	}
+
+	public List<TarefaReporte> getReportes() {
+		return reportes;
+	}
+
+	public void setReportes(List<TarefaReporte> reportes) {
+		this.reportes = reportes;
 	}
 
 	public Usuario getUsuario() {
@@ -138,5 +149,17 @@ public class Tarefa implements Serializable {
 	public boolean isEstahConcluida() {
 		estahConcluida = situacao == SituacaoTarefaEnum.FEITO;		
 		return estahConcluida;
+	}
+
+	public boolean isFoiFavoritada() {
+		return foiFavoritada;
+	}
+
+	public void setFoiFavoritada(boolean foiFavoritada) {
+		this.foiFavoritada = foiFavoritada;
+	}
+
+	public void setEstahConcluida(boolean estahConcluida) {
+		this.estahConcluida = estahConcluida;
 	}
 }

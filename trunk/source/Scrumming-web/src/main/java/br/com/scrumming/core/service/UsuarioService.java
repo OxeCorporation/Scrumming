@@ -60,6 +60,10 @@ public class UsuarioService {
     public void ativar(@PathVariable Integer usuarioID, @PathVariable Integer empresaID){
     	usuarioManager.ativar(usuarioID,empresaID);
     }
+    @RequestMapping(method = RequestMethod.POST, value = "/atualizar")
+    public void atualizar(@RequestBody Usuario usuario){
+    	usuarioManager.insertOrUpdate(usuario);
+    }
     public IUsuarioManager getUsuarioManager() {
         return usuarioManager;
     }

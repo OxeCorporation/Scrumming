@@ -21,24 +21,20 @@ import br.com.scrumming.web.infra.bean.AbstractBean;
 @ViewScoped
 public class ProjetoMB extends AbstractBean {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 	@FlashScoped
 	private List<Projeto> projetosAtivosDaEmpresa;
 	@FlashScoped
 	private List<Projeto> projetosConcluidosDaEmpresa;
 	@FlashScoped
 	private List<Projeto> projetoTodosDaEmpresa;
-
 	@FlashScoped
     private Projeto projeto;
     @FlashScoped
     private Projeto projetoSelecionado;
     @FlashScoped
     private ProjetoDTO projetoDTO;
-    private ProjetoClientService clienteService;
+    private ProjetoClientService projetoClienteService;
     @ManagedProperty(value="#{sessaoMB.empresaSelecionada}")
     private Empresa empresa;
     @FlashScoped
@@ -47,19 +43,18 @@ public class ProjetoMB extends AbstractBean {
 	private List<Team> teamProjeto;
     @FlashScoped
     private String titulo;
-
-    
+        
     @Override
     public void inicializar() {
-        clienteService = new ProjetoClientService();
+        projetoClienteService = new ProjetoClientService();
         projeto = new Projeto();
-        projetoTodosDaEmpresa = clienteService.consultarProjetosPorEmpresa(empresa.getCodigo());
-        projetosAtivosDaEmpresa = clienteService.consultarProjetosAtivosPorEmpresa(empresa.getCodigo());
-        projetosConcluidosDaEmpresa = clienteService.consultarProjetosConcluidosPorEmpresa(empresa.getCodigo());
+        projetoTodosDaEmpresa = projetoClienteService.consultarProjetosPorEmpresa(empresa.getCodigo());
+        projetosAtivosDaEmpresa = projetoClienteService.consultarProjetosAtivosPorEmpresa(empresa.getCodigo());
+        projetosConcluidosDaEmpresa = projetoClienteService.consultarProjetosConcluidosPorEmpresa(empresa.getCodigo());
     }
     
     public String consultarProjetoDTO() {
-		projetoDTO = clienteService.consultarProjtoDTO(projetoSelecionado.getCodigo());
+		projetoDTO = projetoClienteService.consultarProjtoDTO(projetoSelecionado.getCodigo());
 		projetoSelecionado = projetoDTO.getProjeto();
 		usuarioEmpresaNotProjeto = projetoDTO.getUsuarioEmpresaNotTeam();
 		teamProjeto = projetoDTO.getTimeProjeto();
@@ -70,13 +65,13 @@ public class ProjetoMB extends AbstractBean {
 	public String consultarUsuarioEmpresa() {
 		projetoDTO = new ProjetoDTO();
 		teamProjeto = new ArrayList<>();
-		usuarioEmpresaNotProjeto = clienteService.consultarUsuarioPorEmpresa(empresa.getCodigo());
+		usuarioEmpresaNotProjeto = projetoClienteService.consultarUsuarioPorEmpresa(empresa.getCodigo());
 		setTitulo("Cadastro de Projeto");
 		return projetoCadastroPage();
 	}
 
 	public String consultarUsuarioForaDoProjeto() {
-		usuarioEmpresaNotProjeto = clienteService.consultarUsuarioPorEmpresaForaDoProjeto(projetoSelecionado.getCodigo(), empresa.getCodigo());
+		usuarioEmpresaNotProjeto = projetoClienteService.consultarUsuarioPorEmpresaForaDoProjeto(projetoSelecionado.getCodigo(), empresa.getCodigo());
 		return projetoCadastroPage();
 	}
 
@@ -129,15 +124,16 @@ public class ProjetoMB extends AbstractBean {
     }
 
     public void setProjetoSelecionado(Projeto projetoSelecionado) {
+    	
         this.projetoSelecionado = projetoSelecionado;
     }
 
     public ProjetoClientService getClienteService() {
-		return clienteService;
+		return projetoClienteService;
 	}
 
 	public void setClienteService(ProjetoClientService clienteService) {
-		this.clienteService = clienteService;
+		this.projetoClienteService = clienteService;
 	}
 
 	public List<Projeto> getProjetosAtivosDaEmpresa() {
@@ -180,5 +176,4 @@ public class ProjetoMB extends AbstractBean {
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-
 }

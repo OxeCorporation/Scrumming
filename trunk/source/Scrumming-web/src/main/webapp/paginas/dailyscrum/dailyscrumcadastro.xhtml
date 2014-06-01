@@ -8,7 +8,7 @@
 
 	<h:form id="frmDailyScrumCadastro">
 		<p:dialog showEffect="fade" hideEffect="explode" id="dailyScrumModal" header="#{mensagens.label_cadastro_dailyScrum}" 
-			modal="true" width="350" height="#{sprintDetalheMB.modalHeight}" resizable="false" widgetVar="dailyScrumModal" visible="#{sprintDetalheMB.showModal}">
+			modal="true" width="350" height="#{sprintDetalheMB.modalHeight}" resizable="false" widgetVar="dailyScrumModal" visible="#{facesContext.validationFailed}">
 			<p:panel>		
 				<h:panelGrid id="paneldaily" columns="2">  
 	                <h:outputText value="#{mensagens.label_radio_button_daily}" rendered="#{sprintDetalheMB.saveDaily}" />  
@@ -25,7 +25,8 @@
 						<p:calendar
 							id="popupCalDataHora"
 							value="#{sprintDetalheMB.dailyScrum.dataHoraCalendar}" 
-							pattern="#{sprintDetalheMB.datePattern}" timeOnly="#{! sprintDetalheMB.uniqueDaily}"/>		    				  
+							pattern="#{sprintDetalheMB.datePattern}" timeOnly="#{! sprintDetalheMB.uniqueDaily}"
+							label="#{sprintDetalheMB.uniqueDaily == true ? mensagens.label_data_hora_daily : mensagens.label_hora_daily}"/>		    				  
 	 
 				    <h:outputText 
 						id="labelLocal" 
@@ -34,7 +35,8 @@
 						<p:inputText 
 							id="txtLocal"
 							value="#{sprintDetalheMB.dailyScrum.local}"
-							styleClass="form-control input-md" />							
+							styleClass="form-control input-md"
+							label="#{mensagens.label_local_daily}" />							
 								
 					<h:outputText 
 						id="labelDuracao" 
@@ -46,7 +48,8 @@
 							styleClass="form-control input-md"
 						   	mask="9?9"
 						   	maxlength="2"
-						   	placeholder="#{mesagens.label_duracao_em_minutos}" />
+						   	placeholder="#{mensagens.label_duracao_em_minutos}"
+						   	label="#{mensagens.label_duracao_daily}" />
 						   	
 				   	<h:outputText 
 				   		id="labelDescricao" 
@@ -56,7 +59,8 @@
 						id="descricaoDaily" 
 						name="descricaoDaily"
 						value="#{sprintDetalheMB.dailyScrum.descricao}"
-						class="form-control text-area" />
+						class="form-control text-area"
+						label="#{mensagens.label_descricao}" />
 	        	 </h:panelGrid>
 			</p:panel>
 			<p:commandButton 
@@ -69,14 +73,13 @@
 				style="float: right"/>
 			<p:commandButton  
 			    id="salvarDaily" 
-			    update=":tabView:frmDailyScrumPanel:tabelaDaily"
+			    update=":tabView:frmDailyScrumPanel:tabelaDaily, @form"
 			    value="#{mensagens.label_salvar}"
 				action="#{sprintDetalheMB.salvarDailyScrum}" 
 				icon="ui-icon-disk"
 				process="popupCalDataHora, txtLocal, txtDuracao, descricaoDaily"
 				styleClass="button"
-				style="float: right"
-				oncomplete="dailyScrumModal.hide()" />					
+				style="float: right" />					
 		</p:dialog>	
 	</h:form>
 </ui:composition>

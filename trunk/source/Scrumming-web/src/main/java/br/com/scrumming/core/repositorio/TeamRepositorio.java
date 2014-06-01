@@ -37,6 +37,22 @@ public class TeamRepositorio extends AbstractRepositorio<Team, TeamChave> {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<Projeto> consultarProjetosPorUsuarioDaEmpresa(Integer usuarioID, Integer empresaID) {
+		Criteria criteria = createCriteria();
+		criteria.createAlias("projeto", "projetoAlias");
+		criteria.createAlias("empresa", "empresaAlias");
+		criteria.createAlias("usuario", "usuarioAlias");
+        criteria.addOrder(Order.asc("projetoAlias.nome"));
+        criteria.add(Restrictions.eq("usuarioAlias.codigo", usuarioID));
+        criteria.add(Restrictions.eq("empresaAlias.codigo", empresaID));
+        criteria.add(Restrictions.eq("isAtivo", true));
+        criteria.setProjection(Projections.property("projeto"));
+        return Collections.checkedList(criteria.list(), Projeto.class);
+
+	}
+
+	
+	@SuppressWarnings("unchecked")
 	public List<Usuario> consultar(Integer projetoID, Integer empresaID){
 		
 		Criteria criteria = createCriteria();
@@ -85,5 +101,14 @@ public class TeamRepositorio extends AbstractRepositorio<Team, TeamChave> {
         return Collections.checkedList(criteria.list(), Usuario.class);
 	}
 
-	
+	public Team consultarTimeDoProjeto(int codigoProjeto, int codigoEmpresa, int codigoUsuario) {
+		Criteria criteria = createCriteria();
+		criteria.createAlias("projeto", "projetoAlias");
+		criteria.createAlias("usuario", "usuarioAlias");
+		criteria.createAlias("empresa", "empresaAlias");
+		criteria.add(Restrictions.eq("projetoAlias.codigo", codigoProjeto));
+		criteria.add(Restrictions.eq("empresaAlias.codigo", codigoEmpresa));
+		criteria.add(Restrictions.eq("usuarioAlias.codigo", codigoUsuario));
+		return (Team) criteria.uniqueResult();
+	}
 }

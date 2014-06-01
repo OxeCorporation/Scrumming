@@ -87,13 +87,18 @@
 					<br/>
 					<br/>
 					<div class="form-group">
+						<p:outputLabel for="fileUpload" value="Foto do Usuario: " styleClass="col-md-4 control-label" />
+						<p:fileUpload id="fileUpload" fileUploadListener="#{usuarioPerfilBean.handleFileUpload}" sizeLimit="100000"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" update="@form" />
+					</div>
+					<br/>
+					<br/>
+					<div class="form-group">
 						<div class="col-md-4">
 							<p:commandButton 
 							id="atualizarButton" 
 							value="Atualizar" 
 							styleClass="col-md-12" 
 							action="#{usuarioPerfilBean.atualizar}"
-							process="txtNome, txtEmail, txtLogin, txtSenha" 
 							update="@form"/>
 						</div>
 					</div>

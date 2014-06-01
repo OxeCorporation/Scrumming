@@ -14,13 +14,17 @@ import br.com.scrumming.core.infra.repositorio.AbstractRepositorio;
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
 import br.com.scrumming.core.infra.util.MensagemUtil;
 import br.com.scrumming.core.manager.interfaces.IItemBacklogManager;
+import br.com.scrumming.core.manager.interfaces.ITarefaFavoritaManager;
 import br.com.scrumming.core.manager.interfaces.ITarefaManager;
+import br.com.scrumming.core.manager.interfaces.ITarefaReporteManager;
 import br.com.scrumming.core.manager.interfaces.ITeamManager;
 import br.com.scrumming.core.manager.interfaces.IUsuarioManager;
 import br.com.scrumming.core.repositorio.TarefaReporteRepositorio;
 import br.com.scrumming.core.repositorio.TarefaRepositorio;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.TarefaDTO;
+import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.Usuario;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 
@@ -43,6 +47,10 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements
 	private IUsuarioManager usuarioManager;
 	@Autowired
 	private ITeamManager teamManager;
+	@Autowired
+	private ITarefaReporteManager tarefaReporteManager;
+	@Autowired
+	private ITarefaFavoritaManager tarefaFavoritaManager;
 
 	@Override
 	public AbstractRepositorio<Tarefa, Integer> getRepositorio() {
@@ -57,17 +65,40 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements
 		if (tarefa.getSituacao() == null)
 			tarefa.setSituacao(SituacaoTarefaEnum.PARA_FAZER);
 
+		validarDadosAntesDeSalvar(tarefa);
 		insertOrUpdate(tarefa);
+	}
+	
+	private void validarDadosAntesDeSalvar(Tarefa tarefa) {
+		if (tarefa.getSituacao() == SituacaoTarefaEnum.FEITO) {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_TAREFA_ENCONTRA_SE_CONCLUIDA);
+		}		
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void atualizarStatusTarefa(Integer tarefaID,
-			SituacaoTarefaEnum situacaoTarefaEnum) {
+			SituacaoTarefaEnum situacaoTarefaEnum, Integer usuarioLogadoID) {
 
-		Tarefa tarefa = findByKey(tarefaID);
+		Tarefa tarefa = findByKey(tarefaID);		
 		tarefa.setSituacao(situacaoTarefaEnum);
+		
+		validarDadosAntesDeAtualizarStatus(tarefa, usuarioLogadoID);
 		insertOrUpdate(tarefa);
+	}
+	
+	@Override
+	public void validarDadosAntesDeAtualizarStatus(Tarefa tarefa, Integer usuarioLogadoID) {				
+		if (tarefa.getUsuario() == null) {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_TAREFA_SEM_USUARIO_ATRIBUIDO);
+		}		
+		
+		if (tarefa.getUsuario().getCodigo() != usuarioLogadoID) {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_TAREFA_APENAS_RESPONSAVEL_PODE_ALTERAR_STATUS);
+		}
 	}
 
 	@Override
@@ -97,10 +128,36 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements
 	public List<Tarefa> consultarPorItemBacklog(Integer itemBacklogID) {
 		List<Tarefa> listaDeTarefas = tarefaRepositorio
 				.consultarPorItemBacklog(itemBacklogID);
-		return preencherNovaListaDeTarefas(listaDeTarefas);
+		return preencherNovaListaDeTarefas(listaDeTarefas, 0);
+	}
+	
+	@Override
+	public List<TarefaDTO> consultarTarefaDTOPorItemBacklog(Integer itemBacklogID) {
+		List<Tarefa> listaDeTarefas = preencherNovaListaDeTarefas(tarefaRepositorio
+				.consultarPorItemBacklog(itemBacklogID), 0);
+		List<TarefaDTO> listaTarefaDTO = new ArrayList<>();
+		for (int i = 0; i < listaDeTarefas.size(); i++) {
+			List<TarefaReporte> dto = tarefaReporteRepositorio.consultarTarefaReportePorTarefa(listaDeTarefas.get(i).getCodigo());
+			long total = 0;
+			for (int j = 0; j < dto.size(); j++) {
+				total = total+dto.get(j).getTempoReportado();
+			}
+			TarefaDTO tarefaDTO = new TarefaDTO();
+			tarefaDTO.setTarefa(listaDeTarefas.get(i));
+			tarefaDTO.setTotalDeHorasReportadas(total);
+			listaTarefaDTO.add(tarefaDTO);
+		}
+		return listaTarefaDTO;
 	}
 
-	private List<Tarefa> preencherNovaListaDeTarefas(List<Tarefa> listaDeTarefas) {
+	@Override
+	public List<Tarefa> consultarPorItemBacklog(Integer itemBacklogID, Integer usuarioLogadoID) {
+		List<Tarefa> listaDeTarefas = tarefaRepositorio
+				.consultarPorItemBacklog(itemBacklogID);
+		return preencherNovaListaDeTarefas(listaDeTarefas, usuarioLogadoID);
+	}
+
+	private List<Tarefa> preencherNovaListaDeTarefas(List<Tarefa> listaDeTarefas, Integer usuarioLogadoID) {
 		List<Tarefa> novaListaDeTarefas = new ArrayList<>();
 		for (Tarefa tarefa : listaDeTarefas) {
 			if (tarefa.getSituacao() == SituacaoTarefaEnum.PARA_FAZER) {
@@ -124,6 +181,8 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements
 				tarefa.setSituacaoDescricao(em_impedimento);
 				tarefa.setBackgroundColor("background-color: orange");
 			}
+			Usuario usuario = usuarioManager.findByKey(usuarioLogadoID);
+			tarefa.setFoiFavoritada(tarefaFavoritaManager.tarefaFoiFavoritada(tarefa, usuario));
 
 			novaListaDeTarefas.add(tarefa);
 		}
@@ -135,14 +194,14 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements
 			Integer itemBacklogID, SituacaoTarefaEnum situacao) {
 		List<Tarefa> listaDeTarefas = tarefaRepositorio
 				.consultarPorItemBacklogIhSituacao(itemBacklogID, situacao);
-		return preencherNovaListaDeTarefas(listaDeTarefas);
+		return preencherNovaListaDeTarefas(listaDeTarefas, 0);
 	}
 
 	@Override
 	public List<Tarefa> consultarPorItemBacklogIhNotSituacao(
 			Integer itemBacklogID, SituacaoTarefaEnum situacao) {
 		return preencherNovaListaDeTarefas(tarefaRepositorio
-				.consultarPorItemBacklogIhNotSituacao(itemBacklogID, situacao));
+				.consultarPorItemBacklogIhNotSituacao(itemBacklogID, situacao), 0);
 	}
 
 	@Override
@@ -166,12 +225,27 @@ public class TarefaManager extends AbstractManager<Tarefa, Integer> implements
 	}
 
 	private void validarDadosAntesDeAtribuir(Tarefa tarefa) {
+		if (tarefa.getSituacao() == SituacaoTarefaEnum.FEITO) {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_TAREFA_ENCONTRA_SE_CONCLUIDA);
+		}
+		
+		if (tarefa.getSituacao() == SituacaoTarefaEnum.CANCELADO) {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_TAREFA_ENCONTRA_SE_CANCELADA);
+		}
+		
+		if (tarefa.getSituacao() == SituacaoTarefaEnum.EM_IMPEDIMENTO) {
+			throw new NegocioException(
+					ConstantesMensagem.MENSAGEM_TAREFA_ENCONTRA_SE_IMPEDIDA);
+		}
+		
 		List<Usuario> usuarios = teamManager.consultarUsuarioPorProjeto(tarefa
 				.getItemBacklog().getProjeto().getCodigo());
 		if (!usuarios.contains(tarefa.getUsuario())) {
 			throw new NegocioException(
 					ConstantesMensagem.MENSAGEM_ERRO_USUARIO_NAO_FAZ_PARTE_DO_TEAM);
-		}
+		}		
 	}
 
 	/* getters and setters */

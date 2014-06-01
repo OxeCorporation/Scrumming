@@ -12,6 +12,7 @@ public final class ConstantesService {
 		public static final String DESATIVAR_USUARIO = "/usuario/desativar/{usuarioID}/{empresaID}";
 		public static final String ATIVAR_USUARIO = "/usuario/ativar/{usuarioID}/{empresaID}";
 		public static final String URL_CONSULTAR = "/usuario/id/{usuarioID}";
+		public static final String URI_ATUALIZAR = "/usuario/atualizar";
 	}
 	
 	public final class Tarefa{
@@ -19,11 +20,14 @@ public final class ConstantesService {
 		public static final String URL_SALVAR = "/tarefa/save/{itemBacklogManagerID}";
 		public static final String URL_CONSULTAR_POR_ITEM_BACKLOG = "/tarefa/list/{itemBacklogID}";
 		public static final String URL_CONSULTAR_POR_ITEM_BACKLOG_IH_SITUACAO = "/tarefa/list/{itemBacklogID}/{situacao}";
+		public static final String URL_CONSULTAR_POR_ITEM_BACKLOG_IH_USUARIO_LOGADO = "/tarefa/lista/{itemBacklogID}/{usuarioLogadoID}";
 		public static final String URL_CONSULTAR = "/tarefa/{tarefaID}";
+		public static final String URL_CONSULTAR_DTO_POR_ITEM_BACKLOG = "/tarefa/listDTO/{itemID}";
 		public static final String URL_REMOVER = "/tarefa/remove/";
 		public static final String URL_ATRIBUIR_PARA = "/tarefa/atribuirpara/{itemBacklogID}/{usuarioID}";
 		public static final String URI_INSERT_OR_UPDATE = "/tarefa/insertOrUpdate";
-		public static final String URI_ATUALIZAR_TAREFA = "/tarefa/update/{tarefaID}/{situacaoTarefaEnum}";
+		public static final String URI_ATUALIZAR_TAREFA = "/tarefa/update/{tarefaID}/{situacaoTarefaEnum}/{usuarioLogadoID}";
+		public static final String URL_VALIDAR_DADOS_ANTES_DE_ATUALIZAR_STATUS = "/tarefa/validarDadosAntesDeAtualizarStatus/{usuarioLogadoID}";
 	}
 	
 	public final class Sprint {
@@ -31,9 +35,12 @@ public final class ConstantesService {
 		public static final String URL_CONSULTAR_SPRINT_DTO = "/sprint/{sprintID}";
 		public static final String URL_CONSULTAR_POR_PROJETO = "/sprint/list/{projetoID}";
 		public static final String URL_CONSULTAR_ITENS_DISPONIVEIS = "/sprint/list/disponiveis/{projetoID}";
-		public static final String URL_CONSULTAR_SPRINT_BACKLOG = "/sprint/sprintBacklog/list/{sprintID}";
+		public static final String URL_CONSULTAR_SPRINT_BACKLOG = "/sprint/sprintBacklog/list/{sprintID}/{usuarioLogadoID}";
 		public static final String URL_FECHAR_SPRINT = "/sprint/close";
 		public static final String URI_CONSULTAR_TEREFAS = "/sprint/sprintBacklog/tarefas/{sprintID}";
+		public static final String URL_TOTAL_DE_HORAS_ESTIMADAS = "/sprint/totalDeHorasEstimadas/{sprintID}";
+		public static final String URL_CONSULTAR_SPRINT = "/sprint/selecionada/{sprintID}";
+		public static final String URL_TOTAL_DE_HORAS_RESTANTES_POR_DATA = "/sprint/totalDeHorasRestantesPorData/{sprintID}/{data}";
 	}
 	
 	public final class ItemBacklog{
@@ -79,12 +86,14 @@ public final class ConstantesService {
 	public final class Team{
 		private Team(){}
 		public static final String URL_CONSULTAR_USUARIO_PROJETO = "/team/list/{projetoID}";
-
+		public static final String CONSULTAR_PROJETO_POR_USUARIO_DA_EMPRESA = "/team/listProjetos/{usuarioID}/{empresaID}";
+		public static final String CONSULTAR_TIME_PROJETO = "/team/timeProjeto/{codigoProjeto}/{codigoEmpresa}/{codigoUsuario}";
 	}
 	
 	public final class TarefaReporte{
 		private TarefaReporte(){}
-		public static final String URL_REPORTAR_HORA = "/tarefa_reporte/{sprintID}/{itemID}";
+		public static final String URL_REPORTAR_HORA = "/tarefa_reporte/{sprintID}/{itemID}/{tarefaID}";
+		public static final String URL_TOTAL_DE_HORAS_REPORTADAS_NAS_TAREFAS_DO_ITEM = "/tarefa_reporte/{itemID}";
 	}
 	
 	public final class TarefaFavorita{
@@ -92,4 +101,8 @@ public final class ConstantesService {
 		public static final String URL_FAVORITAR_TAREFA = "/tarefa_favorita/atualizar";
 	}
 
+	public final class Config {
+		private Config(){}
+		public static final String URL_VERIFICAR_PERMISSAO = "/config/verificarPermissao";
+	}
 }

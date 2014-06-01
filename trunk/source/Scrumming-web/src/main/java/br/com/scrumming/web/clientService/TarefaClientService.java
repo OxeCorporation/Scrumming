@@ -3,10 +3,7 @@ package br.com.scrumming.web.clientService;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.xml.ws.spi.http.HttpHandler;
-
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -29,6 +26,14 @@ public class TarefaClientService extends AbstractClientService {
 						.getForObject(
 								getURIService(ConstantesService.Tarefa.URL_CONSULTAR_POR_ITEM_BACKLOG),
 								Tarefa[].class, itemBacklogID));
+	}
+	
+	public List<Tarefa> consultarPorItemBacklogIhUsuarioLogado(Integer itemBacklogID, Integer usuarioLogadoID) {
+		return Arrays
+				.asList(getRestTemplate()
+						.getForObject(
+								getURIService(ConstantesService.Tarefa.URL_CONSULTAR_POR_ITEM_BACKLOG_IH_USUARIO_LOGADO),
+								Tarefa[].class, itemBacklogID, usuarioLogadoID));
 	}
 
 	public List<Tarefa> consultarTarefasPorItemBacklogIhSituacao(
@@ -69,9 +74,16 @@ public class TarefaClientService extends AbstractClientService {
 	}
 
 	public void atualizarStatus(Integer tarefaID,
-			SituacaoTarefaEnum situacaoTarefaEnum) {
+			SituacaoTarefaEnum situacaoTarefaEnum, Integer usuarioLogadoID) {
 		postForObject(
 				getURIService(ConstantesService.Tarefa.URI_ATUALIZAR_TAREFA),
-				HttpEntity.EMPTY, void.class, tarefaID, situacaoTarefaEnum);
+				HttpEntity.EMPTY, void.class, tarefaID, situacaoTarefaEnum, usuarioLogadoID);
+	}
+	
+	public void validarDadosAntesDeAtualizarStatus(Tarefa tarefa, Integer usuarioLogadoID) {
+		
+		getRestTemplate().postForObject(getURIService(
+										ConstantesService.Tarefa.URL_VALIDAR_DADOS_ANTES_DE_ATUALIZAR_STATUS),
+										tarefa, void.class, usuarioLogadoID);
 	}
 }

@@ -5,14 +5,15 @@
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough">
 
 	<h:form id="frmSprintBacklog">
+		
 		<p:dataGrid id="dtgSprintBacklog" widgetVar="dtgSprintBacklog" var="item" value="#{sprintDetalheMB.itens}" 
 		columns="1" style="width:100%" emptyMessage="#{mensagens.mensagem_sem_registros}">
 			<p:panel styleClass="col-md-12 column">
 				
-				<!-- CABEÇALHO DA LISTAGEM CONTENDO UM ITEM BACKLOG -->
+				<!-- CABEÃ‡ALHO DA LISTAGEM CONTENDO UM ITEM BACKLOG -->
 				<f:facet name="header">
 					<p:commandLink action="#{sprintDetalheMB.itembacklogDetalhePage}" immediate="true">
-						<h:outputText styleClass="label-grid-header" value="#{item.nome}" />
+						<h:outputText styleClass="label-grid-header" value="#{item.nome}" />						
 						<f:setPropertyActionListener value="#{item}" target="#{sprintDetalheMB.itemSelecionado}" />
 					</p:commandLink>								
 					
@@ -46,8 +47,13 @@
 					emptyMessage="#{mensagens.label_lista_de_tarefas_vazia}">
 					<p:panel styleClass="col-md-12 column">
 						<h:panelGroup styleClass="col-md-11 column">
+							<h:outputText value="#{mensagens.label_tarefa}:"/>
+							<h:outputText value="#{tarefa.codigo}"/>
+							<br/>
+							<br/>
 							
-							<h:outputText value="#{tarefa.nome}" />
+							<h:outputText value="#{tarefa.nome}" />&#160;
+							<h:panelGroup rendered="#{tarefa.foiFavoritada}" ><i class="fa fa-star-o fa-spin" /> </h:panelGroup>
 							<h:outputText value="#{tarefa.situacaoDescricao}" style="color: white; float: right; #{tarefa.backgroundColor};" styleClass="label-medium"/>
 							<br/>
 							<h:outputText value="#{mensagens.label_responsavel} #{tarefa.usuario.nome}" rendered="#{not empty tarefa.usuario}" styleClass="output-small"/>
@@ -57,12 +63,12 @@
 							<p:commandLink id="linkAtribuirParaMim" immediate="true"
 								title="#{mensagens.label_atribuir_para_mim}"
 								action="#{sprintDetalheMB.atribuirTarefaParaMim}"										
-								rendered="#{empty tarefa.usuario and tarefa.itemBacklog.editable}"
-								process="@this" update="@widgetVar(dtgSprintBacklog)">
+								rendered="#{empty tarefa.usuario}"
+								process="@this" update="@widgetVar(dataGridTarefas)">
 								<i class="fa fa-smile-o inside-grid-icon-left"></i>
 								<f:setPropertyActionListener value="#{tarefa}"
 									target="#{sprintDetalheMB.tarefaSelecionada}" />
-								<f:setPropertyActionListener value="#{tarefa.itemBacklog}"
+								<f:setPropertyActionListener value="#{item}"
 									target="#{sprintDetalheMB.itemSelecionado}" />
 							</p:commandLink>
 							
@@ -70,7 +76,7 @@
 							<p:commandLink id="linkAtribuirPara" title="#{mensagens.label_atribuir_para}"
 								action="#{itemBacklogDetalheMB.preparaParaAlterar}"
 								oncomplete="dlgTarefaSave.show()" 
-								process="@this" update="@widgetVar(dlgTarefaSave)"
+								process="@this" update="@widgetVar(dataGridTarefas)"
 								rendered="#{false}">
 								<i class="fa fa-share-square-o inside-grid-icon-left"></i>
 								<f:setPropertyActionListener value="#{tarefa}"
@@ -102,13 +108,16 @@
 							</p:commandLink>
 							
 							<!-- BOTAO FAVORITAR TAREFA -->									
-							<p:commandLink id="linkFavoritarTarefa" title="#{mensagens.label_favoritar_tarefa}"
-								action="#{tarefaFavoritaMB.favoritarTarefa}"
-								process="@this" update="@widgetVar(dtgSprintBacklog)"
+							<p:commandLink id="linkFavoritarTarefa" immediate="true"
+								title="#{mensagens.label_favoritar_tarefa}"
+								action="#{sprintDetalheMB.favoritarTarefa}"
+								process="@this" update="@widgetVar(dataGridTarefas)"
 								rendered="#{true}">
 								<i class="fa fa-star-o inside-grid-icon-left"></i>
 								<f:setPropertyActionListener value="#{tarefa}"
-									target="#{tarefaFavoritaMB.tarefaSelecionada}" />
+									target="#{sprintDetalheMB.tarefaSelecionada}" />
+								<f:setPropertyActionListener value="#{item}"
+									target="#{sprintDetalheMB.itemSelecionado}" />
 							</p:commandLink>
 						</h:panelGroup>
 						<h:panelGroup styleClass="col-md-1 column">
@@ -150,7 +159,7 @@
 			</p:panel>
 		</p:dataGrid>	
 	
-		<!-- DIÁLOGO DA EXCLUSÃO DA TAREFA -->					
+		<!-- DIÃ�LOGO DA EXCLUSÃƒO DA TAREFA -->					
 		<p:confirmDialog global="true" showEffect="fade" hideEffect="explode"> 
 			<p:commandButton value="#{mensagens.botao_cancelar}" styleClass="ui-confirmdialog-no" 
 				icon="ui-icon-close" immediate="true" style="margin:0 auto; float:right"/>  

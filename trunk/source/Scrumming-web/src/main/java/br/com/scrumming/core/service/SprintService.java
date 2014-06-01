@@ -61,9 +61,24 @@ public class SprintService {
     	return sprintManager.consultarSprintDTO(sprintID);
     }
     
-    @RequestMapping(method = RequestMethod.GET, value = "/sprintBacklog/list/{sprintID}")
-    public List<ItemBacklog> consultarSprintBacklog(@PathVariable Integer sprintID) {
-    	return sprintBacklogManager.consultarSprintBacklog(sprintID);
+    @RequestMapping(method = RequestMethod.GET, value = "/sprintBacklog/list/{sprintID}/{usuarioLogadoID}")
+    public List<ItemBacklog> consultarSprintBacklog(@PathVariable Integer sprintID, @PathVariable Integer usuarioLogadoID) {
+    	return sprintBacklogManager.consultarSprintBacklog(sprintID, usuarioLogadoID);
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/totalDeHorasEstimadas/{sprintID}")
+    public Long totalDeHorasEstimadasDaSprint(@PathVariable Integer sprintID) {
+    	return sprintBacklogManager.totalDeHorasEstimadasDaSprint(sprintID);
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/selecionada/{sprintID}")
+    public Sprint consultarSprint(@PathVariable Integer sprintID) {
+    	return sprintManager.consultarSprint(sprintID);
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/totalDeHorasRestantesPorData/{sprintID}/{data}")
+    public Long totalDeHorasRestantesDaSprintPorData(@PathVariable Integer sprintID, @PathVariable String data) {
+    	return sprintBacklogManager.totalDeHorasRestantesDaSprintPorData(sprintID, data);
     }
 
     /* getters and setters */

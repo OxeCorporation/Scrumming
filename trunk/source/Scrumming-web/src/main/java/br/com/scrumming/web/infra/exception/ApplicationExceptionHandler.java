@@ -56,6 +56,7 @@ public class ApplicationExceptionHandler extends ExceptionHandlerWrapper{
 
 					} else {
 						String chaveErro = negocioException.getResponseHeaders().get("error").get(0);
+						
 						if(null == chaveErro || !chaveErro.contains("_") ){
 							LOGGER.error(chaveErro);
 							FacesMessageUtil.adicionarMensagemErro(ConstantesMensagem.ERRO_INESPERADO);
@@ -69,17 +70,20 @@ public class ApplicationExceptionHandler extends ExceptionHandlerWrapper{
 				}
 			}
 		}catch (Exception e) {
+			e.printStackTrace();
 			LOGGER.error(e);
 		} finally {
 			try {
 				events.clear();
 			} catch (Exception e) {
+				e.printStackTrace();
 				LOGGER.error(e);
 			}
 		}
 		try {
 			super.handle();
 		} catch (Exception e) {
+			e.printStackTrace();
 			LOGGER.error(e);
 		}
 	}

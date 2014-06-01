@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.criterion.ProjectionList;
+import org.hibernate.Query;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -101,5 +101,41 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
 		criteria.createAlias("itemBacklogAlias.tarefas", "tarefa");
 		criteria.add(Restrictions.eq("sprintAlias.codigo", sprintID));
 		return Collections.checkedList(criteria.list(), Tarefa.class);
+	}
+	
+	public Long totalDeHorasEstimadasDaSprint(Integer sprintID){		
+		Criteria criteria = createCriteria();
+		criteria.createAlias("itemBacklog", "itemBacklogAlias");
+		criteria.createAlias("sprint", "sprintAlias");
+		criteria.createAlias("itemBacklogAlias.tarefas", "tarefaAlias");
+		criteria.setProjection(Projections.sum("tarefaAlias.tempoEstimado"));
+		criteria.add(Restrictions.eq("sprintAlias.codigo", sprintID));		
+		
+		return (Long) criteria.uniqueResult();
+	}
+	
+	public Long totalDeHorasRestantesDaSprintPorData(Integer sprintID, String data){
+		
+ 		String sql = "SELECT min(tr.tempo_reportado) as tempoReportado " +
+				     "FROM SprintBacklog sb " +
+				     "	INNER JOIN ItemBacklog i ON sb.FK_backlog = i.PK_backlog " +
+				     "	INNER JOIN Tarefa t ON i.PK_backlog = t.FK_itemBacklog " +
+				     "	INNER JOIN TarefaReporte tr ON t.PK_tarefa = tr.FK_tarefa " +
+				     "	INNER JOIN Sprint s ON sb.FK_sprint = s.PK_sprint " +
+				     "WHERE s.PK_sprint = :sprint " +
+					 "	AND tr.data_reporte <= :data " +
+					 "GROUP BY tr.FK_tarefa";
+		
+		Query query = getSession().createSQLQuery(sql);
+		query.setParameter("sprint", sprintID);
+		query.setParameter("data", data);
+		
+		List<Integer> valores = query.list();
+		int tempoRestante = 0;
+		for (int i = 0; i < valores.size(); i++) {
+			tempoRestante = tempoRestante + valores.get(i);
+		}
+		
+		return (long) tempoRestante;		
 	}
 }

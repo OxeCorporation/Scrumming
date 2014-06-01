@@ -68,7 +68,7 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 	 * consulta a lista de itens e suas respectivas tarefas de uma Sprint para
 	 * ser exibida na tela.
 	 */
-	public List<ItemBacklog> consultarSprintBacklog(Integer sprintID) {
+	public List<ItemBacklog> consultarSprintBacklog(Integer sprintID, Integer usuarioLogadoID) {
 		Sprint sprint = sprintManager.findByKey(sprintID);
 		// Lista que será retornada à tela
 		// Busca a lista dos Itens de Backlog de uma Sprint.
@@ -91,7 +91,7 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 					itemBacklog.setEditable(false);
 				}				
 				// Seta a lista de tarefas desse item.
-				List<Tarefa> tarefas = tarefaManager.consultarPorItemBacklog(itemBacklog.getCodigo());
+				List<Tarefa> tarefas = tarefaManager.consultarPorItemBacklog(itemBacklog.getCodigo(), usuarioLogadoID);
 				if (tarefas.size() == 0) {
 					itemBacklog.setDeliverable(false);
 				}
@@ -175,6 +175,18 @@ public class SprintBacklogManager extends AbstractManager<SprintBacklog, SprintB
 		}
 		
 		return listaTarefa;
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Long totalDeHorasEstimadasDaSprint(Integer sprintID) {
+		return sprintBacklogRepositorio.totalDeHorasEstimadasDaSprint(sprintID);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Long totalDeHorasRestantesDaSprintPorData(Integer sprintID, String data) {
+		return sprintBacklogRepositorio.totalDeHorasRestantesDaSprintPorData(sprintID, data);
 	}
 
 	/* getters and setters */
