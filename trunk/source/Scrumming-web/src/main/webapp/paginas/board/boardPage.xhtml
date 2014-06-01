@@ -98,4 +98,17 @@
 			</p:panel>
 		</p:dialog>
 	</ui:define>
+	
+	<!-- MENU LATERAL -->
+	
+	<ui:define name="menu_lateral">
+		<li><h:commandLink immediate="true" action="#{boardBean.itemBacklogPage}">
+				<i class="fa fa-list left-sidebar-icon" />
+				<h:outputText value="#{mensagens.label_backlog}" />
+			</h:commandLink></li>
+		<li><h:commandLink immediate="true" action="#{boardBean.sprintPage}">
+				<i class="fa fa-bar-chart-o left-sidebar-icon" />
+				<h:outputText value="#{mensagens.label_sprint}" />
+			</h:commandLink></li>
+	</ui:define>
 </ui:composition>
