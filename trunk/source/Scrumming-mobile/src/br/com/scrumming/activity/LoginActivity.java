@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -81,11 +80,8 @@ public class LoginActivity extends ActionBarActivity implements
 	private OnClickListener btnLogarOnClickListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			login = "esdras";
-			senha = "esdras";
-
-			// login = textLogin.getText().toString();
-			// senha = textSenha.getText().toString();
+			 login = textLogin.getText().toString();
+			 senha = textSenha.getText().toString();
 			if (login != null && !senha.equals("")) {
 				new AsyncTaskUsuario(LoginActivity.this).execute(login, senha);
 			} else {

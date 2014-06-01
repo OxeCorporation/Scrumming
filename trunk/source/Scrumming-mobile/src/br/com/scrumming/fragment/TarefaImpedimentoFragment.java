@@ -50,6 +50,7 @@ public class TarefaImpedimentoFragment extends ListFragment {
 	TextView txtMensagemTarefa, txtMensagemTarefaStatus;
 	TarefaDTO tarefaSelecionada;
 	TarefaFavorita tarefaFavorita;
+	boolean bloquearImp = false;
 
 	/**
 	 * Método que gera uma nova instancia do fragment de TarefaImpedida
@@ -86,6 +87,7 @@ public class TarefaImpedimentoFragment extends ListFragment {
 
 			}
 		}
+		bloquearImp = false;
 		AtualizarListaDeTarefa();
 	}
 
@@ -137,6 +139,7 @@ public class TarefaImpedimentoFragment extends ListFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
+		bloquearImp = true;
 		View layout = inflater.inflate(R.layout.fragment_tarefa, container,
 				false);
 
@@ -191,8 +194,11 @@ public class TarefaImpedimentoFragment extends ListFragment {
 			break;
 
 		case android.R.id.home:
-			if (getActivity() instanceof ClickedOnHome) {
-				((ClickedOnHome) getActivity()).clicouNoHome(usuarioEmpresa);
+			if (bloquearImp == false) {
+				if (getActivity() instanceof ClickedOnHome) {
+					((ClickedOnHome) getActivity())
+							.clicouNoHome(usuarioEmpresa);
+				}
 			}
 			break;
 		}
