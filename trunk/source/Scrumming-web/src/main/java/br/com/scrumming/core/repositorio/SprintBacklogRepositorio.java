@@ -131,6 +131,11 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
 		query.setParameter("data", data);
 		
 		List<Integer> valores = query.list();
+		
+		if (valores.size() == 0) {
+			return null;
+		}
+		
 		int tempoRestante = 0;
 		for (int i = 0; i < valores.size(); i++) {
 			tempoRestante = tempoRestante + valores.get(i);

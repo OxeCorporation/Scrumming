@@ -126,7 +126,9 @@ public class SprintDetalheMB extends AbstractBean {
         			horasRestantes = totalDeHorasRestantesDaSprintPorData;
         		}
         		estimado.set(data.plusDays(i).toString("dd ") + data.monthOfYear().getAsShortText(), horasEstimadas);
-        		atual.set(data.plusDays(i).toString("dd ") + data.monthOfYear().getAsShortText(), horasRestantes);
+        		if (data.plusDays(i).isBeforeNow()){
+        			atual.set(data.plusDays(i).toString("dd ") + data.monthOfYear().getAsShortText(), horasRestantes);
+        		}
         	}
 		}        
  
