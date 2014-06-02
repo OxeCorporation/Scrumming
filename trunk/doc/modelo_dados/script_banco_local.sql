@@ -2,11 +2,12 @@
 --                         CRIAÇÃO DO BANCO
 -- *******************************************************************************
 
--- DROP DATABASE Scrumming_DB;
--- CREATE DATABASE Scrumming_DB;
+DROP DATABASE scrumming;
+CREATE DATABASE scrumming;
+USE scrumming;
 
 -- *******************************************************************************
--- *                       CRIAÇÃO DAS TABELAS
+--                         CRIAÇÃO DAS TABELAS
 -- *******************************************************************************
 
 DROP TABLE IF EXISTS tarefafavorita;
