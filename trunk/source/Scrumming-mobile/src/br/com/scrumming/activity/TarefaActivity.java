@@ -17,6 +17,7 @@ import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.TarefaDTO;
+import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.fragment.TarefaConcluidaFragment;
 import br.com.scrumming.fragment.TarefaImpedimentoFragment;
@@ -276,14 +277,23 @@ public class TarefaActivity extends ActionBarActivity implements
 	@Override
 	public void clicouNaTarefaReportItem(ItemBacklog itemBacklog,
 			UsuarioEmpresa usuarioEmpresa, Sprint sprint, Tarefa tarefa) {
+		
 		Intent intentTarefa = new Intent(this, TarefaReportActivity.class);
 		intentTarefa.putExtra("itemBacklog", itemBacklog);
 		intentTarefa.putExtra("usuarioEmpresa", usuarioEmpresa);
 		intentTarefa.putExtra("sprint", sprint);
 		intentTarefa.putExtra("tarefa", tarefa);
-		startActivity(intentTarefa);
+		startActivityForResult(intentTarefa, 1);
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	  if (resultCode == RESULT_OK && requestCode == 1) {
+	    if (data.hasExtra("tarefaRetortada")) {
+	    	tarefaProcessFragment.atualizarReport((TarefaReporte)data.getSerializableExtra("tarefaRetortada"));
+	    }
+	  }
+	} 
 	@Override
 	public void clicouTarefaIrProcesso(TarefaDTO tarefa) {
 		// TODO Auto-generated method stub
@@ -320,7 +330,6 @@ public class TarefaActivity extends ActionBarActivity implements
 		if (tarefaConcluidaFragment != null) {
 			tarefaConcluidaFragment.atualizarLista(tarefa);
 		}
-
 	}
 
 	@Override

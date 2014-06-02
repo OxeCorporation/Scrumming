@@ -28,6 +28,7 @@ import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.SprintBacklog;
 import br.com.scrumming.domain.TarefaDTO;
 import br.com.scrumming.domain.TarefaFavorita;
+import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.interfaces.ClickedOnHome;
@@ -90,6 +91,18 @@ public class TarefaProcessFragment extends ListFragment {
 		AtualizarListaDeTarefa();
 	}
 
+	public void atualizarReport(TarefaReporte tareReporte){
+		long horaReport = 0;
+		int codigo = tareReporte.getTarefa().getCodigo();
+		for (int i = 0; i < listaTarefaProcesso.size(); i++) {
+			if (listaTarefaProcesso.get(i).getTarefa().getCodigo() == codigo){
+				horaReport = listaTarefaProcesso.get(i).getTotalDeHorasReportadas();
+				horaReport = horaReport + tareReporte.getTempoReportado();
+				listaTarefaProcesso.get(i).setTotalDeHorasReportadas(horaReport);
+			}
+		}
+	AtualizarListaDeTarefa();	
+	}
 	/**
 	 * Método utilizado no momento que a Activity do fragment é criada
 	 * 
@@ -210,6 +223,11 @@ public class TarefaProcessFragment extends ListFragment {
 		super.onPause();
 	}
 
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+	}
 	/**
 	 * Método utilizado para atualizar a lista do fragment de Tarefas
 	 * 
