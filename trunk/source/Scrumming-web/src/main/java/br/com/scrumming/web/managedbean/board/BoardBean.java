@@ -23,6 +23,8 @@ import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
 import org.primefaces.model.DefaultDashboardModel;
 
+import br.com.scrumming.domain.ItemBacklog;
+import br.com.scrumming.domain.Projeto;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.Usuario;
@@ -30,6 +32,7 @@ import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.web.clientService.SprintClientService;
 import br.com.scrumming.web.clientService.TarefaClientService;
 import br.com.scrumming.web.infra.FlashScoped;
+import br.com.scrumming.web.infra.PaginasUtil;
 import br.com.scrumming.web.infra.bean.AbstractBean;
 
 @ManagedBean
@@ -50,6 +53,10 @@ public class BoardBean extends AbstractBean {
 	private Tarefa tarefaSelecionada;
 	@FlashScoped
 	private Sprint sprintSelecionada;
+	@FlashScoped
+	private Projeto projetoSelecionado;
+	@FlashScoped
+	private ItemBacklog itemSelecionado;
 	@ManagedProperty(value="#{sessaoMB.usuario}")
 	private Usuario usuarioLogado;
 
@@ -157,6 +164,14 @@ public class BoardBean extends AbstractBean {
 		}
 		return null;
 	}
+	
+	public String sprintPage() {
+		return redirecionar(PaginasUtil.Sprint.SPRINT_PAGE);
+	}
+	
+	public String itemBacklogPage() {
+		return redirecionar(PaginasUtil.ItemBacklog.ITEM_BACKLOG_PAGE);
+	}
 
 	public DashboardModel getDashboardModel() {
 		return dashboardModel;
@@ -220,5 +235,21 @@ public class BoardBean extends AbstractBean {
 
 	public void setUsuarioLogado(Usuario usuarioLogado) {
 		this.usuarioLogado = usuarioLogado;
+	}
+
+	public Projeto getProjetoSelecionado() {
+		return projetoSelecionado;
+	}
+
+	public void setProjetoSelecionado(Projeto projetoSelecionado) {
+		this.projetoSelecionado = projetoSelecionado;
+	}
+
+	public ItemBacklog getItemSelecionado() {
+		return itemSelecionado;
+	}
+
+	public void setItemSelecionado(ItemBacklog itemSelecionado) {
+		this.itemSelecionado = itemSelecionado;
 	}
 }

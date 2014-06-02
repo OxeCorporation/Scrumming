@@ -10,12 +10,14 @@ import br.com.scrumming.R;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.UsuarioEmpresa;
 import br.com.scrumming.fragment.TarefaReportFragment;
 import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
+import br.com.scrumming.interfaces.FecharReporteTarefa;
 
-public class TarefaReportActivity extends ActionBarActivity implements ClickedOnLogout, ClickedOnHome{
+public class TarefaReportActivity extends ActionBarActivity implements ClickedOnLogout, ClickedOnHome, FecharReporteTarefa{
 
 	//Instanciação dos Objetos e variáveis
 	TarefaReportFragment tarefaReportFragment;
@@ -75,5 +77,15 @@ public class TarefaReportActivity extends ActionBarActivity implements ClickedOn
 	@Override
 	public void clicouNoHome(UsuarioEmpresa usuarioEmpresa) {
 		finish();
+	}
+
+	@Override
+	public void reproteTarefaFechada(TarefaReporte tarefaReport) {
+		// TODO Auto-generated method stub
+		  Intent data = new Intent();
+		  data.putExtra("tarefaRetortada", tarefaReport);
+		  // Activity finished ok, return the data
+		  setResult(RESULT_OK, data);
+		  finish();
 	}
 }

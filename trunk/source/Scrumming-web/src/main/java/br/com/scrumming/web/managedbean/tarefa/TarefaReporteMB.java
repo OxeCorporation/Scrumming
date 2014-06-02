@@ -5,6 +5,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import br.com.scrumming.core.infra.util.ConstantesMensagem;
+import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.Tarefa;
 import br.com.scrumming.domain.TarefaReporte;
@@ -25,6 +26,7 @@ public class TarefaReporteMB extends AbstractBean {
 	@FlashScoped
 	private TarefaReporte tarefaReporte;
 	private Tarefa tarefaSelecionada;
+	private ItemBacklog itemSelecionado;
 	@FlashScoped
 	private Sprint sprintSelecionada;
 	private TarefaReporteClientService tarefaReporteClientService;
@@ -39,11 +41,18 @@ public class TarefaReporteMB extends AbstractBean {
 		if (tarefaSelecionada == null) {
 			tarefaSelecionada = new Tarefa();
 		}
+		if (sprintSelecionada == null) {
+			sprintSelecionada = new Sprint();
+		}
+		if (getItemSelecionado() == null) {
+			setItemSelecionado(new ItemBacklog());
+		}
 	}
 	
 	public void reportarHora() {
 		tarefaReporte.setTarefa(tarefaSelecionada);
 		tarefaReporte.setUsuario(getUsuarioLogado());
+		tarefaReporte.getTarefa().setItemBacklog(getItemSelecionado());
 		tarefaReporteClientService.reportarHora(tarefaReporte, sprintSelecionada.getCodigo(), 
 				tarefaReporte.getTarefa().getItemBacklog().getCodigo());
 		limparObjetoTarefaReporte();
@@ -89,6 +98,14 @@ public class TarefaReporteMB extends AbstractBean {
 
 	public void setSprintSelecionada(Sprint sprintSelecionada) {
 		this.sprintSelecionada = sprintSelecionada;
+	}
+
+	public ItemBacklog getItemSelecionado() {
+		return itemSelecionado;
+	}
+
+	public void setItemSelecionado(ItemBacklog itemSelecionado) {
+		this.itemSelecionado = itemSelecionado;
 	}	
 	
 }

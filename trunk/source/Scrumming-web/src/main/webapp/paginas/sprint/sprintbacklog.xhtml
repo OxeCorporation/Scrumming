@@ -64,7 +64,7 @@
 								title="#{mensagens.label_atribuir_para_mim}"
 								action="#{sprintDetalheMB.atribuirTarefaParaMim}"										
 								rendered="#{empty tarefa.usuario}"
-								process="@this" update="@widgetVar(dataGridTarefas)">
+								process="@this" update="@widgetVar(dtgSprintBacklog)">
 								<i class="fa fa-smile-o inside-grid-icon-left"></i>
 								<f:setPropertyActionListener value="#{tarefa}"
 									target="#{sprintDetalheMB.tarefaSelecionada}" />
@@ -94,6 +94,8 @@
 									target="#{tarefaReporteMB.tarefaSelecionada}" />
 								<f:setPropertyActionListener value="#{sprintDetalheMB.sprintSelecionada}"
 									target="#{tarefaReporteMB.sprintSelecionada}" />
+								<f:setPropertyActionListener value="#{item}"
+									target="#{tarefaReporteMB.itemSelecionado}" />
 							</p:commandLink>
 							
 							<!-- BOTAO ALTERAR SITUACAO -->
@@ -111,7 +113,7 @@
 							<p:commandLink id="linkFavoritarTarefa" immediate="true"
 								title="#{mensagens.label_favoritar_tarefa}"
 								action="#{sprintDetalheMB.favoritarTarefa}"
-								process="@this" update="@widgetVar(dataGridTarefas)"
+								process="@this" update="@widgetVar(dtgSprintBacklog)"
 								rendered="#{true}">
 								<i class="fa fa-star-o inside-grid-icon-left"></i>
 								<f:setPropertyActionListener value="#{tarefa}"

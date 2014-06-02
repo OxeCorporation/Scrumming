@@ -116,7 +116,8 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
 	
 	public Long totalDeHorasRestantesDaSprintPorData(Integer sprintID, String data){
 		
- 		String sql = "SELECT min(tr.tempo_reportado) as tempoReportado " +
+		//Pegar horas de tarefas q foram reportadas
+ 		String sql = "SELECT min(tr.tempo_restante) as tempoRestante " +
 				     "FROM SprintBacklog sb " +
 				     "	INNER JOIN ItemBacklog i ON sb.FK_backlog = i.PK_backlog " +
 				     "	INNER JOIN Tarefa t ON i.PK_backlog = t.FK_itemBacklog " +
@@ -131,9 +132,41 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
 		query.setParameter("data", data);
 		
 		List<Integer> valores = query.list();
+		
+		if (valores.size() == 0) {
+			return null;
+		}
+		
 		int tempoRestante = 0;
 		for (int i = 0; i < valores.size(); i++) {
 			tempoRestante = tempoRestante + valores.get(i);
+		}
+		
+		//Pegar horas de tarefas q ainda nao foram reportadas
+		sql = "SELECT t.tempo_estimado as tempo_estimado " +
+		      "FROM SprintBacklog sb " +
+		      "	INNER JOIN ItemBacklog i ON sb.FK_backlog = i.PK_backlog " +
+		      "	INNER JOIN Tarefa t ON i.PK_backlog = t.FK_itemBacklog " +
+		      "	INNER JOIN Sprint s ON sb.FK_sprint = s.PK_sprint " +
+		      "WHERE s.PK_sprint = :sprint " +
+			  "		AND t.PK_tarefa not in " +
+			  "  (SELECT FK_tarefa " +
+			  "	  FROM SprintBacklog sb " +
+			  "		  INNER JOIN ItemBacklog i ON sb.FK_backlog = i.PK_backlog 	" +
+			  "		  INNER JOIN Tarefa t ON i.PK_backlog = t.FK_itemBacklog 	" +
+			  "		  INNER JOIN TarefaReporte tr ON t.PK_tarefa = tr.FK_tarefa 	" +
+			  "		  INNER JOIN Sprint s ON sb.FK_sprint = s.PK_sprint " +
+			  "		  WHERE s.PK_sprint = :sprint " +
+			  "		  GROUP BY tr.FK_tarefa) " +
+			  "GROUP BY t.PK_tarefa";
+	
+		Query queryN = getSession().createSQLQuery(sql);
+		queryN.setParameter("sprint", sprintID);
+		
+		List<Integer> valoresNaoReportados = queryN.list();
+		
+		for (int i = 0; i < valoresNaoReportados.size(); i++) {
+			tempoRestante = tempoRestante + valoresNaoReportados.get(i);
 		}
 		
 		return (long) tempoRestante;		

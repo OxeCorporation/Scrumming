@@ -2,11 +2,14 @@ package br.com.scrumming.fragment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -26,10 +29,16 @@ import br.com.scrumming.R;
 import br.com.scrumming.domain.ItemBacklog;
 import br.com.scrumming.domain.Sprint;
 import br.com.scrumming.domain.Tarefa;
+import br.com.scrumming.domain.TarefaDTO;
+import br.com.scrumming.domain.TarefaHaReportarDTO;
 import br.com.scrumming.domain.TarefaReporte;
 import br.com.scrumming.domain.UsuarioEmpresa;
+import br.com.scrumming.domain.enuns.SituacaoTarefaEnum;
 import br.com.scrumming.interfaces.ClickedOnHome;
 import br.com.scrumming.interfaces.ClickedOnLogout;
+import br.com.scrumming.interfaces.DownloadConcluido;
+import br.com.scrumming.interfaces.FecharReporteTarefa;
+import br.com.scrumming.rest.RestTarefa;
 import br.com.scrumming.rest.RestTarefaReport;
 
 public class TarefaReportFragment extends Fragment {
@@ -41,6 +50,8 @@ public class TarefaReportFragment extends Fragment {
 	TarefaReporte tarefaReport;
 	Tarefa tarefa;
 	Sprint sprint;
+	
+	AsyncTaskTarefaHaReportar taskReport;
 
 	/**
 	* Método que gera uma nova instancia do fragment de TarefaReport
@@ -206,15 +217,21 @@ public class TarefaReportFragment extends Fragment {
 		@Override
 		public void onClick(View v) {
 			setarTarefaReporte();
-			 new Thread(new Runnable() {
-			        public void run() {
-			        	RestTarefaReport.retornarTarefaReport(tarefaReport, sprint.getCodigo(),
-			        			itemBacklog.getCodigo(), tarefa.getCodigo());
-			        }
-			    }).start();
+			TarefaHaReportarDTO tarefaReporteDTO= new TarefaHaReportarDTO();
+			tarefaReporteDTO.setTarefaReporte(tarefaReport);
+			tarefaReporteDTO.setIdItembacklog(itemBacklog.getCodigo());
+			tarefaReporteDTO.setIdSprint(sprint.getCodigo());
+			tarefaReporteDTO.setIdTarefa(tarefa.getCodigo());
+			taskReport = new AsyncTaskTarefaHaReportar();
+			taskReport.execute(tarefaReporteDTO);
+//			 new Thread(new Runnable() {
+//			        public void run() {
+//			        	RestTarefaReport.retornarTarefaReport(tarefaReport, sprint.getCodigo(),
+//			        			itemBacklog.getCodigo(), tarefa.getCodigo());
+//			        }
+//			    }).start();
 			 //EXIBI A MENSAGEM DE HORAS REPORTADAS COM SUCESSO
-			 mensagemHorasReportadas();
-			 getActivity().finish();
+			// mensagemHorasReportadas();
 		}
 
 		private void setarTarefaReporte() {
@@ -282,4 +299,38 @@ public class TarefaReportFragment extends Fragment {
 			getActivity().finish();
 		}
 	};
+	
+	class AsyncTaskTarefaHaReportar extends AsyncTask<TarefaHaReportarDTO, Void, TarefaReporte> {
+
+		/**
+		 * Método proviniente da herança do AsyncTask para executar algo antes
+		 * do DoInBackground
+		 * 
+		 * @return void
+		 */
+		@Override
+		protected void onPreExecute() {
+		}
+
+		/**
+		 * Método proviniente da herança do AsyncTask para executar algo depois
+		 * do DoInBackground
+		 * 
+		 * @param Lista
+		 *            de Tarefas
+		 * @return void
+		 */
+		protected void onPostExecute(TarefaReporte t) {
+			super.onPostExecute(t);
+			 ((FecharReporteTarefa) getActivity()).reproteTarefaFechada(t);
+		}
+
+		@Override
+		protected TarefaReporte doInBackground(TarefaHaReportarDTO... params) {
+        	RestTarefaReport.retornarTarefaReport(params[0].getTarefaReporte(), params[0].getIdSprint(),
+			params[0].getIdItembacklog(), params[0].getIdTarefa());
+			return tarefaReport;
+		}
+	}
+
 }
