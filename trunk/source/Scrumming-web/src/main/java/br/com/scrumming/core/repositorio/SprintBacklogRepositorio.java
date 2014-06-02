@@ -116,7 +116,7 @@ public class SprintBacklogRepositorio extends AbstractRepositorio<SprintBacklog,
 	
 	public Long totalDeHorasRestantesDaSprintPorData(Integer sprintID, String data){
 		
- 		String sql = "SELECT min(tr.tempo_reportado) as tempoReportado " +
+ 		String sql = "SELECT min(tr.tempo_restante) as tempoRestante " +
 				     "FROM SprintBacklog sb " +
 				     "	INNER JOIN ItemBacklog i ON sb.FK_backlog = i.PK_backlog " +
 				     "	INNER JOIN Tarefa t ON i.PK_backlog = t.FK_itemBacklog " +
